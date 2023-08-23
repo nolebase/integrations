@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+  },
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
+}

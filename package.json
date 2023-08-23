@@ -1,0 +1,22 @@
+{
+  "name": "plugins",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.9",
+    "vue": "^3.3.4"
+  },
+  "dependencies": {
+    "@antfu/eslint-config": "^0.40.2",
+    "vitepress": "1.0.0-rc.4"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "@nolebase/vite-plugin-vitepress-easytag",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@headlessui/vue": "^1.7.16",
+    "body-parser": "^1.20.2",
+    "express": "4.18.2",
+    "langchain": "0.0.123",
+    "lodash": "^4.17.21",
+    "markdown-it": "^13.0.1",
+    "uuid": "^9.0.0",
+    "vuedraggable": "4.1.0"
+  },
+  "devDependencies": {
+    "@nolebase/shared": "workspace:*",
+    "@types/body-parser": "^1.19.2",
+    "@types/express": "^4.17.17",
+    "@types/lodash": "^4.14.197",
+    "@types/markdown-it": "^13.0.0",
+    "@types/uuid": "^9.0.2",
+    "unocss": "^0.55.2"
+  }
+}

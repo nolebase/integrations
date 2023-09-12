@@ -46,7 +46,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build docs
-        run: pnpm docs:build
+        run: |
+          pnpm packages:build
+          pnpm docs:build
 
       - name: Push to Netlify
         id: netlify-deployment

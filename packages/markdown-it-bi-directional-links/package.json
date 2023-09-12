@@ -25,9 +25,11 @@
   "peerDependencies": {
     "markdown-it": "^13.0.1"
   },
+  "dependencies": {
+    "fast-glob": "^3.3.1"
+  },
   "devDependencies": {
     "@types/markdown-it": "^13.0.1",
-    "fast-glob": "^3.3.1",
     "markdown-it": "^13.0.1"
   }
 }

@@ -10,7 +10,8 @@
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "docs:dev": "pnpm -r --filter=./docs run dev",
     "docs:build": "pnpm -r --filter=./docs run build",
-    "packages:stub": "pnpm -r --filter=./packages/* run stub"
+    "packages:stub": "pnpm -r --filter=./packages/* run stub",
+    "packages:build": "pnpm -r --filter=./packages/* run build"
   },
   "dependencies": {
     "@antfu/eslint-config": "^0.40.2",

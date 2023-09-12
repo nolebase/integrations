@@ -55,8 +55,7 @@ jobs:
         uses: netlify/actions/cli@master
         timeout-minutes: 10
         with:
-          args: deploy --dir=.vitepress/dist --functions=netlify/functions
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+          args: deploy --dir=./docs/.vitepress/dist
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

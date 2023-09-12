@@ -1,4 +1,4 @@
-name: 构建文档并部署到 Netlify
+name: Build Docs to Netlify
 
 on:
   push:
@@ -7,34 +7,34 @@ on:
 
 jobs:
   build:
-    name: 构建
+    name: Build
     runs-on: ubuntu-22.04
     environment:
-      name: 正式文档 Production Docs
+      name: Production Docs
       url: https://nolebase-plugins.ayaka.io
     steps:
-      - name: 签出代码
+      - name: Checkout
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: 安装 Node.js 20.x
+      - name: Install Node.js 20.x
         uses: actions/setup-node@v3
         with:
           node-version: 20.x
 
-      - name: 安装 pnpm
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           run_install: false
           version: 8
 
-      - name: 获取 pnpm store 目录
+      - name: Obtain pnpm store directory
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - name: 配置 pnpm 缓存
+      - name: Obtain pnpm store cache
         uses: actions/cache@v3
         with:
           path: ${{ env.STORE_PATH }}
@@ -42,13 +42,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: 安装依赖
+      - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 构建
+      - name: Build docs
         run: pnpm docs:build
 
-      - name: 部署到 Netlify
+      - name: Push to Netlify
         id: netlify-deployment
         uses: netlify/actions/cli@master
         timeout-minutes: 10

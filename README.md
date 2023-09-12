@@ -10,8 +10,6 @@
 
 [简体中文](./README.zh-CN.md)
 
----
-
 > [Nólëbase](https://github.com/nolebase/nolebase) is an open-source knowledge base named after Nólëbase, pronounced as nole-base, derived from the Quenya word 'nólë' meaning 'knowledge' and the English word 'base', hence 'knowledge base'.
 
 ## Features
@@ -29,3 +27,24 @@ The project uses [`unbuild`](https://github.com/unjs/unbuild) for construction. 
 
 ```shell
 pnpm run packages:stub
+```
+
+If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the following command:
+
+```shell
+nr packages:stub
+```
+
+Next, you need to start the VitePress documentation of the project for preview and development. You can use the following command:
+
+```shell
+pnpm run docs:dev
+```
+
+If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the following command:
+
+```shell
+nr docs:dev
+```
+
+### Written with ♥

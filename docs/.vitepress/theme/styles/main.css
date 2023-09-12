@@ -1,0 +1,175 @@
+html, body {
+  -webkit-tap-highlight-color: transparent; /* 避免触屏下的点击高亮颜色 */
+}
+
+/* 参考 Vitest */
+/* fix height ~ 2 lines of text: 3 or more cards per row */
+.VPTeamMembersItem.small .profile .data .affiliation {
+  min-height: 3rem;
+}
+
+.VPTeamMembersItem.small .profile .data .desc {
+  min-height: 3rem;
+}
+
+/* fix height ~ 3 lines of text: 4 cards per row */
+@media (min-width: 1064px) and (max-width: 1143px) {
+  .VPTeamMembersItem.small .profile .data .affiliation {
+    min-height: 4rem;
+  }
+
+  .VPTeamMembersItem.small .profile .data .desc {
+    min-height: 4rem;
+  }
+}
+
+/* fix height ~ 3 lines of text: 3 cards per row */
+@media (min-width: 815px) and (max-width: 875px) {
+  .VPTeamMembersItem.small .profile .data .affiliation {
+    min-height: 4rem;
+  }
+
+  .VPTeamMembersItem.small .profile .data .desc {
+    min-height: 4rem;
+  }
+}
+
+/* fix height ~ 3 lines of text: 2 cards per row */
+@media (max-width: 612px) {
+  .VPTeamMembersItem.small .profile .data .affiliation {
+    min-height: 4rem;
+  }
+
+  .VPTeamMembersItem.small .profile .data .desc {
+    min-height: 4rem;
+  }
+}
+
+/* fix height: one card per row */
+@media (max-width: 568px) {
+  .VPTeamMembersItem.small .profile .data .affiliation {
+    min-height: unset;
+  }
+
+  .VPTeamMembersItem.small .profile .data .desc {
+    min-height: unset;
+  }
+}
+
+/* 覆盖 VPTeamMembers 组件内部处理的子元素包含特定 max-width 样式致使元素宽度与正文不一致的问题 */
+.vp-doc .VPTeamMembers.small.count-2 .container,
+.vp-doc .VPTeamMembers.small.count-3 .container {
+  max-width: 1152px !important;
+}
+
+.VPTeamMembers.medium.count-2 .container {
+  max-width: unset;
+}
+
+.VPTeamMembers.small.count-2 .container {
+  max-width: unset;
+}
+
+/* 首页子标题样式 */
+.VPHomeHero > .container > .main > .text {
+  padding-top: 45px;
+  font-size: 4rem;
+}
+
+/* 首页介绍样式 */
+.VPHomeHero > .container > .main > .tagline {
+  padding-top: 24px;
+}
+
+/* 自适应样式 */
+@media (max-width: 1024px) {
+  /* 首页标题样式 */
+  .VPHomeHero > .container > .main > h1 {
+    font-size: 3.5rem;
+  }
+
+  /* 首页子标题样式 */
+  .VPHomeHero > .container > .main > .text {
+    padding-top: 30px;
+    font-size: 3rem;
+  }
+
+  /* 首页介绍样式 */
+  .VPHomeHero > .container > .main > .tagline {
+    padding-top: 20px;
+  }
+}
+
+/* 自适应样式 */
+@media (max-width: 640px) {
+  /* 首页标题样式 */
+  .VPHomeHero > .container > .main > h1 {
+    font-size: 2.5rem;
+  }
+
+  /* 首页子标题样式 */
+  .VPHomeHero > .container > .main > .text {
+    padding-top: 20px;
+    font-size: 2rem;
+  }
+
+  /* 首页介绍样式 */
+  .VPHomeHero > .container > .main > .tagline {
+    padding-top: 20px;
+  }
+}
+
+/* 主页下方的页脚透明度 */
+.VPFooter {
+  opacity: 0.8;
+}
+
+/* 正文结尾的 CC 协议链接基本样式 */
+.footer-cc-link {
+  color: var(--vp-c-text-2);
+  transition: all 0.3s ease;
+  text-decoration: underline;
+  text-decoration-color: rgb(114, 114, 114);
+}
+
+/* 正文结尾的 CC 协议链接鼠标 hover 样式 */
+.footer-cc-link:hover {
+  color: var(--vp-c-text-1);
+}
+
+/* 正文结尾的 CC 协议链接暗色模式下鼠标 hover 样式 */
+.dark .footer-cc-link:hover {
+  color: var(--vp-c-text-1);
+}
+
+/* 调整文档页面页脚到正文结尾的间隔距离 */
+.VPDoc .VPDocFooter {
+  margin-top: 32px;
+}
+
+/* 脚注 */
+.footnotes > .footnotes-list {
+  margin-top: 32px;
+  opacity: 0.9;
+  font-size: 12px;
+  /* 确保脚注上的返回链接符号 ↩ 不会被 body 的 Emoji 字体覆盖渲染为 ↩️ */
+  font-family: sans-serif;
+}
+
+.footnotes > .footnotes-list > .footnote-item > p {
+  line-height: 18px;
+}
+
+/* 覆盖正文的 h1 标题样式 */
+.vp-doc > div > h1 {
+  margin-bottom: 16px;
+}
+
+.vp-doc a {
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.vp-doc a:hover {
+  text-decoration: underline;
+}

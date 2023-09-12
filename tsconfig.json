@@ -1,8 +1,40 @@
 {
-  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": [
+      "vite/client",
+      "vue/ref-macros"
+    ],
+    "paths": {
+      "@nolebase/markdown-it-element-transform": ["./packages/markdown-it-element-transform/src/index.ts"]
+    }
+  },
+  "include": [
+    "packages/**/*.ts",
+    "packages/**/*.d.ts",
+    "packages/**/*.tsx",
+    "packages/**/*.vue",
+    "docs/**/*.ts"
+  ],
   "exclude": [
-    "packages/**",
-    "**/dist",
-    "**/node_modules",
+    "**/node_modules/**",
+    "**/dist/**"
   ]
 }

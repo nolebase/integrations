@@ -17,6 +17,7 @@
     "@unocss/eslint-config": "^0.55.4"
   },
   "devDependencies": {
+    "@antfu/ni": "^0.21.8",
     "@types/markdown-it": "^13.0.1",
     "@types/node": "^20.6.0",
     "gray-matter": "^4.0.3",

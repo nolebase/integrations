@@ -15,6 +15,9 @@ importers:
         specifier: ^0.55.4
         version: 0.55.4(eslint@8.47.0)(typescript@5.1.6)
     devDependencies:
+      '@antfu/ni':
+        specifier: ^0.21.8
+        version: 0.21.8
       '@types/markdown-it':
         specifier: ^13.0.1
         version: 13.0.1
@@ -338,6 +341,11 @@ packages:
     dependencies:
       execa: 5.1.1
       find-up: 5.0.0
+    dev: true
+
+  /@antfu/ni@0.21.8:
+    resolution: {integrity: sha512-90X8pU2szlvw0AJo9EZMbYc2eQKkmO7mAdC4tD4r5co2Mm56MT37MIG8EyB7p4WRheuzGxuLDxJ63mF6+Zajiw==}
+    hasBin: true
     dev: true
 
   /@antfu/utils@0.7.6:

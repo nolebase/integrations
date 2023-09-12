@@ -3,23 +3,26 @@
 layout: home
 
 hero:
-  name: "Nólëbase Plugins"
-  text: ""
-  tagline: Great plugins that made from the creators of Nólëbase
+  name: Nólëbase Plugins
+  text: A collection of diverse documentation engineering tools
+  tagline: "For a better experience of documentation engineering based on local-first knowledge base and static site generator"
   actions:
     - theme: brand
       text: Get Started
       link: /pages/en/getting-started
     - theme: alt
-      text: GitHub
+      text: View on GitHub
       link: https://github.com/nolebase/plugins
 
 features:
-  - title: Complete Documentation
-    details: With usage and example docs, as well as detailed explanations along with examples, we focus on UX and or DX to get your things done and faster.
-  - title: Multi-platform Compatibility
-    details: Whether it's VitePress, Astro, or Obsidian and Logseq, we hope our philosophy of documentation engineering can be experienced similarly on multiple platforms.
-  - title: Rich Features
-    details: Each platform has its own advantages and missing features, and we hope to broaden their capabilities to make them more powerful and easier to use.
+  - icon: 🚀
+    title: Documentation Engineering First
+    details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
+  - icon: ⚖️
+    title: Compatible and Easy to Use
+    details: Whether it is static-first like VitePress, Astro, or client-first like Obsidian and Logseq, the "Nólëbase Plugins" project hopes to provide a similar or even better experience across different platforms.
+  - icon: 🧩
+    title: Rich Features
+    details: Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Plugins.
 ---
 

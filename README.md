@@ -10,16 +10,20 @@
 
 [简体中文](./README.zh-CN.md)
 
+---
+
+A collection of diverse documentation engineering tools.
+
 > [Nólëbase](https://github.com/nolebase/nolebase) is an open-source knowledge base named after Nólëbase, pronounced as nole-base, derived from the Quenya word 'nólë' meaning 'knowledge' and the English word 'base', hence 'knowledge base'.
 
 ## Features
 
-- Comprehensive Documentation
-  - Accompanied by usage and example documents, along with detailed descriptions, focusing on user experience and developer experience to get your things done faster.
-- Multi-platform Compatibility
-  - Whether it's VitePress, Astro, Obsidian, or Logseq, we hope that our document engineering can have a similar experience on multiple platforms.
-- Rich Features
-  - Every platform has its advantages and missing features. We hope to expand their functions, make them more powerful, and easier to use.
+- 🚀 Documentation Engineering First
+  - From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
+- ⚖️ Compatible and Easy to Use
+  - Whether it is static-first like VitePress, Astro, or client-first like Obsidian and Logseq, the "Nólëbase Plugins" project hopes to provide a similar or even better experience across different platforms.
+- 🧩 Rich Features
+  - Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Plugins.
 
 ## How to Develop
 

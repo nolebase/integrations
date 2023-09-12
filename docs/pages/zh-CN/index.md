@@ -3,23 +3,26 @@
 layout: home
 
 hero:
-  name: "Nólëbase 插件"
-  text: ""
-  tagline: 由 Nólëbase 的创作者们制作的优秀插件
+  name: Nólëbase 插件
+  text: 多元化的文档工程工具合集
+  tagline: 为基于本地优先的知识库和静态生成器的文档工程提供更好的体验
   actions:
     - theme: brand
       text: 开始使用
       link: /pages/zh-CN/getting-started
     - theme: alt
-      text: GitHub
+      text: 在 GitHub 上查看
       link: https://github.com/nolebase/plugins
 
 features:
-  - title: 完善的文档
-    details: 搭配用法和示例文档，以及详尽的说明，专注于用户体验和开发体验，让你的事情更快地完成。
-  - title: 多平台兼容
-    details: 不论是 VitePress，Astro，还是 Obsidian 和 Logseq，我们希望我们的文档工程能在多个平台上得到相似的体验。
-  - title: 丰富的功能
-    details: 每个平台都有他们的优势和缺失的功能，我们希望能够拓宽他们的功能，让他们更加强大，更加易用。
+  - icon: 🚀
+    title: 文档工程优先
+    details: 从文档工程的角度出发，解决和简化若干 UX/DX 的问题和困境，旨在让创作者更好地专注于撰写文档、笔记、制作卡片以及 GTD。
+  - icon: ⚖️
+    title: 兼容并且好用
+    details: 不论是静态如 VitePress，Astro，还是客户端优先如 Obsidian 和 Logseq，「Nólëbase 插件」项目期望能够在不同的平台上提供近似甚至更好的体验。
+  - icon: 🧩
+    title: 拓展工具的边界
+    details: 每个平台都有他们的优势和缺失的功能，但是文档工程已经足够费时费力，这些问题不应该是撰写和分享文档和知识的阻碍，别被工具限制了你的想象力。
 ---
 

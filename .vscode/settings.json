@@ -25,6 +25,6 @@
     "json",
     "jsonc",
     "yaml"
-  ]
-  // "explorer.excludeGitIgnore": true
+  ],
+  "explorer.excludeGitIgnore": true
 }

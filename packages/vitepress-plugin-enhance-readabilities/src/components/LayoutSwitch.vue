@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { watch } from 'vue'
+import { watch, watchEffect } from 'vue'
 import { useMounted, useStorage } from '@vueuse/core'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 
 const mounted = useMounted()
-const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FullWidth)
+const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
 
 function animate(element: HTMLElement) {
   element.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
@@ -46,6 +46,10 @@ watch(layoutMode, (val) => {
     return
 
   setClasses(val, true)
+})
+
+watchEffect(() => {
+  console.log('layoutMode', layoutMode.value)
 })
 </script>
 

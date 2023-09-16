@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue'
+import { defineProps, defineEmits, computed, watch } from 'vue'
 
 const props = defineProps<{
   active: boolean
@@ -15,8 +15,18 @@ const emits = defineEmits<{
 }>()
 
 const model = computed({
-  get: () => props.modelValue,
-  set: val => emits('update:modelValue', val),
+  get: () => {
+    console.log('model get', props.modelValue, 'in computed')
+    return props.modelValue
+  },
+  set: val => {
+    console.log('model set to', val, 'in computed')
+    emits('update:modelValue', val)
+  },
+})
+
+watch(model.value, () => {
+  console.log('model changed to', model.value, 'in watch')
 })
 </script>
 

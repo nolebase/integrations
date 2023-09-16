@@ -55,7 +55,8 @@ jobs:
 
       - name: Push to Netlify
         timeout-minutes: 10
-        run: netlify deploy --filter @nolebase/plugins-docs --dir ./docs/.vitepress/dist --prod
+        working-directory: docs/
+        run: netlify deploy --dir .vitepress/dist
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

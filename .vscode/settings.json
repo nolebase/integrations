@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "Astro",
+    "Attributify",
     "easytag",
     "emittypes",
     "Logseq"
@@ -26,5 +27,9 @@
     "json",
     "jsonc",
     "yaml"
+  ],
+  "unocss.root": [
+    "./docs",
+    "./packages/vitepress-plugin-nolebase-enhanced-readabilities"
   ]
 }

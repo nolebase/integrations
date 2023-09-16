@@ -11,6 +11,8 @@
   "devDependencies": {
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
+    "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
+    "unocss": "^0.55.7",
     "vitepress": "1.0.0-rc.12",
     "vue": "^3.3.4"
   }

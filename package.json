@@ -10,12 +10,14 @@
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "docs:dev": "pnpm -r --filter=./docs run dev",
     "docs:build": "pnpm -r --filter=./docs run build",
+    "packages:dev": "pnpm -r --filter=./packages/* run dev",
     "packages:stub": "pnpm -r --filter=./packages/* run stub",
     "packages:build": "pnpm -r --filter=./packages/* run build"
   },
   "dependencies": {
     "@antfu/eslint-config": "^0.40.2",
-    "@unocss/eslint-config": "^0.55.4"
+    "@unocss/eslint-config": "^0.55.4",
+    "concurrently": "^8.2.1"
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.8",

@@ -5,7 +5,7 @@ import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 
 const mounted = useMounted()
-const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FullWidth)
+const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
 
 function animate(element: HTMLElement) {
   element.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')

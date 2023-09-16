@@ -3,11 +3,17 @@ import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vu
 import LayoutSwitchLayoutIcon from './MenuIcon.vue'
 import LayoutSwitch from './LayoutSwitch.vue'
 import MouseOverElementHighlight from './HighlightParagraph.vue'
+import { useMounted } from '@vueuse/core';
+
+const mounted = useMounted()
 </script>
 
 <template>
-  <VPFlyout :icon="LayoutSwitchLayoutIcon" class="VPNavBarNolebaseEnhancedReadabilitiesMenu">
-    <div space-y-2 p-2>
+  <VPFlyout
+    :icon="LayoutSwitchLayoutIcon"
+    class="VPNavBarNolebaseEnhancedReadabilitiesMenu"
+  >
+    <div v-if="mounted" space-y-2 p-2>
       <LayoutSwitch />
       <MouseOverElementHighlight />
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, watchEffect } from 'vue'
+import { watch } from 'vue'
 import { useMounted, useStorage } from '@vueuse/core'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
@@ -46,10 +46,6 @@ watch(layoutMode, (val) => {
     return
 
   setClasses(val, true)
-})
-
-watchEffect(() => {
-  console.log('layoutMode', layoutMode.value)
 })
 </script>
 

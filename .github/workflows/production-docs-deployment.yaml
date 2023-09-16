@@ -50,13 +50,12 @@ jobs:
           pnpm packages:build
           pnpm docs:build
 
+      - name: Install Netlify CLI
+        run: pnpm install -g netlify-cli
+
       - name: Push to Netlify
-        id: netlify-deployment
-        uses: netlify/actions/cli@master
         timeout-minutes: 10
-        with:
-          args: deploy --filter @nolebase/plugins-docs --dir=./docs/.vitepress/dist --prod
+        run: netlify deploy --filter @nolebase/plugins-docs --dir ./docs/.vitepress/dist --prod
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-

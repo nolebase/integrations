@@ -9,9 +9,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-22.04
-    environment:
-      name: Preview Docs
-      url: ${{ steps.netlify-deployment.outputs.NETLIFY_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3

@@ -23,6 +23,6 @@ features:
     details: Whether it is static-first like VitePress, or client-first like Obsidian, the "Nólëbase Integrations" project hopes to provide a similar or even better experience across different platforms.
   - icon: 🧩
     title: Rich Features
-    details: Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Plugins.
+    details: Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Integrations.
 ---
 

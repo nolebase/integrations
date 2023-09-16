@@ -6,7 +6,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" /></a>
 </p>
 
-# [Nólëbase](https://github.com/nolebase/nolebase) Plugins
+# [Nólëbase](https://github.com/nolebase/nolebase) Integrations
 
 [简体中文](./README.zh-CN.md)
 
@@ -27,7 +27,7 @@ A collection of diverse documentation engineering tools.
 
 ## How to Develop
 
-The project uses [`unbuild`](https://github.com/unjs/unbuild) for construction. With the powerful functions of [`jiti`](https://github.com/unjs/jiti), we no longer need to use [Rollup](https://rollupjs.org/) for tedious configuration and then listen to local file changes for development. We can directly run the following command to output our plugin:
+The project uses [`unbuild`](https://github.com/unjs/unbuild) for construction. With the powerful functions of [`jiti`](https://github.com/unjs/jiti), we no longer need to use [Rollup](https://rollupjs.org/) for tedious configuration and then listen to local file changes for development. We can directly run the following command to output our integrations:
 
 ```shell
 pnpm run packages:stub

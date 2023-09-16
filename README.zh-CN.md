@@ -7,7 +7,7 @@
   <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg" /></a>
 </p>
 
-# [Nólëbase](https://github.com/nolebase/nolebase) 插件
+# [Nólëbase](https://github.com/nolebase/nolebase) 集成
 
 [English](./README.md)
 
@@ -22,13 +22,13 @@
 - 🚀 文档工程优先
   - 从文档工程的角度出发，解决和简化若干 UX/DX 的问题和困境，旨在让创作者更好地专注于撰写文档、笔记、制作卡片以及 GTD。
 - ⚖️ 兼容并且好用
-  - 不论是静态如 VitePress，Astro，还是客户端优先如 Obsidian 和 Logseq，「Nólëbase 插件」项目期望能够在不同的平台上提供近似甚至更好的体验。
+  - 不论是静态如 VitePress，Astro，还是客户端优先如 Obsidian 和 Logseq，「Nólëbase 集成」项目期望能够在不同的平台上提供近似甚至更好的体验。
 - 🧩 拓展工具的边界
   - 每个平台都有他们的优势和缺失的功能，但是文档工程已经足够费时费力，这些问题不应该是撰写和分享文档和知识的阻碍，别被工具限制了你的想象力。
 
 ## 如何开发
 
-项目使用 [`unbuild`](https://github.com/unjs/unbuild) 进行构建，借助于 [`jiti`](https://github.com/unjs/jiti) 的强大功能，我们无需再使用 [Rollup](https://rollupjs.org/) 去进行繁琐的配置后监听本地的文件变更来进行开发，我们可以直接运行下面的命令来输出我们的插件：
+项目使用 [`unbuild`](https://github.com/unjs/unbuild) 进行构建，借助于 [`jiti`](https://github.com/unjs/jiti) 的强大功能，我们无需再使用 [Rollup](https://rollupjs.org/) 去进行繁琐的配置后监听本地的文件变更来进行开发，我们可以直接运行下面的命令来输出我们的集成：
 
 ```shell
 pnpm run packages:stub

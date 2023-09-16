@@ -1,5 +1,5 @@
 {
-  "name": "@nolebase/plugins-docs",
+  "name": "@nolebase/integrations-docs",
   "type": "module",
   "scripts": {
     "dev": "nr docs:dev",

@@ -6,7 +6,7 @@ import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-l
 export default defineConfig({
   themeConfig: {
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/nolebase/plugins' },
+      { icon: 'github', link: 'https://github.com/nolebase/integrations' },
     ],
   },
   locales: {
@@ -14,7 +14,7 @@ export default defineConfig({
       label: 'English',
       lang: 'en',
       link: '/pages/en/',
-      title: 'Nólëbase Plugins',
+      title: 'Nólëbase Integrations',
       description: 'A collection of diverse documentation engineering tools',
       themeConfig: {
         nav: [
@@ -34,7 +34,7 @@ export default defineConfig({
       label: '简体中文',
       lang: 'zh-CN',
       link: '/pages/zh-CN/',
-      title: 'Nólëbase 插件',
+      title: 'Nólëbase 集成',
       description: '多元化的文档工程工具合集',
       themeConfig: {
         nav: [

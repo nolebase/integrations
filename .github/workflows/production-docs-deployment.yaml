@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-22.04
     environment:
       name: Production Docs
-      url: https://nolebase-plugins.ayaka.io
+      url: https://nolebase-integrations.ayaka.io
     steps:
       - name: Checkout
         uses: actions/checkout@v3

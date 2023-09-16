@@ -9,9 +9,6 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-22.04
-    environment:
-      name: Preview Docs
-      url: ${{ steps.netlify-deployment.outputs.NETLIFY_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -50,12 +47,13 @@ jobs:
           pnpm packages:build
           pnpm docs:build
 
+      - name: Install Netlify CLI
+        run: pnpm install -g netlify-cli
+
       - name: Push to Netlify
-        id: netlify-deployment
-        uses: netlify/actions/cli@master
         timeout-minutes: 10
-        with:
-          args: deploy --filter @nolebase/plugins-docs --dir=./docs/.vitepress/dist
+        working-directory: docs/
+        run: netlify deploy --dir .vitepress/dist
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

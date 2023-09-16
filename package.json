@@ -10,6 +10,7 @@
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "docs:dev": "pnpm -r --filter=./docs run dev",
     "docs:build": "pnpm -r --filter=./docs run build",
+    "docs:preview": "pnpm -r --filter=./docs run preview",
     "packages:dev": "pnpm -r --filter=./packages/* run dev",
     "packages:stub": "pnpm -r --filter=./packages/* run stub",
     "packages:build": "pnpm -r --filter=./packages/* run build"

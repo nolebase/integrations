@@ -16,4 +16,5 @@ node_modules
 **/.vitepress/docsMetadata.json
 **/.vitepress/cache/
 
-.netlify/functions-serve/*
+**/.netlify/*
+**/.netlify/functions-serve/*

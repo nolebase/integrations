@@ -23,11 +23,11 @@ A collection of diverse documentation engineering tools.
 - ⚖️ Compatible and Easy to Use
   - Whether it is static-first like VitePress, or client-first like Obsidian, the "Nólëbase Integrations" project hopes to provide a similar or even better experience across different platforms.
 - 🧩 Rich Features
-  - Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Integrations.
+  - Each platform has its own advantages and missing features, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Integrations.
 
-## How to Develop
+## How to develop
 
-The project uses [`unbuild`](https://github.com/unjs/unbuild) for construction. With the powerful functions of [`jiti`](https://github.com/unjs/jiti), we no longer need to use [Rollup](https://rollupjs.org/) for tedious configuration and then listen to local file changes for development. We can directly run the following command to output our integrations:
+The project uses [`unbuild`](https://github.com/unjs/unbuild) and [`vite`](https://github.com/vitejs/vite) to develop and build. With the powerful features offered from [`jiti`](https://github.com/unjs/jiti), we no longer need to use [Rollup](https://rollupjs.org/) for tedious configuration and then watch the local file changes and bundle the modified and developed the modules without [`vite`](https://github.com/vitejs/vite) for hot-reload. We can directly run the following command to output the bundled file and get started on development:
 
 ```shell
 pnpm run packages:stub
@@ -39,7 +39,7 @@ If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the foll
 nr packages:stub
 ```
 
-Next, you need to start the VitePress documentation of the project for preview and development. You can use the following command:
+Next, you need to start the the documentation site (with VitePress) for previewing and development. You can use the following command:
 
 ```shell
 pnpm run docs:dev
@@ -49,6 +49,30 @@ If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the foll
 
 ```shell
 nr docs:dev
+```
+
+## How to build
+
+```shell
+pnpm run packages:build
+```
+
+If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the following command:
+
+```shell
+nr packages:build
+```
+
+To build the documentation and preview site, you can use the following command:
+
+```shell
+pnpm run docs:build
+```
+
+If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the following command:
+
+```shell
+nr docs:build
 ```
 
 ### Written with ♥

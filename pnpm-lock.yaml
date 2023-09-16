@@ -59,7 +59,7 @@ importers:
         version: link:../packages/markdown-it-element-transform
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
-        version: link:../packages/vitepress-plugin-enhance-readabilities
+        version: link:../packages/vitepress-plugin-enhanced-readabilities
       unocss:
         specifier: ^0.55.7
         version: 0.55.7(postcss@8.4.28)(rollup@3.28.1)(vite@4.4.9)
@@ -92,7 +92,7 @@ importers:
         specifier: ^13.0.1
         version: 13.0.1
 
-  packages/vitepress-plugin-enhance-readabilities:
+  packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
       '@vueuse/core':
         specifier: ^10.4.1

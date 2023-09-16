@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, computed } from 'vue'
 
-const props = defineProps<{
-  active: boolean
-  value: any
-  modelValue: any
+const props = defineProps < {
+  active?: boolean
+  value?: any
+  modelValue?: any
   icon?: string
   text?: string
   title: string
+  disabled?: boolean
 }>()
 
 const emits = defineEmits<{
@@ -15,7 +16,7 @@ const emits = defineEmits<{
 }>()
 
 const model = computed({
-  get: () => props.modelValue,
+  get: () => props.modelValue && !props.disabled,
   set: val => emits('update:modelValue', val),
 })
 </script>
@@ -24,7 +25,7 @@ const model = computed({
   <label
     :title="props.title"
     class="VPNavBarNolebaseEnhancedReadabilitiesMenuOption"
-    :class="{ 'active': props.active }"
+    :class="{ active: props.active, disabled: props.disabled }"
     w-full py-2 px-3
     inline-flex items-center justify-center
     rounded-md
@@ -47,6 +48,13 @@ const model = computed({
 
   &.active {
     color: var(--vp-c-brand-1);
+    font-weight: bold;
+    background-color: var(--vp-c-default-soft);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
     font-weight: bold;
     background-color: var(--vp-c-default-soft);
   }

@@ -28,7 +28,7 @@
 
 ## 如何开发
 
-项目使用 [`unbuild`](https://github.com/unjs/unbuild) 进行构建，借助于 [`jiti`](https://github.com/unjs/jiti) 的强大功能，我们无需再使用 [Rollup](https://rollupjs.org/) 去进行繁琐的配置后监听本地的文件变更来进行开发，我们可以直接运行下面的命令来输出我们的集成：
+项目使用 [`unbuild`](https://github.com/unjs/unbuild) 和 [`vite`](https://github.com/vitejs/vite) 来进行开发和构建。借助于 [`jiti`](https://github.com/unjs/jiti) 的强大功能，对于繁琐的配置无需使用 [Rollup](https://rollupjs.org/)，也无需使用 [`vite`](https://github.com/vitejs/vite) 来监听本地文件的变化并打包修改和开发的模块，我们可以直接运行下面的命令来输出打包后的文件，开始开发：
 
 ```shell
 pnpm run packages:stub
@@ -50,6 +50,30 @@ pnpm run docs:dev
 
 ```shell
 nr docs:dev
+```
+
+## 如何构建
+
+```shell
+pnpm run packages:build
+```
+
+如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+
+```shell
+nr packages:build
+```
+
+如果要构建文档和预览站点，你可以使用下面的命令：
+
+```shell
+pnpm run docs:build
+```
+
+如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+
+```shell
+nr docs:build
 ```
 
 ### 用 ♥ 撰写

@@ -2,6 +2,7 @@ import type { Plugin } from 'vue'
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
 import NolebaseEnhancedReadabilitiesHighlightParagraph from './components/HighlightParagraph.vue'
 import NolebaseEnhancedReadabilitiesLayoutSwitch from './components/LayoutSwitch.vue'
+import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
 import 'virtual:uno.css'
 
 export interface Props {
@@ -10,6 +11,9 @@ export interface Props {
 
 const components = {
   NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesHighlightParagraph,
+  NolebaseEnhancedReadabilitiesLayoutSwitch,
+  NolebaseEnhancedReadabilitiesScreenMenu,
 }
 
 export const LayoutSwitchPlugin: Plugin = {
@@ -23,4 +27,5 @@ export {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesHighlightParagraph,
   NolebaseEnhancedReadabilitiesLayoutSwitch,
+  NolebaseEnhancedReadabilitiesScreenMenu,
 }

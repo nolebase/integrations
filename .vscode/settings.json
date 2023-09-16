@@ -30,6 +30,6 @@
   ],
   "unocss.root": [
     "./docs",
-    "./packages/vitepress-plugin-nolebase-enhanced-readabilities"
+    "./packages/vitepress-plugin-enhanced-readabilities"
   ]
 }

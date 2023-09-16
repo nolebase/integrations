@@ -3,6 +3,7 @@ import { watch } from 'vue'
 import { useMounted, useStorage } from '@vueuse/core'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
+import MenuTitle from './MenuTitle.vue'
 
 const mounted = useMounted()
 const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
@@ -51,10 +52,7 @@ watch(layoutMode, (val) => {
 
 <template>
   <div space-y-2>
-    <h3 inline-flex items-center text="[14px] $vp-c-text-1" font-medium align-middle select-none>
-      <span i-icon-park-outline:layout-one mr-1 />
-      <span>布局切换</span>
-    </h3>
+    <MenuTitle icon="i-icon-park-outline:layout-one" title="布局切换" />
     <div flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full>
       <MenuOption v-model="layoutMode" :value="LayoutMode.FullWidth" :active="layoutMode === LayoutMode.FullWidth" icon="i-icon-park-outline:full-screen-one" title="全部最宽" />
       <MenuOption v-model="layoutMode" :value="LayoutMode.OnlySidebarFullWidth" :active="layoutMode === LayoutMode.OnlySidebarFullWidth" icon="i-icon-park-outline:off-screen" title="边栏最宽" />

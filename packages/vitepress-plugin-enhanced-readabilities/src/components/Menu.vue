@@ -34,7 +34,7 @@ const mounted = useMounted()
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 768px) {
   .VPNavBarNolebaseEnhancedReadabilitiesMenu {
     display: flex;
     align-items: center;

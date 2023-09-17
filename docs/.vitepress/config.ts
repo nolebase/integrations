@@ -19,6 +19,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: 'Guide', link: '/pages/en/guide/getting-started' },
+          { text: 'Integrations', link: '/pages/en/integrations/' },
         ],
         sidebar: [
           {
@@ -28,9 +29,15 @@ export default defineConfig({
             ],
           },
           {
-            text: 'Markdown It Plugins',
+            text: 'Integrations',
             items: [
-              { text: 'Bi-directional Links', link: '/pages/en/plugins/markdown-it-bi-directional-links/' },
+              { text: 'Overview', link: '/pages/en/integrations/' },
+              {
+                text: 'Markdown It Plugins',
+                items: [
+                  { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+                ],
+              },
             ],
           },
         ],
@@ -45,18 +52,25 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
+          { text: '集成', link: '/pages/zh-CN/integrations/' },
         ],
         sidebar: [
           {
-            text: '介绍',
+            text: '指南',
             items: [
-              { text: '开始', link: '/pages/zh-CN/guide/getting-started' },
+              { text: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
             ],
           },
           {
-            text: 'Markdown It 插件',
+            text: '集成',
             items: [
-              { text: '双向链接', link: '/pages/zh-CN/plugins/markdown-it-bi-directional-links/' },
+              { text: '概览', link: '/pages/zh-CN/integrations/' },
+              {
+                text: 'Markdown It 插件',
+                items: [
+                  { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+                ],
+              },
             ],
           },
         ],

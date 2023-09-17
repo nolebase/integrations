@@ -18,9 +18,15 @@ export default defineConfig({
       description: 'A collection of diverse documentation engineering tools',
       themeConfig: {
         nav: [
-          { text: 'Home', link: '/pages/en/' },
+          { text: 'Guide', link: '/pages/en/guide/getting-started' },
         ],
         sidebar: [
+          {
+            text: 'Introduction',
+            items: [
+              { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+            ],
+          },
           {
             text: 'Markdown It Plugins',
             items: [
@@ -38,9 +44,15 @@ export default defineConfig({
       description: '多元化的文档工程工具合集',
       themeConfig: {
         nav: [
-          { text: '首页', link: '/pages/zh-CN/' },
+          { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
         ],
         sidebar: [
+          {
+            text: '介绍',
+            items: [
+              { text: '开始', link: '/pages/zh-CN/guide/getting-started' },
+            ],
+          },
           {
             text: 'Markdown It 插件',
             items: [

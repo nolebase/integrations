@@ -23,7 +23,7 @@ yarn add @nolebase/markdown-it-bi-directional-links
 然后先在 [`markdown-it`](https://github.com/markdown-it/markdown-it) 的实例可被访问的地方先使用 `import` 语句将双向链接插件导入到文件中：
 
 ```typescript
-import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-links' // [!code  ++]
+import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 ```
 
 然后使用 `markdown-it` 实例的 `use()` 函数将导入后的 `MarkdownItBiDirectionalLinks` 作为插件使用：
@@ -33,19 +33,20 @@ import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-l
 
 // 中间剩余的其他代码...
 
-markdownIt.use(MarkdownItBiDirectionalLinks()) // [!code  ++]
+markdownIt.use(MarkdownItBiDirectionalLinks()) // [!code ++]
 ```
 
-在 `MarkdownItBiDirectionalLinks()` 函数中，你需要提供一个必填的选项对象，该对象中的 `dir` 字段通常可以直接通过 `import` 语句导入 `process` 或者 `node:process` 之后的 `cwd()` 函数来获取：
+在 `MarkdownItBiDirectionalLinks()` 函数中，你必须提供一个包含有 `dir` 字段的对象作为配置选项，这个所谓的 `dir` 字段通常可以直接通过 `import` 语句导入来自 `process` 或者 `node:process` 包内的 `cwd()` 函数来获取：
 
 ```typescript
 import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-links'
+import { cwd } from 'process' // [!code ++]
 
 // 中间剩余的其他代码...
 
-markdownIt.use(MarkdownItBiDirectionalLinks({
-  dir: process.cwd() // [!code  ++]
-}))
+markdownIt.use(MarkdownItBiDirectionalLinks({ // [!code ++]
+  dir: process.cwd() // [!code ++]
+})) // [!code ++]
 ```
 
 ## 用法示例

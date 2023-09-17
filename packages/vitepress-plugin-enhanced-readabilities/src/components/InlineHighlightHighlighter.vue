@@ -126,7 +126,7 @@ watch(() => props.enabled, (val) => {
       focusable="false"
       fixed
       pointer-events-none
-      z-9999
+      z-50
       border="1 $vp-c-brand"
     />
   </Teleport>

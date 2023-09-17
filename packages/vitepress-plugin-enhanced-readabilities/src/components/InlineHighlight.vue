@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
 import InlineHighlightHighlighter from './InlineHighlightHighlighter.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
 import MenuHelp from './MenuHelp.vue'
+
+const menuTitleElementRef = ref<HTMLDivElement>()
+const isMenuHelpPoppedUp = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
@@ -30,7 +33,7 @@ watch(isLargerThanMobile, () => {
 <template>
   <div space-y-2 role="radiogroup">
     <InlineHighlightHighlighter v-if="mounted && inlineHighlightModeOn" :enabled="inlineHighlightModeOn" />
-    <div flex items-center relative>
+    <div flex items-center relative ref="menuTitleElementRef">
       <MenuTitle
         icon="i-icon-park-outline:click"
         :title="t('inlineHighlight.title')"
@@ -38,7 +41,7 @@ watch(isLargerThanMobile, () => {
         flex="1"
         mr-4
       />
-      <MenuHelp>
+      <MenuHelp :menu-title-element-ref="menuTitleElementRef" v-model:is-popped-up="isMenuHelpPoppedUp">
         <h4 text-md font-semibold mb-1>
           {{ t('inlineHighlight.title') }}
         </h4>
@@ -63,7 +66,13 @@ watch(isLargerThanMobile, () => {
         </div>
       </MenuHelp>
     </div>
-    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none>
+    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none
+      outline="transparent 2px offset-4px dashed" transition="outline duration-200 ease"
+      :class="{
+        'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
+        'rounded-md': isMenuHelpPoppedUp
+      }"
+    >
       <MenuOption
         v-model="inlineHighlightModeOn"
         :title="t('inlineHighlight.optionOn')"

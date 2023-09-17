@@ -1,19 +1,33 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref, toRef, watch } from 'vue'
 import { useElementBounding, useMounted, useMouseInElement } from '@vueuse/core'
 
-const helpElementRef = ref<HTMLSpanElement>()
+const props = defineProps<{
+  menuTitleElementRef?: HTMLDivElement
+  isPoppedUp?: boolean
+}>()
+
+const emits = defineEmits<{
+  (e: 'update:isPoppedUp', value: boolean): void
+}>()
+
+const menuTitleElementRef = toRef(props, 'menuTitleElementRef')
+const popupElementRef = ref<HTMLDivElement>()
 
 const mounted = useMounted()
-const { isOutside } = useMouseInElement(helpElementRef)
-
-const bounding = useElementBounding(helpElementRef)
+const { isOutside } = useMouseInElement(menuTitleElementRef)
+const bounding = useElementBounding(menuTitleElementRef)
+const popupBounding = useElementBounding(popupElementRef)
 
 const helpPopupStyle = computed(() => {
   return {
     top: `${bounding.top.value}px`,
-    left: `${bounding.left.value + bounding.width.value + 8}px`,
+    left: `${bounding.left.value - popupBounding.width.value - 16}px`,
   }
+})
+
+watch(isOutside, (value) => {
+  emits('update:isPoppedUp', !value)
 })
 </script>
 
@@ -27,10 +41,11 @@ const helpPopupStyle = computed(() => {
   <Teleport to="body">
     <Transition name="fade">
       <div
+        ref="popupElementRef"
         v-if="mounted"
         v-show="!isOutside"
         :style="helpPopupStyle"
-        fixed z-100 bg="white dark:zinc-800" text="dark:zinc-100" rounded-lg p-3 shadow-lg border="1 solid zinc-200 dark:zinc-700"
+        fixed z-100 bg="white dark:zinc-800" text="dark:zinc-100" rounded-lg p-4 shadow-lg border="1 solid zinc-200 dark:zinc-700"
         pointer-events-none
       >
         <slot />

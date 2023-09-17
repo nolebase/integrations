@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
+
+const menuTitleElementRef = ref<HTMLDivElement>()
+const isMenuHelpPoppedUp = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
@@ -70,14 +73,14 @@ onMounted(() => {
 
 <template>
   <div space-y-2 role="radiogroup">
-    <div flex items-center>
+    <div flex items-center ref="menuTitleElementRef">
       <MenuTitle
         icon="i-icon-park-outline:layout-one"
         :title="t('layoutSwitch.title')"
         :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
         flex="1"
       />
-      <MenuHelp>
+      <MenuHelp :menu-title-element-ref="menuTitleElementRef" v-model:is-popped-up="isMenuHelpPoppedUp">
         <h4 text-md font-semibold mb-1>
           {{ t('layoutSwitch.title') }}
         </h4>
@@ -109,7 +112,13 @@ onMounted(() => {
         </div>
       </MenuHelp>
     </div>
-    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none>
+    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none
+      outline="transparent 2px offset-4px dashed" transition="outline duration-200 ease"
+      :class="{
+        'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
+        'rounded-md': isMenuHelpPoppedUp
+      }"
+    >
       <MenuOption
         v-model="layoutMode"
         icon="i-icon-park-outline:full-screen-one"

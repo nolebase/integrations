@@ -19,7 +19,7 @@ export default {
       'nav-screen-content-after': () => h(NolebaseEnhancedReadabilitiesScreenMenu),
     })
   },
-  enhanceApp() {
+  enhanceApp({ app }) {
     // ...
   },
 }

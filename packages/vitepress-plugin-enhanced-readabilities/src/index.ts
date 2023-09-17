@@ -1,8 +1,13 @@
 import type { Plugin } from 'vue'
+
+import { injectionKey as NolebaseEnhancedReadabilitiesInjectionKey } from './types'
+import type { EnhancedReadabilitiesOptions as NolebaseEnhancedReadabilitiesOptions } from './types'
+
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
-import NolebaseEnhancedReadabilitiesHighlightParagraph from './components/HighlightParagraph.vue'
+import NolebaseEnhancedReadabilitiesInlineHighlight from './components/InlineHighlight.vue'
 import NolebaseEnhancedReadabilitiesLayoutSwitch from './components/LayoutSwitch.vue'
 import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
+
 import 'virtual:uno.css'
 
 export interface Props {
@@ -11,7 +16,7 @@ export interface Props {
 
 const components = {
   NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesHighlightParagraph,
+  NolebaseEnhancedReadabilitiesInlineHighlight,
   NolebaseEnhancedReadabilitiesLayoutSwitch,
   NolebaseEnhancedReadabilitiesScreenMenu,
 }
@@ -25,7 +30,9 @@ export const LayoutSwitchPlugin: Plugin = {
 
 export {
   NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesHighlightParagraph,
+  NolebaseEnhancedReadabilitiesInlineHighlight,
   NolebaseEnhancedReadabilitiesLayoutSwitch,
   NolebaseEnhancedReadabilitiesScreenMenu,
+  NolebaseEnhancedReadabilitiesInjectionKey,
+  NolebaseEnhancedReadabilitiesOptions,
 }

@@ -43,7 +43,7 @@ const model = computed({
       hidden
     >
     <span inline-flex="~" items-center align-middle>
-      <span v-if="props.icon" :class="props.icon" />
+      <span v-if="props.icon" :class="props.icon" aria-hidden="true" />
       <span v-if="props.text">{{ props.text }}</span>
     </span>
   </label>

@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
+import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
+const layoutMode = useStorage('vitepress-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
+const { t } = useI18n()
 
 function animate(element: HTMLElement) {
   element.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
@@ -67,27 +69,34 @@ onMounted(() => {
 
 <template>
   <div space-y-2 role="radiogroup">
-    <MenuTitle icon="i-icon-park-outline:layout-one" title="布局切换" />
+    <MenuTitle
+      icon="i-icon-park-outline:layout-one"
+      :title="t('layoutSwitch.title')"
+      :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
+    />
     <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none>
       <MenuOption
         v-model="layoutMode"
         icon="i-icon-park-outline:full-screen-one"
-        title="全部最宽"
-        name="layout-switch"
+        :title="t('layoutSwitch.optionFullWidth')"
+        :aria-label="t('layoutSwitch.optionFullWidthAriaLabel')"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.FullWidth"
       />
       <MenuOption
         v-model="layoutMode"
         icon="i-icon-park-outline:off-screen"
-        title="边栏最宽"
-        name="layout-switch"
+        :title="t('layoutSwitch.optionOnlySidebarFullWidth')"
+        :aria-label="t('layoutSwitch.optionOnlySidebarFullWidthAriaLabel')"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.OnlySidebarFullWidth"
       />
       <MenuOption
         v-model="layoutMode"
         icon="i-icon-park-outline:off-screen-one"
-        title="全部最窄"
-        name="layout-switch"
+        :title="t('layoutSwitch.optionFitContentWidth')"
+        :aria-label="t('layoutSwitch.optionFitContentWidthAriaLabel')"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.FitContentWidth"
       />
     </fieldset>

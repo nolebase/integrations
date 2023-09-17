@@ -16,7 +16,7 @@ const props = defineProps<{
     text="[14px] $vp-c-text-1" font-medium align-middle
     select-none
   >
-    <span v-if="props.icon" :class="props.icon" mr-1 />
+    <span v-if="props.icon" :class="props.icon" mr-1 aria-hidden="true" />
     <span v-if="props.title">{{ props.title }}</span>
     <slot />
   </h3>

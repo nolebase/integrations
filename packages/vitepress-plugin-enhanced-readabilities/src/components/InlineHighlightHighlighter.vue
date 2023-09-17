@@ -122,6 +122,8 @@ watch(() => props.enabled, (val) => {
   <Teleport to="body">
     <div
       :style="boxStyles"
+      aria-hidden="true"
+      focusable="false"
       fixed
       pointer-events-none
       z-9999

@@ -37,6 +37,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
+    "@iconify-json/carbon": "^1.1.21",
     "@iconify-json/icon-park-outline": "^1.1.12",
     "@vitejs/plugin-vue": "^4.3.4",
     "less": "^4.2.0",

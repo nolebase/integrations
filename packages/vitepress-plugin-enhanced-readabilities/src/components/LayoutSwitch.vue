@@ -5,6 +5,7 @@ import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
+import MenuHelp from './MenuHelp.vue'
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
@@ -69,11 +70,45 @@ onMounted(() => {
 
 <template>
   <div space-y-2 role="radiogroup">
-    <MenuTitle
-      icon="i-icon-park-outline:layout-one"
-      :title="t('layoutSwitch.title')"
-      :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
-    />
+    <div flex items-center>
+      <MenuTitle
+        icon="i-icon-park-outline:layout-one"
+        :title="t('layoutSwitch.title')"
+        :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
+        flex="1"
+      />
+      <MenuHelp>
+        <h4 text-md font-semibold mb-1>
+          {{ t('layoutSwitch.title') }}
+        </h4>
+        <p max-w-100 text="sm" mb-2>
+          <span>{{ t('layoutSwitch.titleHelpMessage') }}</span>
+        </p>
+        <div space-y-2>
+          <p max-w-100 text="sm" bg="zinc-700 dark:zinc-900" p-2 rounded-lg>
+            <h5 text="sm" mb-1 flex="~" items-center align-middle>
+              <span i-icon-park-outline:full-screen-one mr-1 />
+              <span>{{ t('layoutSwitch.optionFullWidth') }}</span>
+            </h5>
+            <span>{{ t('layoutSwitch.optionFullWidthHelpMessage') }}</span>
+          </p>
+          <p max-w-100 text="sm" bg="zinc-700 dark:zinc-900" p-2 rounded-lg>
+            <h5 text="sm" mb-1 flex="~" items-center align-middle>
+              <span i-icon-park-outline:off-screen mr-1 />
+              <span>{{ t('layoutSwitch.optionOnlySidebarFullWidth') }}</span>
+            </h5>
+            <span>{{ t('layoutSwitch.optionOnlySidebarFullWidthHelpMessage') }}</span>
+          </p>
+          <p max-w-100 text="sm" bg="zinc-700 dark:zinc-900" p-2 rounded-lg>
+            <h5 text="sm" mb-1 flex="~" items-center align-middle>
+              <span i-icon-park-outline:off-screen-one mr-1 />
+              <span>{{ t('layoutSwitch.optionFitContentWidth') }}</span>
+            </h5>
+            <span>{{ t('layoutSwitch.optionFitContentWidthHelpMessage') }}</span>
+          </p>
+        </div>
+      </MenuHelp>
+    </div>
     <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none>
       <MenuOption
         v-model="layoutMode"

@@ -14,22 +14,29 @@ export interface Locale {
   layoutSwitch?: {
     title?: string
     titleAriaLabel?: string
+    titleHelpMessage?: string
     titleScreenNavWarningMessage?: string
     optionFullWidth?: string
     optionFullWidthAriaLabel?: string
+    optionFullWidthHelpMessage?: string
     optionOnlySidebarFullWidth?: string
     optionOnlySidebarFullWidthAriaLabel?: string
+    optionOnlySidebarFullWidthHelpMessage?: string
     optionFitContentWidth?: string
     optionFitContentWidthAriaLabel?: string
+    optionFitContentWidthHelpMessage?: string
   }
   inlineHighlight?: {
     title?: string
     titleAriaLabel?: string
+    titleHelpMessage?: string
     titleScreenNavWarningMessage?: string
     optionOn?: string
     optionOnAriaLabel?: string
+    optionOnHelpMessage?: string
     optionOff?: string
     optionOffAriaLabel?: string
+    optionOffHelpMessage?: string
   }
 }
 

@@ -12,10 +12,11 @@ const emits = defineEmits<{
 }>()
 
 const menuTitleElementRef = toRef(props, 'menuTitleElementRef')
+const helpElementRef = ref<HTMLSpanElement>()
 const popupElementRef = ref<HTMLDivElement>()
 
 const mounted = useMounted()
-const { isOutside } = useMouseInElement(menuTitleElementRef)
+const { isOutside } = useMouseInElement(helpElementRef)
 const bounding = useElementBounding(menuTitleElementRef)
 const popupBounding = useElementBounding(popupElementRef)
 

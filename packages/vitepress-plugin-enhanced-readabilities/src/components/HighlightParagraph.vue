@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import MenuOption from './MenuOption.vue'
-import { useMounted, useStorage } from '@vueuse/core'
+import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import HighlightParagraphHighlighter from './HighlightParagraphHighlighter.vue'
 import MenuTitle from './MenuTitle.vue'
+import { onMounted, watch } from 'vue'
 
 const mounted = useMounted()
+const isMobile = useMediaQuery('(min-width: 768px)')
 const paragraphHighlightModeOn = useStorage('vp-nolebase-enhanced-readabilities-paragraph-highlight-mode', false)
+
+onMounted(() => {
+  if (isMobile.value) {
+    paragraphHighlightModeOn.value = false
+  }
+})
+
+watch(isMobile, () => {
+  if (isMobile.value) {
+    paragraphHighlightModeOn.value = false
+  }
+})
 </script>
 
 <template>

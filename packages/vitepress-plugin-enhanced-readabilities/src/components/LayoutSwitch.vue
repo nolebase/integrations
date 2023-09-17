@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { watch } from 'vue'
-import { useMounted, useStorage } from '@vueuse/core'
+import { onMounted, watch } from 'vue'
+import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 
 const mounted = useMounted()
+const isMobile = useMediaQuery('(min-width: 768px)')
 const layoutMode = useStorage('vp-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
 
 function animate(element: HTMLElement) {
@@ -47,6 +48,18 @@ watch(layoutMode, (val) => {
     return
 
   setClasses(val, true)
+})
+
+watch(isMobile, () => {
+  if (isMobile.value) {
+    layoutMode.value = LayoutMode.FitContentWidth
+  }
+})
+
+onMounted(() => {
+  if (isMobile.value) {
+    layoutMode.value = LayoutMode.FitContentWidth
+  }
 })
 </script>
 

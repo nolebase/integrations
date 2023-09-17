@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /pages/zh-CN/getting-started
+      link: /pages/zh-CN/guide/getting-started
     - theme: alt
       text: 在 GitHub 上查看
       link: https://github.com/nolebase/integrations

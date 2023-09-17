@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /pages/en/getting-started
+      link: /pages/en/guide/getting-started
     - theme: alt
       text: View on GitHub
       link: https://github.com/nolebase/integrations

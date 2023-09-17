@@ -46,14 +46,14 @@ watch(isLargerThanMobile, () => {
           <span>{{ t('inlineHighlight.titleHelpMessage') }}</span>
         </p>
         <div space-y-2>
-          <p max-w-100 text="sm" bg="zinc-700 dark:zinc-900" p-2 rounded-lg>
+          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-2 rounded-lg>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>ON</span>
               <span>{{ t('inlineHighlight.optionOn') }}</span>
             </h5>
             <span>{{ t('inlineHighlight.optionOnHelpMessage') }}</span>
           </p>
-          <p max-w-100 text="sm" bg="zinc-700 dark:zinc-900" p-2 rounded-lg>
+          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-2 rounded-lg>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>OFF</span>
               <span>{{ t('inlineHighlight.optionOff') }}</span>

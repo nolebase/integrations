@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch, inject } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
-import { LayoutMode } from '../types'
+import { LayoutMode, InjectionKey, Options } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
 
 const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
+
+const options = inject<Options>(InjectionKey, {})
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
@@ -80,7 +82,11 @@ onMounted(() => {
         :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
         flex="1"
       />
-      <MenuHelp :menu-title-element-ref="menuTitleElementRef" v-model:is-popped-up="isMenuHelpPoppedUp">
+      <MenuHelp
+        v-if="!options.disableLayoutSwitchHelp"
+        :menu-title-element-ref="menuTitleElementRef"
+        v-model:is-popped-up="isMenuHelpPoppedUp"
+      >
         <h4 text-md font-semibold mb-1>
           {{ t('layoutSwitch.title') }}
         </h4>

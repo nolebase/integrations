@@ -1,38 +1,49 @@
 import type { Plugin } from 'vue'
 
-import { injectionKey as NolebaseEnhancedReadabilitiesInjectionKey } from './types'
-import type { EnhancedReadabilitiesOptions as NolebaseEnhancedReadabilitiesOptions } from './types'
+import type {
+  Options,
+} from './types'
+
+import {
+  InjectionKey,
+  LayoutMode,
+} from './types'
 
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
-import NolebaseEnhancedReadabilitiesInlineHighlight from './components/InlineHighlight.vue'
-import NolebaseEnhancedReadabilitiesLayoutSwitch from './components/LayoutSwitch.vue'
 import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
+import LayoutSwitch from './components/LayoutSwitch.vue'
+import ScreenLayoutSwitch from './components/ScreenLayoutSwitch.vue'
+import InlineHighlight from './components/InlineHighlight.vue'
+import ScreenInlineHighlight from './components/ScreenInlineHighlight.vue'
 
 import 'virtual:uno.css'
 
-export interface Props {
-  name: string
+export {
+  NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesScreenMenu,
+  LayoutSwitch,
+  ScreenLayoutSwitch,
+  InlineHighlight,
+  ScreenInlineHighlight,
+  InjectionKey,
+  LayoutMode,
 }
 
 const components = {
   NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesInlineHighlight,
-  NolebaseEnhancedReadabilitiesLayoutSwitch,
   NolebaseEnhancedReadabilitiesScreenMenu,
+  NolebaseEnhancedReadabilitiesLayoutSwitch: LayoutSwitch,
+  NolebaseEnhancedReadabilitiesScreenLayoutSwitch: ScreenLayoutSwitch,
+  NolebaseEnhancedReadabilitiesInlineHighlight: InlineHighlight,
+  NolebaseEnhancedReadabilitiesScreenInlineHighlight: ScreenInlineHighlight,
 }
 
-export const LayoutSwitchPlugin: Plugin = {
-  install(app) {
+export const NolebaseEnhancedReadabilitiesPlugin: Plugin = {
+  install(app, options?: Options) {
+    if (options)
+      app.provide(InjectionKey, options)
+
     for (const key of Object.keys(components))
       app.component(key, components[key as keyof typeof components])
   },
-}
-
-export {
-  NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesInlineHighlight,
-  NolebaseEnhancedReadabilitiesLayoutSwitch,
-  NolebaseEnhancedReadabilitiesScreenMenu,
-  NolebaseEnhancedReadabilitiesInjectionKey,
-  NolebaseEnhancedReadabilitiesOptions,
 }

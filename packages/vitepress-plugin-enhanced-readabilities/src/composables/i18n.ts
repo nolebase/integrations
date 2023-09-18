@@ -1,7 +1,7 @@
 import { inject } from 'vue'
 import { useData } from 'vitepress'
-import type { EnhancedReadabilitiesOptions } from '../types'
-import { injectionKey } from '../types'
+import type { Options } from '../types'
+import { InjectionKey } from '../types'
 import { defaultEnLocale, defaultZhCNLocale } from '../locales'
 
 export function useI18n() {
@@ -36,7 +36,7 @@ export function useI18n() {
 
   return {
     t(key: string) {
-      const options = inject<EnhancedReadabilitiesOptions>(injectionKey, {})
+      const options = inject<Options>(InjectionKey, {})
       const data = useData()
       const optionValue = getI18nProperty(data.lang.value, key, {
         locales: options.locales || {},

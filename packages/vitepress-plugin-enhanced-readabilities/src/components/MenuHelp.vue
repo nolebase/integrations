@@ -30,6 +30,13 @@ const helpPopupStyle = computed(() => {
 watch(isOutside, (value) => {
   emits('update:isPoppedUp', !value)
 })
+
+watch(isOutside, (value) => {
+  bounding.update()
+  popupBounding.update()
+}, {
+  flush: 'pre'
+})
 </script>
 
 <template>

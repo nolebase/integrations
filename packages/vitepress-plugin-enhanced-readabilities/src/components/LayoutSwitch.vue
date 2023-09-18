@@ -88,21 +88,21 @@ onMounted(() => {
           <span>{{ t('layoutSwitch.titleHelpMessage') }}</span>
         </p>
         <div space-y-2>
-          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-2 rounded-lg>
+          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-3 rounded-xl>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:full-screen-one mr-1 />
               <span>{{ t('layoutSwitch.optionFullWidth') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionFullWidthHelpMessage') }}</span>
           </p>
-          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-2 rounded-lg>
+          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-3 rounded-xl>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:off-screen mr-1 />
               <span>{{ t('layoutSwitch.optionOnlySidebarFullWidth') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionOnlySidebarFullWidthHelpMessage') }}</span>
           </p>
-          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-2 rounded-lg>
+          <p max-w-100 text="sm" bg="zinc-100 dark:zinc-900" p-3 rounded-xl>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:off-screen-one mr-1 />
               <span>{{ t('layoutSwitch.optionFitContentWidth') }}</span>

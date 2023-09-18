@@ -53,7 +53,7 @@ watch(isOutside, (value) => {
         v-if="mounted"
         v-show="!isOutside"
         :style="helpPopupStyle"
-        fixed z-100 bg="white dark:zinc-800" text="dark:zinc-100" rounded-lg p-4 shadow-lg border="1 solid zinc-200 dark:zinc-700"
+        fixed z-100 bg="white dark:zinc-800" text="dark:zinc-100" rounded-xl p-4 shadow-lg border="1 solid zinc-100 dark:zinc-800"
         pointer-events-none
       >
         <slot />

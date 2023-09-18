@@ -24,7 +24,7 @@ const { t } = useI18n()
           :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
           disabled
         />
-        <div border="1 red/50 solid" bg="red/30" p-2 rounded-lg flex items-center opacity-50>
+        <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
           <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>
         </div>
         <div flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full>
@@ -61,7 +61,7 @@ const { t } = useI18n()
           :aria-label="t('inlineHighlight.titleArialLabel') || t('inlineHighlight.title')"
           disabled
         />
-        <div border="1 red/50 solid" bg="red/30" p-2 rounded-lg flex items-center opacity-50>
+        <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
           <span text-xs>{{ t('inlineHighlight.titleScreenNavWarningMessage') }}</span>
         </div>
         <div flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full>

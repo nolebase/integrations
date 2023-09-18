@@ -2,10 +2,16 @@
   "name": "@nolebase/vitepress-plugin-enhanced-readabilities",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "A VitePress plugin enhances the readabilities for VitePress built sites.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "vitepress", "nolebase", "a11y", "readabilities", "markdown", "vitepress-plugin", "nolebase-integration"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -17,9 +23,11 @@
   },
   "main": "./dist/index.umd.cjs",
   "module": "./dist/index.js",
-  "types": "./dist/src/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "package.json",
+    "README.md"
   ],
   "scripts": {
     "stub": "concurrently \"nr dev\" \"nr emit-types\"",

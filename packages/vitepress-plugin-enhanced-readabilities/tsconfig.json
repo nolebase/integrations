@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "exclude": [
     "**/dist/**",
-    "./uno.config.ts"
+    "./uno.config.ts",
+    "./vite.config.ts"
   ],
   "include": [
     "**/*.ts",

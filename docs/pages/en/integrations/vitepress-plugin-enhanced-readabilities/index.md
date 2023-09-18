@@ -8,9 +8,11 @@ See the <span i-icon-park-outline:book-open text-red-400 /> button in the upper 
 The "**Layout Switch**" and "**Inline Highlight**" features of Enhanced Readabilities plugin are temporarily unavailable on screens on mobile devices, so if you're reading on mobile but still want to see the results, check out the video demo below.
 :::
 
+::: details Video demo
 <video controls muted>
   <source src="./assets/demo-video-1.en.mov">
 </video>
+:::
 
 ## Why
 
@@ -332,7 +334,7 @@ You can override the plugin's localized text through configuration, and before y
 
 In the [Configuration](#configuration) section, we've learned how to provide configuration options for the Reading Enhancement plugin in VitePress, and we can configure internationalization by adding the `locales` field to the configuration options:
 
-<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
 ```typescript
 // Rest of code...

@@ -8,9 +8,11 @@
 阅读增强的「**布局切换**」和「**行内高亮**」功能在移动端暂时不可用，如果你正在使用移动端阅读但还是想要看看效果的话，不妨看看下面的视频演示。
 :::
 
+::: details 视频演示
 <video controls muted>
   <source src="./assets/demo-video-1.zh-CN.mov">
 </video>
+:::
 
 ## 为什么
 

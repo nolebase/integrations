@@ -4,7 +4,9 @@ import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-l
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  lastUpdated: true,
   themeConfig: {
+    outline: 'deep',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nolebase/integrations' },
     ],
@@ -32,12 +34,18 @@ export default defineConfig({
             text: 'Integrations',
             items: [
               { text: 'Overview', link: '/pages/en/integrations/' },
-              {
-                text: 'Markdown It Plugins',
-                items: [
-                  { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
-                ],
-              },
+            ],
+          },
+          {
+            text: 'Markdown It Plugins',
+            items: [
+              { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+            ],
+          },
+          {
+            text: 'VitePress Plugins',
+            items: [
+              { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
             ],
           },
         ],
@@ -65,12 +73,19 @@ export default defineConfig({
             text: '集成',
             items: [
               { text: '概览', link: '/pages/zh-CN/integrations/' },
-              {
-                text: 'Markdown It 插件',
-                items: [
-                  { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
-                ],
-              },
+
+            ],
+          },
+          {
+            text: 'Markdown It 插件',
+            items: [
+              { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+            ],
+          },
+          {
+            text: 'VitePress 插件',
+            items: [
+              { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
             ],
           },
         ],

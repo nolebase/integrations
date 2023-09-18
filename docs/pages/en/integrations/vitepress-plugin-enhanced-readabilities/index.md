@@ -1,0 +1,503 @@
+# Enhanced Readabilities
+
+## Demo
+
+See the <span i-icon-park-outline:book-open text-red-400 /> button in the upper right corner on navigation bar? You can use your mouse to hover over it to see the supported features, click on the one you are interested in to see the effect!
+
+::: warning Caution
+The "**Layout Switch**" and "**Inline Highlight**" features of Enhanced Readabilities plugin are temporarily unavailable on screens on mobile devices, so if you're reading on mobile but still want to see the results, check out the video demo below.
+:::
+
+<video controls muted>
+  <source src="./assets/demo-video-1.en.mov">
+</video>
+
+## Why
+
+I often find myself uncomfortable reading code blocks and other wide elements in VitePress-built sites, and this discomfort is often due to the presence of code blocks and elements in the body of the text that need to be scrolled through, and even though in many ways narrower content is easier to read and scan through, the need to scroll can actually make the reading experience worse, so this plugin tries to solve this (and many more) problems from another angle.
+
+### Problems solved
+
+1. Expand the width of the content on a large screen, in order to better utilize the space to facilitate the reading of some of the oversized and wide code blocks and elements.
+2. Users and readers may have dyslexia, widening the layout may not be conducive to read multiple lines of text, there may be a serial reading situation, so we need an in-line reading aid .
+3. When reading languages that use spaces to separate words, such as English, we need a word-level reading aid, such as bionic reading. (In progress)
+
+> These are just some of the issues I can think of that I've been able to address in my long hours of learning and using the plugin, and the plugin doesn't limit itself to working on these issues. You can also open a separate Issue in [GitHub](https://github.com/nolebase/integrations) to discuss problems you think might be solved and your ideas.
+
+I know that this kind of functionality can be made into a browser plugin across a wide variety of different sites, but I think VitePress is clearly a better and faster testing playground, and since Nólëbase is based on VitePress, I wanted to make this plugin as part of an integration that would make it easy for me and everyone else to integrate it directly into the VitePress project and give it a try.
+
+### Features included
+
+1. Layout switch
+2. Inline highlight
+
+Why don't we talk and introduce less, and let's take a look at the demo of the plugin.
+
+## How to use
+
+### Installation
+
+I can't wait, just tell me how to get it into my project!
+
+You can install `@nolebase/vitepress-plugin-enhanced-readabilities` as one of your VitePress project dependencies with the following command:
+
+::: code-group
+
+```shell [pnpm]
+pnpm add @nolebase/vitepress-plugin-enhanced-readabilities
+```
+
+```shell [npm]
+npm install @nolebase/vitepress-plugin-enhanced-readabilities
+```
+
+```shell [yarn]
+yarn add @nolebase/vitepress-plugin-enhanced-readabilities
+```
+
+:::
+
+### Integrate with VitePress
+
+In VitePress's **theme configuration file** (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced- readabilities` import and add it to the `Layout` extension:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+::: code-group
+
+```typescript [docs/.vitepress/theme/index.ts]
+import { h } from 'vue'
+import DefaultTheme from 'vitepress/theme'
+import type { Theme as ThemeConfig } from 'vitepress'
+import { // [!code ++]
+  NolebaseEnhancedReadabilitiesMenu, // [!code ++]
+  NolebaseEnhancedReadabilitiesScreenMenu, // [!code ++]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+
+import './styles/vars.css'
+import './styles/main.css'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css' // [!code ++]
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    return h(DefaultTheme.Layout, null, {
+      // A enhanced readabilities menu for wider screens
+      'nav-bar-content-after': () => h(NolebaseEnhancedReadabilitiesMenu), // [!code ++]
+      // A enhanced readabilities menu for narrower screens (usually smaller than iPad Mini)
+      'nav-screen-content-after': () => h(NolebaseEnhancedReadabilitiesScreenMenu), // [!code ++]
+    })
+  },
+  enhanceApp() {
+    // other configurations...
+  },
+}
+
+export default Theme
+```
+
+:::
+
+::: warning VitePress style glitched?
+You may notice a slight misalignment in the style of the navigation bar after integrating the navigation bar component with social links configured, this is because VitePress native social links component have a **negative 16 pixel right margin** as deviation by default.
+
+You can fix this by adding the following style to the `.vitepress/theme/styles` directory or to the `main.css` style file under the `.vitepress/theme/styles` folder:
+
+```css
+.VPSocialLinks.VPNavBarSocialLinks.social-links {
+  margin-right: 0;
+}
+```
+
+If you don't have this file, you can create a `main.css` file and import this style file in the VitePress theme configuration file `.vitepress/theme/index.ts`:
+
+```typescript
+import './styles/main.css' // [!code ++]
+```
+
+:::
+
+::: info Already have `h()` function being called after `nav-bar-content-after` or `nav-screen-content-after`?
+
+If you have already configured other components for your `nav-bar-content-after` or `nav-screen-content-after`, you can work around this by rewriting them as arrays starting with `[` and ending with `]`, as in the following writeup:
+
+```typescript
+// Rest of the code...
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    return h(DefaultTheme.Layout, null, {
+      'nav-bar-content-after': () => h(OtherComponent), // Your other nav components // [!code --]
+      'nav-bar-content-after': () => [ // [!code ++]
+        h(OtherComponent), // Your other nav components // [!code ++]
+        h(NolebaseEnhancedReadabilitiesMenu), // Enhanced Readabilities menu // [!code ++]
+      ], // [!code ++]
+      'nav-screen-content-after': () => h(OtherComponent), // Your other nav components // [!code --]
+      'nav-screen-content-after': () => [ // [!code ++]
+        h(OtherComponent), // Your other nav components // [!code ++]
+        h(NolebaseEnhancedReadabilitiesScreenMenu), // Enhanced Readabilities menu for small screens // [!code ++]
+      ], // [!code ++]
+    })
+  },
+  enhanceApp({ app }) {
+    // other configurations...
+  },
+}
+
+export default Theme
+```
+
+:::
+
+### Integrate on-demand
+
+<!--@include: @/pages/en/snippets/configure-on-your-own-warning.md-->
+
+The Enhanced Readabilities plugin exports the components it uses internally, so if you don't like the style and encapsulation of the default menu buttons, etc., you can use these components directly to freely configure your menu buttons:
+
+#### Install as a Vue plugin
+
+```typescript
+import {
+  NolebaseEnhancedReadabilitiesPlugin // [!code focus]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+```
+
+If you are working on a VitePress and wanted to install it into Vue instance, you can do it like this:
+
+```typescript
+// Rest of the code...
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // Rest of the code...
+  },
+  enhanceApp({ app }) {
+    app.use(NolebaseEnhancedReadabilitiesPlugin) // [!code ++]
+  },
+}
+
+export default Theme
+```
+
+Of course you can also provide the relevant configuration directly when installing the plugin:
+
+```typescript
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // Rest of the code...
+  },
+  enhanceApp({ app }) {
+    app.use(NolebaseEnhancedReadabilitiesPlugin, {  // [!code ++]
+      locales: {  // [!code ++]
+        'zh-CN': {  // [!code ++]
+          title: {  // [!code ++]
+            title: '阅读增强插件',  // [!code ++]
+          }  // [!code ++]
+        },  // [!code ++]
+        'en': {  // [!code ++]
+          title: {  // [!code ++]
+            title: 'Enhanced Readabilities Plugin',  // [!code ++]
+          }  // [!code ++]
+        }  // [!code ++]
+      }  // [!code ++]
+    } as Options) // [!code ++]
+  },
+}
+
+export default Theme
+```
+
+For more information on configuration, see [Configuration](#Configuration).
+
+#### Import layout switching components on demand
+
+```typescript
+import {
+  LayoutSwitch,  // [!code focus]
+  ScreenLayoutSwitch,  // [!code focus]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+```
+
+#### Import inline highlight components on demand
+
+```typescript
+import {
+  InlineHighlight,  // [!code focus]
+  ScreenInlineHighlight, // [!code focus]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+```
+
+## Configuration
+
+The Reading Enhancements plugin currently provides configuration options related to **Internationalization** and **Help Tooltip**.
+
+### Configure in VitePress
+
+Since VitePress doesn't provide more functionality for the default theme to expand the theme configuration, it is not friendly to the type checking and maintenance of the configuration if we directly modify the VitePress configuration file to provide configuration for the plugin.
+
+Therefore we offer a way with [Vue's dependency injection](<https://vuejs.org/> api/composition-api-dependency-injection.html#injection) to provide options and configuration for the plugin:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // Rest of the code...
+  },
+  enhanceApp({ app }) {
+    // Rest of the code...
+
+    app.provide(InjectionKey, { // [!code ++]
+      // 配置... // [!code ++]
+    } as Options) // [!code ++]
+
+    // Rest of the code...
+  },
+}
+```
+
+For more information on internationalization configuration, see [Internationalization](#Internationalization).
+
+### Options inside
+
+::: details Complete configurable options
+
+```typescript
+/**
+ * Options
+ */
+export interface Options {
+  /**
+   * Internationalization configuration
+   *
+   * When configuring, please configure according to the language code configured in
+   * VitePress internationalization configuration. In the following configuration, 'en'
+   * and 'zh-CN' are the language codes configured in VitePress internationalization
+   * configuration.
+   *
+   * @default undefined
+   * @example
+   * ```ts
+   * {
+   *  locales: {
+   *    'en': {
+   *      title: {
+   *       title: 'Reading Mode',
+   *      titleAriaLabel: 'Reading Mode',
+   *    },
+   *    'zh-CN': {
+   *       title: {
+   *         title: '阅读模式',
+   *         titleAriaLabel: '阅读模式',
+   *     },
+   *   }
+   * }
+   * ```
+   */
+  locales?: Record<string, Locale>
+  /**
+   * Disable layout switch help tooltip
+   */
+  disableLayoutSwitchHelp?: boolean
+  /**
+   * Disable inline highlight help tooltip
+   */
+  disableInlineHighlightHelp?: boolean
+}
+```
+
+:::
+
+## Internationalization
+
+::: warning Caution
+The Enhanced Readabilities plugin does not use [vue-i18n](https://vue-i18n.intlify.dev/) as an i18n toolkit since most of VitePress probably uses [VitePress's internationalization features](https://vitepress.dev/guide/i18n) for internationalization, so it is impossible to override the fields of the localized text of the Enhanced Readabilities plugin with `vue-i18n`, but you can achieve it with the `locales` field in [Configuration](#configuration).
+:::
+
+The Enhanced Readabilities plugin supports internationalization by default, with English and Simplified Chinese as supported languages by default.
+
+You can override the plugin's localized text through configuration, and before you start, you need to understand how VitePress is internationalized: [Internationalization of VitePress](https://vitepress.dev/guide/i18n). The Reading Enhancement plugin reads the VitePress language field by default, so you'll need to be careful to keep the internationalized language code the same as the VitePress language code when configuring it.
+
+### Configure in VitePress
+
+In the [Configuration](#configuration) section, we've learned how to provide configuration options for the Reading Enhancement plugin in VitePress, and we can configure internationalization by adding the `locales` field to the configuration options:
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+```typescript
+// Rest of code...
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // Rest of code...
+  },
+  enhanceApp({ app }) {
+    // Rest of code...
+
+    app.provide(InjectionKey, {
+      locales: { // i18n // [!code ++]
+        'zh-CN': { // configure for Simplified Chinese // [!code ++]
+          title: { // [!code ++]
+            title: '阅读增强插件', // [!code ++]
+          } // [!code ++]
+        }, // [!code ++]
+        'en': { // configure for English // [!code ++]
+          title: { // [!code ++]
+            title: 'Enhanced Readabilities Plugin', // [!code ++]
+          } // [!code ++]
+        } // [!code ++]
+      } // [!code ++]
+    } as Options)
+
+    // Rest of code...
+  },
+}
+```
+
+### Locales options
+
+::: details Complete internationalization field options
+
+```typescript
+/**
+ * Locale
+ */
+export interface Locale {
+  /**
+   * Title
+   *
+   * Used to configure the title of the menu located on the top-right corner of the page.
+   */
+  title?: {
+    /**
+     * Title text
+     */
+    title?: string
+    /**
+     * Title aria-label
+     */
+    titleAriaLabel?: string
+  }
+  /**
+   * Layout switch configuration
+   *
+   * Used to configure the layout switch menu.
+   */
+  layoutSwitch?: {
+    /**
+     * Title text
+     */
+    title?: string
+    /**
+     * Title aria-label
+     */
+    titleAriaLabel?: string
+    /**
+     * Title help message
+     */
+    titleHelpMessage?: string
+    /**
+     * Title warning message for navigation menu in small screen
+     */
+    titleScreenNavWarningMessage?: string
+    /**
+     * Option: Expand all text
+     */
+    optionFullWidth?: string
+    /**
+     * Option: Expand all aria-label
+     */
+    optionFullWidthAriaLabel?: string
+    /**
+     * Option: Expand all help message
+     */
+    optionFullWidthHelpMessage?: string
+    /**
+     * Option: Expand only sidebar text
+     */
+    optionOnlySidebarFullWidth?: string
+    /**
+     * Option: Expand only sidebar aria-label
+     */
+    optionOnlySidebarFullWidthAriaLabel?: string
+    /**
+     * Option: Expand only sidebar help message
+     */
+    optionOnlySidebarFullWidthHelpMessage?: string
+    /**
+     * Option: Fit content width text
+     */
+    optionFitContentWidth?: string
+    /**
+     * Option: Fit content width aria-label
+     */
+    optionFitContentWidthAriaLabel?: string
+    /**
+     * Option: Fit content width help message
+     */
+    optionFitContentWidthHelpMessage?: string
+  }
+  /**
+   * Inline highlight configuration
+   */
+  inlineHighlight?: {
+    /**
+     * Title text
+     */
+    title?: string
+    /**
+     * Title aria-label
+     */
+    titleAriaLabel?: string
+    /**
+     * Title help message
+     */
+    titleHelpMessage?: string
+    /**
+     * Title warning message for navigation menu in small screen
+     */
+    titleScreenNavWarningMessage?: string
+    /**
+     * Option: On text
+     */
+    optionOn?: string
+    /**
+     * Option: On aria-label
+     */
+    optionOnAriaLabel?: string
+    /**
+     * Option: On help message
+     */
+    optionOnHelpMessage?: string
+    /**
+     * Option: Off text
+     */
+    optionOff?: string
+    /**
+     * Option: Off aria-label
+     */
+    optionOffAriaLabel?: string
+    /**
+     * Option: Off help message
+     */
+    optionOffHelpMessage?: string
+  }
+}
+```
+
+:::
+
+## Accessibility
+
+The Enhanced Readabilities plugin provides accessibility support by default. You can override accessible labels (aria-label) via [Configuration](#configuration) in the same way as [Internationalization](#internationalization), see [Locales Options](#locales-options) for a description of what labels can be configured for accessibility.

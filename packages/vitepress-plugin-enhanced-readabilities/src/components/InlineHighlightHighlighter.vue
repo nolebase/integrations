@@ -127,9 +127,8 @@ watch(() => props.enabled, (val) => {
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"
-      fixed
+      fixed z-50
       pointer-events-none
-      z-50
       border="1 $vp-c-brand"
       class="VPNolebaseInlineHighlighter"
     />

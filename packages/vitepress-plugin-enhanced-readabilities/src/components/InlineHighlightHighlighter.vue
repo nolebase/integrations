@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, watch, reactive, Teleport, onMounted } from 'vue'
+import { ref, watch, reactive, Teleport, onMounted, inject } from 'vue'
 import { useElementBounding, useElementByPoint, useEventListener, useMouseInElement, useElementVisibility, useMouse } from '@vueuse/core'
 import { useRoute } from 'vitepress'
+import { InjectionKey } from '../types';
+
+const options = inject(InjectionKey, {})
 
 const props = defineProps<{ enabled: boolean }>()
 
@@ -38,7 +41,7 @@ function computeBoxStyles(bounding: {
     height: `${bounding.height + 8}px`,
     left: `${bounding.left - 4}px`,
     top: `${bounding.top - 4}px`,
-    backgroundColor: 'rgb(240 197 52 / 10%)',
+    backgroundColor: options?.inlineHighlightHoverBlockColor || 'rgb(240 197 52 / 10%)',
     transition: 'all 0.2s ease',
     borderRadius: '8px',
   }
@@ -128,6 +131,7 @@ watch(() => props.enabled, (val) => {
       pointer-events-none
       z-50
       border="1 $vp-c-brand"
+      class="VPNolebaseInlineHighlighter"
     />
   </Teleport>
 </template>

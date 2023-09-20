@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { LayoutMode } from '../types'
 import { useI18n } from '../composables/i18n'
+import MenuTitle from './MenuTitle.vue'
+import MenuOption from './MenuOption.vue'
 
 const { t } = useI18n()
 </script>

@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/index.ts',
-      name: 'vitepress-plugin-nolebase-enhanced-readabilities',
+      name: '@nolebase/vitepress-plugin-nolebase-enhanced-readabilities',
       fileName: 'index',
     },
     rollupOptions: {

@@ -2,15 +2,15 @@
 import { onMounted, ref, watch, inject } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
-import { LayoutMode, InjectionKey, Options } from '../types'
+import { LayoutMode, InjectionKey } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
 
+const options = inject(InjectionKey, {})
+
 const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
-
-const options = inject<Options>(InjectionKey, {})
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')

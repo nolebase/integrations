@@ -6,12 +6,12 @@ import InlineHighlightHighlighter from './InlineHighlightHighlighter.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
 import MenuHelp from './MenuHelp.vue'
-import { InjectionKey, Options } from '../types'
+import { InjectionKey } from '../types'
+
+const options = inject(InjectionKey, {})
 
 const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
-
-const options = inject<Options>(InjectionKey, {})
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')

@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-enhanced-readabilities",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A VitePress plugin enhances the readabilities for VitePress built sites.",
   "author": {
     "name": "Nólëbase",
@@ -15,7 +15,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/src/index.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.umd.cjs"
     },

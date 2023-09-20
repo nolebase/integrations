@@ -68,7 +68,7 @@ const model = computed({
     background-color: var(--vp-c-default-soft);
   }
 
-  &:hover {
+  &:not(.disabled):hover {
     color: var(--vp-c-brand-1);
     background-color: var(--vp-c-default-soft);
   }

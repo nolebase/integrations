@@ -1,10 +1,10 @@
+import type { InjectionKey as VueInjectionKey } from 'vue'
+
 export enum LayoutMode {
   FullWidth = 1,
   OnlySidebarFullWidth = 2,
   FitContentWidth = 3,
 }
-
-export const InjectionKey = Symbol('vitepress-nolebase-enhanced-readabilities')
 
 /**
  * Locale
@@ -235,12 +235,26 @@ export interface Options {
    * Disable layout switch help tooltip
    *
    * 显示布局切换帮助提示
+   *
+   * @default false
    */
   disableLayoutSwitchHelp?: boolean
   /**
    * Disable inline highlight help tooltip
    *
    * 显示行内高亮帮助提示
+   *
+   * @default false
    */
   disableInlineHighlightHelp?: boolean
+  /**
+   * Inline highlighter hover block color
+   *
+   * 行内高亮器鼠标悬停块颜色
+   *
+   * @default 'rgb(240 197 52 / 10%)'
+   */
+  inlineHighlightHoverBlockColor?: string
 }
+
+export const InjectionKey: VueInjectionKey<Options> = Symbol('vitepress-nolebase-enhanced-readabilities')

@@ -1,5 +1,3 @@
-import type { InjectionKey as VueInjectionKey } from 'vue'
-
 export enum LayoutMode {
   FullWidth = 1,
   OnlySidebarFullWidth = 2,
@@ -256,5 +254,3 @@ export interface Options {
    */
   inlineHighlightHoverBlockColor?: string
 }
-
-export const InjectionKey: VueInjectionKey<Options> = Symbol('vitepress-nolebase-enhanced-readabilities')

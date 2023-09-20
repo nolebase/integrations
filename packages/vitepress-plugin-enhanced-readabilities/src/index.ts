@@ -5,9 +5,14 @@ import type {
 } from './types'
 
 import {
-  InjectionKey,
   LayoutMode,
 } from './types'
+
+import {
+  InjectionKey,
+  InlineHighlightModeStorageKey,
+  LayoutSwitchModeStorageKey,
+} from './constants'
 
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
 import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
@@ -23,8 +28,10 @@ export {
   NolebaseEnhancedReadabilitiesScreenMenu,
   LayoutSwitch,
   ScreenLayoutSwitch,
+  LayoutSwitchModeStorageKey,
   InlineHighlight,
   ScreenInlineHighlight,
+  InlineHighlightModeStorageKey,
   InjectionKey,
   LayoutMode,
 }

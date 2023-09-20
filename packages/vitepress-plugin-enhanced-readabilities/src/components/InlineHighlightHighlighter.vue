@@ -2,7 +2,7 @@
 import { ref, watch, reactive, Teleport, onMounted, inject } from 'vue'
 import { useElementBounding, useElementByPoint, useEventListener, useMouseInElement, useElementVisibility, useMouse } from '@vueuse/core'
 import { useRoute } from 'vitepress'
-import { InjectionKey } from '../types';
+import { InjectionKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 

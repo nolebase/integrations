@@ -3,8 +3,23 @@ import { LayoutMode } from '../types'
 import { useI18n } from '../composables/i18n'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
+import { useMediaQuery } from '@vueuse/core';
+import { onMounted, watch } from 'vue';
 
 const { t } = useI18n()
+const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
+
+onMounted(() => {
+  if (!isLargerThanMobile.value) {
+    console.warn('Mobile detected, switching to FitContentWidth layout mode.')
+  }
+})
+
+watch(isLargerThanMobile, () => {
+  if (!isLargerThanMobile.value) {
+    console.warn('Mobile detected, switching to FitContentWidth layout mode.')
+  }
+})
 </script>
 
 <template>

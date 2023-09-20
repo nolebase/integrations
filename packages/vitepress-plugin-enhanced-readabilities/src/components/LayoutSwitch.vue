@@ -2,19 +2,21 @@
 import { onMounted, ref, watch, inject } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
-import { LayoutMode, InjectionKey } from '../types'
+import { LayoutMode } from '../types'
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
+import { InjectionKey, LayoutSwitchModeStorageKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 
 const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
+const disabled = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const layoutMode = useStorage('vitepress-nolebase-enhanced-readabilities-layout-switch-mode', LayoutMode.FitContentWidth)
+const layoutMode = useStorage(LayoutSwitchModeStorageKey, LayoutMode.FitContentWidth)
 const { t } = useI18n()
 
 function animate(element: HTMLElement) {
@@ -61,14 +63,14 @@ watch(layoutMode, (val) => {
 watch(isLargerThanMobile, () => {
   if (!isLargerThanMobile.value) {
     console.warn('Mobile detected, switching to FitContentWidth layout mode.')
-    layoutMode.value = LayoutMode.FitContentWidth
+    disabled.value = true
   }
 })
 
 onMounted(() => {
   if (!isLargerThanMobile.value) {
     console.warn('Mobile detected, switching to FitContentWidth layout mode.')
-    layoutMode.value = LayoutMode.FitContentWidth
+    disabled.value = true
   }
 })
 </script>
@@ -81,6 +83,7 @@ onMounted(() => {
         :title="t('layoutSwitch.title')"
         :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
         flex="1"
+        :disabled="disabled"
       />
       <MenuHelp
         v-if="!options.disableLayoutSwitchHelp"
@@ -127,27 +130,30 @@ onMounted(() => {
     >
       <MenuOption
         v-model="layoutMode"
-        icon="i-icon-park-outline:full-screen-one"
         :title="t('layoutSwitch.optionFullWidth')"
         :aria-label="t('layoutSwitch.optionFullWidthAriaLabel')"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.FullWidth"
+        :disabled="disabled"
+        icon="i-icon-park-outline:full-screen-one"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
       />
       <MenuOption
         v-model="layoutMode"
-        icon="i-icon-park-outline:off-screen"
         :title="t('layoutSwitch.optionOnlySidebarFullWidth')"
         :aria-label="t('layoutSwitch.optionOnlySidebarFullWidthAriaLabel')"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.OnlySidebarFullWidth"
+        :disabled="disabled"
+        icon="i-icon-park-outline:off-screen"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
       />
       <MenuOption
         v-model="layoutMode"
-        icon="i-icon-park-outline:off-screen-one"
         :title="t('layoutSwitch.optionFitContentWidth')"
         :aria-label="t('layoutSwitch.optionFitContentWidthAriaLabel')"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
         :value="LayoutMode.FitContentWidth"
+        :disabled="disabled"
+        icon="i-icon-park-outline:off-screen-one"
+        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
       />
     </fieldset>
   </div>

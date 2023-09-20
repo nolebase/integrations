@@ -1,7 +1,7 @@
 import { inject } from 'vue'
 import { useData } from 'vitepress'
 import type { Options } from '../types'
-import { InjectionKey } from '../types'
+import { InjectionKey } from '../constants'
 import { defaultEnLocale, defaultZhCNLocale } from '../locales'
 
 export function useI18n() {

@@ -6,29 +6,30 @@ import InlineHighlightHighlighter from './InlineHighlightHighlighter.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
 import MenuHelp from './MenuHelp.vue'
-import { InjectionKey } from '../types'
+import { InjectionKey, InlineHighlightModeStorageKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 
 const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
+const disabled = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const inlineHighlightModeOn = useStorage('vitepress-nolebase-enhanced-readabilities-inline-highlight-mode', false)
+const inlineHighlightModeOn = useStorage(InlineHighlightModeStorageKey, false)
 const { t } = useI18n()
 
 onMounted(() => {
   if (!isLargerThanMobile.value) {
     console.warn('Mobile detected, disabled inline highlight mode.')
-    inlineHighlightModeOn.value = false
+    disabled.value = true
   }
 })
 
 watch(isLargerThanMobile, () => {
   if (!isLargerThanMobile.value) {
     console.warn('Mobile detected, disabled inline highlight mode.')
-    inlineHighlightModeOn.value = false
+    disabled.value = true
   }
 })
 </script>
@@ -41,6 +42,7 @@ watch(isLargerThanMobile, () => {
         icon="i-icon-park-outline:click"
         :title="t('inlineHighlight.title')"
         :aria-label="t('inlineHighlight.titleArialLabel') || t('inlineHighlight.title')"
+        :disabled="disabled"
         flex="1"
         mr-4
       />
@@ -84,17 +86,19 @@ watch(isLargerThanMobile, () => {
         v-model="inlineHighlightModeOn"
         :title="t('inlineHighlight.optionOn')"
         :aria-label="t('inlineHighlight.optionOnAriaLabel')"
+        :value="true"
+        :disabled="disabled"
         text="ON"
         name="VitePress Nolebase Enhanced Readabilities Inline Highlighter Mode Switch"
-        :value="true"
       />
       <MenuOption
         v-model="inlineHighlightModeOn"
         :title="t('inlineHighlight.optionOff')"
         :aria-label="t('inlineHighlight.optionOffAriaLabel')"
+        :value="false"
+        :disabled="disabled"
         text="OFF"
         name="VitePress Nolebase Enhanced Readabilities Inline Highlighter Mode Switch"
-        :value="false"
       />
     </fieldset>
   </div>

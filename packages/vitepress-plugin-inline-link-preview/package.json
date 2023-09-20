@@ -9,6 +9,12 @@
     "url": "https://github.com/nolebase"
   },
   "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-inline-link-preview/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-inline-link-preview"
+  },
   "keywords": [
     "vitepress",
     "nolebase",

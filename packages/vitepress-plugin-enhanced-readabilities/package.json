@@ -9,6 +9,12 @@
     "url": "https://github.com/nolebase"
   },
   "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-enhanced-readabilities/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-enhanced-readabilities"
+  },
   "keywords": [
     "vitepress", "nolebase", "a11y", "readabilities", "markdown", "vitepress-plugin", "nolebase-integration"
   ],

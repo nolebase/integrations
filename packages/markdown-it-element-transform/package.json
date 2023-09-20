@@ -2,10 +2,29 @@
   "name": "@nolebase/markdown-it-element-transform",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "A markdown-it plugin that transforms elements.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
   "license": "MIT",
-  "keywords": [],
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/markdown-it-element-transform/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/markdown-it-element-transform"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "readabilities",
+    "markdown",
+    "markdown-it",
+    "markdown-it-plugin",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",

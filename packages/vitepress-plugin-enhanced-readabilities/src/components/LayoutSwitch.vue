@@ -62,14 +62,12 @@ watch(layoutMode, (val) => {
 
 watch(isLargerThanMobile, () => {
   if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, switching to FitContentWidth layout mode.')
     disabled.value = true
   }
 })
 
 onMounted(() => {
   if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, switching to FitContentWidth layout mode.')
     disabled.value = true
   }
 })

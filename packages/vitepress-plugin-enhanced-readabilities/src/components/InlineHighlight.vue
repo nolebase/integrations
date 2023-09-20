@@ -21,14 +21,12 @@ const { t } = useI18n()
 
 onMounted(() => {
   if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, disabled inline highlight mode.')
     disabled.value = true
   }
 })
 
 watch(isLargerThanMobile, () => {
   if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, disabled inline highlight mode.')
     disabled.value = true
   }
 })

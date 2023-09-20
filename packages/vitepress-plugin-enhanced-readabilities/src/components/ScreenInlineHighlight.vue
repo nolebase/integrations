@@ -3,20 +3,22 @@ import { useI18n } from '../composables/i18n'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
 import { useMediaQuery } from '@vueuse/core';
-import { onMounted, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
+
+const disabled = ref(true)
 
 const { t } = useI18n()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
 onMounted(() => {
-  if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, disabled inline highlight mode.')
+  if (isLargerThanMobile.value) {
+    disabled.value = false
   }
 })
 
 watch(isLargerThanMobile, () => {
-  if (!isLargerThanMobile.value) {
-    console.warn('Mobile detected, disabled inline highlight mode.')
+  if (isLargerThanMobile.value) {
+    disabled.value = false
   }
 })
 </script>

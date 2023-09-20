@@ -54,7 +54,9 @@ const isOneOfPreviewHosts = computed<boolean>(() => {
   if (options.previewAllHostNames) {
     return true
   }
-  if (options.previewLocalHostName === undefined && options.previewLocalHostName === true) {
+
+  let previewLocalHostName = options.previewLocalHostName === undefined ? defaultLinkPreviewPopupOptions.previewLocalHostName : options.previewLocalHostName
+  if (previewLocalHostName) {
     return window.location.host === hrefHost.value
   }
   if (typeof options.handleShouldPreviewHostNames === 'function') {

@@ -36,7 +36,7 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
-    app.use(NolebaseInlineLinkPreview, { popupWidth: 800, popupHeight: 600 })
+    app.use(NolebaseInlineLinkPreview)
   },
 }
 

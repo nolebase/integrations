@@ -37,7 +37,7 @@
 
 ### 安装
 
-我等不及了，快告诉我怎么弄到我的项目里！
+> 我等不及了，快告诉我怎么弄到我的项目里！
 
 你可以通过下面的命令将 `@nolebase/vitepress-plugin-enhanced-readabilities` 安装到你的项目依赖中：
 

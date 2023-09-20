@@ -16,7 +16,7 @@ The "**Layout Switch**" and "**Inline Highlight**" features of Enhanced Readabil
 
 ## Why
 
-I often find myself uncomfortable reading code blocks and other wide elements in VitePress-built sites, and this discomfort is often due to the presence of code blocks and elements in the body of the text that need to be scrolled through, and even though in many ways narrower content is easier to read and scan through, the need to scroll can actually make the reading experience worse, so this plugin tries to solve this (and many more) problems from another angle.
+I often find myself uncomfortable reading code blocks and other wide elements in VitePress-built sites, and this discomfort is often due to the presence of code blocks and elements in the body of the text that need to be scrolled through, even though shorter content is easier to read and scan, the scrolling can worse the reading experience entirely, so this plugin tries to solve this (and many more) problems from another angle.
 
 ### Problems solved
 
@@ -26,20 +26,18 @@ I often find myself uncomfortable reading code blocks and other wide elements in
 
 > These are just some of the issues I can think of that I've been able to address in my long hours of learning and using the plugin, and the plugin doesn't limit itself to working on these issues. You can also open a separate Issue in [GitHub](https://github.com/nolebase/integrations) to discuss problems you think might be solved and your ideas.
 
-I know that this kind of functionality can be made into a browser plugin across a wide variety of different sites, but I think VitePress is clearly a better and faster testing playground, and since Nólëbase is based on VitePress, I wanted to make this plugin as part of an integration that would make it easy for me and everyone else to integrate it directly into the VitePress project and give it a try.
+I know that this kind of functionality can be made into a browser plugin to cover a wide variety of different sites, but I think VitePress is clearly a better and faster testing playground, and since Nólëbase is based on VitePress, I wanted to make this plugin as part of an integration that would make it easy for me and everyone else to integrate it directly into the VitePress project and give it a try.
 
 ### Features included
 
 1. Layout switch
 2. Inline highlight
 
-Why don't we talk and introduce less, and let's take a look at the demo of the plugin.
-
 ## How to use
 
 ### Installation
 
-I can't wait, just tell me how to get it into my project!
+> I can't wait, just tell me how to get it into my project!
 
 You can install `@nolebase/vitepress-plugin-enhanced-readabilities` as one of your VitePress project dependencies with the following command:
 
@@ -241,7 +239,7 @@ The Reading Enhancements plugin currently provides configuration options related
 
 ### Configure in VitePress
 
-Since VitePress doesn't provide more functionality for the default theme to expand the theme configuration, it is not friendly to the type checking and maintenance of the configuration if we directly modify the VitePress configuration file to provide configuration for the plugin.
+Since VitePress doesn't provide more functionality for the default theme to extend the default theme configuration, it is not friendly to the type checking and maintenance of the configuration if we directly modify the major VitePress configuration object to provide options for the plugin.
 
 Therefore we offer a way with [Vue's dependency injection](https://vuejs.org/api/composition-api-dependency-injection.html#injection) to provide options and configuration for the plugin:
 

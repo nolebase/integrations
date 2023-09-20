@@ -10,4 +10,12 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <br />
 
+<IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform" />
+
+<br />
+
 <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities" />
+
+<br />
+
+<IntegrationCard type="vitepress" title="行内链接预览" package="vitepress-plugin-inline-link-preview" />

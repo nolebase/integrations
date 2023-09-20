@@ -41,12 +41,14 @@ export default defineConfig({
             text: 'Markdown It Plugins',
             items: [
               { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+              { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
             ],
           },
           {
             text: 'VitePress Plugins',
             items: [
               { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+              { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
             ],
           },
         ],
@@ -81,12 +83,14 @@ export default defineConfig({
             text: 'Markdown It 插件',
             items: [
               { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+              { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
             ],
           },
           {
             text: 'VitePress 插件',
             items: [
               { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+              { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
             ],
           },
         ],

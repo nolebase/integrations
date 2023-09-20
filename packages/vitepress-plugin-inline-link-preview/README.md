@@ -24,4 +24,4 @@ pnpm add @nolebase/vitepress-plugin-inline-link-preview
 
 ## Documentation
 
-Please refer to [Inline Link Previewing](https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-inline-link-preview/) for more information.
+Please refer to [Inline Links Previewing](https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-inline-link-preview/) for more information.

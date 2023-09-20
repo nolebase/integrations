@@ -10,4 +10,12 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <br />
 
+<IntegrationCard type="markdown-it" title="Elements Transformation" package="markdown-it-element-transform" />
+
+<br />
+
 <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities" />
+
+<br />
+
+<IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview" />

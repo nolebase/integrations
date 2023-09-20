@@ -243,7 +243,7 @@ The Reading Enhancements plugin currently provides configuration options related
 
 Since VitePress doesn't provide more functionality for the default theme to expand the theme configuration, it is not friendly to the type checking and maintenance of the configuration if we directly modify the VitePress configuration file to provide configuration for the plugin.
 
-Therefore we offer a way with [Vue's dependency injection](<https://vuejs.org/> api/composition-api-dependency-injection.html#injection) to provide options and configuration for the plugin:
+Therefore we offer a way with [Vue's dependency injection](https://vuejs.org/api/composition-api-dependency-injection.html#injection) to provide options and configuration for the plugin:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
@@ -260,7 +260,7 @@ export const Theme: ThemeConfig = {
     // Rest of the code...
 
     app.provide(InjectionKey, { // [!code ++]
-      // 配置... // [!code ++]
+      // Configuration... // [!code ++]
     } as Options) // [!code ++]
 
     // Rest of the code...

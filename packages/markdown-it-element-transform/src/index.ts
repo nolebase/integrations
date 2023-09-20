@@ -1,7 +1,17 @@
 import type { PluginSimple } from 'markdown-it'
 import type Token from 'markdown-it/lib/token'
 
-export const MarkdownItTokenTransform: (options: {
+/**
+ * A markdown-it plugin to transform the token
+ * @param options The options for the plugin
+ * @returns The markdown-it plugin
+ */
+const MarkdownItTokenTransform: (options: {
+  /**
+   * The function to transform the token
+   * @param token The token to be transformed
+   * @param env The environment of the markdown-it
+   */
   transformToken: (token: Token, env: any) => void
 }) => PluginSimple = (options) => {
   return (md) => {
@@ -24,3 +34,5 @@ export const MarkdownItTokenTransform: (options: {
     )
   }
 }
+
+export default MarkdownItTokenTransform

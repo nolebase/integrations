@@ -64,9 +64,9 @@ async function handleIframeOnLoad(e: Event) {
 
   if (options.handleIframeLoaded) {
     if (options.handleIframeLoaded instanceof Promise)
-      await options.handleIframeLoaded(iframeElement)
+      await options.handleIframeLoaded(window, iframeElement)
     else
-      options.handleIframeLoaded(iframeElement)
+      options.handleIframeLoaded(window, iframeElement)
   }
 
   setTimeout(() => {

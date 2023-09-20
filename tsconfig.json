@@ -23,7 +23,8 @@
     ],
     "paths": {
       "@nolebase/markdown-it-element-transform": ["./packages/markdown-it-element-transform/src/index.ts"],
-      "@nolebase/vitepress-plugin-enhanced-readabilities": ["./packages/vitepress-plugin-enhanced-readabilities/dist/index.d.ts"]
+      "@nolebase/vitepress-plugin-enhanced-readabilities": ["./packages/vitepress-plugin-enhanced-readabilities/dist/index.d.ts"],
+      "@nolebase/vitepress-plugin-inline-link-preview": ["./packages/vitepress-plugin-inline-link-preview/dist/index.d.ts"]
     }
   },
   "include": [

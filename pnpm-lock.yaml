@@ -66,6 +66,9 @@ importers:
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-enhanced-readabilities
+      '@nolebase/vitepress-plugin-inline-link-preview':
+        specifier: workspace:^
+        version: link:../packages/vitepress-plugin-inline-link-preview
       unocss:
         specifier: ^0.55.7
         version: 0.55.7(postcss@8.4.28)(rollup@3.28.1)(vite@4.4.9)
@@ -121,6 +124,39 @@ importers:
       unplugin-vue-macros:
         specifier: ^2.5.1
         version: 2.5.1(@vueuse/core@10.4.1)(rollup@3.28.1)(vite@4.4.9)(vue@3.3.4)
+      vite:
+        specifier: ^4.4.9
+        version: 4.4.9(@types/node@20.6.0)(less@4.2.0)
+      vitepress:
+        specifier: 1.0.0-rc.12
+        version: 1.0.0-rc.12(@algolia/client-search@4.19.1)(@types/node@20.6.0)(less@4.2.0)(search-insights@2.8.2)
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+      vue-tsc:
+        specifier: ^1.8.11
+        version: 1.8.11(typescript@5.1.6)
+
+  packages/vitepress-plugin-inline-link-preview:
+    devDependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.12
+        version: 1.1.12
+      '@iconify-json/svg-spinners':
+        specifier: ^1.1.2
+        version: 1.1.2
+      '@vitejs/plugin-vue':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@4.4.9)(vue@3.3.4)
+      '@vueuse/core':
+        specifier: ^10.4.1
+        version: 10.4.1(vue@3.3.4)
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
+      unocss:
+        specifier: ^0.55.7
+        version: 0.55.7(postcss@8.4.28)(rollup@3.28.1)(vite@4.4.9)
       vite:
         specifier: ^4.4.9
         version: 4.4.9(@types/node@20.6.0)(less@4.2.0)
@@ -1146,6 +1182,12 @@ packages:
 
   /@iconify-json/octicon@1.1.49:
     resolution: {integrity: sha512-wv/uSwSkxk4O0VituCjiFkHVhKVHM7MdE4vvRmyAutK+EcBemThJlQcCJR8CX9/LdRKKboC6K0t75a/KVKdjOg==}
+    dependencies:
+      '@iconify/types': 2.0.0
+    dev: true
+
+  /@iconify-json/svg-spinners@1.1.2:
+    resolution: {integrity: sha512-Aab6SqkORaTJ1W+ooufn6C8BsBitrn3uk8iRQLPA6pjhyvQAhkKCGMctyXIL5ZjrycnoFVsZ4mx7KnwEMra8qg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

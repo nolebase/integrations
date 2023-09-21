@@ -4,20 +4,90 @@
 
 [[双向链接示例页面]]
 
+自定义文案：[[双向链接示例页面|自定义文案]]
+
+兼容自定义属性：[[双向链接示例页面|自定义属性]]{style="color: red;"}
+
+Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-links/same-name/双向链接示例同名页面|双向链接示例同名页面]] 和 [[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例同名页面|双向链接示例同名页面]]
+
+绝对路径：[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
+
 ## 介绍
 
 **双向链接** （也被称之为内部链接，英文 Bi-directional links 和 Internal links），和也许你也了解和听说过另一个有关的概念 [WikiLinks](https://en.wikipedia.org/wiki/Help:Link)，在文档工程中有着非常重要的地位，它通常用于快速的建立一个页面到另一个页面的连接（或者链接），在 [Wikipedia](https://wikipedia.org) 这样的 Wiki 框架中，以及现在所流行的 [Obsidian](https://obsidian.md/) 和 [Logseq](https://logseq.com/) 中都被广泛使用。
 
-这个插件是 [Obsidian](https://obsidian.md) 的[内部链接](https://help.obsidian.md/Linking+notes+and+files/Internal+links)的兼容实现版本，它遵循两条规则：
+这个插件是 [Obsidian](https://obsidian.md) 的[内部链接](https://help.obsidian.md/Linking+notes+and+files/Internal+links)的全功能兼容实现版本，它遵循两条规则：
 
 1. 一个页面的文件名称（不包含扩展名）可以作为一个链接的目标，例如：`[[双向链接示例页面]]` 将会被解析为一个指向全局唯一的 `双向链接示例页面.md` 文件的链接。
 2. 一个链接的目标可以是一个绝对路径，例如：`[[某个文件夹/双向链接示例页面]]` 将会被解析为一个指向 `某个文件夹/双向链接示例页面.md` 的链接，通常出现在你有多个同名文件的时候。
 
 ### 用法示例
 
+<br>
+
+#### 基本用法
+
 ```markdown
 [[双向链接目标页面的文件名称]]
 ```
+
+效果
+
+[[双向链接示例页面]]
+
+#### 改显示的文案
+
+```markdown
+[[双向链接目标页面的文件名称|自定义文案]]
+```
+
+效果
+
+[[双向链接示例页面|自定义文案]]
+
+#### 兼容 [`markdown-it-attrs`](https://github.com/arve0/markdown-it-attrs) 修改 HTML 属性（Attribute）
+
+<br>
+
+##### 改颜色
+
+```markdown
+[[双向链接目标页面的文件名称]]{style="color: red;"}
+```
+
+效果
+
+[[双向链接示例页面]]{style="color: red;"}
+
+##### 改类名
+
+```markdown
+[[双向链接目标页面的文件名称]]{.some-class}
+```
+
+效果
+
+[[双向链接示例页面]]{.some-class}
+
+#### 绝对路径
+
+```markdown
+[[某个完整路径]]
+```
+
+效果
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
+
+#### 绝对路径和自定义文案
+
+```markdown
+[[某个文件夹|自定义文案]]
+```
+
+效果
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|自定义文案]]
 
 ## 如何使用
 

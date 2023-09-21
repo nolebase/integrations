@@ -4,20 +4,90 @@
 
 [[Bi-directional Links Example Page]]
 
+Custom text: [[Bi-directional Links Example Page|Custom Text]]
+
+Compatible to modify the HTML attributes [[Bi-directional Links Example Page|Custom Attrs]]{style="color: red;"}
+
+Obsidian same name pages: [[pages/en/integrations/markdown-it-bi-directional-links/same-name/Bi-directional Links Example Same Name Page|Bi-directional Links Example Same Name Page]] 和 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Same Name Page|Bi-directional Links Example Same Name Page]]
+
+Absolute Path: [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
+
 ## Introduction
 
 **Bi-directional links** (also known as internal links), and another concept you may know and hear about [WikiLinks](https://en.wikipedia.org/wiki/Help:Link), holds a important place in the document engineering area. It is usually used to quickly establish a connection (or link) from one page to another page, and widely used in Wiki pages such as [Wikipedia](https://wikipedia.org), and now days popular tools such as [Obsidian](https://obsidian.md/) and [Logseq](https://logseq.com/).
 
-This plugin is a compatible implementation version of [Obsidian](https://obsidian.md)'s [internal links](https://help.obsidian.md/Linking+notes+and+files/Internal+links), it follows two rules:
+This plugin is a fully featured compatible implementation version of [Obsidian](https://obsidian.md)'s [internal links](https://help.obsidian.md/Linking+notes+and+files/Internal+links), it follows two rules:
 
 1. A page's file name (without extension) can be used as a link target, for example: `[[Bi-directional Links Example Page]]` will be parsed as a link to the globally unique `Bi-directional Links Example Page.md` file.
 2. A link target can be an absolute path, for example: `[[Some Folder/Bi-directional Links Example Page]]` will be parsed as a link to `Some Folder/Bi-directional Links Example Page.md`, usually appears when you have multiple files with the same name.
 
-### Example
+### Examples
+
+<br>
+
+#### Basic
 
 ```markdown
 [[Target Page File Name]]
 ```
+
+Demo
+
+[[Bi-directional Links Example Page]]
+
+#### Custom Text
+
+```markdown
+[[Target Page File Name|Custom Text]]
+```
+
+Demo
+
+[[Bi-directional Links Example Page|Custom Text]]
+
+#### Compatible with [`markdown-it-attrs`](https://github.com/arve0/markdown-it-attrs) to modify HTML attributes
+
+<br>
+
+##### Change color
+
+```markdown
+[[Target Page File Name]]{style="color: red;"}
+```
+
+Demo
+
+[[Bi-directional Links Example Page]]{style="color: red;"}
+
+##### Change class name
+
+```markdown
+[[Target Page File Name]]{.custom-class}
+```
+
+Demo
+
+[[Bi-directional Links Example Page]]{.custom-class}
+
+### Absolute path
+
+```markdown
+[[Some Full Path Reference to Your Page]]
+```
+
+Demo
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
+
+### Absolute path with custom text
+
+```markdown
+[[Some Full Path Reference to Your Page|Custom Text]]
+```
+
+Demo
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|Custom Text]]
 
 ## How to use
 

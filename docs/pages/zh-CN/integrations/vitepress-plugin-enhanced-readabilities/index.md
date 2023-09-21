@@ -59,7 +59,71 @@ yarn add @nolebase/vitepress-plugin-enhanced-readabilities
 
 ### 为 VitePress 配置
 
-在 VitePress 的**主题配置文件**中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-enhanced-readabilities` 导入，并且将其添加到 `Layout` 的拓展中：
+配置分为两个大步骤：
+
+1. [添加 Vite 相关的配置](#添加-vite-相关的配置)
+2. [添加 VitePress 主题相关的配置](#添加-vitepress-主题相关的配置)
+
+#### 添加 Vite 相关的配置
+
+首先，请在你的 VitePress [**核心配置文件**](https://vitepress.dev/reference/site-config#config-resolution) 中（注意不是**主题配置文件**，通常为`docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别）的根字段中添加 [Vite](https://vitejs.dev) 与 [SSR 服务端渲染相关](https://cn.vitejs.dev/config/ssr-options.html#ssr-external) 的配置。
+
+将阅读增强的插件包 `@nolebase/vitepress-plugin-enhanced-readabilities` 添加到需要 VitePress 底层的 Vite 帮忙处理的依赖：
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  vite: { // [!code ++]
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
+  themeConfig: {
+    lang: 'zh-CN',
+    title: '网站标题',
+    // 其他的配置...
+  }
+  // 其他的配置...
+})
+```
+
+如果你很厉害，为 VitePress 的文档站点配置了分离和单独的 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`），那你也可以省略上面的配置，直接在 Vite 的配置文件中添加下面的配置：
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vite'
+
+export default defineConfig(() => {
+  return {
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    optimizeDeps: {
+      exclude: ['vitepress'],
+    },
+    plugins: [
+      // 其他 Vite 插件配置...
+    ],
+    // 其他的配置...
+  }
+})
+
+```
+
+如果你在没有单独配置过 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`）的情况下想要直接复制上面的代码的话，只需要在 VitePress 站点所在的地方新建一个 `vite.config.ts` 即可，不过也记得还需要通过包管理器安装一下 `vite` 哦。
+
+#### 添加 VitePress 主题相关的配置
+
+在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-enhanced-readabilities` 导入，并且将其添加到 `Layout` 的拓展中：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
@@ -572,3 +636,69 @@ export interface Locale {
 ## 无障碍
 
 阅读增强插件默认提供了无障碍的支持，你可以通过 [配置](#配置) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
+
+## 遇到了问题？
+
+### 请求的模块 `vitepress` 没有提供名为 `useData` 的导出 或者 请求的模块 `vitepress` 没有提供名为 `useRoute` 的导出
+
+如果你已经正确配置好了 VitePress，你可能会在首次配置阅读增强插件的时候遇到如下的问题：
+
+错误信息：`The requested module 'vitepress' does not provide an export named 'useData'` 或者 `The requested module 'vitepress' does not provide an export named 'useRoute'`
+
+完整的命令行报错：
+
+```shell
+build error:
+file://Docs/dist/index.js:2
+import { useData as Fe, withBase as tt, useRoute as nt } from "vitepress";
+         ^^^^^^^
+SyntaxError: The requested module 'vitepress' does not provide an export named 'useData'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:124:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:190:5)
+```
+
+无论是因为没有 `useData` 还是 `useRoute`，你都可以参考下面的步骤进行检查和参考。
+
+这样的问题可能由几个因素导致：
+
+#### VitePress 版本并不兼容
+
+你也许真的使用了一个不支持 [`useData()`](https://vitepress.dev/reference/runtime-api#usedata) 函数或者 [`useRoute()`](https://vitepress.dev/reference/runtime-api#useroute) 功能的 VitePress 版本。
+
+一般而言通过运行 VitePress 启动脚本 `docs:dev` 可以检查 VitePress 的版本：
+
+::: code-group
+
+```shell [pnpm]
+pnpm docs:dev
+```
+
+```shell [npm]
+npm run docs:dev
+```
+
+```shell [yarn]
+yarn docs:dev
+```
+
+:::
+
+运行之后结果应该是这样的：
+
+```shell
+> @nolebase/integrations-docs@ docs:dev /nolebase/integrations/docs
+> vitepress dev
+
+
+  vitepress v1.0.0-rc.12
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h to show help
+```
+
+这行 **vitepress v1.0.0-rc.12** 就是你的 VitePress 的版本号啦，Nólëbase 集成默认要求大于等于 `vitepress v1.0.0-beta.1` 这个版本，如果你的版本是 alpha 甚至更古老的版本，那么你需要升级 VitePress 到最新的版本。
+
+#### 缺少了在章节 [添加 Vite 相关的配置](#添加-vite-相关的配置) 中的配置
+
+如果你不小心跳过了章节 [添加 Vite 相关的配置](#添加-vite-相关的配置) 中的配置，那这将会导致阅读增强插件内部对于 VitePress 相关组件的引用在构建文档时无法被正确解析和处理。也正因为没有被处理到位，所以我们需要确保根据 [添加 Vite 相关的配置](#添加-vite-相关的配置) 中的配置来配置 VitePress。

@@ -59,7 +59,71 @@ yarn add @nolebase/vitepress-plugin-enhanced-readabilities
 
 ### Integrate with VitePress
 
-In VitePress's **theme configuration file** (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced- readabilities` import and add it to the `Layout` extension:
+It consists two major steps to integrate the Enhanced Readabilities plugin into your VitePress project:
+
+1. [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
+2. [Add plugin into the Theme options of VitePress](#add-plugin-into-the-theme-options-of-vitepress)
+
+#### Add plugin-specific options into configurations of Vite
+
+First of all, in VitePress's [**primary configuration file**](https://vitepress.dev/reference/site-config#config-resolution) (not this is not a **theme configuration file**, it's usually located at `docs/.vitepress/config.ts`, file paths and extensions may be vary), you need to supply some of the [Server-Side Rendering related options](https://vitejs.dev/guide/ssr.html#ssr-externals) in the root configuration object of [Vite](https://vitejs.dev).
+
+Add the Enhanced Readabilities plugin package name `@nolebase/vitepress-plugin-enhanced-readabilities` into the Vite options that required by VitePress to process this plugin:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  vite: { // [!code ++]
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
+  themeConfig: {
+    lang: 'en',
+    title: 'Site Name',
+    // rest of the options...
+  }
+  // rest of the options...
+})
+```
+
+You might have configured the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) if you are already mastered Vite. In this case, you could ignore the above configuration and add the following configuration to your Vite configuration file:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vite'
+
+export default defineConfig(() => {
+  return {
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    optimizeDeps: {
+      exclude: ['vitepress'],
+    },
+    plugins: [
+      // other vite plugins...
+    ],
+    // other vite configurations...
+  }
+})
+
+```
+
+If you haven't configured any of the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) before but still want to have a try with the above configuration, you can create a `vite.config.ts` file in the root directory of your VitePress project and add the above configuration to it. (Don't forget to install `vite` through your package manager as well!)
+
+#### Add plugin into the Theme options of VitePress
+
+In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced-readabilities` import and add it to the `Layout` extension:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
@@ -501,3 +565,67 @@ export interface Locale {
 ## Accessibility
 
 The Enhanced Readabilities plugin provides accessibility support by default. You can override accessible labels (aria-label) via [Configuration](#configuration) in the same way as [Internationalization](#internationalization), see [Locales Options](#locales-options) for a description of what labels can be configured for accessibility.
+
+## Problems? Let's Troubleshoot
+
+### The requested module `vitepress` does not provide an export named `useData` or The requested module `vitepress` does not provide an export named `useRoute`
+
+If you have already configured your VitePress that working properly, you might encounter the above error when you try to install and integrate the Enhanced Readabilities plugin for the first time.
+
+This is part of the command output, use it as reference if you want:
+
+```shell
+build error:
+file://Docs/dist/index.js:2
+import { useData as Fe, withBase as tt, useRoute as nt } from "vitepress";
+         ^^^^^^^
+SyntaxError: The requested module 'vitepress' does not provide an export named 'useData'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:124:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:190:5)
+```
+
+However, it's ok if the error message is saying either `useData` or `useRoute`, you could still use some of the following steps to troubleshoot it and get some references.
+
+Such errors are usually caused by the following reasons:
+
+#### You are using an older version of VitePress (or incompatible)
+
+You might have actually installed and used a old version of VitePress that didn't support the `useData` and `useRoute` composables long before.
+
+To check this, you can check the version of VitePress by running the script `docs:dev` with the following command:
+
+::: code-group
+
+```shell [pnpm]
+pnpm docs:dev
+```
+
+```shell [npm]
+npm run docs:dev
+```
+
+```shell [yarn]
+yarn docs:dev
+```
+
+:::
+
+The output might look like this:
+
+```shell
+> @nolebase/integrations-docs@ docs:dev /nolebase/integrations/docs
+> vitepress dev
+
+
+  vitepress v1.0.0-rc.12
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h to show help
+```
+
+The line `vitepress v1.0.0-rc.12` indicates your VitePress version as `v1.0.0-rc.12`, by default, Nólëbase Integrations (include Enhanced Readabilities and the other integrations) requires at least `vitepress v1.0.0-beta.1`, if you are using some of the versions long before (e.g. alpha), you have to upgrade your VitePress to the nearest compatible version to resolve this issue.
+
+#### You might missed the configurations in section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
+
+If you incautiously missed the configurations in section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite), the reference to `vitepress` inside of the Enhanced Readabilities plugin might be broken or miss-processed when building your VitePress site. So you have to configure it accurately by following the section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite) accordingly.

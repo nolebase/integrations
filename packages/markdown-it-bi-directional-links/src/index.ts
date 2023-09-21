@@ -5,7 +5,12 @@ import type { PluginSimple } from 'markdown-it'
 const biDirectionalLinkPattern = /\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 const biDirectionalLinkPatternWithStart = /^\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 
-function findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks: Record<string, string>, possibleBiDirectionalLinksInFilePaths: Record<string, string>, possibleBiDirectionalLinksInFullFilePaths: Record<string, string>, link: RegExpMatchArray) {
+function findBiDirectionalLinks(
+  alreadyMatchedBiDirectionalLinks: Record<string, string>,
+  possibleBiDirectionalLinksInFilePaths: Record<string, string>,
+  possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
+  link: RegExpMatchArray,
+) {
   if (link.length < 2 || (!link[0] || !link[1]))
     return null
 
@@ -18,6 +23,14 @@ function findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks: Record<string,
   return possibleBiDirectionalLinksInFilePaths[link[1]]
 }
 
+/**
+ * A markdown-it plugin to support bi-directional links.
+ * @param options - Options.
+ * @param options.dir - The directory to search for bi-directional links.
+ * @param options.baseDir - The base directory joined as href for bi-directional links.
+ * @param options.includesPatterns - The glob patterns to search for bi-directional links.
+ * @returns
+ */
 const MarkdownItBiDirectionalLinks: (options: {
   dir: string
   baseDir?: string
@@ -26,7 +39,7 @@ const MarkdownItBiDirectionalLinks: (options: {
   const rootDir = options.dir
   const includes = options?.includesPatterns ?? []
 
-  const possibleBiDirectionalLinksInFilePaths: Record<string, string> = {}
+  const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
   const possibleBiDirectionalLinksInFullFilePaths: Record<string, string> = {}
   const alreadyMatchedBiDirectionalLinks: Record<string, string> = {}
 
@@ -46,18 +59,22 @@ const MarkdownItBiDirectionalLinks: (options: {
     })
 
     for (const file of files) {
-      const cleanBaseName = basename(file).replace(extname(file), '')
-      const existingFileName = possibleBiDirectionalLinksInFilePaths[cleanBaseName]
+      const relativeFilePath = relative(rootDir, file)
+      const ext = extname(relativeFilePath)
+      const partialFilePathWithOnlyBaseName = basename(relativeFilePath).replace(ext, '')
+      const fullFilePathWithoutExt = relativeFilePath.replace(ext, '')
+
+      const existingFileName = possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
 
       // when conflict
       if (typeof existingFileName === 'string' && existingFileName !== '') {
         // remove key from clean base name map
-        delete possibleBiDirectionalLinksInFilePaths[cleanBaseName]
+        delete possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
         // remove key from full file path map
         delete possibleBiDirectionalLinksInFullFilePaths[existingFileName]
 
         // add key to full file path map
-        possibleBiDirectionalLinksInFullFilePaths[file] = file
+        possibleBiDirectionalLinksInFullFilePaths[fullFilePathWithoutExt] = relativeFilePath
         // recover deleted and conflicted key to full file path map
         possibleBiDirectionalLinksInFullFilePaths[existingFileName] = existingFileName
 
@@ -65,8 +82,8 @@ const MarkdownItBiDirectionalLinks: (options: {
       }
 
       // otherwise, add key to both maps
-      possibleBiDirectionalLinksInFilePaths[cleanBaseName] = file
-      possibleBiDirectionalLinksInFullFilePaths[file] = file
+      possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName] = relativeFilePath
+      possibleBiDirectionalLinksInFullFilePaths[fullFilePathWithoutExt] = relativeFilePath
     }
   }
 
@@ -83,21 +100,26 @@ const MarkdownItBiDirectionalLinks: (options: {
       if (!biDirectionalLinkPatternWithStart.exec(link.input))
         return false
 
-      const newLink = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInFilePaths, possibleBiDirectionalLinksInFullFilePaths, link)
-      if (!newLink) {
-        console.error('a bi-directional link with', `0: ${link[0]}, 1: ${link[1]}, input: ${link.input}`, 'was matched by RegExp but it fails to pair a possible link within the current directory.')
+      const inputContent = link.input
+      const markupTextContent = link[0]
+      const href = link[1]
+      const text = link[3]
+
+      const matchedHref = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, link)
+      if (!matchedHref) {
+        console.error('[MarkdownItBiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  text: ${text}`)
         return false
       }
 
-      const resolvedNewLink = join(options.baseDir ?? '/', relative(rootDir, newLink))
+      const resolvedNewHref = join(options.baseDir ?? '/', relative(rootDir, matchedHref))
 
       // Create new link_open
       const openToken = state.push('link_open', 'a', 1)
-      openToken.attrSet('href', resolvedNewLink)
+      openToken.attrSet('href', resolvedNewHref)
 
       // text
       const textToken = state.push('text', '', 0)
-      textToken.content = link[1]
+      textToken.content = text || href
 
       // and link_close tokens
       state.push('link_close', 'a', -1)
@@ -110,4 +132,12 @@ const MarkdownItBiDirectionalLinks: (options: {
   }
 }
 
+/**
+ * A markdown-it plugin to support bi-directional links.
+ * @param options - Options.
+ * @param options.dir - The directory to search for bi-directional links.
+ * @param options.baseDir - The base directory joined as href for bi-directional links.
+ * @param options.includesPatterns - The glob patterns to search for bi-directional links.
+ * @returns
+ */
 export default MarkdownItBiDirectionalLinks

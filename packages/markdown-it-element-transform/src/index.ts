@@ -4,6 +4,7 @@ import type Token from 'markdown-it/lib/token'
 /**
  * A markdown-it plugin to transform the token
  * @param options The options for the plugin
+ * @param options.transformToken The function to transform the token
  * @returns The markdown-it plugin
  */
 const MarkdownItTokenTransform: (options: {
@@ -35,4 +36,10 @@ const MarkdownItTokenTransform: (options: {
   }
 }
 
+/**
+ * A markdown-it plugin to transform the token
+ * @param options The options for the plugin
+ * @param options.transformToken The function to transform the token
+ * @returns The markdown-it plugin
+ */
 export default MarkdownItTokenTransform

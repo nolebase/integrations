@@ -1,5 +1,6 @@
 {
   "name": "@nolebase/markdown-it-bi-directional-links",
+  "type": "module",
   "version": "1.0.0",
   "description": "A markdown-it plugin that adds Obsidian compatible internal links (bi-directional links) to your markdown.",
   "author": {

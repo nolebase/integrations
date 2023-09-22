@@ -10,16 +10,16 @@ import {
 
 import {
   InjectionKey,
-  InlineHighlightModeStorageKey,
   LayoutSwitchModeStorageKey,
+  SpotlightToggledStorageKey,
 } from './constants'
 
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
 import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
 import LayoutSwitch from './components/LayoutSwitch.vue'
 import ScreenLayoutSwitch from './components/ScreenLayoutSwitch.vue'
-import InlineHighlight from './components/InlineHighlight.vue'
-import ScreenInlineHighlight from './components/ScreenInlineHighlight.vue'
+import Spotlight from './components/Spotlight.vue'
+import ScreenSpotlight from './components/ScreenSpotlight.vue'
 
 import 'virtual:uno.css'
 
@@ -29,9 +29,10 @@ export {
   LayoutSwitch,
   ScreenLayoutSwitch,
   LayoutSwitchModeStorageKey,
-  InlineHighlight,
-  ScreenInlineHighlight,
-  InlineHighlightModeStorageKey,
+  Spotlight,
+  ScreenSpotlight,
+  SpotlightToggledStorageKey,
+  Options,
   InjectionKey,
   LayoutMode,
 }
@@ -41,8 +42,8 @@ const components = {
   NolebaseEnhancedReadabilitiesScreenMenu,
   NolebaseEnhancedReadabilitiesLayoutSwitch: LayoutSwitch,
   NolebaseEnhancedReadabilitiesScreenLayoutSwitch: ScreenLayoutSwitch,
-  NolebaseEnhancedReadabilitiesInlineHighlight: InlineHighlight,
-  NolebaseEnhancedReadabilitiesScreenInlineHighlight: ScreenInlineHighlight,
+  NolebaseEnhancedReadabilitiesSpotlight: Spotlight,
+  NolebaseEnhancedReadabilitiesScreenSpotlight: ScreenSpotlight,
 }
 
 export const NolebaseEnhancedReadabilitiesPlugin: Plugin = {

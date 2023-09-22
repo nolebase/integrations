@@ -122,11 +122,11 @@ export interface Locale {
     optionFitContentWidthHelpMessage?: string
   }
   /**
-   * Inline highlight configuration
+   * Spotlight configuration
    *
-   * 行内高亮配置
+   * 聚光灯配置
    */
-  inlineHighlight?: {
+  spotlight?: {
     /**
      * Title text
      *
@@ -229,28 +229,44 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  /**
-   * Disable layout switch help tooltip
-   *
-   * 显示布局切换帮助提示
-   *
-   * @default false
-   */
-  disableLayoutSwitchHelp?: boolean
-  /**
-   * Disable inline highlight help tooltip
-   *
-   * 显示行内高亮帮助提示
-   *
-   * @default false
-   */
-  disableInlineHighlightHelp?: boolean
-  /**
-   * Inline highlighter hover block color
-   *
-   * 行内高亮器鼠标悬停块颜色
-   *
-   * @default 'rgb(240 197 52 / 10%)'
-   */
-  inlineHighlightHoverBlockColor?: string
+  layoutSwitch?: {
+    /**
+     * Disable layout switch help tooltip
+     *
+     * 显示布局切换帮助提示
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * Default mode for layout switch
+     *
+     * @default LayoutMode.FitContentWidth (3) 自适应内容宽度
+     */
+    defaultMode?: LayoutMode
+  }
+  spotlight?: {
+    /**
+     * Disable spotlight help tooltip
+     *
+     * 显示聚光灯帮助提示
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * Spotlight hover block color
+     *
+     * 聚光灯器鼠标悬停块颜色
+     *
+     * @default 'rgb(240 197 52 / 10%)'
+     */
+    hoverBlockColor?: string
+    /**
+     * Default toggle for spotlight
+     *
+     * @default false
+     */
+    defaultToggle?: boolean
+  }
 }

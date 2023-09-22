@@ -3,7 +3,7 @@ import { useMounted } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
 import MenuTitle from './MenuTitle.vue'
 import ScreenLayoutSwitch from './ScreenLayoutSwitch.vue'
-import ScreenInlineHighlight from './ScreenInlineHighlight.vue'
+import ScreenSpotlight from './ScreenSpotlight.vue'
 
 const mounted = useMounted()
 const { t } = useI18n()
@@ -18,7 +18,7 @@ const { t } = useI18n()
     />
     <div flex="~ col" pl-4 space-y-2>
       <ScreenLayoutSwitch />
-      <ScreenInlineHighlight />
+      <ScreenSpotlight />
     </div>
   </div>
 </template>

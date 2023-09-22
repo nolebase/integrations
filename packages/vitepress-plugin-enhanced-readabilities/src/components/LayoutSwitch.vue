@@ -16,7 +16,7 @@ const disabled = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const layoutMode = useStorage(LayoutSwitchModeStorageKey, LayoutMode.FitContentWidth)
+const layoutMode = useStorage(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.FitContentWidth)
 const { t } = useI18n()
 
 function animate(element: HTMLElement) {
@@ -84,7 +84,7 @@ onMounted(() => {
         :disabled="disabled"
       />
       <MenuHelp
-        v-if="!options.disableLayoutSwitchHelp"
+        v-if="!options.layoutSwitch?.disableHelp"
         :menu-title-element-ref="menuTitleElementRef"
         v-model:is-popped-up="isMenuHelpPoppedUp"
       >

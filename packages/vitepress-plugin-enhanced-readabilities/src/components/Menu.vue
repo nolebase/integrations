@@ -2,7 +2,7 @@
 import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vue'
 import LayoutSwitchLayoutIcon from './MenuIcon.vue'
 import LayoutSwitch from './LayoutSwitch.vue'
-import MouseOverElementHighlight from './InlineHighlight.vue'
+import MouseOverElementHighlight from './Spotlight.vue'
 import { useMounted } from '@vueuse/core';
 import { useI18n } from '../composables/i18n';
 

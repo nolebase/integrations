@@ -2,11 +2,11 @@
 import { onMounted, ref, watch, inject } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
-import InlineHighlightHighlighter from './InlineHighlightHighlighter.vue'
+import SpotlightHoverBlock from './SpotlightHoverBlock.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
 import MenuHelp from './MenuHelp.vue'
-import { InjectionKey, InlineHighlightModeStorageKey } from '../constants'
+import { InjectionKey, SpotlightToggledStorageKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 
@@ -16,7 +16,7 @@ const disabled = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const inlineHighlightModeOn = useStorage(InlineHighlightModeStorageKey, false)
+const spotlightToggledOn = useStorage(SpotlightToggledStorageKey, options.spotlight?.defaultToggle || false)
 const { t } = useI18n()
 
 onMounted(() => {
@@ -34,41 +34,41 @@ watch(isLargerThanMobile, () => {
 
 <template>
   <div space-y-2 role="radiogroup">
-    <InlineHighlightHighlighter v-if="mounted && inlineHighlightModeOn" :enabled="inlineHighlightModeOn" />
+    <SpotlightHoverBlock v-if="mounted && spotlightToggledOn" :enabled="spotlightToggledOn" />
     <div flex items-center relative ref="menuTitleElementRef">
       <MenuTitle
         icon="i-icon-park-outline:click"
-        :title="t('inlineHighlight.title')"
-        :aria-label="t('inlineHighlight.titleArialLabel') || t('inlineHighlight.title')"
+        :title="t('spotlight.title')"
+        :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
         :disabled="disabled"
         flex="1"
         mr-4
       />
       <MenuHelp
-        v-if="!options.disableInlineHighlightHelp"
+        v-if="!options.spotlight?.disableHelp"
         :menu-title-element-ref="menuTitleElementRef"
         v-model:is-popped-up="isMenuHelpPoppedUp"
       >
         <h4 text-md font-semibold mb-1>
-          {{ t('inlineHighlight.title') }}
+          {{ t('spotlight.title') }}
         </h4>
         <p max-w-100 text="sm" mb-2>
-          <span>{{ t('inlineHighlight.titleHelpMessage') }}</span>
+          <span>{{ t('spotlight.titleHelpMessage') }}</span>
         </p>
         <div space-y-2>
           <p max-w-100 text="sm" bg="$vp-c-default-soft" p-3 rounded-xl>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>ON</span>
-              <span>{{ t('inlineHighlight.optionOn') }}</span>
+              <span>{{ t('spotlight.optionOn') }}</span>
             </h5>
-            <span>{{ t('inlineHighlight.optionOnHelpMessage') }}</span>
+            <span>{{ t('spotlight.optionOnHelpMessage') }}</span>
           </p>
           <p max-w-100 text="sm" bg="$vp-c-default-soft" p-3 rounded-xl>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>OFF</span>
-              <span>{{ t('inlineHighlight.optionOff') }}</span>
+              <span>{{ t('spotlight.optionOff') }}</span>
             </h5>
-            <span>{{ t('inlineHighlight.optionOffHelpMessage') }}</span>
+            <span>{{ t('spotlight.optionOffHelpMessage') }}</span>
           </p>
         </div>
       </MenuHelp>
@@ -81,22 +81,22 @@ watch(isLargerThanMobile, () => {
       }"
     >
       <MenuOption
-        v-model="inlineHighlightModeOn"
-        :title="t('inlineHighlight.optionOn')"
-        :aria-label="t('inlineHighlight.optionOnAriaLabel')"
+        v-model="spotlightToggledOn"
+        :title="t('spotlight.optionOn')"
+        :aria-label="t('spotlight.optionOnAriaLabel')"
         :value="true"
         :disabled="disabled"
         text="ON"
-        name="VitePress Nolebase Enhanced Readabilities Inline Highlighter Mode Switch"
+        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
       />
       <MenuOption
-        v-model="inlineHighlightModeOn"
-        :title="t('inlineHighlight.optionOff')"
-        :aria-label="t('inlineHighlight.optionOffAriaLabel')"
+        v-model="spotlightToggledOn"
+        :title="t('spotlight.optionOff')"
+        :aria-label="t('spotlight.optionOffAriaLabel')"
         :value="false"
         :disabled="disabled"
         text="OFF"
-        name="VitePress Nolebase Enhanced Readabilities Inline Highlighter Mode Switch"
+        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
       />
     </fieldset>
   </div>

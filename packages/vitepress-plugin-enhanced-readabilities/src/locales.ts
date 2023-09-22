@@ -20,17 +20,17 @@ export const defaultEnLocale: Locale = {
     optionFitContentWidthAriaLabel: 'Fit content width',
     optionFitContentWidthHelpMessage: 'The width of the sidebar and content area will adapt to the width of the content, and the width of the content area will remain the original width.',
   },
-  inlineHighlight: {
-    title: 'Inline Highlight',
-    titleAriaLabel: 'Inline Highlight',
+  spotlight: {
+    title: 'Spotlight',
+    titleAriaLabel: 'Spotlight',
     titleHelpMessage: 'Highlight the line where the mouse is currently hovering in the content to optimize for users who may have reading and focusing difficulties.',
-    titleScreenNavWarningMessage: 'Inline highlight is not available in mobile screen temporarily.',
+    titleScreenNavWarningMessage: 'Spotlight is not available in mobile screen temporarily.',
     optionOn: 'On',
     optionOnAriaLabel: 'On',
-    optionOnHelpMessage: 'Turn on inline highlight.',
+    optionOnHelpMessage: 'Turn on Spotlight.',
     optionOff: 'Off',
     optionOffAriaLabel: 'Off',
-    optionOffHelpMessage: 'Turn off inline highlight.',
+    optionOffHelpMessage: 'Turn off Spotlight.',
   },
 }
 
@@ -54,16 +54,16 @@ export const defaultZhCNLocale: Locale = {
     optionFitContentWidthAriaLabel: '自适应内容宽度',
     optionFitContentWidthHelpMessage: '侧边栏和内容区域宽度将自适应内容宽度，正文内容区域宽度将维持原有宽度。',
   },
-  inlineHighlight: {
-    title: '行内高亮',
-    titleAriaLabel: '行内高亮',
+  spotlight: {
+    title: '聚光灯',
+    titleAriaLabel: '聚光灯',
     titleHelpMessage: '支持在正文中高亮当前鼠标悬停的行和元素，以优化阅读和专注困难的用户的阅读体验。',
-    titleScreenNavWarningMessage: '移动端暂不支持行内高亮。',
+    titleScreenNavWarningMessage: '移动端暂不支持聚光灯。',
     optionOn: '开启',
     optionOnAriaLabel: '开启',
-    optionOnHelpMessage: '开启行内高亮。',
+    optionOnHelpMessage: '开启聚光灯。',
     optionOff: '关闭',
     optionOffAriaLabel: '关闭',
-    optionOffHelpMessage: '关闭行内高亮。',
+    optionOffHelpMessage: '关闭聚光灯。',
   },
 }

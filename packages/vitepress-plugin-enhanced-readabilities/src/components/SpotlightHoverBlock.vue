@@ -41,7 +41,7 @@ function computeBoxStyles(bounding: {
     height: `${bounding.height + 8}px`,
     left: `${bounding.left - 4}px`,
     top: `${bounding.top - 4}px`,
-    backgroundColor: options?.inlineHighlightHoverBlockColor || 'rgb(240 197 52 / 10%)',
+    backgroundColor: options?.spotlight?.hoverBlockColor || 'rgb(240 197 52 / 10%)',
     transition: 'all 0.2s ease',
     borderRadius: '8px',
   }
@@ -130,7 +130,7 @@ watch(() => props.enabled, (val) => {
       fixed z-50
       pointer-events-none
       border="1 $vp-c-brand"
-      class="VPNolebaseInlineHighlighter"
+      class="VPNolebaseSpotlightHoverBlock"
     />
   </Teleport>
 </template>

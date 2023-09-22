@@ -31,7 +31,7 @@ function findBiDirectionalLinks(
  * @param options.includesPatterns - The glob patterns to search for bi-directional links.
  * @returns
  */
-const MarkdownItBiDirectionalLinks: (options: {
+export const BiDirectionalLinks: (options: {
   dir: string
   baseDir?: string
   includesPatterns?: string[]
@@ -107,7 +107,7 @@ const MarkdownItBiDirectionalLinks: (options: {
 
       const matchedHref = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, link)
       if (!matchedHref) {
-        console.error('[MarkdownItBiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  text: ${text}`)
+        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  text: ${text}`)
         return false
       }
 
@@ -131,13 +131,3 @@ const MarkdownItBiDirectionalLinks: (options: {
     })
   }
 }
-
-/**
- * A markdown-it plugin to support bi-directional links.
- * @param options - Options.
- * @param options.dir - The directory to search for bi-directional links.
- * @param options.baseDir - The base directory joined as href for bi-directional links.
- * @param options.includesPatterns - The glob patterns to search for bi-directional links.
- * @returns
- */
-export default MarkdownItBiDirectionalLinks

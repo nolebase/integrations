@@ -5,7 +5,7 @@
 See the <span i-icon-park-outline:book-open text-red-400 /> button in the upper right corner on navigation bar? You can use your mouse to hover over it to see the supported features, click on the one you are interested in to see the effect!
 
 ::: warning Caution
-The "**Layout Switch**" and "**Inline Highlight**" features of Enhanced Readabilities plugin are temporarily unavailable on screens on mobile devices, so if you're reading on mobile but still want to see the results, check out the video demo below.
+The "**Layout Switch**" and "**Spotlight**" features of Enhanced Readabilities plugin are temporarily unavailable on screens on mobile devices, so if you're reading on mobile but still want to see the results, check out the video demo below.
 :::
 
 ::: details Video demo
@@ -31,7 +31,7 @@ I know that this kind of functionality can be made into a browser plugin to cove
 ### Features included
 
 1. Layout switch
-2. Inline highlight
+2. Spotlight
 
 ## How to use
 
@@ -288,12 +288,12 @@ import {
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 ```
 
-#### Import inline highlight components on demand
+#### Import spotlight components on demand
 
 ```typescript
 import {
-  InlineHighlight,  // [!code focus]
-  ScreenInlineHighlight, // [!code focus]
+  Spotlight,  // [!code focus]
+  ScreenSpotlight, // [!code focus]
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 ```
 
@@ -357,26 +357,54 @@ export interface Options {
    *    'en': {
    *      title: {
    *       title: 'Reading Mode',
-   *      titleAriaLabel: 'Reading Mode',
+   *       titleAriaLabel: 'Reading Mode',
+   *      },
    *    },
    *    'zh-CN': {
    *       title: {
    *         title: '阅读模式',
    *         titleAriaLabel: '阅读模式',
+   *       },
    *     },
    *   }
    * }
    * ```
    */
   locales?: Record<string, Locale>
-  /**
-   * Disable layout switch help tooltip
-   */
-  disableLayoutSwitchHelp?: boolean
-  /**
-   * Disable inline highlight help tooltip
-   */
-  disableInlineHighlightHelp?: boolean
+  layoutSwitch?: {
+    /**
+     * Disable layout switch help tooltip
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * Default mode for layout switch
+     *
+     * @default LayoutMode.FitContentWidth (3) Fit content width
+     */
+    defaultMode?: LayoutMode
+  }
+  spotlight?: {
+    /**
+     * Disable spotlight help tooltip
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * Spotlight block color
+     *
+     * @default 'rgb(240 197 52 / 10%)'
+     */
+    hoverBlockColor?: string
+    /**
+     * Default toggle for spotlight
+     *
+     * @default false
+     */
+    defaultToggle?: boolean
+  }
 }
 ```
 
@@ -513,9 +541,9 @@ export interface Locale {
     optionFitContentWidthHelpMessage?: string
   }
   /**
-   * Inline highlight configuration
+   * Spotlight configuration
    */
-  inlineHighlight?: {
+  spotlight?: {
     /**
      * Title text
      */

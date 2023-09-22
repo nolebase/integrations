@@ -2,9 +2,12 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
 
+import type { Options as NolebaseEnhancedReadabilitiesOptions } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+
 import {
-  NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesScreenMenu,
+  InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
+  LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
+  NolebaseEnhancedReadabilitiesMenu, NolebaseEnhancedReadabilitiesScreenMenu,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
 import {
@@ -14,7 +17,6 @@ import {
 import 'virtual:uno.css'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css'
-
 import '@nolebase/vitepress-plugin-inline-link-preview/dist/style.css'
 
 import './styles/vars.css'
@@ -37,6 +39,14 @@ export const Theme: ThemeConfig = {
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
     app.use(NolebaseInlineLinkPreview)
+    app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
+      layoutSwitch: {
+        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.FullWidth,
+      },
+      spotlight: {
+        defaultToggle: true,
+      },
+    } as NolebaseEnhancedReadabilitiesOptions)
   },
 }
 

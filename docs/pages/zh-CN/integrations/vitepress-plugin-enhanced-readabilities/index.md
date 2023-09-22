@@ -5,7 +5,7 @@
 看到右上角的 <span i-icon-park-outline:book-open text-red-400 /> 按钮了吗？你可以使用鼠标悬浮在上面来看到支持的功能，点选一个你感兴趣的功能来看看效果吧！
 
 ::: warning 注意
-阅读增强的「**布局切换**」和「**行内高亮**」功能在移动端暂时不可用，如果你正在使用移动端阅读但还是想要看看效果的话，不妨看看下面的视频演示。
+阅读增强的「**布局切换**」和「**聚光灯**」功能在移动端暂时不可用，如果你正在使用移动端阅读但还是想要看看效果的话，不妨看看下面的视频演示。
 :::
 
 ::: details 视频演示
@@ -31,7 +31,7 @@
 ### 带来了什么功能
 
 1. 布局切换
-2. 行内高亮
+2. 聚光灯
 
 ## 如何使用
 
@@ -289,12 +289,12 @@ import {
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 ```
 
-#### 按需导入行内高亮组件
+#### 按需导入聚光灯组件
 
 ```typescript
 import {
-  InlineHighlight,  // [!code focus]
-  ScreenInlineHighlight, // [!code focus]
+  Spotlight,  // [!code focus]
+  ScreenSpotlight, // [!code focus]
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 ```
 
@@ -337,20 +337,11 @@ export const Theme: ThemeConfig = {
 
 ```typescript
 /**
- * Options
- *
  * 配置项
  */
 export interface Options {
   /**
-   * Internationalization configuration
-   *
    * 国际化配置
-   *
-   * When configuring, please configure according to the language code configured in
-   * VitePress internationalization configuration. In the following configuration, 'en'
-   * and 'zh-CN' are the language codes configured in VitePress internationalization
-   * configuration.
    *
    * 配置的时候请根据 VitePress 中国际化配置中所配置的语言代码来配置，以下面的配置为例的话，'en'
    * 和 'zh-CN' 是 VitePress 的国际化配置中所配置的语言代码。
@@ -363,30 +354,54 @@ export interface Options {
    *    'en': {
    *      title: {
    *       title: 'Reading Mode',
-   *      titleAriaLabel: 'Reading Mode',
+   *       titleAriaLabel: 'Reading Mode',
+   *      },
    *    },
    *    'zh-CN': {
    *       title: {
    *         title: '阅读模式',
    *         titleAriaLabel: '阅读模式',
+   *       },
    *     },
    *   }
    * }
    * ```
    */
   locales?: Record<string, Locale>
-  /**
-   * Disable layout switch help tooltip
-   *
-   * 显示布局切换帮助提示
-   */
-  disableLayoutSwitchHelp?: boolean
-  /**
-   * Disable inline highlight help tooltip
-   *
-   * 显示行内高亮帮助提示
-   */
-  disableInlineHighlightHelp?: boolean
+  layoutSwitch?: {
+    /**
+     * 显示布局切换帮助提示
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * 布局切换默认模式
+     *
+     * @default LayoutMode.FitContentWidth (3) 自适应内容宽度
+     */
+    defaultMode?: LayoutMode
+  }
+  spotlight?: {
+    /**
+     * 显示聚光灯帮助提示
+     *
+     * @default false
+     */
+    disableHelp?: boolean
+    /**
+     * 聚光灯器鼠标悬停块颜色
+     *
+     * @default 'rgb(240 197 52 / 10%)'
+     */
+    hoverBlockColor?: string
+    /**
+     * 聚光灯默认模式
+     *
+     * @default false
+     */
+    defaultToggle?: boolean
+  }
 }
 ```
 
@@ -562,11 +577,11 @@ export interface Locale {
     optionFitContentWidthHelpMessage?: string
   }
   /**
-   * Inline highlight configuration
+   * Spotlight configuration
    *
-   * 行内高亮配置
+   * 聚光灯配置
    */
-  inlineHighlight?: {
+  spotlight?: {
     /**
      * Title text
      *

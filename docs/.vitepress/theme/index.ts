@@ -11,7 +11,7 @@ import {
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
 import {
-  NolebaseInlineLinkPreview,
+  NolebaseInlineLinkPreviewPlugin,
 } from '@nolebase/vitepress-plugin-inline-link-preview'
 
 import 'virtual:uno.css'
@@ -38,7 +38,7 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
-    app.use(NolebaseInlineLinkPreview)
+    app.use(NolebaseInlineLinkPreviewPlugin)
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {
         defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.FullWidth,

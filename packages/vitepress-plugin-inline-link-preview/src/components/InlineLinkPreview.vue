@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from 'vue'
-import { useElementHover, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
+import { useElementHover, useMounted, useMouseInElement, useWindowSize, useMediaQuery } from '@vueuse/core'
 import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
 import { useInIframe } from '../composables/iframe'
 import PopupIframe from './PopupIframe.vue'
@@ -20,6 +20,7 @@ const popupTeleportTargetSelector = computed(() => options.popupTeleportTargetSe
 const mounted = useMounted()
 const { width: windowWidth } = useWindowSize()
 const { livesInIframe } = useInIframe()
+const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
 /** TODO: this is a bit dirty to combine both in element and hover, should have a better way to achieve this  */
 const { isOutside: isOutsideAnchorElement } = useMouseInElement(anchorElement)
@@ -55,7 +56,10 @@ const isOneOfPreviewHosts = computed<boolean>(() => {
     return true
   }
 
-  let previewLocalHostName = options.previewLocalHostName === undefined ? defaultLinkPreviewPopupOptions.previewLocalHostName : options.previewLocalHostName
+  let previewLocalHostName = options.previewLocalHostName === undefined ?
+    defaultLinkPreviewPopupOptions.previewLocalHostName :
+    options.previewLocalHostName
+
   if (previewLocalHostName) {
     return window.location.host === hrefHost.value
   }
@@ -97,7 +101,10 @@ function watchHandler(val: boolean) {
 
   if (val) {
     setTimeout(() => {
-      if (isOutsideAnchorElement.value && !hoverOverAnchorElement.value && isOutsideIframeWrapperElement.value && !hoverOverIframeWrapperElement.value) {
+      if (isOutsideAnchorElement.value &&
+        !hoverOverAnchorElement.value &&
+        isOutsideIframeWrapperElement.value &&
+        !hoverOverIframeWrapperElement.value) {
         hovering.value = false
       }
     }, 200)
@@ -122,7 +129,7 @@ watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
       class="link-preview-link-content-external-icon"
       i-octicon:link-external-16 inline-flex items-center justify-center text-xs
     />
-    <template v-if="mounted">
+    <template v-if="mounted && isLargerThanMobile">
       <Teleport :to="popupTeleportTargetSelector">
         <TransitionGroup name="fade">
           <div
@@ -131,7 +138,7 @@ watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
             flex="~ col"
             absolute top-0 z-100 m-0 overflow-hidden rounded-lg p-0
             border="1 solid $vp-c-divider"
-            class="VPNolebaseInlinePreviewLinkWrapper"
+            class="VPNolebaseInlinePreviewLinkWrapper max-w-[100vw]"
             :style="{
               left: `${popupCoordinatesX}px`,
               top: `${popupCoordinatesY}px`,

@@ -3,7 +3,7 @@ import type { Plugin } from 'vue'
 import { InjectionKey } from './constants'
 import type { Options } from './types'
 
-import LinkPreviewPopup from './components/LinkPreviewPopup.vue'
+import LinkPreviewPopup from './components/InlineLinkPreview.vue'
 
 import 'virtual:uno.css'
 

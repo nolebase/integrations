@@ -18,7 +18,7 @@ const popupHeight = computed(() => options.popupHeight || defaultLinkPreviewPopu
 const popupTeleportTargetSelector = computed(() => options.popupTeleportTargetSelector || defaultLinkPreviewPopupOptions.popupTeleportTargetSelector || 'body')
 
 const mounted = useMounted()
-const { width: windowWidth } = useWindowSize()
+const { width: windowWidth, height: windowHeight } = useWindowSize()
 const { livesInIframe } = useInIframe()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
@@ -84,7 +84,7 @@ function watchHandler(val: boolean) {
 
     hovering.value = true
 
-    const { x, y, right, height, width } = anchorElement.value.getBoundingClientRect()
+    const { x, y, right, height, width, bottom } = anchorElement.value.getBoundingClientRect()
 
     const hasFreeSpaceOnTheRight = right + popupWidth.value < windowWidth.value
     if (hasFreeSpaceOnTheRight)
@@ -92,11 +92,11 @@ function watchHandler(val: boolean) {
     else
       popupCoordinatesX.value = x + window.scrollX - popupWidth.value + width
 
-    const hasFreeSpaceAbove = y - popupHeight.value > 0
-    if (hasFreeSpaceAbove)
-      popupCoordinatesY.value = y + window.scrollY - popupHeight.value - 4
-    else
+    const hasFreeSpaceBelow = bottom + popupHeight.value < windowHeight.value
+    if (hasFreeSpaceBelow)
       popupCoordinatesY.value = y + window.scrollY + height + 4
+    else
+      popupCoordinatesY.value = y + window.scrollY - popupHeight.value - 4
   }
 
   if (val) {

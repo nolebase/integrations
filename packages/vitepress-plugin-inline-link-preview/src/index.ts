@@ -17,6 +17,8 @@ const components = {
   VPNolebaseInlinePreviewLink: InlineLinkPreview,
 }
 
+export const VPNolebaseInlinePreviewLinkComponentName = 'VPNolebaseInlinePreviewLink'
+
 export const NolebaseInlineLinkPreviewPlugin: Plugin = {
   install(app, options?: Options) {
     if (options)

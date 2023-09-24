@@ -107,10 +107,10 @@ export default defineConfig({
         transform(token) {
           switch (token.type) {
             case 'link_open':
-              token.tag = 'VPNolebaseInlinePreviewLink'
+              token.tag = 'VPNolebaseInlineLinkPreview'
               break
             case 'link_close':
-              token.tag = 'VPNolebaseInlinePreviewLink'
+              token.tag = 'VPNolebaseInlineLinkPreview'
           }
         },
       } as Options)

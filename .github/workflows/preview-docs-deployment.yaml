@@ -93,5 +93,5 @@ jobs:
 
             | Status      | URL                                                 |
             |-------------|-----------------------------------------------------|
-            | Success     | ${{fromJSON(steps.netlify.outputs.NETLIFY_OUTPUT)}} |
+            | Success     | ${{steps.netlify.outputs.NETLIFY_URL}} |
           edit-mode: replace

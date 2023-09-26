@@ -71,7 +71,7 @@ async function handleIframeOnLoad(e: Event) {
 
   setTimeout(() => {
     iframeNotReady.value = false
-  }, 250)
+  }, 100)
 }
 </script>
 

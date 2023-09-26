@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
+import { MarkdownTransform } from './.vitepress/plugins/markdownTransform'
 
 export default defineConfig(async () => {
   return {
@@ -9,6 +10,7 @@ export default defineConfig(async () => {
     },
     plugins: [
       UnoCSS(),
+      MarkdownTransform(),
     ],
   }
 })

@@ -14,6 +14,7 @@
     "@iconify-json/octicon": "^1.1.49",
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
+    "@nolebase/sidecar-annotations": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "unocss": "^0.55.7",

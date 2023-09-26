@@ -94,5 +94,7 @@ jobs:
 
             | Status      | URL                                                 |
             |-------------|-----------------------------------------------------|
-            | Success     | ${{steps.netlify.outputs.NETLIFY_URL}} |
+            | Success     | ${{ env.NETLIFY_URL }} |
           edit-mode: replace
+        env:
+          NETLIFY_URL: ${{ steps.netlify.outputs.NETLIFY_URL }}

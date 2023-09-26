@@ -18,7 +18,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: Previewing with Netlify
+          body-includes: to Netlify
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
@@ -26,11 +26,11 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## Previewing with Netlify
+            ## 🚧 Deploying to Netlify
 
-            | Status      | URL   |
-            |-------------|-------|
-            | 🚧 Deploying |       |
+            | Status      | URL                                  |
+            |-------------|--------------------------------------|
+            | Pending     | `URL will be revealed once deployed` |
           edit-mode: replace
 
       - name: Checkout
@@ -77,7 +77,7 @@ jobs:
         id: netlify
         timeout-minutes: 10
         working-directory: docs/
-        run: cho "NETLIFY_OUTPUT=$(netlify deploy --dir .vitepress/dist --json)" >> $GITHUB_ENV
+        run: echo "NETLIFY_OUTPUT=$(netlify deploy --dir .vitepress/dist --json)" >> $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -88,9 +88,9 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## Previewing with Netlify
+            ## ✅ Deployed to Netlify
 
-            | Status      | URL                                                      |
-            |-------------|----------------------------------------------------------|
-            | 🚧 Deploying | ${{fromJSON(steps.netlify.outputs.NETLIFY_OUTPUT)}} |
+            | Status      | URL                                                 |
+            |-------------|-----------------------------------------------------|
+            | Success     | ${{fromJSON(steps.netlify.outputs.NETLIFY_OUTPUT)}} |
           edit-mode: replace

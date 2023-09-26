@@ -129,7 +129,6 @@ watch(() => props.enabled, (val) => {
       focusable="false"
       fixed z-50
       pointer-events-none
-      border="1 $vp-c-brand"
       class="VPNolebaseSpotlightHoverBlock"
     />
   </Teleport>

@@ -14,10 +14,15 @@ import {
   NolebaseInlineLinkPreviewPlugin,
 } from '@nolebase/vitepress-plugin-inline-link-preview'
 
+import {
+  CommentAnnotation,
+} from '@nolebase/sidecar-annotations'
+
 import 'virtual:uno.css'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css'
 import '@nolebase/vitepress-plugin-inline-link-preview/dist/style.css'
+import '@nolebase/sidecar-annotations/dist/style.css'
 
 import './styles/vars.css'
 import './styles/main.css'
@@ -38,6 +43,7 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
+    app.component('CommentAnnotation', CommentAnnotation)
     app.use(NolebaseInlineLinkPreviewPlugin)
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {

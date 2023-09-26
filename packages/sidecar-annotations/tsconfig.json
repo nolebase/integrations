@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.json",
+  "exclude": [
+    "**/dist/**",
+    "./uno.config.ts",
+    "./vite.config.ts"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.d.ts",
+    "**/*.vue",
+    "**/*.tsx"
+  ],
+  "compilerOptions": {
+    "declaration": false,
+    "composite": false,
+    "outDir": "./dist",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "types": []
+  },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

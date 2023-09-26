@@ -77,7 +77,8 @@ jobs:
         id: netlify
         timeout-minutes: 10
         working-directory: docs/
-        run: echo "NETLIFY_OUTPUT=$(netlify deploy --dir .vitepress/dist --json)" >> $GITHUB_ENV
+        run: |
+          echo "NETLIFY_URL=$(netlify deploy --dir .vitepress/dist --json | jq -r .deploy_url)" >> $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

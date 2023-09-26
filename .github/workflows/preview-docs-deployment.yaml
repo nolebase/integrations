@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     name: Build
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-22.04
     steps:
       - name: Find Comment

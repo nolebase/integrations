@@ -1,7 +1,6 @@
 import { cwd } from 'node:process'
 import { defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
-import type { Options } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 
 // https://vitepress.dev/reference/site-config
@@ -103,17 +102,29 @@ export default defineConfig({
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
-      md.use(ElementTransform, {
-        transform(token) {
-          switch (token.type) {
-            case 'link_open':
-              token.tag = 'VPNolebaseInlineLinkPreview'
-              break
-            case 'link_close':
-              token.tag = 'VPNolebaseInlineLinkPreview'
-          }
-        },
-      } as Options)
+      md.use(ElementTransform, (() => {
+        let transformNextLinkCloseToken = false
+
+        return {
+          transform(token) {
+            switch (token.type) {
+              case 'link_open':
+                if (token.attrGet('class') !== 'header-anchor') {
+                  token.tag = 'VPNolebaseInlineLinkPreview'
+                  transformNextLinkCloseToken = true
+                }
+                break
+              case 'link_close':
+                if (transformNextLinkCloseToken) {
+                  token.tag = 'VPNolebaseInlineLinkPreview'
+                  transformNextLinkCloseToken = false
+                }
+
+                break
+            }
+          },
+        }
+      })())
     },
   },
 })

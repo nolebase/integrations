@@ -20,7 +20,6 @@ const spotlightToggledOn = useStorage(SpotlightToggledStorageKey, options.spotli
 const { t } = useI18n()
 
 onMounted(() => {
-  console.log(isTouchScreen.value)
   disabled.value = isTouchScreen.value
 })
 

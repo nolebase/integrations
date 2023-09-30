@@ -120,14 +120,14 @@ watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
 <template>
   <a
     ref="anchorElement"
-    class="VPNolebaseInlinePreviewLink" relative inline-flex items-center justify-center
+    class="VPNolebaseInlinePreviewLink" relative
     :href="props.href"
   >
     <slot />
     <span
       v-if="mounted && !isHeadingAnchor && !isOneOfPreviewHosts"
-      class="link-preview-link-content-external-icon"
-      i-octicon:link-external-16 inline-flex items-center justify-center text-xs
+      class="link-preview-link-content-external-icon" align-middle mx-0.5 w-4 h-4
+      i-octicon:link-external-16
     />
     <template v-if="mounted && isLargerThanMobile">
       <Teleport :to="popupTeleportTargetSelector">

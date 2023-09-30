@@ -15,26 +15,26 @@ const isMenuHelpPoppedUp = ref(false)
 const disabled = ref(false)
 
 const mounted = useMounted()
-const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
+const isTouchScreen = useMediaQuery('(pointer: coarse)')
 const spotlightToggledOn = useStorage(SpotlightToggledStorageKey, options.spotlight?.defaultToggle || false)
 const { t } = useI18n()
 
 onMounted(() => {
-  if (!isLargerThanMobile.value) {
-    disabled.value = true
-  }
+  console.log(isTouchScreen.value)
+  disabled.value = isTouchScreen.value
 })
 
-watch(isLargerThanMobile, () => {
-  if (!isLargerThanMobile.value) {
-    disabled.value = true
-  }
+watch(isTouchScreen, () => {
+  disabled.value = isTouchScreen.value
 })
 </script>
 
 <template>
   <div space-y-2 role="radiogroup">
-    <SpotlightHoverBlock v-if="mounted && spotlightToggledOn" :enabled="spotlightToggledOn" />
+    <SpotlightHoverBlock
+      v-if="mounted && spotlightToggledOn && !disabled"
+      :enabled="spotlightToggledOn && !disabled"
+    />
     <div flex items-center relative ref="menuTitleElementRef">
       <MenuTitle
         icon="i-icon-park-outline:click"

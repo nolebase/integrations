@@ -45,6 +45,7 @@ watch(isOutside, (value) => {
     text="$vp-c-text-1"
     class="i-carbon:help-filled opacity-50 hover:opacity-100"
     transition="all duration-200 ease"
+    cursor-help
   />
   <Teleport to="body">
     <Transition name="fade">

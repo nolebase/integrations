@@ -26,20 +26,20 @@
     "packages:build": "pnpm -r --filter=./packages/* run build"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^0.40.2",
-    "@unocss/eslint-config": "^0.55.4",
+    "@antfu/eslint-config": "^0.40.3",
+    "@unocss/eslint-config": "^0.55.7",
     "concurrently": "^8.2.1"
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.8",
-    "@types/markdown-it": "^13.0.1",
-    "@types/node": "^20.6.0",
+    "@types/markdown-it": "^13.0.2",
+    "@types/node": "^20.8.3",
     "gray-matter": "^4.0.3",
-    "markdown-it": "^13.0.1",
-    "typescript": "^5.1.6",
+    "markdown-it": "^13.0.2",
+    "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
     "unocss": "^0.55.7",
-    "vite": "^4.4.9",
+    "vite": "^4.4.11",
     "vue": "^3.3.4"
   },
   "workspaces": [

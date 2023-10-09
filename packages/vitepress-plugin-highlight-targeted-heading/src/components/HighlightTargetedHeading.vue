@@ -2,13 +2,25 @@
 import { useEventListener } from '@vueuse/core'
 import { onMounted } from 'vue'
 
-onMounted(() => {
+function handleHighlight() {
+  if (!window || !window.location)
+    return
   if (!window.location.hash)
     return
 
   const targetedHashId = decodeURIComponent(window.location.hash)
+  if (!targetedHashId)
+    return
 
-  const elem = document.querySelector(targetedHashId)
+  let elem: HTMLElement | null
+
+  try {
+    elem = document.querySelector(targetedHashId)
+  }
+  catch (e) {
+    console.error(e)
+    return
+  }
   if (!elem)
     return
 
@@ -17,28 +29,13 @@ onMounted(() => {
 
   elem.classList.remove('VPNolebaseHighlightTargetedHeadingAnimated')
   setTimeout(() => {
-    elem.classList.add('VPNolebaseHighlightTargetedHeadingAnimated')
+    if (elem)
+      elem.classList.add('VPNolebaseHighlightTargetedHeadingAnimated')
   }, 10)
-})
+}
 
-useEventListener('hashchange', () => {
-  if (!window.location.hash)
-    return
-
-  const targetedHashId = decodeURIComponent(window.location.hash)
-
-  const elem = document.querySelector(targetedHashId)
-  if (!elem)
-    return
-
-  if (!elem.classList.contains('VPNolebaseHighlightTargetedHeading'))
-    elem.classList.add('VPNolebaseHighlightTargetedHeading')
-
-  elem.classList.remove('VPNolebaseHighlightTargetedHeadingAnimated')
-  setTimeout(() => {
-    elem.classList.add('VPNolebaseHighlightTargetedHeadingAnimated')
-  }, 10)
-})
+onMounted(handleHighlight)
+useEventListener('hashchange', handleHighlight)
 </script>
 
 <template>

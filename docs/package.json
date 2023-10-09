@@ -18,7 +18,7 @@
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "unocss": "^0.55.7",
-    "vitepress": "1.0.0-rc.12",
+    "vitepress": "1.0.0-rc.20",
     "vue": "^3.3.4"
   }
 }

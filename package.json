@@ -32,13 +32,8 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.8",
-    "@types/markdown-it": "^13.0.2",
     "@types/node": "^20.8.3",
-    "gray-matter": "^4.0.3",
-    "markdown-it": "^13.0.2",
-    "typescript": "^5.2.2",
     "unbuild": "^2.0.0",
-    "unocss": "^0.55.7",
     "vite": "^4.4.11",
     "vue": "^3.3.4"
   },

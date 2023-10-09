@@ -2,10 +2,20 @@
   "name": "@nolebase/integrations",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "A collection of diverse documentation engineering tools.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
   "scripts": {
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "docs:dev": "pnpm -r --filter=./docs run dev",

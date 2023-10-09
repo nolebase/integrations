@@ -49,6 +49,7 @@ export default defineConfig({
             items: [
               { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
               { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
             ],
           },
         ],
@@ -91,6 +92,7 @@ export default defineConfig({
             items: [
               { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
               { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
             ],
           },
         ],
@@ -102,6 +104,7 @@ export default defineConfig({
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
+
       md.use(ElementTransform, (() => {
         let transformNextLinkCloseToken = false
 

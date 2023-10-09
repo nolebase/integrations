@@ -19,3 +19,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 <br />
 
 <IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview" />
+
+<br />
+
+<IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading" />

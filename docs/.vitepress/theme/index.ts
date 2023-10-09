@@ -14,10 +14,15 @@ import {
   NolebaseInlineLinkPreviewPlugin,
 } from '@nolebase/vitepress-plugin-inline-link-preview'
 
+import {
+  NolebaseHighlightTargetedHeading,
+} from '@nolebase/vitepress-plugin-highlight-targeted-heading'
+
 import 'virtual:uno.css'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css'
 import '@nolebase/vitepress-plugin-inline-link-preview/dist/style.css'
+import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css'
 
 import './styles/vars.css'
 import './styles/main.css'
@@ -28,6 +33,9 @@ export const Theme: ThemeConfig = {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
+      'layout-top': () => [
+        h(NolebaseHighlightTargetedHeading),
+      ],
       'nav-bar-content-after': () => [
         h(NolebaseEnhancedReadabilitiesMenu),
       ],
@@ -38,7 +46,9 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
+
     app.use(NolebaseInlineLinkPreviewPlugin)
+
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {
         defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.FullWidth,

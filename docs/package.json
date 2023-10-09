@@ -15,6 +15,7 @@
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
+    "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "unocss": "^0.55.7",
     "vitepress": "1.0.0-rc.12",

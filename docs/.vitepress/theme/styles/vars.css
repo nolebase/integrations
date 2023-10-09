@@ -98,3 +98,8 @@
     --vp-home-hero-image-filter: blur(72px);
   }
 }
+
+:root {
+  --vp-nolebase-highlight-targeted-heading-color: var(--vp-custom-block-tip-text);
+  --vp-nolebase-highlight-targeted-heading-bg: rgba(253, 216, 95, 0.31);
+}

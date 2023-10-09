@@ -35,7 +35,9 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "unbuild",
     "stub": "unbuild --stub"
@@ -44,7 +46,7 @@
     "markdown-it": ">=13.0.1"
   },
   "devDependencies": {
-    "@types/markdown-it": "^13.0.1",
-    "markdown-it": "^13.0.1"
+    "@types/markdown-it": "^13.0.2",
+    "markdown-it": "^13.0.2"
   }
 }

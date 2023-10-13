@@ -9,7 +9,7 @@ const props = defineProps<{
   <a
     flex="~" items-center
     :href="props.href"
-    class="VPNolebaseInlinePreviewLinkPopupOpenBtn text-$vp-c-brand-1"
+    class="VPNolebaseInlinePreviewLinkPopupOpenBtn text-$vp-c-brand-1 hover:brightness-97 active:brightness-95"
     transition="all duration-200 ease"
     bg="$vp-c-bg"
     border="1 solid $vp-c-divider" shadow="sm"

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from 'vue'
-import { useElementHover, useMounted, useMouseInElement, useWindowSize, useMediaQuery } from '@vueuse/core'
+import { useElementHover, useMounted, useMouseInElement, useWindowSize, useMediaQuery, refDebounced } from '@vueuse/core'
 import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
 import { useInIframe } from '../composables/iframe'
 import PopupIframe from './PopupIframe.vue'
@@ -13,9 +13,25 @@ const options = inject(InjectionKey, defaultLinkPreviewPopupOptions)
 
 const anchorElement = ref<HTMLAnchorElement | null>(null)
 const iframeWrapperElement = ref<HTMLDivElement | null>(null)
-const popupWidth = computed(() => options.popupWidth || defaultLinkPreviewPopupOptions.popupWidth || 600)
-const popupHeight = computed(() => options.popupHeight || defaultLinkPreviewPopupOptions.popupHeight || 480)
-const popupTeleportTargetSelector = computed(() => options.popupTeleportTargetSelector || defaultLinkPreviewPopupOptions.popupTeleportTargetSelector || 'body')
+
+const popupWidth = computed(() => {
+  return options.popupWidth && options.popupWidth > 0
+    ? options.popupWidth
+    : defaultLinkPreviewPopupOptions.popupWidth || 600
+})
+const popupHeight = computed(() => {
+  return options.popupHeight && options.popupHeight > 0
+    ? options.popupHeight
+    : defaultLinkPreviewPopupOptions.popupHeight || 480
+})
+const popupDelay = computed(() => {
+  return options.popupDelay && options.popupDelay > 0
+    ? options.popupDelay
+    : defaultLinkPreviewPopupOptions.popupDelay || 300
+})
+const popupTeleportTargetSelector = computed(() => {
+  return options.popupTeleportTargetSelector || defaultLinkPreviewPopupOptions.popupTeleportTargetSelector || 'body'
+})
 
 const mounted = useMounted()
 const { width: windowWidth, height: windowHeight } = useWindowSize()
@@ -23,10 +39,15 @@ const { livesInIframe } = useInIframe()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
 /** TODO: this is a bit dirty to combine both in element and hover, should have a better way to achieve this  */
-const { isOutside: isOutsideAnchorElement } = useMouseInElement(anchorElement)
-const { isOutside: isOutsideIframeWrapperElement } = useMouseInElement(iframeWrapperElement)
-const hoverOverAnchorElement = useElementHover(anchorElement)
-const hoverOverIframeWrapperElement = useElementHover(iframeWrapperElement)
+const { isOutside: isOutsideAnchorElementOrigin } = useMouseInElement(anchorElement)
+const { isOutside: isOutsideIframeWrapperElementOrigin } = useMouseInElement(iframeWrapperElement)
+const hoverOverAnchorElementOrigin = useElementHover(anchorElement)
+const hoverOverIframeWrapperElementOrigin = useElementHover(iframeWrapperElement)
+
+const isOutsideAnchorElement = refDebounced(isOutsideAnchorElementOrigin, popupDelay.value)
+const isOutsideIframeWrapperElement = refDebounced(isOutsideIframeWrapperElementOrigin, popupDelay.value)
+const hoverOverAnchorElement = refDebounced(hoverOverAnchorElementOrigin, popupDelay.value)
+const hoverOverIframeWrapperElement = refDebounced(hoverOverIframeWrapperElementOrigin, popupDelay.value)
 
 const popupCoordinatesX = ref(0)
 const popupCoordinatesY = ref(0)
@@ -78,8 +99,8 @@ const isOneOfPreviewHosts = computed<boolean>(() => {
 
 const showIframe = computed<boolean>(() => !livesInIframe.value && isOneOfPreviewHosts.value && hovering.value)
 
-function watchHandler(val: boolean) {
-  if (!val) {
+function watchHandler(isOutsideOfTargetElements: boolean) {
+  if (!isOutsideOfTargetElements) {
     if (!anchorElement.value) return
 
     hovering.value = true
@@ -99,7 +120,7 @@ function watchHandler(val: boolean) {
       popupCoordinatesY.value = y + window.scrollY - popupHeight.value - 4
   }
 
-  if (val) {
+  if (isOutsideOfTargetElements) {
     setTimeout(() => {
       if (isOutsideAnchorElement.value &&
         !hoverOverAnchorElement.value &&
@@ -111,9 +132,9 @@ function watchHandler(val: boolean) {
   }
 }
 
-watch(isOutsideAnchorElement, watchHandler)
+watch(isOutsideAnchorElement, (val) => watchHandler(val))
 watch(hoverOverAnchorElement, (val) => watchHandler(!val))
-watch(isOutsideIframeWrapperElement, watchHandler)
+watch(isOutsideIframeWrapperElement, (val) => watchHandler(val))
 watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
 </script>
 

@@ -103,6 +103,12 @@ export interface Options {
    */
   popupTeleportTargetSelector?: string
   /**
+   * The delay of the popup after the mouse enter event of the link.
+   *
+   * @default 300
+   */
+  popupDelay?: number
+  /**
    * Internationalization options
    *
    * @example { 'zh-CN': { popup: { loading: '加载中...', loadingAriaLabel: '加载中' } }

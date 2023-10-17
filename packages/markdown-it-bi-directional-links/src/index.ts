@@ -122,7 +122,7 @@ export const BiDirectionalLinks: (options: {
       const linkTokenChildrenContent: Token[] = []
 
       // Produces a set of inline tokens and each contains a set of children tokens
-      const parsedInlineTokens = text ? md.parseInline(text, null) : md.parseInline(href, null) || []
+      const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
 
       // We are going to push the children tokens of each inline token to the final inline tokens
       // Need to check if the parsed inline tokens have children tokens

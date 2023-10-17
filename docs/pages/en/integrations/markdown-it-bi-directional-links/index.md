@@ -89,6 +89,34 @@ Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|Custom Text]]
 
+### Use Markdown markup in custom text
+
+```markdown
+[[Some Full Path Reference to Your Page|`Code Block (Before)` Middle `Code Block (After)`]]
+
+[[Some Full Path Reference to Your Page|**Bold Before** Middle **Bold After**]]
+
+[[Some Full Path Reference to Your Page|*Italic Before* Middle *After*]]
+
+[[Some Full Path Reference to Your Page|~~Strikethrough Before~~ Middle ~~Strikethrough After~~]]
+
+[[Some Full Path Reference to Your Page|<span style="color: red;">Custom HTML</span>]]
+
+[[Some Full Path Reference to Your Page|<span style="color: red;">Custom HTML (Before)</span> Middle <span style="color: blue;">Custom HTML (After)</span>]]
+```
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|`Code Block (Before)` Middle `Code Block (After)`]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|**Bold (Before)** Middle **Bold (After)**]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|*Italic (Before)* Middle *Italic (After)*]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|~~Strikethrough (Before)~~ Middle ~~Strikethrough (After)~~]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span>]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span> Middle <span style="color: blue;">Custom HTML</span>]]
+
 ## How to use
 
 ### Installation

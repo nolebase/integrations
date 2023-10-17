@@ -89,6 +89,36 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 
 [[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|自定义文案]]
 
+#### 自定义文案中使用 Markdown 语法
+
+```markdown
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
+```
+
+效果
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
+
 ## 如何使用
 
 ### 安装

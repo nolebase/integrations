@@ -1,6 +1,7 @@
 import { basename, extname, join, relative } from 'node:path'
 import fg from 'fast-glob'
 import type { PluginSimple } from 'markdown-it'
+import type Token from 'markdown-it/lib/token'
 
 const biDirectionalLinkPattern = /\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 const biDirectionalLinkPatternWithStart = /^\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
@@ -117,9 +118,31 @@ export const BiDirectionalLinks: (options: {
       const openToken = state.push('link_open', 'a', 1)
       openToken.attrSet('href', resolvedNewHref)
 
-      // text
-      const textToken = state.push('text', '', 0)
-      textToken.content = text || href
+      // Final inline tokens for link content
+      const linkTokenChildrenContent: Token[] = []
+
+      // Produces a set of inline tokens and each contains a set of children tokens
+      const parsedInlineTokens = text ? md.parseInline(text, null) : md.parseInline(href, null) || []
+
+      // We are going to push the children tokens of each inline token to the final inline tokens
+      // Need to check if the parsed inline tokens have children tokens
+      if (parsedInlineTokens && parsedInlineTokens.length) {
+        parsedInlineTokens.forEach((tokens) => {
+          if (!tokens.children)
+            return
+
+          // If the inline token has children tokens, push them to the final inline tokens one by one
+          tokens.children.forEach((token) => {
+            linkTokenChildrenContent.push(token)
+          })
+        })
+      }
+
+      // Push the final inline tokens to the state
+      for (const token of linkTokenChildrenContent) {
+        const pushedToken = state.push(token.type, token.tag, token.nesting)
+        pushedToken.content = token.content
+      }
 
       // and link_close tokens
       state.push('link_close', 'a', -1)

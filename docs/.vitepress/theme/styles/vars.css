@@ -99,6 +99,19 @@
   }
 }
 
+/**
+ * Component: Badge
+ * -------------------------------------------------------------------------- */
+ :root {
+  --vp-custom-block-tip-bg: #deedf4;
+  --vp-custom-block-tip-code-bg: #cfd2d57d;
+}
+
+.dark:root {
+  --vp-custom-block-tip-bg: #074364;
+  --vp-custom-block-tip-code-bg: #0d171e9c;
+}
+
 :root {
   --vp-nolebase-highlight-targeted-heading-color: var(--vp-custom-block-tip-text);
   --vp-nolebase-highlight-targeted-heading-bg: rgba(253, 216, 95, 0.31);

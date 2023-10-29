@@ -26,15 +26,43 @@
 - 🧩 拓展工具的边界
   - 每个平台都有自己的优势和缺失的功能，但文档工程本来就耗时耗力。这些问题不应成为限制文档和知识编写与共享的障碍。使用「Nólëbase 集成」来扩展您的想象力吧。
 
+## 快速开始
+
+- [文档](https://nolebase-integrations.ayaka.io/): 在 README 中展示集成在 `markdown-it` 和 VitePress 中的效果和使用方法并不容易，为什么不试试使用我们使用 VitePress 生成的文档站点呢？
+- [packages](./packages) 目录: 所有的集成都被保存在 `packages` 目录下，每个集成都是一个独立的包。你可以在每个包目录下找到对应的 README 来获取更多的细节。
+
+如果你只是想使用集成，你可以使用下面的命令将你需要的集成安装到你的 VitePress 项目中：
+
+```shell
+pnpm i @nolebase/<integration-name> -D
+```
+
+如果你也使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令来安装：
+
+```shell
+ni @nolebase/<integration-name> -D
+```
+
+要找到集成的名称，下面是一个我们当前支持的集成列表：
+
+- [双向链接（`markdown-it` 插件）](./packages/markdown-it-bi-directional-links/README.md)
+- [元素转换（`markdown-it` 插件）](./packages/markdown-it-element-transform/README.md)
+- [阅读增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-readabilities/README.md)
+- [行内链接预览（VitePress 插件）](./packages/vitepress-plugin-inline-link-preview/README.md)
+- [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
+
 ## 如何开发
 
-项目使用 [`unbuild`](https://github.com/unjs/unbuild) 和 [`vite`](https://github.com/vitejs/vite) 来进行开发和构建。借助于 [`jiti`](https://github.com/unjs/jiti) 的强大功能，对于繁琐的配置无需使用 [Rollup](https://rollupjs.org/)，也无需使用 [`vite`](https://github.com/vitejs/vite) 来监听本地文件的变化并打包修改和开发的模块，我们可以直接运行下面的命令来输出打包后的文件，开始开发：
+- 对于一般情况下的纯 TypeScript / JavaScript 库而言：我们使用 [`unbuild`](https://github.com/unjs/unbuild) 和 [Vite](https://github.com/vitejs/vite) 来进行开发和构建。这意味着，在借助于 [`unbuild`](https://github.com/unjs/unbuild) 底层所使用的 [`jiti`](https://github.com/unjs/jiti) 的强大功能的加持下，无需配置 [Rollup](https://rollupjs.org/)，也无需使用 [Vite](https://github.com/vitejs/vite)，就能够监听本地文件的变化，并打包修改和开发的模块。
+- 对于需要加载非 [Rollup](https://rollupjs.org/) 和 [Vite](https://github.com/vitejs/vite) 兼容的插件的库而言（比如 Vue UI 库）：我们依然会使用 [Vite](https://github.com/vitejs/vite) 来进行开发和构建，所以依然会涉及到本地文件的监听和打包。
+
+我们可以直接运行下面的命令来监听和构建在 `packages` 目录下的所有项目打包后的文件：
 
 ```shell
 pnpm run packages:stub
 ```
 
-如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+如果你也使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令来实现相同的效果：
 
 ```shell
 nr packages:stub
@@ -46,7 +74,7 @@ nr packages:stub
 pnpm run docs:dev
 ```
 
-如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+如果你也使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令来实现相同的效果：
 
 ```shell
 nr docs:dev
@@ -58,7 +86,7 @@ nr docs:dev
 pnpm run packages:build
 ```
 
-如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+如果你也使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令来实现相同的效果：
 
 ```shell
 nr packages:build
@@ -70,7 +98,7 @@ nr packages:build
 pnpm run docs:build
 ```
 
-如果你使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令：
+如果你也使用 [`@antfu/ni`](https://github.com/antfu/ni)，也可以使用下面的命令来实现相同的效果：
 
 ```shell
 nr docs:build

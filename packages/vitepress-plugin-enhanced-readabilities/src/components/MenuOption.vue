@@ -26,6 +26,7 @@ const model = computed({
     :title="props.title"
     class="VPNavBarNolebaseEnhancedReadabilitiesMenuOption"
     :class="{ active: model === props.value, disabled: props.disabled }"
+    :disabled="props.disabled"
     w-full py-2 px-3
     inline-flex items-center justify-center
     rounded-md
@@ -39,6 +40,7 @@ const model = computed({
       :name="props.name"
       :checked="model === props.value"
       :aria-checked="model === props.value"
+      :disabled="props.disabled"
       role="radio"
       hidden
     >
@@ -51,26 +53,68 @@ const model = computed({
 
 <style less>
 .VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
-  color: var(--vp-c-text-1);
+  --vp-nolebase-enhanced-readabilities-menu-option-text: var(--vp-c-text-1);
+  --vp-nolebase-enhanced-readabilities-menu-option-active-text: var(--vp-c-text-1);
+  --vp-nolebase-enhanced-readabilities-menu-option-active-bg: var(--vp-c-bg-elv);
+  --vp-nolebase-enhanced-readabilities-menu-option-shadow-color: #bababa8c;
+}
+
+.dark {
+  .VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+    --vp-nolebase-enhanced-readabilities-menu-option-text: var(--vp-c-text-1);
+    --vp-nolebase-enhanced-readabilities-menu-option-active-text: var(--vp-c-bg-elv);
+    --vp-nolebase-enhanced-readabilities-menu-option-active-bg: var(--vp-c-text-1);
+    --vp-nolebase-enhanced-readabilities-menu-option-shadow-color: #2c2c2cc0;
+  }
+}
+
+.VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+  color: var(--vp-nolebase-enhanced-readabilities-menu-option-text);
   white-space: nowrap;
-  transition: background-color 0.25s, color 0.25s;
+  transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
 
   &.active {
-    color: var(--vp-c-brand-1);
     font-weight: bold;
-    background-color: var(--vp-c-default-soft);
+    color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+    background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+    box-shadow: 0 2px 4px 0px var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
   }
 
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
     font-weight: normal;
-    background-color: var(--vp-c-default-soft);
+    color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+    background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+    box-shadow: 0 2px 4px 0px var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
   }
 
   &:not(.disabled):hover {
-    color: var(--vp-c-brand-1);
-    background-color: var(--vp-c-default-soft);
+    color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+    background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+    box-shadow: 0 2px 4px 0px var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
+  }
+}
+
+.dark {
+  .VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+    &.active {
+      color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+      background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+      box-shadow: 0 2px 4px 0 var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
+    }
+
+    &.disabled {
+      color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+      background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+      box-shadow: 0 2px 4px 0 var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
+    }
+
+    &:not(.disabled):hover {
+      color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
+      background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
+      box-shadow: 0 2px 4px 0 var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
+    }
   }
 }
 </style>

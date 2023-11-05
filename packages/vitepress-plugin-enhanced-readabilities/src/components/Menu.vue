@@ -15,7 +15,7 @@ const { t } = useI18n()
     :icon="LayoutSwitchLayoutIcon"
     class="VPNavBarNolebaseEnhancedReadabilitiesMenu"
   >
-    <div v-if="mounted" space-y-2 p-2 :aria-label="t('title.title')">
+    <div v-if="mounted" space-y-2 p-2 :aria-label="t('title.title')" min-w-62.5>
       <LayoutSwitch />
       <MouseOverElementHighlight />
     </div>

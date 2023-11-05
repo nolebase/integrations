@@ -41,7 +41,7 @@ watch(isTouchScreen, () => {
         :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
         :disabled="disabled"
         flex="1"
-        mr-4
+        pr-2
       />
       <MenuHelp
         v-if="!options.spotlight?.disableHelp"
@@ -72,8 +72,15 @@ watch(isTouchScreen, () => {
         </div>
       </MenuHelp>
     </div>
-    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none
-      outline="transparent 2px offset-4px dashed" transition="outline duration-200 ease"
+    <fieldset
+      flex="~ row"
+      space-x-2 w-full p-1
+      appearance-none
+      bg="$vp-c-default-soft"
+      rounded-lg border-none
+      text="sm $vp-c-text-1"
+      outline="transparent 2px offset-4px dashed"
+      transition="outline duration-200 ease"
       :class="{
         'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
         'rounded-md': isMenuHelpPoppedUp

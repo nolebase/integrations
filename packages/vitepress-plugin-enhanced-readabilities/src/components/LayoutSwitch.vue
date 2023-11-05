@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { onMounted, ref, watch, inject } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
+
+import { InjectionKey, LayoutSwitchModeStorageKey } from '../constants'
+import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../types'
+
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
-import { InjectionKey, LayoutSwitchModeStorageKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 
@@ -18,28 +21,22 @@ const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 const layoutMode = useStorage(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.FitContentWidth)
 const { t } = useI18n()
-
-function animate(element: HTMLElement) {
-  element.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
-  setTimeout(() => {
-    element.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
-  }, 600)
-}
+const { trigger: triggerAnimation } = useLayoutAppearanceChangeAnimation()
 
 function setClasses(val: LayoutMode, animated: boolean) {
   switch (val) {
     case LayoutMode.FullWidth:
-      animated && animate(document.body)
+      animated && triggerAnimation(document.body)
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchOnlySidebarFullWidth')
       document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
       break
     case LayoutMode.OnlySidebarFullWidth:
-      animated && animate(document.body)
+      animated && triggerAnimation(document.body)
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
       document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchOnlySidebarFullWidth')
       break
     case LayoutMode.FitContentWidth:
-      animated && animate(document.body)
+      animated && triggerAnimation(document.body)
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchOnlySidebarFullWidth')
       break
@@ -82,6 +79,7 @@ onMounted(() => {
         :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
         flex="1"
         :disabled="disabled"
+        pr-2
       />
       <MenuHelp
         v-if="!options.layoutSwitch?.disableHelp"
@@ -119,8 +117,15 @@ onMounted(() => {
         </div>
       </MenuHelp>
     </div>
-    <fieldset flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full appearance-none border-none
-      outline="transparent 2px offset-4px dashed" transition="outline duration-200 ease"
+    <fieldset
+      flex="~ row"
+      space-x-2 w-full p-1
+      appearance-none
+      bg="$vp-c-default-soft"
+      rounded-lg border-none
+      text="sm $vp-c-text-1"
+      outline="transparent 2px offset-4px dashed"
+      transition="outline duration-200 ease"
       :class="{
         'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
         'rounded-md': isMenuHelpPoppedUp
@@ -158,44 +163,6 @@ onMounted(() => {
 </template>
 
 <style less>
-.VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated {
-  .VPNavBar.has-sidebar > .container > .title {
-    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
-  }
-
-  .VPNavBar > .container {
-    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  }
-
-  .VPNavBar.has-sidebar > .container > .content {
-    transition: padding-right 0.5s ease-in-out, padding-left 0.5s ease-in-out;
-  }
-
-  .VPSidebar {
-    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
-  }
-
-  .VPContent.has-sidebar {
-    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out, padding-right 0.5s ease-in-out;
-  }
-
-  .VPDoc .container {
-    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  }
-
-  .VPDoc.has-aside .content-container {
-    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  }
-
-  .VPDoc:not(.has-sidebar) .container {
-    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  }
-
-  .VPDoc:not(.has-sidebar) .container > .content {
-    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
-  }
-}
-
 .VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth {
   @media (min-width: 1280px) {
     .VPNavBar.has-sidebar > .container > .title {

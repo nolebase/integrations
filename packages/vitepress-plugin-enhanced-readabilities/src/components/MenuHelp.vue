@@ -42,7 +42,7 @@ watch(isOutside, (value) => {
 <template>
   <span
     ref="helpElementRef"
-    text="$vp-c-text-1"
+    text="$vp-nolebase-enhanced-readabilities-menu-text-color"
     class="i-carbon:help-filled opacity-50 hover:opacity-100"
     transition="all duration-200 ease"
     cursor-help
@@ -54,7 +54,7 @@ watch(isOutside, (value) => {
         v-if="mounted"
         v-show="!isOutside"
         :style="helpPopupStyle"
-        fixed z-100 bg="$vp-c-bg-elv" text="$vp-c-text-1" rounded-xl p-4 shadow-xl border="1 solid $vp-c-divider"
+        fixed z-100 bg="$vp-c-bg" text="$vp-nolebase-enhanced-readabilities-menu-text-color" rounded-xl p-4 shadow-xl border="1 solid $vp-c-divider"
         pointer-events-none
       >
         <slot />

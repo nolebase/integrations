@@ -2,10 +2,9 @@
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 
-import { InjectionKey, LayoutSwitchModeStorageKey, PageLayoutMaxWidthStorageKey } from '../constants'
+import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, PageLayoutMaxWidthStorageKey } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
-import { LayoutMode } from '../types'
 
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'

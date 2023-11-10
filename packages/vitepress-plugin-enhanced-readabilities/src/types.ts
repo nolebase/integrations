@@ -1,9 +1,4 @@
-export enum LayoutMode {
-  FullWidth = 1,
-  Original = 3,
-  SidebarWidthAdjustableOnly = 4,
-  BothWidthAdjustable = 5,
-}
+import type { LayoutMode } from './constants'
 
 /**
  * Locale

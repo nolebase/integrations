@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { LayoutMode } from '../types'
+import { onMounted, ref, watch } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+
 import { useI18n } from '../composables/i18n'
+import { LayoutMode } from '../constants'
+
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
-import { useMediaQuery } from '@vueuse/core'
-import { onMounted, ref, watch } from 'vue'
 
 const disabled = ref(true)
 

@@ -8,3 +8,17 @@ export const LayoutSwitchMaxWidthStrategyStorageKey = 'vitepress-nolebase-enhanc
 export const ContentLayoutMaxWidthStorageKey = 'vitepress-nolebase-enhanced-readabilities-content-layout-max-width'
 export const PageLayoutMaxWidthStorageKey = 'vitepress-nolebase-enhanced-readabilities-page-layout-max-width'
 export const SpotlightToggledStorageKey = 'vitepress-nolebase-enhanced-readabilities-spotlight-mode'
+
+export enum LayoutMode {
+  FullWidth = 1,
+  Original = 3,
+  SidebarWidthAdjustableOnly = 4,
+  BothWidthAdjustable = 5,
+}
+
+export const supportedLayoutModes = [
+  LayoutMode.FullWidth,
+  LayoutMode.Original,
+  LayoutMode.SidebarWidthAdjustableOnly,
+  LayoutMode.BothWidthAdjustable,
+]

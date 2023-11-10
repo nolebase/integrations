@@ -41,7 +41,7 @@ watch(isTouchScreen, () => {
         :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
         :disabled="disabled"
         flex="1"
-        pr-2
+        pr-4
       />
       <MenuHelp
         v-if="!options.spotlight?.disableHelp"
@@ -54,15 +54,15 @@ watch(isTouchScreen, () => {
         <p max-w-100 text="sm" mb-2>
           <span>{{ t('spotlight.titleHelpMessage') }}</span>
         </p>
-        <div space-y-2>
-          <p max-w-100 text="sm" bg="$vp-c-default-soft" p-3 rounded-xl>
+        <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
+          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>ON</span>
               <span>{{ t('spotlight.optionOn') }}</span>
             </h5>
             <span>{{ t('spotlight.optionOnHelpMessage') }}</span>
           </p>
-          <p max-w-100 text="sm" bg="$vp-c-default-soft" p-3 rounded-xl>
+          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
             <h5 text="sm" mb-1>
               <span mr-1 font-bold>OFF</span>
               <span>{{ t('spotlight.optionOff') }}</span>
@@ -76,9 +76,9 @@ watch(isTouchScreen, () => {
       flex="~ row"
       space-x-2 w-full p-1
       appearance-none
-      bg="$vp-c-default-soft"
+      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
       rounded-lg border-none
-      text="sm $vp-c-text-1"
+      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
       outline="transparent 2px offset-4px dashed"
       transition="outline duration-200 ease"
       :class="{

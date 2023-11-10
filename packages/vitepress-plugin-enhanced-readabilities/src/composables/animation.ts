@@ -1,4 +1,4 @@
-import { useMounted } from '@vueuse/core'
+import { useDebounceFn, useMounted } from '@vueuse/core'
 
 export function useLayoutAppearanceChangeAnimation() {
   const mounted = useMounted()
@@ -6,12 +6,15 @@ export function useLayoutAppearanceChangeAnimation() {
   return {
     trigger: (animateElement: HTMLElement) => {
       animateElement.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
-      setTimeout(() => {
+
+      const removeAnimatedClassName = useDebounceFn(() => {
         if (!(mounted.value && animateElement))
           return
 
         animateElement.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
-      }, 600)
+      }, 500)
+
+      removeAnimatedClassName()
     },
   }
 }

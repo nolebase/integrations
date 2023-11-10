@@ -34,7 +34,7 @@ watch(isLargerThanMobile, () => {
     <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>
     </div>
-    <div flex="~ row" text="sm $vp-c-text-1" space-x-2 w-full>
+    <div flex="~ row" text="sm $vp-nolebase-enhanced-readabilities-menu-text-color" space-x-2 w-full>
       <MenuOption
         :value="true"
         :title="t('spotlight.optionOn')"

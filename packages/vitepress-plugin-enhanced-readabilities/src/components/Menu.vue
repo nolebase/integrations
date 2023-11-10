@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useMounted } from '@vueuse/core'
 import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vue'
+
+import { useI18n } from '../composables/i18n'
+
 import LayoutSwitchLayoutIcon from './MenuIcon.vue'
 import LayoutSwitch from './LayoutSwitch.vue'
 import MouseOverElementHighlight from './Spotlight.vue'
-import { useMounted } from '@vueuse/core';
-import { useI18n } from '../composables/i18n';
+import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
+import LayoutSwitchContentLayoutWidthInput from './LayoutSwitchContentLayoutMaxWidthSlider.vue'
 
 const mounted = useMounted()
 const { t } = useI18n()
@@ -13,17 +17,19 @@ const { t } = useI18n()
 <template>
   <VPFlyout
     :icon="LayoutSwitchLayoutIcon"
-    class="VPNavBarNolebaseEnhancedReadabilitiesMenu"
+    class="VPNolebaseEnhancedReadabilitiesMenu VPNolebaseEnhancedReadabilitiesMenuFlyout"
   >
-    <div v-if="mounted" space-y-2 p-2 :aria-label="t('title.title')" min-w-62.5>
+    <div v-if="mounted" space-y-2 p-2 :aria-label="t('title.title')" min-w-64>
       <LayoutSwitch />
+      <LayoutSwitchPageLayoutWidthInput />
+      <LayoutSwitchContentLayoutWidthInput />
       <MouseOverElementHighlight />
     </div>
   </VPFlyout>
 </template>
 
 <style less>
-.VPNavBarNolebaseEnhancedReadabilitiesMenu {
+.VPNolebaseEnhancedReadabilitiesMenuFlyout {
   display: none;
 
   &::before {
@@ -37,7 +43,7 @@ const { t } = useI18n()
 }
 
 @media (min-width: 768px) {
-  .VPNavBarNolebaseEnhancedReadabilitiesMenu {
+  .VPNolebaseEnhancedReadabilitiesMenuFlyout {
     display: flex;
     align-items: center;
   }

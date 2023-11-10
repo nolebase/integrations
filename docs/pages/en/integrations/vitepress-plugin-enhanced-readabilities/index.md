@@ -357,20 +357,21 @@ export interface Options {
    *    'en': {
    *      title: {
    *       title: 'Reading Mode',
-   *       titleAriaLabel: 'Reading Mode',
-   *      },
+   *      titleAriaLabel: 'Reading Mode',
    *    },
    *    'zh-CN': {
    *       title: {
    *         title: '阅读模式',
    *         titleAriaLabel: '阅读模式',
-   *       },
    *     },
    *   }
    * }
    * ```
    */
   locales?: Record<string, Locale>
+  /**
+   * Layout switch configuration
+   */
   layoutSwitch?: {
     /**
      * Disable layout switch help tooltip
@@ -381,10 +382,47 @@ export interface Options {
     /**
      * Default mode for layout switch
      *
-     * @default LayoutMode.FitContentWidth (3) Fit content width
+     * @default LayoutMode.FitContentWidth (3)
      */
     defaultMode?: LayoutMode
+    /**
+     * Content layout max width slider configuration
+     */
+    contentLayoutMaxWidth?: {
+      /**
+       * Disable content layout max width help tooltip
+       *
+       * @default false
+       */
+      disableHelp?: boolean
+      /**
+       * Default percentage of content layout max width
+       *
+       * @default 100 (100%)
+       */
+      defaultMaxWidth?: number
+    }
+    /**
+     * Page layout max width slider configuration
+     */
+    pageLayoutMaxWidth?: {
+      /**
+       * Disable page layout max width help tooltip
+       *
+       * @default false
+       */
+      disableHelp?: boolean
+      /**
+       * Default percentage of page layout max width
+       *
+       * @default 800 (80%)
+       */
+      defaultMaxWidth?: number
+    }
   }
+  /**
+   * Spotlight configuration
+   */
   spotlight?: {
     /**
      * Disable spotlight help tooltip
@@ -393,7 +431,7 @@ export interface Options {
      */
     disableHelp?: boolean
     /**
-     * Spotlight block color
+     * Spotlight hover block color
      *
      * @default 'rgb(240 197 52 / 10%)'
      */
@@ -504,41 +542,102 @@ export interface Locale {
      */
     titleScreenNavWarningMessage?: string
     /**
-     * Option: Expand all text
+     * Expand all option text
      */
     optionFullWidth?: string
     /**
-     * Option: Expand all aria-label
+     * Expand all option aria-label
      */
     optionFullWidthAriaLabel?: string
     /**
-     * Option: Expand all help message
+     * Expand all option help message
      */
     optionFullWidthHelpMessage?: string
     /**
-     * Option: Expand only sidebar text
+     * Sidebar adjustable only option text
      */
-    optionOnlySidebarFullWidth?: string
+    optionSidebarWidthAdjustableOnly?: string
     /**
-     * Option: Expand only sidebar aria-label
+     * Sidebar adjustable only option aria-label
      */
-    optionOnlySidebarFullWidthAriaLabel?: string
+    optionSidebarWidthAdjustableOnlyAriaLabel?: string
     /**
-     * Option: Expand only sidebar help message
+     * Sidebar adjustable only option help message
      */
-    optionOnlySidebarFullWidthHelpMessage?: string
+    optionSidebarWidthAdjustableOnlyHelpMessage?: string
     /**
-     * Option: Fit content width text
+     * Both width adjustable option text
      */
-    optionFitContentWidth?: string
+    optionBothWidthAdjustable?: string
     /**
-     * Option: Fit content width aria-label
+     * Both width adjustable option aria-label
      */
-    optionFitContentWidthAriaLabel?: string
+    optionBothWidthAdjustableAriaLabel?: string
     /**
-     * Option: Fit content width help message
+     * Both width adjustable option help message
      */
-    optionFitContentWidthHelpMessage?: string
+    optionBothWidthAdjustableHelpMessage?: string
+    /**
+     * Original option
+     */
+    optionOriginalWidth?: string
+    /**
+     * Original option aria-label
+     */
+    optionOriginalWidthAriaLabel?: string
+    /**
+     * Original option help message
+     */
+    optionOriginalWidthHelpMessage?: string
+
+    /**
+     * Content layout max width slider configuration
+     */
+    contentLayoutMaxWidth?: {
+      /**
+       * Title text
+       */
+      title?: string
+      /**
+       * Title aria-label
+       */
+      titleAriaLabel?: string
+      /**
+       * Title help message
+       */
+      titleHelpMessage?: string
+      /**
+       * Title warning message for navigation menu in small screen
+       */
+      titleScreenNavWarningMessage?: string
+      slider?: string
+      sliderAriaLabel?: string
+      sliderHelpMessage?: string
+    }
+    /**
+     * Page layout max width slider configuration
+     */
+    pageLayoutMaxWidth?: {
+      /**
+       * Title text
+       */
+      title?: string
+      /**
+       * Title aria-label
+       */
+      titleAriaLabel?: string
+      /**
+       * Title help message
+       */
+      titleHelpMessage?: string
+      /**
+       * Title warning message for navigation menu in small screen
+       */
+      titleScreenNavWarningMessage?: string
+      slider?: string
+      sliderAriaLabel?: string
+      sliderHelpMessage?: string
+    }
   }
   /**
    * Spotlight configuration

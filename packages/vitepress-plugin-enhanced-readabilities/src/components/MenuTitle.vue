@@ -13,7 +13,7 @@ const props = defineProps<{
     class="VPNolebaseEnhancedReadabilitiesMenuTitle"
     :class="{ disabled: !!props.disabled }"
     inline-flex items-center
-    text="[14px] $vp-c-text-1" font-medium align-middle
+    text="[14px] $vp-nolebase-enhanced-readabilities-menu-text-color" font-medium align-middle
     select-none
   >
     <span v-if="props.icon" :class="props.icon" mr-1 aria-hidden="true" />

@@ -24,7 +24,7 @@ const model = computed({
 <template>
   <label
     :title="props.title"
-    class="VPNavBarNolebaseEnhancedReadabilitiesMenuOption"
+    class="VPNolebaseEnhancedReadabilitiesMenuOption"
     :class="{ active: model === props.value, disabled: props.disabled }"
     :disabled="props.disabled"
     w-full py-2 px-3
@@ -52,7 +52,7 @@ const model = computed({
 </template>
 
 <style less>
-.VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+.VPNolebaseEnhancedReadabilitiesMenuOption {
   --vp-nolebase-enhanced-readabilities-menu-option-text: var(--vp-c-text-1);
   --vp-nolebase-enhanced-readabilities-menu-option-active-text: var(--vp-c-text-1);
   --vp-nolebase-enhanced-readabilities-menu-option-active-bg: var(--vp-c-bg-elv);
@@ -60,15 +60,15 @@ const model = computed({
 }
 
 .dark {
-  .VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+  .VPNolebaseEnhancedReadabilitiesMenuOption {
     --vp-nolebase-enhanced-readabilities-menu-option-text: var(--vp-c-text-1);
     --vp-nolebase-enhanced-readabilities-menu-option-active-text: var(--vp-c-bg-elv);
     --vp-nolebase-enhanced-readabilities-menu-option-active-bg: var(--vp-c-text-1);
-    --vp-nolebase-enhanced-readabilities-menu-option-shadow-color: #2c2c2cc0;
+    --vp-nolebase-enhanced-readabilities-menu-option-shadow-color: #535353db;
   }
 }
 
-.VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+.VPNolebaseEnhancedReadabilitiesMenuOption {
   color: var(--vp-nolebase-enhanced-readabilities-menu-option-text);
   white-space: nowrap;
   transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
@@ -97,7 +97,7 @@ const model = computed({
 }
 
 .dark {
-  .VPNavBarNolebaseEnhancedReadabilitiesMenuOption {
+  .VPNolebaseEnhancedReadabilitiesMenuOption {
     &.active {
       color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
       background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);

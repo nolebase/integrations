@@ -5,11 +5,8 @@ import type {
 } from './types'
 
 import {
-  LayoutMode,
-} from './types'
-
-import {
   InjectionKey,
+  LayoutMode,
   LayoutSwitchModeStorageKey,
   SpotlightToggledStorageKey,
 } from './constants'

@@ -2,10 +2,9 @@
 import { onMounted, ref, watch, inject } from 'vue'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 
-import { InjectionKey, LayoutSwitchModeStorageKey } from '../constants'
+import { InjectionKey, LayoutSwitchModeStorageKey, LayoutMode, supportedLayoutModes } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
-import { LayoutMode } from '../types'
 
 import MenuOption from './MenuOption.vue'
 import MenuTitle from './MenuTitle.vue'
@@ -57,6 +56,9 @@ watch(mounted, (val) => {
     return
 
   setClasses(layoutMode.value, false)
+  if (!supportedLayoutModes.includes(layoutMode.value)) {
+    layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
+  }
 })
 
 watch(layoutMode, (val) => {
@@ -64,6 +66,9 @@ watch(layoutMode, (val) => {
     return
 
   setClasses(val, true)
+  if (!supportedLayoutModes.includes(val)) {
+    layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
+  }
 })
 
 watch(isLargerThanMobile, () => {

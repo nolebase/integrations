@@ -534,7 +534,7 @@ export interface Locale {
      */
     titleAriaLabel?: string
     /**
-     * Title help message
+     * Title descriptive help message
      */
     titleHelpMessage?: string
     /**
@@ -603,15 +603,24 @@ export interface Locale {
        */
       titleAriaLabel?: string
       /**
-       * Title help message
+       * Title descriptive help message
        */
       titleHelpMessage?: string
       /**
        * Title warning message for navigation menu in small screen
        */
       titleScreenNavWarningMessage?: string
+      /**
+       * Content layout max width slider functionality title in help tooltip popup
+       */
       slider?: string
+      /**
+       * Content layout max width slider functionality aria-label in help tooltip popup
+       */
       sliderAriaLabel?: string
+      /**
+       * Content layout max width slider functionality descriptive help message in help tooltip popup
+       */
       sliderHelpMessage?: string
     }
     /**
@@ -627,15 +636,24 @@ export interface Locale {
        */
       titleAriaLabel?: string
       /**
-       * Title help message
+       * Title descriptive help message
        */
       titleHelpMessage?: string
       /**
        * Title warning message for navigation menu in small screen
        */
       titleScreenNavWarningMessage?: string
+      /**
+       * Page layout max width slider functionality title in help tooltip popup
+       */
       slider?: string
+      /**
+       * Page layout max width slider functionality aria-label in help tooltip popup
+       */
       sliderAriaLabel?: string
+      /**
+       * Page layout max width slider functionality descriptive help message in help tooltip popup
+       */
       sliderHelpMessage?: string
     }
   }

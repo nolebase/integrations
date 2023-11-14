@@ -85,8 +85,6 @@ const model = computed({
     cursor: not-allowed;
     font-weight: normal;
     color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
-    background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
-    box-shadow: 0 2px 4px 0px var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
   }
 
   &:not(.disabled):hover {

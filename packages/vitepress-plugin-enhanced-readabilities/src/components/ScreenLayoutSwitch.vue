@@ -37,7 +37,13 @@ watch(isLargerThanMobile, () => {
     <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
       <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>
     </div>
-    <div flex="~ row" text="sm $vp-nolebase-enhanced-readabilities-menu-text-color" space-x-2 w-full>
+    <div
+      flex="~ row"
+      space-x-2 w-full p-1
+      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+      rounded-lg border-none
+      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
+    >
       <MenuOption
         :value="LayoutMode.FullWidth"
         :title="t('layoutSwitch.optionFullWidth')"

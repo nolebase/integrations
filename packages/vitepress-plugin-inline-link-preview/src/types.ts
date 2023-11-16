@@ -105,7 +105,7 @@ export interface Options {
   /**
    * The delay of the popup after the mouse enter event of the link.
    *
-   * @default 300
+   * @default 1000
    */
   popupDelay?: number
   /**

@@ -27,7 +27,7 @@ const popupHeight = computed(() => {
 const popupDelay = computed(() => {
   return options.popupDelay && options.popupDelay > 0
     ? options.popupDelay
-    : defaultLinkPreviewPopupOptions.popupDelay || 300
+    : defaultLinkPreviewPopupOptions.popupDelay || 1000
 })
 const popupTeleportTargetSelector = computed(() => {
   return options.popupTeleportTargetSelector || defaultLinkPreviewPopupOptions.popupTeleportTargetSelector || 'body'

@@ -11,5 +11,5 @@ export const defaultLinkPreviewPopupOptions: Options = {
   previewLocalHostName: true,
   selectorsToBeHided: ['.VPNav', '.VPFooter', '.VPLocalNav', '.VPSidebar', '.VPDocFooter > .prev-next'],
   popupTeleportTargetSelector: 'body',
-  popupDelay: 300,
+  popupDelay: 1000,
 }

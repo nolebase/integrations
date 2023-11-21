@@ -42,10 +42,10 @@
     "README.md"
   ],
   "scripts": {
-    "stub": "concurrently \"nr dev\" \"nr emit-types\"",
-    "dev": "vite build --mode development --watch",
+    "dev": "concurrently \"nr build:watch\" \"nr emit-types\"",
     "emit-types": "vue-tsc --declaration --emitDeclarationOnly",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly"
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {
     "vue": ">=3.2.0"

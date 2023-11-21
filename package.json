@@ -35,8 +35,8 @@
   "devDependencies": {
     "@antfu/ni": "^0.21.8",
     "@types/node": "^20.8.3",
-    "rimraf": "^5.0.5",
     "@vitejs/plugin-vue": "^4.4.0",
+    "rimraf": "^5.0.5",
     "unbuild": "^2.0.0",
     "unocss": "^0.55.7",
     "unplugin-vue-macros": "^2.6.1",

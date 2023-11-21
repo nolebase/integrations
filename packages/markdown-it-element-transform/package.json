@@ -39,8 +39,9 @@
     "dist"
   ],
   "scripts": {
-    "build": "unbuild",
-    "stub": "unbuild --stub"
+    "stub": "unbuild --stub",
+    "dev": "unbuild --stub",
+    "build": "unbuild"
   },
   "peerDependencies": {
     "markdown-it": ">=13.0.1"

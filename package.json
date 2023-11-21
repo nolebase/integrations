@@ -23,7 +23,9 @@
     "docs:preview": "pnpm -r --filter=./docs run preview",
     "packages:dev": "pnpm -r --filter=./packages/* run dev",
     "packages:stub": "pnpm -r --filter=./packages/* run stub",
-    "packages:build": "pnpm -r --filter=./packages/* run build"
+    "packages:build": "pnpm -r --filter=./packages/* run build",
+    "cleanup:dist": "rimraf --glob **/dist",
+    "cleanup:node_modules": "rimraf --glob **/node_modules"
   },
   "dependencies": {
     "@antfu/eslint-config": "^0.40.3",
@@ -33,6 +35,7 @@
   "devDependencies": {
     "@antfu/ni": "^0.21.8",
     "@types/node": "^20.8.3",
+    "rimraf": "^5.0.5",
     "unbuild": "^2.0.0",
     "vite": "^4.4.11",
     "vue": "^3.3.4"

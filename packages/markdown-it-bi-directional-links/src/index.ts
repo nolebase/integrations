@@ -10,18 +10,18 @@ function findBiDirectionalLinks(
   alreadyMatchedBiDirectionalLinks: Record<string, string>,
   possibleBiDirectionalLinksInFilePaths: Record<string, string>,
   possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
-  link: RegExpMatchArray,
+  href: string,
 ) {
-  if (link.length < 2 || (!link[0] || !link[1]))
+  if (!href)
     return null
 
-  if (alreadyMatchedBiDirectionalLinks[link[1]])
-    return alreadyMatchedBiDirectionalLinks[link[1]]
+  if (alreadyMatchedBiDirectionalLinks[href])
+    return alreadyMatchedBiDirectionalLinks[href]
 
-  if (link[1].includes('/'))
-    return possibleBiDirectionalLinksInFullFilePaths[link[1]]
+  if (href.includes('/'))
+    return possibleBiDirectionalLinksInFullFilePaths[href]
 
-  return possibleBiDirectionalLinksInFilePaths[link[1]]
+  return possibleBiDirectionalLinksInFilePaths[href]
 }
 
 /**
@@ -106,7 +106,7 @@ export const BiDirectionalLinks: (options: {
       const href = link[1]
       const text = link[3]
 
-      const matchedHref = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, link)
+      const matchedHref = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, href)
       if (!matchedHref) {
         console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  text: ${text}`)
         return false

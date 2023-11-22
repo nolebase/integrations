@@ -43,7 +43,7 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2(@types/node@20.8.3)
       vitepress:
-        specifier: 1.0.0-rc.29
+        specifier: ^1.0.0-rc.29
         version: 1.0.0-rc.29(@algolia/client-search@4.20.0)(@types/node@20.8.3)(postcss@8.4.31)(search-insights@2.11.0)(typescript@5.3.2)
       vue:
         specifier: ^3.3.4

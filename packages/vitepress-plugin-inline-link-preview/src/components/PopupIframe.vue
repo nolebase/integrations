@@ -15,7 +15,7 @@ const iframeNotReady = ref(true)
 
 const { t } = useI18n()
 
-async function waitUntilIframeAllMountedAndRendered(iframeElement: HTMLIFrameElement) {
+async function waitUntilIframeAllMountedAndRendered(iframeElement: HTMLIFrameElement): Promise<Document| null> {
   return await attemptWithDelay<Document | null>(50, 200, () => {
     if (!iframeElement.contentDocument) return waitUntilIframeAllMountedAndRendered(iframeElement)
     return iframeElement.contentDocument
@@ -30,8 +30,16 @@ async function waitUntilElementSelected(iframeDocument: Document, selector: stri
   })
 }
 
-async function trySelect(iframeElement: HTMLIFrameElement, selector: string) {
+async function trySelect(iframeElement: HTMLIFrameElement, selector: string): Promise<{
+  selector: string
+  element: HTMLElement | null
+}> {
   const iframeDocument = await waitUntilIframeAllMountedAndRendered(iframeElement)
+  if (!iframeDocument) return {
+    selector,
+    element: null
+  }
+
   return {
     selector,
     element: await waitUntilElementSelected(iframeDocument, selector)

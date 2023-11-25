@@ -8,7 +8,7 @@ const props = withDefaults(defineProps<{
   modelValue: number
   min?: number
   max?: number
-  formatter?: (number) => string
+  formatter?: (arg: number) => string
 }>(), {
   min: 0,
   max: 100

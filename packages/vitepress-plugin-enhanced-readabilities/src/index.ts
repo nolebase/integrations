@@ -23,6 +23,10 @@ import ScreenSpotlight from './components/ScreenSpotlight.vue'
 import 'virtual:uno.css'
 import './styles/main.less'
 
+export type {
+  Options,
+}
+
 export {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesScreenMenu,
@@ -34,7 +38,6 @@ export {
   Spotlight,
   ScreenSpotlight,
   SpotlightToggledStorageKey,
-  Options,
   InjectionKey,
   LayoutMode,
 }

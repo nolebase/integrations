@@ -7,9 +7,12 @@ import InlineLinkPreview from './components/InlineLinkPreview.vue'
 
 import 'virtual:uno.css'
 
+export type {
+  Options,
+}
+
 export {
   InlineLinkPreview as NolebaseInlineLinkPreview,
-  Options,
   InjectionKey,
 }
 

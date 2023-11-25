@@ -37,6 +37,7 @@
     "@types/node": "^20.8.3",
     "@vitejs/plugin-vue": "^4.5.0",
     "rimraf": "^5.0.5",
+    "typescript": "^5.3.2",
     "unbuild": "^2.0.0",
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.7.0",

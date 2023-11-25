@@ -32,5 +32,6 @@
     "./docs",
     "./packages/vitepress-plugin-enhanced-readabilities",
     "./packages/vitepress-plugin-inline-link-preview"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

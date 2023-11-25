@@ -12,12 +12,12 @@
     "**/*.tsx"
   ],
   "compilerOptions": {
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "noImplicitAny": false,
     "declaration": false,
     "composite": false,
-    "outDir": "./dist",
-    "noImplicitAny": false,
-    "skipLibCheck": true,
-    "types": []
+    "outDir": "./dist"
   },
   "references": [
     {

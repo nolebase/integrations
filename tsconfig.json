@@ -7,6 +7,7 @@
       "ESNext"
     ],
     "strict": true,
+    "strictNullChecks": true,
     "esModuleInterop": true,
     "jsx": "preserve",
     "skipLibCheck": true,
@@ -14,9 +15,11 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noUnusedLocals": true,
-    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
     "types": [
+      "node",
       "vite/client",
       "vue/ref-macros"
     ]

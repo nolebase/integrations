@@ -12,7 +12,7 @@ export function useLayoutAppearanceChangeAnimation() {
           return
 
         animateElement.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated')
-      }, 500)
+      }, 5000)
 
       removeAnimatedClassName()
     },

@@ -193,6 +193,44 @@ onMounted(() => {
 </template>
 
 <style less>
+.VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated {
+  .VPNavBar.has-sidebar > .container > .title {
+    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
+  }
+
+  .VPNavBar > .container {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+
+  .VPNavBar.has-sidebar > .container > .content {
+    transition: padding-right 0.5s ease-in-out, padding-left 0.5s ease-in-out;
+  }
+
+  .VPSidebar {
+    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
+  }
+
+  .VPContent.has-sidebar {
+    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out, padding-right 0.5s ease-in-out;
+  }
+
+  .VPDoc .container {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+
+  .VPDoc.has-aside .content-container {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+
+  .VPDoc:not(.has-sidebar) .container {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+
+  .VPDoc:not(.has-sidebar) .container > .content {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+}
+
 :root {
   --vp-nolebase-enhanced-readabilities-page-max-width: 100%;
   --vp-nolebase-enhanced-readabilities-content-max-width: 100%;

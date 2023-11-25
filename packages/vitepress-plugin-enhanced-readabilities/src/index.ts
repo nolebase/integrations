@@ -21,7 +21,6 @@ import Spotlight from './components/Spotlight.vue'
 import ScreenSpotlight from './components/ScreenSpotlight.vue'
 
 import 'virtual:uno.css'
-import './styles/main.less'
 
 export type {
   Options,

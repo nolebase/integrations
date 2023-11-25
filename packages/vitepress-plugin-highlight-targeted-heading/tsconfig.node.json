@@ -6,7 +6,8 @@
       "DOM",
       "ESNext"
     ],
-    "composite": true
+    "composite": true,
+    "moduleResolution": "Node"
   },
   "include": [
     "vite.config.ts"

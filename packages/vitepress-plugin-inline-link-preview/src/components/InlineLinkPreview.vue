@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from 'vue'
-import { refDebounced, useElementHover, useMediaQuery, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
+import { refDebounced, useMediaQuery, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
 import { InjectionKey, defaultLinkPreviewPopupOptions } from '../constants'
 import { useInIframe } from '../composables/iframe'
 import PopupIframe from './PopupIframe.vue'
@@ -11,8 +11,8 @@ const props = defineProps < {
 
 const options = inject(InjectionKey, defaultLinkPreviewPopupOptions)
 
-const anchorElement = ref<HTMLAnchorElement | null>(null)
-const iframeWrapperElement = ref<HTMLDivElement | null>(null)
+const anchorElement = ref<HTMLAnchorElement>()
+const iframeWrapperElement = ref<HTMLDivElement>()
 
 const popupWidth = computed(() => {
   return options.popupWidth && options.popupWidth > 0
@@ -41,8 +41,32 @@ const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 /** TODO: this is a bit dirty to combine both in element and hover, should have a better way to achieve this  */
 const { isOutside: isOutsideAnchorElementOrigin } = useMouseInElement(anchorElement)
 const { isOutside: isOutsideIframeWrapperElementOrigin } = useMouseInElement(iframeWrapperElement)
-const hoverOverAnchorElementOrigin = useElementHover(anchorElement)
-const hoverOverIframeWrapperElementOrigin = useElementHover(iframeWrapperElement)
+const hoverOverAnchorElementOrigin = ref(false)
+const hoverOverIframeWrapperElementOrigin = ref(false)
+
+watch(anchorElement, (val) => {
+  if (!val)
+    return
+
+  val.addEventListener('mouseenter', () => {
+    hoverOverAnchorElementOrigin.value = true
+  })
+  val.addEventListener('mouseleave', () => {
+    hoverOverAnchorElementOrigin.value = false
+  })
+})
+
+watch(iframeWrapperElement, (val) => {
+  if (!val)
+    return
+
+  val.addEventListener('mouseenter', () => {
+    hoverOverIframeWrapperElementOrigin.value = true
+  })
+  val.addEventListener('mouseleave', () => {
+    hoverOverIframeWrapperElementOrigin.value = false
+  })
+})
 
 const isOutsideAnchorElement = refDebounced(isOutsideAnchorElementOrigin, popupDelay.value)
 const isOutsideIframeWrapperElement = refDebounced(isOutsideIframeWrapperElementOrigin, popupDelay.value)
@@ -99,27 +123,6 @@ const isOneOfPreviewHosts = computed<boolean>(() => {
 const showIframe = computed<boolean>(() => !livesInIframe.value && isOneOfPreviewHosts.value && hovering.value)
 
 function watchHandler(isOutsideOfTargetElements: boolean) {
-  if (!isOutsideOfTargetElements) {
-    if (!anchorElement.value)
-      return
-
-    hovering.value = true
-
-    const { x, y, right, height, width, bottom } = anchorElement.value.getBoundingClientRect()
-
-    const hasFreeSpaceOnTheRight = right + popupWidth.value < windowWidth.value
-    if (hasFreeSpaceOnTheRight)
-      popupCoordinatesX.value = x + window.scrollX
-    else
-      popupCoordinatesX.value = x + window.scrollX - popupWidth.value + width
-
-    const hasFreeSpaceBelow = bottom + popupHeight.value < windowHeight.value
-    if (hasFreeSpaceBelow)
-      popupCoordinatesY.value = y + window.scrollY + height + 4
-    else
-      popupCoordinatesY.value = y + window.scrollY - popupHeight.value - 4
-  }
-
   if (isOutsideOfTargetElements) {
     setTimeout(() => {
       if (isOutsideAnchorElement.value
@@ -128,7 +131,32 @@ function watchHandler(isOutsideOfTargetElements: boolean) {
         && !hoverOverIframeWrapperElement.value)
         hovering.value = false
     }, 200)
+
+    return
   }
+
+  if (!((hoverOverAnchorElement.value || hoverOverIframeWrapperElement.value)
+    && (!isOutsideAnchorElement.value || !isOutsideIframeWrapperElement.value)))
+    return
+
+  if (!anchorElement.value)
+    return
+
+  hovering.value = true
+
+  const { x, y, right, height, width, bottom } = anchorElement.value.getBoundingClientRect()
+
+  const hasFreeSpaceOnTheRight = right + popupWidth.value < windowWidth.value
+  if (hasFreeSpaceOnTheRight)
+    popupCoordinatesX.value = x + window.scrollX
+  else
+    popupCoordinatesX.value = x + window.scrollX - popupWidth.value + width
+
+  const hasFreeSpaceBelow = bottom + popupHeight.value < windowHeight.value
+  if (hasFreeSpaceBelow)
+    popupCoordinatesY.value = y + window.scrollY + height + 4
+  else
+    popupCoordinatesY.value = y + window.scrollY - popupHeight.value - 4
 }
 
 watch(isOutsideAnchorElement, val => watchHandler(val))

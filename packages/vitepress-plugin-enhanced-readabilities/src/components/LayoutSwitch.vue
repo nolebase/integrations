@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { onMounted, ref, watch, inject } from 'vue'
+import { inject, onMounted, ref, watch } from 'vue'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 
-import { InjectionKey, LayoutSwitchModeStorageKey, LayoutMode, supportedLayoutModes } from '../constants'
+import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 
@@ -43,7 +43,7 @@ function setClasses(val: LayoutMode, animated: boolean) {
       document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
       break
     case LayoutMode.Original:
-    animated && triggerAnimation(document.body)
+      animated && triggerAnimation(document.body)
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly')
       document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
@@ -56,9 +56,8 @@ watch(mounted, (val) => {
     return
 
   setClasses(layoutMode.value, false)
-  if (!supportedLayoutModes.includes(layoutMode.value)) {
+  if (!supportedLayoutModes.includes(layoutMode.value))
     layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
-  }
 })
 
 watch(layoutMode, (val) => {
@@ -66,27 +65,24 @@ watch(layoutMode, (val) => {
     return
 
   setClasses(val, true)
-  if (!supportedLayoutModes.includes(val)) {
+  if (!supportedLayoutModes.includes(val))
     layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
-  }
 })
 
 watch(isLargerThanMobile, () => {
-  if (!isLargerThanMobile.value) {
+  if (!isLargerThanMobile.value)
     disabled.value = true
-  }
 })
 
 onMounted(() => {
-  if (!isLargerThanMobile.value) {
+  if (!isLargerThanMobile.value)
     disabled.value = true
-  }
 })
 </script>
 
 <template>
   <div space-y-2 role="radiogroup">
-    <div flex items-center ref="menuTitleElementRef">
+    <div ref="menuTitleElementRef" flex items-center>
       <MenuTitle
         icon="i-icon-park-outline:layout-one"
         :title="t('layoutSwitch.title')"
@@ -97,59 +93,58 @@ onMounted(() => {
       />
       <MenuHelp
         v-if="!options.layoutSwitch?.disableHelp"
-        :menu-title-element-ref="menuTitleElementRef"
         v-model:is-popped-up="isMenuHelpPoppedUp"
+        :menu-title-element-ref="menuTitleElementRef"
       >
-        <h4 text-md font-semibold mb-1>
+        <h4 text-md mb-1 font-semibold>
           {{ t('layoutSwitch.title') }}
         </h4>
-        <p max-w-100 text="sm" mb-2>
+        <p text="sm" mb-2 max-w-100>
           <span>{{ t('layoutSwitch.titleHelpMessage') }}</span>
         </p>
         <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
-          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
+          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:full-screen-one mr-1 />
               <span>{{ t('layoutSwitch.optionFullWidth') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionFullWidthHelpMessage') }}</span>
-          </p>
-          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
+          </div>
+          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:full-screen-two mr-1 />
               <span>{{ t('layoutSwitch.optionSidebarWidthAdjustableOnly') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage') }}</span>
-          </p>
-          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
+          </div>
+          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:full-screen mr-1 />
               <span>{{ t('layoutSwitch.optionBothWidthAdjustable') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionBothWidthAdjustableHelpMessage') }}</span>
-          </p>
-          <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
+          </div>
+          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
             <h5 text="sm" mb-1 flex="~" items-center align-middle>
               <span i-icon-park-outline:off-screen mr-1 />
               <span>{{ t('layoutSwitch.optionOriginalWidth') }}</span>
             </h5>
             <span>{{ t('layoutSwitch.optionOriginalWidthHelpMessage') }}</span>
-          </p>
+          </div>
         </div>
       </MenuHelp>
     </div>
     <fieldset
       flex="~ row"
-      space-x-2 w-full p-1
-      appearance-none
+
       bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      rounded-lg border-none
+      w-full appearance-none rounded-lg border-none p-1 space-x-2
       text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
       outline="transparent 2px offset-4px dashed"
       transition="outline duration-200 ease"
       :class="{
         'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-        'rounded-md': isMenuHelpPoppedUp
+        'rounded-md': isMenuHelpPoppedUp,
       }"
     >
       <MenuOption

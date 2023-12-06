@@ -10,7 +10,7 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div space-y-2 v-if="mounted" class="VPNolebaseEnhancedReadabilitiesMenu">
+  <div v-if="mounted" space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
     <MenuTitle
       icon="i-icon-park-outline:book-open"
       :title="t('title.title')"

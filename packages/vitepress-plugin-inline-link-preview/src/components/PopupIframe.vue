@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue'
-import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
-import LinkButton from './LinkButton.vue'
+import { InjectionKey, defaultLinkPreviewPopupOptions } from '../constants'
 import { attemptWithDelay } from '../utils'
 import { useI18n } from '../composables/i18n'
+import LinkButton from './LinkButton.vue'
 
 const props = defineProps < {
   href: string
@@ -15,9 +15,10 @@ const iframeNotReady = ref(true)
 
 const { t } = useI18n()
 
-async function waitUntilIframeAllMountedAndRendered(iframeElement: HTMLIFrameElement): Promise<Document| null> {
+async function waitUntilIframeAllMountedAndRendered(iframeElement: HTMLIFrameElement): Promise<Document | null> {
   return await attemptWithDelay<Document | null>(50, 200, () => {
-    if (!iframeElement.contentDocument) return waitUntilIframeAllMountedAndRendered(iframeElement)
+    if (!iframeElement.contentDocument)
+      return waitUntilIframeAllMountedAndRendered(iframeElement)
     return iframeElement.contentDocument
   })
 }
@@ -25,7 +26,8 @@ async function waitUntilIframeAllMountedAndRendered(iframeElement: HTMLIFrameEle
 async function waitUntilElementSelected(iframeDocument: Document, selector: string) {
   return await attemptWithDelay<HTMLElement>(3, 100, () => {
     const targetElement = iframeDocument.querySelector(selector) as HTMLElement
-    if (!targetElement) return null
+    if (!targetElement)
+      return null
     return targetElement
   })
 }
@@ -35,14 +37,16 @@ async function trySelect(iframeElement: HTMLIFrameElement, selector: string): Pr
   element: HTMLElement | null
 }> {
   const iframeDocument = await waitUntilIframeAllMountedAndRendered(iframeElement)
-  if (!iframeDocument) return {
-    selector,
-    element: null
+  if (!iframeDocument) {
+    return {
+      selector,
+      element: null,
+    }
   }
 
   return {
     selector,
-    element: await waitUntilElementSelected(iframeDocument, selector)
+    element: await waitUntilElementSelected(iframeDocument, selector),
   }
 }
 
@@ -59,7 +63,8 @@ async function handleIframeOnLoad(e: Event) {
     foundElements = await Promise.all(toBeHideSelectors.map((selector) => {
       return trySelect(iframeElement, selector)
     }))
-  } catch (e) {
+  }
+  catch (e) {
     console.error('VPNolebaseInlinePreviewLink:', e)
   }
 
@@ -97,7 +102,7 @@ async function handleIframeOnLoad(e: Event) {
   <div
     v-show="iframeNotReady"
     flex="~ col 1" m-0 w-full items-center justify-center p-0
-    class="VPNolebaseInlinePreviewLinkPopupLoading text-$vp-c-text-1 bg-$vp-c-bg"
+    class="VPNolebaseInlinePreviewLinkPopupLoading bg-$vp-c-bg text-$vp-c-text-1"
     :aria-label="t('popup.loadingAriaLabel')"
   >
     <span i-svg-spinners:3-dots-bounce text-3xl />

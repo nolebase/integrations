@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, reactive, Teleport, onMounted, inject } from 'vue'
-import { useElementBounding, useElementByPoint, useEventListener, useMouseInElement, useElementVisibility, useMouse } from '@vueuse/core'
+import { inject, onMounted, reactive, ref, watch } from 'vue'
+import { useElementBounding, useElementByPoint, useElementVisibility, useEventListener, useMouse, useMouseInElement } from '@vueuse/core'
 import { useRoute } from 'vitepress'
 import { InjectionKey } from '../constants'
 
-const options = inject(InjectionKey, {})
-
 const props = defineProps<{ enabled: boolean }>()
+
+const options = inject(InjectionKey, {})
 
 const boxStyles = ref<Record<string, string | number>>({ display: 'none' })
 const vpDocElement = ref<HTMLDivElement>()
@@ -48,9 +48,11 @@ function computeBoxStyles(bounding: {
 }
 
 function findChildElementUnderVPDocElement(element: HTMLElement | null) {
-  if (element === null) return null
+  if (element === null)
+    return null
 
-  if (element.parentElement === document.querySelector('.VPDoc main .vp-doc > div')) return element
+  if (element.parentElement === document.querySelector('.VPDoc main .vp-doc > div'))
+    return element
   else return findChildElementUnderVPDocElement(element.parentElement)
 }
 
@@ -62,7 +64,7 @@ function watchHandler() {
     if (highlightedElement.value && highlightedElement.value.tagName === 'P') {
       const val = highlightedElement.value
       const style = window.getComputedStyle(val)
-      const lineHeight = parseFloat(style.lineHeight)
+      const lineHeight = Number.parseFloat(style.lineHeight)
       const lines = Math.floor(val.offsetHeight / lineHeight)
 
       const rect = val.getBoundingClientRect()
@@ -79,12 +81,13 @@ function watchHandler() {
             top: top + rect.top,
             left: left + rect.left,
             width,
-            height
+            height,
           })
           break
         }
       }
-    } else {
+    }
+    else {
       if (highlightedElement.value) {
         const rect = highlightedElement.value.getBoundingClientRect()
 
@@ -92,7 +95,7 @@ function watchHandler() {
           top: rect.top,
           left: rect.left,
           width: rect.width,
-          height: rect.height
+          height: rect.height,
         })
       }
     }
@@ -100,24 +103,28 @@ function watchHandler() {
 }
 
 watch([x, y], () => {
-  if (props.enabled) watchHandler()
+  if (props.enabled)
+    watchHandler()
 })
 
 watch(bounding, (val) => {
   if (props.enabled) {
-    if (val.width === 0 && val.height === 0) boxStyles.value = { display: 'none' }
+    if (val.width === 0 && val.height === 0)
+      boxStyles.value = { display: 'none' }
     else watchHandler()
   }
 })
 
 watch(elementVisibility, (val) => {
   if (props.enabled) {
-    if (!val) boxStyles.value = { display: 'none' }
+    if (!val)
+      boxStyles.value = { display: 'none' }
   }
 })
 
 watch(() => props.enabled, (val) => {
-  if (!val) boxStyles.value = { display: 'none' }
+  if (!val)
+    boxStyles.value = { display: 'none' }
 })
 </script>
 
@@ -127,8 +134,8 @@ watch(() => props.enabled, (val) => {
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"
-      fixed z-50
-      pointer-events-none
+
+      pointer-events-none fixed z-50
       border="1 $vp-c-brand"
       class="VPNolebaseSpotlightHoverBlock"
     />

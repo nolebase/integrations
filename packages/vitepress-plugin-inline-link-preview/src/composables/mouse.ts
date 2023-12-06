@@ -1,7 +1,7 @@
 import { computed, ref, watch } from 'vue'
 import { useDebounceFn, useMouse } from '@vueuse/core'
 
-export function useMouseMovementDegree(options?: { interval: number; threshold: number }) {
+export function useMouseMovementDegree(options?: { interval: number, threshold: number }) {
   const interval = options?.interval === undefined ? 100 : options.interval
   const threshold = options?.threshold === undefined ? 20 : options.threshold
 

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from 'vue'
-import { useElementHover, useMounted, useMouseInElement, useWindowSize, useMediaQuery, refDebounced } from '@vueuse/core'
-import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
+import { refDebounced, useElementHover, useMediaQuery, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
+import { InjectionKey, defaultLinkPreviewPopupOptions } from '../constants'
 import { useInIframe } from '../composables/iframe'
 import PopupIframe from './PopupIframe.vue'
 
@@ -58,7 +58,8 @@ const isHeadingAnchor = computed<boolean>(() => {
 })
 
 const hrefHost = computed<string>(() => {
-  if (isHeadingAnchor.value) return ''
+  if (isHeadingAnchor.value)
+    return ''
 
   try {
     return new URL(props.href, window.location.href).host
@@ -73,26 +74,24 @@ const isOneOfPreviewHosts = computed<boolean>(() => {
     return false
   if (!hrefHost.value)
     return false
-  if (options.previewAllHostNames) {
+  if (options.previewAllHostNames)
     return true
-  }
 
-  let previewLocalHostName = options.previewLocalHostName === undefined ?
-    defaultLinkPreviewPopupOptions.previewLocalHostName :
-    options.previewLocalHostName
+  const previewLocalHostName = options.previewLocalHostName === undefined
+    ? defaultLinkPreviewPopupOptions.previewLocalHostName
+    : options.previewLocalHostName
 
-  if (previewLocalHostName) {
+  if (previewLocalHostName)
     return window.location.host === hrefHost.value
-  }
-  if (typeof options.handleShouldPreviewHostNames === 'function') {
+
+  if (typeof options.handleShouldPreviewHostNames === 'function')
     return options.handleShouldPreviewHostNames(hrefHost.value)
-  }
-  if (Array.isArray(options.previewHostNamesBlocked) && options.previewHostNamesBlocked.includes(hrefHost.value)) {
+
+  if (Array.isArray(options.previewHostNamesBlocked) && options.previewHostNamesBlocked.includes(hrefHost.value))
     return false
-  }
-  if (Array.isArray(options.previewHostNamesAllowed) && options.previewHostNamesAllowed.includes(hrefHost.value)) {
+
+  if (Array.isArray(options.previewHostNamesAllowed) && options.previewHostNamesAllowed.includes(hrefHost.value))
     return true
-  }
 
   return false
 })
@@ -101,7 +100,8 @@ const showIframe = computed<boolean>(() => !livesInIframe.value && isOneOfPrevie
 
 function watchHandler(isOutsideOfTargetElements: boolean) {
   if (!isOutsideOfTargetElements) {
-    if (!anchorElement.value) return
+    if (!anchorElement.value)
+      return
 
     hovering.value = true
 
@@ -122,20 +122,19 @@ function watchHandler(isOutsideOfTargetElements: boolean) {
 
   if (isOutsideOfTargetElements) {
     setTimeout(() => {
-      if (isOutsideAnchorElement.value &&
-        !hoverOverAnchorElement.value &&
-        isOutsideIframeWrapperElement.value &&
-        !hoverOverIframeWrapperElement.value) {
+      if (isOutsideAnchorElement.value
+        && !hoverOverAnchorElement.value
+        && isOutsideIframeWrapperElement.value
+        && !hoverOverIframeWrapperElement.value)
         hovering.value = false
-      }
     }, 200)
   }
 }
 
-watch(isOutsideAnchorElement, (val) => watchHandler(val))
-watch(hoverOverAnchorElement, (val) => watchHandler(!val))
-watch(isOutsideIframeWrapperElement, (val) => watchHandler(val))
-watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
+watch(isOutsideAnchorElement, val => watchHandler(val))
+watch(hoverOverAnchorElement, val => watchHandler(!val))
+watch(isOutsideIframeWrapperElement, val => watchHandler(val))
+watch(hoverOverIframeWrapperElement, val => watchHandler(!val))
 </script>
 
 <template>
@@ -147,8 +146,8 @@ watch(hoverOverIframeWrapperElement, (val) => watchHandler(!val))
     <slot />
     <span
       v-if="mounted && !isHeadingAnchor && !isOneOfPreviewHosts"
-      class="link-preview-link-content-external-icon" align-middle mx-0.5 w-4 h-4
-      i-octicon:link-external-16
+      class="link-preview-link-content-external-icon"
+      i-octicon:link-external-16 mx-0.5 h-4 w-4 align-middle
     />
     <template v-if="mounted && isLargerThanMobile">
       <Teleport :to="popupTeleportTargetSelector">

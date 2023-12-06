@@ -30,7 +30,7 @@ function findBiDirectionalLinks(
  * @param options.dir - The directory to search for bi-directional links.
  * @param options.baseDir - The base directory joined as href for bi-directional links.
  * @param options.includesPatterns - The glob patterns to search for bi-directional links.
- * @returns
+ * @returns A markdown-it plugin.
  */
 export const BiDirectionalLinks: (options: {
   dir: string

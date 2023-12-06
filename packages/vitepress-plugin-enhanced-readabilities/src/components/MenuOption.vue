@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, computed } from 'vue'
+import { computed, defineEmits, defineProps } from 'vue'
 
 const props = defineProps<{
   name: any
@@ -27,11 +27,9 @@ const model = computed({
     class="VPNolebaseEnhancedReadabilitiesMenuOption"
     :class="{ active: model === props.value, disabled: props.disabled }"
     :disabled="props.disabled"
-    w-full py-2 px-3
-    inline-flex items-center justify-center
-    rounded-md
-    text="[14px]" font-medium
-    cursor-pointer select-none
+
+    text="[14px]"
+    w-full inline-flex cursor-pointer select-none items-center justify-center rounded-md px-3 py-2 font-medium
   >
     <input
       v-model="model"

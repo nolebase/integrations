@@ -1,9 +1,9 @@
 <script setup lang="ts">
+import { useMediaQuery } from '@vueuse/core'
+import { onMounted, ref, watch } from 'vue'
 import { useI18n } from '../composables/i18n'
 import MenuTitle from './MenuTitle.vue'
 import MenuOption from './MenuOption.vue'
-import { useMediaQuery } from '@vueuse/core';
-import { onMounted, ref, watch } from 'vue';
 
 const disabled = ref(true)
 
@@ -11,15 +11,13 @@ const { t } = useI18n()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
 onMounted(() => {
-  if (isLargerThanMobile.value) {
+  if (isLargerThanMobile.value)
     disabled.value = false
-  }
 })
 
 watch(isLargerThanMobile, () => {
-  if (isLargerThanMobile.value) {
+  if (isLargerThanMobile.value)
     disabled.value = false
-  }
 })
 </script>
 
@@ -31,14 +29,14 @@ watch(isLargerThanMobile, () => {
       :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
       disabled
     />
-    <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
+    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-xl p-2 opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>
     </div>
     <div
       flex="~ row"
-      space-x-2 w-full p-1
+
       bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      rounded-lg border-none
+      w-full rounded-lg border-none p-1 space-x-2
       text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
     >
       <MenuOption

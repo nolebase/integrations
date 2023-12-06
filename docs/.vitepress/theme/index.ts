@@ -7,7 +7,8 @@ import type { Options as NolebaseEnhancedReadabilitiesOptions } from '@nolebase/
 import {
   InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
   LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
-  NolebaseEnhancedReadabilitiesMenu, NolebaseEnhancedReadabilitiesScreenMenu,
+  NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesScreenMenu,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
 import {

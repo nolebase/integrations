@@ -1,3 +1,3 @@
 <template>
-  <span class="VPNolebaseEnhancedReadabilitiesMenuIcon i-icon-park-outline:book-open" w-5 h-5 />
+  <span class="VPNolebaseEnhancedReadabilitiesMenuIcon i-icon-park-outline:book-open" h-5 w-5 />
 </template>

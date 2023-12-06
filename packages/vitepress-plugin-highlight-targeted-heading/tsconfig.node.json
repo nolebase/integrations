@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
+    "composite": true,
     "target": "ESNext",
     "lib": [
       "DOM",
       "ESNext"
     ],
-    "composite": true,
+    "module": "ESNext",
     "moduleResolution": "Node"
   },
   "include": [

@@ -2,7 +2,7 @@
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 
-import { InjectionKey, ContentLayoutMaxWidthStorageKey, LayoutSwitchModeStorageKey, LayoutMode } from '../constants'
+import { ContentLayoutMaxWidthStorageKey, InjectionKey, LayoutMode, LayoutSwitchModeStorageKey } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 
@@ -30,30 +30,28 @@ const layoutMode = useLocalStorage(LayoutSwitchModeStorageKey, options.layoutSwi
 
 const maxWidthValue = computed({
   get: () => {
-    const parsedMaxWidth = parseInt(String(maxWidthLocalStorageValue.value))
+    const parsedMaxWidth = Number.parseInt(String(maxWidthLocalStorageValue.value))
 
-    if (Number.isNaN(parsedMaxWidth)) {
+    if (Number.isNaN(parsedMaxWidth))
       return maxScaled.value
-    }
-    if (parsedMaxWidth < minScaled.value) {
+
+    if (parsedMaxWidth < minScaled.value)
       return minScaled.value
-    }
-    if (parsedMaxWidth > maxScaled.value) {
+
+    if (parsedMaxWidth > maxScaled.value)
       return maxScaled.value
-    }
 
     return parsedMaxWidth
   },
   set: (val) => {
-    if (val < minScaled.value) {
+    if (val < minScaled.value)
       val = minScaled.value
-    }
-    if (val > maxScaled.value) {
+
+    if (val > maxScaled.value)
       val = maxScaled.value
-    }
 
     maxWidthLocalStorageValue.value = val
-  }
+  },
 })
 
 const { t } = useI18n()
@@ -63,9 +61,10 @@ const updatePageMaxWidth = useDebounceFn((val: number) => {
   if (!shouldActivateMaxWidth.value) {
     triggerAnimation(document.body)
     document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-content-max-width', `100%`)
-  } else {
+  }
+  else {
     triggerAnimation(document.body)
-    document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-content-max-width', `${Math.ceil(val/100)}%`)
+    document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-content-max-width', `${Math.ceil(val / 100)}%`)
   }
 }, 1000)
 
@@ -77,9 +76,8 @@ watch(mounted, (val) => {
 })
 
 watch(isLargerThanMobile, () => {
-  if (!isLargerThanMobile.value) {
+  if (!isLargerThanMobile.value)
     disabled.value = true
-  }
 })
 
 watch(shouldActivateMaxWidth, () => {
@@ -87,9 +85,8 @@ watch(shouldActivateMaxWidth, () => {
 })
 
 onMounted(() => {
-  if (!isLargerThanMobile.value) {
+  if (!isLargerThanMobile.value)
     disabled.value = true
-  }
 })
 
 watch(maxWidthValue, (val) => {
@@ -102,8 +99,8 @@ watch(maxWidthValue, (val) => {
 
 <template>
   <Transition name="fade-shift">
-    <div space-y-2 role="range" v-if="layoutMode === LayoutMode.BothWidthAdjustable" class="VPNolebaseEnhancedReadabilitiesContentLayoutWidthSlider">
-      <div flex items-center ref="menuTitleElementRef">
+    <div v-if="layoutMode === LayoutMode.BothWidthAdjustable" space-y-2 role="range" class="VPNolebaseEnhancedReadabilitiesContentLayoutWidthSlider">
+      <div ref="menuTitleElementRef" flex items-center>
         <MenuTitle
           icon="i-icon-park-outline:auto-line-width"
           :title="t('layoutSwitch.contentLayoutMaxWidth.title')"
@@ -114,38 +111,37 @@ watch(maxWidthValue, (val) => {
         />
         <MenuHelp
           v-if="!options.layoutSwitch?.contentLayoutMaxWidth?.disableHelp"
-          :menu-title-element-ref="menuTitleElementRef"
           v-model:is-popped-up="isMenuHelpPoppedUp"
+          :menu-title-element-ref="menuTitleElementRef"
         >
-          <h4 text-md font-semibold mb-1>
+          <h4 text-md mb-1 font-semibold>
             {{ t('layoutSwitch.contentLayoutMaxWidth.title') }}
           </h4>
-          <p max-w-100 text="sm" mb-2>
+          <p text="sm" mb-2 max-w-100>
             <span>{{ t('layoutSwitch.contentLayoutMaxWidth.titleHelpMessage') }}</span>
           </p>
           <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
-            <p max-w-100 text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" p-3 rounded-xl>
+            <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
               <h5 text="sm" mb-1 flex="~" items-center align-middle>
                 <span i-icon-park-outline:scale mr-1 />
                 <span>{{ t('layoutSwitch.contentLayoutMaxWidth.slider') }}</span>
               </h5>
               <span>{{ t('layoutSwitch.contentLayoutMaxWidth.sliderHelpMessage') }}</span>
-            </p>
+            </div>
           </div>
         </MenuHelp>
       </div>
       <fieldset
         flex="~ row"
-        space-x-2 w-full p-1
-        appearance-none
+
         bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-        rounded-lg border-none
+        w-full appearance-none rounded-lg border-none p-1 space-x-2
         text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
         outline="transparent 2px offset-4px dashed"
         transition="outline duration-200 ease"
         :class="{
           'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-          'rounded-md': isMenuHelpPoppedUp
+          'rounded-md': isMenuHelpPoppedUp,
         }"
       >
         <MenuRange
@@ -155,7 +151,7 @@ watch(maxWidthValue, (val) => {
           :disabled="disabled"
           :min="minScaled"
           :max="maxScaled"
-          :formatter="(val) => `${Math.ceil(val/100)}%`"
+          :formatter="(val) => `${Math.ceil(val / 100)}%`"
         />
       </fieldset>
     </div>

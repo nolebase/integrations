@@ -14,15 +14,13 @@ const { t } = useI18n()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
 onMounted(() => {
-  if (isLargerThanMobile.value) {
+  if (isLargerThanMobile.value)
     disabled.value = false
-  }
 })
 
 watch(isLargerThanMobile, () => {
-  if (isLargerThanMobile.value) {
+  if (isLargerThanMobile.value)
     disabled.value = false
-  }
 })
 </script>
 
@@ -34,14 +32,14 @@ watch(isLargerThanMobile, () => {
       :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
       :disabled="disabled"
     />
-    <div border="1 red/50 solid" bg="red/30" p-2 rounded-xl flex items-center opacity-50>
+    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-xl p-2 opacity-50>
       <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>
     </div>
     <div
       flex="~ row"
-      space-x-2 w-full p-1
+
       bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      rounded-lg border-none
+      w-full rounded-lg border-none p-1 space-x-2
       text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
     >
       <MenuOption
@@ -69,7 +67,7 @@ watch(isLargerThanMobile, () => {
         name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
       />
       <MenuOption
-      :value="LayoutMode.Original"
+        :value="LayoutMode.Original"
         :title="t('layoutSwitch.optionOriginalWidth')"
         :aria-label="t('layoutSwitch.optionOriginalWidthAriaLabel')"
         :disabled="disabled"

@@ -12,9 +12,9 @@ export interface Options {
 
 /**
  * A markdown-it plugin to transform the token
+ * @param md The markdown-it instance
  * @param options The options for the plugin
  * @param options.transform The function to transform the token
- * @returns The markdown-it plugin
  */
 export const ElementTransform: PluginWithOptions = (md, options: Options) => {
   md.core.ruler.push(

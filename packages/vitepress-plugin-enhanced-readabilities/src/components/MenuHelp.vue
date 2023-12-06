@@ -31,11 +31,11 @@ watch(isOutside, (value) => {
   emits('update:isPoppedUp', !value)
 })
 
-watch(isOutside, (value) => {
+watch(isOutside, () => {
   bounding.update()
   popupBounding.update()
 }, {
-  flush: 'pre'
+  flush: 'pre',
 })
 </script>
 
@@ -50,12 +50,12 @@ watch(isOutside, (value) => {
   <Teleport to="body">
     <Transition name="fade">
       <div
-        ref="popupElementRef"
         v-if="mounted"
         v-show="!isOutside"
+        ref="popupElementRef"
         :style="helpPopupStyle"
-        fixed z-100 bg="$vp-c-bg-elv" text="$vp-nolebase-enhanced-readabilities-menu-text-color" rounded-xl p-4 shadow-xl border="1 solid $vp-c-divider"
-        pointer-events-none
+        bg="$vp-c-bg-elv" text="$vp-nolebase-enhanced-readabilities-menu-text-color" border="1 solid $vp-c-divider"
+        pointer-events-none fixed z-100 rounded-xl p-4 shadow-xl
       >
         <slot />
       </div>

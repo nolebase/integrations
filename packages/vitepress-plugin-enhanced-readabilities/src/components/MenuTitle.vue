@@ -12,9 +12,9 @@ const props = defineProps<{
   <h3
     class="VPNolebaseEnhancedReadabilitiesMenuTitle"
     :class="{ disabled: !!props.disabled }"
-    inline-flex items-center
-    text="[14px] $vp-nolebase-enhanced-readabilities-menu-text-color" font-medium align-middle
-    select-none
+
+    text="[14px] $vp-nolebase-enhanced-readabilities-menu-text-color"
+    inline-flex select-none items-center align-middle font-medium
   >
     <span v-if="props.icon" :class="props.icon" mr-1 aria-hidden="true" />
     <span v-if="props.title">{{ props.title }}</span>

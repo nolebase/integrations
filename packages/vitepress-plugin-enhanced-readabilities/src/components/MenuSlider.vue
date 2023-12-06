@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useElementHover } from '@vueuse/core';
+import { useElementHover } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(defineProps<{
@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<{
   formatter?: (arg: number) => string
 }>(), {
   min: 0,
-  max: 100
+  max: 100,
 })
 
 const emits = defineEmits<{
@@ -28,21 +28,25 @@ const hovering = useElementHover(inputSliderRef)
 const positioning = ref(false)
 
 onMounted(() => {
-  if (!inputSliderRef.value) return
+  if (!inputSliderRef.value)
+    return
 
   inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-value', inputValue.value.toString())
-  inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-min', !!props.min ? props.min.toString() : '0')
-  inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-max', !!props.max ? props.max.toString() : '100')
+  inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-min', props.min ? props.min.toString() : '0')
+  inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-max', props.max ? props.max.toString() : '100')
   inputSliderRef.value.addEventListener('input', () => {
-    if (!inputSliderRef.value) return
+    if (!inputSliderRef.value)
+      return
 
     inputSliderRef.value.style.setProperty('--vp-nolebase-enhanced-readabilities-menu-slider-value', inputSliderRef.value.value.toString())
   })
 })
 
 function positionTooltipBasedOnInputAndTooltipElement(inputElement: HTMLInputElement, inputTooltipElement: HTMLDivElement) {
-  if (!inputElement) return
-  if (!inputTooltipElement) return
+  if (!inputElement)
+    return
+  if (!inputTooltipElement)
+    return
 
   const max = (props.max ? props.max : 100)
   const min = (props.min ? props.min : 0)
@@ -57,22 +61,26 @@ function positionTooltipBasedOnInputAndTooltipElement(inputElement: HTMLInputEle
 }
 
 watch(inputValue, (val) => {
-  if (val < min.value) val = min.value
-  if (val > max.value) val = max.value
+  if (val < min.value)
+    val = min.value
+  if (val > max.value)
+    val = max.value
   emits('update:modelValue', val)
 })
 
 watch(min, (val) => {
-  if (inputValue.value >= val) return
+  if (inputValue.value >= val)
+    return
   inputValue.value = val
 })
 
 watch(max, (val) => {
-  if (inputValue.value <= val) return
+  if (inputValue.value <= val)
+    return
   inputValue.value = val
 })
 
-watch(hovering, (val) => {
+watch(hovering, () => {
   positioning.value = true
 
   setTimeout(() => {
@@ -94,13 +102,12 @@ watch(hovering, (val) => {
   }, 50)
 })
 
-watch(inputValue, (val) => {
-  if (!inputSliderRef.value) {
+watch(inputValue, () => {
+  if (!inputSliderRef.value)
     return
-  }
-  if (!inputSliderTooltipRef.value) {
+
+  if (!inputSliderTooltipRef.value)
     return
-  }
 
   positionTooltipBasedOnInputAndTooltipElement(inputSliderRef.value, inputSliderTooltipRef.value)
 })
@@ -109,14 +116,13 @@ watch(inputValue, (val) => {
 <template>
   <label
     class="VPNolebaseEnhancedReadabilitiesMenuSlider VPNolebaseEnhancedReadabilitiesMenuSliderLabel"
-    select-none
-    w-full
-    relative
+
+    relative w-full select-none
   >
     <input
-      type="range"
       ref="inputSliderRef"
       v-model="inputValue"
+      type="range"
       :name="props.name"
       :min="props.min"
       :max="props.max"
@@ -131,8 +137,8 @@ watch(inputValue, (val) => {
         v-show="hovering"
         ref="inputSliderTooltipRef"
         class="VPNolebaseEnhancedReadabilitiesMenuSliderTooltip"
-        p-2 bg-black absolute rounded-lg text-white text-center
-        min-w-12
+
+        absolute min-w-12 rounded-lg bg-black p-2 text-center text-white
         :class="{ 'opacity-0': hovering && positioning }"
       >
         {{ !!props.formatter ? props.formatter(inputValue) : inputValue }}

@@ -17,6 +17,7 @@
     "noImplicitAny": false,
     "declaration": false,
     "composite": false,
+    "sourceMap": true,
     "outDir": "./dist"
   },
   "references": [

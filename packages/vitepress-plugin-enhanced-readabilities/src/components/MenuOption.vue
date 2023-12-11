@@ -27,7 +27,6 @@ const model = computed({
     class="VPNolebaseEnhancedReadabilitiesMenuOption"
     :class="{ active: model === props.value, disabled: props.disabled }"
     :disabled="props.disabled"
-
     text="[14px]"
     w-full inline-flex cursor-pointer select-none items-center justify-center rounded-md px-3 py-2 font-medium
   >

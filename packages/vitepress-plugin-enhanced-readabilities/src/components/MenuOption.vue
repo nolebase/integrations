@@ -25,7 +25,7 @@ const model = computed({
   <label
     :title="props.title"
     class="VPNolebaseEnhancedReadabilitiesMenuOption"
-    :class="{ active: model === props.value, disabled: props.disabled }"
+    :class="{ active: model === props.value && !props.disabled, disabled: props.disabled }"
     :disabled="props.disabled"
     text="[14px]"
     w-full inline-flex cursor-pointer select-none items-center justify-center rounded-md px-3 py-2 font-medium
@@ -80,7 +80,6 @@ const model = computed({
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    font-weight: normal;
     color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
   }
 
@@ -100,9 +99,9 @@ const model = computed({
     }
 
     &.disabled {
-      color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-text);
-      background-color: var(--vp-nolebase-enhanced-readabilities-menu-option-active-bg);
-      box-shadow: 0 2px 4px 0 var(--vp-nolebase-enhanced-readabilities-menu-option-shadow-color);
+      opacity: 0.5;
+      cursor: not-allowed;
+      color: var(--vp-nolebase-enhanced-readabilities-menu-option-text);
     }
 
     &:not(.disabled):hover {

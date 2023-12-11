@@ -1,27 +1,44 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue'
-import { useMediaQuery } from '@vueuse/core'
+import { computed } from 'vue'
 
 import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../constants'
 
 import MenuTitle from './MenuTitle.vue'
-import MenuOption from './MenuOption.vue'
-
-const disabled = ref(true)
+import MenuOptions from './MenuOptions.vue'
 
 const { t } = useI18n()
-const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
-onMounted(() => {
-  if (isLargerThanMobile.value)
-    disabled.value = false
-})
-
-watch(isLargerThanMobile, () => {
-  if (isLargerThanMobile.value)
-    disabled.value = false
-})
+const fieldOptions = computed(() => [
+  {
+    value: LayoutMode.FullWidth,
+    title: t('layoutSwitch.optionFullWidth'),
+    ariaLabel: t('layoutSwitch.optionFullWidthAriaLabel'),
+    icon: 'i-icon-park-outline:full-screen-one',
+    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+  },
+  {
+    value: LayoutMode.SidebarWidthAdjustableOnly,
+    title: t('layoutSwitch.optionSidebarWidthAdjustableOnly'),
+    ariaLabel: t('layoutSwitch.optionSidebarWidthAdjustableOnlyAriaLabel'),
+    icon: 'i-icon-park-outline:full-screen-two',
+    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+  },
+  {
+    value: LayoutMode.BothWidthAdjustable,
+    title: t('layoutSwitch.optionBothWidthAdjustable'),
+    ariaLabel: t('layoutSwitch.optionBothWidthAdjustableAriaLabel'),
+    icon: 'i-icon-park-outline:full-screen',
+    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+  },
+  {
+    value: LayoutMode.Original,
+    title: t('layoutSwitch.optionOriginalWidth'),
+    ariaLabel: t('layoutSwitch.optionOriginalWidthAriaLabel'),
+    icon: 'i-icon-park-outline:off-screen',
+    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+  },
+])
 </script>
 
 <template>
@@ -30,50 +47,14 @@ watch(isLargerThanMobile, () => {
       icon="i-icon-park-outline:layout-one"
       :title="t('layoutSwitch.title')"
       :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
-      :disabled="disabled"
+      disabled
     />
-    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-xl p-2 opacity-50>
+    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>
     </div>
-    <div
-      flex="~ row"
-
-      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      w-full rounded-lg border-none p-1 space-x-2
-      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-    >
-      <MenuOption
-        :value="LayoutMode.FullWidth"
-        :title="t('layoutSwitch.optionFullWidth')"
-        :aria-label="t('layoutSwitch.optionFullWidthAriaLabel')"
-        :disabled="disabled"
-        icon="i-icon-park-outline:full-screen-one"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
-      />
-      <MenuOption
-        :value="LayoutMode.SidebarWidthAdjustableOnly"
-        :title="t('layoutSwitch.optionSidebarWidthAdjustableOnly')"
-        :aria-label="t('layoutSwitch.optionSidebarWidthAdjustableOnlyAriaLabel')"
-        :disabled="disabled"
-        icon="i-icon-park-outline:full-screen-two"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
-      />
-      <MenuOption
-        :value="LayoutMode.BothWidthAdjustable"
-        :title="t('layoutSwitch.optionBothWidthAdjustable')"
-        :aria-label="t('layoutSwitch.optionBothWidthAdjustableAriaLabel')"
-        :disabled="disabled"
-        icon="i-icon-park-outline:full-screen"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
-      />
-      <MenuOption
-        :value="LayoutMode.Original"
-        :title="t('layoutSwitch.optionOriginalWidth')"
-        :aria-label="t('layoutSwitch.optionOriginalWidthAriaLabel')"
-        :disabled="disabled"
-        icon="i-icon-park-outline:off-screen"
-        name="VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox"
-      />
-    </div>
+    <MenuOptions
+      :options="fieldOptions"
+      disabled
+    />
   </div>
 </template>

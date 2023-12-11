@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject, onMounted, ref, watch } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, SpotlightToggledStorageKey } from '../constants'
 import SpotlightHoverBlock from './SpotlightHoverBlock.vue'
 import MenuTitle from './MenuTitle.vue'
-import MenuOption from './MenuOption.vue'
+import MenuOptions from './MenuOptions.vue'
 import MenuHelp from './MenuHelp.vue'
 
 const options = inject(InjectionKey, {})
@@ -18,6 +18,23 @@ const mounted = useMounted()
 const isTouchScreen = useMediaQuery('(pointer: coarse)')
 const spotlightToggledOn = useStorage(SpotlightToggledStorageKey, options.spotlight?.defaultToggle || false)
 const { t } = useI18n()
+
+const fieldOptions = computed(() => [
+  {
+    title: t('spotlight.optionOn'),
+    ariaLabel: t('spotlight.optionOnAriaLabel'),
+    value: true,
+    text: 'ON',
+    name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
+  },
+  {
+    title: t('spotlight.optionOff'),
+    ariaLabel: t('spotlight.optionOffAriaLabel'),
+    value: false,
+    text: 'OFF',
+    name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
+  },
+])
 
 onMounted(() => {
   disabled.value = isTouchScreen.value
@@ -72,37 +89,15 @@ watch(isTouchScreen, () => {
         </div>
       </MenuHelp>
     </div>
-    <fieldset
-      flex="~ row"
-
-      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      w-full appearance-none rounded-lg border-none p-1 space-x-2
-      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
+    <MenuOptions
+      v-model="spotlightToggledOn"
       outline="transparent 2px offset-4px dashed"
       transition="outline duration-200 ease"
       :class="{
         'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-        'rounded-md': isMenuHelpPoppedUp,
       }"
-    >
-      <MenuOption
-        v-model="spotlightToggledOn"
-        :title="t('spotlight.optionOn')"
-        :aria-label="t('spotlight.optionOnAriaLabel')"
-        :value="true"
-        :disabled="disabled"
-        text="ON"
-        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
-      />
-      <MenuOption
-        v-model="spotlightToggledOn"
-        :title="t('spotlight.optionOff')"
-        :aria-label="t('spotlight.optionOffAriaLabel')"
-        :value="false"
-        :disabled="disabled"
-        text="OFF"
-        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
-      />
-    </fieldset>
+      :options="fieldOptions"
+      :disabled="disabled"
+    />
   </div>
 </template>

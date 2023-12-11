@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import { useMediaQuery } from '@vueuse/core'
-import { onMounted, ref, watch } from 'vue'
-import { useI18n } from '../composables/i18n'
-import MenuTitle from './MenuTitle.vue'
-import MenuOption from './MenuOption.vue'
+import { computed } from 'vue'
 
-const disabled = ref(true)
+import { useI18n } from '../composables/i18n'
+
+import MenuTitle from './MenuTitle.vue'
+import MenuOptions from './MenuOptions.vue'
 
 const { t } = useI18n()
-const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 
-onMounted(() => {
-  if (isLargerThanMobile.value)
-    disabled.value = false
-})
-
-watch(isLargerThanMobile, () => {
-  if (isLargerThanMobile.value)
-    disabled.value = false
-})
+const fieldOptions = computed(() => [
+  {
+    title: t('spotlight.optionOn'),
+    ariaLabel: t('spotlight.optionOnAriaLabel'),
+    value: true,
+    text: 'ON',
+    name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
+  },
+  {
+    title: t('spotlight.optionOff'),
+    ariaLabel: t('spotlight.optionOffAriaLabel'),
+    value: false,
+    text: 'OFF',
+    name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
+  },
+])
 </script>
 
 <template>
@@ -29,32 +34,12 @@ watch(isLargerThanMobile, () => {
       :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
       disabled
     />
-    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-xl p-2 opacity-50>
+    <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>
     </div>
-    <div
-      flex="~ row"
-
-      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      w-full rounded-lg border-none p-1 space-x-2
-      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-    >
-      <MenuOption
-        :value="true"
-        :title="t('spotlight.optionOn')"
-        :aria-label="t('spotlight.optionOnAriaLabel')"
-        text="ON"
-        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
-        disabled
-      />
-      <MenuOption
-        :value="false"
-        :title="t('spotlight.optionOff')"
-        :aria-label="t('spotlight.optionOffAriaLabel')"
-        text="OFF"
-        name="VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch"
-        disabled
-      />
-    </div>
+    <MenuOptions
+      :options="fieldOptions"
+      disabled
+    />
   </div>
 </template>

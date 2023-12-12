@@ -2,7 +2,7 @@
 
 ## 效果演示
 
-<video>
+<video controls muted>
   <source src="./assets/demo-video-1.zh-CN.mov">
 </video>
 

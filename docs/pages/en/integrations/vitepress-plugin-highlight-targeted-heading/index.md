@@ -2,7 +2,7 @@
 
 ## Demo
 
-<video>
+<video controls muted>
   <source src="./assets/demo-video-1.en.mov">
 </video>
 
@@ -34,10 +34,10 @@ in the console to find it. This code will return an HTML element, which is what 
 
 Why do you need to highlight?
 
-1. When there are several titles in one screen, the user clicks one of the titles, and then the page scrolls to the position where the title is located, but the user does not know where the current title is. At this time, the user needs to find the title by himself. This process is very unfriendly, because the user needs to re-read the content in the viewport and find the title they want to find by themselves.
-2. When there are multiple titles at the end of the document, clicking on the outline on the right will not cause the page to scroll animation. Users, as readers, naturally cannot learn how to find titles by a fixed "look at the top of the viewport" The title is a repeatable behavioral pattern.
+1. When user clicks one of the titles, the page scrolls to the position where the title is located, but the user does not know where the current title is due to the fact that there are several titles on the screen.
+2. When user clocks one of the titles, the page is already at the bottom of the page, and the user cannot learn how to find the title by a fixed "look at the top of the viewport to find and locate the title" repeatable behavior pattern. Such scenario is even more critical when several titles appear at the end of the document.
 
-At this time, being able to indicate and highlight the title that cannot be noticed is a very important thing, and this plugin was born because of this.
+At this time, being able to indicate and highlight the title that cannot be noticed is a very important thing, and this integration was born because of this.
 
 ## How to install and configure
 

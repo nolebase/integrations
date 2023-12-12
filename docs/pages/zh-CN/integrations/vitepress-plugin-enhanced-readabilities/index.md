@@ -80,6 +80,7 @@ export default defineConfig({
   vite: { // [!code ++]
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
+        // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
@@ -104,6 +105,7 @@ export default defineConfig(() => {
   return {
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
+        // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]

@@ -80,6 +80,7 @@ export default defineConfig({
   vite: { // [!code ++]
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
@@ -104,6 +105,7 @@ export default defineConfig(() => {
   return {
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]

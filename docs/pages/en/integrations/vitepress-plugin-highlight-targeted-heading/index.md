@@ -43,20 +43,20 @@ At this time, being able to indicate and highlight the title that cannot be noti
 
 ### Install
 
-You can install `@nolebase/vitepress-highlight-targeted-heading` to the dependencies of the VitePress project with the following command:
+You can install `@nolebase/vitepress-plugin-highlight-targeted-heading` to the dependencies of the VitePress project with the following command:
 
 ::: code-group
 
 ```shell [pnpm]
-pnpm add @nolebase/vitepress-highlight-targeted-heading
+pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 ```shell [npm]
-npm install @nolebase/vitepress-highlight-targeted-heading
+npm install @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 ```shell [yarn]
-yarn add @nolebase/vitepress-highlight-targeted-heading
+yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 :::

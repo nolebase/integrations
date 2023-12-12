@@ -43,27 +43,27 @@ document.querySelector('#为什么')
 
 ### 安装
 
-你可以通过下面的命令将 `@nolebase/vitepress-highlight-targeted-heading` 安装到 VitePress 项目的依赖中：
+你可以通过下面的命令将 `@nolebase/vitepress-plugin-highlight-targeted-heading` 安装到 VitePress 项目的依赖中：
 
 ::: code-group
 
 ```shell [pnpm]
-pnpm add @nolebase/vitepress-highlight-targeted-heading
+pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 ```shell [npm]
-npm install @nolebase/vitepress-highlight-targeted-heading
+npm install @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 ```shell [yarn]
-yarn add @nolebase/vitepress-highlight-targeted-heading
+yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
 ```
 
 :::
 
 ### 为 VitePress 配置
 
-在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-highlight-targeted-heading` 导入，并且将其添加到 `Layout` 的拓展中：
+在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-highlight-targeted-heading` 导入，并且将其添加到 `Layout` 的拓展中：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 

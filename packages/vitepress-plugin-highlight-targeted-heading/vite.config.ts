@@ -5,6 +5,7 @@ export default defineConfig({
   resolve: {
     dedupe: [
       'vue',
+      'vitepress',
       '@vue/runtime-core',
     ],
   },
@@ -20,10 +21,12 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'vue',
+        'vitepress',
       ],
       output: {
         globals: {
           vue: 'Vue',
+          vitepress: 'vitepress',
         },
       },
     },

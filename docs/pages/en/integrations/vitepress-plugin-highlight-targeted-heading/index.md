@@ -2,6 +2,11 @@
 
 ## Demo
 
+Try clicking the following two links and observe the changes of the title elements:
+
+- [Highlight headings across pages](/pages/en/guide/getting-started.html#getting-started)
+- [Highlight headings within the page](#how-to-use)
+
 <video controls muted>
   <source src="./assets/demo-video-1.en.mov">
 </video>
@@ -61,9 +66,75 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
 
 :::
 
-### Configure for VitePress
+### Integrate with VitePress
 
-In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced-readabilities` import and add it to the `Layout` extension:
+It consists two major steps to integrate the Enhanced Readabilities plugin into your VitePress project:
+
+1. [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
+2. [Add plugin into the Theme options of VitePress](#add-plugin-into-the-theme-options-of-vitepress)
+
+#### Add plugin-specific options into configurations of Vite
+
+First of all, in VitePress's [**primary configuration file**](https://vitepress.dev/reference/site-config#config-resolution) (not this is not a **theme configuration file**, it's usually located at `docs/.vitepress/config.ts`, file paths and extensions may be vary), you need to supply some of the [Server-Side Rendering related options](https://vitejs.dev/guide/ssr.html#ssr-externals) in the root configuration object of [Vite](https://vitejs.dev).
+
+Add the Blinking highlight targeted heading plugin package name `@nolebase/vitepress-plugin-highlight-targeted-heading` into the Vite options that required by VitePress to process this plugin:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  vite: { // [!code ++]
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
+        '@nolebase/vitepress-plugin-highlight-targeted-heading', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
+  themeConfig: {
+    lang: 'en',
+    title: 'Site Name',
+    // rest of the options...
+  }
+  // rest of the options...
+})
+```
+
+You might have configured the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) if you are already mastered Vite. In this case, you could ignore the above configuration and add the following configuration to your Vite configuration file:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vite'
+
+export default defineConfig(() => {
+  return {
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
+        '@nolebase/vitepress-plugin-highlight-targeted-heading', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    optimizeDeps: {
+      exclude: ['vitepress'],
+    },
+    plugins: [
+      // other vite plugins...
+    ],
+    // other vite configurations...
+  }
+})
+
+```
+
+If you haven't configured any of the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) before but still want to have a try with the above configuration, you can create a `vite.config.ts` file in the root directory of your VitePress project and add the above configuration to it. (Don't forget to install `vite` through your package manager as well!)
+
+#### Add plugin into the Theme options of VitePress
+
+In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-highlight-targeted-heading` import and add it to the `Layout` extension:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 

@@ -4,7 +4,7 @@
 
 可以试着点击下面的两个链接，然后观察标题部分发生的变化：
 
-- [跨页面高亮目标标题](pages/zh-CN/guide/getting-started.html#getting-started)
+- [跨页面高亮目标标题](/pages/zh-CN/guide/getting-started.html#getting-started)
 - [页面内高亮目标标题](#如何使用)
 
 <video controls muted>

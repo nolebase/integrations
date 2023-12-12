@@ -2,6 +2,11 @@
 
 ## Demo
 
+Try clicking the following two links and observe the changes of the title elements:
+
+- [Highlight headings across pages](pages/en/guide/getting-started.html#getting-started)
+- [Highlight headings within the page](#how-to-use)
+
 <video controls muted>
   <source src="./assets/demo-video-1.en.mov">
 </video>

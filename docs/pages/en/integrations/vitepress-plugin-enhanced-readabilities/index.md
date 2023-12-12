@@ -277,7 +277,7 @@ export const Theme: ThemeConfig = {
 export default Theme
 ```
 
-For more information on configuration, see [Configuration](#Configuration).
+For more information on configuration, see [Configuration](#configuration).
 
 #### Import layout switching components on demand
 
@@ -330,7 +330,7 @@ export const Theme: ThemeConfig = {
 }
 ```
 
-For more information on internationalization configuration, see [Internationalization](#Internationalization).
+For more information on internationalization configuration, see [Internationalization](#internationalization).
 
 ### Options inside
 
@@ -382,7 +382,7 @@ export interface Options {
     /**
      * Default mode for layout switch
      *
-     * @default LayoutMode.FitContentWidth (3)
+     * @default LayoutMode.Original (3)
      */
     defaultMode?: LayoutMode
     /**

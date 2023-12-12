@@ -134,7 +134,6 @@ watch(() => props.enabled, (val) => {
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"
-
       pointer-events-none fixed z-50
       border="1 $vp-c-brand"
       class="VPNolebaseSpotlightHoverBlock"

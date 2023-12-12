@@ -18,7 +18,7 @@ const disabled = ref(false)
 
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const layoutMode = useLocalStorage(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable)
+const layoutMode = useLocalStorage(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.Original)
 const { t } = useI18n()
 const { trigger: triggerAnimation } = useLayoutAppearanceChangeAnimation()
 

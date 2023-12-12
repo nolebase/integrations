@@ -25,7 +25,7 @@ The ID of the targeted title mentioned here is actually the ID of the HTML eleme
 This kind of element can be found by pressing <kbd>F12</kbd> to open the developer tool, and then enter
 
 ```js
-document.querySelector('#为什么')
+document.querySelector('#why')
 ```
 
 in the console to find it. This code will return an HTML element, which is what we call the "targeted title".

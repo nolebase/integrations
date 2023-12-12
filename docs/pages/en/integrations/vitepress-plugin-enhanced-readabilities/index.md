@@ -44,15 +44,15 @@ You can install `@nolebase/vitepress-plugin-enhanced-readabilities` as one of yo
 ::: code-group
 
 ```shell [pnpm]
-pnpm add @nolebase/vitepress-plugin-enhanced-readabilities
+pnpm add @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 ```shell [npm]
-npm install @nolebase/vitepress-plugin-enhanced-readabilities
+npm install @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 ```shell [yarn]
-yarn add @nolebase/vitepress-plugin-enhanced-readabilities
+yarn add @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 :::

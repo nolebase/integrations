@@ -128,15 +128,15 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 ::: code-group
 
 ```shell [pnpm]
-pnpm add @nolebase/markdown-it-bi-directional-links
+pnpm add @nolebase/markdown-it-bi-directional-links -D
 ```
 
 ```shell [npm]
-npm install @nolebase/markdown-it-bi-directional-links
+npm install @nolebase/markdown-it-bi-directional-links -D
 ```
 
 ```shell [yarn]
-yarn add @nolebase/markdown-it-bi-directional-links
+yarn add @nolebase/markdown-it-bi-directional-links -D
 ```
 
 :::

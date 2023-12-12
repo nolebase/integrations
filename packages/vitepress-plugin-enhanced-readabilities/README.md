@@ -7,19 +7,19 @@ A VitePress plugin enhances the readabilities for VitePress built sites.
 ### Npm
 
 ```shell
-npm i @nolebase/vitepress-plugin-enhanced-readabilities
+npm i @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 ### Yarn
 
 ```shell
-yarn add @nolebase/vitepress-plugin-enhanced-readabilities
+yarn add @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 ### Pnpm
 
 ```shell
-pnpm add @nolebase/vitepress-plugin-enhanced-readabilities
+pnpm add @nolebase/vitepress-plugin-enhanced-readabilities -D
 ```
 
 ## Documentation

@@ -7,19 +7,19 @@ A [`markdown-it`](https://github.com/markdown-it/markdown-it) plugin that transf
 ### Npm
 
 ```shell
-npm i @nolebase/markdown-it-element-transform
+npm i @nolebase/markdown-it-element-transform -D
 ```
 
 ### Yarn
 
 ```shell
-yarn add @nolebase/markdown-it-element-transform
+yarn add @nolebase/markdown-it-element-transform -D
 ```
 
 ### Pnpm
 
 ```shell
-pnpm add @nolebase/markdown-it-element-transform
+pnpm add @nolebase/markdown-it-element-transform -D
 ```
 
 ## Documentation

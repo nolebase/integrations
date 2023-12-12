@@ -53,15 +53,15 @@ document.querySelector('#为什么')
 ::: code-group
 
 ```shell [pnpm]
-pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading
+pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 ```shell [npm]
-npm install @nolebase/vitepress-plugin-highlight-targeted-heading
+npm install @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 ```shell [yarn]
-yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
+yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 :::

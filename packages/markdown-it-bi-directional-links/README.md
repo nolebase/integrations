@@ -7,19 +7,19 @@ A [`markdown-it`](https://github.com/markdown-it/markdown-it) plugin that adds O
 ### Npm
 
 ```shell
-npm i @nolebase/markdown-it-bi-directional-links
+npm i @nolebase/markdown-it-bi-directional-links -D
 ```
 
 ### Yarn
 
 ```shell
-yarn add @nolebase/markdown-it-bi-directional-links
+yarn add @nolebase/markdown-it-bi-directional-links -D
 ```
 
 ### Pnpm
 
 ```shell
-pnpm add @nolebase/markdown-it-bi-directional-links
+pnpm add @nolebase/markdown-it-bi-directional-links -D
 ```
 
 ## Documentation

@@ -7,19 +7,19 @@ A VitePress plugin blinks to highlight the heading element when targeted and cli
 ### Npm
 
 ```shell
-npm i @nolebase/vitepress-plugin-highlight-targeted-heading
+npm i @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 ### Yarn
 
 ```shell
-yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
+yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 ### Pnpm
 
 ```shell
-pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading
+pnpm add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 ```
 
 ## Documentation

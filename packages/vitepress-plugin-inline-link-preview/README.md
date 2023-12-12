@@ -7,19 +7,19 @@ A VitePress plugin that adds a inline popup to help you preview links while read
 ### Npm
 
 ```shell
-npm i @nolebase/vitepress-plugin-inline-link-preview
+npm i @nolebase/vitepress-plugin-inline-link-preview -D
 ```
 
 ### Yarn
 
 ```shell
-yarn add @nolebase/vitepress-plugin-inline-link-preview
+yarn add @nolebase/vitepress-plugin-inline-link-preview -D
 ```
 
 ### Pnpm
 
 ```shell
-pnpm add @nolebase/vitepress-plugin-inline-link-preview
+pnpm add @nolebase/vitepress-plugin-inline-link-preview -D
 ```
 
 ## Documentation

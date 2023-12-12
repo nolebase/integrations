@@ -63,6 +63,72 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading
 
 ### 为 VitePress 配置
 
+配置分为两个大步骤：
+
+1. [添加 Vite 相关的配置](#添加-vite-相关的配置)
+2. [添加 VitePress 主题相关的配置](#添加-vitepress-主题相关的配置)
+
+#### 添加 Vite 相关的配置
+
+首先，请在你的 VitePress [**核心配置文件**](https://vitepress.dev/reference/site-config#config-resolution) 中（注意不是**主题配置文件**，通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别）的根字段中添加 [Vite](https://vitejs.dev) 与 [SSR 服务端渲染相关](https://cn.vitejs.dev/config/ssr-options.html#ssr-external) 的配置。
+
+将高亮插件包 `@nolebase/vitepress-plugin-highlight-targeted-heading` 添加到需要 VitePress 底层的 Vite 帮忙处理的依赖：
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  vite: { // [!code ++]
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
+        '@nolebase/vitepress-plugin-highlight-targeted-heading', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
+  themeConfig: {
+    lang: 'zh-CN',
+    title: '网站标题',
+    // 其他的配置...
+  }
+  // 其他的配置...
+})
+```
+
+如果你很厉害，为 VitePress 的文档站点配置了分离和单独的 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`），那你也可以省略上面的配置，直接在 Vite 的配置文件中添加下面的配置：
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+```typescript
+import { defineConfig } from 'vite'
+
+export default defineConfig(() => {
+  return {
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
+        '@nolebase/vitepress-plugin-highlight-targeted-heading', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    optimizeDeps: {
+      exclude: ['vitepress'],
+    },
+    plugins: [
+      // 其他 Vite 插件配置...
+    ],
+    // 其他的配置...
+  }
+})
+
+```
+
+如果你在没有单独配置过 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`）的情况下想要直接复制上面的代码的话，只需要在 VitePress 站点所在的地方新建一个 `vite.config.ts` 即可，不过也记得还需要通过包管理器安装一下 `vite` 哦。
+
+#### 添加 VitePress 主题相关的配置
+
 在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-highlight-targeted-heading` 导入，并且将其添加到 `Layout` 的拓展中：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->

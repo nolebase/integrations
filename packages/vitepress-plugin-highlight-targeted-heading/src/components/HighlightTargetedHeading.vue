@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
-import { onMounted } from 'vue'
+import { nextTick, onMounted, watch } from 'vue'
+import { useRoute } from 'vitepress'
 
 function handleHighlight() {
   if (!window || !window.location)
@@ -34,7 +35,15 @@ function handleHighlight() {
   }, 10)
 }
 
+const route = useRoute()
+
 onMounted(handleHighlight)
+
+watch(route, async () => {
+  await nextTick()
+  handleHighlight()
+})
+
 useEventListener('hashchange', handleHighlight)
 </script>
 

@@ -249,7 +249,7 @@ export interface Options {
     /**
      * Default mode for layout switch
      *
-     * @default LayoutMode.BothWidthAdjustable (4)
+     * @default LayoutMode.Original (3)
      */
     defaultMode?: LayoutMode
     /**

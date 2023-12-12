@@ -1,5 +1,113 @@
 # 闪烁高亮当前的目标标题
 
-::: warning 🚧 施工中
-很高兴见到你！但很抱歉，这个页面还在施工中，如果没有找到你感兴趣的信息，你可以先在侧边栏的导航中寻找你感兴趣的内容来开始阅读
+## 效果演示
+
+<video controls muted>
+  <source src="./assets/demo-video-1.zh-CN.mov">
+</video>
+
+当我们点击右侧的大纲进行导览的时候会有黄色的闪烁块在标题元素周围闪烁。
+
+## 为什么
+
+当今的文档网站都会支持读取 [URL 中传递的 Hash ID](https://developer.mozilla.org/en-US/docs/Web/API/Location/hash) 然后滚动页面直至 Hash ID 选中的元素出现或出现在靠上的位置上，这个功能通常以用户点击标题左侧或右侧的 anchor 图标，或者是点击了右侧可交互和可选择的大纲列表中的元素为触发条件。
+
+然而绝大多数的文档网站的目标标题都不会在点击后高亮和指示当前高亮的标题行在哪里。
+
+::: info 目标标题是什么？这样的功能是如何工作的？
+
+当点击右侧大纲内的链接或者直接点击标题左侧的链接按钮的时候，注意观察地址栏中的变化。
+
+你会发现 URL 中会出现一个 `#` 符号，后面跟着一个 ID，这个 ID 就是目标标题的 ID。
+
+这里说的目标标题的 ID 其实就是 HTML 元素的 ID，所以理论上不光是可以要求框架和浏览器配合着去滚动标题元素到视窗内，也可以是其他有效的带有匹配得上 HTML ID 的元素。
+
+这样的元素可以通过按下 <kbd>F12</kbd> 打开开发者工具，然后在控制台中输入
+
+```js
+document.querySelector('#为什么')
+```
+
+来查找到，这段代码将会返回一个 HTML 元素，这个元素就是我们说的「目标标题」。
+
 :::
+
+为什么会需要高亮呢？
+
+1. 一个屏幕中出现了好几个标题的时候，用户点击了其中一个标题，然后页面滚动到了标题所在的位置，但是用户并不知道当前的标题在哪里，这个时候用户就需要自行寻找标题，这个过程是非常不友好的，因为用户需要重新阅读视口内的内容并自行寻找到他们希望寻找的标题。
+2. 对于文档末尾有多个标题的时候，点击右侧的大纲将不会发生页面的滚动动画，用户，作为读者自然也就无法通过一个固定的「看窗口顶部的标题来寻找和定位标题」的可重复行为模式来学习如何寻找标题。
+
+这个时候能够指示和高亮察觉不到的标题高亮就是一件非常重要的事情，这个插件就是因此而诞生的。
+
+## 怎么安装和配置
+
+### 安装
+
+你可以通过下面的命令将 `@nolebase/vitepress-highlight-targeted-heading` 安装到 VitePress 项目的依赖中：
+
+::: code-group
+
+```shell [pnpm]
+pnpm add @nolebase/vitepress-highlight-targeted-heading
+```
+
+```shell [npm]
+npm install @nolebase/vitepress-highlight-targeted-heading
+```
+
+```shell [yarn]
+yarn add @nolebase/vitepress-highlight-targeted-heading
+```
+
+:::
+
+### 为 VitePress 配置
+
+在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-highlight-targeted-heading` 导入，并且将其添加到 `Layout` 的拓展中：
+
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+::: code-group
+
+```typescript [docs/.vitepress/theme/index.ts]
+
+import { h } from 'vue'
+import DefaultTheme from 'vitepress/theme'
+import type { Theme as ThemeConfig } from 'vitepress'
+import {  // [!code ++]
+  NolebaseHighlightTargetedHeading,  // [!code ++]
+} from '@nolebase/vitepress-plugin-highlight-targeted-heading' // [!code ++]
+
+import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css' // [!code ++]*
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+​    return h(DefaultTheme.Layout, null, {
+      // 其他的配置...
+      'layout-top': () => [ // [!code ++]
+        h(NolebaseHighlightTargetedHeading), // [!code ++]
+      ], // [!code ++]
+​    })
+  },
+  enhanceApp() {
+​    // 其他的配置...
+  },
+}
+
+export default Theme
+```
+
+:::
+
+就是这么多了，接下来已经可以使用了！
+
+## 如何使用
+
+现在再次构建或者打开 VitePress 的开发服务器，你将可以观测到，只要是 URL 中的 `#` 有对应的 ID 的元素的时候，下面的情况都会生效：
+
+- 直接点击标题左侧的链接按钮
+- 直接点击右侧大纲部分中的链接
+- 首次加载含有 `#` 的 URL
+
+就是这么多了，祝撰写愉快！

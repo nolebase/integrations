@@ -66,7 +66,7 @@ yarn add @nolebase/vitepress-plugin-enhanced-readabilities
 
 #### 添加 Vite 相关的配置
 
-首先，请在你的 VitePress [**核心配置文件**](https://vitepress.dev/reference/site-config#config-resolution) 中（注意不是**主题配置文件**，通常为`docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别）的根字段中添加 [Vite](https://vitejs.dev) 与 [SSR 服务端渲染相关](https://cn.vitejs.dev/config/ssr-options.html#ssr-external) 的配置。
+首先，请在你的 VitePress [**核心配置文件**](https://vitepress.dev/reference/site-config#config-resolution) 中（注意不是**主题配置文件**，通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别）的根字段中添加 [Vite](https://vitejs.dev) 与 [SSR 服务端渲染相关](https://cn.vitejs.dev/config/ssr-options.html#ssr-external) 的配置。
 
 将阅读增强的插件包 `@nolebase/vitepress-plugin-enhanced-readabilities` 添加到需要 VitePress 底层的 Vite 帮忙处理的依赖：
 

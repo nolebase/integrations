@@ -23,3 +23,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 <br />
 
 <IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading" />
+
+<br />
+
+<IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />

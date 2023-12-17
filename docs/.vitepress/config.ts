@@ -38,6 +38,12 @@ export default defineConfig({
             ],
           },
           {
+            text: 'Obsidian Plugins',
+            items: [
+              { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
+            ],
+          },
+          {
             text: 'Markdown It Plugins',
             items: [
               { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
@@ -78,6 +84,12 @@ export default defineConfig({
             items: [
               { text: '概览', link: '/pages/zh-CN/integrations/' },
 
+            ],
+          },
+          {
+            text: 'Obsidian 插件',
+            items: [
+              { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
             ],
           },
           {

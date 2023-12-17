@@ -23,3 +23,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 <br />
 
 <IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading" />
+
+<br />
+
+<IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />

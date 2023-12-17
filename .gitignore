@@ -1,9 +1,7 @@
 .Trash/
 .trash/
 .DS_Store
-**/.obsidian/*
-!**/.obsidian/workspace*
-!**/.obsidian/graph*
+**/.obsidian/
 
 .idea
 .nuxt

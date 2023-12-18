@@ -4,7 +4,7 @@
 然而在有这个插件之前，[Obsidian](https://obsidian.md) 缺乏将 [Tailwind CSS](https://tailwindcss.com/docs/display) 和 [Windi CSS](https://windicss.org/) 这样的原子 CSS 库集成到文档中的能力。
 
 这就是 [UnoCSS 插件](https://github.com/nolebase/obsidian-plugin-unocss) 的作用所在，它允许你使用 [UnoCSS](https://unocss.dev/) 所支持的原子类 CSS 在 [Obsidian](https://obsidian.md/) 中编写笔记和文档。
-这样，它就架起了一座桥梁，让你可以直接在 Obsidian 中使用原子 CSS，从而提升文档的美观度和功能性。
+它架起了一座桥梁，通过允许书写足够简单好用的原子 CSS 类，让我们在 Obsidian 中书写的文档更具美观度和功能性。
 
 ## 所以到底能做什么
 

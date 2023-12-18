@@ -1,10 +1,10 @@
 # UnoCSS Plugin
 
 When crafting documentation in [Nólëbase](https://github.com/nolebase/nolebase), creating numerous visual components is crucial for enhancing the documents with dynamic and interactive user interfaces. This not only makes the content more digestible but also more engaging.
-Previously, [Obsidian](https://obsidian.md) lacked the functionality to effectively integrate and apply styles from frameworks like [Tailwind CSS](https://tailwindcss.com/docs/display) and [Windi CSS](https://windicss.org/) to HTML elements within its platform.
+Previously, [Obsidian](https://obsidian.md) lacked the functionality to effectively integrate and apply styles from atomic CSS frameworks like [Tailwind CSS](https://tailwindcss.com/docs/display) and [Windi CSS](https://windicss.org/) to HTML elements within its platform.
 
-This is where [Obsidian UnoCSS Plugin](https://github.com/nolebase/obsidian-plugin-unocss) kicks in, it allows you to write your notes in [Obsidian](https://obsidian.md/) with [UnoCSS](https://unocss.dev/).
-By doing so, it bridges the gap, allowing for the utilization of atomic CSS directly in Obsidian, thus elevating the aesthetics and functionality of the documentation.
+This is where Obsidian UnoCSS Plugin kicks in, it allows you to write your notes in [Obsidian](https://obsidian.md/) with [UnoCSS](https://unocss.dev/).
+By doing so, it has built a bridge by allowing the use of sufficiently simple and user-friendly atomic CSS classes, which enhances the aesthetics and functionality of the notes and documents we write in Obsidian.
 
 ## What can you do with it
 

@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { inject, onMounted, reactive, ref, watch } from 'vue'
-import { useElementBounding, useElementByPoint, useElementVisibility, useEventListener, useMouse, useMouseInElement } from '@vueuse/core'
+import {
+  useElementBounding,
+  useElementByPoint,
+  useElementVisibility,
+  useEventListener,
+  useMouse,
+  useMouseInElement,
+  useStorage,
+} from '@vueuse/core'
 import { useRoute } from 'vitepress'
-import { InjectionKey } from '../constants'
+
+import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey } from '../constants'
 
 const props = defineProps<{ enabled: boolean }>()
 
@@ -17,9 +26,14 @@ const { isOutside } = useMouseInElement(vpDocElement)
 const { element } = useElementByPoint({ x, y })
 const bounding = reactive(useElementBounding(element))
 const elementVisibility = useElementVisibility(highlightedElement)
+const spotlightStyle = useStorage<SpotlightStyle>(SpotlightStylesStorageKey, options.spotlight?.defaultStyle || SpotlightStyle.Aside)
 const route = useRoute()
 
 useEventListener('scroll', bounding.update, true)
+
+onMounted(() => {
+  document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
+})
 
 onMounted(() => {
   vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
@@ -41,7 +55,6 @@ function computeBoxStyles(bounding: {
     height: `${bounding.height + 8}px`,
     left: `${bounding.left - 4}px`,
     top: `${bounding.top - 4}px`,
-    backgroundColor: options?.spotlight?.hoverBlockColor || 'rgb(240 197 52 / 10%)',
     transition: 'all 0.2s ease',
     borderRadius: '8px',
   }
@@ -134,9 +147,34 @@ watch(() => props.enabled, (val) => {
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"
-      pointer-events-none fixed z-50
+      pointer-events-none fixed
       border="1 $vp-c-brand"
-      class="VPNolebaseSpotlightHoverBlock"
+      class="VPNolebaseEnhancedReadabilitiesSpotlightHoverBlock"
+      :class="[
+        spotlightStyle === SpotlightStyle.Under ? 'VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockUnder' : '',
+        spotlightStyle === SpotlightStyle.Aside ? 'VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockAside' : '',
+      ]"
     />
   </Teleport>
 </template>
+
+<style less scoped>
+:root {
+  --vp-nolebase-enhanced-readabilities-spotlight-under-bg-color: rgb(240 197 52 / 10%);
+}
+
+.VPNolebaseEnhancedReadabilitiesSpotlightHoverBlock.VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockUnder {
+  background-color: var(--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color);
+}
+
+.VPNolebaseEnhancedReadabilitiesSpotlightHoverBlock.VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockAside::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 4px;
+  height: 100%;
+  border-radius: 4px;
+  background-color: var(--vp-c-brand);
+  left: -24px;
+}
+</style>

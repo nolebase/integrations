@@ -52,6 +52,18 @@ export const defaultEnLocale: Locale = {
     optionOff: 'Off',
     optionOffAriaLabel: 'Off',
     optionOffHelpMessage: 'Turn off Spotlight.',
+    styles: {
+      title: 'Spotlight Styles',
+      titleAriaLabel: 'Spotlight Styles',
+      titleHelpMessage: 'Adjust the styles of Spotlight.',
+      titleScreenNavWarningMessage: 'Spotlight Styles is not available in mobile screen temporarily.',
+      optionUnder: 'Under',
+      optionUnderAriaLabel: 'Under',
+      optionUnderHelpMessage: 'Add a solid background color underneath the hovering element to highlight where the cursor is currently hovering.',
+      optionAside: 'Aside',
+      optionAsideAriaLabel: 'Aside',
+      optionAsideHelpMessage: 'Add a fixed line with solid color aside the hovering element to highlight where the cursor is currently hovering.',
+    },
   },
 }
 
@@ -107,5 +119,17 @@ export const defaultZhCNLocale: Locale = {
     optionOff: '关闭',
     optionOffAriaLabel: '关闭',
     optionOffHelpMessage: '关闭聚光灯。',
+    styles: {
+      title: '聚光灯样式',
+      titleAriaLabel: '聚光灯样式',
+      titleHelpMessage: '调整聚光灯的样式。',
+      titleScreenNavWarningMessage: '移动端暂不支持调整聚光灯样式。',
+      optionUnder: '置于底部',
+      optionUnderAriaLabel: '置于底部',
+      optionUnderHelpMessage: '在当前鼠标悬停的元素下方添加一个纯色背景以突出显示当前鼠标悬停的位置。',
+      optionAside: '置于侧边',
+      optionAsideAriaLabel: '置于侧边',
+      optionAsideHelpMessage: '在当前鼠标悬停的元素旁边添加一条固定的纯色线以突出显示当前鼠标悬停的位置。',
+    },
   },
 }

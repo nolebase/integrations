@@ -98,7 +98,12 @@ watch(maxWidthValue, (val) => {
 
 <template>
   <Transition name="fade-shift">
-    <div v-if="layoutMode === LayoutMode.SidebarWidthAdjustableOnly || layoutMode === LayoutMode.BothWidthAdjustable" space-y-2 role="range" class="VPNolebaseEnhancedReadabilitiesPageLayoutWidthSlider">
+    <div
+      v-if="layoutMode === LayoutMode.SidebarWidthAdjustableOnly || layoutMode === LayoutMode.BothWidthAdjustable"
+      space-y-2
+      role="range"
+      class="VPNolebaseEnhancedReadabilitiesPageLayoutWidthSlider"
+    >
       <div ref="menuTitleElementRef" flex items-center>
         <MenuTitle
           icon="i-icon-park-outline:auto-width-one"

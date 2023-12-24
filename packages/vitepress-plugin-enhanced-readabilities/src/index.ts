@@ -13,12 +13,15 @@ import {
 
 import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
 import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
+
 import LayoutSwitch from './components/LayoutSwitch.vue'
 import LayoutSwitchContentLayoutMaxWidthSlider from './components/LayoutSwitchContentLayoutMaxWidthSlider.vue'
 import LayoutSwitchPageLayoutMaxWidthSlider from './components/LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import ScreenLayoutSwitch from './components/ScreenLayoutSwitch.vue'
+
 import Spotlight from './components/Spotlight.vue'
 import ScreenSpotlight from './components/ScreenSpotlight.vue'
+import SpotlightStyles from './components/SpotlightStyles.vue'
 
 import 'virtual:uno.css'
 import './styles/main.less'
@@ -36,6 +39,7 @@ export {
   ScreenLayoutSwitch,
   LayoutSwitchModeStorageKey,
   Spotlight,
+  SpotlightStyles,
   ScreenSpotlight,
   SpotlightToggledStorageKey,
   InjectionKey,
@@ -48,6 +52,7 @@ const components = {
   NolebaseEnhancedReadabilitiesLayoutSwitch: LayoutSwitch,
   NolebaseEnhancedReadabilitiesScreenLayoutSwitch: ScreenLayoutSwitch,
   NolebaseEnhancedReadabilitiesSpotlight: Spotlight,
+  NolebaseEnhancedReadabilitiesSpotlightStyles: SpotlightStyles,
   NolebaseEnhancedReadabilitiesScreenSpotlight: ScreenSpotlight,
 }
 

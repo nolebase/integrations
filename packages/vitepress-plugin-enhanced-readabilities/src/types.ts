@@ -1,4 +1,4 @@
-import type { LayoutMode } from './constants'
+import type { LayoutMode, SpotlightStyle } from './constants'
 
 /**
  * Locale
@@ -201,6 +201,48 @@ export interface Locale {
      * Option: Off help message
      */
     optionOffHelpMessage?: string
+    styles?: {
+      /**
+       * Title text
+       */
+      title?: string
+      /**
+       * Title aria-label
+       */
+      titleAriaLabel?: string
+      /**
+       * Title help message
+       */
+      titleHelpMessage?: string
+      /**
+       * Title warning message for navigation menu in small screen
+       */
+      titleScreenNavWarningMessage?: string
+      /**
+       * Option: Under text
+       */
+      optionUnder?: string
+      /**
+       * Option: Under aria-label
+       */
+      optionUnderAriaLabel?: string
+      /**
+       * Option: Under help message
+       */
+      optionUnderHelpMessage?: string
+      /**
+       * Option: Aside text
+       */
+      optionAside?: string
+      /**
+       * Option: Aside aria-label
+       */
+      optionAsideAriaLabel?: string
+      /**
+       * Option: Aside help message
+       */
+      optionAsideHelpMessage?: string
+    }
   }
 }
 
@@ -309,5 +351,11 @@ export interface Options {
      * @default false
      */
     defaultToggle?: boolean
+    /**
+     * Default style for spotlight
+     *
+     * @default SpotlightStyle.Aside (2)
+     */
+    defaultStyle?: SpotlightStyle
   }
 }

@@ -6,9 +6,10 @@ import { useI18n } from '../composables/i18n'
 
 import LayoutSwitchLayoutIcon from './MenuIcon.vue'
 import LayoutSwitch from './LayoutSwitch.vue'
-import MouseOverElementHighlight from './Spotlight.vue'
 import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import LayoutSwitchContentLayoutWidthInput from './LayoutSwitchContentLayoutMaxWidthSlider.vue'
+import Spotlight from './Spotlight.vue'
+import SpotlightStyles from './SpotlightStyles.vue'
 
 const mounted = useMounted()
 const { t } = useI18n()
@@ -23,7 +24,8 @@ const { t } = useI18n()
       <LayoutSwitch />
       <LayoutSwitchPageLayoutWidthInput />
       <LayoutSwitchContentLayoutWidthInput />
-      <MouseOverElementHighlight />
+      <Spotlight />
+      <SpotlightStyles />
     </div>
   </VPFlyout>
 </template>

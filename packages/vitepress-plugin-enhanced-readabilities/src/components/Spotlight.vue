@@ -21,16 +21,16 @@ const { t } = useI18n()
 
 const fieldOptions = computed(() => [
   {
+    value: true,
     title: t('spotlight.optionOn'),
     ariaLabel: t('spotlight.optionOnAriaLabel'),
-    value: true,
     text: 'ON',
     name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
   },
   {
+    value: false,
     title: t('spotlight.optionOff'),
     ariaLabel: t('spotlight.optionOffAriaLabel'),
-    value: false,
     text: 'OFF',
     name: 'VitePress Nolebase Enhanced Readabilities Spotlight Toggle Switch',
   },

@@ -125,7 +125,7 @@ If you haven't configured any of the separated [Vite configuration file](https:/
 
 #### Add plugin into the Theme options of VitePress
 
-In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced-readabilities` import and add it to the `Layout` extension:
+In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced-readabilities` package and add it to the `Layout` section as a slot:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 

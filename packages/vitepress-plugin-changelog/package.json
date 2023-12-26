@@ -1,0 +1,61 @@
+{
+  "name": "@nolebase/vitepress-plugin-changelog",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A VitePress plugin that adds a changelog to your documentation.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-changelog/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-changelog"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "file-history",
+    "changelog",
+    "git",
+    "git-history",
+    "git-log",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "main": "./dist/index.umd.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "concurrently \"nr build:watch\" \"nr emit-types\"",
+    "emit-types": "vue-tsc --declaration --emitDeclarationOnly",
+    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
+    "build:watch": "vite build --mode development --watch"
+  },
+  "peerDependencies": {
+    "vitepress": ">=1.0.0-rc.32",
+    "vue": ">=3.3.8"
+  },
+  "devDependencies": {
+    "md5": "^2.3.0",
+    "simple-git": "^3.21.0"
+  }
+}

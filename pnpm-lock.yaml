@@ -124,7 +124,7 @@ importers:
         specifier: '>=1.0.0-rc.32'
         version: 1.0.0-rc.32(@algolia/client-search@4.22.0)(@types/node@20.10.5)(less@4.2.0)(postcss@8.4.32)(search-insights@2.13.0)(typescript@5.3.3)
       vue:
-        specifier: '>=3.3.13'
+        specifier: '>=3.3.8'
         version: 3.3.13(typescript@5.3.3)
 
   packages/vitepress-plugin-highlight-targeted-heading:
@@ -133,7 +133,7 @@ importers:
         specifier: '>=1.0.0-rc.32'
         version: 1.0.0-rc.32(@algolia/client-search@4.22.0)(@types/node@20.10.5)(less@4.2.0)(postcss@8.4.32)(search-insights@2.13.0)(typescript@5.3.3)
       vue:
-        specifier: '>=3.3.13'
+        specifier: '>=3.3.8'
         version: 3.3.13(typescript@5.3.3)
 
   packages/vitepress-plugin-inline-link-preview:
@@ -142,7 +142,7 @@ importers:
         specifier: '>=1.0.0-rc.32'
         version: 1.0.0-rc.32(@algolia/client-search@4.22.0)(@types/node@20.10.5)(less@4.2.0)(postcss@8.4.32)(search-insights@2.13.0)(typescript@5.3.3)
       vue:
-        specifier: '>=3.3.13'
+        specifier: '>=3.3.8'
         version: 3.3.13(typescript@5.3.3)
 
 packages:

@@ -26,7 +26,7 @@ const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 const shouldActivateMaxWidth = useMediaQuery('(min-width: 1440px)')
 const maxWidthLocalStorageValue = useStorage(PageLayoutMaxWidthStorageKey, (options.layoutSwitch?.pageLayoutMaxWidth?.defaultMaxWidth || 100) * 100)
-const layoutMode = useLocalStorage(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable)
+const layoutMode = useLocalStorage<LayoutMode>(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable)
 
 const maxWidthValue = computed({
   get: () => {

@@ -18,7 +18,7 @@ const props = defineProps<{
     <slot />
     <span
       v-if="props.showExternalIcon"
-      class="i-icon-park-outline:full-screen-one VPNolebaseInlinePreviewLinkPopupOpenBtnIcon"
+      class="VPNolebaseInlinePreviewLinkPopupOpenBtnIcon i-icon-park-outline:full-screen-one"
       inline-flex="~"
       ml-2 items-center justify-center text-xs
     />

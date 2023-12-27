@@ -20,6 +20,15 @@ export default defineConfig(async () => {
 
           return 'File History'
         },
+        excludes: [],
+        exclude: (id): boolean => {
+          if (id === join(__dirname, 'pages/en/index.md'))
+            return true
+          if (id === join(__dirname, 'pages/zh-CN/index.md'))
+            return true
+
+          return false
+        },
       }),
       GitChangelog({
         repoURL: () => 'https://github.com/nolebase/integrations',

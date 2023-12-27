@@ -26,4 +26,8 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <br />
 
+<IntegrationCard type="vitepress" title="Changelog & File history" package="vitepress-plugin-git-changelog" />
+
+<br />
+
 <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />

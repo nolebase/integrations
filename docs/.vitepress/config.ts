@@ -1,6 +1,7 @@
 import { cwd } from 'node:process'
 import { defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
+import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 
 // https://vitepress.dev/reference/site-config
@@ -56,6 +57,7 @@ export default defineConfig({
               { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
               { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
               { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
+              { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
             ],
           },
         ],
@@ -105,6 +107,7 @@ export default defineConfig({
               { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
               { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
               { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
+              { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
             ],
           },
         ],
@@ -138,7 +141,7 @@ export default defineConfig({
                 break
             }
           },
-        }
+        } as ElementTransformOptions
       })())
     },
   },

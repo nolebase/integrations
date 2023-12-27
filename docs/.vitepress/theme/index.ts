@@ -2,8 +2,6 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
 
-import type { Options as NolebaseEnhancedReadabilitiesOptions } from '@nolebase/vitepress-plugin-enhanced-readabilities'
-
 import {
   InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
   LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
@@ -19,11 +17,14 @@ import {
   NolebaseHighlightTargetedHeading,
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading'
 
+import { NolebaseChangelog } from '@nolebase/vitepress-plugin-git-changelog/client'
+
 import 'virtual:uno.css'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css'
 import '@nolebase/vitepress-plugin-inline-link-preview/dist/style.css'
 import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css'
+import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
 
 import './styles/vars.css'
 import './styles/main.css'
@@ -47,17 +48,18 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
+    app.component('NolebaseGitChangelog', NolebaseChangelog)
 
     app.use(NolebaseInlineLinkPreviewPlugin)
 
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {
-        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.FullWidth,
+        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.SidebarWidthAdjustableOnly,
       },
       spotlight: {
         defaultToggle: true,
       },
-    } as NolebaseEnhancedReadabilitiesOptions)
+    })
   },
 }
 

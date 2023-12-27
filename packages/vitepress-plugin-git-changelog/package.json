@@ -1,0 +1,73 @@
+{
+  "name": "@nolebase/vitepress-plugin-git-changelog",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "A VitePress plugin that adds a changelog fetched from git to your documentation.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-git-changelog/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-git-changelog"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "file-history",
+    "changelog",
+    "git",
+    "git-history",
+    "git-log",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.mjs",
+      "require": "./dist/vite/index.cjs"
+    },
+    "./client/style.css": "./dist/client/style.css",
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.cjs"
+    }
+  },
+  "main": "./dist/vite/index.cjs",
+  "module": "./dist/vite/index.mjs",
+  "types": "./dist/vite/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "concurrently \"nr build:watch\" \"nr emit-types\"",
+    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly src/client/index.ts --outDir dist",
+    "build": "vite build && pnpm run emit-types && unbuild",
+    "build:watch": "vite build --mode development --watch"
+  },
+  "peerDependencies": {
+    "dayjs": "^1.11.10",
+    "md5": ">=2.3.0",
+    "simple-git": ">=3.21.0",
+    "vitepress": ">=1.0.0-rc.32",
+    "vue": ">=3.3.8"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.10"
+  },
+  "devDependencies": {
+    "builtin-modules": "^3.3.0",
+    "md5": "^2.3.0",
+    "simple-git": "^3.21.0"
+  }
+}

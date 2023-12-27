@@ -17,12 +17,16 @@ export interface Options {
    * {
    *  locales: {
    *    'en': {
-   *      noLogs: {
-   *       title: 'No recent changes',
+   *      noLogs: 'No recent changes',
+   *      viewMore: 'View more',
+   *      lastEdited: 'This page was last edited {{daysAgo}}',
+   *      committedOn: ' on {{date}}',
    *    },
    *    'zh-CN': {
-   *       noLogs: {
-   *         title: '暂无最近变更历史',
+   *      noLogs: '暂无最近变更历史',
+   *      viewMore: '查看更多',
+   *      lastEdited: '本页面最后编辑于 {{daysAgo}}',
+   *      committedOn: '于 {{date}} 提交',
    *     },
    *   }
    * }

@@ -6,6 +6,7 @@ export default defineConfig({
   resolve: {
     dedupe: [
       'vue',
+      'vitepress',
       '@vue/runtime-core',
     ],
   },
@@ -14,18 +15,26 @@ export default defineConfig({
     Unocss(),
   ],
   build: {
+    outDir: 'dist/client',
     lib: {
-      entry: 'src/index.ts',
-      name: '@nolebase/vitepress-plugin-changelog',
-      fileName: 'index',
+      entry: 'src/client/index.ts',
+      name: '@nolebase/vitepress-plugin-git-changelog',
+      fileName: format => format === 'es' ? 'index.mjs' : 'index.cjs',
+      formats: [
+        'es',
+        'cjs',
+      ],
     },
     rollupOptions: {
       external: [
         'vue',
+        'vitepress',
+        'virtual:nolebase-git-changelog',
       ],
       output: {
         globals: {
           vue: 'Vue',
+          vitepress: 'vitepress',
         },
       },
     },

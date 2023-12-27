@@ -5,7 +5,7 @@
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,
-    "outDir": "./dist",
+    "outDir": "./dist/client",
     "sourceMap": true,
     "skipDefaultLibCheck": true,
     "skipLibCheck": true

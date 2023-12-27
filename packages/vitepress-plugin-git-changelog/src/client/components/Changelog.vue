@@ -43,7 +43,6 @@ const isFreshChange = computed(() => {
 function onBeforeEnter(el: Element) {
   const divEl = el as HTMLDivElement
 
-  divEl.style.transition = 'height 0.3s ease-in-out'
   divEl.style.height = '0px'
 }
 
@@ -70,10 +69,8 @@ function onBeforeLeave(el: Element) {
 function onLeave(el: Element) {
   const divEl = el as HTMLDivElement
 
-  if (divEl.scrollHeight !== 0) {
-    divEl.style.transition = 'height 0.3s ease-in-out'
+  if (divEl.scrollHeight !== 0)
     divEl.style.height = '0px'
-  }
 }
 
 function onAfterLeave(el: Element) {
@@ -127,6 +124,7 @@ function onAfterLeave(el: Element) {
       <div
         v-show="toggleViewMore"
         class="grid grid-cols-[30px_auto] mt-2 gap-1.5 children:my-auto -ml-1.5"
+        transition="height ease-in-out" duration-200
       >
         <template v-for="(commit) of commits" :key="commit.hash">
           <template v-if="commit.tag">

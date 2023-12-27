@@ -8,12 +8,13 @@ import { computed, ref } from 'vue'
 import ChangelogData from 'virtual:nolebase-git-changelog'
 
 import { useData } from 'vitepress'
+
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
-
 import { renderCommitMessage } from '../utils'
 import type { Changelog } from '../../types'
 import { useI18n } from '../composables/i18n'
+import VerticalTransition from './VerticalTransition.vue'
 
 const changelogData = ChangelogData as Changelog
 
@@ -38,46 +39,6 @@ const isFreshChange = computed(() => {
     return false
   return lastChangeDate.value.isAfter(dayjs().locale(lang.value.toLocaleLowerCase()).subtract(1, 'day'))
 })
-
-// enter-from
-function onBeforeEnter(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  divEl.style.height = '0px'
-}
-
-function onEnter(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  divEl.style.height = `${divEl.scrollHeight}px`
-  divEl.style.overflow = 'hidden'
-}
-
-function onAfterEnter(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  divEl.style.height = `${divEl.scrollHeight}px`
-}
-
-function onBeforeLeave(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  divEl.style.height = `${divEl.scrollHeight}px`
-  divEl.style.overflow = 'hidden'
-}
-
-function onLeave(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  if (divEl.scrollHeight !== 0)
-    divEl.style.height = '0px'
-}
-
-function onAfterLeave(el: Element) {
-  const divEl = el as HTMLDivElement
-
-  divEl.style.transition = ''
-}
 </script>
 
 <template>
@@ -89,16 +50,16 @@ function onAfterLeave(el: Element) {
     ]"
     rounded-lg p-4
   >
-    <div class="flex select-none items-center justify-between hover:text-$vp-c-brand-1" transition="color ease-in-out" duration-200>
-      <span class="inline-flex items-center gap-3 text-$vp-custom-block-details-text">
-        <span class="i-octicon:history-16" />
-        <span v-if="commits[0]">
-          {{ t('lastEdited', { props: { daysAgo: lastChangeDate?.fromNow() } }) }}
+    <label cursor-pointer>
+      <div class="flex select-none items-center justify-between hover:text-$vp-c-brand-1" transition="color ease-in-out" duration-200>
+        <span class="inline-flex items-center gap-3 text-$vp-custom-block-details-text">
+          <span class="i-octicon:history-16" />
+          <span v-if="commits[0]">
+            {{ t('lastEdited', { props: { daysAgo: lastChangeDate?.fromNow() } }) }}
+          </span>
         </span>
-      </span>
-      <label>
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
-        <span class="inline-flex items-center gap-3 !font-400" cursor-pointer>
+        <span class="inline-flex items-center gap-3 !font-400">
           <span>
             {{ t('viewMore') }}
           </span>
@@ -111,16 +72,9 @@ function onAfterLeave(el: Element) {
             duration-200
           />
         </span>
-      </label>
-    </div>
-    <Transition
-      @before-enter="onBeforeEnter"
-      @enter="onEnter"
-      @after-enter="onAfterEnter"
-      @before-leave="onBeforeLeave"
-      @leave="onLeave"
-      @after-leave="onAfterLeave"
-    >
+      </div>
+    </label>
+    <VerticalTransition>
       <div
         v-show="toggleViewMore"
         class="grid grid-cols-[30px_auto] mt-2 gap-1.5 children:my-auto -ml-1.5"
@@ -137,7 +91,7 @@ function onAfterLeave(el: Element) {
               <a :href="commit.release_tag_url" target="_blank">
                 <code class="!text-primary font-bold">{{ commit.tag }}</code>
               </a>
-              <span class="text-xs opacity-50"> {{ t('committedOn') }} {{ new Date(commit.date).toLocaleDateString() }}</span>
+              <span class="text-xs opacity-50">{{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}</span>
             </div>
           </template>
           <template v-else>
@@ -156,6 +110,6 @@ function onAfterLeave(el: Element) {
           </template>
         </template>
       </div>
-    </Transition>
+    </VerticalTransition>
   </div>
 </template>

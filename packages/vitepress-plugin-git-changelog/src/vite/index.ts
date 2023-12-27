@@ -122,17 +122,25 @@ export function GitChangelog(options: {
 
 export function GitChangelogMarkdownSection(options?: {
   getChangelogTitle?: (code: string, id: string) => string
+  excludes?: string[]
+  exclude?: (id: string) => boolean
 }): Plugin {
   const {
     getChangelogTitle = () => {
       return 'Changelog'
     },
+    excludes = ['index.md'],
+    exclude = () => false,
   } = options ?? {}
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog-markdown-section',
     transform(code, id) {
       if (!id.endsWith('.md'))
+        return null
+      if (excludes.includes(id))
+        return null
+      if (exclude(id))
         return null
 
       return `${code}

@@ -2,6 +2,8 @@ import type { Plugin } from 'vue'
 
 import NolebaseHighlightTargetedHeading from './components/HighlightTargetedHeading.vue'
 
+import 'virtual:uno.css'
+
 export {
   NolebaseHighlightTargetedHeading,
 }

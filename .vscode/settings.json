@@ -4,7 +4,8 @@
     "Attributify",
     "easytag",
     "emittypes",
-    "Logseq"
+    "Logseq",
+    "quotepath"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

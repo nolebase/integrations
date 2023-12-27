@@ -83,20 +83,22 @@ const isFreshChange = computed(() => {
         <template v-for="(commit) of commits" :key="commit.hash">
           <template v-if="commit.tag">
             <div m="t-1" />
-            <div m="t-1" />
             <div class="m-auto h-7 w-7 inline-flex rounded-full bg-gray-400/10 text-sm opacity-90">
               <div class="i-octicon:rocket-16" m="auto" />
             </div>
-            <div>
+            <div flex items-center>
               <a :href="commit.release_tag_url" target="_blank">
                 <code class="!text-primary font-bold">{{ commit.tag }}</code>
               </a>
-              <span class="text-xs opacity-50">{{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}</span>
+              &nbsp;
+              <span class="text-xs opacity-50">
+                {{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}
+              </span>
             </div>
           </template>
           <template v-else>
             <div class="i-octicon:git-commit-16 m-auto rotate-90 transform opacity-30" />
-            <div>
+            <div flex items-center>
               <a :href="`${commit.repo_url}/commit/${commit.hash}`" target="_blank">
                 <code class="!text-xs !text-$vp-c-brand-1 !hover:text-$vp-c-brand-1" transition="color ease-in-out" duration-200>{{ commit.hash.slice(0, 5) }}</code>
               </a>
@@ -104,8 +106,10 @@ const isFreshChange = computed(() => {
                 -
                 <span v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
               </span>
-
-              <span class="text-xs opacity-50">{{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}</span>
+              &nbsp;
+              <span class="text-xs opacity-50">
+                {{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}
+              </span>
             </div>
           </template>
         </template>

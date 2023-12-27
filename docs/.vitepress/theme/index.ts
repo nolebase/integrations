@@ -54,7 +54,7 @@ export const Theme: ThemeConfig = {
 
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {
-        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.FullWidth,
+        defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.SidebarWidthAdjustableOnly,
       },
       spotlight: {
         defaultToggle: true,

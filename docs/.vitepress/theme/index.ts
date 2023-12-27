@@ -17,7 +17,7 @@ import {
   NolebaseHighlightTargetedHeading,
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading'
 
-import { NolebaseChangelog } from '@nolebase/vitepress-plugin-git-changelog/client'
+import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
 
 import 'virtual:uno.css'
 
@@ -48,9 +48,9 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
-    app.component('NolebaseGitChangelog', NolebaseChangelog)
 
     app.use(NolebaseInlineLinkPreviewPlugin)
+    app.use(NolebaseGitChangelogPlugin)
 
     app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
       layoutSwitch: {

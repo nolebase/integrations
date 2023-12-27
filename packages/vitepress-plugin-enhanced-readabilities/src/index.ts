@@ -1,6 +1,7 @@
 import type { Plugin } from 'vue'
 
 import type {
+  Locale,
   Options,
 } from './types'
 
@@ -28,6 +29,7 @@ import './styles/main.less'
 
 export type {
   Options,
+  Locale,
 }
 
 export {

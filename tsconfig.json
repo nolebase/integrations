@@ -7,7 +7,7 @@
       "ESNext"
     ],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "types": [
       "node",
@@ -31,7 +31,9 @@
     "packages/**/*.tsx",
     "packages/**/*.vue",
     "docs/**/*.ts",
-    "docs/**/*.vue"
+    "docs/**/*.vue",
+    "docs/**/.vitepress/**/*.ts",
+    "docs/**/.vitepress/**/*.vue"
   ],
   "exclude": [
     "**/node_modules/**"

@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": false,
+    "moduleResolution": "Node",
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,
@@ -22,6 +23,7 @@
     "**/*.tsx"
   ],
   "exclude": [
+    "**/node_modules/**",
     "**/dist/**",
     "./uno.config.ts",
     "./vite.config.ts"

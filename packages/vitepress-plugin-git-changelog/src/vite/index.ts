@@ -32,21 +32,18 @@ export function GitChangelog(options: {
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
-    resolveId(id) {
-      if (id === VirtualModuleID)
-        return ResolvedVirtualModuleId
-    },
-    load(id) {
-      if (id !== ResolvedVirtualModuleId)
-        return null
-
-      const changelogData: Changelog = {
-        commits,
-      }
-
-      return `export default ${JSON.stringify(changelogData)}`
-    },
-
+    config: () => ({
+      optimizeDeps: {
+        exclude: [
+          '@nolebase/vitepress-plugin-git-changelog/client',
+        ],
+      },
+      ssr: {
+        noExternal: [
+          '@nolebase/vitepress-plugin-git-changelog',
+        ],
+      },
+    }),
     async buildStart() {
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
@@ -116,6 +113,20 @@ export function GitChangelog(options: {
 
       const result = logs.filter(i => i.path?.length || i.tag)
       commits = result
+    },
+    resolveId(id) {
+      if (id === VirtualModuleID)
+        return ResolvedVirtualModuleId
+    },
+    load(id) {
+      if (id !== ResolvedVirtualModuleId)
+        return null
+
+      const changelogData: Changelog = {
+        commits,
+      }
+
+      return `export default ${JSON.stringify(changelogData)}`
     },
   }
 }

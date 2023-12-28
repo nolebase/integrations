@@ -111,7 +111,7 @@ const isFreshChange = computed(() => {
               </a>
               <span>-</span>
               <span>
-                <span v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
+                <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
                 <span class="text-xs opacity-50">
                   {{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}
                 </span>

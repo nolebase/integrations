@@ -3,27 +3,22 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import 'dayjs/locale/zh-cn'
 import { computed, ref } from 'vue'
-
-// @ts-expect-error virtual
-import ChangelogData from 'virtual:nolebase-git-changelog'
-
 import { useData } from 'vitepress'
+
+import Changelog from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { renderCommitMessage } from '../utils'
-import type { Changelog } from '../../types'
 import { useI18n } from '../composables/i18n'
 import VerticalTransition from './VerticalTransition.vue'
-
-const changelogData = ChangelogData as Changelog
 
 dayjs.extend(relativeTime)
 
 const toggleViewMore = ref(false)
 
 const rawPath = useRawPath()
-const commits = useCommits(changelogData.commits, rawPath)
+const commits = useCommits(Changelog.commits, rawPath)
 const { t } = useI18n()
 const { lang } = useData()
 

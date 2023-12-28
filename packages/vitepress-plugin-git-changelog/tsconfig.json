@@ -2,6 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": false,
+    "types": [
+      "vite/client"
+    ],
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,

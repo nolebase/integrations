@@ -24,4 +24,4 @@ pnpm add @nolebase/vitepress-plugin-git-changelog -D
 
 ## Documentation
 
-Please refer to [Enhanced Readabilities](https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-git-changelog/) for more information.
+Please refer to [Changelog & File history](https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-git-changelog/) for more information.

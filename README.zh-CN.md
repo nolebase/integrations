@@ -44,9 +44,11 @@ ni @nolebase/<integration-name> -D
 
 要找到集成的名称，下面是一个我们当前支持的集成列表：
 
+- [UnoCSS ([Obsidian](https://obsidian.md/) 插件)](https://github.com/nolebase/obsidian-plugin-unocss)
 - [双向链接（`markdown-it` 插件）](./packages/markdown-it-bi-directional-links/README.md)
 - [元素转换（`markdown-it` 插件）](./packages/markdown-it-element-transform/README.md)
 - [阅读增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-readabilities/README.md)
+- [变更记录 及 文件历史（VitePress 插件）](./packages/vitepress-plugin-git-changelog/README.md)
 - [行内链接预览（VitePress 插件）](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 

@@ -44,9 +44,11 @@ ni @nolebase/<integration-name> -D
 
 To find out the integration name, there is a list of integrations below.
 
+- [UnoCSS (for [Obsidian](https://obsidian.md/))](https://github.com/nolebase/obsidian-plugin-unocss)
 - [Bi-Directional Links (for `markdown-it`)](./packages/markdown-it-bi-directional-links/README.md)
 - [Elements Transformation (for `markdown-it`)](./packages/markdown-it-element-transform/README.md)
 - [Enhanced Readabilities (for VitePress)](./packages/vitepress-plugin-enhanced-readabilities/README.md)
+- [Changelog & File history (for VitePress)](./packages/vitepress-plugin-git-changelog/README.md)
 - [Inline Link Previewing (for VitePress)](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [Blinking highlight targeted heading (for VitePress)](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 

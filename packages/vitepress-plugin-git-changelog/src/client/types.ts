@@ -1,5 +1,7 @@
 export interface Locale {
-
+  noLogs?: string
+  lastEdited?: string
+  committedOn?: string
 }
 
 export interface Options {
@@ -18,13 +20,11 @@ export interface Options {
    *  locales: {
    *    'en': {
    *      noLogs: 'No recent changes',
-   *      viewMore: 'View more',
    *      lastEdited: 'This page was last edited {{daysAgo}}',
    *      committedOn: ' on {{date}}',
    *    },
    *    'zh-CN': {
    *      noLogs: '暂无最近变更历史',
-   *      viewMore: '查看更多',
    *      lastEdited: '本页面最后编辑于 {{daysAgo}}',
    *      committedOn: '于 {{date}} 提交',
    *     },

@@ -4,11 +4,13 @@ import type { Changelog, Commit } from '../types'
 import type { Locale, Options } from './types'
 import { InjectionKey } from './constants'
 import NolebaseGitChangelog from './components/Changelog.vue'
+import NolebaseGitContributors from './components/Contributors.vue'
 
 import 'virtual:uno.css'
 
 const components = {
   NolebaseGitChangelog,
+  NolebaseGitContributors,
 }
 
 export const NolebaseGitChangelogPlugin: Plugin = {
@@ -23,6 +25,7 @@ export const NolebaseGitChangelogPlugin: Plugin = {
 
 export {
   NolebaseGitChangelog,
+  NolebaseGitContributors,
   InjectionKey,
 }
 

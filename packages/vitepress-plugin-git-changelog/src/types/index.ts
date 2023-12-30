@@ -17,3 +17,18 @@ export interface Commit {
 export interface Changelog {
   commits: Commit[]
 }
+
+export interface SocialEntry {
+  type: 'github' | 'twitter' | 'email' | string
+  icon: string
+  link: string
+}
+
+export interface Contributor {
+  name: string
+  avatar: string
+  email?: string
+  links?: SocialEntry[]
+  nameAliases?: string[]
+  emailAliases?: string[]
+}

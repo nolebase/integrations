@@ -1,5 +1,8 @@
+import type { Contributor } from '../types'
+
 export interface Locale {
   noLogs?: string
+  noContributors?: string
   lastEdited?: string
   viewFullHistory?: string
   committedOn?: string
@@ -36,4 +39,5 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
+  mapContributors?: Contributor[]
 }

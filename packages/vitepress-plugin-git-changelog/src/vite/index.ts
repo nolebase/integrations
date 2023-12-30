@@ -133,12 +133,20 @@ export function GitChangelog(options: {
 
 export function GitChangelogMarkdownSection(options?: {
   getChangelogTitle?: (code: string, id: string) => string
+  getContributorsTitle?: (code: string, id: string) => string
   excludes?: string[]
   exclude?: (id: string) => boolean
+  sections?: {
+    disableChangelog?: boolean
+    disableContributors?: boolean
+  }
 }): Plugin {
   const {
     getChangelogTitle = () => {
       return 'Changelog'
+    },
+    getContributorsTitle = () => {
+      return 'Contributors'
     },
     excludes = ['index.md'],
     exclude = () => false,
@@ -154,11 +162,27 @@ export function GitChangelogMarkdownSection(options?: {
       if (exclude(id))
         return null
 
-      return `${code}
+      const contributorsSection = options?.sections?.disableContributors
+        ? ''
+        : `
+
+## ${getContributorsTitle(code, id)}
+
+<NolebaseGitContributors />
+
+`
+
+      const changelogSection = options?.sections?.disableChangelog
+        ? ''
+        : `
 
 ## ${getChangelogTitle(code, id)}
 
-<NolebaseGitChangelog />`
+<NolebaseGitChangelog />
+
+`
+
+      return `${code}${contributorsSection}${changelogSection}`
     },
   }
 }

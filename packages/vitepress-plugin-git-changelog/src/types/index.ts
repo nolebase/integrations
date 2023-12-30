@@ -25,8 +25,8 @@ export interface SocialEntry {
 }
 
 export interface Contributor {
-  name: string
-  avatar: string
+  name?: string
+  avatar?: string
   email?: string
   links?: SocialEntry[]
   nameAliases?: string[]

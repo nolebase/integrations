@@ -17,7 +17,10 @@ import {
   NolebaseHighlightTargetedHeading,
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading'
 
-import { NolebaseGitChangelogPlugin } from '@nolebase/vitepress-plugin-git-changelog/client'
+import {
+  InjectionKey as NolebaseGitChangelogInjectionKey,
+  NolebaseGitChangelogPlugin,
+} from '@nolebase/vitepress-plugin-git-changelog/client'
 
 import 'virtual:uno.css'
 
@@ -59,6 +62,23 @@ export const Theme: ThemeConfig = {
       spotlight: {
         defaultToggle: true,
       },
+    })
+
+    app.provide(NolebaseGitChangelogInjectionKey, {
+      mapContributors: [
+        {
+          name: 'Neko',
+          avatar: 'https://github.com/nekomeowww.png',
+          nameAliases: ['Neko Ayaka', 'Ayaka Neko'],
+          emailAliases: ['neko@ayaka.moe'],
+        },
+        {
+          name: 'Rizumu',
+          avatar: 'https://github.com/LittleSound.png',
+          nameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
+          emailAliases: ['rizumu@ayaka.moe'],
+        },
+      ],
     })
   },
 }

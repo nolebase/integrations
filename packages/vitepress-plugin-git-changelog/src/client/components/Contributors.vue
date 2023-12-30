@@ -15,33 +15,33 @@ interface ContributorInfo {
   url?: string
 }
 
-const options = inject(InjectionKey)
+const options = inject(InjectionKey, {})
 
-const rawPath = useRawPath()
 const { t } = useI18n()
+const rawPath = useRawPath()
 const commits = useCommits(Changelog.commits, rawPath)
 
 const contributors = computed<ContributorInfo[]>(() => {
   const map: Record<string, ContributorInfo> = {}
   commits.value.forEach((c) => {
-    const targetCreatorByName = options?.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(c.author_name))
-    const targetCreatorByEmail = options?.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(c.author_email))
+    const targetCreatorByName = options.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(c.author_name))
+    const targetCreatorByEmail = options.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(c.author_email))
 
     let name = ''
     let avatar = ''
     let url: string | undefined
 
     if (targetCreatorByName) {
-      name = targetCreatorByName.name
-      avatar = targetCreatorByName.avatar
+      name = targetCreatorByName.name || c.author_name
+      avatar = targetCreatorByName.avatar || `https://gravatar.com/avatar/${c.author_avatar}?d=retro`
 
       const foundGitHubLink = targetCreatorByName.links?.find(item => item.type === 'github')
       if (foundGitHubLink)
         url = foundGitHubLink.link
     }
     else if (targetCreatorByEmail) {
-      name = targetCreatorByEmail.name
-      avatar = targetCreatorByEmail.avatar
+      name = targetCreatorByEmail.name || c.author_name
+      avatar = targetCreatorByEmail.avatar || `https://gravatar.com/avatar/${c.author_avatar}?d=retro`
 
       const foundGitHubLink = targetCreatorByEmail.links?.find(item => item.type === 'github')
       if (foundGitHubLink)

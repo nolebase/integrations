@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-git-changelog",
   "type": "module",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A VitePress plugin that adds a changelog fetched from git to your documentation.",
   "author": {
     "name": "Nólëbase",
@@ -51,7 +51,7 @@
   ],
   "scripts": {
     "dev": "concurrently \"nr build:watch\" \"nr emit-types\"",
-    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly src/client/index.ts --outDir dist",
+    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly --outDir dist --types ./src/client/virtual.d.ts src/client/index.ts",
     "build": "vite build && pnpm run emit-types && unbuild",
     "build:watch": "vite build --mode development --watch"
   },

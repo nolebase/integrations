@@ -59,6 +59,9 @@ const isFreshChange = computed(() => {
         </span>
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
         <span class="inline-flex items-center gap-3 !font-400">
+          <span class="<sm:hidden">
+            {{ t('viewFullHistory') }}
+          </span>
           <svg
             class="i-octicon:chevron-down-16"
             :class="[
@@ -73,7 +76,7 @@ const isFreshChange = computed(() => {
     <VerticalTransition>
       <div
         v-show="toggleViewMore"
-        class="grid grid-cols-[30px_auto] mt-2 gap-1.5 children:my-auto -ml-1.5"
+        class="grid grid-cols-[30px_auto] mt-3 gap-1.5 children:my-auto -ml-1.5"
         transition="height ease-in-out" duration-200
         text="<sm:xs"
       >

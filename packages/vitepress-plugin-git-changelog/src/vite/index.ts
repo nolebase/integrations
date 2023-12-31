@@ -101,10 +101,12 @@ export function GitChangelog(options: {
         )
 
         // rewrite paths
-        for (const [index, file] of log.path.entries()) {
+        for (const [index, files] of log.path.entries()) {
           for (const [key, value] of Object.entries(rewritePaths)) {
-            if (file[1].startsWith(key))
-              log.path[index][1] = file[1].replace(key, value)
+            if (files[1] && files[1].startsWith(key))
+              log.path[index][1] = files[1].replace(key, value)
+            if (files[2] && files[2].startsWith(key))
+              log.path[index][2] = files[2].replace(key, value)
           }
         }
 

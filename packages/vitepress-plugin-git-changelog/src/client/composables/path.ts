@@ -7,7 +7,6 @@ export function useRawPath() {
     let path = decodeURIComponent(route.path).toLowerCase()
     if (path.endsWith('/'))
       path += 'index.md'
-
     else
       path = path.replace(/^\/(.+?)(\.html)?$/s, '$1.md')
 

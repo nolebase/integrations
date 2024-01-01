@@ -5,6 +5,9 @@ export function useRawPath() {
   const route = useRoute()
   return computed(() => {
     let path = decodeURIComponent(route.path).toLowerCase()
+    if (path.startsWith('/'))
+      path = path.slice(1)
+
     if (path.endsWith('/'))
       path += 'index.md'
     else

@@ -47,18 +47,18 @@ const isFreshChange = computed(() => {
   >
     <label cursor-pointer>
       <div
-        class="flex select-none items-center justify-between hover:text-$vp-c-brand-1"
+        class="vp-nolebase-git-changelog-title flex select-none items-center justify-between"
         transition="color ease-in-out"
         text="<sm:xs" duration-200
       >
-        <span class="inline-flex items-center gap-3 text-$vp-custom-block-details-text">
+        <span class="vp-nolebase-git-changelog-last-edited-title inline-flex items-center gap-3">
           <span class="i-octicon:history-16" />
           <span v-if="commits[0]">
             {{ t('lastEdited', { props: { daysAgo: lastChangeDate?.fromNow() } }) }}
           </span>
         </span>
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
-        <span class="inline-flex items-center gap-3 !font-400">
+        <span class="vp-nolebase-git-changelog-view-full-history-title inline-flex items-center gap-3">
           <span class="<sm:hidden">
             {{ t('viewFullHistory') }}
           </span>
@@ -121,3 +121,22 @@ const isFreshChange = computed(() => {
     </VerticalTransition>
   </div>
 </template>
+
+<style scoped>
+.vp-nolebase-git-changelog-title {
+  color: var(--vp-custom-block-details-text);
+  font-size: var(--vp-custom-block-font-size);
+}
+
+.vp-nolebase-git-changelog-title:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.vp-nolebase-git-changelog-last-edited-title {
+  font-weight: 800;
+}
+
+.vp-nolebase-git-changelog-view-full-history-title {
+  font-weight: 400;
+}
+</style>

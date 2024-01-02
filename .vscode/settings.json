@@ -5,7 +5,9 @@
     "easytag",
     "emittypes",
     "Logseq",
-    "quotepath"
+    "quotepath",
+    "iconify",
+    "antfu"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

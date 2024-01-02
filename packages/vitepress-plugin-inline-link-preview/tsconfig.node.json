@@ -10,6 +10,7 @@
     "moduleResolution": "Node"
   },
   "include": [
-    "vite.config.ts"
+    "vite.config.ts",
+    "uno.config.ts"
   ]
 }

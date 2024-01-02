@@ -59,8 +59,8 @@
     "dayjs": ">=1.11.0",
     "md5": ">=2.3.0",
     "simple-git": ">=3.21.0",
-    "vitepress": ">=1.0.0-rc.32",
-    "vue": ">=3.3.8"
+    "vitepress": ">=1.0.0-rc.34",
+    "vue": ">=3.3.0"
   },
   "dependencies": {
     "dayjs": "^1.11.10",

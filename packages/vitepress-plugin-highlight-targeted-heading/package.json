@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-highlight-targeted-heading",
   "type": "module",
-  "version": "1.5.0",
+  "version": "1.10.0",
   "description": "A VitePress plugin blinks to highlight the heading element when targeted and clicked.",
   "author": {
     "name": "Nólëbase",

@@ -11,13 +11,14 @@
     "resolveJsonModule": true,
     "types": [
       "node",
-      "vite/client",
-      "vue/ref-macros"
+      "vite/client"
     ],
     "strict": true,
     "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noEmit": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

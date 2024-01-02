@@ -8,7 +8,6 @@
     "noEmit": false,
     "outDir": "./dist",
     "sourceMap": true,
-    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
   "references": [
@@ -17,14 +16,12 @@
     }
   ],
   "include": [
-    "**/*.ts",
-    "**/*.d.ts",
-    "**/*.vue",
-    "**/*.tsx"
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.vue",
+    "src/**/*.tsx"
   ],
   "exclude": [
-    "**/dist/**",
-    "./uno.config.ts",
-    "./vite.config.ts"
+    "**/dist/**"
   ]
 }

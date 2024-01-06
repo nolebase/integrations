@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/integrations",
   "type": "module",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "A collection of diverse documentation engineering tools.",
   "author": {
     "name": "Nólëbase",
@@ -26,7 +26,8 @@
     "packages:stub": "pnpm -r --filter=./packages/* run stub",
     "packages:build": "pnpm -r --filter=./packages/* run build",
     "cleanup:dist": "rimraf --glob **/dist",
-    "cleanup:node_modules": "rimraf --glob **/node_modules"
+    "cleanup:node_modules": "rimraf --glob **/node_modules",
+    "publish": "pnpm -r --filter='!@nolebase/integrations-docs' exec npm publish --access=public"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",

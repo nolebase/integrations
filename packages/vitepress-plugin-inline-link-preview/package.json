@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-inline-link-preview",
   "type": "module",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "description": "A VitePress plugin that adds a inline popup to help you preview links while reading.",
   "author": {
     "name": "Nólëbase",

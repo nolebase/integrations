@@ -73,11 +73,10 @@ const isFreshChange = computed(() => {
         </span>
       </div>
     </label>
-    <VerticalTransition>
+    <VerticalTransition :duration="200">
       <div
         v-show="toggleViewMore"
         class="grid grid-cols-[30px_auto] mt-3 gap-1.5 children:my-auto -ml-1.5"
-        transition="height ease-in-out" duration-200
         text="<sm:xs"
       >
         <template v-for="(commit) of commits" :key="commit.hash">

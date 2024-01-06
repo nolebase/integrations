@@ -33,6 +33,7 @@ import './styles/vars.css'
 import './styles/main.css'
 
 import IntegrationCard from './components/IntegrationCard.vue'
+import HomeContent from './components/HomeContent.vue'
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -51,6 +52,7 @@ export const Theme: ThemeConfig = {
   },
   enhanceApp({ app }) {
     app.component('IntegrationCard', IntegrationCard)
+    app.component('HomeContent', HomeContent)
 
     app.use(NolebaseInlineLinkPreviewPlugin)
     app.use(NolebaseGitChangelogPlugin)

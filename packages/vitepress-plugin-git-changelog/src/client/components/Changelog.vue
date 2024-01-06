@@ -82,9 +82,8 @@ const isFreshChange = computed(() => {
       >
         <template v-for="(commit) of commits" :key="commit.hash">
           <template v-if="commit.tag">
-            <div m="t-1" />
-            <div class="m-auto h-7 w-7 inline-flex rounded-full bg-gray-400/10 text-sm opacity-90 <sm:text-xs">
-              <div class="i-octicon:rocket-16" m="auto" />
+            <div class="m-auto h-[1.75em] w-[1.75em] inline-flex rounded-full bg-gray-400/10 opacity-90">
+              <div class="i-octicon:rocket-16 !h-[50%] !min-h-[50%] !min-w-[50%] !w-[50%]" m="auto" />
             </div>
             <div flex items-center gap-1>
               <a :href="commit.release_tag_url" target="_blank">

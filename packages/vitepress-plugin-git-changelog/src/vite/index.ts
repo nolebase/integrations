@@ -1,3 +1,4 @@
+/* eslint-disable ts/no-use-before-define */
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
@@ -164,27 +165,29 @@ export function GitChangelogMarkdownSection(options?: {
       if (exclude(id))
         return null
 
-      const contributorsSection = options?.sections?.disableContributors
-        ? ''
-        : `
+      if (!options?.sections?.disableContributors)
+        code = TemplateContributors(code, getContributorsTitle(code, id))
 
-## ${getContributorsTitle(code, id)}
+      if (!options?.sections?.disableChangelog)
+        code = TemplateChangelog(code, getChangelogTitle(code, id))
 
-<NolebaseGitContributors />
-
-`
-
-      const changelogSection = options?.sections?.disableChangelog
-        ? ''
-        : `
-
-## ${getChangelogTitle(code, id)}
-
-<NolebaseGitChangelog />
-
-`
-
-      return `${code}${contributorsSection}${changelogSection}`
+      return code
     },
   }
 }
+
+// eslint-disable-next-line antfu/top-level-function
+const TemplateContributors = (code: string, title: string) => `${code}
+
+## ${title}
+
+<NolebaseGitContributors />
+`
+
+// eslint-disable-next-line antfu/top-level-function
+const TemplateChangelog = (code: string, title: string) => `${code}
+
+## ${title}
+
+<NolebaseGitChangelog />
+`

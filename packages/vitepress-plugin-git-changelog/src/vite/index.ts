@@ -1,4 +1,4 @@
-/* eslint-disable ts/no-use-before-define */
+import { posix, sep, win32 } from 'node:path'
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
@@ -94,8 +94,8 @@ export function GitChangelog(options: {
               .filter((i) => {
               // include is not set, it is /^.+\md$/
               // include is set, it is /^(${include.join('|')})\/.+\md$/
-              //   in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-                const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})\\/` : ''}.+\\.md$`)
+              // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
+                const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\.md$`)
                 return !!i[1]?.match(regexp)?.[0]
               }),
           ),
@@ -166,9 +166,11 @@ export function GitChangelogMarkdownSection(options?: {
         return null
 
       if (!options?.sections?.disableContributors)
+        // eslint-disable-next-line ts/no-use-before-define
         code = TemplateContributors(code, getContributorsTitle(code, id))
 
       if (!options?.sections?.disableChangelog)
+        // eslint-disable-next-line ts/no-use-before-define
         code = TemplateChangelog(code, getChangelogTitle(code, id))
 
       return code

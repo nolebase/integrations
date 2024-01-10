@@ -1,4 +1,4 @@
-import { dirname, join } from 'node:path'
+import { dirname, join, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
@@ -14,23 +14,23 @@ export default defineConfig(async () => {
       GitChangelog({
         repoURL: () => 'https://github.com/nolebase/integrations',
         rewritePaths: {
-          'docs/': '',
+          [`docs${sep}`]: '',
         },
       }),
       GitChangelogMarkdownSection({
         getChangelogTitle: (_, id): string => {
-          if (id.startsWith(join(ROOT, 'pages/en/')))
+          if (id.startsWith(join(ROOT, 'pages', 'en')))
             return 'File History'
-          if (id.startsWith(join(ROOT, 'pages/zh-CN/')))
+          if (id.startsWith(join(ROOT, 'pages', 'zh-CN')))
             return '文件历史'
 
           return 'File History'
         },
         excludes: [],
         exclude: (id): boolean => {
-          if (id === join(ROOT, 'pages/en/index.md'))
+          if (id === join(ROOT, 'pages', 'en', 'index.md'))
             return true
-          if (id === join(ROOT, 'pages/zh-CN/index.md'))
+          if (id === join(ROOT, 'pages', 'zh-CN', 'index.md'))
             return true
 
           return false

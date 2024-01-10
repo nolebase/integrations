@@ -7,10 +7,15 @@ on:
 
 jobs:
   build:
-    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Build - ${{ matrix.os }}
     permissions:
       pull-requests: write
-    runs-on: ubuntu-22.04
+
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -18,7 +23,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: to Netlify
+          body-includes: to Netlify - ${{ matrix.os }}
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
@@ -26,7 +31,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## 🚧 Deploying to Netlify
+            ## 🚧 Deploying to Netlify - ${{ matrix.os }}
 
             | Status      | URL                                  |
             |-------------|--------------------------------------|
@@ -93,7 +98,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## ✅ Deployed to Netlify
+            ## ✅ Deployed to Netlify - ${{ matrix.os }}
 
             | Status      | URL                                                 |
             |-------------|-----------------------------------------------------|

@@ -24,9 +24,9 @@ const { lang } = useData()
 
 console.log({
   changelogCommits: Changelog.commits,
-  rawPath,
-  commits,
-  lang,
+  rawPath: rawPath.value,
+  commits: commits.value,
+  lang: lang.value,
 })
 
 const lastChangeDate = computed(() => {

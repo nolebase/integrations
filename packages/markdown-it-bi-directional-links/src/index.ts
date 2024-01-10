@@ -89,6 +89,8 @@ export const BiDirectionalLinks: (options: {
     }
   }
 
+  let logged = false
+
   return (md) => {
     md.inline.ruler.after('text', 'bi_directional_link_replace', (state) => {
       const src = state.src.slice(state.pos, state.posMax)
@@ -111,7 +113,12 @@ export const BiDirectionalLinks: (options: {
       const osSpecificHref = href.split('/').join(sep)
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
-        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n osSpecificHref: ${osSpecificHref}\n  text: ${text}`)
+        if (!logged) {
+          console.error('[BiDirectionalLinks]', 'A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory', `This is the available paths to be matched and resolved: \n  possibleBiDirectionalLinksInCleanBaseNameOfFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, null, 2)}\n  possibleBiDirectionalLinksInFullFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInFullFilePaths, null, 2)}`)
+          logged = true
+        }
+
+        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  osSpecificHref: ${osSpecificHref}\n  text: ${text}`)
         return false
       }
 

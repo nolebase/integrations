@@ -14,7 +14,7 @@ export default defineConfig(async () => {
       GitChangelog({
         repoURL: () => 'https://github.com/nolebase/integrations',
         rewritePaths: {
-          [`docs${sep}`]: '',
+          'docs/': '',
         },
       }),
       GitChangelogMarkdownSection({

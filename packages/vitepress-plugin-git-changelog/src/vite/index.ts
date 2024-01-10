@@ -104,11 +104,17 @@ export function GitChangelog(options: {
         // rewrite paths
         for (const [index, files] of log.path.entries()) {
           for (const [key, value] of Object.entries(rewritePaths)) {
-            if (files[1] && files[1].startsWith(key))
+            if (files[1] && files[1].startsWith(key)) {
               log.path[index][1] = files[1].replace(key, value)
+              // eslint-disable-next-line no-console
+              console.log(`rewriting ${files[1]} to ${log.path[index][1]}`)
+            }
 
-            if (files[2] && files[2].startsWith(key))
+            if (files[2] && files[2].startsWith(key)) {
               log.path[index][2] = files[2].replace(key, value)
+              // eslint-disable-next-line no-console
+              console.log(`rewriting ${files[2]} to ${log.path[index][2]}`)
+            }
           }
         }
 

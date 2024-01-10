@@ -97,11 +97,16 @@ jobs:
         working-directory: docs\
         if : ${{ matrix.os == 'windows-latest' }}
         run: |
-          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir '.vitepress\dist' --json)
-          echo $NETLIFY_JSON_OUTPUT
-          echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
-          echo "NETLIFY_URL=$(echo $NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
+          $NETLIFY_JSON_OUTPUT = netlify deploy --dir '.vitepress\dist' --json
+          Write-Host $NETLIFY_JSON_OUTPUT
+          Write-Host "NETLIFY_JSON_OUTPUT=$NETLIFY_JSON_OUTPUT" | Out-File -Append $env:GITHUB_ENV
+
+          # Parse JSON output and extract deploy_url
+          $ParsedJson = $NETLIFY_JSON_OUTPUT | ConvertFrom-Json
+          $NETLIFY_URL = $ParsedJson.deploy_url
+
+          Write-Host "NETLIFY_URL=$NETLIFY_URL" | Out-File -Append $env:GITHUB_ENV
+          Get-Content $env:GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

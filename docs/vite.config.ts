@@ -19,6 +19,11 @@ export default defineConfig(async () => {
       }),
       GitChangelogMarkdownSection({
         getChangelogTitle: (_, id): string => {
+          // eslint-disable-next-line no-console
+          console.log(id, join(ROOT, 'pages', 'en'))
+          // eslint-disable-next-line no-console
+          console.log(id, join(ROOT, 'pages', 'zh-CN'))
+
           if (id.startsWith(join(ROOT, 'pages', 'en')))
             return 'File History'
           if (id.startsWith(join(ROOT, 'pages', 'zh-CN')))
@@ -28,6 +33,11 @@ export default defineConfig(async () => {
         },
         excludes: [],
         exclude: (id): boolean => {
+          // eslint-disable-next-line no-console
+          console.log(id, join(ROOT, 'pages', 'en', 'index.md'))
+          // eslint-disable-next-line no-console
+          console.log(id, join(ROOT, 'pages', 'zh-CN', 'index.md'))
+
           if (id === join(ROOT, 'pages', 'en', 'index.md'))
             return true
           if (id === join(ROOT, 'pages', 'zh-CN', 'index.md'))

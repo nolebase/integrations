@@ -106,9 +106,19 @@ export function GitChangelog(options: {
           for (const [key, value] of Object.entries(rewritePaths)) {
             if (files[1] && files[1].startsWith(key))
               log.path[index][1] = files[1].replace(key, value)
+
             if (files[2] && files[2].startsWith(key))
               log.path[index][2] = files[2].replace(key, value)
           }
+        }
+
+        // normalize paths
+        for (const [index, files] of log.path.entries()) {
+          if (files[1])
+            log.path[index][1] = files[1].split(sep).join('/')
+
+          if (files[2])
+            log.path[index][2] = files[2].split(sep).join('/')
         }
 
         log.author_avatar = md5(log.author_email) as string

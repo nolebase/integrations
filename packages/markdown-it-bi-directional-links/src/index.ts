@@ -20,7 +20,7 @@ function findBiDirectionalLinks(
   if (!href)
     return null
 
-  if (href.includes('/'))
+  if (href.includes(sep))
     return possibleBiDirectionalLinksInFullFilePaths[href]
 
   return possibleBiDirectionalLinksInFilePaths[href]

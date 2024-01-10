@@ -22,6 +22,13 @@ const commits = useCommits(Changelog.commits, rawPath)
 const { t } = useI18n()
 const { lang } = useData()
 
+console.log({
+  changelogCommits: Changelog.commits,
+  rawPath,
+  commits,
+  lang,
+})
+
 const lastChangeDate = computed(() => {
   const date: string = commits.value[0]?.date || ''
   if (!date)

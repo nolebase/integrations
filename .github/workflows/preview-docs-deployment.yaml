@@ -105,7 +105,7 @@ jobs:
           $ParsedJson = $NETLIFY_JSON_OUTPUT | ConvertFrom-Json
           $NETLIFY_URL = $ParsedJson.deploy_url
 
-          Write-Host "NETLIFY_URL=$NETLIFY_URL" | Out-File -Append $env:GITHUB_ENV
+          "NETLIFY_URL=$NETLIFY_URL" | Out-File -Append $env:GITHUB_ENV
           Get-Content $env:GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

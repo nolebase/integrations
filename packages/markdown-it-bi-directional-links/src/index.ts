@@ -1,4 +1,4 @@
-import { basename, extname, join, relative } from 'node:path'
+import { basename, extname, posix, relative, sep } from 'node:path'
 import fg from 'fast-glob'
 import type { PluginSimple } from 'markdown-it'
 import type Token from 'markdown-it/lib/token'
@@ -6,8 +6,13 @@ import type Token from 'markdown-it/lib/token'
 const biDirectionalLinkPattern = /\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 const biDirectionalLinkPatternWithStart = /^\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 
+/**
+ * Find / resolve bi-directional links.
+ * @param possibleBiDirectionalLinksInFilePaths - file path is the key
+ * @param possibleBiDirectionalLinksInFullFilePaths - full file path is the key
+ * @param href - URL style file name representation
+ */
 function findBiDirectionalLinks(
-  alreadyMatchedBiDirectionalLinks: Record<string, string>,
   possibleBiDirectionalLinksInFilePaths: Record<string, string>,
   possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
   href: string,
@@ -15,10 +20,7 @@ function findBiDirectionalLinks(
   if (!href)
     return null
 
-  if (alreadyMatchedBiDirectionalLinks[href])
-    return alreadyMatchedBiDirectionalLinks[href]
-
-  if (href.includes('/'))
+  if (href.includes(sep))
     return possibleBiDirectionalLinksInFullFilePaths[href]
 
   return possibleBiDirectionalLinksInFilePaths[href]
@@ -42,7 +44,6 @@ export const BiDirectionalLinks: (options: {
 
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
   const possibleBiDirectionalLinksInFullFilePaths: Record<string, string> = {}
-  const alreadyMatchedBiDirectionalLinks: Record<string, string> = {}
 
   if (includes.length === 0)
     includes.push('**/*.md')
@@ -88,6 +89,8 @@ export const BiDirectionalLinks: (options: {
     }
   }
 
+  let logged = false
+
   return (md) => {
     md.inline.ruler.after('text', 'bi_directional_link_replace', (state) => {
       const src = state.src.slice(state.pos, state.posMax)
@@ -103,16 +106,23 @@ export const BiDirectionalLinks: (options: {
 
       const inputContent = link.input
       const markupTextContent = link[0]
-      const href = link[1]
+      const href = link[1] // href is the file name, uses posix style
       const text = link[3]
 
-      const matchedHref = findBiDirectionalLinks(alreadyMatchedBiDirectionalLinks, possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, href)
+      // Convert href to os specific path for matching and resolving
+      const osSpecificHref = href.split('/').join(sep)
+      const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
-        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  text: ${text}`)
+        if (!logged) {
+          console.error('[BiDirectionalLinks]', 'A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory', `This is the available paths to be matched and resolved: \n  possibleBiDirectionalLinksInCleanBaseNameOfFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, null, 2)}\n  possibleBiDirectionalLinksInFullFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInFullFilePaths, null, 2)}`)
+          logged = true
+        }
+
+        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  osSpecificHref: ${osSpecificHref}\n  text: ${text}`)
         return false
       }
 
-      const resolvedNewHref = join(options.baseDir ?? '/', relative(rootDir, matchedHref))
+      const resolvedNewHref = posix.join(options.baseDir ?? '/', relative(rootDir, matchedHref).split(sep).join('/'))
 
       // Create new link_open
       const openToken = state.push('link_open', 'a', 1)

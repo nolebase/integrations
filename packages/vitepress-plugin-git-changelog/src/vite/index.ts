@@ -1,4 +1,4 @@
-/* eslint-disable ts/no-use-before-define */
+import { posix, sep, win32 } from 'node:path'
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
@@ -94,19 +94,29 @@ export function GitChangelog(options: {
               .filter((i) => {
               // include is not set, it is /^.+\md$/
               // include is set, it is /^(${include.join('|')})\/.+\md$/
-              //   in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-                const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})\\/` : ''}.+\\.md$`)
+              // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
+                const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\.md$`)
                 return !!i[1]?.match(regexp)?.[0]
               }),
           ),
         )
 
+        // normalize paths
+        for (const [index, files] of log.path.entries()) {
+          if (files[1])
+            log.path[index][1] = files[1].split(sep).join('/')
+
+          if (files[2])
+            log.path[index][2] = files[2].split(sep).join('/')
+        }
+
         // rewrite paths
         for (const [index, files] of log.path.entries()) {
           for (const [key, value] of Object.entries(rewritePaths)) {
-            if (files[1] && files[1].startsWith(key))
+            if (files[1])
               log.path[index][1] = files[1].replace(key, value)
-            if (files[2] && files[2].startsWith(key))
+
+            if (files[2])
               log.path[index][2] = files[2].replace(key, value)
           }
         }
@@ -166,9 +176,11 @@ export function GitChangelogMarkdownSection(options?: {
         return null
 
       if (!options?.sections?.disableContributors)
+        // eslint-disable-next-line ts/no-use-before-define
         code = TemplateContributors(code, getContributorsTitle(code, id))
 
       if (!options?.sections?.disableChangelog)
+        // eslint-disable-next-line ts/no-use-before-define
         code = TemplateChangelog(code, getChangelogTitle(code, id))
 
       return code

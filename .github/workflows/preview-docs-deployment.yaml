@@ -7,10 +7,15 @@ on:
 
 jobs:
   build:
-    name: Build
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Build - ${{ matrix.os }}
     permissions:
       pull-requests: write
-    runs-on: ubuntu-22.04
+
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Find Comment
         uses: peter-evans/find-comment@v2
@@ -18,7 +23,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: to Netlify
+          body-includes: to Netlify - ${{ matrix.os }}
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
@@ -26,7 +31,7 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## 🚧 Deploying to Netlify
+            ## 🚧 Deploying to Netlify - ${{ matrix.os }}
 
             | Status      | URL                                  |
             |-------------|--------------------------------------|
@@ -73,10 +78,10 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli
 
-      - name: Push to Netlify
-        id: netlify
+      - name: Push to Netlify - Linux
         timeout-minutes: 10
         working-directory: docs/
+        if : ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           NETLIFY_JSON_OUTPUT=$(netlify deploy --dir .vitepress/dist --json)
           echo $NETLIFY_JSON_OUTPUT
@@ -87,13 +92,32 @@ jobs:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
+      - name: Push to Netlify - Windows
+        timeout-minutes: 10
+        working-directory: docs\
+        if : ${{ matrix.os == 'windows-latest' }}
+        run: |
+          $NETLIFY_JSON_OUTPUT = netlify deploy --dir '.vitepress\dist' --json
+          Write-Host $NETLIFY_JSON_OUTPUT
+          Write-Host "NETLIFY_JSON_OUTPUT=$NETLIFY_JSON_OUTPUT" | Out-File -Append $env:GITHUB_ENV
+
+          # Parse JSON output and extract deploy_url
+          $ParsedJson = $NETLIFY_JSON_OUTPUT | ConvertFrom-Json
+          $NETLIFY_URL = $ParsedJson.deploy_url
+
+          "NETLIFY_URL=$NETLIFY_URL" | Out-File -Append $env:GITHUB_ENV
+          Get-Content $env:GITHUB_ENV
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## ✅ Deployed to Netlify
+            ## ✅ Deployed to Netlify - ${{ matrix.os }}
 
             | Status      | URL                                                 |
             |-------------|-----------------------------------------------------|

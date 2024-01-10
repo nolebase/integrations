@@ -46,10 +46,14 @@ jobs:
         run: pnpm run lint
 
   packages-build-test:
-    name: Build Test for Packages
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Build Test for Packages - ${{ matrix.os }}
     permissions:
       pull-requests: write
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -85,10 +89,14 @@ jobs:
         run: pnpm run packages:build
 
   docs-build-test:
-    name: Build Test for Documentation
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Build Test for Documentation - ${{ matrix.os }}
     permissions:
       pull-requests: write
-    runs-on: ubuntu-22.04
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3

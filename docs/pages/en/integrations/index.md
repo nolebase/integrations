@@ -30,4 +30,8 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <br />
 
+<IntegrationCard type="vitepress" title="Page properties" package="vitepress-plugin-page-properties" />
+
+<br />
+
 <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />

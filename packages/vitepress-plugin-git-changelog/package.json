@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-git-changelog",
   "type": "module",
-  "version": "1.11.0",
+  "version": "1.11.1",
   "description": "A VitePress plugin that adds a changelog fetched from git to your documentation.",
   "author": {
     "name": "Nólëbase",
@@ -56,7 +56,7 @@
     "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {
-    "dayjs": ">=1.11.0",
+    "dayjs": ">=1.11.1",
     "md5": ">=2.3.0",
     "simple-git": ">=3.21.0",
     "vitepress": ">=1.0.0-rc.34",

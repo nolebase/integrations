@@ -1,13 +1,15 @@
 {
   "cSpell.words": [
+    "antfu",
     "Astro",
     "Attributify",
     "easytag",
     "emittypes",
-    "Logseq",
-    "quotepath",
+    "frontmatter",
+    "graymatter",
     "iconify",
-    "antfu"
+    "Logseq",
+    "quotepath"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,
@@ -37,6 +39,7 @@
     ".",
     "./docs",
     "./packages/vitepress-plugin-enhanced-readabilities",
+    "./packages/vitepress-plugin-git-changelog",
     "./packages/vitepress-plugin-inline-link-preview"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"

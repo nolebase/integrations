@@ -96,7 +96,7 @@ async function handleIframeOnLoad(e: Event) {
     class="VPNolebaseInlinePreviewLinkPopupIframe"
     flex="1"
     :src="props.href"
-    :aria-label="t('popup.iframeAriaLabel', props.href)"
+    :aria-label="t('popup.iframeAriaLabel', { props: { href: props.href } })"
     @load="handleIframeOnLoad"
   />
   <div

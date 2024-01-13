@@ -1,5 +1,6 @@
 import { inject } from 'vue'
 import { useData } from 'vitepress'
+
 import type { Options } from '../types'
 import { InjectionKey } from '../constants'
 import { defaultEnLocale, defaultZhCNLocale } from '../locales'
@@ -35,10 +36,10 @@ export function useI18n() {
   }
 
   return {
-    t(key: string) {
+    t(key: string, translateOptions?: { props: Record<string, any> }) {
       const options = inject<Options>(InjectionKey, {})
       const data = useData()
-      const optionValue = getI18nProperty(data.lang.value, key, {
+      const translatedValue = getI18nProperty(data.lang.value, key, {
         locales: options.locales || {},
         defaultLocales: {
           'zh-CN': defaultZhCNLocale,
@@ -47,9 +48,23 @@ export function useI18n() {
           'en': defaultEnLocale,
         },
       })
-      if (optionValue)
-        return optionValue
-      return key
+      if (!translatedValue)
+        return key
+      if (!translateOptions)
+        return translatedValue
+
+      const { props } = translateOptions
+      if (!props)
+        return translatedValue
+
+      const properties = Object.keys(props)
+
+      let translatedValueWithPropsReplaced = translatedValue
+      properties.forEach((property) => {
+        translatedValueWithPropsReplaced = translatedValueWithPropsReplaced.replace(`{{${property}}}`, props[property])
+      })
+
+      return translatedValueWithPropsReplaced
     },
   }
 }

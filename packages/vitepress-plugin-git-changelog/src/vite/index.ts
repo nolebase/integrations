@@ -80,7 +80,7 @@ export function GitChangelog(options: {
         // get change log of each file
         // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-only', '-r', log.hash])
         const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-status', '-r', '-M', log.hash])
-        delete log.body
+        // delete log.body
 
         const files = raw
           .replace(/\\/g, '/')

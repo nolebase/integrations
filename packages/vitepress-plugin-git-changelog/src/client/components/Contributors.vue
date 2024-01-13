@@ -29,10 +29,12 @@ const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.
 function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) {
+  if (!c.body)
+    return
   let result: RegExpExecArray | null
   multipleAuthorsRegex.lastIndex = 0
   // eslint-disable-next-line no-cond-assign
-  while (result = multipleAuthorsRegex.exec(c.message)) {
+  while (result = multipleAuthorsRegex.exec(c.body)) {
     let [, name, email] = result
     email = email.trim()
     handleCommitAuthors(map, name.trim(), email, md5(email))
@@ -110,7 +112,7 @@ const contributors = computed<ContributorInfo[]>(() => {
         :key="c.name"
       >
         <a
-          v-if="typeof c.url !== 'undefined'"
+          v-if="(typeof c.url !== 'undefined')"
           :href="c.url"
         >
           <div class="flex items-center gap-2">

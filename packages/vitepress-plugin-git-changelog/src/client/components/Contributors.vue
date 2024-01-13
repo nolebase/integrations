@@ -3,6 +3,7 @@ import { computed, inject } from 'vue'
 
 import Changelog from 'virtual:nolebase-git-changelog'
 
+import md5 from 'md5'
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
@@ -23,14 +24,18 @@ const commits = useCommits(Changelog.commits, rawPath)
 const findRegisteredCreatorByName = (author_name: string) => options.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(author_name))
 const findRegisteredCreatorByEmail = (author_email: string) => options.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email))
 
-const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?$/mi
+// This regular expression is used to match and parse commit messages that contain multiple author information.
+const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?$/gmi
+// This function handles multiple authors in a commit.
+// It uses the regular expression to extract the name and email of each author from the commit message.
 function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) {
   let result: RegExpExecArray | null
   multipleAuthorsRegex.lastIndex = 0
   // eslint-disable-next-line no-cond-assign
   while (result = multipleAuthorsRegex.exec(c.message)) {
-    const [, name, email] = result
-    handleCommitAuthors(map, name.trim(), email.trim(), '')
+    let [, name, email] = result
+    email = email.trim()
+    handleCommitAuthors(map, name.trim(), email, md5(email))
   }
 }
 
@@ -42,9 +47,13 @@ function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: s
   let avatar = ''
   let url: string | undefined
 
+  authorAvatar = authorAvatar
+    ? `https://gravatar.com/avatar/${authorAvatar}?d=retro`
+    : ''
+
   if (targetCreatorByName) {
     name = targetCreatorByName.name || authorName
-    avatar = targetCreatorByName.avatar || `https://gravatar.com/avatar/${authorAvatar}?d=retro`
+    avatar = targetCreatorByName.avatar || authorAvatar
 
     const foundGitHubLink = targetCreatorByName.links?.find(item => item.type === 'github')
     if (foundGitHubLink)
@@ -52,7 +61,7 @@ function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: s
   }
   else if (targetCreatorByEmail) {
     name = targetCreatorByEmail.name || authorName
-    avatar = targetCreatorByEmail.avatar || `https://gravatar.com/avatar/${authorAvatar}?d=retro`
+    avatar = targetCreatorByEmail.avatar || authorAvatar
 
     const foundGitHubLink = targetCreatorByEmail.links?.find(item => item.type === 'github')
     if (foundGitHubLink)
@@ -60,7 +69,7 @@ function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: s
   }
   else {
     name = authorName
-    avatar = `https://gravatar.com/avatar/${authorAvatar}?d=retro`
+    avatar = authorAvatar
   }
 
   if (!map[name]) {

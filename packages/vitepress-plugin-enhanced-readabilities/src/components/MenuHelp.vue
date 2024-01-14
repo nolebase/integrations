@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, toRef, watch } from 'vue'
-import { useElementBounding, useMounted, useMouseInElement } from '@vueuse/core'
+import { useElementBounding, useMounted, useElementHover } from '@vueuse/core'
 
 const props = defineProps<{
   menuTitleElementRef?: HTMLDivElement
@@ -16,7 +16,7 @@ const helpElementRef = ref<HTMLSpanElement>()
 const popupElementRef = ref<HTMLDivElement>()
 
 const mounted = useMounted()
-const { isOutside } = useMouseInElement(helpElementRef)
+const isHovered = useElementHover(helpElementRef)
 const bounding = useElementBounding(menuTitleElementRef)
 const popupBounding = useElementBounding(popupElementRef)
 
@@ -27,11 +27,11 @@ const helpPopupStyle = computed(() => {
   }
 })
 
-watch(isOutside, (value) => {
-  emits('update:isPoppedUp', !value)
+watch(isHovered, (value) => {
+  emits('update:isPoppedUp', value)
 })
 
-watch(isOutside, () => {
+watch(isHovered, () => {
   bounding.update()
   popupBounding.update()
 }, {
@@ -51,7 +51,7 @@ watch(isOutside, () => {
     <Transition name="fade">
       <div
         v-if="mounted"
-        v-show="!isOutside"
+        v-show="isHovered"
         ref="popupElementRef"
         :style="helpPopupStyle"
         bg="$vp-c-bg-elv" text="$vp-nolebase-enhanced-readabilities-menu-text-color" border="1 solid $vp-c-divider"

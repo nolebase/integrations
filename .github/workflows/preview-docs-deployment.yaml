@@ -1,49 +1,36 @@
-name: Build Preview Docs to Netlify
+name: Build Previewing Docs
 
 on:
-  pull_request_target:
+  workflow_run:
+    workflows:
+      - Build Previewing Docs
     types:
-      - opened
-      - synchronize
-      - reopened
-    branches:
-      - main
+      - completed
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-
-    name: Build - ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
+  on-success:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: fc
+      - name: Download artifact - Ubuntu
+        uses: dawidd6/action-download-artifact@v3
         with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: to Netlify - ${{ matrix.os }}
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: docs-ubuntu-latest-build
+          path: docs-ubuntu-latest-build
+          allow_forks: true
 
-      - name: Create or update comment
-        uses: peter-evans/create-or-update-comment@v3
+      - name: Download artifact - Windows
+        uses: dawidd6/action-download-artifact@v3
         with:
-          comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body: |
-            ## 🚧 Deploying to Netlify - ${{ matrix.os }}
-
-            | Status      | URL                                  |
-            |-------------|--------------------------------------|
-            | Pending     | `URL will be revealed once deployed` |
-          edit-mode: replace
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: docs-windows-latest-build
+          path: docs-windows-latest-build
+          allow_forks: true
 
       - name: Install Node.js 20.x
         uses: actions/setup-node@v3
@@ -69,67 +56,88 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build docs
-        run: |
-          pnpm packages:build
-          pnpm docs:build
-
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli
 
-      - name: Push to Netlify - Linux
+      - name: Debug
+        run:
+          ls -la
+          ls -la docs-ubuntu-latest-build
+          ls -la docs-windows-latest-build
+
+      - name: Push to Netlify - Ubuntu
+        id: netlify-ubuntu-latest
         timeout-minutes: 10
-        working-directory: docs/
-        if : ${{ matrix.os == 'ubuntu-latest' }}
         run: |
-          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir .vitepress/dist --json)
+          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-ubuntu-latest --json)
           echo $NETLIFY_JSON_OUTPUT
+
           echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
           echo "NETLIFY_URL=$(echo $NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
-          cat $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Push to Netlify - Windows
+        id: netlify-windows-latest
         timeout-minutes: 10
-        working-directory: docs\
-        if : ${{ matrix.os == 'windows-latest' }}
         run: |
-          $NETLIFY_JSON_OUTPUT = netlify deploy --dir '.vitepress\dist' --json
-          Write-Host $NETLIFY_JSON_OUTPUT
-          Write-Host "NETLIFY_JSON_OUTPUT=$NETLIFY_JSON_OUTPUT" | Out-File -Append $env:GITHUB_ENV
+          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-windows-latest-build --json)
 
-          # Parse JSON output and extract deploy_url
-          $ParsedJson = $NETLIFY_JSON_OUTPUT | ConvertFrom-Json
-          $NETLIFY_URL = $ParsedJson.deploy_url
-
-          "NETLIFY_URL=$NETLIFY_URL" | Out-File -Append $env:GITHUB_ENV
-          Get-Content $env:GITHUB_ENV
+          echo $NETLIFY_JSON_OUTPUT
+          echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
+          echo "NETLIFY_URL=$(echo $NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
-        id: fc-post
+        id: fc
         with:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
-          body-includes: to Netlify - ${{ matrix.os }}
+          body-includes: to Netlify
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
         with:
-          comment-id: ${{ steps.fc-post.outputs.comment-id }}
+          comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## ✅ Deployed to Netlify - ${{ matrix.os }}
+            ## ✅ Deployed to deploy to Netlify
 
-            | Status      | URL                                                 |
-            |-------------|-----------------------------------------------------|
-            | Success     | ${{ env.NETLIFY_URL }} |
+            | Platform | Status      | URL                                                     |
+            |----------|-------------|---------------------------------------------------------|
+            | Windows  | Success     | ${{ steps.netlify-ubuntu-latest.outputs.NETLIFY_URL }}  |
+            | Unix     | Success     | ${{ steps.netlify-windows-latest.outputs.NETLIFY_URL }} |
+          edit-mode: replace
+
+  on-failure:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    steps:
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: to Netlify
+
+      - name: Create or update comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            ## ❌ Failed to deploy to Netlify
+
+            | Platform | Status      | URL                                                   |
+            |----------|-------------|-------------------------------------------------------|
+            | Windows  | Failed      | Please check the status and logs of the workflow run. |
+            | Unix     | Failed      | Please check the status and logs of the workflow run. |
           edit-mode: replace

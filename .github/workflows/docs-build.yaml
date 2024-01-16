@@ -1,0 +1,59 @@
+name: Build Previewing Docs
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    name: Build - ${{ matrix.os }}
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Node.js 20.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          run_install: false
+          version: 8
+
+      - name: Obtain pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Obtain pnpm store cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build docs
+        run: |
+          pnpm packages:build
+          pnpm docs:build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ matrix.os }}-build
+          path: docs/.vitepress/dist

@@ -1,7 +1,7 @@
 export function renderMarkdown(markdownText = '') {
   const htmlText = markdownText
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
+    .replace(/</gm, '&lt;')
+    .replace(/>/gm, '&gt;')
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')

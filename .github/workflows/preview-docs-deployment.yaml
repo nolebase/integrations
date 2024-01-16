@@ -12,8 +12,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     name: Build - ${{ matrix.os }}
-    permissions:
-      pull-requests: write
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -24,6 +22,7 @@ jobs:
           issue-number: ${{ github.event.pull_request.number }}
           comment-author: 'github-actions[bot]'
           body-includes: to Netlify - ${{ matrix.os }}
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
 
       - name: Create or update comment
         uses: peter-evans/create-or-update-comment@v3
@@ -37,6 +36,7 @@ jobs:
             |-------------|--------------------------------------|
             | Pending     | `URL will be revealed once deployed` |
           edit-mode: replace
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -123,3 +123,4 @@ jobs:
             |-------------|-----------------------------------------------------|
             | Success     | ${{ env.NETLIFY_URL }} |
           edit-mode: replace
+          token: ${{ secrets.ACCESS_TOKEN_GITHUB }}

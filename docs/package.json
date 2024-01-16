@@ -2,9 +2,9 @@
   "name": "@nolebase/integrations-docs",
   "type": "module",
   "scripts": {
-    "dev": "nr docs:dev",
-    "build": "nr docs:build",
-    "preview": "nr docs:preview",
+    "dev": "pnpm run docs:dev",
+    "build": "pnpm run docs:build",
+    "preview": "pnpm run docs:preview",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"

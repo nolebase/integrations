@@ -1,5 +1,7 @@
 export function renderMarkdown(markdownText = '') {
   const htmlText = markdownText
+    .replaceAll('<', '&lt;')
+    .replaceAll('<', '&gt;')
     .replace(/^### (.*$)/gim, '<h3>$1</h3>')
     .replace(/^## (.*$)/gim, '<h2>$1</h2>')
     .replace(/^# (.*$)/gim, '<h1>$1</h1>')
@@ -11,6 +13,7 @@ export function renderMarkdown(markdownText = '') {
     .replace(/`(.*?)`/gim, '<code>$1</code>')
     .replace(/\n$/gim, '<br />')
 
+
   return htmlText.trim()
 }
 
@@ -18,3 +21,4 @@ export function renderCommitMessage(repoLink: string, msg: string) {
   return renderMarkdown(msg)
     .replace(/\#([0-9]+)/g, `<a href=\'${repoLink}/issues/$1\'>#$1</a>`)
 }
+

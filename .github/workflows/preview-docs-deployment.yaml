@@ -60,17 +60,11 @@ jobs:
       - name: Install Netlify CLI
         run: pnpm install -g netlify-cli
 
-      - name: Debug
-        run:
-          ls -la
-          ls -la docs-ubuntu-latest-build
-          ls -la docs-windows-latest-build
-
       - name: Push to Netlify - Ubuntu
         id: netlify-ubuntu-latest
         timeout-minutes: 10
         run: |
-          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-ubuntu-latest --json)
+          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-ubuntu-latest-build --json)
           echo $NETLIFY_JSON_OUTPUT
 
           echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV

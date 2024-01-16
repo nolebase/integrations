@@ -78,11 +78,11 @@ jobs:
         id: netlify-ubuntu-latest
         timeout-minutes: 10
         run: |
-          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-ubuntu-latest-build --json)
-          echo $NETLIFY_JSON_OUTPUT
+          UBUNTU_NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-ubuntu-latest-build --json)
+          echo $UBUNTU_NETLIFY_JSON_OUTPUT
 
-          echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
-          echo "NETLIFY_URL=$(echo $NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
+          echo "UBUNTU_NETLIFY_JSON_OUTPUT=$(echo $UBUNTU_NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
+          echo "UBUNTU_NETLIFY_URL=$(echo $UBUNTU_NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -91,11 +91,11 @@ jobs:
         id: netlify-windows-latest
         timeout-minutes: 10
         run: |
-          NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-windows-latest-build --json)
+          WINDOWS_NETLIFY_JSON_OUTPUT=$(netlify deploy --dir docs-windows-latest-build --json)
 
-          echo $NETLIFY_JSON_OUTPUT
-          echo "NETLIFY_JSON_OUTPUT=$(echo $NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
-          echo "NETLIFY_URL=$(echo $NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
+          echo $WINDOWS_NETLIFY_JSON_OUTPUT
+          echo "WINDOWS_NETLIFY_JSON_OUTPUT=$(echo $WINDOWS_NETLIFY_JSON_OUTPUT)" >> $GITHUB_ENV
+          echo "WINDOWS_NETLIFY_URL=$(echo $WINDOWS_NETLIFY_JSON_OUTPUT | jq -r .deploy_url)" >> $GITHUB_ENV
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
@@ -118,8 +118,8 @@ jobs:
 
             | Platform | Status      | URL                                                     |
             |----------|-------------|---------------------------------------------------------|
-            | Windows  | Success     | ${{ steps.netlify-ubuntu-latest.outputs.NETLIFY_URL }}  |
-            | Unix     | Success     | ${{ steps.netlify-windows-latest.outputs.NETLIFY_URL }} |
+            | Windows  | Success     | ${{ env.UBUNTU_NETLIFY_URL }}  |
+            | Unix     | Success     | ${{ env.WINDOWS_NETLIFY_URL }} |
           edit-mode: replace
 
   on-failure:

@@ -15,6 +15,22 @@ jobs:
 
     runs-on: ${{ matrix.os }}
     steps:
+      # This is quite weird.
+      # Eventhough this is the *intended* solution introduces in official blog post here
+      # https://securitylab.github.com/research/github-actions-preventing-pwn-requests/.
+      # But still, as https://github.com/orgs/community/discussions/25220#discussioncomment-7856118 stated,
+      # this is vulnerable since there is no source of truth about which PR in the triggered workflow.
+      - name: Presist PR number
+        run: |
+          rm -rf pr_num
+          echo "${{ github.event.number }}" > pr_num
+
+      - name: Upload PR artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: pr-num
+          path: ./pr_num
+
       - name: Checkout
         uses: actions/checkout@v3
         with:

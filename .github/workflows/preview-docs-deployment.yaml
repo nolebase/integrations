@@ -9,6 +9,7 @@ on:
 
 jobs:
   on-success:
+    name: Deploy to Netlify
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -114,6 +115,7 @@ jobs:
           edit-mode: replace
 
   on-failure:
+    name: Failed to build previewing docs
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

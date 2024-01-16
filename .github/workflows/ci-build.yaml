@@ -22,7 +22,6 @@ jobs:
       # this is vulnerable since there is no source of truth about which PR in the triggered workflow.
       - name: Presist PR number
         run: |
-          rm -rf pr_num
           echo "${{ github.event.number }}" > pr_num
 
       - name: Upload PR artifact

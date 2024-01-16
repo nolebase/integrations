@@ -1,4 +1,4 @@
-name: Build Previewing Docs
+name: Push Previewing Docs to Netlify
 
 on:
   workflow_run:

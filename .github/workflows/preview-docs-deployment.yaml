@@ -15,6 +15,20 @@ jobs:
       pull-requests: write
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+      - name: Download artifact - PR
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: pr-num
+          path: pr-num
+          allow_forks: true
+
+      - name: Obtain PR number
+        id: pr-num
+        run: |
+          echo "PR_NUM=$(cat pr-num/pr_num)" >> $GITHUB_ENV
+
       - name: Download artifact - Ubuntu
         uses: dawidd6/action-download-artifact@v3
         with:
@@ -90,7 +104,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.pr-num.outputs.PR_NUM }}
           comment-author: 'github-actions[bot]'
           body-includes: to Netlify
 
@@ -98,7 +112,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.pr-num.outputs.PR_NUM }}
           body: |
             ## ✅ Deployed to deploy to Netlify
 
@@ -116,11 +130,25 @@ jobs:
 
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
+      - name: Download artifact - PR
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          workflow_conclusion: success
+          run_id: ${{ github.event.workflow_run.id }}
+          name: pr-num
+          path: pr-num
+          allow_forks: true
+
+      - name: Obtain PR number
+        id: pr-num
+        run: |
+          echo "PR_NUM=$(cat pr-num/pr_num)" >> $GITHUB_ENV
+
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.pr-num.outputs.PR_NUM }}
           comment-author: 'github-actions[bot]'
           body-includes: to Netlify
 
@@ -128,7 +156,7 @@ jobs:
         uses: peter-evans/create-or-update-comment@v3
         with:
           comment-id: ${{ steps.fc.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
+          issue-number: ${{ steps.pr-num.outputs.PR_NUM }}
           body: |
             ## ❌ Failed to deploy to Netlify
 

@@ -13,7 +13,6 @@ export function renderMarkdown(markdownText = '') {
     .replace(/`(.*?)`/gim, '<code>$1</code>')
     .replace(/\n$/gim, '<br />')
 
-
   return htmlText.trim()
 }
 
@@ -21,4 +20,3 @@ export function renderCommitMessage(repoLink: string, msg: string) {
   return renderMarkdown(msg)
     .replace(/\#([0-9]+)/g, `<a href=\'${repoLink}/issues/$1\'>#$1</a>`)
 }
-

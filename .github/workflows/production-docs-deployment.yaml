@@ -5,6 +5,9 @@ on:
     branches:
       - 'main'
 
+env:
+  STORE_PATH: ''
+
 jobs:
   build:
     name: Build

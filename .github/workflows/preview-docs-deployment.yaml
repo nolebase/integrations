@@ -7,6 +7,13 @@ on:
     types:
       - completed
 
+env:
+  PR_NUM: 0
+  UBUNTU_NETLIFY_JSON_OUTPUT: ''
+  UBUNTU_NETLIFY_URL: ''
+  WINDOWS_NETLIFY_JSON_OUTPUT: ''
+  WINDOWS_NETLIFY_URL: ''
+
 jobs:
   on-success:
     name: Deploy to Netlify
@@ -114,12 +121,12 @@ jobs:
           comment-id: ${{ steps.fc.outputs.comment-id }}
           issue-number: ${{ env.PR_NUM }}
           body: |
-            ## ✅ Deployed to deploy to Netlify
+            ## ✅ Successfully deployed to Netlify
 
-            | Platform | Status      | URL                                                     |
-            |----------|-------------|---------------------------------------------------------|
-            | Windows  | Success     | ${{ env.UBUNTU_NETLIFY_URL }}  |
-            | Unix     | Success     | ${{ env.WINDOWS_NETLIFY_URL }} |
+            | Platform | Status      | URL                              |
+            |:---------|:------------|:---------------------------------|
+            | Windows  | Success     | ${{ env.UBUNTU_NETLIFY_URL }}    |
+            | Ubuntu   | Success     | ${{ env.WINDOWS_NETLIFY_URL }}   |
           edit-mode: replace
 
   on-failure:
@@ -161,7 +168,7 @@ jobs:
             ## ❌ Failed to deploy to Netlify
 
             | Platform | Status      | URL                                                   |
-            |----------|-------------|-------------------------------------------------------|
+            |:---------|:------------|:------------------------------------------------------|
             | Windows  | Failed      | Please check the status and logs of the workflow run. |
             | Unix     | Failed      | Please check the status and logs of the workflow run. |
           edit-mode: replace

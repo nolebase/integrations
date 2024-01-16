@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+env:
+  STORE_PATH: ''
+
 jobs:
   lint:
     name: Lint

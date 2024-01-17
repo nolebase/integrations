@@ -9,6 +9,7 @@ on:
 
 env:
   PR_NUM: 0
+  STORE_PATH: ''
   UBUNTU_NETLIFY_JSON_OUTPUT: ''
   UBUNTU_NETLIFY_URL: ''
   WINDOWS_NETLIFY_JSON_OUTPUT: ''
@@ -125,8 +126,8 @@ jobs:
 
             | Platform | Status      | URL                              |
             |:---------|:------------|:---------------------------------|
-            | Windows  | Success     | ${{ env.UBUNTU_NETLIFY_URL }}    |
-            | Ubuntu   | Success     | ${{ env.WINDOWS_NETLIFY_URL }}   |
+            | Ubuntu   | Success     | ${{ env.UBUNTU_NETLIFY_URL }}    |
+            | Windows  | Success     | ${{ env.WINDOWS_NETLIFY_URL }}   |
           edit-mode: replace
 
   on-failure:
@@ -169,6 +170,6 @@ jobs:
 
             | Platform | Status      | URL                                                   |
             |:---------|:------------|:------------------------------------------------------|
+            | Ubuntu   | Failed      | Please check the status and logs of the workflow run. |
             | Windows  | Failed      | Please check the status and logs of the workflow run. |
-            | Unix     | Failed      | Please check the status and logs of the workflow run. |
           edit-mode: replace

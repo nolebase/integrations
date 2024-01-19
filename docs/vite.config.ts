@@ -1,10 +1,7 @@
-import { dirname, join, relative, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
-
-const ROOT = dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig(async () => {
   return {
@@ -18,19 +15,19 @@ export default defineConfig(async () => {
         },
       }),
       GitChangelogMarkdownSection({
-        getChangelogTitle: (_, id): string => {
-          if (id.startsWith(relative(ROOT, join('pages', 'en')).split(sep).join('/')))
+        getChangelogTitle: (_, __, { helpers }): string => {
+          if (helpers.idStartsWith(join('pages', 'en')))
             return 'File History'
-          if (id.startsWith(relative(ROOT, join('pages', 'zh-CN')).split(sep).join('/')))
+          if (helpers.idStartsWith(join('pages', 'zh-CN')))
             return '文件历史'
 
           return 'File History'
         },
         excludes: [],
-        exclude: (id): boolean => {
-          if (id === join(ROOT, 'pages', 'en', 'index.md').split(sep).join('/'))
+        exclude: (_, { helpers }): boolean => {
+          if (helpers.idEquals(join('pages', 'en', 'index.md')))
             return true
-          if (id === join(ROOT, 'pages', 'zh-CN', 'index.md').split(sep).join('/'))
+          if (helpers.idEquals(join('pages', 'zh-CN', 'index.md')))
             return true
 
           return false

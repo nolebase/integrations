@@ -60,7 +60,7 @@
     "dayjs": ">=1.11.1",
     "md5": ">=2.3.0",
     "simple-git": ">=3.21.0",
-    "vitepress": ">=1.0.0-rc.38",
+    "vitepress": ">=1.0.0-rc.39",
     "vue": ">=3.3.0"
   },
   "dependencies": {

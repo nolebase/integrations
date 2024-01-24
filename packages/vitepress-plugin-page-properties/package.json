@@ -61,7 +61,7 @@
   "peerDependencies": {
     "dayjs": ">=1.11.1",
     "gray-matter": ">=4.0.0",
-    "vitepress": ">=1.0.0-rc.34",
+    "vitepress": ">=1.0.0-rc.39",
     "vue": ">=3.3.0"
   },
   "dependencies": {

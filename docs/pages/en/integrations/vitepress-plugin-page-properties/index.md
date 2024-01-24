@@ -1,6 +1,26 @@
 ---
-field1: value1
-field2: value2
+tags:
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+tags2:
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
+  - abcd/abcd
 ---
 
 # Content

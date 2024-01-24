@@ -16,14 +16,10 @@ export interface Context {
 }
 
 export function PagePropertiesMarkdownSection(options?: {
-  getPagePropertiesTitle?: (code: string, id: string, context: Context) => string
   excludes?: string[]
   exclude?: (id: string, context: Context) => boolean
 }): Plugin {
   const {
-    getPagePropertiesTitle = () => {
-      return 'Page Properties'
-    },
     excludes = ['index.md'],
     exclude = () => false,
   } = options ?? {}
@@ -48,16 +44,27 @@ export function PagePropertiesMarkdownSection(options?: {
         return pathStartsWith(relative(root, id), startsWith)
       }
 
+      const context: Context = {
+        helpers: {
+          pathEndsWith,
+          pathEquals,
+          pathStartsWith,
+          idEndsWith,
+          idEquals,
+          idStartsWith,
+        },
+      }
+
       if (!id.endsWith('.md'))
         return null
       if (excludes.includes(id))
         return null
-      if (exclude(id, { helpers: { pathEndsWith, pathEquals, pathStartsWith, idEndsWith, idEquals, idStartsWith } }))
+      if (exclude(id, context))
         return null
 
       const targetComponent = env.NODE_ENV === 'development'
-        ? `<div class="mt-4" />\n\n\n##### ${getPagePropertiesTitle(code, id, { helpers: { pathEndsWith, pathEquals, pathStartsWith, idEndsWith, idEquals, idStartsWith } })}\n\n<NolebasePagePropertiesEditor />\n\n\n<div class="mb-4" />`
-        : `<div class="mt-4" />\n\n\n##### ${getPagePropertiesTitle(code, id, { helpers: { pathEndsWith, pathEquals, pathStartsWith, idEndsWith, idEquals, idStartsWith } })}\n\n<NolebasePageProperties />\n\n\n<div class="mb-4" />`
+        ? TemplatePagePropertiesEditor()
+        : TemplatePageProperties()
 
       const parsedMarkdownContent = GrayMatter(code)
       const hasFrontmatter = Object.keys(parsedMarkdownContent.data).length > 0
@@ -80,4 +87,19 @@ export function PagePropertiesMarkdownSection(options?: {
       return `${GrayMatter.stringify(`${headingPart}\n${targetComponent}\n\n${contentPart}`, parsedMarkdownContent.data)}`
     },
   }
+}
+
+function TemplatePagePropertiesEditor(): string {
+  return `
+
+<NolebasePagePropertiesEditor />
+`
+}
+
+function TemplatePageProperties(): string {
+  return `
+
+<NolebasePageProperties />
+
+`
 }

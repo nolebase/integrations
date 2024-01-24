@@ -43,14 +43,6 @@ export default defineConfig(async () => {
         },
       }),
       PagePropertiesMarkdownSection({
-        getPagePropertiesTitle: (_, __, { helpers }): string => {
-          if (helpers.idStartsWith(join('pages', 'en')))
-            return 'Page Properties'
-          if (helpers.idStartsWith(join('pages', 'zh-CN')))
-            return '页面属性'
-
-          return 'Page Properties'
-        },
         excludes: [],
         exclude: (_, { helpers }): boolean => {
           if (helpers.idEquals(join('pages', 'en', 'index.md')))

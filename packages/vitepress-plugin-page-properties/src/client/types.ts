@@ -1,7 +1,35 @@
 export interface Locale {
 }
 
-export interface Options {
+export interface TagsProperty<K extends PropertyKey> {
+  type: 'tags'
+  key: K
+  title: string
+}
+
+export interface PlainProperty<K extends PropertyKey> {
+  type: 'plain'
+  key: K
+  title: string
+}
+
+export interface DatetimeProperty<K extends PropertyKey> {
+  type: 'datetime'
+  key: K
+  title: string
+  formatAsFrom?: boolean
+}
+
+export interface ProgressProperty<K extends PropertyKey> {
+  type: 'progress'
+  key: K
+  title: string
+}
+
+export type Property<K extends PropertyKey> = TagsProperty<K> | PlainProperty<K> | DatetimeProperty<K> | ProgressProperty<K>
+export type PropertyType = Property<PropertyKey>['type']
+
+export interface Options<P extends object = any> {
   /**
    * Internationalization configuration
    *
@@ -26,4 +54,5 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
+  properties?: Property<keyof P>[]
 }

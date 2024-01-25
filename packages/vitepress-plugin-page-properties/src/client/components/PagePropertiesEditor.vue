@@ -4,6 +4,7 @@ import { useData } from 'vitepress'
 
 import { InjectionKey } from '../constants'
 import Tag from './Tag/index.vue'
+import ProgressBar from './ProgressBar.vue'
 
 const options = inject(InjectionKey, {})
 const { frontmatter } = useData()
@@ -31,7 +32,7 @@ const frontmatterAggregated = computed(() => {
         <div
           transition="all ease-in-out"
           flex items-start
-          text="zinc-300 dark:zinc-500 sm <sm:xs"
+          text="zinc-400 dark:zinc-500 sm <sm:xs"
           duration-250
         >
           <div
@@ -90,10 +91,7 @@ const frontmatterAggregated = computed(() => {
               data-page-property-type="progress"
               w-full inline-flex items-center
             >
-              <span
-                relative inline-block h-2 w-full rounded-full bg-zinc-800
-                class="before:absolute before:inline-block before:h-2 before:w-[75%] before:rounded-full before:bg-orange before:content-empty"
-              />
+              <ProgressBar :value="value.value" />
             </div>
           </template>
           <template v-else-if="typeof value.value === 'object'">

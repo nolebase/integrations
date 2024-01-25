@@ -88,7 +88,43 @@ export const Theme: ThemeConfig = {
       ],
     })
 
-    app.use(NolebasePagePropertiesPlugin)
+    app.use(NolebasePagePropertiesPlugin<{
+      tags: string[]
+      authors: string[]
+      progress: string[]
+      createdAt: string
+      updatedAt: string
+    }>(), {
+      properties: [
+        {
+          key: 'tags',
+          type: 'tags',
+          title: '标签',
+        },
+        {
+          key: 'progress',
+          type: 'progress',
+          title: '进度',
+        },
+        {
+          key: 'authors',
+          type: 'plain',
+          title: '作者',
+        },
+        {
+          key: 'createdAt',
+          type: 'datetime',
+          title: '创建时间',
+          formatAsFrom: true,
+        },
+        {
+          key: 'updatedAt',
+          type: 'datetime',
+          title: '更新时间',
+          formatAsFrom: true,
+        },
+      ],
+    })
   },
 }
 

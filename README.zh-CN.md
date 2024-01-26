@@ -51,6 +51,7 @@ ni @nolebase/<integration-name> -D
 - [变更记录 及 文件历史（VitePress 插件）](./packages/vitepress-plugin-git-changelog/README.md)
 - [行内链接预览（VitePress 插件）](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
+- [页面属性（VitePress 插件](./packages/vitepress-plugin-page-properties/README.md)
 
 ## 如何开发
 

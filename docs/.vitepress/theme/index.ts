@@ -109,11 +109,6 @@ export const Theme: ThemeConfig = {
             title: 'Progress',
           },
           {
-            key: 'authors',
-            type: 'plain',
-            title: 'Authors',
-          },
-          {
             key: 'createdAt',
             type: 'datetime',
             title: 'Created at',
@@ -143,11 +138,6 @@ export const Theme: ThemeConfig = {
             key: 'progress',
             type: 'progress',
             title: '进度',
-          },
-          {
-            key: 'authors',
-            type: 'plain',
-            title: '作者',
           },
           {
             key: 'createdAt',

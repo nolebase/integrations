@@ -1,19 +1,12 @@
 ---
 tags:
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
-  - abcd/abcd
+  - 集成/VitePress-插件
+  - 集成/VitePress-插件/页面属性
+  - Markdown/frontmatter
 progress: 35
-createdAt: 2021-08-31
-updatedAt: 2021-08-31
 url1: https://nolebase-integrations.ayaka.io/pages/zh-CN/
+createdAt: 2024-01-20
+updatedAt: 2024-01-20
 ---
 
 # 页面属性

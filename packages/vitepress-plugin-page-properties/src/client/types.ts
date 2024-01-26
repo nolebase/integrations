@@ -54,5 +54,5 @@ export interface Options<P extends object = any> {
    * ```
    */
   locales?: Record<string, Locale>
-  properties?: Property<keyof P>[]
+  properties?: Record<string, Property<keyof P>[]>
 }

@@ -12,6 +12,9 @@ const props = withDefaults(defineProps<{
 const data = useData()
 
 const normalizedValue = computed(() => {
+  const parsedValue = Number.parseFloat(props.value as any)
+  if (Number.isNaN(parsedValue))
+    return 0
   if (props.value < 0)
     return 0
 
@@ -35,7 +38,7 @@ const color = computed(() => {
 </script>
 
 <template>
-  <span relative h-2 w-full :title="props.value.toFixed(2)">
+  <span relative h-2 w-full :title="`${props.value.toFixed(0)}%`">
     <span
       absolute left-0 top-0
       inline-block h-full w-full rounded-full bg="dark:zinc-300 dark:zinc-700"
@@ -54,15 +57,17 @@ const color = computed(() => {
 
 <style scoped>
 .nolebase-progress-bar {
-  animation: nolebase-progress-bar-grow 1s cubic-bezier(0, 0, 0, 1) .25s forwards;
+  animation: nolebase-progress-bar-grow 1s cubic-bezier(0.4, 0, 0.2, 1) .25s forwards;
 }
 
 @keyframes nolebase-progress-bar-grow {
   0% {
     width: 0%;
+    opacity: 0.5;
   }
   100% {
     width: v-bind(percentageCssProperty);
+    opacity: 1;
   }
 }
 </style>

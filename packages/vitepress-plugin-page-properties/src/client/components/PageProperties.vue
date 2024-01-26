@@ -7,10 +7,15 @@ import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 
 const options = inject(InjectionKey, {})
-const { frontmatter } = useData()
+const { lang, frontmatter } = useData()
 
 function getProperty(key: string) {
-  return options.properties?.find(item => item.key === key)
+  if (!options.properties)
+    return null
+  if (!options.properties[lang.value])
+    return null
+
+  return options.properties[lang.value]?.find(item => item.key === key)
 }
 
 const frontmatterAggregated = computed(() => {

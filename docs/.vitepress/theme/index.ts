@@ -95,35 +95,66 @@ export const Theme: ThemeConfig = {
       createdAt: string
       updatedAt: string
     }>(), {
-      properties: [
-        {
-          key: 'tags',
-          type: 'tags',
-          title: '标签',
-        },
-        {
-          key: 'progress',
-          type: 'progress',
-          title: '进度',
-        },
-        {
-          key: 'authors',
-          type: 'plain',
-          title: '作者',
-        },
-        {
-          key: 'createdAt',
-          type: 'datetime',
-          title: '创建时间',
-          formatAsFrom: true,
-        },
-        {
-          key: 'updatedAt',
-          type: 'datetime',
-          title: '更新时间',
-          formatAsFrom: true,
-        },
-      ],
+      properties: {
+        'en': [
+          {
+            key: 'tags',
+            type: 'tags',
+            title: 'Tags',
+          },
+          {
+            key: 'progress',
+            type: 'progress',
+            title: 'Progress',
+          },
+          {
+            key: 'authors',
+            type: 'plain',
+            title: 'Authors',
+          },
+          {
+            key: 'createdAt',
+            type: 'datetime',
+            title: 'Created At',
+            formatAsFrom: true,
+          },
+          {
+            key: 'updatedAt',
+            type: 'datetime',
+            title: 'Updated At',
+            formatAsFrom: true,
+          },
+        ],
+        'zh-CN': [
+          {
+            key: 'tags',
+            type: 'tags',
+            title: '标签',
+          },
+          {
+            key: 'progress',
+            type: 'progress',
+            title: '进度',
+          },
+          {
+            key: 'authors',
+            type: 'plain',
+            title: '作者',
+          },
+          {
+            key: 'createdAt',
+            type: 'datetime',
+            title: '创建时间',
+            formatAsFrom: true,
+          },
+          {
+            key: 'updatedAt',
+            type: 'datetime',
+            title: '更新时间',
+            formatAsFrom: true,
+          },
+        ],
+      },
     })
   },
 }

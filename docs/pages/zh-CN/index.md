@@ -46,6 +46,8 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
   <IntegrationCard type="vitepress" title="变更日志 及 文件历史" package="vitepress-plugin-git-changelog" />
 
+  <IntegrationCard type="vitepress" title="页面属性" package="vitepress-plugin-page-properties" />
+
   <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />
 
 </div>

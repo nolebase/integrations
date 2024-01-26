@@ -30,4 +30,8 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <br />
 
+<IntegrationCard type="vitepress" title="页面属性" package="vitepress-plugin-page-properties" />
+
+<br />
+
 <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss" />

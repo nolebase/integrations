@@ -40,7 +40,8 @@
     "./docs",
     "./packages/vitepress-plugin-enhanced-readabilities",
     "./packages/vitepress-plugin-git-changelog",
-    "./packages/vitepress-plugin-inline-link-preview"
+    "./packages/vitepress-plugin-inline-link-preview",
+    "./packages/vitepress-plugin-page-properties"
   ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

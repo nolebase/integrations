@@ -15,6 +15,8 @@
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
-    "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^"
+    "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
+    "@nolebase/vitepress-plugin-page-properties": "workspace:^",
+    "vite-plugin-inspect": "^0.8.3"
   }
 }

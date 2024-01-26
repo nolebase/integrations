@@ -1,0 +1,76 @@
+{
+  "name": "@nolebase/vitepress-plugin-page-properties",
+  "type": "module",
+  "version": "1.12.1",
+  "description": "A VitePress plugin that renders frontmatter as page properties, and makes them editable.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-page-properties/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-page-properties"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "obsidian",
+    "markdown",
+    "properties",
+    "frontmatter",
+    "graymatter",
+    "live-edit",
+    "editor",
+    "tags",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.mjs",
+      "require": "./dist/vite/index.cjs"
+    },
+    "./client/style.css": "./dist/client/style.css",
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.cjs"
+    }
+  },
+  "main": "./dist/client/index.cjs",
+  "module": "./dist/client/index.mjs",
+  "types": "./dist/client/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm run stub\" \"pnpm run build:watch\" \"pnpm run emit-types\"",
+    "stub": "unbuild --stub",
+    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly --outDir dist/client src/client/index.ts",
+    "build": "vite build && pnpm run emit-types && unbuild",
+    "build:watch": "vite build --mode development --watch"
+  },
+  "peerDependencies": {
+    "vitepress": ">=1.0.0-rc.39",
+    "vue": ">=3.3.0"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^13.0.2",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^13.0.7",
+    "@types/uuid": "^9.0.7",
+    "builtin-modules": "^3.3.0",
+    "date-fns": "^3.3.1"
+  }
+}

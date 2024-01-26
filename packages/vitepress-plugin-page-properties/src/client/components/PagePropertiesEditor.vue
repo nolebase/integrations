@@ -58,7 +58,7 @@ const frontmatterAggregated = computed(() => {
               <div i-icon-park-outline:time mr-1 />
             </template>
             <template v-else-if="isProgressProperty(value.value, value.pageProperty)">
-              <div i-icon-park-outline:target mr-1 />
+              <div i-icon-park-outline:loading mr-1 />
             </template>
             <template v-else-if="isPlainProperty(value.value, value.pageProperty)">
               <div i-icon-park-outline:align-text-left mr-1 />

@@ -10,7 +10,6 @@ export default defineBuildConfig({
   declaration: true,
   externals: [
     'vite',
-    'gray-matter',
     // builtins
     ...builtins,
   ],

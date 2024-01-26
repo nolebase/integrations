@@ -18,6 +18,8 @@ export interface DatetimeProperty<K extends PropertyKey> {
   key: K
   title: string
   formatAsFrom?: boolean
+  dateFnsLocaleName?: string
+  format?: string
 }
 
 export interface ProgressProperty<K extends PropertyKey> {
@@ -26,7 +28,13 @@ export interface ProgressProperty<K extends PropertyKey> {
   title: string
 }
 
-export type Property<K extends PropertyKey> = TagsProperty<K> | PlainProperty<K> | DatetimeProperty<K> | ProgressProperty<K>
+export interface LinkProperty<K extends PropertyKey> {
+  type: 'link'
+  key: K
+  title: string
+}
+
+export type Property<K extends PropertyKey> = TagsProperty<K> | PlainProperty<K> | DatetimeProperty<K> | ProgressProperty<K> | LinkProperty<K>
 export type PropertyType = Property<PropertyKey>['type']
 
 export interface Options<P extends object = any> {

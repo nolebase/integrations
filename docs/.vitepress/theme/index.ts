@@ -94,6 +94,7 @@ export const Theme: ThemeConfig = {
       progress: string[]
       createdAt: string
       updatedAt: string
+      url1: string
     }>(), {
       properties: {
         'en': [
@@ -117,12 +118,19 @@ export const Theme: ThemeConfig = {
             type: 'datetime',
             title: 'Created At',
             formatAsFrom: true,
+            dateFnsLocaleName: 'enUS',
           },
           {
             key: 'updatedAt',
             type: 'datetime',
             title: 'Updated At',
             formatAsFrom: true,
+            dateFnsLocaleName: 'enUS',
+          },
+          {
+            key: 'url1',
+            type: 'link',
+            title: 'URL 1',
           },
         ],
         'zh-CN': [
@@ -146,12 +154,19 @@ export const Theme: ThemeConfig = {
             type: 'datetime',
             title: '创建时间',
             formatAsFrom: true,
+            dateFnsLocaleName: 'zhCN',
           },
           {
             key: 'updatedAt',
             type: 'datetime',
             title: '更新时间',
             formatAsFrom: true,
+            dateFnsLocaleName: 'zhCN',
+          },
+          {
+            key: 'url1',
+            type: 'link',
+            title: '链接 1',
           },
         ],
       },

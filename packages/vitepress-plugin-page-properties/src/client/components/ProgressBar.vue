@@ -57,7 +57,7 @@ const color = computed(() => {
 
 <style scoped>
 .nolebase-progress-bar {
-  animation: nolebase-progress-bar-grow 1s cubic-bezier(0.4, 0, 0.2, 1) .25s forwards;
+  animation: nolebase-progress-bar-grow 1s cubic-bezier(0.4, 0, 0.2, 1) .5s forwards;
 }
 
 @keyframes nolebase-progress-bar-grow {

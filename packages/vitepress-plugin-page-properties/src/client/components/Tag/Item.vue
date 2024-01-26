@@ -10,6 +10,9 @@ function hasSlot(name: string) {
 
 <template>
   <div
+    class="vp-nolebase-page-property"
+    data-page-property="value"
+    data-page-property-type="tags"
     bg="zinc-200 dark:zinc-700"
     inline-block flex-inline cursor-help select-none items-center justify-center rounded-md px="2 <sm:1.5" py="0.5 <sm:0.25" duration-200
     :class="[hasSlot('pre') || hasSlot('post') ? '' : 'hover:bg-zinc-300 active:bg-zinc-400 dark:hover:bg-zinc-600 dark:active:bg-zinc-700']"

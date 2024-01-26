@@ -59,13 +59,11 @@
     "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {
-    "dayjs": ">=1.11.1",
-    "gray-matter": ">=4.0.0",
     "vitepress": ">=1.0.0-rc.39",
     "vue": ">=3.3.0"
   },
   "dependencies": {
-    "dayjs": "^1.11.10",
+    "gray-matter": "^4.0.3",
     "markdown-it": "^13.0.2",
     "uuid": "^9.0.1"
   },
@@ -73,6 +71,6 @@
     "@types/markdown-it": "^13.0.7",
     "@types/uuid": "^9.0.7",
     "builtin-modules": "^3.3.0",
-    "gray-matter": "^4.0.3"
+    "date-fns": "^3.3.1"
   }
 }

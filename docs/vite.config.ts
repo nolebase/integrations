@@ -1,6 +1,7 @@
 import { join } from 'node:path'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
+import Inspect from 'vite-plugin-inspect'
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
 
@@ -8,6 +9,7 @@ export default defineConfig(async () => {
   return {
     assetsInclude: ['**/*.mov', '**/*.mp4'],
     plugins: [
+      Inspect(),
       UnoCSS(),
       GitChangelog({
         repoURL: () => 'https://github.com/nolebase/integrations',

@@ -116,14 +116,14 @@ export const Theme: ThemeConfig = {
           {
             key: 'createdAt',
             type: 'datetime',
-            title: 'Created At',
+            title: 'Created at',
             formatAsFrom: true,
             dateFnsLocaleName: 'enUS',
           },
           {
             key: 'updatedAt',
             type: 'datetime',
-            title: 'Updated At',
+            title: 'Updated at',
             formatAsFrom: true,
             dateFnsLocaleName: 'enUS',
           },

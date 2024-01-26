@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { formatRelative } from 'date-fns'
+import { formatDistanceToNow } from 'date-fns'
 import * as DateFnsLocales from 'date-fns/locale'
 import { useData } from 'vitepress'
 import type { DatetimeProperty } from '../types'
@@ -11,10 +11,11 @@ const props = defineProps<{
 
 const { lang } = useData()
 
-function formatRelativeFromValue(value: string | number | Date, localeName = lang.value) {
+function formatDistanceToNowFromValue(value: string | number | Date, localeName = lang.value) {
   try {
-    return formatRelative(new Date(value), new Date(), {
+    return formatDistanceToNow(new Date(value), {
       locale: DateFnsLocales[localeName],
+      addSuffix: true,
     })
   }
   catch (err) {
@@ -24,7 +25,10 @@ function formatRelativeFromValue(value: string | number | Date, localeName = lan
 </script>
 
 <template>
-  <span>
-    {{ props.pageProperty?.formatAsFrom ? formatRelativeFromValue(props.value, props.pageProperty?.dateFnsLocaleName) : props.value }}
+  <span :title="String(props.value)">
+    {{ props.pageProperty?.formatAsFrom
+      ? formatDistanceToNowFromValue(props.value, props.pageProperty?.dateFnsLocaleName)
+      : props.value
+    }}
   </span>
 </template>

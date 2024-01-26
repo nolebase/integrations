@@ -21,7 +21,7 @@ function deleteTag() {
     <template v-if="props.editing" #pre>
       <div
         class="tags-draggable-handle"
-        h-5 w-5 rounded
+        h-5 w-5 rounded="md"
         hover="bg-zinc-300 dark:bg-zinc-800"
         active="opacity-0"
         transition="all duration-200 ease"
@@ -30,12 +30,14 @@ function deleteTag() {
       </div>
     </template>
     <template #default>
-      <span text-sm>{{ props.tag.content }}</span>
+      <span>{{ props.tag.content }}</span>
     </template>
     <template v-if="props.editing" #post>
       <div flex items-center justify-center>
         <button
-          mr-1 h-5 w-5 flex select-none items-center justify-center rounded transition-all
+          mr-1 h-5 w-5 flex select-none items-center justify-center
+          rounded="md"
+          transition-all
           hover="bg-zinc-300 dark:bg-zinc-800"
           active="bg-zinc-400 dark:bg-zinc-900"
           transition="all duration-200 ease"

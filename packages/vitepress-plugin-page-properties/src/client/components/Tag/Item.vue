@@ -15,9 +15,9 @@ function hasSlot(name: string) {
     data-page-property-type="tags"
     transition="all ease-in-out"
     bg="zinc-200 dark:zinc-700"
-    inline-block flex-inline cursor-help select-none items-center justify-center rounded-md
-    px="2 <sm:1.5" py="0.5 <sm:0.25"
-    duration-200
+    rounded="md"
+    px="2 <sm:1.5" py="0.5"
+    inline-block flex-inline cursor-help select-none items-center justify-center duration-200
     :class="[hasSlot('pre') || hasSlot('post') ? '' : 'hover:bg-zinc-300 active:bg-zinc-400 dark:hover:bg-zinc-600 dark:active:bg-zinc-700']"
   >
     <div flex items-center justify-center space-x-1>

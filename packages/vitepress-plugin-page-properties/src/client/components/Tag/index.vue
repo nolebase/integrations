@@ -35,7 +35,6 @@ function deleteTag() {
     <template v-if="props.editing" #post>
       <div flex items-center justify-center>
         <button
-          title="删除"
           mr-1 h-5 w-5 flex select-none items-center justify-center rounded transition-all
           hover="bg-zinc-300 dark:bg-zinc-800"
           active="bg-zinc-400 dark:bg-zinc-900"

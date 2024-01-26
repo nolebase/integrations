@@ -38,10 +38,10 @@ const color = computed(() => {
 </script>
 
 <template>
-  <span relative h-2 w-full :title="`${props.value.toFixed(0)}%`">
+  <span relative h-2 w-full :title="percentageCssProperty">
     <span
       absolute left-0 top-0
-      inline-block h-full w-full rounded-full bg="dark:zinc-300 dark:zinc-700"
+      inline-block h-full w-full rounded-full bg="zinc-200 dark:zinc-800"
     />
     <span
       class="nolebase-progress-bar"

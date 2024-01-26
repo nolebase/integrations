@@ -1,6 +1,16 @@
 import type { Plugin } from 'vue'
 
-import type { Locale, Options, PlainProperty, Property, PropertyType, TagsProperty } from './types'
+import type {
+  DatetimeProperty,
+  LinkProperty,
+  Locale,
+  Options,
+  PlainProperty,
+  ProgressProperty,
+  Property,
+  PropertyType,
+  TagsProperty,
+} from './types'
 import { InjectionKey } from './constants'
 import NolebasePageProperties from './components/PageProperties.vue'
 import NolebasePagePropertiesEditor from './components/PagePropertiesEditor.vue'
@@ -31,10 +41,13 @@ export {
 }
 
 export type {
-  Options,
   Locale,
-  PlainProperty,
+  Options,
   Property,
-  TagsProperty,
   PropertyType,
+  PlainProperty,
+  TagsProperty,
+  DatetimeProperty,
+  LinkProperty,
+  ProgressProperty,
 }

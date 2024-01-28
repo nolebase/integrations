@@ -12,6 +12,7 @@ export default defineConfig(async () => {
       Inspect(),
       UnoCSS(),
       GitChangelog({
+        maxGitLogCount: 2000,
         repoURL: () => 'https://github.com/nolebase/integrations',
         rewritePaths: {
           'docs/': '',

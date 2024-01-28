@@ -20,7 +20,7 @@ export function GitChangelog(options: {
     options = {}
 
   const {
-    maxGitLogCount = 200,
+    maxGitLogCount = 1000,
     includeDirs = [],
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`,

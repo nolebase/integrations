@@ -2,31 +2,61 @@
 import { computed, inject } from 'vue'
 import { useData } from 'vitepress'
 
+import PagePropertiesData from 'virtual:nolebase-page-properties'
+
 import { InjectionKey } from '../constants'
-import { isDatetimeProperty, isLinkProperty, isPlainProperty, isProgressProperty, isTagsProperty } from '../composables/propertyType'
+import {
+  isDatetimeProperty,
+  isDynamicReadingTimeProperty,
+  isDynamicWordCountProperty,
+  isLinkProperty,
+  isPlainProperty,
+  isProgressProperty,
+  isTagsProperty,
+} from '../composables/propertyType'
+import { useRawPath } from '../composables/path'
 import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
 const options = inject(InjectionKey, {})
 const { lang, frontmatter } = useData()
+const rawPath = useRawPath()
 
-function getProperty(key: string) {
+const pageProperties = computed(() => {
   if (!options.properties)
-    return null
+    return []
   if (!options.properties[lang.value])
-    return null
+    return []
 
-  return options.properties[lang.value]?.find(item => item.key === key)
-}
+  return options.properties[lang.value]
+})
 
 const frontmatterAggregated = computed(() => {
-  return Object.fromEntries(Object.entries(frontmatter.value).map((entry) => {
-    const [key, value] = entry
+  if (!pageProperties.value || pageProperties.value.length === 0)
+    return {}
+
+  return Object.fromEntries(pageProperties.value.map((item) => {
+    const { key } = item
+    if (!key)
+      return []
+
+    if (item.type === 'dynamic') {
+      return [key, {
+        pageProperty: item,
+        value: PagePropertiesData[rawPath.value] ? PagePropertiesData[rawPath.value] : {},
+      }]
+    }
+    if (!frontmatter.value[String(key)]) {
+      return [key, {
+        pageProperty: item,
+        value: '',
+      }]
+    }
 
     return [key, {
-      pageProperty: getProperty(key),
-      value,
+      pageProperty: item,
+      value: frontmatter.value[String(key)],
     }]
   }))
 })
@@ -65,6 +95,12 @@ const frontmatterAggregated = computed(() => {
             </template>
             <template v-else-if="isLinkProperty(value.value, value.pageProperty)">
               <div i-icon-park-outline:link-one mr-1 />
+            </template>
+            <template v-else-if="isDynamicWordCountProperty(value.value, value.pageProperty)">
+              <div i-icon-park-outline:add-text mr-1 />
+            </template>
+            <template v-else-if="isDynamicReadingTimeProperty(value.value, value.pageProperty)">
+              <div i-icon-park-outline:timer mr-1 />
             </template>
             <template v-else-if="typeof value.value === 'object'">
               <div i-icon-park-outline:triangle-round-rectangle mr-1 />
@@ -139,6 +175,28 @@ const frontmatterAggregated = computed(() => {
               w-full inline-flex items-center
             >
               <span>{{ value.value }}</span>
+            </div>
+          </template>
+          <template v-else-if="isDynamicWordCountProperty(value.value, value.pageProperty)">
+            <div
+              class="vp-nolebase-page-property"
+              data-page-property="value"
+              data-page-property-type="dynamic"
+              data-page-property-dynamic-type="word-count"
+              w-full inline-flex items-center
+            >
+              <span>{{ PagePropertiesData[rawPath] && PagePropertiesData[rawPath].wordCount ? PagePropertiesData[rawPath].wordCount : value.value || 0 }}</span>
+            </div>
+          </template>
+          <template v-else-if="isDynamicReadingTimeProperty(value.value, value.pageProperty)">
+            <div
+              class="vp-nolebase-page-property"
+              data-page-property="value"
+              data-page-property-type="dynamic"
+              data-page-property-dynamic-type="reading-time"
+              w-full inline-flex items-center
+            >
+              <span>{{ PagePropertiesData[rawPath] && PagePropertiesData[rawPath].readingTime ? PagePropertiesData[rawPath].readingTime : value.value || 0 }}</span>
             </div>
           </template>
           <template v-else-if="typeof value.value === 'object'">

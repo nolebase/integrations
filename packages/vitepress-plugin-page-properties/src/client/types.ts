@@ -1,43 +1,9 @@
+import type { Property } from '../types'
+
 export interface Locale {
 }
 
-export interface TagsProperty<K extends PropertyKey> {
-  type: 'tags'
-  key: K
-  title: string
-}
-
-export interface PlainProperty<K extends PropertyKey> {
-  type: 'plain'
-  key: K
-  title: string
-}
-
-export interface DatetimeProperty<K extends PropertyKey> {
-  type: 'datetime'
-  key: K
-  title: string
-  formatAsFrom?: boolean
-  dateFnsLocaleName?: string
-  format?: string
-}
-
-export interface ProgressProperty<K extends PropertyKey> {
-  type: 'progress'
-  key: K
-  title: string
-}
-
-export interface LinkProperty<K extends PropertyKey> {
-  type: 'link'
-  key: K
-  title: string
-}
-
-export type Property<K extends PropertyKey> = TagsProperty<K> | PlainProperty<K> | DatetimeProperty<K> | ProgressProperty<K> | LinkProperty<K>
-export type PropertyType = Property<PropertyKey>['type']
-
-export interface Options<P extends object = any> {
+export interface Options<P extends object> {
   /**
    * Internationalization configuration
    *

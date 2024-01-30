@@ -2,15 +2,23 @@ import type { Plugin } from 'vue'
 
 import type {
   DatetimeProperty,
+  DynamicFormulaProperty,
+  DynamicProperty,
+  DynamicReadingTimeProperty,
+  DynamicWordCountProperty,
   LinkProperty,
-  Locale,
-  Options,
   PlainProperty,
   ProgressProperty,
   Property,
   PropertyType,
   TagsProperty,
+} from '../types'
+
+import type {
+  Locale,
+  Options,
 } from './types'
+
 import { InjectionKey } from './constants'
 import NolebasePageProperties from './components/PageProperties.vue'
 import NolebasePagePropertiesEditor from './components/PagePropertiesEditor.vue'
@@ -22,7 +30,7 @@ const components = {
   NolebasePagePropertiesEditor,
 }
 
-export function NolebasePagePropertiesPlugin<P extends object>(): Plugin<Options<P>[]> {
+export function NolebasePagePropertiesPlugin<P extends object = any>(): Plugin<Options<P>[]> {
   return {
     install(app, options) {
       if (options)
@@ -50,4 +58,8 @@ export type {
   DatetimeProperty,
   LinkProperty,
   ProgressProperty,
+  DynamicProperty,
+  DynamicFormulaProperty,
+  DynamicReadingTimeProperty,
+  DynamicWordCountProperty,
 }

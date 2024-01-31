@@ -49,10 +49,10 @@ function countWordsByLanguage(content: string): Record<string, number> {
 
 // Function to calculate reading time across multiple languages
 export function calculateWordsCountAndReadingTime(content: string): ReadingTimeStats {
-  const wordCounts = countWordsByLanguage(content)
+  const wordsCounts = countWordsByLanguage(content)
 
-  const totalWords = Object.values(wordCounts).reduce((sum, count) => sum + count, 0)
-  const totalMinutes = Object.entries(wordCounts).reduce((sum, [language, count]) => {
+  const totalWords = Object.values(wordsCounts).reduce((sum, count) => sum + count, 0)
+  const totalMinutes = Object.entries(wordsCounts).reduce((sum, [language, count]) => {
     return sum + (count / languageHandlers[language].wordsPerMinute)
   }, 0)
 

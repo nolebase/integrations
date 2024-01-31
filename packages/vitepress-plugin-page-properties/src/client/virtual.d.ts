@@ -36,22 +36,17 @@ interface DynamicProperty<K extends PropertyKey> {
   key: K | string
   title: string
   options:
-    DynamicWordCountProperty |
-    DynamicReadingTimeProperty |
-    DynamicFormulaProperty
+    DynamicWordsCountProperty |
+    DynamicReadingTimeProperty
 }
 
-interface DynamicWordCountProperty {
-  type: 'wordCount'
+interface DynamicWordsCountProperty {
+  type: 'wordsCount'
 }
 
 interface DynamicReadingTimeProperty {
   type: 'readingTime'
-}
-
-interface DynamicFormulaProperty {
-  type: 'formula'
-  formula: (pageData: any) => string | Promise<string>
+  dateFnsLocaleName?: string
 }
 
 type Property<K extends PropertyKey> =
@@ -63,6 +58,7 @@ type Property<K extends PropertyKey> =
   DynamicProperty<K>
 
 type PropertyType = Property<PropertyKey>['type']
+type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']
 
 declare module 'virtual:nolebase-page-properties' {
   const pagePropertiesData: Record<string, {

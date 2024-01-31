@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue'
 import { useData } from 'vitepress'
+import { formatDuration } from 'date-fns'
+import * as DateFnsLocales from 'date-fns/locale'
 
 import PagePropertiesData from 'virtual:nolebase-page-properties'
 
@@ -8,21 +10,25 @@ import { InjectionKey } from '../constants'
 import {
   isDatetimeProperty,
   isDynamicReadingTimeProperty,
-  isDynamicWordCountProperty,
+  isDynamicWordsCountProperty,
   isLinkProperty,
   isPlainProperty,
   isProgressProperty,
   isTagsProperty,
 } from '../composables/propertyType'
 import { useRawPath } from '../composables/path'
+import { useI18n } from '../composables/i18n'
+
 import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
 const pagePropertiesData = ref<typeof PagePropertiesData>(PagePropertiesData)
+
 const options = inject(InjectionKey, {})
 const { lang, frontmatter } = useData()
 const rawPath = useRawPath()
+const { t } = useI18n()
 
 const pageProperties = computed(() => {
   if (!options.properties)
@@ -85,6 +91,21 @@ const frontmatterAggregated = computed(() => {
 
   return mPageProperties
 })
+
+function formatDurationFromValue(value: string | number | Date, localeName = lang.value) {
+  const parsedValue = Number.parseInt(String(value))
+
+  try {
+    return formatDuration({
+      minutes: Number.isNaN(parsedValue) ? 0 : parsedValue,
+    }, {
+      locale: DateFnsLocales[localeName],
+    })
+  }
+  catch (err) {
+    return value
+  }
+}
 </script>
 
 <template>
@@ -121,7 +142,7 @@ const frontmatterAggregated = computed(() => {
             <template v-else-if="isLinkProperty(property.value, property.pageProperty)">
               <div i-icon-park-outline:link-one mr-1 />
             </template>
-            <template v-else-if="isDynamicWordCountProperty(property.value, property.pageProperty)">
+            <template v-else-if="isDynamicWordsCountProperty(property.value, property.pageProperty)">
               <div i-icon-park-outline:add-text mr-1 />
             </template>
             <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty)">
@@ -202,7 +223,7 @@ const frontmatterAggregated = computed(() => {
               <span>{{ property.value }}</span>
             </div>
           </template>
-          <template v-else-if="isDynamicWordCountProperty(property.value, property.pageProperty)">
+          <template v-else-if="isDynamicWordsCountProperty(property.value, property.pageProperty) && property.pageProperty.options.type === 'wordsCount'">
             <div
               class="vp-nolebase-page-property"
               data-page-property="value"
@@ -210,10 +231,10 @@ const frontmatterAggregated = computed(() => {
               data-page-property-dynamic-type="word-count"
               w-full inline-flex items-center
             >
-              <span>{{ pagePropertiesData[rawPath] && pagePropertiesData[rawPath].wordsCount ? pagePropertiesData[rawPath].wordsCount : 0 }}</span>
+              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount: pagePropertiesData[rawPath] && pagePropertiesData[rawPath].wordsCount ? pagePropertiesData[rawPath].wordsCount : 0 } }) }}</span>
             </div>
           </template>
-          <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty)">
+          <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty) && property.pageProperty.options.type === 'readingTime'">
             <div
               class="vp-nolebase-page-property"
               data-page-property="value"
@@ -221,7 +242,7 @@ const frontmatterAggregated = computed(() => {
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ pagePropertiesData[rawPath] && pagePropertiesData[rawPath].readingTime ? pagePropertiesData[rawPath].readingTime : 0 }}</span>
+              <span>{{ formatDurationFromValue(pagePropertiesData[rawPath] && pagePropertiesData[rawPath].readingTime ? pagePropertiesData[rawPath].readingTime : 0, property.pageProperty.options.dateFnsLocaleName) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

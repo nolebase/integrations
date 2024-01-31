@@ -53,8 +53,8 @@ export function isLinkProperty(_?: any, property?: Property<PropertyKey> | null)
   return false
 }
 
-export function isDynamicWordCountProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
-  if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'wordCount')
+export function isDynamicWordsCountProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
+  if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'wordsCount')
     return true
 
   return false

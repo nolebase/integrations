@@ -2,10 +2,10 @@ import type { Plugin } from 'vue'
 
 import type {
   DatetimeProperty,
-  DynamicFormulaProperty,
   DynamicProperty,
+  DynamicPropertyType,
   DynamicReadingTimeProperty,
-  DynamicWordCountProperty,
+  DynamicWordsCountProperty,
   LinkProperty,
   Locale,
   Options,
@@ -56,7 +56,7 @@ export type {
   LinkProperty,
   ProgressProperty,
   DynamicProperty,
-  DynamicFormulaProperty,
+  DynamicPropertyType,
   DynamicReadingTimeProperty,
-  DynamicWordCountProperty,
+  DynamicWordsCountProperty,
 }

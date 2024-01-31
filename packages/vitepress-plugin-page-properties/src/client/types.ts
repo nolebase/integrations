@@ -36,22 +36,17 @@ export interface DynamicProperty<K extends PropertyKey> {
   key: K | string
   title: string
   options:
-    DynamicWordCountProperty |
-    DynamicReadingTimeProperty |
-    DynamicFormulaProperty
+    DynamicWordsCountProperty |
+    DynamicReadingTimeProperty
 }
 
-export interface DynamicWordCountProperty {
-  type: 'wordCount'
+export interface DynamicWordsCountProperty {
+  type: 'wordsCount'
 }
 
 export interface DynamicReadingTimeProperty {
   type: 'readingTime'
-}
-
-export interface DynamicFormulaProperty {
-  type: 'formula'
-  formula: (pageData: any) => string | Promise<string>
+  dateFnsLocaleName?: string
 }
 
 export type Property<K extends PropertyKey> =
@@ -63,8 +58,12 @@ export type Property<K extends PropertyKey> =
   DynamicProperty<K>
 
 export type PropertyType = Property<PropertyKey>['type']
+export type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']
 
 export interface Locale {
+  pageProperties?: {
+    wordsCount?: string
+  }
 }
 
 export interface Options<P extends object> {

@@ -1,16 +1,15 @@
-export interface Locale {
-}
-
 export interface TagsProperty<K extends PropertyKey> {
   type: 'tags'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface PlainProperty<K extends PropertyKey> {
   type: 'plain'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface DatetimeProperty<K extends PropertyKey> {
@@ -20,24 +19,59 @@ export interface DatetimeProperty<K extends PropertyKey> {
   formatAsFrom?: boolean
   dateFnsLocaleName?: string
   format?: string
+  omitEmpty?: boolean
 }
 
 export interface ProgressProperty<K extends PropertyKey> {
   type: 'progress'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface LinkProperty<K extends PropertyKey> {
   type: 'link'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
-export type Property<K extends PropertyKey> = TagsProperty<K> | PlainProperty<K> | DatetimeProperty<K> | ProgressProperty<K> | LinkProperty<K>
-export type PropertyType = Property<PropertyKey>['type']
+export interface DynamicProperty<K extends PropertyKey> {
+  type: 'dynamic'
+  key: K | string
+  title: string
+  options:
+    DynamicWordsCountProperty |
+    DynamicReadingTimeProperty
+}
 
-export interface Options<P extends object = any> {
+export interface DynamicWordsCountProperty {
+  type: 'wordsCount'
+}
+
+export interface DynamicReadingTimeProperty {
+  type: 'readingTime'
+  dateFnsLocaleName?: string
+}
+
+export type Property<K extends PropertyKey> =
+  TagsProperty<K> |
+  PlainProperty<K> |
+  DatetimeProperty<K> |
+  ProgressProperty<K> |
+  LinkProperty<K> |
+  DynamicProperty<K>
+
+export type PropertyType = Property<PropertyKey>['type']
+export type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']
+
+export interface Locale {
+  pageProperties?: {
+    wordsCount?: string
+  }
+}
+
+export interface Options<P extends object> {
   /**
    * Internationalization configuration
    *

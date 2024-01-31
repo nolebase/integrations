@@ -127,6 +127,23 @@ export const Theme: ThemeConfig = {
             type: 'link',
             title: 'URL 1',
           },
+          {
+            key: 'wordsCount',
+            type: 'dynamic',
+            title: 'Word count',
+            options: {
+              type: 'wordsCount',
+            },
+          },
+          {
+            key: 'readingTime',
+            type: 'dynamic',
+            title: 'Reading time',
+            options: {
+              type: 'readingTime',
+              dateFnsLocaleName: 'enUS',
+            },
+          },
         ],
         'zh-CN': [
           {
@@ -157,6 +174,23 @@ export const Theme: ThemeConfig = {
             key: 'url1',
             type: 'link',
             title: '链接 1',
+          },
+          {
+            key: 'wordsCount',
+            type: 'dynamic',
+            title: '字数',
+            options: {
+              type: 'wordsCount',
+            },
+          },
+          {
+            key: 'readingTime',
+            type: 'dynamic',
+            title: '阅读时间',
+            options: {
+              type: 'readingTime',
+              dateFnsLocaleName: 'zhCN',
+            },
           },
         ],
       },

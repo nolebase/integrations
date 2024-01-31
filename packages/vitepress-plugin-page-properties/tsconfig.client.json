@@ -8,22 +8,20 @@
       "./src/client/virtual.d.ts"
     ],
     "noImplicitAny": false,
-    "declaration": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
     "noEmit": false,
     "outDir": "./dist/client",
     "sourceMap": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/**/*.tsx"
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.vue",
+    "src/client/**/*.tsx"
   ],
   "exclude": [
     "**/dist/**"

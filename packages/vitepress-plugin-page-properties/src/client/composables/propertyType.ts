@@ -1,4 +1,12 @@
-import type { DatetimeProperty, LinkProperty, PlainProperty, ProgressProperty, Property, TagsProperty } from '../types'
+import type {
+  DatetimeProperty,
+  DynamicProperty,
+  LinkProperty,
+  PlainProperty,
+  ProgressProperty,
+  Property,
+  TagsProperty,
+} from '../types'
 
 export function isTagsProperty(value?: any, property?: Property<PropertyKey> | null): property is TagsProperty<PropertyKey> | null {
   return value && typeof value === 'object' && property && property.type && property.type === 'tags'
@@ -40,6 +48,20 @@ export function isProgressProperty(value?: any, property?: Property<PropertyKey>
 
 export function isLinkProperty(_?: any, property?: Property<PropertyKey> | null): property is LinkProperty<PropertyKey> | null {
   if (property && property.type && property.type === 'link')
+    return true
+
+  return false
+}
+
+export function isDynamicWordsCountProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
+  if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'wordsCount')
+    return true
+
+  return false
+}
+
+export function isDynamicReadingTimeProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
+  if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'readingTime')
     return true
 
   return false

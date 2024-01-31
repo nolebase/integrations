@@ -10,3 +10,5 @@ updatedAt: 2024-01-23
 ---
 
 # Page properties
+
+Page properties was born from the heavily inspiration of Notion's page properties feature.

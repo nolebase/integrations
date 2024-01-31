@@ -1,5 +1,5 @@
 import { existsSync, lstatSync, readFileSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { extname, join, relative } from 'node:path'
 import { type Plugin, type ResolvedConfig, normalizePath } from 'vite'
 import GrayMatter from 'gray-matter'
 import type { PagePropertiesData } from './types'
@@ -29,10 +29,9 @@ function normalizeAsMarkdownPath(url: string) {
     toMarkdownFilePath += 'index.md'
   }
   else {
-    if (!toMarkdownFilePath.endsWith('.md')) {
+    if (extname(toMarkdownFilePath) === '.html') {
       toMarkdownFilePath = toMarkdownFilePath
         .replace(/^(.+?)(\.html)?$/s, '$1.md')
-        .replace(/^(.+?)(\.md)?$/s, '$1.md')
     }
   }
 
@@ -90,38 +89,45 @@ export function PageProperties(): Plugin {
           return next()
 
         const toMarkdownFilePath = normalizeAsMarkdownPath(req.url)
+        if (extname(toMarkdownFilePath) !== '.md')
+          return next()
+
+        const completeFilePath = join(_config.root, toMarkdownFilePath)
+
         if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
           try {
-            const completeFilePath = join(_config.root, toMarkdownFilePath)
             const exists = await existsSync(completeFilePath)
-            if (!exists) {
-              next()
-              return
-            }
+            if (!exists)
+              return next()
 
             const stat = await lstatSync(completeFilePath)
-            if (!stat.isFile()) {
-              next()
-              return
-            }
+            if (!stat.isFile())
+              return next()
 
             knownMarkdownFiles.add(toMarkdownFilePath.toLowerCase())
           }
           catch (e) {
-            next()
-            return
+            return next()
           }
         }
-        if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
-          next()
-          return
-        }
+        if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase()))
+          return next()
 
-        const completeFilePath = join(_config.root, toMarkdownFilePath)
         const content = await readFileSync(completeFilePath, 'utf-8')
         const parsedContent = GrayMatter(content)
         const key = normalizeWithRelative(_config.root, completeFilePath)
         data[key] = calculateWordsCountAndReadingTime(parsedContent.content)
+
+        const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+        if (!virtualModule)
+          return next()
+
+        server.moduleGraph.invalidateModule(virtualModule)
+        server.ws.send({
+          type: 'custom',
+          event: 'nolebase-page-properties:updated',
+          data,
+        })
 
         next()
       })
@@ -129,7 +135,7 @@ export function PageProperties(): Plugin {
     async handleHotUpdate(ctx) {
       const hotReloadingModuleFilePath = normalizeWithRelative(_config.root, ctx.file)
 
-      if (hotReloadingModuleFilePath.endsWith('.md')) {
+      if (extname(hotReloadingModuleFilePath) === '.md') {
         const virtualModule = ctx.server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
 
         if (virtualModule) {

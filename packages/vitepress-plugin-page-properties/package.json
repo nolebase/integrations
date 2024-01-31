@@ -55,7 +55,7 @@
     "dev": "concurrently \"pnpm run stub\" \"pnpm run build:watch\" \"pnpm run emit-types\"",
     "stub": "unbuild --stub",
     "emit-types": "vue-tsc --p ./tsconfig.client.json",
-    "build": "vite build && pnpm run emit-types && unbuild",
+    "build": "vite build --mode development && pnpm run emit-types && unbuild",
     "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {

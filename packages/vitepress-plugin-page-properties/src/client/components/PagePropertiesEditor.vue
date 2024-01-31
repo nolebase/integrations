@@ -40,6 +40,13 @@ const pageProperties = computed(() => {
 })
 
 if (import.meta.hot) {
+  // Plugin API | Vite
+  // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+  import.meta.hot.on('nolebase-page-properties:updated', (data) => {
+    pagePropertiesData.value = data
+  })
+  // HMR API | Vite
+  // https://vitejs.dev/guide/api-hmr.html
   import.meta.hot.accept('virtual:nolebase-page-properties', (newModule) => {
     if (newModule)
       pagePropertiesData.value = newModule.default
@@ -50,6 +57,7 @@ type AggregatedPageProperties = Array<{
   key: PropertyKey | 'unknown'
   pageProperty: Property<any>
   value: any
+  omitEmpty: boolean
 }>
 
 const frontmatterAggregated = computed(() => {
@@ -58,38 +66,48 @@ const frontmatterAggregated = computed(() => {
 
   const mPageProperties: AggregatedPageProperties = pageProperties.value.map((item) => {
     const { key } = item
-    if (!key) {
-      return {
-        key: 'unknown',
-        pageProperty: item,
-        value: '',
-      }
+
+    const baseResolvedProperties: AggregatedPageProperties[number] = {
+      key: 'unknown',
+      pageProperty: item,
+      value: '',
+      omitEmpty: true,
     }
 
     if (item.type === 'dynamic') {
-      return {
-        key,
-        pageProperty: item,
-        value: pagePropertiesData.value[rawPath.value] ? pagePropertiesData.value[rawPath.value] : {},
-      }
+      if (item.key)
+        baseResolvedProperties.key = item.key
+      else
+        baseResolvedProperties.key = item.type
+
+      baseResolvedProperties.value = pagePropertiesData.value[rawPath.value] ? pagePropertiesData.value[rawPath.value] : ''
+      baseResolvedProperties.omitEmpty = false
+
+      return baseResolvedProperties
     }
 
-    if (!frontmatter.value[String(key)]) {
-      return {
-        key,
-        pageProperty: item,
-        value: '',
-      }
-    }
+    if (!key)
+      return baseResolvedProperties
 
-    return {
-      key,
-      pageProperty: item,
-      value: frontmatter.value[String(key)],
-    }
+    baseResolvedProperties.key = item.key
+
+    if ('omitEmpty' in item)
+      baseResolvedProperties.omitEmpty = !!item.omitEmpty
+
+    if (!frontmatter.value[String(key)])
+      return baseResolvedProperties
+
+    baseResolvedProperties.value = frontmatter.value[String(key)]
+
+    return baseResolvedProperties
   })
 
-  return mPageProperties
+  return mPageProperties.filter((item) => {
+    if (item.omitEmpty && !item.value)
+      return false
+
+    return true
+  })
 })
 
 function formatDurationFromValue(value: string | number | Date, localeName = lang.value) {
@@ -270,6 +288,3 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>

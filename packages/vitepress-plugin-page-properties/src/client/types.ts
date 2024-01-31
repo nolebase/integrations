@@ -2,12 +2,14 @@ export interface TagsProperty<K extends PropertyKey> {
   type: 'tags'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface PlainProperty<K extends PropertyKey> {
   type: 'plain'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface DatetimeProperty<K extends PropertyKey> {
@@ -17,18 +19,21 @@ export interface DatetimeProperty<K extends PropertyKey> {
   formatAsFrom?: boolean
   dateFnsLocaleName?: string
   format?: string
+  omitEmpty?: boolean
 }
 
 export interface ProgressProperty<K extends PropertyKey> {
   type: 'progress'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface LinkProperty<K extends PropertyKey> {
   type: 'link'
   key: K
   title: string
+  omitEmpty?: boolean
 }
 
 export interface DynamicProperty<K extends PropertyKey> {

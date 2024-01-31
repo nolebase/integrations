@@ -54,7 +54,7 @@
   "scripts": {
     "dev": "concurrently \"pnpm run stub\" \"pnpm run build:watch\" \"pnpm run emit-types\"",
     "stub": "unbuild --stub",
-    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly --outDir dist --types ./src/client/virtual.d.ts src/client/index.ts",
+    "emit-types": "vue-tsc --p ./tsconfig.client.json",
     "build": "vite build && pnpm run emit-types && unbuild",
     "build:watch": "vite build --mode development --watch"
   },

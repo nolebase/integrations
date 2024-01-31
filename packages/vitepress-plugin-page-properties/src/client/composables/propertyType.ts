@@ -6,7 +6,7 @@ import type {
   ProgressProperty,
   Property,
   TagsProperty,
-} from '../../types'
+} from '../types'
 
 export function isTagsProperty(value?: any, property?: Property<PropertyKey> | null): property is TagsProperty<PropertyKey> | null {
   return value && typeof value === 'object' && property && property.type && property.type === 'tags'

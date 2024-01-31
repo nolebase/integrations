@@ -37,7 +37,7 @@ export function useI18n() {
 
   return {
     t(key: string, translateOptions?: { props: Record<string, any> }) {
-      const options = inject<Options>(InjectionKey, {})
+      const options = inject<Options<any>>(InjectionKey, {})
       const data = useData()
       const translatedValue = getI18nProperty(data.lang.value, key, {
         locales: options.locales || {},

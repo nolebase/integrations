@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": false,
+    "baseUrl": ".",
+    "types": [
+      "vite/client",
+      "./src/client/virtual.d.ts"
+    ],
+    "noImplicitAny": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "noEmit": false,
+    "outDir": "./dist/client",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.vue",
+    "src/client/**/*.tsx"
+  ],
+  "exclude": [
+    "**/dist/**"
+  ]
+}

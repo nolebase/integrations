@@ -7,16 +7,13 @@ import type {
   DynamicReadingTimeProperty,
   DynamicWordCountProperty,
   LinkProperty,
+  Locale,
+  Options,
   PlainProperty,
   ProgressProperty,
   Property,
   PropertyType,
   TagsProperty,
-} from '../types'
-
-import type {
-  Locale,
-  Options,
 } from './types'
 
 import { InjectionKey } from './constants'

@@ -2,7 +2,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import * as DateFnsLocales from 'date-fns/locale'
 import { useData } from 'vitepress'
-import type { DatetimeProperty } from '../../types'
+import type { DatetimeProperty } from '../types'
 
 const props = defineProps<{
   value: string | number | Date

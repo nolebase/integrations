@@ -1,12 +1,20 @@
 import { reactive } from 'vue'
-import PagePropertiesData from 'virtual:nolebase-page-properties'
+import VirtualPagePropertiesData from 'virtual:nolebase-page-properties'
 
-const pagePropertiesData = reactive<typeof PagePropertiesData>(PagePropertiesData)
+type Data = typeof VirtualPagePropertiesData
+const pagePropertiesData = reactive<Data>(VirtualPagePropertiesData)
 
 export function usePageProperties() {
+  if (Object.keys(pagePropertiesData).length === 0
+    && Object.keys(VirtualPagePropertiesData).length !== 0) {
+    Object.keys(VirtualPagePropertiesData).forEach((key) => {
+      pagePropertiesData[key] = VirtualPagePropertiesData[key]
+    })
+  }
+
   return {
     data: pagePropertiesData,
-    applyPagePropertiesData(data: typeof PagePropertiesData) {
+    applyPagePropertiesData(data: typeof VirtualPagePropertiesData) {
       Object.keys(data).forEach((key) => {
         pagePropertiesData[key] = data[key]
       })

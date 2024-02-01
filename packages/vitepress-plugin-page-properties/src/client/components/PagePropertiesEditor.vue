@@ -132,6 +132,20 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
     return value
   }
 }
+
+const wordsCount = computed(() => {
+  if (!pagePropertiesData.data[rawPath.value] || !pagePropertiesData.data[rawPath.value].wordsCount)
+    return 0
+
+  return pagePropertiesData.data[rawPath.value].wordsCount
+})
+
+const readingTime = computed(() => {
+  if (!pagePropertiesData.data[rawPath.value] || !pagePropertiesData.data[rawPath.value].readingTime)
+    return 0
+
+  return pagePropertiesData.data[rawPath.value].readingTime
+})
 </script>
 
 <template>
@@ -257,7 +271,7 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
               data-page-property-dynamic-type="word-count"
               w-full inline-flex items-center
             >
-              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount: pagePropertiesData.data[rawPath] && pagePropertiesData.data[rawPath].wordsCount ? pagePropertiesData.data[rawPath].wordsCount : 0 } }) }}</span>
+              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount } }) }}</span>
             </div>
           </template>
           <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty) && property.pageProperty.options.type === 'readingTime'">
@@ -268,7 +282,7 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(pagePropertiesData.data[rawPath] && pagePropertiesData.data[rawPath].readingTime ? pagePropertiesData.data[rawPath].readingTime : 0, property.pageProperty.options.dateFnsLocaleName) }}</span>
+              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

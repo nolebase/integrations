@@ -4,7 +4,7 @@ import { useData } from 'vitepress'
 import { formatDuration } from 'date-fns'
 import * as DateFnsLocales from 'date-fns/locale'
 
-import PagePropertiesData from 'virtual:nolebase-page-properties'
+import type PagePropertiesData from 'virtual:nolebase-page-properties'
 
 import { InjectionKey } from '../constants'
 import {
@@ -23,7 +23,7 @@ import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
-const pagePropertiesData = ref<typeof PagePropertiesData>(PagePropertiesData)
+const pagePropertiesData = ref<typeof PagePropertiesData>({})
 
 const options = inject(InjectionKey, {})
 const { lang, frontmatter } = useData()
@@ -43,13 +43,26 @@ if (import.meta.hot) {
   // Plugin API | Vite
   // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
   import.meta.hot.on('nolebase-page-properties:updated', (data) => {
-    pagePropertiesData.value = data
+    if (!data || typeof data !== 'object')
+      return
+
+    Object.keys(data).forEach((item) => {
+      pagePropertiesData.value[item] = data[item]
+    })
   })
   // HMR API | Vite
   // https://vitejs.dev/guide/api-hmr.html
   import.meta.hot.accept('virtual:nolebase-page-properties', (newModule) => {
-    if (newModule)
-      pagePropertiesData.value = newModule.default
+    if (!newModule)
+      return
+    if (!('default' in newModule))
+      return
+    if (!newModule.default || typeof newModule.default !== 'object')
+      return
+
+    Object.keys(newModule.default).forEach((item) => {
+      pagePropertiesData.value[item] = newModule.default[item]
+    })
   })
 }
 

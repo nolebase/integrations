@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { useData } from 'vitepress'
 import { formatDuration } from 'date-fns'
 import * as DateFnsLocales from 'date-fns/locale'
-
-import type PagePropertiesData from 'virtual:nolebase-page-properties'
 
 import { InjectionKey } from '../constants'
 import {
@@ -18,13 +16,13 @@ import {
 } from '../composables/propertyType'
 import { useRawPath } from '../composables/path'
 import { useI18n } from '../composables/i18n'
+import { usePageProperties } from '../composables/data'
 
 import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
-const pagePropertiesData = ref<typeof PagePropertiesData>({})
-
+const pagePropertiesData = usePageProperties()
 const options = inject(InjectionKey, {})
 const { lang, frontmatter } = useData()
 const rawPath = useRawPath()
@@ -46,10 +44,9 @@ if (import.meta.hot) {
     if (!data || typeof data !== 'object')
       return
 
-    Object.keys(data).forEach((item) => {
-      pagePropertiesData.value[item] = data[item]
-    })
+    pagePropertiesData.applyPagePropertiesData(data)
   })
+
   // HMR API | Vite
   // https://vitejs.dev/guide/api-hmr.html
   import.meta.hot.accept('virtual:nolebase-page-properties', (newModule) => {
@@ -60,9 +57,7 @@ if (import.meta.hot) {
     if (!newModule.default || typeof newModule.default !== 'object')
       return
 
-    Object.keys(newModule.default).forEach((item) => {
-      pagePropertiesData.value[item] = newModule.default[item]
-    })
+    pagePropertiesData.applyPagePropertiesData(newModule.default)
   })
 }
 
@@ -93,7 +88,7 @@ const frontmatterAggregated = computed(() => {
       else
         baseResolvedProperties.key = item.type
 
-      baseResolvedProperties.value = pagePropertiesData.value[rawPath.value] ? pagePropertiesData.value[rawPath.value] : ''
+      baseResolvedProperties.value = pagePropertiesData.data[rawPath.value] ? pagePropertiesData.data[rawPath.value] : ''
       baseResolvedProperties.omitEmpty = false
 
       return baseResolvedProperties
@@ -262,7 +257,7 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
               data-page-property-dynamic-type="word-count"
               w-full inline-flex items-center
             >
-              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount: pagePropertiesData[rawPath] && pagePropertiesData[rawPath].wordsCount ? pagePropertiesData[rawPath].wordsCount : 0 } }) }}</span>
+              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount: pagePropertiesData.data[rawPath] && pagePropertiesData.data[rawPath].wordsCount ? pagePropertiesData.data[rawPath].wordsCount : 0 } }) }}</span>
             </div>
           </template>
           <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty) && property.pageProperty.options.type === 'readingTime'">
@@ -273,7 +268,7 @@ function formatDurationFromValue(value: string | number | Date, localeName = lan
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(pagePropertiesData[rawPath] && pagePropertiesData[rawPath].readingTime ? pagePropertiesData[rawPath].readingTime : 0, property.pageProperty.options.dateFnsLocaleName) }}</span>
+              <span>{{ formatDurationFromValue(pagePropertiesData.data[rawPath] && pagePropertiesData.data[rawPath].readingTime ? pagePropertiesData.data[rawPath].readingTime : 0, property.pageProperty.options.dateFnsLocaleName) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

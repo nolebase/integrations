@@ -93,7 +93,6 @@ export function PageProperties(): Plugin {
           return next()
 
         const completeFilePath = join(_config.root, toMarkdownFilePath)
-        console.log('configureServer', completeFilePath)
 
         if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
           try {
@@ -118,7 +117,6 @@ export function PageProperties(): Plugin {
         const parsedContent = GrayMatter(content)
         const key = normalizeWithRelative(_config.root, completeFilePath)
         data[key] = calculateWordsCountAndReadingTime(parsedContent.content)
-        console.log('configureServer', key, data[key])
 
         const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
         if (!virtualModule)

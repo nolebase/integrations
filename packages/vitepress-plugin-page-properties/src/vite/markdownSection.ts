@@ -6,12 +6,57 @@ import { pathEndsWith, pathEquals, pathStartsWith } from './path'
 
 export interface Context {
   helpers: {
-    pathEquals: (path: string, equalsWith: string) => boolean
-    pathStartsWith: (path: string, startsWith: string) => boolean
-    pathEndsWith: (path: string, endsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed string parameter equals the
+     * current transforming module ID with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param equalsWith - String to equal with
+     * @returns boolean
+     */
     idEquals: (equalsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed string parameter startsWith the
+     * current transforming module ID with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param startsWith - String to start with
+     * @returns boolean
+     */
     idStartsWith: (startsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed string parameter endsWith the
+     * current transforming module ID with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param endsWith - String to end with
+     * @returns boolean
+     */
     idEndsWith: (endsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed first path parameter
+     * equals the second passed string with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param path - Path to be compared with
+     * @param equalsWith - String to equal with
+     * @returns boolean
+     */
+    pathEquals: (path: string, equalsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed first path parameter
+     * startsWith the second passed string with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param path - Path to be compared with
+     * @param startsWith - String to start with
+     * @returns boolean
+     */
+    pathStartsWith: (path: string, startsWith: string) => boolean
+    /**
+     * A helper function to help to determine whether the passed first path parameter
+     * endsWith the second passed string with normalization of paths capabilities and
+     * cross platform / OS compatibilities.
+     * @param path - Path to be compared with
+     * @param endsWith - String to end with
+     * @returns boolean
+     */
+    pathEndsWith: (path: string, endsWith: string) => boolean
   }
 }
 

@@ -1,11 +1,4 @@
-import { sep } from 'node:path'
-
-export function normalizePath(path: string): string {
-  if (sep === '/')
-    return path
-
-  return path.split(sep).join('/')
-}
+import { normalizePath } from 'vite'
 
 export function pathEquals(path: string, equals: string): boolean {
   return normalizePath(path) === (normalizePath(equals))

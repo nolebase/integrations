@@ -9,6 +9,10 @@ import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-e
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
 
+import { rehype } from 'rehype'
+import RehypeStringgify from 'rehype-stringify'
+import RehypeRewrite from 'rehype-rewrite'
+
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
     '/': [
@@ -60,6 +64,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
+          { text: 'Encrypt', link: '/pages/en/integrations/vitepress-plugin-encrypt/' },
         ],
       },
     ],
@@ -134,6 +139,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
+          { text: '保密', link: '/pages/zh-CN/integrations/vitepress-plugin-encrypt/' },
         ],
       },
     ],
@@ -238,6 +244,46 @@ export default defineConfig({
         sidebar: sidebars['zh-CN'],
       },
     },
+  },
+  transformHtml: async (code, id) => {
+    if (id.includes('vitepress-plugin-encrypt')) {
+      const rawHTML = ''
+
+      const processed = await rehype()
+        .data('settings', { fragment: true })
+        .use(RehypeRewrite, {
+          rewrite: (node) => {
+            if (node.type === 'element' && node.properties.id === 'vp-nolebase-encrypt-protected-content') {
+              node.children = [
+                {
+                  type: 'element',
+                  tagName: 'div',
+                  properties: {
+                    id: 'vp-nolebase-encrypt-protected-content-placeholder',
+                  },
+                  children: [
+                    {
+                      type: 'text',
+                      value: 'This content is protected. Please input the password to view it.',
+                    },
+                  ],
+                },
+              ]
+            }
+          },
+        })
+        .use(RehypeStringgify)
+        .use(() => {
+          return (tree) => {
+            const scriptNode = {
+
+            }
+          }
+        })
+        .process(code)
+
+      return processed.toString()
+    }
   },
   markdown: {
     config(md) {

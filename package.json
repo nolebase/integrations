@@ -45,6 +45,9 @@
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "less": "^4.2.0",
+    "rehype": "^13.0.1",
+    "rehype-rewrite": "^4.0.2",
+    "rehype-stringify": "^10.0.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.2",
     "unbuild": "^2.0.0",
@@ -54,7 +57,8 @@
     "vite-plugin-inspect": "^0.8.3",
     "vitepress": "^1.0.0-rc.45",
     "vue": "3.4.19",
-    "vue-tsc": "^1.8.27"
+    "vue-tsc": "^1.8.27",
+    "vue3-lazy-hydration": "^1.2.1"
   },
   "workspaces": [
     "packages/*",

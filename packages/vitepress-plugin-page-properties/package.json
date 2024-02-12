@@ -60,7 +60,7 @@
   },
   "peerDependencies": {
     "vitepress": ">=1.0.0-rc.39",
-    "vue": ">=3.3.0"
+    "vue": "3.4.14"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

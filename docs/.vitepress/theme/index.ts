@@ -18,7 +18,6 @@ import {
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading'
 
 import {
-  InjectionKey as NolebaseGitChangelogInjectionKey,
   NolebaseGitChangelogPlugin,
 } from '@nolebase/vitepress-plugin-git-changelog/client'
 
@@ -70,8 +69,7 @@ export const Theme: ThemeConfig = {
       },
     })
 
-    app.use(NolebaseGitChangelogPlugin)
-    app.provide(NolebaseGitChangelogInjectionKey, {
+    app.use(NolebaseGitChangelogPlugin, {
       mapContributors: [
         {
           name: 'Neko',

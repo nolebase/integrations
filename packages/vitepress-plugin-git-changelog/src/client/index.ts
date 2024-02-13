@@ -13,8 +13,8 @@ const components = {
   NolebaseGitContributors,
 }
 
-export const NolebaseGitChangelogPlugin: Plugin = {
-  install(app, options?: Options) {
+export const NolebaseGitChangelogPlugin: Plugin<Options[]> = {
+  install(app, options) {
     if (options)
       app.provide(InjectionKey, options)
 

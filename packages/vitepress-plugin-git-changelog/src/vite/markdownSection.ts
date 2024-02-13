@@ -1,6 +1,10 @@
 import { relative } from 'node:path'
 import type { Plugin } from 'vite'
-import { pathEndsWith, pathEquals, pathStartsWith } from './path'
+import {
+  pathEndsWith,
+  pathEquals,
+  pathStartsWith,
+} from './path'
 
 export interface Context {
   helpers: {
@@ -58,16 +62,54 @@ export interface Context {
   }
 }
 
-export function GitChangelogMarkdownSection(options?: {
+export interface GitChangelogMarkdownSectionOptions {
+  /**
+   * The getter function to get the title of the changelog section
+   * @param code - raw markdown code (comes from vite when transform hook is called)
+   * @param id - the current transforming module ID (comes from vite when transform hook is called)
+   * @param context - the context object, contains several helper functions
+   * @returns string
+   * @default () => 'Changelog'
+   */
   getChangelogTitle?: (code: string, id: string, context: Context) => string
+  /**
+   * The getter function to get the title of the contributors section
+   * @param code - raw markdown code (comes from vite when transform hook is called)
+   * @param id - the current transforming module ID (comes from vite when transform hook is called)
+   * @param context - the context object, contains several helper functions
+   * @returns string
+   * @default () => 'Contributors'
+   */
   getContributorsTitle?: (code: string, id: string, context: Context) => string
+  /**
+   * The list of file names to exclude from the transformation
+   * @default ['index.md']
+   */
   excludes?: string[]
+  /**
+   * The function to exclude the file from the transformation
+   * @param id - the current transforming module ID (comes from vite when transform hook is called)
+   * @param context - the context object, contains several helper functions
+   * @returns boolean
+   * @default () => false
+   */
   exclude?: (id: string, context: Context) => boolean
+  /**
+   * The sections options
+   */
   sections?: {
+    /**
+     * Whether to disable the changelog section
+     */
     disableChangelog?: boolean
+    /**
+     * Whether to disable the contributors section
+     */
     disableContributors?: boolean
   }
-}): Plugin {
+}
+
+export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectionOptions): Plugin {
   const {
     getChangelogTitle = () => {
       return 'Changelog'
@@ -111,11 +153,11 @@ export function GitChangelogMarkdownSection(options?: {
         return null
 
       if (!options?.sections?.disableContributors)
-        // eslint-disable-next-line ts/no-use-before-define
+
         code = TemplateContributors(code, getContributorsTitle(code, id, { helpers: { pathStartsWith, pathEquals, pathEndsWith, idEndsWith, idEquals, idStartsWith } }))
 
       if (!options?.sections?.disableChangelog)
-        // eslint-disable-next-line ts/no-use-before-define
+
         code = TemplateChangelog(code, getChangelogTitle(code, id, { helpers: { pathStartsWith, pathEquals, pathEndsWith, idEndsWith, idEquals, idStartsWith } }))
 
       return code
@@ -123,18 +165,20 @@ export function GitChangelogMarkdownSection(options?: {
   }
 }
 
-// eslint-disable-next-line antfu/top-level-function
-const TemplateContributors = (code: string, title: string) => `${code}
+function TemplateContributors(code: string, title: string) {
+  return `${code}
 
 ## ${title}
 
 <NolebaseGitContributors />
 `
+}
 
-// eslint-disable-next-line antfu/top-level-function
-const TemplateChangelog = (code: string, title: string) => `${code}
+function TemplateChangelog(code: string, title: string) {
+  return `${code}
 
 ## ${title}
 
 <NolebaseGitChangelog />
 `
+}

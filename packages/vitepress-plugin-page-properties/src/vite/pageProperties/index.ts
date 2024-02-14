@@ -1,6 +1,11 @@
-import { existsSync, lstatSync, readFileSync } from 'node:fs'
+import {
+  existsSync,
+  lstatSync,
+  readFileSync,
+} from 'node:fs'
 import { extname, join, relative } from 'node:path'
-import { type Plugin, type ResolvedConfig, normalizePath } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
+import { normalizePath } from 'vite'
 import GrayMatter from 'gray-matter'
 import type { PagePropertiesData } from './types'
 import type { LanguageHandler, ReadingTimeStats } from './dynamic/readingTime'
@@ -123,7 +128,7 @@ export function PageProperties(): Plugin {
           return next()
 
         server.moduleGraph.invalidateModule(virtualModule)
-        server.ws.send({
+        server.hot.send({
           type: 'custom',
           event: 'nolebase-page-properties:updated',
           data,

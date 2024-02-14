@@ -2,7 +2,11 @@ import { env } from 'node:process'
 import { relative } from 'node:path'
 import type { Plugin } from 'vite'
 import GrayMatter from 'gray-matter'
-import { pathEndsWith, pathEquals, pathStartsWith } from './path'
+import {
+  pathEndsWith,
+  pathEquals,
+  pathStartsWith,
+} from './path'
 
 export interface Context {
   helpers: {
@@ -60,10 +64,23 @@ export interface Context {
   }
 }
 
-export function PagePropertiesMarkdownSection(options?: {
+export interface PagePropertiesMarkdownSectionOptions {
+  /**
+   * The list of file names to exclude from the transformation
+   * @default ['index.md']
+   */
   excludes?: string[]
+  /**
+   * The function to exclude the file from the transformation
+   * @param id - the current transforming module ID (comes from vite when transform hook is called)
+   * @param context - the context object, contains several helper functions
+   * @returns boolean
+   * @default () => false
+   */
   exclude?: (id: string, context: Context) => boolean
-}): Plugin {
+}
+
+export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSectionOptions): Plugin {
   const {
     excludes = ['index.md'],
     exclude = () => false,

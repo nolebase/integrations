@@ -50,8 +50,8 @@
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.7.10",
     "vite": "^5.1.0",
-    "vitepress": "1.0.0-rc.39",
-    "vue": "3.4.14",
+    "vitepress": "1.0.0-rc.42",
+    "vue": "3.4.15",
     "vue-tsc": "^1.8.27"
   },
   "workspaces": [

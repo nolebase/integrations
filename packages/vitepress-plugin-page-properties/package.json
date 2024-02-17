@@ -59,8 +59,7 @@
     "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {
-    "vitepress": ">=1.0.0-rc.42",
-    "vue": ">=3.4.15"
+    "vitepress": ">=1.0.0-rc.42"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

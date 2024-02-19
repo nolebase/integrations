@@ -132,9 +132,6 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.42'
         version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(@types/node@20.11.17)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.3.3)
-      vue:
-        specifier: '>=3.4.15'
-        version: 3.4.15(typescript@5.3.3)
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
@@ -147,9 +144,6 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.42'
         version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(@types/node@20.11.17)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.3.3)
-      vue:
-        specifier: '>=3.4.15'
-        version: 3.4.15(typescript@5.3.3)
     devDependencies:
       builtin-modules:
         specifier: ^3.3.0
@@ -163,18 +157,12 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.42'
         version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(@types/node@20.11.17)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.3.3)
-      vue:
-        specifier: '>=3.4.15'
-        version: 3.4.15(typescript@5.3.3)
 
   packages/vitepress-plugin-inline-link-preview:
     dependencies:
       vitepress:
         specifier: '>=1.0.0-rc.42'
         version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(@types/node@20.11.17)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.3.3)
-      vue:
-        specifier: '>=3.4.15'
-        version: 3.4.15(typescript@5.3.3)
 
   packages/vitepress-plugin-page-properties:
     dependencies:
@@ -190,9 +178,6 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.42'
         version: 1.0.0-rc.42(@algolia/client-search@4.22.1)(@types/node@20.11.17)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.3.3)
-      vue:
-        specifier: '>=3.4.15'
-        version: 3.4.15(typescript@5.3.3)
     devDependencies:
       '@types/markdown-it':
         specifier: ^13.0.7

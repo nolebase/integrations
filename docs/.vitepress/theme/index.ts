@@ -1,6 +1,5 @@
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import type { Theme as ThemeConfig } from 'vitepress'
 
 import {
   InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
@@ -36,10 +35,11 @@ import '@nolebase/vitepress-plugin-page-properties/client/style.css'
 import './styles/vars.css'
 import './styles/main.css'
 
+import type { Theme } from 'vitepress'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 
-export const Theme: ThemeConfig = {
+export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
@@ -194,6 +194,4 @@ export const Theme: ThemeConfig = {
       },
     })
   },
-}
-
-export default Theme
+} as Theme

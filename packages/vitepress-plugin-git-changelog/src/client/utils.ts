@@ -1,3 +1,6 @@
+import { formatDistanceToNow, toDate } from 'date-fns'
+import * as DateFnsLocales from 'date-fns/locale'
+
 export function renderMarkdown(markdownText = '') {
   const htmlText = markdownText
     .replace(/</gm, '&lt;')
@@ -19,4 +22,16 @@ export function renderMarkdown(markdownText = '') {
 export function renderCommitMessage(repoLink: string, msg: string) {
   return renderMarkdown(msg)
     .replace(/\#([0-9]+)/g, `<a href=\'${repoLink}/issues/$1\'>#$1</a>`)
+}
+
+export function formatDistanceToNowFromValue(value: string | number | Date, localeName = 'enUS') {
+  try {
+    return formatDistanceToNow(toDate(value), {
+      locale: DateFnsLocales[localeName] || 'enUS',
+      addSuffix: true,
+    })
+  }
+  catch (err) {
+    return value
+  }
 }

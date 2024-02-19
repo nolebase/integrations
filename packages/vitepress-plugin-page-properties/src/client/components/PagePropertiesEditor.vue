@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { useData } from 'vitepress'
-import { formatDuration } from 'date-fns'
-import * as DateFnsLocales from 'date-fns/locale'
 
 import { InjectionKey } from '../constants'
 import {
@@ -17,16 +15,17 @@ import {
 import { useRawPath } from '../composables/path'
 import { useI18n } from '../composables/i18n'
 import { usePageProperties } from '../composables/data'
+import { formatDurationFromValue } from '../utils'
 
 import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
-const pagePropertiesData = usePageProperties()
 const options = inject(InjectionKey, {})
 const { lang, frontmatter } = useData()
-const rawPath = useRawPath()
 const { t } = useI18n()
+const rawPath = useRawPath()
+const pagePropertiesData = usePageProperties()
 
 const pageProperties = computed(() => {
   if (!options.properties)
@@ -117,21 +116,6 @@ const frontmatterAggregated = computed(() => {
     return true
   })
 })
-
-function formatDurationFromValue(value: string | number | Date, localeName = lang.value) {
-  const parsedValue = Number.parseInt(String(value))
-
-  try {
-    return formatDuration({
-      minutes: Number.isNaN(parsedValue) ? 0 : parsedValue,
-    }, {
-      locale: DateFnsLocales[localeName],
-    })
-  }
-  catch (err) {
-    return value
-  }
-}
 
 const wordsCount = computed(() => {
   if (!pagePropertiesData.data[rawPath.value] || !pagePropertiesData.data[rawPath.value].wordsCount)
@@ -282,7 +266,7 @@ const readingTime = computed(() => {
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName) }}</span>
+              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

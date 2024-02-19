@@ -30,7 +30,7 @@ const components = {
 export function NolebasePagePropertiesPlugin<P extends object = any>(): Plugin<Options<P>[]> {
   return {
     install(app, options?) {
-      if (options)
+      if (typeof options !== 'undefined' && typeof options === 'object')
         app.provide(InjectionKey, options)
 
       for (const key of Object.keys(components))

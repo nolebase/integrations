@@ -11,3 +11,11 @@ export const defaultZhCNLocale: Locale = {
     wordsCount: '{{wordsCount}} 字',
   },
 }
+
+export const defaultLocales = {
+  'zh-CN': defaultZhCNLocale,
+  'zh-Hans': defaultZhCNLocale,
+  'zh': defaultZhCNLocale,
+  'en-US': defaultEnLocale,
+  'en': defaultEnLocale,
+}

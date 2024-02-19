@@ -11,11 +11,14 @@ import { formatDistanceToNowFromValue, renderCommitMessage } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
 import type { Locale } from '../types'
+import { defaultEnLocale, defaultLocales } from '../locales'
+
 import VerticalTransition from './VerticalTransition.vue'
 
 const toggleViewMore = ref(false)
 
-const options = inject(InjectionKey, {})
+const options = inject(InjectionKey, { locales: defaultLocales })
+
 const { lang } = useData()
 const { t } = useI18n()
 const rawPath = useRawPath()
@@ -23,9 +26,9 @@ const commits = useCommits(Changelog.commits, rawPath)
 
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
-    return {}
+    return defaultLocales[lang.value] || defaultEnLocale || {}
 
-  return options.locales[lang.value] || {}
+  return options.locales[lang.value] || defaultEnLocale || {}
 })
 
 const lastChangeDate = computed(() => {
@@ -62,7 +65,11 @@ const isFreshChange = computed(() => {
         <span class="vp-nolebase-git-changelog-last-edited-title inline-flex items-center gap-3">
           <span class="i-octicon:history-16" />
           <span v-if="commits[0]">
-            {{ t('lastEdited', { props: { daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang || 'enUS') } }) }}
+            {{ t('lastEdited', {
+              props: {
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang || 'enUS'),
+              },
+            }) }}
           </span>
         </span>
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>

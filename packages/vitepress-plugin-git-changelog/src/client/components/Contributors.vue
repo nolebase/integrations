@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
+import md5 from 'md5'
 
 import Changelog from 'virtual:nolebase-git-changelog'
 
-import md5 from 'md5'
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'

@@ -17,3 +17,11 @@ export const defaultZhCNLocale: Locale = {
   viewFullHistory: '查看完整历史',
   committedOn: ' 于 {{date}}',
 }
+
+export const defaultLocales = {
+  'zh-CN': defaultZhCNLocale,
+  'zh-Hans': defaultZhCNLocale,
+  'zh': defaultZhCNLocale,
+  'en-US': defaultEnLocale,
+  'en': defaultEnLocale,
+}

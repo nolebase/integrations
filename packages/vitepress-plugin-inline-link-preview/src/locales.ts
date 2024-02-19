@@ -19,3 +19,11 @@ export const defaultZhCNLocale: Locale = {
     iframeAriaLabel: '在 {href} 的链接的行内链接预览',
   },
 }
+
+export const defaultLocales = {
+  'zh-CN': defaultZhCNLocale,
+  'zh-Hans': defaultZhCNLocale,
+  'zh': defaultZhCNLocale,
+  'en-US': defaultEnLocale,
+  'en': defaultEnLocale,
+}

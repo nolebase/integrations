@@ -22,7 +22,7 @@ const components = {
 
 export const NolebaseInlineLinkPreviewPlugin: Plugin<Options[]> = {
   install(app, options?) {
-    if (options)
+    if (typeof options !== 'undefined' && typeof options === 'object')
       app.provide(InjectionKey, options)
 
     for (const key of Object.keys(components))

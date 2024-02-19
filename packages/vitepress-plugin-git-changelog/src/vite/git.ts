@@ -60,8 +60,10 @@ export function GitChangelog(options: {
 
       const logs = (await git.log({ maxCount: maxGitLogCount })).all as Commit[]
 
-      for (const log of logs)
+      for (const log of logs) {
         log.repo_url = getRepoURL(log)
+        log.date_timestamp = new Date(log.date).getTime()
+      }
 
       for (const log of logs) {
         // hash url
@@ -74,6 +76,7 @@ export function GitChangelog(options: {
             .trim()
 
           log.release_tag_url = getReleaseTagURL(log)
+
           continue
         }
 

@@ -1,9 +1,24 @@
 import { inject } from 'vue'
 import { useData } from 'vitepress'
 
-import type { Options } from '../types'
 import { InjectionKey } from '../constants'
 import { defaultEnLocale, defaultZhCNLocale } from '../locales'
+
+function getValueByPropertyPaths(path: string, obj: Record<string, any>): string | undefined {
+  const properties = path.split('.')
+  let value = obj
+
+  for (const property of properties) {
+    value = value?.[property]
+    if (!value)
+      return undefined
+  }
+
+  if (typeof value === 'string')
+    return value
+
+  return String(value)
+}
 
 export function useI18n() {
   function getI18nProperty<Lang extends PropertyKey>(lang: Lang, key: string, options: {
@@ -23,21 +38,27 @@ export function useI18n() {
         languageLocale = defaultEnLocale
     }
 
-    const properties = key.split('.')
-    let value = languageLocale
+    const value = getValueByPropertyPaths(key, languageLocale)
+    if (value)
+      return value
 
-    for (const property of properties) {
-      value = value?.[property]
-      if (!value)
-        return key
+    const defaultLanguageLocale = defaultLocales[lang]
+    if (defaultLanguageLocale) {
+      const defaultValue = getValueByPropertyPaths(key, defaultLanguageLocale)
+      if (defaultValue)
+        return defaultValue
     }
 
-    return value
+    const defaultEnLocaleValue = getValueByPropertyPaths(key, defaultEnLocale)
+    if (defaultEnLocaleValue)
+      return defaultEnLocaleValue
+
+    return key
   }
 
   return {
     t(key: string, translateOptions?: { props: Record<string, any> }) {
-      const options = inject<Options<any>>(InjectionKey, {})
+      const options = inject(InjectionKey, {})
       const data = useData()
       const translatedValue = getI18nProperty(data.lang.value, key, {
         locales: options.locales || {},

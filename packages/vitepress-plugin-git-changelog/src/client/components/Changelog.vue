@@ -1,38 +1,46 @@
 <script setup lang="ts">
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import 'dayjs/locale/zh-cn'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
+import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 
 import Changelog from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
-import { renderCommitMessage } from '../utils'
+import { formatDistanceToNowFromValue, renderCommitMessage } from '../utils'
 import { useI18n } from '../composables/i18n'
+import { InjectionKey } from '../constants'
+import type { Locale } from '../types'
 import VerticalTransition from './VerticalTransition.vue'
-
-dayjs.extend(relativeTime)
 
 const toggleViewMore = ref(false)
 
+const options = inject(InjectionKey, {})
+const { lang } = useData()
+const { t } = useI18n()
 const rawPath = useRawPath()
 const commits = useCommits(Changelog.commits, rawPath)
-const { t } = useI18n()
-const { lang } = useData()
+
+const locale = computed<Locale>(() => {
+  if (!options.locales || typeof options.locales === 'undefined')
+    return {}
+
+  return options.locales[lang.value] || {}
+})
 
 const lastChangeDate = computed(() => {
-  const date: string = commits.value[0]?.date || ''
-  if (!date)
-    return null
-  return dayjs(date).locale(lang.value.toLocaleLowerCase())
+  const dateTimestamp: number = commits.value[0]?.date_timestamp || 0
+  if (!dateTimestamp)
+    return new Date()
+
+  return toDate(dateTimestamp)
 })
 
 const isFreshChange = computed(() => {
   if (!lastChangeDate.value)
     return false
-  return lastChangeDate.value.isAfter(dayjs().locale(lang.value.toLocaleLowerCase()).subtract(1, 'day'))
+
+  return differenceInDays(new Date(), lastChangeDate.value) < 1
 })
 </script>
 
@@ -54,11 +62,11 @@ const isFreshChange = computed(() => {
         <span class="vp-nolebase-git-changelog-last-edited-title inline-flex items-center gap-3">
           <span class="i-octicon:history-16" />
           <span v-if="commits[0]">
-            {{ t('lastEdited', { props: { daysAgo: lastChangeDate?.fromNow() } }) }}
+            {{ t('lastEdited', { props: { daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang || 'enUS') } }) }}
           </span>
         </span>
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
-        <span class="vp-nolebase-git-changelog-view-full-history-title inline-flex items-center gap-3">
+        <span class="vp-nolebase-git-changelog-view-full-history-title inline-flex cursor-pointer items-center gap-3">
           <span class="<sm:hidden">
             {{ t('viewFullHistory') }}
           </span>

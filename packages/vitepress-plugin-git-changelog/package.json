@@ -68,6 +68,7 @@
   },
   "devDependencies": {
     "builtin-modules": "^3.3.0",
+    "date-fns": "^3.3.1",
     "simple-git": "^3.21.0"
   }
 }

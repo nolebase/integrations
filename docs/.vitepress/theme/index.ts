@@ -2,9 +2,9 @@ import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 
 import {
-  InjectionKey as NolebaseEnhancedReadabilitiesInjectionKey,
   LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
   NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesPlugin,
   NolebaseEnhancedReadabilitiesScreenMenu,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
@@ -58,9 +58,7 @@ export default {
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
 
-    app.use(NolebaseInlineLinkPreviewPlugin)
-
-    app.provide(NolebaseEnhancedReadabilitiesInjectionKey, {
+    app.use(NolebaseEnhancedReadabilitiesPlugin, {
       layoutSwitch: {
         defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.SidebarWidthAdjustableOnly,
       },
@@ -68,8 +66,16 @@ export default {
         defaultToggle: true,
       },
     })
-
+    app.use(NolebaseInlineLinkPreviewPlugin)
     app.use(NolebaseGitChangelogPlugin, {
+      locales: {
+        'en': {
+          lastEditedDateFnsLocaleName: 'enUS',
+        },
+        'zh-CN': {
+          lastEditedDateFnsLocaleName: 'zhCN',
+        },
+      },
       mapContributors: [
         {
           name: 'Neko',

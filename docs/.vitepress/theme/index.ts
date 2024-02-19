@@ -68,14 +68,6 @@ export default {
     })
     app.use(NolebaseInlineLinkPreviewPlugin)
     app.use(NolebaseGitChangelogPlugin, {
-      locales: {
-        'en': {
-          lastEditedDateFnsLocaleName: 'enUS',
-        },
-        'zh-CN': {
-          lastEditedDateFnsLocaleName: 'zhCN',
-        },
-      },
       mapContributors: [
         {
           name: 'Neko',

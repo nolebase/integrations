@@ -133,3 +133,11 @@ export const defaultZhCNLocale: Locale = {
     },
   },
 }
+
+export const defaultLocales = {
+  'zh-CN': defaultZhCNLocale,
+  'zh-Hans': defaultZhCNLocale,
+  'zh': defaultZhCNLocale,
+  'en-US': defaultEnLocale,
+  'en': defaultEnLocale,
+}

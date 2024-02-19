@@ -1,8 +1,8 @@
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import { useData } from 'vitepress'
 
 import { InjectionKey } from '../constants'
-import { defaultEnLocale, defaultZhCNLocale } from '../locales'
+import { defaultEnLocale, defaultLocales } from '../locales'
 
 function getValueByPropertyPaths(path: string, obj: Record<string, any>): string | undefined {
   const properties = path.split('.')
@@ -20,72 +20,75 @@ function getValueByPropertyPaths(path: string, obj: Record<string, any>): string
   return String(value)
 }
 
-export function useI18n() {
-  function getI18nProperty<Lang extends PropertyKey>(lang: Lang, key: string, options: {
+function getTranslationValueByI18nPropertyKey<Lang extends PropertyKey>(
+  lang: Lang,
+  key: string,
+  options: {
     locales: Record<Lang, any>
     defaultLocales: Record<Lang, any>
-  }): string {
-    const { locales, defaultLocales } = options
-    if (!locales && !defaultLocales)
-      return key
-    if (!lang)
-      return key
+  },
+): string {
+  const { locales, defaultLocales } = options
 
-    let languageLocale = locales[lang]
-    if (!languageLocale) {
-      languageLocale = defaultLocales[lang]
-      if (!languageLocale)
-        languageLocale = defaultEnLocale
-    }
-
-    const value = getValueByPropertyPaths(key, languageLocale)
-    if (value)
-      return value
-
-    const defaultLanguageLocale = defaultLocales[lang]
-    if (defaultLanguageLocale) {
-      const defaultValue = getValueByPropertyPaths(key, defaultLanguageLocale)
-      if (defaultValue)
-        return defaultValue
-    }
-
-    const defaultEnLocaleValue = getValueByPropertyPaths(key, defaultEnLocale)
-    if (defaultEnLocaleValue)
-      return defaultEnLocaleValue
-
+  if (!locales && !defaultLocales)
     return key
+  if (!lang)
+    return key
+
+  let languageLocale = locales[lang]
+  if (!languageLocale) {
+    languageLocale = defaultLocales[lang]
+    if (!languageLocale)
+      languageLocale = defaultEnLocale
   }
+
+  const value = getValueByPropertyPaths(key, languageLocale)
+  if (value)
+    return value
+
+  const defaultLanguageLocale = defaultLocales[lang]
+  if (defaultLanguageLocale) {
+    const defaultValue = getValueByPropertyPaths(key, defaultLanguageLocale)
+    if (defaultValue)
+      return defaultValue
+  }
+
+  const defaultEnLocaleValue = getValueByPropertyPaths(key, defaultEnLocale)
+  if (defaultEnLocaleValue)
+    return defaultEnLocaleValue
+
+  return key
+}
+
+export function useI18n() {
+  const options = inject(InjectionKey, { locales: {} })
+
+  const { lang } = useData()
+  const language = computed(() => lang.value || 'en')
 
   return {
     t(key: string, translateOptions?: { props: Record<string, any> }) {
-      const options = inject(InjectionKey, {})
-      const data = useData()
-      const translatedValue = getI18nProperty(data.lang.value, key, {
-        locales: options.locales || {},
-        defaultLocales: {
-          'zh-CN': defaultZhCNLocale,
-          'zh': defaultZhCNLocale,
-          'en-US': defaultEnLocale,
-          'en': defaultEnLocale,
-        },
+      const translatedValue = computed(() => {
+        return getTranslationValueByI18nPropertyKey(language.value, key, {
+          locales: options.locales || {},
+          defaultLocales,
+        })
       })
-      if (!translatedValue)
+
+      if (!translatedValue.value)
         return key
-      if (!translateOptions)
-        return translatedValue
+      if (!translateOptions || !translateOptions.props)
+        return translatedValue.value
 
-      const { props } = translateOptions
-      if (!props)
-        return translatedValue
+      return computed(() => {
+        let result = translatedValue.value
 
-      const properties = Object.keys(props)
+        Object.entries(translateOptions.props).forEach(([property, value]) => {
+          result = result.replace(new RegExp(`{{${property}}}`, 'g'), String(value))
+        })
 
-      let translatedValueWithPropsReplaced = translatedValue
-      properties.forEach((property) => {
-        translatedValueWithPropsReplaced = translatedValueWithPropsReplaced.replace(`{{${property}}}`, props[property])
-      })
-
-      return translatedValueWithPropsReplaced
+        return result
+      }).value
     },
   }
 }

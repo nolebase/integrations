@@ -14,7 +14,7 @@ const components = {
 }
 
 export const NolebaseGitChangelogPlugin: Plugin<Options[]> = {
-  install(app, options) {
+  install(app, options?) {
     if (options)
       app.provide(InjectionKey, options)
 

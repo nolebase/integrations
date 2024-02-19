@@ -20,8 +20,8 @@ const components = {
   VPNolebaseInlineLinkPreview: InlineLinkPreview,
 }
 
-export const NolebaseInlineLinkPreviewPlugin: Plugin = {
-  install(app, options?: Options) {
+export const NolebaseInlineLinkPreviewPlugin: Plugin<Options[]> = {
+  install(app, options?) {
     if (options)
       app.provide(InjectionKey, options)
 

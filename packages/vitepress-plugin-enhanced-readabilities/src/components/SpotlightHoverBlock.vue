@@ -17,19 +17,19 @@ const props = defineProps<{ enabled: boolean }>()
 
 const options = inject(InjectionKey, {})
 
+const shouldRecalculate = ref(false)
 const boxStyles = ref<Record<string, string | number>>({ display: 'none' })
 const vpDocElement = ref<HTMLDivElement>()
 const highlightedElement = ref<HTMLElement>()
+
+const route = useRoute()
+const spotlightStyle = useStorage<SpotlightStyle>(SpotlightStylesStorageKey, options.spotlight?.defaultStyle || SpotlightStyle.Aside)
 
 const { x, y } = useMouse({ type: 'client' })
 const { isOutside } = useMouseInElement(vpDocElement)
 const { element } = useElementByPoint({ x, y })
 const bounding = reactive(useElementBounding(element))
 const elementVisibility = useElementVisibility(highlightedElement)
-const spotlightStyle = useStorage<SpotlightStyle>(SpotlightStylesStorageKey, options.spotlight?.defaultStyle || SpotlightStyle.Aside)
-const route = useRoute()
-
-useEventListener('scroll', bounding.update, true)
 
 onMounted(() => {
   document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
@@ -41,7 +41,18 @@ onMounted(() => {
 
 watch(route, () => {
   vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
+  shouldRecalculate.value = true
 })
+
+watch(shouldRecalculate, (val) => {
+  if (!val)
+    return
+
+  bounding.update()
+  shouldRecalculate.value = false
+})
+
+useEventListener('scroll', bounding.update, true)
 
 function computeBoxStyles(bounding: {
   height: number
@@ -70,47 +81,49 @@ function findChildElementUnderVPDocElement(element: HTMLElement | null) {
 }
 
 function watchHandler() {
-  if (element.value && !isOutside.value) {
-    const el = findChildElementUnderVPDocElement(element.value)
-    highlightedElement.value = el || undefined
+  if (!(element.value && !isOutside.value))
+    return
 
-    if (highlightedElement.value && highlightedElement.value.tagName === 'P') {
-      const val = highlightedElement.value
-      const style = window.getComputedStyle(val)
-      const lineHeight = Number.parseFloat(style.lineHeight)
-      const lines = Math.floor(val.offsetHeight / lineHeight)
+  const el = findChildElementUnderVPDocElement(element.value)
+  highlightedElement.value = el || undefined
 
-      const rect = val.getBoundingClientRect()
-      const relativeY = y.value - rect.top
+  if (highlightedElement.value && highlightedElement.value.tagName === 'P') {
+    const val = highlightedElement.value
+    const style = window.getComputedStyle(val)
+    const lineHeight = Number.parseFloat(style.lineHeight)
+    const lines = Math.floor(val.offsetHeight / lineHeight)
 
-      for (let i = 0; i < lines; i++) {
-        const top = i * lineHeight
-        const height = lineHeight
-        const left = val.offsetLeft
-        const width = val.offsetWidth
+    const rect = val.getBoundingClientRect()
+    const relativeY = y.value - rect.top
 
-        if (relativeY >= top && relativeY < top + height) {
-          boxStyles.value = computeBoxStyles({
-            top: top + rect.top,
-            left: left + rect.left,
-            width,
-            height,
-          })
-          break
-        }
+    for (let i = 0; i < lines; i++) {
+      const top = i * lineHeight
+      const height = lineHeight
+      const left = val.offsetLeft
+      const width = val.offsetWidth
+
+      if (relativeY >= top && relativeY < top + height) {
+        boxStyles.value = computeBoxStyles({
+          top: top + rect.top,
+          left: left + rect.left,
+          width,
+          height,
+        })
+
+        break
       }
     }
-    else {
-      if (highlightedElement.value) {
-        const rect = highlightedElement.value.getBoundingClientRect()
+  }
+  else {
+    if (highlightedElement.value) {
+      const rect = highlightedElement.value.getBoundingClientRect()
 
-        boxStyles.value = computeBoxStyles({
-          top: rect.top,
-          left: rect.left,
-          width: rect.width,
-          height: rect.height,
-        })
-      }
+      boxStyles.value = computeBoxStyles({
+        top: rect.top,
+        left: rect.left,
+        width: rect.width,
+        height: rect.height,
+      })
     }
   }
 }
@@ -144,6 +157,7 @@ watch(() => props.enabled, (val) => {
 <template>
   <Teleport to="body">
     <div
+      v-if="!shouldRecalculate"
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"

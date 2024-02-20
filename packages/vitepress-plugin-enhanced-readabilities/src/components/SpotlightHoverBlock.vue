@@ -31,28 +31,30 @@ const { element } = useElementByPoint({ x, y })
 const bounding = reactive(useElementBounding(element))
 const elementVisibility = useElementVisibility(highlightedElement)
 
-onMounted(() => {
-  document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
-})
+useEventListener('scroll', bounding.update, true)
 
 onMounted(() => {
+  if (!document)
+    return
+  if (!document.body)
+    return
+
+  document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
+
   vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
 })
 
 watch(route, () => {
   vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
-  shouldRecalculate.value = true
-})
 
-watch(shouldRecalculate, (val) => {
-  if (!val)
-    return
+  shouldRecalculate.value = true
+  boxStyles.value = { display: 'none' }
 
   bounding.update()
+
+  watchHandler()
   shouldRecalculate.value = false
 })
-
-useEventListener('scroll', bounding.update, true)
 
 function computeBoxStyles(bounding: {
   height: number
@@ -134,18 +136,17 @@ watch([x, y], () => {
 })
 
 watch(bounding, (val) => {
-  if (props.enabled) {
-    if (val.width === 0 && val.height === 0)
-      boxStyles.value = { display: 'none' }
-    else watchHandler()
-  }
+  if (!props.enabled)
+    return
+
+  if (val.width === 0 && val.height === 0)
+    boxStyles.value = { display: 'none' }
+  else watchHandler()
 })
 
 watch(elementVisibility, (val) => {
-  if (props.enabled) {
-    if (!val)
-      boxStyles.value = { display: 'none' }
-  }
+  if (props.enabled && !val)
+    boxStyles.value = { display: 'none' }
 })
 
 watch(() => props.enabled, (val) => {
@@ -157,7 +158,7 @@ watch(() => props.enabled, (val) => {
 <template>
   <Teleport to="body">
     <div
-      v-if="!shouldRecalculate"
+      v-if="props.enabled && !shouldRecalculate"
       :style="boxStyles"
       aria-hidden="true"
       focusable="false"

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
+import { useRoute } from 'vitepress'
 
 import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
@@ -16,6 +17,7 @@ const menuTitleElementRef = ref<HTMLDivElement>()
 const isMenuHelpPoppedUp = ref(false)
 const disabled = ref(false)
 
+const route = useRoute()
 const mounted = useMounted()
 const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
 const layoutMode = useLocalStorage<LayoutMode>(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.Original)
@@ -98,6 +100,10 @@ watch(layoutMode, (val) => {
   setClasses(val, true)
   if (!supportedLayoutModes.includes(val))
     layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
+})
+
+watch(route, () => {
+  setClasses(layoutMode.value, true)
 })
 
 watch(isLargerThanMobile, () => {

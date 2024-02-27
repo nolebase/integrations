@@ -19,6 +19,8 @@ const { t } = useI18n()
   <VPFlyout
     :icon="LayoutSwitchLayoutIcon"
     class="VPNolebaseEnhancedReadabilitiesMenu VPNolebaseEnhancedReadabilitiesMenuFlyout"
+    :aria-label="t('title.title')"
+    role="menuitem"
   >
     <div v-if="mounted" :aria-label="t('title.title')" min-w-64 p-2 space-y-2>
       <LayoutSwitch />

@@ -117,7 +117,7 @@ const contributors = computed<ContributorInfo[]>(() => {
           :href="c.url"
         >
           <div class="flex items-center gap-2">
-            <img :src="c.avatarUrl" class="h-8 w-8 rounded-full">
+            <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
             {{ c.name }}
           </div>
         </a>
@@ -125,7 +125,7 @@ const contributors = computed<ContributorInfo[]>(() => {
           v-else
           class="flex items-center gap-2"
         >
-          <img :src="c.avatarUrl" class="h-8 w-8 rounded-full">
+          <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
           {{ c.name }}
         </div>
       </template>

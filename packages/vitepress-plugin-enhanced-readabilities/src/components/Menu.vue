@@ -4,7 +4,6 @@ import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vu
 
 import { useI18n } from '../composables/i18n'
 
-import LayoutSwitchLayoutIcon from './MenuIcon.vue'
 import LayoutSwitch from './LayoutSwitch.vue'
 import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import LayoutSwitchContentLayoutWidthInput from './LayoutSwitchContentLayoutMaxWidthSlider.vue'
@@ -17,7 +16,7 @@ const { t } = useI18n()
 
 <template>
   <VPFlyout
-    :icon="LayoutSwitchLayoutIcon"
+    icon="i-icon-park-outline:book-open"
     class="VPNolebaseEnhancedReadabilitiesMenu VPNolebaseEnhancedReadabilitiesMenuFlyout"
     :aria-label="t('title.title')"
     role="menuitem"

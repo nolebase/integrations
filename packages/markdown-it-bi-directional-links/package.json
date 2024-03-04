@@ -47,10 +47,10 @@
     "markdown-it": ">=13.0.1"
   },
   "dependencies": {
-    "fast-glob": "^3.3.1"
+    "fast-glob": "^3.3.2"
   },
   "devDependencies": {
-    "@types/markdown-it": "^13.0.2",
+    "@types/markdown-it": "^13.0.7",
     "markdown-it": "^13.0.2"
   }
 }

@@ -59,7 +59,7 @@
     "build:watch": "vite build --mode development --watch"
   },
   "peerDependencies": {
-    "vitepress": ">=1.0.0-rc.42"
+    "vitepress": ">=1.0.0-rc.44"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
@@ -68,7 +68,7 @@
   },
   "devDependencies": {
     "@types/markdown-it": "^13.0.7",
-    "@types/uuid": "^9.0.7",
+    "@types/uuid": "^9.0.8",
     "builtin-modules": "^3.3.0",
     "date-fns": "^3.3.1"
   }

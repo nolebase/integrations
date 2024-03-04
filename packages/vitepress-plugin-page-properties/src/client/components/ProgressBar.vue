@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{
   max: 100,
 })
 
-const data = useData()
+const { isDark } = useData()
 
 const normalizedValue = computed(() => {
   const parsedValue = Number.parseFloat(props.value as any)
@@ -30,7 +30,7 @@ const percentageCssProperty = computed(() => {
 })
 
 const color = computed(() => {
-  if (!data.isDark.value)
+  if (!isDark.value)
     return `hsl(${percentage.value} 50% 60% / 1)`
 
   return `hsl(${percentage.value} 50% 35% / 1)`

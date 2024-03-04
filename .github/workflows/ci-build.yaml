@@ -75,16 +75,3 @@ jobs:
         with:
           name: docs-${{ matrix.os }}-build
           path: docs/.vitepress/dist
-
-  publish:
-    name: Push Previewing Docs to Netlify
-    runs-on: ubuntu-latest
-    steps:
-      - name: Wait for deployment
-        uses: lewagon/wait-on-check-action@v1.3.1
-        with:
-          ref: ${{ github.ref }}
-          check-name: 'Push Previewing Docs to Netlify'
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          wait-interval: 5
-          allowed-conclusions: success

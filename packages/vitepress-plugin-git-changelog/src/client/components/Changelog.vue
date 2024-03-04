@@ -67,7 +67,7 @@ const isFreshChange = computed(() => {
           <span v-if="commits[0]">
             {{ t('lastEdited', {
               props: {
-                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang || 'enUS'),
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang.value || 'enUS'),
               },
             }) }}
           </span>

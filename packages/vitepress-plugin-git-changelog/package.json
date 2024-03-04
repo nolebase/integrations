@@ -60,7 +60,7 @@
     "dayjs": ">=1.11.1",
     "md5": ">=2.3.0",
     "simple-git": ">=3.21.0",
-    "vitepress": ">=1.0.0-rc.42"
+    "vitepress": ">=1.0.0-rc.44"
   },
   "dependencies": {
     "dayjs": "^1.11.10",
@@ -69,6 +69,6 @@
   "devDependencies": {
     "builtin-modules": "^3.3.0",
     "date-fns": "^3.3.1",
-    "simple-git": "^3.21.0"
+    "simple-git": "^3.22.0"
   }
 }

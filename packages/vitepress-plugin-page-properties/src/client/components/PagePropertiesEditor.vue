@@ -266,7 +266,7 @@ const readingTime = computed(() => {
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
+              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName || lang.value) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

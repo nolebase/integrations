@@ -60,10 +60,7 @@ jobs:
         timeout-minutes: 10
         working-directory: docs/
         run: |
-          ls -la
-          ls -la .vitepress
-          ls -la .vitepress/dist
-          netlify deploy --dir '.vitepress/dist' --prod --debug
+          netlify deploy --dir 'docs/.vitepress/dist' --prod --debug
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}

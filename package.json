@@ -31,7 +31,7 @@
     "publish": "pnpm cleanup:dist && pnpm packages:build && pnpm -r --filter='!@nolebase/integrations-docs' exec pnpm publish --access=public"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.7.0",
+    "@antfu/eslint-config": "^2.8.0",
     "@antfu/ni": "^0.21.12",
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/icon-park-outline": "^1.1.15",
@@ -50,9 +50,9 @@
     "unbuild": "^2.0.0",
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.7.10",
-    "vite": "^5.1.4",
+    "vite": "^5.1.5",
     "vitepress": "^1.0.0-rc.44",
-    "vue": "3.4.15",
+    "vue": "3.4.19",
     "vue-tsc": "^1.8.27"
   },
   "workspaces": [

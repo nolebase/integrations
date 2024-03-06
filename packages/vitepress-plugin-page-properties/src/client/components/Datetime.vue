@@ -15,7 +15,7 @@ const { lang } = useData()
 <template>
   <span :title="String(props.value)">
     {{ props.pageProperty?.formatAsFrom
-      ? formatDistanceToNowFromValue(props.value, props.pageProperty?.dateFnsLocaleName || lang.value)
+      ? formatDistanceToNowFromValue(props.value, props.pageProperty?.dateFnsLocaleName || lang)
       : props.value
     }}
   </span>

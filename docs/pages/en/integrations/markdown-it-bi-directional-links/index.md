@@ -12,6 +12,10 @@ Obsidian same name pages: [[pages/en/integrations/markdown-it-bi-directional-lin
 
 Absolute Path: [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
 
+Images are supported:
+
+![[foxtail field.jpg]]
+
 ## Introduction
 
 **Bi-directional links** (also known as internal links), and another concept you may know and hear about [WikiLinks](https://en.wikipedia.org/wiki/Help:Link), holds a important place in the document engineering area. It is usually used to quickly establish a connection (or link) from one page to another page, and widely used in Wiki pages such as [Wikipedia](https://wikipedia.org), and now days popular tools such as [Obsidian](https://obsidian.md/) and [Logseq](https://logseq.com/).
@@ -34,6 +38,16 @@ This plugin is a fully featured compatible implementation version of [Obsidian](
 Demo
 
 [[Bi-directional Links Example Page]]
+
+##### Image
+
+```markdown
+![[foxtail field.jpg]]
+```
+
+Demo
+
+![[foxtail field.jpg]]
 
 #### Custom Text
 
@@ -78,6 +92,26 @@ Demo
 Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
+
+#### Image
+
+```markdown
+![[en/integrations/markdown-it-bi-directional-links/images/railway near by beach same name.jpg]]
+```
+
+Demo
+
+![[pages/en/integrations/markdown-it-bi-directional-links/images/railway near by beach same name.jpg]]
+
+And it is distinguishable to the pictures with the same name:
+
+```markdown
+![[en/integrations/markdown-it-bi-directional-links/images/same-name/railway near by beach same name.jpg]]
+```
+
+Demo
+
+![[pages/en/integrations/markdown-it-bi-directional-links/images/same-name/railway near by beach same name.jpg]]
 
 ### Absolute path with custom text
 

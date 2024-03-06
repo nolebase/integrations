@@ -113,7 +113,7 @@ export const BiDirectionalLinks: (options: {
       const inputContent = link.input
       const markupTextContent = link[0]
       const href = link[1] // href is the file name, uses posix style
-      const text = link[3]
+      const text = link[3] ?? ''
 
       const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 
@@ -185,7 +185,15 @@ export const BiDirectionalLinks: (options: {
       function genImage() {
         const openToken = state.push('image', 'img', 1)
         openToken.attrSet('src', resolvedNewHref)
-        text && openToken.attrSet('alt', text)
+        openToken.attrSet('alt', '')
+
+        openToken.children = []
+        openToken.content = text
+
+        const innerTextToken = state.push('text', '', 0)
+        innerTextToken.content = text
+        openToken.children.push(innerTextToken)
+
         state.pos += link![0].length
       }
     })

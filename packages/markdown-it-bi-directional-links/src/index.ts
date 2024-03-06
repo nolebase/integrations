@@ -1,4 +1,4 @@
-import { basename, posix, relative, sep } from 'node:path'
+import { basename, extname, posix, relative, sep } from 'node:path'
 import fg from 'fast-glob'
 import type { PluginSimple } from 'markdown-it'
 import type Token from 'markdown-it/lib/token'
@@ -118,7 +118,12 @@ export const BiDirectionalLinks: (options: {
       const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Convert href to os specific path for matching and resolving
-      const osSpecificHref = href.split('/').join(sep)
+      let osSpecificHref = href.split('/').join(sep)
+
+      // if osSpecificHref has no extension, suffix it with .md
+      if (!isImageRef && extname(osSpecificHref) === '')
+        osSpecificHref += '.md'
+
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
         if (!logged) {

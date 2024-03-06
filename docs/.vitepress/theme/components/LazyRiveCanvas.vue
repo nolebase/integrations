@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import { Rive } from '@rive-app/canvas'
+import RiveCanvas from '@rive-app/canvas'
 
 onMounted(() => {
   if (!window && !document)
@@ -25,7 +25,7 @@ onMounted(() => {
     el.appendChild(canvas)
 
     // eslint-disable-next-line no-new
-    new Rive({
+    new RiveCanvas.Rive({
       canvas,
       src: src.value,
       autoplay: true,

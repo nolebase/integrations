@@ -3,8 +3,12 @@ import fg from 'fast-glob'
 import type { PluginSimple } from 'markdown-it'
 import type Token from 'markdown-it/lib/token'
 
-const biDirectionalLinkPattern = /\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
-const biDirectionalLinkPatternWithStart = /^\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
+/** it will match [[file]] and [[file|text]] */
+const biDirectionalLinkPattern = /\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
+/** it will match [[file]] and [[file|text]] but only at the start of the text */
+const biDirectionalLinkPatternWithStart = /^\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
+
+const IMAGES_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.bmp', '.tiff', '.apng', '.avif', '.jfif', '.pjpeg', '.pjp', '.png', '.svg', '.webp', '.xbm']
 
 /**
  * Find / resolve bi-directional links.
@@ -45,8 +49,10 @@ export const BiDirectionalLinks: (options: {
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
   const possibleBiDirectionalLinksInFullFilePaths: Record<string, string> = {}
 
-  if (includes.length === 0)
+  if (includes.length === 0) {
     includes.push('**/*.md')
+    IMAGES_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
+  }
 
   for (const include of includes) {
     const files = fg.sync(include, {
@@ -62,9 +68,7 @@ export const BiDirectionalLinks: (options: {
 
     for (const file of files) {
       const relativeFilePath = relative(rootDir, file)
-      const ext = extname(relativeFilePath)
-      const partialFilePathWithOnlyBaseName = basename(relativeFilePath).replace(ext, '')
-      const fullFilePathWithoutExt = relativeFilePath.replace(ext, '')
+      const partialFilePathWithOnlyBaseName = basename(relativeFilePath)
 
       const existingFileName = possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
 
@@ -76,7 +80,7 @@ export const BiDirectionalLinks: (options: {
         delete possibleBiDirectionalLinksInFullFilePaths[existingFileName]
 
         // add key to full file path map
-        possibleBiDirectionalLinksInFullFilePaths[fullFilePathWithoutExt] = relativeFilePath
+        possibleBiDirectionalLinksInFullFilePaths[relativeFilePath] = relativeFilePath
         // recover deleted and conflicted key to full file path map
         possibleBiDirectionalLinksInFullFilePaths[existingFileName] = existingFileName
 
@@ -85,7 +89,7 @@ export const BiDirectionalLinks: (options: {
 
       // otherwise, add key to both maps
       possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName] = relativeFilePath
-      possibleBiDirectionalLinksInFullFilePaths[fullFilePathWithoutExt] = relativeFilePath
+      possibleBiDirectionalLinksInFullFilePaths[relativeFilePath] = relativeFilePath
     }
   }
 
@@ -104,13 +108,22 @@ export const BiDirectionalLinks: (options: {
       if (!biDirectionalLinkPatternWithStart.exec(link.input))
         return false
 
+      const isAttachmentRef = link.input.startsWith('!')
+
       const inputContent = link.input
       const markupTextContent = link[0]
       const href = link[1] // href is the file name, uses posix style
-      const text = link[3]
+      const text = link[3] ?? ''
+
+      const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Convert href to os specific path for matching and resolving
-      const osSpecificHref = href.split('/').join(sep)
+      let osSpecificHref = href.split('/').join(sep)
+
+      // if osSpecificHref has no extension, suffix it with .md
+      if (!isImageRef && extname(osSpecificHref) === '')
+        osSpecificHref += '.md'
+
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
         if (!logged) {
@@ -124,43 +137,65 @@ export const BiDirectionalLinks: (options: {
 
       const resolvedNewHref = posix.join(options.baseDir ?? '/', relative(rootDir, matchedHref).split(sep).join('/'))
 
-      // Create new link_open
-      const openToken = state.push('link_open', 'a', 1)
-      openToken.attrSet('href', resolvedNewHref)
-
-      // Final inline tokens for link content
-      const linkTokenChildrenContent: Token[] = []
-
-      // Produces a set of inline tokens and each contains a set of children tokens
-      const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
-
-      // We are going to push the children tokens of each inline token to the final inline tokens
-      // Need to check if the parsed inline tokens have children tokens
-      if (parsedInlineTokens && parsedInlineTokens.length) {
-        parsedInlineTokens.forEach((tokens) => {
-          if (!tokens.children)
-            return
-
-          // If the inline token has children tokens, push them to the final inline tokens one by one
-          tokens.children.forEach((token) => {
-            linkTokenChildrenContent.push(token)
-          })
-        })
-      }
-
-      // Push the final inline tokens to the state
-      for (const token of linkTokenChildrenContent) {
-        const pushedToken = state.push(token.type, token.tag, token.nesting)
-        pushedToken.content = token.content
-      }
-
-      // and link_close tokens
-      state.push('link_close', 'a', -1)
-
-      // Update the position in the source string
-      state.pos += link[0].length
+      if (isImageRef)
+        genImage()
+      else
+        genLink()
 
       return true
+
+      function genLink() {
+        // Create new link_open
+        const openToken = state.push('link_open', 'a', 1)
+        openToken.attrSet('href', resolvedNewHref)
+
+        // Final inline tokens for link content
+        const linkTokenChildrenContent: Token[] = []
+
+        // Produces a set of inline tokens and each contains a set of children tokens
+        const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
+
+        // We are going to push the children tokens of each inline token to the final inline tokens
+        // Need to check if the parsed inline tokens have children tokens
+        if (parsedInlineTokens && parsedInlineTokens.length) {
+          parsedInlineTokens.forEach((tokens) => {
+            if (!tokens.children)
+              return
+
+            // If the inline token has children tokens, push them to the final inline tokens one by one
+            tokens.children.forEach((token) => {
+              linkTokenChildrenContent.push(token)
+            })
+          })
+        }
+
+        // Push the final inline tokens to the state
+        for (const token of linkTokenChildrenContent) {
+          const pushedToken = state.push(token.type, token.tag, token.nesting)
+          pushedToken.content = token.content
+        }
+
+        // and link_close tokens
+        state.push('link_close', 'a', -1)
+
+        // Update the position in the source string
+        state.pos += link![0].length
+      }
+
+      function genImage() {
+        const openToken = state.push('image', 'img', 1)
+        openToken.attrSet('src', resolvedNewHref)
+        openToken.attrSet('alt', '')
+
+        openToken.children = []
+        openToken.content = text
+
+        const innerTextToken = state.push('text', '', 0)
+        innerTextToken.content = text
+        openToken.children.push(innerTextToken)
+
+        state.pos += link![0].length
+      }
     })
   }
 }

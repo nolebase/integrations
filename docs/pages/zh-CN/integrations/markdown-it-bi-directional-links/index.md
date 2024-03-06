@@ -12,6 +12,10 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 
 绝对路径：[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
 
+图片也支持的：
+
+![[一片 狗尾草.jpg]]
+
 ## 介绍
 
 **双向链接** （也被称之为内部链接，英文 Bi-directional links 和 Internal links），和也许你也了解和听说过另一个有关的概念 [WikiLinks](https://en.wikipedia.org/wiki/Help:Link)，在文档工程中有着非常重要的地位，它通常用于快速的建立一个页面到另一个页面的连接（或者链接），在 [Wikipedia](https://wikipedia.org) 这样的 Wiki 框架中，以及现在所流行的 [Obsidian](https://obsidian.md/) 和 [Logseq](https://logseq.com/) 中都被广泛使用。
@@ -34,6 +38,16 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 效果
 
 [[双向链接示例页面]]
+
+##### 图片
+
+```markdown
+![[一片 狗尾草.jpg]]
+```
+
+效果
+
+![[一片 狗尾草.jpg]]
 
 #### 改显示的文案
 
@@ -78,6 +92,26 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 效果
 
 [[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
+
+#### 图片
+
+```markdown
+![[zh-CN/integrations/markdown-it-bi-directional-links/images/海滩铁轨 同名图片.jpg]]
+```
+
+效果
+
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/images/海滩铁轨 同名图片.jpg]]
+
+它与同名图片是可以区分的：
+
+```markdown
+![[zh-CN/integrations/markdown-it-bi-directional-links/images/same-name/海滩铁轨 同名图片.jpg]]
+```
+
+效果
+
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/images/same-name/海滩铁轨 同名图片.jpg]]
 
 #### 绝对路径和自定义文案
 

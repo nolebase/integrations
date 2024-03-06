@@ -15,15 +15,18 @@ hero:
       link: https://github.com/nolebase/integrations
 
 features:
-  - icon: 🚀
-    title: Documentation Engineering First
-    details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
-  - icon: ⚖️
-    title: Compatible and Easy to Use
-    details: Whether it is static-first like VitePress, or client-first like Obsidian, the "Nólëbase Integrations" project hopes to provide a similar or even better experience across different platforms.
-  - icon: 🧩
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv"></span>
+    title: Easy to use
+    details: Easy and less caring about toolings. Writing is already time-consuming and labor-intensive. These issues should not be obstacles to restrict your creativity.
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/easter-island-statue-emoji-animated.riv"></span>
+    title: Cross-platform
+    details: Whether it is static-first like VitePress and Rspress, or client-first like Obsidian and Logseq, we hope to deliver the similar or even better experience across different platforms.
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/crystall-ball-emoji-animated.riv"></span>
     title: Rich Features
-    details: Each platform has its own advantages and missing functions, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Integrations.
+    details: Expand your imagination far beyond with Nólëbase Integrations with loads of features, widgets, components to fill the gap between note-taking platforms while improving.
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/rocket-emoji-animated.riv"></span>
+    title: Writing First
+    details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
 ---
 
 <HomeContent>

@@ -38,6 +38,7 @@ import './styles/main.css'
 import type { Theme } from 'vitepress'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
+import RiveCanvas from './components/LazyRiveCanvas.vue'
 
 export default {
   extends: DefaultTheme,
@@ -45,6 +46,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'layout-top': () => [
         h(NolebaseHighlightTargetedHeading),
+        h(RiveCanvas),
       ],
       'nav-bar-content-after': () => [
         h(NolebaseEnhancedReadabilitiesMenu),

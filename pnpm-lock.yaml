@@ -101,7 +101,7 @@ importers:
       '@nolebase/vitepress-plugin-page-properties':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-page-properties
-      '@rive-app/canvas':
+      '@rive-app/canvas-lite':
         specifier: ^2.10.3
         version: 2.10.3
       vite-plugin-inspect:
@@ -1197,8 +1197,8 @@ packages:
     resolution: {integrity: sha512-2LuNTFBIO0m7kKIQvvPHN6UE63VjpmL9rnEEaOOaiSPbZK+zUOYIzBAWcED+3XYzhYsd/0mD57VdxAEqqV52CQ==}
     dev: true
 
-  /@rive-app/canvas@2.10.3:
-    resolution: {integrity: sha512-m81uwl3HuZ9p4v7/PJnA6JIO1eS3Ht0d01wYAYGNpfYlaT6bcTfwczKWUIywKgPpS8ZcH5SAkMe5P1f0R5tUGg==}
+  /@rive-app/canvas-lite@2.10.3:
+    resolution: {integrity: sha512-AJyNwZ/KfWckvRWryJlviGlIxGcy7mW7UPk0NUSCIp1JtOzBH7eECrh+4Chw3NV8piAhSIhItsIGrsejODE/Cw==}
     dev: true
 
   /@rollup/plugin-alias@5.1.0(rollup@3.29.4):

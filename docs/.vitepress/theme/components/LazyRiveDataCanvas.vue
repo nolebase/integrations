@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vitepress'
-import RiveCanvas from '@rive-app/canvas'
+import * as RiveCanvas from '@rive-app/canvas-lite'
 
 const route = useRoute()
+const riveInstances = ref<RiveCanvas.Rive[]>([])
 
 const defaultCreateCanvasOptions = {
   canvasWidth: 500,
@@ -25,6 +26,18 @@ interface CreateCanvasOptions {
   paddingBottom: string
   paddingLeft: string
   paddingRight: string
+}
+
+function cleanupAllRiveInstances() {
+  for (const rive of riveInstances.value) {
+    try {
+      rive.cleanup()
+    }
+    catch (e) {
+    }
+  }
+
+  riveInstances.value = []
 }
 
 function mustParseIntOrDefault(value: string | null, defaultValue: number): number {
@@ -92,8 +105,10 @@ function renderRiveAsset() {
 
   for (const el of elements) {
     const src = el.attributes.getNamedItem('data-rive-src')
-    if (!src)
-      return
+    if (!src) {
+      console.error('No src attribute found')
+      continue
+    }
 
     for (const cel of Array.from(el.children))
       el.removeChild(cel)
@@ -103,12 +118,13 @@ function renderRiveAsset() {
 
     el.appendChild(canvas)
 
-    // eslint-disable-next-line no-new
-    new RiveCanvas.Rive({
+    const rive = new RiveCanvas.Rive({
       canvas,
       src: src.value,
       autoplay: true,
     })
+
+    riveInstances.value.push(rive)
   }
 }
 
@@ -119,8 +135,19 @@ onMounted(() => {
   renderRiveAsset()
 })
 
-watch(route, () => {
+watch(route, async () => {
+  if (!window && !document)
+    return
+
+  await nextTick()
   renderRiveAsset()
+})
+
+onUnmounted(() => {
+  if (!window && !document)
+    return
+
+  cleanupAllRiveInstances()
 })
 </script>
 

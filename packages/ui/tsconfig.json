@@ -1,0 +1,16 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "composite": false,
+    "baseUrl": ".",
+    "types": [
+      "vite/client"
+    ],
+    "noImplicitAny": true,
+    "declaration": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "skipLibCheck": true
+  }
+}

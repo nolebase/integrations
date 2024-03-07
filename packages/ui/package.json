@@ -1,0 +1,66 @@
+{
+  "name": "@nolebase/ui",
+  "type": "module",
+  "version": "1.22.4",
+  "description": "A collection of Vue components Nolebase uses.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/ui/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/ui"
+  },
+  "keywords": [
+    "unjs",
+    "vue",
+    "vite",
+    "vitepress",
+    "vitepress-plugin",
+    "components",
+    "component-library",
+    "markdown",
+    "frontmatter",
+    "nolebase",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "*",
+        "dist/*",
+        "dist/*.d.ts",
+        "dist/*/index.d.ts"
+      ]
+    }
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "unbuild"
+  },
+  "peerDependencies": {
+    "vue": "^3.2.0"
+  },
+  "devDependencies": {
+    "@vue/tsconfig": "^0.5.1"
+  }
+}

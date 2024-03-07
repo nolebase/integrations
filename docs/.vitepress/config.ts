@@ -48,6 +48,7 @@ export default defineConfig({
         nav: [
           { text: 'Guide', link: '/pages/en/guide/getting-started' },
           { text: 'Integrations', link: '/pages/en/integrations/' },
+          { text: 'UI Components', link: '/pages/en/ui/' },
         ],
         sidebar: [
           {
@@ -98,6 +99,7 @@ export default defineConfig({
         nav: [
           { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
+          { text: 'UI 组件', link: '/pages/zh-CN/ui/' },
         ],
         sidebar: [
           {

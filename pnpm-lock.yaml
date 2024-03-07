@@ -86,6 +86,9 @@ importers:
       '@nolebase/markdown-it-element-transform':
         specifier: workspace:^
         version: link:../packages/markdown-it-element-transform
+      '@nolebase/ui':
+        specifier: workspace:^
+        version: link:../packages/ui
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-enhanced-readabilities
@@ -129,6 +132,16 @@ importers:
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
+
+  packages/ui:
+    dependencies:
+      vue:
+        specifier: ^3.2.0
+        version: 3.4.19(typescript@5.3.3)
+    devDependencies:
+      '@vue/tsconfig':
+        specifier: ^0.5.1
+        version: 0.5.1
 
   packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
@@ -2495,6 +2508,10 @@ packages:
 
   /@vue/shared@3.4.21:
     resolution: {integrity: sha512-PuJe7vDIi6VYSinuEbUIQgMIRZGgM8e4R+G+/dQTk0X1NEdvgvvgv7m+rfmDH1gZzyA1OjjoWskvHlfRNfQf3g==}
+    dev: true
+
+  /@vue/tsconfig@0.5.1:
+    resolution: {integrity: sha512-VcZK7MvpjuTPx2w6blwnwZAu5/LgBUtejFOi3pPGQFXQN5Ela03FUtd2Qtg4yWGGissVL0dr6Ro1LfOFh+PCuQ==}
     dev: true
 
   /@vueuse/core@10.7.2(vue@3.4.19):

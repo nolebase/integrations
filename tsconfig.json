@@ -6,8 +6,14 @@
       "DOM",
       "ESNext"
     ],
+    "baseUrl": "./",
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "@nolebase/ui": [
+        "./packages/ui/src/index.ts"
+      ]
+    },
     "resolveJsonModule": true,
     "types": [
       "node",

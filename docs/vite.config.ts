@@ -1,4 +1,4 @@
-import { join } from 'node:path'
+import { join, resolve } from 'node:path'
 import { defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
@@ -11,6 +11,11 @@ export default defineConfig({
     '**/*.mp4',
     '**/*.riv',
   ],
+  resolve: {
+    alias: {
+      '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
+    },
+  },
   plugins: [
     Inspect(),
     UnoCSS(),

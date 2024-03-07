@@ -10,8 +10,9 @@
     "graymatter",
     "iconify",
     "Logseq",
-    "Nólëbase",
+    "mkdist",
     "nolebase",
+    "Nólëbase",
     "quotepath"
   ],
   "prettier.enable": false,

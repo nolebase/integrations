@@ -38,7 +38,7 @@ import './styles/main.css'
 import type { Theme } from 'vitepress'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
-import RiveCanvas from './components/LazyRiveCanvas.vue'
+import RiveCanvas from './components/LazyRiveDataCanvas.vue'
 
 export default {
   extends: DefaultTheme,

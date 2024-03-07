@@ -15,15 +15,18 @@ hero:
       link: https://github.com/nolebase/integrations
 
 features:
-  - icon: 🚀
-    title: 文档工程优先
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv"></span>
+    title: 简单易用
+    details: 简单易用，让作者少些操心，更何况写作本就耗时耗力，这些问题不应该成为限制您创造力的障碍。
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/easter-island-statue-emoji-animated.riv"></span>
+    title: 跨平台
+    details: 不论是静态如 VitePress，Rspress，还是客户端优先如 Obsidian 和 Logseq，我们期望能够在不同的平台上为您提供近似甚至更好的体验。
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/crystall-ball-emoji-animated.riv"></span>
+    title: 丰富的功能
+    details: 通过「Nólëbase 集成」所提供的大量的功能、小部件、组件，填补笔记平台和工具之间的差距并优化整体体验。
+  - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/rocket-emoji-animated.riv"></span>
+    title: 写作优先
     details: 从文档工程的角度出发，解决和简化若干 UX/DX 的问题和困境，旨在让创作者更好地专注于撰写文档、笔记、制作卡片以及 GTD。
-  - icon: ⚖️
-    title: 兼容并且好用
-    details: 不论是静态如 VitePress，还是客户端优先如 Obsidian，「Nólëbase 集成」项目期望能够在不同的平台上提供近似甚至更好的体验。
-  - icon: 🧩
-    title: 拓展工具的边界
-    details: 每个平台都有自己的优势和缺失的功能，但文档工程本来就耗时耗力。这些问题不应成为限制文档和知识编写与共享的障碍。使用「Nólëbase 集成」来扩展您的想象力吧。
 ---
 
 <HomeContent>

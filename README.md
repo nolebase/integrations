@@ -18,12 +18,14 @@ A collection of diverse documentation engineering tools.
 
 ## Features
 
-- 🚀 Documentation Engineering First
+- 🌟 Easy to use
+  - Easy and less caring about toolings. Writing is already time-consuming and labor-intensive. These issues should not be obstacles to restrict your creativity.
+- 🗿 Cross-platform
+  - Whether it is static-first like VitePress and Rspress, or client-first like Obsidian and Logseq, we hope to deliver the similar or even better experience across different platforms.
+- 🔮 Rich Features
+  - Expand your imagination far beyond with Nólëbase Integrations with loads of features, widgets, components to fill the gap between note-taking platforms while improving.
+- 🚀 Writing First
   - From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
-- ⚖️ Compatible and Easy to Use
-  - Whether it is static-first like VitePress, or client-first like Obsidian, the "Nólëbase Integrations" project hopes to provide a similar or even better experience across different platforms.
-- 🧩 Rich Features
-  - Each platform has its own advantages and missing features, but the documentation engineering is already time-consuming and labor-intensive. These issues should not be obstacles to restrict the writing and sharing of documents and knowledge. Expand your imagination far beyond with Nólëbase Integrations.
 
 ## Get started
 

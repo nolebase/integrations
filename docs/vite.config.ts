@@ -6,7 +6,11 @@ import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-p
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
 
 export default defineConfig({
-  assetsInclude: ['**/*.mov', '**/*.mp4'],
+  assetsInclude: [
+    '**/*.mov',
+    '**/*.mp4',
+    '**/*.riv',
+  ],
   plugins: [
     Inspect(),
     UnoCSS(),

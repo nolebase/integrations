@@ -151,6 +151,12 @@ importers:
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
+      '@iconify-json/octicon':
+        specifier: ^1.1.52
+        version: 1.1.52
+      '@nolebase/ui':
+        specifier: workspace:^
+        version: link:../ui
       dayjs:
         specifier: ^1.11.10
         version: 1.11.10
@@ -1097,7 +1103,6 @@ packages:
     resolution: {integrity: sha512-0bLc9t54p55nVlQ8SKF7BYOBTy/Q5SfvqYcOD09APDksRTikO45MwKTfG3fzkbaIwpobuVQM1sXiSCsyWJX9Tg==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
 
   /@iconify-json/svg-spinners@1.1.2:
     resolution: {integrity: sha512-Aab6SqkORaTJ1W+ooufn6C8BsBitrn3uk8iRQLPA6pjhyvQAhkKCGMctyXIL5ZjrycnoFVsZ4mx7KnwEMra8qg==}
@@ -1107,7 +1112,6 @@ packages:
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
 
   /@iconify/utils@2.1.22:
     resolution: {integrity: sha512-6UHVzTVXmvO8uS6xFF+L/QTSpTzA/JZxtgU+KYGFyDYMEObZ1bu/b5l+zNJjHy+0leWjHI+C0pXlzGvv3oXZMA==}

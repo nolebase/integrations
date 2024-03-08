@@ -3,6 +3,7 @@ import { computed, inject, ref } from 'vue'
 import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 
+import { NuVerticalTransition } from '@nolebase/ui'
 import Changelog from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
@@ -12,8 +13,6 @@ import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
 import type { Locale } from '../types'
 import { defaultEnLocale, defaultLocales } from '../locales'
-
-import VerticalTransition from './VerticalTransition.vue'
 
 const toggleViewMore = ref(false)
 
@@ -88,7 +87,7 @@ const isFreshChange = computed(() => {
         </span>
       </div>
     </label>
-    <VerticalTransition :duration="200">
+    <NuVerticalTransition :duration="200">
       <div
         v-show="toggleViewMore"
         class="grid grid-cols-[30px_auto] mt-3 gap-1.5 children:my-auto -ml-1.5"
@@ -131,7 +130,7 @@ const isFreshChange = computed(() => {
           </template>
         </template>
       </div>
-    </VerticalTransition>
+    </NuVerticalTransition>
   </div>
 </template>
 

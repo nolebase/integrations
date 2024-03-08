@@ -32,16 +32,15 @@
     "./vite": {
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.mjs",
-      "require": "./dist/vite/index.cjs"
+      "require": "./dist/vite/index.js"
     },
-    "./client/style.css": "./dist/client/style.css",
     "./client": {
       "types": "./dist/client/index.d.ts",
       "import": "./dist/client/index.mjs",
-      "require": "./dist/client/index.cjs"
+      "require": "./dist/client/index.js"
     }
   },
-  "main": "./dist/vite/index.cjs",
+  "main": "./dist/vite/index.js",
   "module": "./dist/vite/index.mjs",
   "types": "./dist/vite/index.d.ts",
   "files": [
@@ -50,11 +49,9 @@
     "package.json"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm run stub\" \"pnpm run build:watch\" \"pnpm run emit-types\"",
+    "dev": "concurrently \"pnpm run stub\"",
     "stub": "unbuild --stub",
-    "emit-types": "vue-tsc --declaration --esModuleInterop --sourceMap --skipLibCheck --skipDefaultLibCheck --emitDeclarationOnly --outDir dist --types ./src/client/virtual.d.ts src/client/index.ts",
-    "build": "vite build && pnpm run emit-types && unbuild",
-    "build:watch": "vite build --mode development --watch"
+    "build": "unbuild"
   },
   "peerDependencies": {
     "dayjs": ">=1.11.1",
@@ -63,6 +60,8 @@
     "vitepress": ">=1.0.0-rc.44"
   },
   "dependencies": {
+    "@iconify-json/octicon": "^1.1.52",
+    "@nolebase/ui": "workspace:^",
     "dayjs": "^1.11.10",
     "md5": "^2.3.0"
   },

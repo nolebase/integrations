@@ -6,6 +6,9 @@
     "paths": {
       "@nolebase/ui": [
         "../ui/src/index.ts"
+      ],
+      "@nolebase/ui/*": [
+        "../ui/src/components/*"
       ]
     },
     "types": [

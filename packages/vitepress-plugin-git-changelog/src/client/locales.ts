@@ -18,7 +18,7 @@ export const defaultZhCNLocale: Locale = {
   committedOn: ' 于 {{date}}',
 }
 
-export const defaultLocales = {
+export const defaultLocales: Record<string, Locale> = {
   'zh-CN': defaultZhCNLocale,
   'zh-Hans': defaultZhCNLocale,
   'zh': defaultZhCNLocale,

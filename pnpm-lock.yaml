@@ -139,6 +139,9 @@ importers:
         specifier: ^3.2.0
         version: 3.4.19(typescript@5.4.2)
     devDependencies:
+      '@rive-app/canvas-lite':
+        specifier: ^2.10.3
+        version: 2.10.3
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1

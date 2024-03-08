@@ -35,6 +35,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
     }
   },
   "main": "./dist/index.js",
@@ -62,6 +67,7 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
+    "@rive-app/canvas-lite": "^2.10.3",
     "@vue/tsconfig": "^0.5.1"
   }
 }

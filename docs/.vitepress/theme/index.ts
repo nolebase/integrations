@@ -3,10 +3,6 @@ import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import {
-  install as installNolebaseUI,
-} from '@nolebase/ui'
-
-import {
   LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesPlugin,
@@ -29,6 +25,10 @@ import {
   NolebasePagePropertiesPlugin,
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
+import {
+  NuLazyDOMRiveCanvas,
+} from '@nolebase/ui'
+
 import 'virtual:uno.css'
 
 import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css'
@@ -41,7 +41,6 @@ import './styles/main.css'
 
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
-import RiveCanvas from './components/LazyRiveDataCanvas.vue'
 
 export default {
   extends: DefaultTheme,
@@ -49,7 +48,7 @@ export default {
     return h(DefaultTheme.Layout, null, {
       'layout-top': () => [
         h(NolebaseHighlightTargetedHeading),
-        h(RiveCanvas),
+        h(NuLazyDOMRiveCanvas),
       ],
       'nav-bar-content-after': () => [
         h(NolebaseEnhancedReadabilitiesMenu),
@@ -60,8 +59,6 @@ export default {
     })
   },
   enhanceApp({ app }) {
-    installNolebaseUI(app)
-
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
 

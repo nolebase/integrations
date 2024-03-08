@@ -12,6 +12,9 @@
     "paths": {
       "@nolebase/ui": [
         "./packages/ui/src/index.ts"
+      ],
+      "@nolebase/vitepress-plugin-git-changelog/*": [
+        "./packages/vitepress-plugin-git-changelog/src/*"
       ]
     },
     "resolveJsonModule": true,

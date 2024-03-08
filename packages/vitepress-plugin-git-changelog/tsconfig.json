@@ -3,22 +3,32 @@
   "compilerOptions": {
     "composite": false,
     "baseUrl": ".",
+    "paths": {
+      "@nolebase/ui": [
+        "../ui/src/index.ts"
+      ]
+    },
     "types": [
       "vite/client",
       "./src/client/virtual.d.ts"
     ],
-    "noImplicitAny": false,
-    "declaration": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "declaration": true,
     "noEmit": false,
-    "outDir": "./dist/client",
+    "outDir": "./dist",
     "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
@@ -26,6 +36,7 @@
     "src/**/*.tsx"
   ],
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "node_modules"
   ]
 }

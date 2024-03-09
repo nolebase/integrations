@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": false,
-    "moduleResolution": "Node",
+    "moduleResolution": "Bundler",
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,

@@ -89,6 +89,9 @@ importers:
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../packages/ui
+      '@nolebase/unconfig-vitepress':
+        specifier: workspace:^
+        version: link:../packages/unconfig-vitepress
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-enhanced-readabilities
@@ -145,6 +148,31 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
+
+  packages/unconfig-vitepress:
+    dependencies:
+      '@nolebase/vitepress-plugin-enhanced-readabilities':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-enhanced-readabilities
+      '@nolebase/vitepress-plugin-git-changelog':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-git-changelog
+      '@nolebase/vitepress-plugin-highlight-targeted-heading':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-highlight-targeted-heading
+      '@nolebase/vitepress-plugin-inline-link-preview':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-inline-link-preview
+      '@nolebase/vitepress-plugin-page-properties':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-page-properties
+      vitepress:
+        specifier: '>=1.0.0-rc.44'
+        version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(@types/node@20.11.25)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2)
+    devDependencies:
+      builtin-modules:
+        specifier: ^3.3.0
+        version: 3.3.0
 
   packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
@@ -6302,7 +6330,6 @@ packages:
       - terser
       - typescript
       - universal-cookie
-    dev: true
 
   /vue-demi@0.14.7(vue@3.4.19):
     resolution: {integrity: sha512-EOG8KXDQNwkJILkx/gPcoL/7vH+hORoBaKgGe+6W7VFMvCYJfmF2dGbvgDroVnI8LU7/kTu8mbjRZGBU1z9NTA==}

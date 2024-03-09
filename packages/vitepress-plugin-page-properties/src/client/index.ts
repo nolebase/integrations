@@ -27,7 +27,7 @@ const components = {
   NolebasePagePropertiesEditor,
 }
 
-export function NolebasePagePropertiesPlugin<P extends object = any>(): Plugin<Options<P>[]> {
+export function NolebasePagePropertiesPlugin<P extends object>(): Plugin<Options<P>[]> {
   return {
     install(app, options?) {
       if (typeof options !== 'undefined' && typeof options === 'object')

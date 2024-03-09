@@ -1,0 +1,64 @@
+{
+  "name": "@nolebase/unconfig-vitepress",
+  "type": "module",
+  "version": "1.23.0",
+  "description": "A unconfig (unified configurations) for both VitePress and VitePress theme. Supporting all Nólëbase Integrations with default theme.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/unconfig-vitepress/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/unconfig-vitepress"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "file-history",
+    "changelog",
+    "git",
+    "git-history",
+    "git-log",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm run stub\"",
+    "stub": "unbuild --stub",
+    "build": "unbuild"
+  },
+  "peerDependencies": {
+    "vitepress": ">=1.0.0-rc.44"
+  },
+  "dependencies": {
+    "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
+    "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
+    "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
+    "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
+    "@nolebase/vitepress-plugin-page-properties": "workspace:^"
+  },
+  "devDependencies": {
+    "builtin-modules": "^3.3.0"
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@nolebase/vitepress-plugin-og-image-generator",
   "type": "module",
   "version": "1.0.0",
-  "description": "A vitepress plugin to generate og:image for your site",
+  "description": "A vitepress plugin to generate Open Graph Protocol previewing images (a.k.a. social media cards) for your site.",
   "author": {
     "name": "Nólëbase",
     "email": "nolebase@ayaka.moe",
@@ -26,6 +26,8 @@
     "package.json"
   ],
   "scripts": {
+    "dev": "concurrently \"pnpm run stub\"",
+    "stub": "unbuild --stub",
     "build": "unbuild"
   },
   "peerDependencies": {

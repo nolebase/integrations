@@ -11,11 +11,4 @@ export interface ArticleTree {
 
 export interface Doc {
   relativePath: string
-  hashes: {
-    sha256: {
-      content: string
-      contentDiff?: string
-    }
-  }
-  ignoreWhenGenerateTagsFromGPT?: boolean
 }

@@ -1,6 +1,6 @@
 # `@nolebase/vitepress-plugin-og-image-generator`
 
-A vitepress plugin to generate og:image for your site.
+A vitepress plugin to generate [Open Graph Protocol](https://ogp.me/) previewing images (a.k.a. [social media cards](https://www.semrush.com/blog/open-graph/)) for your site.
 
 ## Install
 

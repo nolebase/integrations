@@ -8,22 +8,32 @@ import type { ArticleTree } from './types/metadata'
 import { removeEmoji } from './utils'
 
 export default async function run(config: Config) {
-  const { sidebar, plainTargetDomain, dist } = config
-  const DIR_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+  const { sidebar, plainTargetDomain, dist, description } = config
 
   // TODO: Load public files in a better way
+  const DIR_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..')
   const ogSvg = fs.readFileSync(resolve(DIR_ROOT, './public/og-template.svg'), 'utf-8')
+  const fontPath = resolve(DIR_ROOT, './public/SourceHanSansSC.otf')
 
-  let articles: ArticleTree[] = ([] as any).concat(...sidebar.map(series => [...series?.items.map(item => ({ ...item, category: series.text }))] || []))
-  for (let i = 0; i < articles.length; i++) {
-    const items = articles[i].items
-    if (items)
-      articles.push(...items.map(item => ({ ...item, category: articles[i].category })))
-  }
-  articles = articles.filter(item => item.link)
+  // Flatten sidebar
+  let articles: ArticleTree[] = []
+  articles = articles.concat(...sidebar.map((series: { items: any[], text: any }) => {
+    return [...series?.items.map((item) => {
+      return {
+        ...item,
+        category: series.text,
+      }
+    })] || []
+  }))
 
   async function generateSVG(article: ArticleTree, output: string) {
-    const lines = removeEmoji(article.text).trim().replace(/(?![^\n]{1,17}$)([^\n]{1,17})\s/g, '$1\n').split('\n')
+    // Remove emoji and split lines
+    const lines = removeEmoji(article.text)
+      .trim()
+      .replace(/(?![^\n]{1,17}$)([^\n]{1,17})\s/g, '$1\n')
+      .split('\n')
+
+    // Restricted 17 words per line
     lines.forEach((val, i) => {
       if (val.length > 17) {
         lines[i] = val.slice(0, 17)
@@ -35,66 +45,73 @@ export default async function run(config: Config) {
     const category = article.category ? removeEmoji(article.category).trim() : ''
 
     const data = {
-      name1: lines[0] || '',
-      name2: lines[1] || '',
-      name3: `${lines[2] || ''}${lines[3] ? '...' : ''}`,
+      line1: lines[0] || '',
+      line2: lines[1] || '',
+      line3: `${lines[2] || ''}${lines[3] ? '...' : ''}`,
       category,
     }
 
     const svg = ogSvg.replace(/\{\{([^}]+)}}/g, (_, name) => {
-      if (!name)
-        return ''
-      if (typeof name !== 'string')
-        return ''
-      if (!(name in data))
+      if (!name || typeof name !== 'string' || !(name in data))
         return ''
 
       const nameKeyOf = name as keyof typeof data
       return data[nameKeyOf]
     })
 
-    const resvg = new Resvg(svg, {
-      fitTo: { mode: 'width', value: 1200 },
-      font: {
-        fontFiles: [resolve(DIR_ROOT, './public/SourceHanSansSC.otf')],
-        loadSystemFonts: false, // Load system fonts might cost more time
-      },
-    })
-    const buffer = resvg.render().asPng()
-    await fs.writeFile(output, buffer)
+    try {
+      const resvg = new Resvg(svg, {
+        fitTo: { mode: 'width', value: 1200 },
+        font: {
+          fontFiles: [fontPath],
+          // Load system fonts might cost more time
+          loadSystemFonts: false,
+        },
+      })
+      const buffer = resvg.render().asPng()
+      await fs.writeFile(output, buffer)
+    }
+    catch (err) {
+      console.error(`Generate OG Image Failed: [${output}] ${err}`)
+    }
   }
 
-  async function generateOG(plainTargetDomain: string, articles: ArticleTree[]) {
-    const files = await fg(`${dist}/**/*.html`, {
-      onlyFiles: true,
-    })
+  const files = await fg(`${dist}/**/*.html`, { onlyFiles: true })
 
-    await Promise.all(files.map(async (file) => {
-      let html = await fs.readFile(file, 'utf-8')
+  await Promise.all(files.map(async (file) => {
+    let html = await fs.readFile(file, 'utf-8')
 
-      const relativePath = relative(dist, file)
-      const link = `/${relativePath.slice(0, relativePath.lastIndexOf('.')).replaceAll(sep, '/')}`
+    // TODO: Maybe have a better way to deal with Windows or other OS
+    const relativePath = relative(dist, file)
+    const link = `/${
+      relativePath
+      .slice(0, relativePath.lastIndexOf('.'))
+      .replaceAll(sep, '/')
+    }`.split('/index')[0]
 
-      const article = articles.find(item => item.link === link)
-      if (article) {
-        const ogName = `${dirname(file)}/og-${article.index}.png`
-        await generateSVG(article, ogName)
+    const article = articles.find(item => (item.link === link) || (item.link === `${link}/`))
+    if (!article)
+      return null
 
-        const ogNameRegexp = new RegExp(`${plainTargetDomain}/og.png`, 'g')
-        html = html.replace(ogNameRegexp, `${plainTargetDomain}/${relative(dist, ogName)}`.toLocaleLowerCase())
-        html = html.replace(
-          /<meta property="og:title" content="([^"]+)">/g,
-          `<meta property="og:title" content="${article.text}">`,
-        )
-        html = html.replace(
-          /<meta property="og:description" content="([^"]+)">/g,
-          `<meta property="og:description" content="${article.category} - Nólëbase - 记录回忆，知识和畅想的地方">`,
-        )
-      }
+    const ogName = `${dirname(file)}/og-${article.index || article.text}.png`
+    await generateSVG(article, ogName)
 
+    const ogNameRegexp = new RegExp(`${plainTargetDomain}/og.png`, 'g')
+    html = html.replace(ogNameRegexp, `${plainTargetDomain}/${relative(dist, ogName)}`.toLocaleLowerCase())
+    html = html.replace(
+      /<meta property="og:title" content="([^"]+)">/g,
+      `<meta property="og:title" content="${article.text}">`,
+    )
+    html = html.replace(
+      /<meta property="og:description" content="([^"]+)">/g,
+      `<meta property="og:description" content="${article.category} - ${description}">`,
+    )
+
+    try {
       await fs.writeFile(file, html, 'utf-8')
-    }))
-  }
-
-  await generateOG(plainTargetDomain, articles)
+    }
+    catch (err) {
+      console.error(`Generate OG Image Failed: ${err}`)
+    }
+  }))
 }

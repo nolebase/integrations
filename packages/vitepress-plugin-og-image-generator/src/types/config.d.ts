@@ -3,4 +3,5 @@ export interface Config {
   plainTargetDomain: string
   // DIR_ROOT: string
   dist: string
+  description: string
 }

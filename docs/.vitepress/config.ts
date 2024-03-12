@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
-import genOG from '@nolebase/vitepress-plugin-og-image-generator'
+import genOG from '@nolebase/vitepress-plugin-og-image'
 
 export const sidebars = {
   'en': [

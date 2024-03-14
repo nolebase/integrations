@@ -3,7 +3,7 @@ import { Resvg } from '@resvg/resvg-js'
 import { removeEmoji } from '../emoji'
 import { escape } from './escape'
 
-export function renderSVGWithTemplate(siteName: string, siteDescription: string, title: string, category: string, ogTemplate: string): string {
+export function templateSVG(siteName: string, siteDescription: string, title: string, category: string, ogTemplate: string): string {
   // Remove emoji and split lines
   const lines = removeEmoji(title)
     .trim()
@@ -39,7 +39,7 @@ export function renderSVGWithTemplate(siteName: string, siteDescription: string,
   })
 }
 
-export async function renderAndGenerateSVGAsPNG(svgContent: string, options?: { fontPath?: string }): Promise<Buffer> {
+export async function renderSVG(svgContent: string, options?: { fontPath?: string }): Promise<Buffer> {
   let resvg: Resvg
 
   try {

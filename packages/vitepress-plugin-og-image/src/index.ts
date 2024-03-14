@@ -10,7 +10,7 @@ import fg from 'fast-glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
 import { gray, green, red, yellow } from 'colorette'
 import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
-import { renderAndGenerateSVGAsPNG, renderSVGWithTemplate } from './utils/svg/render'
+import { renderSVG, templateSVG } from './utils/svg/render'
 import { task } from './utils/task'
 import { getDescriptionWithLocales, getTitleWithLocales } from './utils/vitepress/locales'
 
@@ -110,12 +110,12 @@ export function buildEndGenerateOpenGraphImages(options: {
 
         const ogImageFilePathBaseName = `og-${page.text || 'Untitled'}.png`
         const ogImageFilePathFullName = `${dirname(file)}/${ogImageFilePathBaseName}`
-        const templatedOgImageSvg = renderSVGWithTemplate(siteTitle, siteDescription, page.text, page.category ?? '', ogImageTemplateSvg)
+        const templatedOgImageSvg = templateSVG(siteTitle, siteDescription, page.text, page.category ?? '', ogImageTemplateSvg)
 
         let pngBuffer: Buffer
 
         try {
-          pngBuffer = await renderAndGenerateSVGAsPNG(templatedOgImageSvg, { fontPath: await tryToLocateFontFile(siteConfig) })
+          pngBuffer = await renderSVG(templatedOgImageSvg, { fontPath: await tryToLocateFontFile(siteConfig) })
         }
         catch (err) {
           console.error(

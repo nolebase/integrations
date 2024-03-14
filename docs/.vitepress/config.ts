@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
-import genOG from '@nolebase/vitepress-plugin-og-image'
+import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
 
 export const sidebars = {
   'en': [
@@ -178,12 +178,9 @@ export default defineConfig({
       })())
     },
   },
-  buildEnd: async () => {
-    await genOG({
-      sidebar: [...sidebars.en, ...sidebars['zh-CN']],
-      plainTargetDomain: 'nolebase-integrations.ayaka.io',
-      dist: '.vitepress/dist/',
-      description: 'Nólëbase - 记录回忆，知识和畅想的地方',
-    })
+  async buildEnd(siteConfig) {
+    await buildEndGenerateOpenGraphImages({
+      domain: 'https://nolebase-integrations.ayaka.io',
+    })(siteConfig)
   },
 })

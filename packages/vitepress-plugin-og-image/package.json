@@ -9,15 +9,34 @@
     "url": "https://github.com/nolebase"
   },
   "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-og-image/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-og-image"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "vitepress-plugin",
+    "nolebase-integration",
+    "open-graph-protocol",
+    "og-image",
+    "resvg",
+    "social-media-card",
+    "preview-image",
+    "meta"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.cjs"
     }
   },
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
@@ -33,11 +52,20 @@
   "peerDependencies": {
     "vitepress": ">=1.0.0-rc.44"
   },
-  "devDependencies": {
+  "dependencies": {
     "@resvg/resvg-js": "^2.6.0",
-    "@types/fs-extra": "^11.0.4",
+    "colorette": "^2.0.20",
     "emoji-regex": "^10.3.0",
     "fast-glob": "^3.3.2",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.2.0",
+    "ora": "^8.0.1",
+    "rehype": "^13.0.1",
+    "rehype-meta": "^4.0.0",
+    "rehype-parse": "^9.0.0",
+    "rehype-stringify": "^10.0.0",
+    "unified": "^11.0.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4"
   }
 }

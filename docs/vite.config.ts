@@ -15,6 +15,7 @@ export default defineConfig({
     alias: {
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
       '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
+      '@nolebase/vitepress-plugin-og-image': resolve(__dirname, '../packages/vitepress-plugin-og-image/src/'),
     },
   },
   plugins: [

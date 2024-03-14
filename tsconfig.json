@@ -15,6 +15,9 @@
       ],
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
+      ],
+      "@nolebase/vitepress-plugin-og-image/*": [
+        "./packages/vitepress-plugin-git-changelog/src/*"
       ]
     },
     "resolveJsonModule": true,

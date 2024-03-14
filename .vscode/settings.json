@@ -3,6 +3,7 @@
     "antfu",
     "Astro",
     "Attributify",
+    "colorette",
     "datetime",
     "easytag",
     "emittypes",
@@ -13,7 +14,9 @@
     "mkdist",
     "nolebase",
     "Nólëbase",
-    "quotepath"
+    "quotepath",
+    "Rehype",
+    "resvg"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

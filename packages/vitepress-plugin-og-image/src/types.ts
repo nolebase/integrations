@@ -1,6 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
 
-export interface PageItem extends Omit<DefaultTheme.SidebarItem, 'text'> {
+export interface PageItem extends DefaultTheme.SidebarItem {
   title: string
   category: string
   locale: string

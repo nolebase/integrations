@@ -240,6 +240,9 @@ importers:
       fs-extra:
         specifier: ^11.2.0
         version: 11.2.0
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       ora:
         specifier: ^8.0.1
         version: 8.0.1

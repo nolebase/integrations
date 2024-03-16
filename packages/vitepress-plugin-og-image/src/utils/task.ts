@@ -51,10 +51,10 @@ export function renderTaskResultsSummary(results: TaskResult[], siteConfig: Site
   const erroredCount = results.filter(item => item.status === 'errored') as TaskResultErrored[]
 
   const stats = `${green(`${successCount.length} generated`)}, ${yellow(`${skippedCount.length} skipped`)}, ${red(`${erroredCount.length} errored`)}`
-  const skippedList = ` - ${yellow('Following files were skipped')}:\n${skippedCount.map((item) => {
+  const skippedList = ` - ${yellow('Following files were skipped')}:\n\n${skippedCount.map((item) => {
         return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
       }).join('\n')}`
-  const erroredList = ` - ${red('Following files encountered errors')}\n${erroredCount.map((item) => {
+  const erroredList = ` - ${red('Following files encountered errors')}\n\n${erroredCount.map((item) => {
         return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
       }).join('\n')}`
 

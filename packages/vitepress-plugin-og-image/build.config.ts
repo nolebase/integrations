@@ -14,6 +14,7 @@ export default defineBuildConfig({
     'fast-glob',
     'emoji-regex',
     '@resvg/resvg-js',
+    'gray-matter',
   ],
   rollup: {
     emitCJS: true,

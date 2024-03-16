@@ -196,7 +196,7 @@ export function buildEndGenerateOpenGraphImages(options: {
           const { data } = GrayMatter(sourceFileContent)
           const res: PageItem = {
             ...item,
-            title: item.title ?? 'Untitled',
+            title: item.text ?? (item as any).title ?? 'Untitled',
             category: '',
             locale,
             frontmatter: data,

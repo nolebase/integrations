@@ -1,83 +1,83 @@
 import { cwd } from 'node:process'
 import { join, relative } from 'node:path'
-import { defineConfig } from 'vitepress'
+import { type DefaultTheme, defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
 
-export const sidebars = {
+export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': [
     {
-      title: 'Introduction',
+      text: 'Introduction',
       items: [
-        { title: 'Getting Started', link: '/pages/en/guide/getting-started' },
+        { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
       ],
     },
     {
-      title: 'Integrations',
+      text: 'Integrations',
       items: [
-        { title: 'Overview', link: '/pages/en/integrations/' },
+        { text: 'Overview', link: '/pages/en/integrations/' },
       ],
     },
     {
-      title: 'Obsidian Plugins',
+      text: 'Obsidian Plugins',
       items: [
-        { title: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
+        { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
       ],
     },
     {
-      title: 'Markdown It Plugins',
+      text: 'Markdown It Plugins',
       items: [
-        { title: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
-        { title: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
+        { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+        { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
       ],
     },
     {
-      title: 'VitePress Plugins',
+      text: 'VitePress Plugins',
       items: [
-        { title: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
-        { title: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
-        { title: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
-        { title: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
-        { title: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
+        { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+        { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+        { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
+        { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
+        { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
       ],
     },
   ],
   'zh-CN': [
     {
-      title: '指南',
+      text: '指南',
       items: [
-        { title: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
+        { text: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
       ],
     },
     {
-      title: '集成',
+      text: '集成',
       items: [
-        { title: '概览', link: '/pages/zh-CN/integrations/' },
+        { text: '概览', link: '/pages/zh-CN/integrations/' },
       ],
     },
     {
-      title: 'Obsidian 插件',
+      text: 'Obsidian 插件',
       items: [
-        { title: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
+        { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
       ],
     },
     {
-      title: 'Markdown It 插件',
+      text: 'Markdown It 插件',
       items: [
-        { title: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
-        { title: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
+        { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+        { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
       ],
     },
     {
-      title: 'VitePress 插件',
+      text: 'VitePress 插件',
       items: [
-        { title: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
-        { title: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
-        { title: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
-        { title: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
-        { title: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
+        { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+        { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+        { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
+        { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
+        { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
       ],
     },
   ],

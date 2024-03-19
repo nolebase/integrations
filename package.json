@@ -2,7 +2,7 @@
   "name": "@nolebase/integrations",
   "type": "module",
   "version": "1.23.0",
-  "packageManager": "pnpm@8.15.4",
+  "packageManager": "pnpm@8.15.5",
   "description": "A collection of diverse documentation engineering tools.",
   "author": {
     "name": "Nólëbase",
@@ -51,6 +51,7 @@
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.7.10",
     "vite": "^5.1.6",
+    "vite-plugin-inspect": "^0.8.3",
     "vitepress": "^1.0.0-rc.45",
     "vue": "3.4.19",
     "vue-tsc": "^1.8.27"

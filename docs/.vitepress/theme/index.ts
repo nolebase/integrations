@@ -1,11 +1,6 @@
 import { h } from 'vue'
 
 import { defineThemeConfig } from '@nolebase/unconfig-vitepress'
-
-import {
-  LayoutMode as NolebaseEnhancedReadabilitiesLayoutMode,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
-
 import { NuLazyDOMRiveCanvas } from '@nolebase/ui'
 
 import IntegrationCard from './components/IntegrationCard.vue'
@@ -34,17 +29,17 @@ export default defineThemeConfig<{
     app.component('HomeContent', HomeContent)
   },
   nolebase: {
-    enhancedReadabilities: {
-      enable: true,
-      options: {
-        layoutSwitch: {
-          defaultMode: NolebaseEnhancedReadabilitiesLayoutMode.SidebarWidthAdjustableOnly,
-        },
-        spotlight: {
-          defaultToggle: true,
-        },
-      },
-    },
+    // enhancedReadabilities: {
+    //   enable: true,
+    //   options: {
+    //     layoutSwitch: {
+    //       defaultMode: 4,
+    //     },
+    //     spotlight: {
+    //       defaultToggle: true,
+    //     },
+    //   },
+    // },
     linkPreview: {
       enable: true,
     },

@@ -68,6 +68,9 @@ importers:
       vite:
         specifier: ^5.1.6
         version: 5.1.6(@types/node@20.11.28)(less@4.2.0)
+      vite-plugin-inspect:
+        specifier: ^0.8.3
+        version: 0.8.3(rollup@3.29.4)(vite@5.1.6)
       vitepress:
         specifier: ^1.0.0-rc.45
         version: 1.0.0-rc.45(@algolia/client-search@4.22.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2)
@@ -92,30 +95,15 @@ importers:
       '@nolebase/unconfig-vitepress':
         specifier: workspace:^
         version: link:../packages/unconfig-vitepress
-      '@nolebase/vitepress-plugin-enhanced-readabilities':
-        specifier: workspace:^
-        version: link:../packages/vitepress-plugin-enhanced-readabilities
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-git-changelog
-      '@nolebase/vitepress-plugin-highlight-targeted-heading':
-        specifier: workspace:^
-        version: link:../packages/vitepress-plugin-highlight-targeted-heading
-      '@nolebase/vitepress-plugin-inline-link-preview':
-        specifier: workspace:^
-        version: link:../packages/vitepress-plugin-inline-link-preview
       '@nolebase/vitepress-plugin-og-image':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-og-image
       '@nolebase/vitepress-plugin-page-properties':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-page-properties
-      '@rive-app/canvas-lite':
-        specifier: ^2.10.3
-        version: 2.10.3
-      vite-plugin-inspect:
-        specifier: ^0.8.3
-        version: 0.8.3(rollup@3.29.4)(vite@5.1.6)
 
   packages/markdown-it-bi-directional-links:
     dependencies:
@@ -2731,7 +2719,7 @@ packages:
       '@vue/compiler-ssr': 3.4.21
       '@vue/shared': 3.4.21
       estree-walker: 2.0.2
-      magic-string: 0.30.7
+      magic-string: 0.30.8
       postcss: 8.4.35
       source-map-js: 1.0.2
     dev: true

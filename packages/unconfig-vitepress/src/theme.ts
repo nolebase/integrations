@@ -37,8 +37,6 @@ import {
   NolebasePagePropertiesPlugin,
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
-import 'virtual:uno.css'
-
 type Slots = ReturnType<typeof h>[]
 
 export function defineThemeConfig<PagePropertiesObject extends object = any>(options: {

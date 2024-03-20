@@ -1,4 +1,4 @@
-import { cwd } from 'node:process'
+import { cwd, env } from 'node:process'
 import { join, relative } from 'node:path'
 import { type DefaultTheme, defineConfig } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
@@ -83,8 +83,22 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   ],
 }
 
+function getVueProdHydrationMismatchDetailsFlag() {
+  if (!env) {
+    console.warn('WARNING: env is not available when trying to get Vue Prod Hydration Mismatch Details Flag')
+    throw new Error('env is not available')
+  }
+
+  return !!env.VUE_PROD_HYDRATION_MISMATCH_DETAILS_FLAG
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    define: {
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
+    },
+  },
   lastUpdated: true,
   themeConfig: {
     outline: 'deep',

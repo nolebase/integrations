@@ -8,6 +8,7 @@ import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
+import type { Commit } from '../../types'
 
 interface ContributorInfo {
   name: string

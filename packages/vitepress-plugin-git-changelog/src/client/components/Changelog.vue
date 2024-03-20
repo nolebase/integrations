@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 
@@ -23,6 +23,8 @@ const { t } = useI18n()
 const rawPath = useRawPath()
 const commits = useCommits(Changelog.commits, rawPath)
 
+const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
+
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
     return defaultLocales[lang.value] || defaultEnLocale || {}
@@ -30,19 +32,15 @@ const locale = computed<Locale>(() => {
   return options.locales[lang.value] || defaultEnLocale || {}
 })
 
-const lastChangeDate = computed(() => {
-  const dateTimestamp: number = commits.value[0]?.date_timestamp || 0
-  if (!dateTimestamp)
-    return new Date()
-
-  return toDate(dateTimestamp)
-})
-
 const isFreshChange = computed(() => {
   if (!lastChangeDate.value)
     return false
 
   return differenceInDays(new Date(), lastChangeDate.value) < 1
+})
+
+onMounted(() => {
+  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
 })
 </script>
 
@@ -102,9 +100,11 @@ const isFreshChange = computed(() => {
               <a :href="commit.release_tag_url" target="_blank">
                 <code class="font-bold">{{ commit.tag }}</code>
               </a>
-              <span class="text-xs opacity-50">
-                {{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}
-              </span>
+              <ClientOnly>
+                <span class="text-xs opacity-50" :title="toDate(commit.date_timestamp).toString()">
+                  {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
+                </span>
+              </ClientOnly>
             </div>
           </template>
           <template v-else>
@@ -122,9 +122,11 @@ const isFreshChange = computed(() => {
               <span>-</span>
               <span>
                 <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
-                <span class="text-xs opacity-50">
-                  {{ t('committedOn', { props: { date: new Date(commit.date).toLocaleDateString() } }) }}
-                </span>
+                <ClientOnly>
+                  <span class="text-xs opacity-50" :title="toDate(commit.date_timestamp).toString()">
+                    {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
+                  </span>
+                </ClientOnly>
               </span>
             </div>
           </template>

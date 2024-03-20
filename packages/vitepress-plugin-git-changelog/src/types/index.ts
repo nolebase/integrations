@@ -5,7 +5,7 @@ export interface Commit {
   hash: string
   hash_url?: string
   date: string
-  date_timestamp?: number
+  date_timestamp: number
   message: string
   refs?: string
   body?: string

@@ -45,7 +45,7 @@ export function defineThemeConfig<PagePropertiesObject extends object = any>(opt
     layout?: Theme['Layout']
     slots?: {
       [key: string]: {
-        node: ReturnType<typeof h>
+        node: Array<() => Slots[number]>
         override?: boolean
       }
     }
@@ -76,19 +76,19 @@ export function defineThemeConfig<PagePropertiesObject extends object = any>(opt
   const layout = options.layout?.layout
     ? options.layout?.layout
     : () => {
-        const layoutTop: Slots = []
+        const layoutTop: Array<() => Slots[number]> = []
         if (options.nolebase?.highlightTargetedHeading?.enable)
-          layoutTop.push(h(NolebaseHighlightTargetedHeading))
+          layoutTop.push(() => h(NolebaseHighlightTargetedHeading))
 
-        const navBarContentAfter: Slots = []
+        const navBarContentAfter: Array<() => Slots[number]> = []
         if (options.nolebase?.enhancedReadabilities?.enable)
-          navBarContentAfter.push(h(NolebaseEnhancedReadabilitiesMenu))
+          navBarContentAfter.push(() => h(NolebaseEnhancedReadabilitiesMenu))
 
-        const navScreenContentAfter: Slots = []
+        const navScreenContentAfter: Array<() => Slots[number]> = []
         if (options.nolebase?.enhancedReadabilities?.enable)
-          navScreenContentAfter.push(h(NolebaseEnhancedReadabilitiesScreenMenu))
+          navScreenContentAfter.push(() => h(NolebaseEnhancedReadabilitiesScreenMenu))
 
-        const slots: Record<string, Slots> = {
+        const slots: Record<string, Array<() => Slots[number]>> = {
           'layout-top': [
             ...layoutTop,
           ],
@@ -102,11 +102,16 @@ export function defineThemeConfig<PagePropertiesObject extends object = any>(opt
 
         if (options.layout?.slots) {
           for (const [key, value] of Object.entries(options.layout.slots)) {
-            slots[key] = value.override
-              ? [value.node]
-              : slots[key]
-                ? [...slots[key], value.node]
-                : [value.node]
+            if (value.override) {
+              slots[key] = value.node
+              continue
+            }
+            if (slots[key]) {
+              slots[key] = [...slots[key], ...value.node]
+              continue
+            }
+
+            slots[key].push(...value.node)
           }
         }
 
@@ -117,9 +122,9 @@ export function defineThemeConfig<PagePropertiesObject extends object = any>(opt
             Object
               .entries(slots)
               .map(([key, value]) => {
-                return [key, () => value]
+                return [key, () => value.map(v => v())]
               }),
-          ),
+          ) as Record<string, () => Slots>,
         )
       }
 

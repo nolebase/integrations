@@ -20,7 +20,9 @@ export default defineThemeConfig<{
   layout: {
     slots: {
       'layout-top': {
-        node: h(NuLazyDOMRiveCanvas),
+        node: [
+          () => h(NuLazyDOMRiveCanvas),
+        ],
       },
     },
   },
@@ -29,17 +31,17 @@ export default defineThemeConfig<{
     app.component('HomeContent', HomeContent)
   },
   nolebase: {
-    // enhancedReadabilities: {
-    //   enable: true,
-    //   options: {
-    //     layoutSwitch: {
-    //       defaultMode: 4,
-    //     },
-    //     spotlight: {
-    //       defaultToggle: true,
-    //     },
-    //   },
-    // },
+    enhancedReadabilities: {
+      enable: true,
+      options: {
+        layoutSwitch: {
+          defaultMode: 4,
+        },
+        spotlight: {
+          defaultToggle: true,
+        },
+      },
+    },
     linkPreview: {
       enable: true,
     },

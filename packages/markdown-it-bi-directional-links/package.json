@@ -41,7 +41,8 @@
   "scripts": {
     "stub": "unbuild --stub",
     "dev": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "markdown-it": ">=13.0.1"

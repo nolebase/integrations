@@ -26,9 +26,9 @@
     "packages:dev": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run dev",
     "packages:stub": "pnpm -r --filter=./packages/* run stub",
     "packages:build": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run build",
+    "packages:publish": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run publish",
     "cleanup:dist": "rimraf --glob **/dist",
-    "cleanup:node_modules": "rimraf --glob **/node_modules",
-    "publish": "pnpm cleanup:dist && pnpm packages:build && pnpm -r --filter='!@nolebase/integrations-docs' exec pnpm publish --access=public"
+    "cleanup:node_modules": "rimraf --glob **/node_modules"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.8.3",

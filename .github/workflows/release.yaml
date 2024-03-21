@@ -50,6 +50,6 @@ jobs:
         run: pnpm run packages:build
 
       - name: Packages publish
-        run: pnpm -r --filter='!@nolebase/integrations-docs' exec pnpm publish --access=public --no-git-checks
+        run: pnpm run packages:publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

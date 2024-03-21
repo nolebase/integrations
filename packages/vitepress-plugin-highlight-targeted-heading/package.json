@@ -45,7 +45,8 @@
     "dev": "concurrently \"pnpm run build:watch\" \"pnpm run emit-types\"",
     "emit-types": "vue-tsc --declaration --emitDeclarationOnly",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "build:watch": "vite build --mode development --watch"
+    "build:watch": "vite build --mode development --watch",
+    "publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "vitepress": ">=1.0.0-rc.44"

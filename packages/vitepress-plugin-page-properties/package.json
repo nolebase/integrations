@@ -57,7 +57,7 @@
     "emit-types": "vue-tsc --p ./tsconfig.client.json",
     "build": "vite build --mode development && pnpm run emit-types && unbuild",
     "build:watch": "vite build --mode development --watch",
-    "publish": "pnpm build && pnpm publish --access public --no-git-checks"
+    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "vitepress": ">=1.0.0-rc.44"

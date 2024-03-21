@@ -2,7 +2,6 @@
   "name": "@nolebase/ui",
   "type": "module",
   "version": "1.24.1",
-  "private": "true",
   "description": "A collection of Vue components Nolebase uses.",
   "author": {
     "name": "Nólëbase",
@@ -61,7 +60,10 @@
     "package.json"
   ],
   "scripts": {
-    "build": "unbuild"
+    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
+    "build": "unbuild",
+    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
     "vue": "^3.2.0"

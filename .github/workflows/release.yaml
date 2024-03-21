@@ -46,7 +46,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Packages build
+        run: pnpm run packages:build
+
       - name: Packages publish
-        run: pnpm run publish
+        run: pnpm -r --filter='!@nolebase/integrations-docs' exec pnpm publish --access=public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

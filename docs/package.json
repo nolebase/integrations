@@ -1,6 +1,7 @@
 {
   "name": "@nolebase/integrations-docs",
   "type": "module",
+  "private": true,
   "scripts": {
     "dev": "pnpm run docs:dev",
     "build": "pnpm run docs:build",

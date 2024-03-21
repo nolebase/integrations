@@ -68,8 +68,10 @@
   "peerDependencies": {
     "vue": "^3.2.0"
   },
+  "dependencies": {
+    "@rive-app/canvas-lite": "^2.10.3"
+  },
   "devDependencies": {
-    "@rive-app/canvas-lite": "^2.10.3",
     "@vue/tsconfig": "^0.5.1"
   }
 }

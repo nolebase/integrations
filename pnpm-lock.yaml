@@ -129,13 +129,13 @@ importers:
 
   packages/ui:
     dependencies:
+      '@rive-app/canvas-lite':
+        specifier: ^2.10.3
+        version: 2.10.3
       vue:
         specifier: ^3.2.0
         version: 3.4.19(typescript@5.4.2)
     devDependencies:
-      '@rive-app/canvas-lite':
-        specifier: ^2.10.3
-        version: 2.10.3
       '@vue/tsconfig':
         specifier: ^0.5.1
         version: 0.5.1
@@ -1427,7 +1427,7 @@ packages:
 
   /@rive-app/canvas-lite@2.10.3:
     resolution: {integrity: sha512-AJyNwZ/KfWckvRWryJlviGlIxGcy7mW7UPk0NUSCIp1JtOzBH7eECrh+4Chw3NV8piAhSIhItsIGrsejODE/Cw==}
-    dev: true
+    dev: false
 
   /@rollup/plugin-alias@5.1.0(rollup@3.29.4):
     resolution: {integrity: sha512-lpA3RZ9PdIG7qqhEfv79tBffNaoDuukFDrmhLqg9ifv99u/ehn+lOg30x2zmhf8AQqQUZaMk/B9fZraQ6/acDQ==}

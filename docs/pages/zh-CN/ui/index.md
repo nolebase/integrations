@@ -1,3 +1,7 @@
+<script setup>
+import { NuButton } from '@nolebase/ui'
+</script>
+
 # UI 组件
 
 ::: warning 🚧 施工中
@@ -6,8 +10,8 @@
 
 ## 按钮
 
-<!-- <div>
+<div>
   <NuButton>
     ABCD
   </NuButton>
-</div> -->
+</div>

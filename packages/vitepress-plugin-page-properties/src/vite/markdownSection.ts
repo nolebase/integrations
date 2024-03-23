@@ -98,15 +98,15 @@ export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSe
       root = config.root ?? ''
     },
     transform(code, id) {
-      function idEndsWith(endsWith) {
+      function idEndsWith(endsWith: string) {
         return pathEndsWith(relative(root, id), endsWith)
       }
 
-      function idEquals(equals) {
+      function idEquals(equals: string) {
         return pathEquals(relative(root, id), equals)
       }
 
-      function idStartsWith(startsWith) {
+      function idStartsWith(startsWith: string) {
         return pathStartsWith(relative(root, id), startsWith)
       }
 

@@ -9,6 +9,6 @@ createdAt: 2024-01-23
 updatedAt: 2024-01-23
 ---
 
-# 页面属性
+# 页面属性 <Badge type="danger" text="Alpha 测试" />
 
 「页面属性」功能因受 Notion 页面属性的巨大启发而诞生。

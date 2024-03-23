@@ -1,4 +1,4 @@
-# UnoCSS 插件
+# UnoCSS 插件 <Badge type="warning" text="Beta 测试" />
 
 在 [Nólëbase](https://github.com/nolebase/nolebase) 中编写文档的时候，创建大量可视化组件对于增强文档的动态和交互式用户界面至关重要。这不仅能使内容更易懂，而且更吸引人。
 然而在有这个插件之前，[Obsidian](https://obsidian.md) 缺乏将 [Tailwind CSS](https://tailwindcss.com/docs/display) 和 [Windi CSS](https://windicss.org/) 这样的原子 CSS 库集成到文档中的能力。

@@ -66,6 +66,13 @@
   --vp-c-brand-2: var(--vp-c-sky-2);
   --vp-c-brand-3: var(--vp-c-sky-3);
   --vp-c-brand-soft: var(--vp-c-sky-soft);
+  --vp-c-tip-1: #1ba6f6;
+  --vp-badge-tip-bg: #b8e5ff75;
+}
+
+.dark:root {
+  --vp-c-tip-1: #75c8f7;
+  --vp-badge-tip-bg: #0e5c8975;
 }
 
 /**

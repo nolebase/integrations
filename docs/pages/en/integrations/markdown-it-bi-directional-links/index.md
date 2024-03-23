@@ -1,4 +1,4 @@
-# Bi-directional Links
+# Bi-directional Links <Badge type="tip" text="v1.24.2" />
 
 ## Demo
 

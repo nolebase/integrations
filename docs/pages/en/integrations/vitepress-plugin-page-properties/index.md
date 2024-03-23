@@ -9,6 +9,6 @@ createdAt: 2024-01-23
 updatedAt: 2024-01-23
 ---
 
-# Page properties
+# Page properties <Badge type="danger" text="Alpha" />
 
 Page properties was born from the heavily inspiration of Notion's page properties feature.

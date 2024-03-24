@@ -1,7 +1,15 @@
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineBuildConfig } from 'unbuild'
 import builtins from 'builtin-modules'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 export default defineBuildConfig({
+  alias: {
+    '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
+  },
   entries: [
     'src/index.ts',
   ],

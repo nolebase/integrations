@@ -13,6 +13,9 @@
       "@nolebase/ui": [
         "./packages/ui/src/index.ts"
       ],
+      "@nolebase/unconfig-vitepress/*": [
+        "./packages/unconfig-vitepress/src/*"
+      ],
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
       ]

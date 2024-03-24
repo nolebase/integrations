@@ -32,7 +32,7 @@
     "./vite": {
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.mjs",
-      "require": "./dist/vite/index.js"
+      "require": "./dist/vite/index.cjs"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
@@ -40,7 +40,7 @@
       "require": "./dist/client/index.js"
     }
   },
-  "main": "./dist/vite/index.js",
+  "main": "./dist/vite/index.cjs",
   "module": "./dist/vite/index.mjs",
   "types": "./dist/vite/index.d.ts",
   "files": [
@@ -49,7 +49,7 @@
     "package.json"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm run stub\"",
+    "dev": "unbuild --stub",
     "stub": "unbuild --stub",
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"

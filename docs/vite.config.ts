@@ -31,6 +31,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
+      '@nolebase/unconfig-vitepress': resolve(__dirname, '../packages/unconfig-vitepress/src/'),
       '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
     },
   },

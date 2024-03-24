@@ -9,6 +9,9 @@
       ],
       "@nolebase/ui/*": [
         "../ui/src/components/*"
+      ],
+      "@nolebase/vitepress-plugin-git-changelog/*": [
+        "../vitepress-plugin-git-changelog/src/*"
       ]
     },
     "types": [

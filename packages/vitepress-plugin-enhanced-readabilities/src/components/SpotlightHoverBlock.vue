@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { inject, onMounted, reactive, ref, watch } from 'vue'
+import { inject, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import {
   useElementBounding,
   useElementByPoint,
@@ -32,29 +32,6 @@ const bounding = reactive(useElementBounding(element))
 const elementVisibility = useElementVisibility(highlightedElement)
 
 useEventListener('scroll', bounding.update, true)
-
-onMounted(() => {
-  if (!document)
-    return
-  if (!document.body)
-    return
-
-  document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
-
-  vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
-})
-
-watch(route, () => {
-  vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
-
-  shouldRecalculate.value = true
-  boxStyles.value = { display: 'none' }
-
-  bounding.update()
-
-  watchHandler()
-  shouldRecalculate.value = false
-})
 
 function computeBoxStyles(bounding: {
   height: number
@@ -129,6 +106,33 @@ function watchHandler() {
     }
   }
 }
+
+onMounted(() => {
+  if (!document)
+    return
+  if (!document.body)
+    return
+
+  document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-spotlight-under-bg-color', options?.spotlight?.hoverBlockColor || `rgb(240 197 52 / 10%)`)
+
+  vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
+})
+
+watch(route, async () => {
+  // Wait for the next tick to ensure the DOM is updated since the route change
+  // may trigger a page reload.
+  await nextTick()
+
+  vpDocElement.value = document.querySelector('.VPDoc main .vp-doc') as HTMLDivElement
+
+  shouldRecalculate.value = true
+  boxStyles.value = { display: 'none' }
+
+  bounding.update()
+
+  watchHandler()
+  shouldRecalculate.value = false
+})
 
 watch([x, y], () => {
   if (props.enabled)

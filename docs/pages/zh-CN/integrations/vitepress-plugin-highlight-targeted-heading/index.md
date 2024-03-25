@@ -1,4 +1,4 @@
-# 闪烁高亮当前的目标标题 <Badge type="tip" text="v1.24.2" />
+# 闪烁高亮当前的目标标题 <Badge type="tip" text="v1.24.3" />
 
 ## 效果演示
 

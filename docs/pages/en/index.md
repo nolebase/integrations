@@ -43,15 +43,11 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
-  <br />
-
   <IntegrationCard type="markdown-it" title="Elements Transformation" package="markdown-it-element-transform">
     <template v-slot:badge>
       <Badge type="tip" text="v1.24.2" />
     </template>
   </IntegrationCard>
-
-  <br />
 
   <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
@@ -59,15 +55,11 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
-  <br />
-
   <IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview">
     <template v-slot:badge>
       <Badge type="warning" text="Beta" />
     </template>
   </IntegrationCard>
-
-  <br />
 
   <IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading">
     <template v-slot:badge>
@@ -75,15 +67,11 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
-  <br />
-
   <IntegrationCard type="vitepress" title="Changelog & File history" package="vitepress-plugin-git-changelog">
     <template v-slot:badge>
       <Badge type="danger" text="Alpha" />
     </template>
   </IntegrationCard>
-
-  <br />
 
   <IntegrationCard type="vitepress" title="Previewing image (social media card) generation" package="vitepress-plugin-og-image">
     <template v-slot:badge>
@@ -91,15 +79,11 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
-  <br />
-
   <IntegrationCard type="vitepress" title="Page properties" package="vitepress-plugin-page-properties">
     <template v-slot:badge>
       <Badge type="danger" text="Alpha" />
     </template>
   </IntegrationCard>
-
-  <br />
 
   <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss">
     <template v-slot:badge>

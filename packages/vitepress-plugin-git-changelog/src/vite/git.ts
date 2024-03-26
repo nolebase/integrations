@@ -1,12 +1,121 @@
 import { posix, sep, win32 } from 'node:path'
+import { exec } from 'node:child_process'
+import { promisify } from 'node:util'
+
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
 import md5 from 'md5'
+import ora from 'ora'
+import { cyan, gray } from 'colorette'
+
 import type { Changelog, Commit } from '../types'
 
 const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
+
+const execAsync = promisify(exec)
+
+function normalizePath(path: string[][]) {
+  // normalize paths
+  for (const [index, files] of path.entries()) {
+    if (files[1])
+      path[index][1] = files[1].split(sep).join('/')
+
+    if (files[2])
+      path[index][2] = files[2].split(sep).join('/')
+  }
+
+  return path
+}
+
+function rewritePath(path: string[][], rewritePaths: Record<string, string>) {
+  // rewrite paths
+  for (const [index, files] of path.entries()) {
+    for (const [key, value] of Object.entries(rewritePaths)) {
+      if (files[1])
+        path[index][1] = files[1].replace(key, value)
+
+      if (files[2])
+        path[index][2] = files[2].replace(key, value)
+    }
+  }
+
+  return path
+}
+
+async function aggregateCommit(
+  getReleaseTagURL: (log: Commit) => string,
+  log: Commit,
+  includeDirs: string[] = [],
+  rewritePaths: Record<string, string> = {},
+) {
+  // release logs
+  if (log.message.includes('release: ')) {
+    log.tag = log.message
+      .split(' ')[1]
+      .trim()
+
+    log.release_tag_url = getReleaseTagURL(log)
+
+    return log
+  }
+
+  // get change log of each file
+  // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-only', '-r', log.hash])
+  // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-status', '-r', '-M', log.hash])
+  const raw = await execAsync(`git diff-tree --no-commit-id --name-status -r -M ${log.hash}`)
+
+  const files = raw.stdout
+    .replace(/\\/g, '/')
+    .trim()
+    .split('\n')
+    .map(str => str.split('\t'))
+
+  log.path = Array.from(
+    new Set(
+      files
+        .filter((i) => {
+          // include is not set, it is /^.+\md$/
+          // include is set, it is /^(${include.join('|')})\/.+\md$/
+          // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
+          const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\.md$`)
+          return !!i[1]?.match(regexp)?.[0]
+        }),
+    ),
+  )
+
+  // normalize paths
+  log.path = normalizePath(log.path)
+  // rewrite paths
+  log.path = rewritePath(log.path, rewritePaths)
+
+  return log
+}
+
+async function aggregateCommits(
+  getRepoURL: (log: Commit) => string,
+  getCommitURL: (log: Commit) => string,
+  getReleaseTagURL: (log: Commit) => string,
+  logs: Commit[],
+  includeDirs: string[] = [],
+  rewritePaths: Record<string, string> = {},
+) {
+  for (const log of logs) {
+    // hash url
+    log.hash_url = getCommitURL(log)
+    // repo url
+    log.repo_url = getRepoURL(log)
+    // timestamp
+    log.date_timestamp = new Date(log.date).getTime()
+    // generate author avatar based on md5 hash of email (gravatar style)
+    log.author_avatar = md5(log.author_email)
+  }
+
+  const processedLogsPromises = logs.map(async log => aggregateCommit(getReleaseTagURL, log, includeDirs, rewritePaths))
+  const processedLogs = await Promise.all(processedLogsPromises)
+  return processedLogs.filter(i => i.path?.length || i.tag)
+}
 
 export function GitChangelog(options: {
   includeDirs?: string[]
@@ -15,12 +124,14 @@ export function GitChangelog(options: {
   getCommitURL?: (commit: Commit) => string
   rewritePaths?: Record<string, string>
   maxGitLogCount?: number
+  maxConcurrentProcesses?: number
 } = {}): Plugin {
   if (!options)
     options = {}
 
   const {
-    maxGitLogCount = 1000,
+    maxGitLogCount,
+    maxConcurrentProcesses,
     includeDirs = [],
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`,
@@ -46,89 +157,36 @@ export function GitChangelog(options: {
       },
     }),
     async buildStart() {
+      const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-git-changelog')
+      const grayPrefix = gray(':')
+      const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
+
+      const spinner = ora(`${spinnerPrefix} Prepare to fetch git logs...`).start()
+
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
       if (commits.length > 0)
         return
 
       git ??= simpleGit({
-        maxConcurrentProcesses: 200,
+        maxConcurrentProcesses,
       })
 
       // configure so that the git log messages can contain correct CJK characters
       await git.raw(['config', '--global', 'core.quotepath', 'false'])
 
-      const logs = (await git.log({ maxCount: maxGitLogCount })).all as Commit[]
+      spinner.text = `${spinnerPrefix} Reading git logs...`
+      spinner.color = 'yellow'
 
-      for (const log of logs) {
-        log.repo_url = getRepoURL(log)
-        log.date_timestamp = new Date(log.date).getTime()
-      }
+      const gitLogsRaw = await git.log({ maxCount: maxGitLogCount })
+      const logs = gitLogsRaw.all as Commit[]
 
-      for (const log of logs) {
-        // hash url
-        log.hash_url = getCommitURL(log)
+      spinner.text = `${spinnerPrefix} Calculating git logs...`
+      spinner.color = 'green'
 
-        // release logs
-        if (log.message.includes('release: ')) {
-          log.tag = log.message
-            .split(' ')[1]
-            .trim()
+      commits = await aggregateCommits(getRepoURL, getCommitURL, getReleaseTagURL, logs, includeDirs, rewritePaths)
 
-          log.release_tag_url = getReleaseTagURL(log)
-
-          continue
-        }
-
-        // get change log of each file
-        // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-only', '-r', log.hash])
-        const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-status', '-r', '-M', log.hash])
-        // delete log.body
-
-        const files = raw
-          .replace(/\\/g, '/')
-          .trim()
-          .split('\n')
-          .map(str => str.split('\t'))
-
-        log.path = Array.from(
-          new Set(
-            files
-              .filter((i) => {
-              // include is not set, it is /^.+\md$/
-              // include is set, it is /^(${include.join('|')})\/.+\md$/
-              // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-                const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\.md$`)
-                return !!i[1]?.match(regexp)?.[0]
-              }),
-          ),
-        )
-
-        // normalize paths
-        for (const [index, files] of log.path.entries()) {
-          if (files[1])
-            log.path[index][1] = files[1].split(sep).join('/')
-
-          if (files[2])
-            log.path[index][2] = files[2].split(sep).join('/')
-        }
-
-        // rewrite paths
-        for (const [index, files] of log.path.entries()) {
-          for (const [key, value] of Object.entries(rewritePaths)) {
-            if (files[1])
-              log.path[index][1] = files[1].replace(key, value)
-
-            if (files[2])
-              log.path[index][2] = files[2].replace(key, value)
-          }
-        }
-
-        log.author_avatar = md5(log.author_email) as string
-      }
-
-      const result = logs.filter(i => i.path?.length || i.tag)
-      commits = result
+      spinner.succeed(`${spinnerPrefix} calculated git logs and supplied as ${VirtualModuleID}.`)
     },
     resolveId(id) {
       if (id === VirtualModuleID)

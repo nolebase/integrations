@@ -215,8 +215,11 @@ export function NolebasePluginSet<PagePropertiesObject extends object = any>(
         await import('@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css')
       }
 
-      if (opts.highlightTargetedHeading?.enable)
+      if (opts.highlightTargetedHeading?.enable) {
         app.use(NolebaseNolebaseHighlightTargetedHeadingPlugin)
+
+        await import('@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css')
+      }
 
       if (opts.linkPreview?.enable) {
         const linkPreviewOptions = opts.linkPreview?.options ? [opts.linkPreview.options] : []

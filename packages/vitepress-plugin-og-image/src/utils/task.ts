@@ -3,7 +3,7 @@
 
 import { relative } from 'node:path'
 import ora from 'ora'
-import { gray, green, red, yellow } from 'colorette'
+import { cyan, gray, green, red, yellow } from 'colorette'
 import type { SiteConfig } from 'vitepress'
 
 interface TaskResultSuccess {
@@ -29,8 +29,12 @@ export const okMark = green('✓')
 export const failMark = red('✖')
 
 export async function task(taskName: string, task: () => Promise<string | undefined>) {
+  const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-og-image')
+  const grayPrefix = gray(':')
+  const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
+
   const spinner = ora({ discardStdin: false })
-  spinner.start(`${taskName}...`)
+  spinner.start(`${spinnerPrefix} ${taskName}...`)
 
   let result: string | undefined
 

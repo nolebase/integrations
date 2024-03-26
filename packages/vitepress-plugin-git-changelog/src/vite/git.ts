@@ -157,6 +157,8 @@ export function GitChangelog(options: {
       },
     }),
     async buildStart() {
+      const startsAt = Date.now()
+
       const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-git-changelog')
       const grayPrefix = gray(':')
       const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
@@ -186,7 +188,8 @@ export function GitChangelog(options: {
 
       commits = await aggregateCommits(getRepoURL, getCommitURL, getReleaseTagURL, logs, includeDirs, rewritePaths)
 
-      spinner.succeed(`${spinnerPrefix} calculated git logs and supplied as ${VirtualModuleID}.`)
+      const elapsed = Date.now() - startsAt
+      spinner.succeed(`${spinnerPrefix} ${VirtualModuleID} calculated. ${gray(`(${elapsed}ms)`)}`)
     },
     resolveId(id) {
       if (id === VirtualModuleID)

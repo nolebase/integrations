@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
-import md5 from 'md5'
+import { inject } from 'vue'
+import { computedAsync } from '@vueuse/core'
 
 import Changelog from 'virtual:nolebase-git-changelog'
 
@@ -8,7 +8,7 @@ import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
-import type { Commit } from '../../types'
+import { digestStringAsSHA256 } from '../utils'
 
 interface ContributorInfo {
   name: string
@@ -31,7 +31,7 @@ const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.
 // About the docs: https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
-function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) {
+async function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) {
   if (!c.body)
     return
   let result: RegExpExecArray | null
@@ -40,11 +40,11 @@ function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) 
   while (result = multipleAuthorsRegex.exec(c.body)) {
     let [, name, email] = result
     email = email.trim()
-    handleCommitAuthors(map, name.trim(), email, md5(email))
+    handleCommitAuthors(map, name.trim(), email, await digestStringAsSHA256(email))
   }
 }
 
-function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: string, authorEmail: string, authorAvatar?: string) {
+async function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: string, authorEmail: string, authorAvatar?: string) {
   const targetCreatorByName = findRegisteredCreatorByName(authorName)
   const targetCreatorByEmail = findRegisteredCreatorByEmail(authorEmail)
 
@@ -89,15 +89,19 @@ function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: s
   map[name].commitsCount++
 }
 
-const contributors = computed<ContributorInfo[]>(() => {
-  const map: Record<string, ContributorInfo> = {}
-  commits.value.forEach((c) => {
-    handleCommitAuthors(map, c.author_name, c.author_email, c.author_avatar)
-    handleMultipleAuthors(map, c)
-  })
+const contributors = computedAsync<ContributorInfo[]>(
+  async () => {
+    const map: Record<string, ContributorInfo> = {}
 
-  return Object.values(map).sort((a, b) => b.commitsCount - a.commitsCount)
-})
+    for (const c of commits.value) {
+      await handleCommitAuthors(map, c.author_name, c.author_email, c.author_avatar)
+      await handleMultipleAuthors(map, c)
+    }
+
+    return Object.values(map).sort((a, b) => b.commitsCount - a.commitsCount)
+  },
+  [],
+)
 </script>
 
 <template>

@@ -5,9 +5,9 @@ import { promisify } from 'node:util'
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
-import md5 from 'md5'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
+import { subtle } from 'uncrypto'
 
 import type { Changelog, Commit } from '../types'
 
@@ -15,6 +15,23 @@ const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
 const execAsync = promisify(exec)
+
+/**
+ * Hashes a string using SHA-256
+ *
+ * Official example by MDN: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
+ * @param {string} message - The message to be hashed
+ * @returns {Promise<string>} - The SHA-256 hash of the message
+ */
+export async function digestStringAsSHA256(message: string) {
+  const msgUint8 = new TextEncoder().encode(message) // encode as (utf-8) Uint8Array
+  const hashBuffer = await subtle.digest('SHA-256', msgUint8) // hash the message
+  const hashArray = Array.from(new Uint8Array(hashBuffer)) // convert buffer to byte array
+  const hashHex = hashArray
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('') // convert bytes to hex string
+  return hashHex
+}
 
 function normalizePath(path: string[][]) {
   // normalize paths
@@ -109,7 +126,7 @@ async function aggregateCommits(
     // timestamp
     log.date_timestamp = new Date(log.date).getTime()
     // generate author avatar based on md5 hash of email (gravatar style)
-    log.author_avatar = md5(log.author_email)
+    log.author_avatar = await digestStringAsSHA256(log.author_email)
   }
 
   const processedLogsPromises = logs.map(async log => aggregateCommit(getReleaseTagURL, log, includeDirs, rewritePaths))

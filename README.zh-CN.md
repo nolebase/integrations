@@ -54,6 +54,7 @@ ni @nolebase/<integration-name> -D
 - [行内链接预览（VitePress 插件）](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [页面属性（VitePress 插件](./packages/vitepress-plugin-page-properties/README.md)
+- [预览图片（社交媒体卡片）图片生成](./packages/vitepress-plugin-og-image/README.md)
 
 ## 如何开发
 

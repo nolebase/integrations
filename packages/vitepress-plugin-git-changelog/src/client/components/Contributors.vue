@@ -27,6 +27,7 @@ const findRegisteredCreatorByEmail = (author_email: string) => options.mapContri
 
 // This regular expression is used to match and parse commit messages that contain multiple author information.
 const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?$/gmi
+
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.
 // About the docs: https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
@@ -43,7 +44,7 @@ function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Commit) 
   }
 }
 
-function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: string, authorEmail: string, authorAvatar: string) {
+function handleCommitAuthors(map: Record<string, ContributorInfo>, authorName: string, authorEmail: string, authorAvatar?: string) {
   const targetCreatorByName = findRegisteredCreatorByName(authorName)
   const targetCreatorByEmail = findRegisteredCreatorByEmail(authorEmail)
 

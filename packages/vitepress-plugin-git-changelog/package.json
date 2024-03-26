@@ -60,8 +60,10 @@
   "dependencies": {
     "@iconify-json/octicon": "^1.1.52",
     "@nolebase/ui": "workspace:^",
+    "colorette": "^2.0.20",
     "date-fns": "^3.3.1",
     "md5": "^2.3.0",
+    "ora": "^8.0.1",
     "simple-git": "^3.22.0"
   },
   "devDependencies": {

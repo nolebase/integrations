@@ -179,12 +179,18 @@ importers:
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
+      colorette:
+        specifier: ^2.0.20
+        version: 2.0.20
       date-fns:
         specifier: ^3.3.1
         version: 3.3.1
       md5:
         specifier: ^2.3.0
         version: 2.3.0
+      ora:
+        specifier: ^8.0.1
+        version: 8.0.1
       simple-git:
         specifier: ^3.22.0
         version: 3.22.0

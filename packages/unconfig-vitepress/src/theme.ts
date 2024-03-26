@@ -1,170 +1,109 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+import type { DefineThemeUnconfigOptions, Layout, Slots } from './types'
 
-import type {
-  Options as NolebaseEnhancedReadabilitiesOptions,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
-import {
-  NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesPlugin,
-  NolebaseEnhancedReadabilitiesScreenMenu,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+export { NolebasePluginSet } from './plugins/nolebase'
+export type { NolebasePluginSetOptions } from './plugins/nolebase'
+export type { PluginSet, Plugin, Layout, DefineThemeUnconfigOptions, Slots } from './types'
 
-import type {
-  Options as NolebaseInlineLinkPreviewOptions,
-} from '@nolebase/vitepress-plugin-inline-link-preview'
-import {
-  NolebaseInlineLinkPreviewPlugin,
-} from '@nolebase/vitepress-plugin-inline-link-preview'
+function applySlots(globalSlots: Record<string, Array<() => Slots[number]>> = {}, slots: Layout['slots']) {
+  if (!slots)
+    return
 
-import {
-  NolebaseHighlightTargetedHeading,
-  NolebaseNolebaseHighlightTargetedHeadingPlugin,
-} from '@nolebase/vitepress-plugin-highlight-targeted-heading'
+  for (const [key, value] of Object.entries(slots)) {
+    if (value.override) {
+      // Ensure value.node is treated as an array, even if it's a single function.
+      globalSlots[key] = Array.isArray(value.node) ? value.node : [value.node]
+    }
+    else {
+      // If the key doesn't exist, initialize it with an empty array.
+      if (!globalSlots[key])
+        globalSlots[key] = []
 
-import type {
-  Options as NolebaseGitChangelogOptions,
-} from '@nolebase/vitepress-plugin-git-changelog/client'
-import {
-  NolebaseGitChangelogPlugin,
-} from '@nolebase/vitepress-plugin-git-changelog/client'
+      // Concatenate the existing slots with the new ones, ensuring value.node is an array.
+      globalSlots[key] = globalSlots[key].concat(Array.isArray(value.node) ? value.node : [value.node])
+    }
+  }
+}
 
-import type {
-  Options as NolebasePagePropertiesOptions,
-} from '@nolebase/vitepress-plugin-page-properties/client'
-import {
-  NolebasePagePropertiesPlugin,
-} from '@nolebase/vitepress-plugin-page-properties/client'
+function defineSlot(globalSlots: Record<string, Array<() => Slots[number]>>): (name: string, node: () => Slots[number], override?: boolean) => void | Promise<void> {
+  return (name, node, override) => {
+    if (override) {
+      globalSlots[name] = [node]
+      return
+    }
+    if (globalSlots[name]) {
+      globalSlots[name].push(node)
+      return
+    }
 
-type Slots = ReturnType<typeof h>[]
+    globalSlots[name] = [node]
+  }
+}
 
-export function defineThemeConfig<PagePropertiesObject extends object = any>(options: {
-  extends?: Theme
-  layout?: {
-    layout?: Theme['Layout']
-    slots?: {
-      [key: string]: {
-        node: Array<() => Slots[number]>
-        override?: boolean
+function applyLayout(options: DefineThemeUnconfigOptions) {
+  const slots: Record<string, Array<() => Slots[number]>> = {}
+
+  if (options.layout?.slots)
+    applySlots(slots, options.layout.slots)
+
+  if (options.plugins) {
+    for (const plugin of options.plugins) {
+      if (plugin.configureLayout) {
+        plugin.configureLayout({ helpers: {
+          defineSlot: defineSlot(slots),
+        } })
       }
     }
   }
-  enhanceApp?: Theme['enhanceApp']
-  nolebase?: {
-    enhancedReadabilities?: {
-      enable?: boolean
-      options?: NolebaseEnhancedReadabilitiesOptions
-    }
-    highlightTargetedHeading?: {
-      enable?: boolean
-    }
-    linkPreview?: {
-      enable?: boolean
-      options?: NolebaseInlineLinkPreviewOptions
-    }
-    gitChangelog?: {
-      enable?: boolean
-      options?: NolebaseGitChangelogOptions
-    }
-    pageProperties?: {
-      enable?: boolean
-      options?: NolebasePagePropertiesOptions<PagePropertiesObject>
+
+  if (options.pluginSets) {
+    for (const pluginSet of options.pluginSets) {
+      if (pluginSet.configureLayout) {
+        pluginSet.configureLayout({ helpers: {
+          defineSlot: defineSlot(slots),
+        } })
+      }
     }
   }
-}): Theme {
-  const layout = options.layout?.layout
-    ? options.layout?.layout
-    : () => {
-        const layoutTop: Array<() => Slots[number]> = []
-        if (options.nolebase?.highlightTargetedHeading?.enable)
-          layoutTop.push(() => h(NolebaseHighlightTargetedHeading))
 
-        const navBarContentAfter: Array<() => Slots[number]> = []
-        if (options.nolebase?.enhancedReadabilities?.enable)
-          navBarContentAfter.push(() => h(NolebaseEnhancedReadabilitiesMenu))
+  const aggregatedSlots: Record<string, () => Slots> = Object.fromEntries(
+    Object
+      .entries(slots)
+      .map(([key, value]) => {
+        return [key, () => value.map(v => v())]
+      }),
+  )
 
-        const navScreenContentAfter: Array<() => Slots[number]> = []
-        if (options.nolebase?.enhancedReadabilities?.enable)
-          navScreenContentAfter.push(() => h(NolebaseEnhancedReadabilitiesScreenMenu))
+  return h(
+    options.extends?.Layout ?? DefaultTheme.Layout,
+    null,
+    aggregatedSlots,
+  )
+}
 
-        const slots: Record<string, Array<() => Slots[number]>> = {
-          'layout-top': [
-            ...layoutTop,
-          ],
-          'nav-bar-content-after': [
-            ...navBarContentAfter,
-          ],
-          'nav-screen-content-after': [
-            ...navScreenContentAfter,
-          ],
-        }
-
-        if (options.layout?.slots) {
-          for (const [key, value] of Object.entries(options.layout.slots)) {
-            if (value.override) {
-              slots[key] = value.node
-              continue
-            }
-            if (slots[key]) {
-              slots[key] = [...slots[key], ...value.node]
-              continue
-            }
-
-            slots[key].push(...value.node)
-          }
-        }
-
-        return h(
-          options.extends?.Layout ?? DefaultTheme.Layout,
-          null,
-          Object.fromEntries(
-            Object
-              .entries(slots)
-              .map(([key, value]) => {
-                return [key, () => value.map(v => v())]
-              }),
-          ) as Record<string, () => Slots>,
-        )
-      }
-
+export function defineThemeUnconfig(options: DefineThemeUnconfigOptions): Theme {
   return {
     extends: options.extends ?? DefaultTheme,
-    Layout: layout,
+    Layout: applyLayout(options),
     async enhanceApp(ctx) {
-      const { app } = ctx
-
-      if (options.nolebase?.enhancedReadabilities?.enable) {
-        const enhancedReadabilitiesOptions = options.nolebase?.enhancedReadabilities?.options ? [options.nolebase.enhancedReadabilities.options] : []
-        app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)
-
-        await import('@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css')
-      }
-
-      if (options.nolebase?.highlightTargetedHeading?.enable)
-        app.use(NolebaseNolebaseHighlightTargetedHeadingPlugin)
-
-      if (options.nolebase?.linkPreview?.enable) {
-        const linkPreviewOptions = options.nolebase?.linkPreview?.options ? [options.nolebase.linkPreview.options] : []
-        app.use(NolebaseInlineLinkPreviewPlugin, ...linkPreviewOptions)
-
-        await import('@nolebase/vitepress-plugin-inline-link-preview/dist/style.css')
-      }
-
-      if (options.nolebase?.gitChangelog?.enable) {
-        const gitChangelogOptions = options.nolebase?.gitChangelog?.options ? [options.nolebase.gitChangelog.options] : []
-        app.use(NolebaseGitChangelogPlugin, ...gitChangelogOptions)
-      }
-
-      if (options.nolebase?.pageProperties?.enable) {
-        const pagePropertiesOptions = options.nolebase?.pageProperties?.options ? [options.nolebase.pageProperties.options] : []
-        app.use(NolebasePagePropertiesPlugin<PagePropertiesObject>(), ...pagePropertiesOptions)
-
-        await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
-      }
-
       if (options?.enhanceApp)
         options.enhanceApp(ctx)
+
+      if (options.plugins) {
+        for (const plugin of options.plugins) {
+          if (typeof plugin.enhanceApp !== 'undefined' && typeof plugin.enhanceApp === 'function')
+            await plugin.enhanceApp(ctx)
+        }
+      }
+
+      if (options.pluginSets) {
+        for (const pluginSet of options.pluginSets) {
+          if (typeof pluginSet.enhanceApp !== 'undefined' && typeof pluginSet.enhanceApp === 'function')
+            await pluginSet.enhanceApp(ctx)
+        }
+      }
     },
   }
 }

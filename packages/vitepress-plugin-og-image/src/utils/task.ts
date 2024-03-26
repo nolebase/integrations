@@ -29,6 +29,8 @@ export const okMark = green('✓')
 export const failMark = red('✖')
 
 export async function task(taskName: string, task: () => Promise<string | undefined>) {
+  const startsAt = Date.now()
+
   const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-og-image')
   const grayPrefix = gray(':')
   const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
@@ -46,7 +48,10 @@ export async function task(taskName: string, task: () => Promise<string | undefi
     throw e
   }
 
-  spinner.stopAndPersist({ symbol: okMark, suffixText: result ?? '' })
+  const elapsed = Date.now() - startsAt
+  const suffixText = `${gray(`(${elapsed}ms)`)} ${result}` ?? ''
+
+  spinner.stopAndPersist({ symbol: okMark, suffixText })
 }
 
 export function renderTaskResultsSummary(results: TaskResult[], siteConfig: SiteConfig) {

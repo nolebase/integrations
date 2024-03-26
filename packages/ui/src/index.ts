@@ -4,11 +4,11 @@ import NuButton from './components/NuButton.vue'
 import NuLazyDOMRiveCanvas from './components/NuLazyDOMRiveCanvas.vue'
 import NuVerticalTransition from './components/NuVerticalTransition.vue'
 
-import 'virtual:uno.css'
-
-export { default as NuButton } from './components/NuButton.vue'
-export { default as NuLazyDOMRiveCanvas } from './components/NuLazyDOMRiveCanvas.vue'
-export { default as NuVerticalTransition } from './components/NuVerticalTransition.vue'
+export {
+  NuButton,
+  NuLazyDOMRiveCanvas,
+  NuVerticalTransition,
+}
 
 export function install(app: App): void {
   app.component('NuButton', NuButton)

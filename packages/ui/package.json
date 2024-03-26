@@ -66,6 +66,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
+    "@rive-app/canvas-lite": "^2.10.0",
     "vue": "^3.2.0"
   },
   "dependencies": {

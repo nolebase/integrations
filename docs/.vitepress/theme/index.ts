@@ -6,6 +6,8 @@ import { NuLazyDOMRiveCanvas } from '@nolebase/ui'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 
+import 'virtual:uno.css'
+
 import './styles/vars.css'
 import './styles/main.css'
 

@@ -17,3 +17,5 @@ node_modules
 
 **/.netlify/*
 **/.netlify/functions-serve/*
+
+.npmrc

@@ -17,7 +17,8 @@
     "quotepath",
     "Rehype",
     "resvg",
-    "Unconfig"
+    "unconfig",
+    "uncrypto"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

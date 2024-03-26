@@ -170,6 +170,11 @@ export function GitChangelog(options: {
       ssr: {
         noExternal: [
           '@nolebase/vitepress-plugin-git-changelog',
+          // @nolebase/ui required here as noExternal to avoid the following error:
+          // TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".vue" for ...
+          // Read more here: https://github.com/vuejs/vitepress/issues/2915
+          // And here: https://stackblitz.com/edit/vite-gjz9zf?file=docs%2F.vitepress%2Fconfig.ts
+          '@nolebase/ui',
         ],
       },
     }),

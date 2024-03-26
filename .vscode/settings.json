@@ -16,7 +16,8 @@
     "Nólëbase",
     "quotepath",
     "Rehype",
-    "resvg"
+    "resvg",
+    "Unconfig"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

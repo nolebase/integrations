@@ -1,4 +1,4 @@
-# 双向链接 <Badge type="tip" text="v1.25.0" />
+# 双向链接 <Badge type="tip" text="v1.25.1" />
 
 ## 效果演示
 

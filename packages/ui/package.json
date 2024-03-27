@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/ui",
   "type": "module",
-  "version": "1.25.12",
+  "version": "1.25.2",
   "description": "A collection of Vue components Nolebase uses.",
   "author": {
     "name": "Nólëbase",
@@ -67,6 +67,9 @@
   },
   "peerDependencies": {
     "vue": "^3.2.0"
+  },
+  "dependencies": {
+    "@rive-app/canvas": "^2.11.1"
   },
   "devDependencies": {
     "@vue/tsconfig": "^0.5.1"

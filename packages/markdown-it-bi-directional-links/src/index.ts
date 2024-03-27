@@ -1,6 +1,6 @@
 import { basename, extname, posix, relative, sep } from 'node:path'
 import { env } from 'node:process'
-import fg from 'fast-glob'
+import { globSync } from 'glob'
 import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
 
@@ -18,15 +18,20 @@ function logIncorrectMatchedMarkupWarning(
   src: string,
   path: string,
 ) {
-  const debug = (import.meta?.env?.DEBUG ?? env?.DEBUG) || ''
+  const debug = (env?.DEBUG) ?? ''
 
   if (!debug)
     return
-  if (debug !== '@nolebase/*')
-    return
-  if (debug !== '@nolebase/markdown-it-*')
-    return
-  if (!debug.includes('@nolebase/markdown-it-bi-directional-links'))
+
+  let shouldLog = false
+  if (debug === '@nolebase/*')
+    shouldLog = true
+  if (debug === '@nolebase/markdown-it-*')
+    shouldLog = true
+  if (debug === '@nolebase/markdown-it-bi-directional-links')
+    shouldLog = true
+
+  if (!shouldLog)
     return
 
   console.warn(`${yellow(`[@nolebase/markdown-it-bi-directional-links] [WARN] Matched markup '`) + input + yellow(`' is not at the start of the text.`)} ${yellow(`
@@ -62,10 +67,6 @@ Matching chain:
 `)
 }
 
-function trimInvalidCharsForFileName(str: string) {
-  return str.replace(/`/g, '')
-}
-
 /**
  * A markdown-it plugin to support bi-directional links.
  * @param options - Options.
@@ -91,8 +92,8 @@ export const BiDirectionalLinks: (options: {
   }
 
   for (const include of includes) {
-    const files = fg.sync(include, {
-      onlyFiles: true,
+    const files = globSync(include, {
+      nodir: true,
       absolute: true,
       cwd: rootDir,
       ignore: [
@@ -169,11 +170,6 @@ export const BiDirectionalLinks: (options: {
       if (!isImageRef && extname(osSpecificHref) === '')
         osSpecificHref += '.md'
 
-      // before matching against actual file path, we will need to normalize
-      // the osSpecificHref without any invalid characters for file systems,
-      // e.g. ` (backtick) is not allowed.
-      osSpecificHref = trimInvalidCharsForFileName(basename(osSpecificHref))
-
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
         logNoMatchedFileWarning(inputContent, markupTextContent, href, osSpecificHref, state.env.path)
@@ -183,9 +179,9 @@ export const BiDirectionalLinks: (options: {
       const resolvedNewHref = posix.join(options.baseDir ?? '/', relative(rootDir, matchedHref).split(sep).join('/'))
 
       if (isImageRef)
-        genImage(state, resolvedNewHref, link, text)
+        genImage(state, resolvedNewHref, text, link)
       else
-        genLink(state, resolvedNewHref, link, text)
+        genLink(state, resolvedNewHref, text, md, href, link)
 
       return true
     })

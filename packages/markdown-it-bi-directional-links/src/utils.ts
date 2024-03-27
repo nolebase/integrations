@@ -1,6 +1,7 @@
 import { sep } from 'node:path'
 import type Token from 'markdown-it/lib/token'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline'
+import type MarkdownIt from 'markdown-it'
 
 /**
  * Find / resolve bi-directional links.
@@ -22,22 +23,7 @@ export function findBiDirectionalLinks(
   return possibleBiDirectionalLinksInFilePaths[href]
 }
 
-export function genImage(state: StateInline, resolvedNewHref: string, link: string[], text: string) {
-  const openToken = state.push('image', 'img', 1)
-  openToken.attrSet('src', resolvedNewHref)
-  openToken.attrSet('alt', '')
-
-  openToken.children = []
-  openToken.content = text
-
-  const innerTextToken = state.push('text', '', 0)
-  innerTextToken.content = text
-  openToken.children.push(innerTextToken)
-
-  state.pos += link![0].length
-}
-
-export function genLink(state: StateInline, resolvedNewHref: string, link: string[], text: string) {
+export function genLink(state: StateInline, resolvedNewHref: string, text: string, md: MarkdownIt, href: string, link: RegExpMatchArray) {
   // Create new link_open
   const openToken = state.push('link_open', 'a', 1)
   openToken.attrSet('href', resolvedNewHref)
@@ -46,7 +32,7 @@ export function genLink(state: StateInline, resolvedNewHref: string, link: strin
   const linkTokenChildrenContent: Token[] = []
 
   // Produces a set of inline tokens and each contains a set of children tokens
-  const parsedInlineTokens = text ? state.md.parseInline(text, state.env) : state.md.parseInline(resolvedNewHref, state.env) || []
+  const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
 
   // We are going to push the children tokens of each inline token to the final inline tokens
   // Need to check if the parsed inline tokens have children tokens
@@ -72,5 +58,20 @@ export function genLink(state: StateInline, resolvedNewHref: string, link: strin
   state.push('link_close', 'a', -1)
 
   // Update the position in the source string
+  state.pos += link![0].length
+}
+
+export function genImage(state: StateInline, resolvedNewHref: string, text: string, link: RegExpMatchArray) {
+  const openToken = state.push('image', 'img', 1)
+  openToken.attrSet('src', resolvedNewHref)
+  openToken.attrSet('alt', '')
+
+  openToken.children = []
+  openToken.content = text
+
+  const innerTextToken = state.push('text', '', 0)
+  innerTextToken.content = text
+  openToken.children.push(innerTextToken)
+
   state.pos += link![0].length
 }

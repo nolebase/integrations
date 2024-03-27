@@ -110,6 +110,9 @@ importers:
 
   packages/markdown-it-bi-directional-links:
     dependencies:
+      colorette:
+        specifier: ^2.0.20
+        version: 2.0.20
       fast-glob:
         specifier: ^3.3.2
         version: 3.3.2

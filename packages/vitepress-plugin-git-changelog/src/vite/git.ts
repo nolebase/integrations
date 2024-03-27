@@ -185,7 +185,7 @@ export function GitChangelog(options: {
       const grayPrefix = gray(':')
       const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
 
-      const spinner = ora(`${spinnerPrefix} Prepare to fetch git logs...`).start()
+      const spinner = ora(`${spinnerPrefix} Prepare to gather git logs...`).start()
 
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
@@ -199,19 +199,19 @@ export function GitChangelog(options: {
       // configure so that the git log messages can contain correct CJK characters
       await git.raw(['config', '--global', 'core.quotepath', 'false'])
 
-      spinner.text = `${spinnerPrefix} Reading git logs...`
+      spinner.text = `${spinnerPrefix} Gathering git logs...`
       spinner.color = 'yellow'
 
       const gitLogsRaw = await git.log({ maxCount: maxGitLogCount })
       const logs = gitLogsRaw.all as Commit[]
 
-      spinner.text = `${spinnerPrefix} Calculating git logs...`
+      spinner.text = `${spinnerPrefix} Aggregating git logs...`
       spinner.color = 'green'
 
       commits = await aggregateCommits(getRepoURL, getCommitURL, getReleaseTagURL, logs, includeDirs, rewritePaths)
 
       const elapsed = Date.now() - startsAt
-      spinner.succeed(`${spinnerPrefix} ${VirtualModuleID} calculated. ${gray(`(${elapsed}ms)`)}`)
+      spinner.succeed(`${spinnerPrefix} Done. ${gray(`(${elapsed}ms)`)}`)
     },
     resolveId(id) {
       if (id === VirtualModuleID)

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vitepress'
-import * as Rive from '@rive-app/canvas'
+import type { Rive } from '@rive-app/canvas'
 
 const route = useRoute()
-const riveInstances = ref<Rive.Rive[]>([])
+const riveInstances = ref<Rive[]>([])
 
 const defaultCreateCanvasOptions = {
   canvasWidth: 500,
@@ -126,7 +126,8 @@ async function renderRiveAsset() {
 
     el.appendChild(canvas)
 
-    const r = new Rive.Rive({
+    const rive = await import('@rive-app/canvas')
+    const r = new rive.Rive({
       canvas,
       src: src.value,
       autoplay: true,

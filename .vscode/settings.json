@@ -18,7 +18,8 @@
     "Rehype",
     "resvg",
     "unconfig",
-    "uncrypto"
+    "uncrypto",
+    "Nisekoi5"
   ],
   "prettier.enable": false,
   "editor.formatOnSave": false,

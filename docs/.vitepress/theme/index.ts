@@ -1,10 +1,10 @@
 import { h } from 'vue'
 
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
 import { NolebasePluginSet, defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
-import RiveCanvas from './components/RiveCanvas.vue'
 
 import 'virtual:uno.css'
 
@@ -16,7 +16,7 @@ export default defineThemeUnconfig({
     slots: {
       'layout-top': {
         node: [
-          () => h(RiveCanvas),
+          () => h(NuLazyTeleportRiveCanvas),
         ],
       },
     },

@@ -2,7 +2,7 @@ import { dirname, join, relative, resolve, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { Buffer } from 'node:buffer'
 import fs from 'fs-extra'
-import fg from 'fast-glob'
+import { glob } from 'glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
 import { gray, green, red, yellow } from 'colorette'
 import GrayMatter from 'gray-matter'
@@ -234,7 +234,7 @@ export function buildEndGenerateOpenGraphImages(options: {
         pages = pages.concat(items)
       }
 
-      const files = await fg(`${siteConfig.outDir}/**/*.html`, { onlyFiles: true })
+      const files = await glob(`${siteConfig.outDir}/**/*.html`, { nodir: true })
 
       if (!ogImageTemplateSvgPath) {
         return ''

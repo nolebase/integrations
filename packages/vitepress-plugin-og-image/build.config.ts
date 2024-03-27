@@ -11,7 +11,7 @@ export default defineBuildConfig({
     'vite',
     'vitepress',
     'fs-extra',
-    'fast-glob',
+    'glob',
     'emoji-regex',
     '@resvg/resvg-js',
     'gray-matter',

@@ -123,7 +123,7 @@ export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSe
 
       if (!id.endsWith('.md'))
         return null
-      if (excludes.includes(id))
+      if (excludes.includes(relative(root, id)))
         return null
       if (exclude(id, context))
         return null

@@ -147,7 +147,7 @@ export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectio
 
       if (!id.endsWith('.md'))
         return null
-      if (excludes.includes(id))
+      if (excludes.includes(relative(root, id)))
         return null
       if (exclude(id, { helpers: { pathStartsWith, pathEquals, pathEndsWith, idEndsWith, idEquals, idStartsWith } }))
         return null

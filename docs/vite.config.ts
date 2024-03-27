@@ -28,6 +28,11 @@ export default defineConfig({
   define: {
     __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
   },
+  optimizeDeps: {
+    exclude: [
+      'vitepress',
+    ],
+  },
   resolve: {
     alias: {
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
@@ -62,27 +67,17 @@ export default defineConfig({
 
         return 'Contributors'
       },
-      excludes: [],
-      exclude: (_, { helpers }): boolean => {
-        if (helpers.idEquals(join('pages', 'en', 'index.md')))
-          return true
-        if (helpers.idEquals(join('pages', 'zh-CN', 'index.md')))
-          return true
-
-        return false
-      },
+      excludes: [
+        join('pages', 'en', 'index.md'),
+        join('pages', 'zh-CN', 'index.md'),
+      ],
     }),
     PageProperties(),
     PagePropertiesMarkdownSection({
-      excludes: [],
-      exclude: (_, { helpers }): boolean => {
-        if (helpers.idEquals(join('pages', 'en', 'index.md')))
-          return true
-        if (helpers.idEquals(join('pages', 'zh-CN', 'index.md')))
-          return true
-
-        return false
-      },
+      excludes: [
+        join('pages', 'en', 'index.md'),
+        join('pages', 'zh-CN', 'index.md'),
+      ],
     }),
   ],
 })

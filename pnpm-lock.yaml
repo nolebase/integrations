@@ -104,6 +104,9 @@ importers:
       '@nolebase/vitepress-plugin-page-properties':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-page-properties
+      '@rive-app/canvas':
+        specifier: ^2.11.1
+        version: 2.11.1
 
   packages/markdown-it-bi-directional-links:
     dependencies:
@@ -129,9 +132,6 @@ importers:
 
   packages/ui:
     dependencies:
-      '@rive-app/canvas-lite':
-        specifier: ^2.10.3
-        version: 2.10.3
       vue:
         specifier: ^3.2.0
         version: 3.4.19(typescript@5.4.2)
@@ -1428,9 +1428,9 @@ packages:
       '@resvg/resvg-js-win32-x64-msvc': 2.6.0
     dev: false
 
-  /@rive-app/canvas-lite@2.10.3:
-    resolution: {integrity: sha512-AJyNwZ/KfWckvRWryJlviGlIxGcy7mW7UPk0NUSCIp1JtOzBH7eECrh+4Chw3NV8piAhSIhItsIGrsejODE/Cw==}
-    dev: false
+  /@rive-app/canvas@2.11.1:
+    resolution: {integrity: sha512-3+fqf1Lo2T0BhY+TKtAp4wquhnC6dpnMgmI5efrN7FjJm5115TbkDpqzfZqrZkSxhT7v5C8jUI4aRPmkCj9kSA==}
+    dev: true
 
   /@rollup/plugin-alias@5.1.0(rollup@3.29.4):
     resolution: {integrity: sha512-lpA3RZ9PdIG7qqhEfv79tBffNaoDuukFDrmhLqg9ifv99u/ehn+lOg30x2zmhf8AQqQUZaMk/B9fZraQ6/acDQ==}

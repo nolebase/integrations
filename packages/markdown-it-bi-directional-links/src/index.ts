@@ -1,7 +1,10 @@
 import { basename, extname, posix, relative, sep } from 'node:path'
+import { env } from 'node:process'
 import fg from 'fast-glob'
 import type { PluginSimple } from 'markdown-it'
-import type Token from 'markdown-it/lib/token'
+import { cyan, gray, yellow } from 'colorette'
+
+import { findBiDirectionalLinks, genImage, genLink } from './utils'
 
 /** it will match [[file]] and [[file|text]] */
 const biDirectionalLinkPattern = /\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
@@ -10,24 +13,57 @@ const biDirectionalLinkPatternWithStart = /^\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\
 
 const IMAGES_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.bmp', '.tiff', '.apng', '.avif', '.jfif', '.pjpeg', '.pjp', '.png', '.svg', '.webp', '.xbm']
 
-/**
- * Find / resolve bi-directional links.
- * @param possibleBiDirectionalLinksInFilePaths - file path is the key
- * @param possibleBiDirectionalLinksInFullFilePaths - full file path is the key
- * @param href - URL style file name representation
- */
-function findBiDirectionalLinks(
-  possibleBiDirectionalLinksInFilePaths: Record<string, string>,
-  possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
-  href: string,
+function logIncorrectMatchedMarkupWarning(
+  input: string,
+  src: string,
+  path: string,
 ) {
-  if (!href)
-    return null
+  const debug = (import.meta?.env?.DEBUG ?? env?.DEBUG) || ''
 
-  if (href.includes(sep))
-    return possibleBiDirectionalLinksInFullFilePaths[href]
+  if (!debug)
+    return
+  if (debug !== '@nolebase/*')
+    return
+  if (debug !== '@nolebase/markdown-it-*')
+    return
+  if (!debug.includes('@nolebase/markdown-it-bi-directional-links'))
+    return
 
-  return possibleBiDirectionalLinksInFilePaths[href]
+  console.warn(`${yellow(`[@nolebase/markdown-it-bi-directional-links] [WARN] Matched markup '`) + input + yellow(`' is not at the start of the text.`)} ${yellow(`
+
+Things to check:
+
+  1. Is this a expected markup for bi-directional links?
+  2. Is there any other markup before this markup?`)}
+
+${yellow('Source text:')}
+
+  ${gray(src)}
+
+  ${gray(`at`)} ${cyan(path)}
+`)
+}
+
+function logNoMatchedFileWarning(
+  inputContent: string,
+  markupTextContent: string,
+  href: string,
+  osSpecificHref: string,
+  path: string,
+) {
+  console.warn(`${yellow('[@nolebase/markdown-it-bi-directional-links] [WARN]')} ${yellow(`No matched file found for '`) + osSpecificHref + yellow(`', ignored.`)}
+
+Matching chain:
+  ${gray(inputContent)}
+    -> ${gray(markupTextContent)}
+      -> ${gray(href)}
+
+  ${gray('at')} ${cyan(path)}
+`)
+}
+
+function trimInvalidCharsForFileName(str: string) {
+  return str.replace(/`/g, '')
 }
 
 /**
@@ -93,8 +129,6 @@ export const BiDirectionalLinks: (options: {
     }
   }
 
-  let logged = false
-
   return (md) => {
     md.inline.ruler.after('text', 'bi_directional_link_replace', (state) => {
       const src = state.src.slice(state.pos, state.posMax)
@@ -105,8 +139,19 @@ export const BiDirectionalLinks: (options: {
       if (!link.input)
         return false
 
-      if (!biDirectionalLinkPatternWithStart.exec(link.input))
+      // Sometimes the matched markup is not at the start of the text
+      // in many scenarios, e.g.:
+      // 1. `[[file]]` is matched but it is not at the start of the text, but [[file]] will be valid without quotes
+      // 2. `[[file|text]]` is matched but it is not at the start of the text, but [[file|text]] will be valid without quotes
+      //
+      // For such cases, we will log a warning and ignore the matched markup
+      // If user would like to see the warning, they can enable debug mode
+      // by setting `DEBUG=@nolebase/markdown-it-bi-directional-links` in the environment variable
+      // or by setting `import.meta.env.DEBUG = '@nolebase/markdown-it-bi-directional-links'` in the script.
+      if (!biDirectionalLinkPatternWithStart.exec(link.input)) {
+        logIncorrectMatchedMarkupWarning(link.input, src, state.env.path)
         return false
+      }
 
       const isAttachmentRef = link.input.startsWith('!')
 
@@ -124,78 +169,25 @@ export const BiDirectionalLinks: (options: {
       if (!isImageRef && extname(osSpecificHref) === '')
         osSpecificHref += '.md'
 
+      // before matching against actual file path, we will need to normalize
+      // the osSpecificHref without any invalid characters for file systems,
+      // e.g. ` (backtick) is not allowed.
+      osSpecificHref = trimInvalidCharsForFileName(basename(osSpecificHref))
+
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
-        if (!logged) {
-          console.error('[BiDirectionalLinks]', 'A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory', `This is the available paths to be matched and resolved: \n  possibleBiDirectionalLinksInCleanBaseNameOfFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, null, 2)}\n  possibleBiDirectionalLinksInFullFilePaths:\n    ${JSON.stringify(possibleBiDirectionalLinksInFullFilePaths, null, 2)}`)
-          logged = true
-        }
-
-        console.error('[BiDirectionalLinks]: A bi-directional link was matched by RegExp but it fails to pair a possible link within the current directory with following values:', `\n  current directory: ${rootDir}\n  input: ${inputContent}\n  markup: ${markupTextContent}\n  href: ${href}\n  osSpecificHref: ${osSpecificHref}\n  text: ${text}`)
+        logNoMatchedFileWarning(inputContent, markupTextContent, href, osSpecificHref, state.env.path)
         return false
       }
 
       const resolvedNewHref = posix.join(options.baseDir ?? '/', relative(rootDir, matchedHref).split(sep).join('/'))
 
       if (isImageRef)
-        genImage()
+        genImage(state, resolvedNewHref, link, text)
       else
-        genLink()
+        genLink(state, resolvedNewHref, link, text)
 
       return true
-
-      function genLink() {
-        // Create new link_open
-        const openToken = state.push('link_open', 'a', 1)
-        openToken.attrSet('href', resolvedNewHref)
-
-        // Final inline tokens for link content
-        const linkTokenChildrenContent: Token[] = []
-
-        // Produces a set of inline tokens and each contains a set of children tokens
-        const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
-
-        // We are going to push the children tokens of each inline token to the final inline tokens
-        // Need to check if the parsed inline tokens have children tokens
-        if (parsedInlineTokens && parsedInlineTokens.length) {
-          parsedInlineTokens.forEach((tokens) => {
-            if (!tokens.children)
-              return
-
-            // If the inline token has children tokens, push them to the final inline tokens one by one
-            tokens.children.forEach((token) => {
-              linkTokenChildrenContent.push(token)
-            })
-          })
-        }
-
-        // Push the final inline tokens to the state
-        for (const token of linkTokenChildrenContent) {
-          const pushedToken = state.push(token.type, token.tag, token.nesting)
-          pushedToken.content = token.content
-        }
-
-        // and link_close tokens
-        state.push('link_close', 'a', -1)
-
-        // Update the position in the source string
-        state.pos += link![0].length
-      }
-
-      function genImage() {
-        const openToken = state.push('image', 'img', 1)
-        openToken.attrSet('src', resolvedNewHref)
-        openToken.attrSet('alt', '')
-
-        openToken.children = []
-        openToken.content = text
-
-        const innerTextToken = state.push('text', '', 0)
-        innerTextToken.content = text
-        openToken.children.push(innerTextToken)
-
-        state.pos += link![0].length
-      }
     })
   }
 }

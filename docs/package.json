@@ -15,6 +15,7 @@
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
     "@nolebase/unconfig-vitepress": "workspace:^",
+    "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",

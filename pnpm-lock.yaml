@@ -95,6 +95,9 @@ importers:
       '@nolebase/unconfig-vitepress':
         specifier: workspace:^
         version: link:../packages/unconfig-vitepress
+      '@nolebase/vitepress-plugin-enhanced-readabilities':
+        specifier: workspace:^
+        version: link:../packages/vitepress-plugin-enhanced-readabilities
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-git-changelog

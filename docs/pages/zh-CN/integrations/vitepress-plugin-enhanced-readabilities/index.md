@@ -72,7 +72,7 @@ yarn add @nolebase/vitepress-plugin-enhanced-readabilities -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
@@ -85,9 +85,9 @@ export default defineConfig({
       ], // [!code ++]
     }, // [!code ++]
   }, // [!code ++]
+  lang: 'zh-CN',
+  title: '网站标题',
   themeConfig: {
-    lang: 'zh-CN',
-    title: '网站标题',
     // 其他的配置...
   }
   // 其他的配置...
@@ -98,7 +98,7 @@ export default defineConfig({
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
@@ -131,7 +131,7 @@ export default defineConfig(() => {
 
 ::: code-group
 
-```typescript [docs/.vitepress/theme/index.ts]
+```typescript twoslash [docs/.vitepress/theme/index.ts]
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
@@ -225,7 +225,7 @@ export default Theme
 
 #### 作为 Vue 插件进行安装
 
-```typescript
+```typescript twoslash
 import {
   NolebaseEnhancedReadabilitiesPlugin // [!code focus]
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
@@ -233,7 +233,12 @@ import {
 
 如果是要给 VitePress 的 Vue 实例进行安装的话，你可以这样写：
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+
 // 其他部分的代码...
 
 export const Theme: ThemeConfig = {
@@ -251,8 +256,12 @@ export default Theme
 
 当然你也可以直接在安装插件的时候直接提供相关的配置：
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -284,7 +293,7 @@ export default Theme
 
 #### 按需导入布局切换组件
 
-```typescript
+```typescript twoslash
 import {
   LayoutSwitch,  // [!code focus]
   ScreenLayoutSwitch,  // [!code focus]
@@ -293,7 +302,7 @@ import {
 
 #### 按需导入聚光灯组件
 
-```typescript
+```typescript twoslash
 import {
   Spotlight,  // [!code focus]
   ScreenSpotlight, // [!code focus]
@@ -310,7 +319,10 @@ import {
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
 import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
 
@@ -337,7 +349,16 @@ export const Theme: ThemeConfig = {
 
 ::: details 完整的可以配置的选项
 
-```typescript
+```typescript twoslash
+import {
+  SpotlightStyles as NolebaseEnhancedReadabilitiesSpotlightStyles,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type {
+  Locale,
+  LayoutMode,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+type SpotlightStyles = typeof NolebaseEnhancedReadabilitiesSpotlightStyles
+// ---cut---
 /**
  * Options
  */
@@ -448,7 +469,7 @@ export interface Options {
      *
      * @default SpotlightStyle.Aside (2)
      */
-    defaultStyle?: SpotlightStyle
+    defaultStyle?: SpotlightStyles
   }
 }
 ```
@@ -471,7 +492,13 @@ export interface Options {
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+
 // 其他部分的代码...
 
 export const Theme: ThemeConfig = {
@@ -506,7 +533,7 @@ export const Theme: ThemeConfig = {
 
 ::: details 完整的国际化字段选项
 
-```typescript
+```typescript twoslash
 /**
  * Locale
  */

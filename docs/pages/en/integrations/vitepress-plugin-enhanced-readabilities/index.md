@@ -72,7 +72,7 @@ Add the Enhanced Readabilities plugin package name `@nolebase/vitepress-plugin-e
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
@@ -85,9 +85,9 @@ export default defineConfig({
       ], // [!code ++]
     }, // [!code ++]
   }, // [!code ++]
+  lang: 'en',
+  title: 'Site Name',
   themeConfig: {
-    lang: 'en',
-    title: 'Site Name',
     // rest of the options...
   }
   // rest of the options...
@@ -98,7 +98,7 @@ You might have configured the separated [Vite configuration file](https://vitejs
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
@@ -131,7 +131,7 @@ In VitePress's [**theme configuration file**](https://vitepress.dev/reference/de
 
 ::: code-group
 
-```typescript [docs/.vitepress/theme/index.ts]
+```typescript twoslash [docs/.vitepress/theme/index.ts]
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
@@ -224,7 +224,7 @@ The Enhanced Readabilities plugin exports the components it uses internally, so 
 
 #### Install as a Vue plugin
 
-```typescript
+```typescript twoslash
 import {
   NolebaseEnhancedReadabilitiesPlugin // [!code focus]
 } from '@nolebase/vitepress-plugin-enhanced-readabilities'
@@ -232,7 +232,12 @@ import {
 
 If you are working on a VitePress and wanted to install it into Vue instance, you can do it like this:
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+
 // Rest of the code...
 
 export const Theme: ThemeConfig = {
@@ -250,8 +255,12 @@ export default Theme
 
 Of course you can also provide the relevant configuration directly when installing the plugin:
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities'
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -283,7 +292,7 @@ For more information on configuration, see [Configuration](#configuration).
 
 #### Import layout switching components on demand
 
-```typescript
+```typescript twoslash
 import {
   LayoutSwitch,  // [!code focus]
   ScreenLayoutSwitch,  // [!code focus]
@@ -292,7 +301,7 @@ import {
 
 #### Import spotlight components on demand
 
-```typescript
+```typescript twoslash
 import {
   Spotlight,  // [!code focus]
   ScreenSpotlight, // [!code focus]
@@ -311,7 +320,10 @@ Therefore we offer a way with [Vue's dependency injection](https://vuejs.org/api
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
 import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
 
@@ -338,7 +350,16 @@ For more information on internationalization configuration, see [Internationaliz
 
 ::: details Complete configurable options
 
-```typescript
+```typescript twoslash
+import {
+  SpotlightStyles as NolebaseEnhancedReadabilitiesSpotlightStyles,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type {
+  Locale,
+  LayoutMode,
+} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+type SpotlightStyles = typeof NolebaseEnhancedReadabilitiesSpotlightStyles
+// ---cut---
 /**
  * Options
  */
@@ -449,7 +470,7 @@ export interface Options {
      *
      * @default SpotlightStyle.Aside (2)
      */
-    defaultStyle?: SpotlightStyle
+    defaultStyle?: SpotlightStyles
   }
 }
 ```
@@ -472,7 +493,13 @@ In the [Configuration](#configuration) section, we've learned how to provide con
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
+import { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+
 // Rest of code...
 
 export const Theme: ThemeConfig = {
@@ -507,7 +534,7 @@ export const Theme: ThemeConfig = {
 
 ::: details Complete internationalization field options
 
-```typescript
+```typescript twoslash
 /**
  * Locale
  */

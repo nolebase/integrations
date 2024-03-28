@@ -55,16 +55,56 @@ function logNoMatchedFileWarning(
   href: string,
   osSpecificHref: string,
   path: string,
+  relevantPath?: { key: string, source: string },
 ) {
-  console.warn(`${yellow('[@nolebase/markdown-it-bi-directional-links] [WARN]')} ${yellow(`No matched file found for '`) + osSpecificHref + yellow(`', ignored.`)}
+  console.warn(`${yellow('[@nolebase/markdown-it-bi-directional-links] [WARN]')} ${yellow(`No matched file found for '`) + osSpecificHref + yellow(`', ignored.`)} ${yellow(`
+
+Things to check:
+
+  1. Was the matched most relevant file expected?
+    1. Was it renamed during the build process?
+    2. Does it exist in the file system with the correct path?
+    3. Does it have the correct extension? (Either .md for Markdown files or image extensions)
+    4. Does it have the correct case? (Linux is Case-sensitive while macOS isn't)
+    5. Does it have any special characters in the file name? (e.g. back slashes, quotes, illegal characters, etc.
+  2. If <N/A> was shown, it means no relevant path was found. In such cases:
+    1. Check the file system for the file if you expect it to get matched.
+    2. Check whether mis-spelling or incorrect path was used in the markup.
+  3. If you are using a custom base directory, check whether the base directory is correct.`)}
 
 Matching chain:
+
   ${gray(inputContent)}
     -> ${gray(markupTextContent)}
       -> ${gray(href)}
 
-  ${gray('at')} ${cyan(path)}
+${relevantPath ? `The most relevant paths: "${gray(relevantPath.key ?? '<N/A>')} matched by ${relevantPath.source ?? '<N/A>'}"` : ''}
+
+  ${gray('at')} "${cyan(path)}"
 `)
+}
+
+function findTheMostRelevantOne(
+  possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string>,
+  possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
+  href: string,
+) {
+  for (const key in possibleBiDirectionalLinksInCleanBaseNameOfFilePaths) {
+    if (key.includes(href)) {
+      return {
+        key: possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[key],
+        source: 'file name',
+      }
+    }
+  }
+  for (const key in possibleBiDirectionalLinksInFullFilePaths) {
+    if (key.includes(href)) {
+      return {
+        key: possibleBiDirectionalLinksInFullFilePaths[key],
+        source: 'absolute path',
+      }
+    }
+  }
 }
 
 /**
@@ -167,12 +207,14 @@ export const BiDirectionalLinks: (options: {
       let osSpecificHref = href.split('/').join(sep)
 
       // if osSpecificHref has no extension, suffix it with .md
-      if (!isImageRef && extname(osSpecificHref) === '')
+      if (!isImageRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
         osSpecificHref += '.md'
 
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
-        logNoMatchedFileWarning(inputContent, markupTextContent, href, osSpecificHref, state.env.path)
+        const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
+        logNoMatchedFileWarning(inputContent, markupTextContent, href, osSpecificHref, state.env.path, relevantPath)
+
         return false
       }
 

@@ -1,6 +1,6 @@
 import type { Contributor } from '../types'
 
-export interface Locale {
+export interface Locale extends Record<string, any> {
   noLogs?: string
   noContributors?: string
   lastEdited?: string

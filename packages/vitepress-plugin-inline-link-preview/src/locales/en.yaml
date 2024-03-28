@@ -1,0 +1,6 @@
+popup:
+  loading: 'Loading'
+  loadingAriaLabel: 'Loading'
+  openInCurrentPage: 'Open in current page'
+  openInCurrentPageAriaLabel: 'Open in current page'
+  iframeAriaLabel: 'Inline link preview of link at {href}'

@@ -21,7 +21,6 @@
     "uncrypto",
     "Nisekoi5"
   ],
-  "prettier.enable": false,
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
@@ -53,5 +52,8 @@
     "./packages/vitepress-plugin-inline-link-preview",
     "./packages/vitepress-plugin-page-properties"
   ],
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "i18n-ally.localesPaths": [
+    "packages/**/src/locales"
+  ]
 }

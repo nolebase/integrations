@@ -6,6 +6,8 @@ import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
+import type { Plugin } from 'vite'
+import Yaml from '@rollup/plugin-yaml'
 
 function getVueProdHydrationMismatchDetailsFlag() {
   if (!env) {
@@ -41,8 +43,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    Inspect(),
-    UnoCSS(),
     GitChangelog({
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',
@@ -79,5 +79,8 @@ export default defineConfig({
         join('pages', 'zh-CN', 'index.md'),
       ],
     }),
+    Inspect(),
+    UnoCSS(),
+    Yaml() as Plugin,
   ],
 })

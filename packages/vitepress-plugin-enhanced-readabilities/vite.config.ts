@@ -1,6 +1,8 @@
-import Vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import type { Plugin } from 'vite'
 import Unocss from 'unocss/vite'
+import Vue from '@vitejs/plugin-vue'
+import Yaml from '@rollup/plugin-yaml'
 
 export default defineConfig({
   resolve: {
@@ -13,6 +15,7 @@ export default defineConfig({
   plugins: [
     Vue(),
     Unocss(),
+    Yaml() as unknown as Plugin,
   ],
   build: {
     lib: {

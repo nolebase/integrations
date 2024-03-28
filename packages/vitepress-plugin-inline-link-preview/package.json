@@ -50,5 +50,8 @@
   },
   "peerDependencies": {
     "vitepress": ">=1.0.0-rc.44"
+  },
+  "devDependencies": {
+    "@rollup/plugin-yaml": "^4.1.2"
   }
 }

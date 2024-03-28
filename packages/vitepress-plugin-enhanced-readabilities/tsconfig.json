@@ -3,6 +3,9 @@
   "compilerOptions": {
     "composite": false,
     "moduleResolution": "Node",
+    "types": [
+      "./src/yaml.d.ts"
+    ],
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,

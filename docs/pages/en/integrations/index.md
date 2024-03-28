@@ -70,6 +70,14 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <br />
 
+<IntegrationCard type="vitepress" title="Encrypt" package="vitepress-plugin-encrypt">
+  <template v-slot:badge>
+    <Badge type="danger" text="Alpha" />
+  </template>
+</IntegrationCard>
+
+<br />
+
 <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss">
   <template v-slot:badge>
     <Badge type="warning" text="Beta" />

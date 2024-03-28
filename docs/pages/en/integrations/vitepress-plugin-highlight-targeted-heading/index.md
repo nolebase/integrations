@@ -70,8 +70,15 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 
 It consists two major steps to integrate the Enhanced Readabilities plugin into your VitePress project:
 
-1. [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
-2. [Add plugin into the Theme options of VitePress](#add-plugin-into-the-theme-options-of-vitepress)
+- [Blinking highlight targeted heading ](#blinking-highlight-targeted-heading-)
+  - [Demo](#demo)
+  - [Why](#why)
+  - [How to install and configure](#how-to-install-and-configure)
+    - [Install](#install)
+    - [Integrate with VitePress](#integrate-with-vitepress)
+      - [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
+      - [Add plugin into the Theme options of VitePress](#add-plugin-into-the-theme-options-of-vitepress)
+  - [How to use](#how-to-use)
 
 #### Add plugin-specific options into configurations of Vite
 
@@ -81,7 +88,7 @@ Add the Blinking highlight targeted heading plugin package name `@nolebase/vitep
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
@@ -94,9 +101,9 @@ export default defineConfig({
       ], // [!code ++]
     }, // [!code ++]
   }, // [!code ++]
+  lang: 'en',
+  title: 'Site Name',
   themeConfig: {
-    lang: 'en',
-    title: 'Site Name',
     // rest of the options...
   }
   // rest of the options...
@@ -107,7 +114,7 @@ You might have configured the separated [Vite configuration file](https://vitejs
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
@@ -140,10 +147,11 @@ In VitePress's [**theme configuration file**](https://vitepress.dev/reference/de
 
 ::: code-group
 
-```typescript [docs/.vitepress/theme/index.ts]
+```typescript twoslash [docs/.vitepress/theme/index.ts]
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
+
 import {  // [!code ++]
   NolebaseHighlightTargetedHeading,  // [!code ++]
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading' // [!code ++]

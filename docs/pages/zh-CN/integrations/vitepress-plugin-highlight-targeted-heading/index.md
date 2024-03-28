@@ -70,8 +70,15 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 
 配置分为两个大步骤：
 
-1. [添加 Vite 相关的配置](#添加-vite-相关的配置)
-2. [添加 VitePress 主题相关的配置](#添加-vitepress-主题相关的配置)
+- [闪烁高亮当前的目标标题 ](#闪烁高亮当前的目标标题-)
+  - [效果演示](#效果演示)
+  - [为什么](#为什么)
+  - [怎么安装和配置](#怎么安装和配置)
+    - [安装](#安装)
+    - [为 VitePress 配置](#为-vitepress-配置)
+      - [添加 Vite 相关的配置](#添加-vite-相关的配置)
+      - [添加 VitePress 主题相关的配置](#添加-vitepress-主题相关的配置)
+  - [如何使用](#如何使用)
 
 #### 添加 Vite 相关的配置
 
@@ -81,7 +88,7 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
@@ -94,9 +101,9 @@ export default defineConfig({
       ], // [!code ++]
     }, // [!code ++]
   }, // [!code ++]
+  lang: 'zh-CN',
+  title: '网站标题',
   themeConfig: {
-    lang: 'zh-CN',
-    title: '网站标题',
     // 其他的配置...
   }
   // 其他的配置...
@@ -107,7 +114,7 @@ export default defineConfig({
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
+```typescript twoslash
 import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
@@ -140,11 +147,12 @@ export default defineConfig(() => {
 
 ::: code-group
 
-```typescript [docs/.vitepress/theme/index.ts]
+```typescript twoslash [docs/.vitepress/theme/index.ts]
 
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
 import type { Theme as ThemeConfig } from 'vitepress'
+
 import {  // [!code ++]
   NolebaseHighlightTargetedHeading,  // [!code ++]
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading' // [!code ++]

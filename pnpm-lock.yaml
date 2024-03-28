@@ -101,6 +101,9 @@ importers:
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-git-changelog
+      '@nolebase/vitepress-plugin-highlight-targeted-heading':
+        specifier: workspace:^
+        version: link:../packages/vitepress-plugin-highlight-targeted-heading
       '@nolebase/vitepress-plugin-og-image':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-og-image

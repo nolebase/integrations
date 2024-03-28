@@ -1,4 +1,5 @@
-import { h } from 'vue'
+import { type Plugin, h } from 'vue'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
 import { NolebasePluginSet, defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
@@ -7,6 +8,8 @@ import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 
 import 'virtual:uno.css'
+
+import '@shikijs/vitepress-twoslash/style.css'
 
 import './styles/vars.css'
 import './styles/main.css'
@@ -24,6 +27,7 @@ export default defineThemeUnconfig({
   enhanceApp: ({ app }) => {
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
+    app.use(TwoslashFloatingVue as Plugin)
   },
   pluginSets: [
     NolebasePluginSet({

@@ -19,6 +19,9 @@
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@rive-app/canvas": "^2.11.1",
-    "@rollup/plugin-yaml": "^4.1.2"
+    "@rollup/plugin-yaml": "^4.1.2",
+    "@shikijs/vitepress-twoslash": "^1.2.1",
+    "@types/markdown-it-footnote": "^3.0.4",
+    "markdown-it-footnote": "^4.0.0"
   }
 }

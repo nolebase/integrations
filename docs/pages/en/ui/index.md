@@ -26,13 +26,15 @@ Therefore, if you would ever want to install `@nolebase/ui` as one of your depen
 
 Since `<NuLazyTeleportRiveCanvas />` depends on `@rive-app/canvas`. If you also use Vite as your bundler, you will need to add the following configurations to your `vite.config.ts` file like this:
 
-```typescript
+```typescript twoslash
+import { defineConfig } from 'vite'
+
 export default defineConfig(() => {
   return {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // Add this line to your vite.config.ts's optimizeDeps.include array // [!code ++]
-        '@nolebase/ui  @rive-app/canvas', // [!code ++]
+        '@nolebase/ui > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }
@@ -45,7 +47,9 @@ For more information about why configure this, please refer to the [Dep Optimiza
 
 If you are using VitePress, and imported components relies on VitePress, you will need to add the following configurations to your `vite.config.ts` file like this:
 
-```typescript
+```typescript twoslash
+import { defineConfig } from 'vite'
+
 export default defineConfig(() => {
   return {
     ssr: { // [!code ++]
@@ -81,11 +85,3 @@ yarn add @nolebase/ui -D
 ```
 
 :::
-
-## Buttons
-
-<div>
-  <NuButton>
-    ABCD
-  </NuButton>
-</div>

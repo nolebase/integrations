@@ -24,13 +24,15 @@ import { NuButton } from '@nolebase/ui'
 
 由于 `<NuLazyTeleportRiveCanvas />` 底层依赖于 `@rive-app/canvas`，如果您也使用 Vite 作为打包器和开发环境服务器，则需要像这样在 `vite.config.ts` 文件中添加以下配置：
 
-```typescript
+```typescript twoslash
+import { defineConfig } from 'vite'
+
 export default defineConfig(() => {
   return {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // 添加这一行到你的 vite.config.ts 的 optimizeDeps.include 数组中 // [!code ++]
-        '@nolebase/ui  @rive-app/canvas', // [!code ++]
+        '@nolebase/ui > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }
@@ -43,7 +45,9 @@ export default defineConfig(() => {
 
 如果您使用的是 VitePress，且导入的组件依赖于 VitePress，则需要像这样在 `vite.config.ts` 文件中添加以下配置：
 
-```typescript
+```typescript twoslash
+import { defineConfig } from 'vite'
+
 export default defineConfig(() => {
   return {
     ssr: { // [!code ++]
@@ -80,10 +84,3 @@ yarn add @nolebase/ui -D
 
 :::
 
-## 按钮
-
-<div>
-  <NuButton>
-    ABCD
-  </NuButton>
-</div>

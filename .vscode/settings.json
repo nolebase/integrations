@@ -12,14 +12,15 @@
     "iconify",
     "Logseq",
     "mkdist",
+    "Nisekoi5",
     "nolebase",
     "Nólëbase",
     "quotepath",
     "Rehype",
     "resvg",
+    "Twoslash",
     "unconfig",
-    "uncrypto",
-    "Nisekoi5"
+    "uncrypto"
   ],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

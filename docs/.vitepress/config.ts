@@ -1,88 +1,163 @@
 import { cwd, env } from 'node:process'
 import { join, relative } from 'node:path'
 import { type DefaultTheme, defineConfig } from 'vitepress'
+import MarkdownItFootnote from 'markdown-it-footnote'
+
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
-  'en': [
-    {
-      text: 'Introduction',
-      items: [
-        { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
-      ],
-    },
-    {
-      text: 'Integrations',
-      items: [
-        { text: 'Overview', link: '/pages/en/integrations/' },
-      ],
-    },
-    {
-      text: 'Obsidian Plugins',
-      items: [
-        { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
-      ],
-    },
-    {
-      text: 'Markdown It Plugins',
-      items: [
-        { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
-        { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
-      ],
-    },
-    {
-      text: 'VitePress Plugins',
-      items: [
-        { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
-        { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
-        { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
-        { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
-        { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
-        { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
-      ],
-    },
-  ],
-  'zh-CN': [
-    {
-      text: '指南',
-      items: [
-        { text: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
-      ],
-    },
-    {
-      text: '集成',
-      items: [
-        { text: '概览', link: '/pages/zh-CN/integrations/' },
-      ],
-    },
-    {
-      text: 'Obsidian 插件',
-      items: [
-        { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
-      ],
-    },
-    {
-      text: 'Markdown It 插件',
-      items: [
-        { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
-        { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
-      ],
-    },
-    {
-      text: 'VitePress 插件',
-      items: [
-        { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
-        { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
-        { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
-        { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
-        { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
-        { text: '预览图片（社交媒体卡片）图片生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
-      ],
-    },
-  ],
+  'en': {
+    '/': [
+      {
+        text: 'Guides',
+        items: [
+          { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+        ],
+      },
+      {
+        text: 'Integrations',
+        items: [
+          { text: 'Overview', link: '/pages/en/integrations/' },
+        ],
+      },
+      {
+        text: 'UI Components',
+        items: [
+          { text: 'Overview', link: '/pages/en/ui/' },
+        ],
+      },
+    ],
+    '/pages/en/integrations/': [
+      {
+        text: 'Integrations',
+        items: [
+          { text: 'Overview', link: '/pages/en/integrations/' },
+        ],
+      },
+      {
+        text: 'Obsidian Plugins',
+        items: [
+          { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
+        ],
+      },
+      {
+        text: 'Markdown It Plugins',
+        items: [
+          { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+          { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
+        ],
+      },
+      {
+        text: 'VitePress Plugins',
+        items: [
+          { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+          { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
+          { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
+          { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
+          { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
+        ],
+      },
+    ],
+    '/pages/en/ui/': [
+      {
+        text: 'UI Components',
+        items: [
+          { text: 'Overview', link: '/pages/en/ui/' },
+        ],
+      },
+      {
+        text: 'Actions',
+        items: [
+          { text: 'Button', link: '/pages/en/ui/button/' },
+        ],
+      },
+      {
+        text: 'Animations',
+        items: [
+          { text: 'Rive Canvas (Lazy Teleport)', link: '/pages/en/ui/lazyteleportrivecanvas/' },
+        ],
+      },
+    ],
+  },
+  'zh-CN': {
+    '/': [
+      {
+        text: '指南',
+        items: [
+          { text: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
+        ],
+      },
+      {
+        text: '集成',
+        items: [
+          { text: '概览', link: '/pages/zh-CN/integrations/' },
+        ],
+      },
+      {
+        text: 'UI 组件',
+        items: [
+          { text: '概览', link: '/pages/zh-CN/ui/' },
+        ],
+      },
+    ],
+    '/pages/zh-CN/integrations/': [
+      {
+        text: '集成',
+        items: [
+          { text: '概览', link: '/pages/zh-CN/integrations/' },
+        ],
+      },
+      {
+        text: 'Obsidian 插件',
+        items: [
+          { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
+        ],
+      },
+      {
+        text: 'Markdown It 插件',
+        items: [
+          { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+          { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
+        ],
+      },
+      {
+        text: 'VitePress 插件',
+        items: [
+          { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+          { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
+          { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
+          { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
+          { text: '预览图片（社交媒体卡片）图片生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
+        ],
+      },
+    ],
+    '/pages/zh-CN/ui/': [
+      {
+        text: 'UI 组件',
+        items: [
+          { text: '概览', link: '/pages/zh-CN/ui/' },
+        ],
+      },
+      {
+        text: '操作',
+        items: [
+          { text: '按钮', link: '/pages/zh-CN/ui/button/' },
+        ],
+      },
+      {
+        text: '动画',
+        items: [
+          { text: 'Rive Canvas（懒加载）', link: '/pages/zh-CN/ui/lazyteleportrivecanvas/' },
+        ],
+      },
+    ],
+  },
 }
 
 function getVueProdHydrationMismatchDetailsFlag() {
@@ -166,6 +241,7 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
+      md.use(MarkdownItFootnote)
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
@@ -194,6 +270,11 @@ export default defineConfig({
         } as ElementTransformOptions
       })())
     },
+    codeTransformers: [
+      transformerTwoslash({
+        errorRendering: 'hover',
+      }),
+    ],
   },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({

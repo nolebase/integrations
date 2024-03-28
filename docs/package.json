@@ -18,6 +18,7 @@
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
-    "@rive-app/canvas": "^2.11.1"
+    "@rive-app/canvas": "^2.11.1",
+    "@rollup/plugin-yaml": "^4.1.2"
   }
 }

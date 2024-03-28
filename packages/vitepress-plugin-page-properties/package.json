@@ -63,14 +63,16 @@
     "vitepress": ">=1.0.0-rc.44"
   },
   "dependencies": {
+    "date-fns": "^3.3.1",
     "gray-matter": "^4.0.3",
     "markdown-it": "^13.0.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@rollup/plugin-yaml": "^4.1.2",
     "@types/markdown-it": "^13.0.7",
     "@types/uuid": "^9.0.8",
     "builtin-modules": "^3.3.0",
-    "date-fns": "^3.3.1"
+    "unplugin-yaml": "^0.1.1"
   }
 }

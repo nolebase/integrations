@@ -65,7 +65,7 @@ export type Property<K extends PropertyKey> =
 export type PropertyType = Property<PropertyKey>['type']
 export type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']
 
-export interface Locale {
+export interface Locale extends Record<string, any> {
   pageProperties?: {
     wordsCount?: string
   }

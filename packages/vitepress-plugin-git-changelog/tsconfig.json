@@ -13,7 +13,8 @@
     },
     "types": [
       "vite/client",
-      "./src/client/virtual.d.ts"
+      "./src/client/virtual.d.ts",
+      "./yaml.d.ts"
     ],
     "strict": true,
     "strictNullChecks": true,

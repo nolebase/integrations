@@ -1,16 +1,10 @@
 import type { Locale } from './types'
 
-export const defaultEnLocale: Locale = {
-  pageProperties: {
-    wordsCount: '{{wordsCount}} words',
-  },
-}
+import enLocale from './locales/en.yaml'
+import zhCNLocale from './locales/zh-CN.yaml'
 
-export const defaultZhCNLocale: Locale = {
-  pageProperties: {
-    wordsCount: '{{wordsCount}} 字',
-  },
-}
+export const defaultEnLocale = enLocale as Locale
+export const defaultZhCNLocale = zhCNLocale as Locale
 
 export const defaultLocales = {
   'zh-CN': defaultZhCNLocale,

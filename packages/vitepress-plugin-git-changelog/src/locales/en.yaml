@@ -1,0 +1,6 @@
+noLogs: 'No recent changes'
+noContributors: 'No contributors'
+lastEdited: 'Last edited {{daysAgo}}'
+lastEditedDateFnsLocaleName: 'enUS'
+viewFullHistory: 'View full history'
+committedOn: ' on {{date}}'

@@ -3,6 +3,9 @@
   "compilerOptions": {
     "composite": false,
     "moduleResolution": "Bundler",
+    "types": [
+      "./src/yaml.d.ts"
+    ],
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,

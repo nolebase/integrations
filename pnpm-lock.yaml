@@ -107,6 +107,9 @@ importers:
       '@rive-app/canvas':
         specifier: ^2.11.1
         version: 2.11.1
+      '@rollup/plugin-yaml':
+        specifier: ^4.1.2
+        version: 4.1.2(rollup@3.29.4)
 
   packages/markdown-it-bi-directional-links:
     dependencies:
@@ -176,6 +179,10 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.44'
         version: 1.0.0-rc.44(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
+    devDependencies:
+      '@rollup/plugin-yaml':
+        specifier: ^4.1.2
+        version: 4.1.2(rollup@3.29.4)
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
@@ -204,6 +211,9 @@ importers:
         specifier: '>=1.0.0-rc.44'
         version: 1.0.0-rc.44(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
     devDependencies:
+      '@rollup/plugin-yaml':
+        specifier: ^4.1.2
+        version: 4.1.2(rollup@3.29.4)
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
@@ -219,6 +229,10 @@ importers:
       vitepress:
         specifier: '>=1.0.0-rc.44'
         version: 1.0.0-rc.44(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
+    devDependencies:
+      '@rollup/plugin-yaml':
+        specifier: ^4.1.2
+        version: 4.1.2(rollup@3.29.4)
 
   packages/vitepress-plugin-og-image:
     dependencies:
@@ -268,6 +282,9 @@ importers:
 
   packages/vitepress-plugin-page-properties:
     dependencies:
+      date-fns:
+        specifier: ^3.3.1
+        version: 3.3.1
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
@@ -281,6 +298,9 @@ importers:
         specifier: '>=1.0.0-rc.44'
         version: 1.0.0-rc.44(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
     devDependencies:
+      '@rollup/plugin-yaml':
+        specifier: ^4.1.2
+        version: 4.1.2(rollup@3.29.4)
       '@types/markdown-it':
         specifier: ^13.0.7
         version: 13.0.7
@@ -290,9 +310,9 @@ importers:
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
-      date-fns:
-        specifier: ^3.3.1
-        version: 3.3.1
+      unplugin-yaml:
+        specifier: ^0.1.1
+        version: 0.1.1(rollup@3.29.4)(vite@5.1.6)
 
 packages:
 
@@ -1585,6 +1605,21 @@ packages:
       '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
       magic-string: 0.30.7
       rollup: 3.29.4
+    dev: true
+
+  /@rollup/plugin-yaml@4.1.2(rollup@3.29.4):
+    resolution: {integrity: sha512-RpupciIeZMUqhgFE97ba0s98mOFS7CWzN3EJNhJkqSv9XLlWYtwVdtE6cDw6ASOF/sZVFS7kRJXftaqM2Vakdw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      js-yaml: 4.1.0
+      rollup: 3.29.4
+      tosource: 2.0.0-alpha.3
     dev: true
 
   /@rollup/pluginutils@5.1.0(rollup@3.29.4):
@@ -3554,6 +3589,7 @@ packages:
 
   /date-fns@3.3.1:
     resolution: {integrity: sha512-y8e109LYGgoQDveiEBD3DYXKba1jWf5BA8YU1FL5Tvm0BTdEfy54WLCwnuYWZNnzzvALy/QQ4Hov+Q9RVRv+Zw==}
+    dev: false
 
   /de-indent@1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}
@@ -6545,6 +6581,11 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
+  /tosource@2.0.0-alpha.3:
+    resolution: {integrity: sha512-KAB2lrSS48y91MzFPFuDg4hLbvDiyTjOVgaK7Erw+5AmZXNq4sFRVn8r6yxSLuNs15PaokrDRpS61ERY9uZOug==}
+    engines: {node: '>=10'}
+    dev: true
+
   /totalist@3.0.1:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
     engines: {node: '>=6'}
@@ -6841,6 +6882,19 @@ packages:
       - typescript
       - vite
       - webpack
+    dev: true
+
+  /unplugin-yaml@0.1.1(rollup@3.29.4)(vite@5.1.6):
+    resolution: {integrity: sha512-rEHJOnudPAWYBmRABopty5ve8Zr97VLcLQMEfEX2i1revOcTTcA1jKxUjGYu/UJjAWZbzYtowWMB+7/4NBUESg==}
+    peerDependencies:
+      vite: ^3.1.0 || ^4.0.0 || ^5.0.0-0
+    dependencies:
+      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      js-yaml: 4.1.0
+      unplugin: 1.7.1
+      vite: 5.1.6(@types/node@20.11.28)(less@4.2.0)
+    transitivePeerDependencies:
+      - rollup
     dev: true
 
   /unplugin@1.7.1:

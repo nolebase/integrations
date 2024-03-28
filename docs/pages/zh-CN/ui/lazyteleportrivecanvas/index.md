@@ -154,13 +154,13 @@ export default {
     <div w-20 h-20>
       <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="25" data-rive-canvas-props-canvas-height="25"></span>
     </div>
-    <span text-sm>Low resolution with <code>25</code> x <code>25</code></span>
+    <span text-sm>低清 <code>25</code> x <code>25</code> 像素</span>
   </div>
   <div flex flex-col items-center w-full>
     <div w-20 h-20>
       <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="1000" data-rive-canvas-props-canvas-height="1000"></span>
     </div>
-    <span text-sm>Ultra high resolution with <code>1000</code> x <code>1000</code></span>
+    <span text-sm>超高清 <code>1000</code> x <code>1000</code> 像素</span>
   </div>
 </div>
 

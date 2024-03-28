@@ -144,10 +144,24 @@ For example:
 
 ### Adjust the size
 
-By default, Rive Canvas creates a 500 x 500 canvas. You can customize the size of the canvas by adding the `data-rive-canvas-props-canvas-width` and `data-rive-canvas-props-canvas-width` attributes.
+By default, Rive Canvas creates a 500 x 500 canvas. You can customize the size of the canvas by adding the two attributes:
 
-<div w-20 h-20>
-  <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="50" data-rive-canvas-props-canvas-height="50"></span>
+- `data-rive-canvas-props-canvas-width`
+- `data-rive-canvas-props-canvas-width`
+
+<div flex flex-row w-full>
+  <div flex flex-col items-center w-full>
+    <div w-20 h-20>
+      <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="25" data-rive-canvas-props-canvas-height="25"></span>
+    </div>
+    <span text-sm>Low resolution with <code>25</code> x <code>25</code></span>
+  </div>
+  <div flex flex-col items-center w-full>
+    <div w-20 h-20>
+      <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="1000" data-rive-canvas-props-canvas-height="1000"></span>
+    </div>
+    <span text-sm>Ultra high resolution with <code>1000</code> x <code>1000</code></span>
+  </div>
 </div>
 
 ```html
@@ -155,9 +169,10 @@ By default, Rive Canvas creates a 500 x 500 canvas. You can customize the size o
   class="rive-canvas"
   data-rive-canvas="true"
   data-rive-src="/icons/star-emoji-animated.riv"
-  data-rive-canvas-props-canvas-width="50"
-  data-rive-canvas-props-canvas-height="50"
-></span>
+  data-rive-canvas-props-canvas-width="25"
+  data-rive-canvas-props-canvas-height="25"
+>
+</span>
 ```
 
 ## References
@@ -182,17 +197,17 @@ Default value: `500`
 
 ### `data-rive-canvas-props-width`
 
-The CSS width of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas).
+The CSS `min-width` of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas).
 
-Description: This value will affect the CSS width of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas), but will not affect the resolution of the animation rendered on the canvas. It can be adjusted according to the requirements of different locations. Just treat it as a normal CSS [`width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) property.
+Description: This value will affect the CSS width of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas), but will not affect the resolution of the animation rendered on the canvas. It can be adjusted according to the requirements of different locations. Just treat it as a normal CSS [`min-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) property.
 
 Default value: `16px`
 
 ### `data-rive-canvas-props-height`
 
-The CSS height of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas).
+The CSS `min-height` of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas).
 
-Description: This value will affect the CSS height of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas), but will not affect the resolution of the animation rendered on the canvas. It can be adjusted according to the requirements of different locations. Just treat it as a normal CSS [`height`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) property.
+Description: This value will affect the CSS height of the [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas), but will not affect the resolution of the animation rendered on the canvas. It can be adjusted according to the requirements of different locations. Just treat it as a normal CSS [`min-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) property.
 
 Default value: `16px`
 

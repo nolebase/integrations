@@ -133,7 +133,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
           { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
-          { text: '预览图片（社交媒体卡片）图片生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
+          { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
         ],
       },
     ],
@@ -153,7 +153,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
       {
         text: '动画',
         items: [
-          { text: 'Rive Canvas（懒加载）', link: '/pages/zh-CN/ui/lazyteleportrivecanvas/' },
+          { text: 'Rive Canvas（懒 Teleport）', link: '/pages/zh-CN/ui/lazyteleportrivecanvas/' },
         ],
       },
     ],

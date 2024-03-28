@@ -142,10 +142,26 @@ export default {
 
 ### 调整大小
 
-默认情况下，Rive Canvas 会创建一个 500 x 500 的画布。你可以通过添加 `data-rive-canvas-props-canvas-width` 和 `data-rive-canvas-props-canvas-width` 属性来自定义画布的大小。
+默认情况下，Rive Canvas 会创建一个 500 x 500 的画布。你可以通过添加
 
-<div w-20 h-20>
-  <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="50" data-rive-canvas-props-canvas-height="50"></span>
+- `data-rive-canvas-props-canvas-width`
+- `data-rive-canvas-props-canvas-width`
+
+这两个属性来自定义画布的大小。
+
+<div flex flex-row w-full>
+  <div flex flex-col items-center w-full>
+    <div w-20 h-20>
+      <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="25" data-rive-canvas-props-canvas-height="25"></span>
+    </div>
+    <span text-sm>Low resolution with <code>25</code> x <code>25</code></span>
+  </div>
+  <div flex flex-col items-center w-full>
+    <div w-20 h-20>
+      <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/star-emoji-animated.riv" data-rive-canvas-props-canvas-width="1000" data-rive-canvas-props-canvas-height="1000"></span>
+    </div>
+    <span text-sm>Ultra high resolution with <code>1000</code> x <code>1000</code></span>
+  </div>
 </div>
 
 ```html
@@ -153,9 +169,10 @@ export default {
   class="rive-canvas"
   data-rive-canvas="true"
   data-rive-src="/icons/star-emoji-animated.riv"
-  data-rive-canvas-props-canvas-width="50"
-  data-rive-canvas-props-canvas-height="50"
-></span>
+  data-rive-canvas-props-canvas-width="25"
+  data-rive-canvas-props-canvas-height="25"
+>
+</span>
 ```
 
 ## 参考
@@ -182,17 +199,17 @@ export default {
 
 #### `data-rive-canvas-props-width`
 
-含义：[`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 宽度。
+含义：[`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS `min-width`。
 
-介绍：这个数值会影响到 [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 宽度，但不会影响到画布上渲染的动画的分辨率。可以根据不同位置的需求来调整。当作是普通的 CSS 的 [`width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) 属性就好了。
+介绍：这个数值会影响到 [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 宽度，但不会影响到画布上渲染的动画的分辨率。可以根据不同位置的需求来调整。当作是普通的 CSS 的 [`min-width`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) 属性就好了。
 
 默认值：`16px`
 
 #### `data-rive-canvas-props-height`
 
-含义：[`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 高度。
+含义：[`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS `min-height`。
 
-介绍：这个数值会影响到 [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 高度，但不会影响到画布上渲染的动画的分辨率。可以根据不同位置的需求来调整。当作是普通的 CSS 的 [`height`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) 属性就好了。
+介绍：这个数值会影响到 [`<canvas>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas) 的 CSS 高度，但不会影响到画布上渲染的动画的分辨率。可以根据不同位置的需求来调整。当作是普通的 CSS 的 [`min-height`](https://developer.mozilla.org/en-US/docs/Web/CSS/width) 属性就好了。
 
 默认值：`16px`
 

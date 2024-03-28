@@ -52,36 +52,38 @@ function mustParseIntOrDefault(value: string | null, defaultValue: number): numb
 }
 
 function getOptionsFromAttrs(node?: Element): CreateCanvasOptions {
+  const options = { ...defaultCreateCanvasOptions }
+
   if (!node)
-    return defaultCreateCanvasOptions
+    return options
 
   const dataAttrPrefix = 'data-rive-canvas-props'
 
   const canvasWidth = node.getAttribute(`${dataAttrPrefix}-canvas-width`)
-  defaultCreateCanvasOptions.canvasWidth = mustParseIntOrDefault(canvasWidth, defaultCreateCanvasOptions.canvasWidth)
+  options.canvasWidth = mustParseIntOrDefault(canvasWidth, defaultCreateCanvasOptions.canvasWidth)
 
   const canvasHeight = node.getAttribute(`${dataAttrPrefix}-canvas-height`)
-  defaultCreateCanvasOptions.canvasHeight = mustParseIntOrDefault(canvasHeight, defaultCreateCanvasOptions.canvasHeight)
+  options.canvasHeight = mustParseIntOrDefault(canvasHeight, defaultCreateCanvasOptions.canvasHeight)
 
   const width = node.getAttribute(`${dataAttrPrefix}-width`)
-  width && (defaultCreateCanvasOptions.width = width)
+  width && (options.width = width)
 
   const height = node.getAttribute(`${dataAttrPrefix}-height`)
-  height && (defaultCreateCanvasOptions.height = height)
+  height && (options.height = height)
 
   const paddingTop = node.getAttribute(`${dataAttrPrefix}-padding-top`)
-  paddingTop && (defaultCreateCanvasOptions.paddingTop = paddingTop)
+  paddingTop && (options.paddingTop = paddingTop)
 
   const paddingBottom = node.getAttribute(`${dataAttrPrefix}-padding-bottom`)
-  paddingBottom && (defaultCreateCanvasOptions.paddingBottom = paddingBottom)
+  paddingBottom && (options.paddingBottom = paddingBottom)
 
   const paddingLeft = node.getAttribute(`${dataAttrPrefix}-padding-left`)
-  paddingLeft && (defaultCreateCanvasOptions.paddingLeft = paddingLeft)
+  paddingLeft && (options.paddingLeft = paddingLeft)
 
   const paddingRight = node.getAttribute(`${dataAttrPrefix}-padding-right`)
-  paddingRight && (defaultCreateCanvasOptions.paddingRight = paddingRight)
+  paddingRight && (options.paddingRight = paddingRight)
 
-  return defaultCreateCanvasOptions
+  return options
 }
 
 function createNewCanvasElement(options: CreateCanvasOptions) {
@@ -148,6 +150,7 @@ watch(route, async () => {
   if (!window && !document)
     return
 
+  cleanupAllRiveInstances()
   await nextTick()
   await renderRiveAsset()
 })

@@ -181,8 +181,8 @@ yarn add @nolebase/markdown-it-bi-directional-links -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript
-import process from 'node:process' // [!code ++]
+```typescript twoslash
+import { cwd } from 'node:process' // [!code ++]
 import { defineConfigWithTheme } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
@@ -196,7 +196,7 @@ export default defineConfigWithTheme({
   markdown: {
     config: (md) => {
       md.use(BiDirectionalLinks({ // [!code ++]
-        dir: process.cwd(), // 注意这行不要漏掉了哦 // [!code ++]
+        dir: cwd(), // 注意这行不要漏掉了哦 // [!code ++]
       })) // [!code ++]
     },
   },
@@ -209,19 +209,23 @@ export default defineConfigWithTheme({
 
 在 [`markdown-it`](https://github.com/markdown-it/markdown-it) 的实例可被访问的地方先使用 `import` 语句将双向链接插件导入到文件中：
 
-```typescript
+```typescript twoslash
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 ```
 
 然后使用 `markdown-it` 实例的 `use()` 函数将导入后的 `MarkdownItBiDirectionalLinks` 作为插件使用，并配置一个包含有 `dir` 字段的对象，这个所谓的 `dir` 字段通常可以直接通过 `import` 语句导入来自 `process` 或者 `node:process` 包内的 `cwd()` 函数来获取：
 
-```typescript
+```typescript twoslash
+import type { MarkdownIt } from 'markdown-it'
+let markdownIt = null as MarkdownIt
+// ---cut---
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { cwd } from 'process' // [!code ++]
 
 // 中间剩余的其他代码...
 
+// @noErrors
 markdownIt.use(BiDirectionalLinks({ // [!code ++]
-  dir: process.cwd() // [!code ++]
+  dir: cwd() // [!code ++]
 })) // [!code ++]
 ```

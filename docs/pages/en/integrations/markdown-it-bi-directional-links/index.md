@@ -179,10 +179,10 @@ In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the fi
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript
-import process from 'node:process' // [!code ++]
+```typescript twoslash
+import { cwd } from 'node:process' // [!code ++]
 import { defineConfigWithTheme } from 'vitepress'
-import { MarkdownItBiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
+import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
 export default defineConfigWithTheme({
   lang: 'en',
@@ -193,8 +193,8 @@ export default defineConfigWithTheme({
   },
   markdown: {
     config: (md) => {
-      md.use(MarkdownItBiDirectionalLinks({ // [!code ++]
-        dir: process.cwd(), // [!code ++]
+      md.use(BiDirectionalLinks({ // [!code ++]
+        dir: cwd(), // [!code ++]
       })) // [!code ++]
     },
   },
@@ -207,20 +207,23 @@ export default defineConfigWithTheme({
 
 Import this plugin into the file where you can access the [`markdown-it`](https://github.com/markdown-it/markdown-it) instance, and use it as a `markdown-it` plugin:
 
-```typescript
-import { MarkdownItBiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
+```typescript twoslash
+import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 ```
 
 Then you need to use the `use()` member methods from the `markdown-it` instance to use this plugin.
 With a options object that contains a `dir` field which is the root directory of your project supplied, the value for `dir` field can be obtained through `cwd()` function call that imported from either `process` or `node:process`:
 
-```typescript
-import MarkdownItBiDirectionalLinks from '@nolebase/markdown-it-bi-directional-links'
-import { cwd } from 'process' // [!code ++]
+```typescript twoslash
+import type { MarkdownIt } from 'markdown-it'
+let markdownIt = null as MarkdownIt
+// ---cut---
+import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
+import { cwd } from 'node:process' // [!code ++]
 
 // Rest of the code...
-
-markdownIt.use(MarkdownItBiDirectionalLinks({ // [!code ++]
-  dir: process.cwd() // [!code ++]
+// @noErrors
+markdownIt.use(BiDirectionalLinks({ // [!code ++]
+  dir: cwd() // [!code ++]
 })) // [!code ++]
 ```

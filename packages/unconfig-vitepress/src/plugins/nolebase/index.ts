@@ -38,7 +38,7 @@ import {
 
 import type { PluginSet } from '../../types'
 
-export interface NolebasePluginSetOptions<PagePropertiesObject extends object = any> {
+export interface NolebasePluginPresetOptions<PagePropertiesObject extends object = any> {
   enhancedReadabilities?: {
     enable?: boolean
     options?: NolebaseEnhancedReadabilitiesOptions
@@ -60,7 +60,7 @@ export interface NolebasePluginSetOptions<PagePropertiesObject extends object = 
   }
 }
 
-const defaultOptions: NolebasePluginSetOptions = {
+const defaultOptions: NolebasePluginPresetOptions = {
   enhancedReadabilities: {
     enable: true,
     options: {
@@ -180,20 +180,20 @@ const defaultOptions: NolebasePluginSetOptions = {
   },
 }
 
-function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(options: NolebasePluginSetOptions<any>): NolebasePluginSetOptions<PagePropertiesObject> {
-  const mergedOptions: NolebasePluginSetOptions<any> = { ...options }
+function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(options: NolebasePluginPresetOptions<any>): NolebasePluginPresetOptions<PagePropertiesObject> {
+  const mergedOptions: NolebasePluginPresetOptions<any> = { ...options }
   for (const key in defaultOptions) {
-    const k = key as keyof NolebasePluginSetOptions<any>
+    const k = key as keyof NolebasePluginPresetOptions<any>
 
     if (typeof mergedOptions[k] === 'undefined' || !mergedOptions[k])
       mergedOptions[k] = defaultOptions[k]
   }
 
-  return mergedOptions as NolebasePluginSetOptions<PagePropertiesObject>
+  return mergedOptions as NolebasePluginPresetOptions<PagePropertiesObject>
 }
 
-export function NolebasePluginSet<PagePropertiesObject extends object = any>(
-  options?: NolebasePluginSetOptions<PagePropertiesObject>,
+export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
+  options?: NolebasePluginPresetOptions<PagePropertiesObject>,
 ): PluginSet {
   const opts = applyOptionsWithDefaults(options || {})
 

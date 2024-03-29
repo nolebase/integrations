@@ -1,10 +1,9 @@
 import { h } from 'vue'
 import type { Theme } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
+
 import type { DefineThemeUnconfigOptions, Layout, Slots } from './types'
 
-export { NolebasePluginSet } from './plugins/nolebase'
-export type { NolebasePluginSetOptions } from './plugins/nolebase'
 export type { PluginSet, Plugin, Layout, DefineThemeUnconfigOptions, Slots } from './types'
 
 function applySlots(globalSlots: Record<string, Array<() => Slots[number]>> = {}, slots: Layout['slots']) {
@@ -58,8 +57,8 @@ function applyLayout(options: DefineThemeUnconfigOptions) {
     }
   }
 
-  if (options.pluginSets) {
-    for (const pluginSet of options.pluginSets) {
+  if (options.pluginPresets) {
+    for (const pluginSet of options.pluginPresets) {
       if (pluginSet.configureLayout) {
         pluginSet.configureLayout({ helpers: {
           defineSlot: defineSlot(slots),
@@ -98,8 +97,8 @@ export function defineThemeUnconfig(options: DefineThemeUnconfigOptions): Theme 
         }
       }
 
-      if (options.pluginSets) {
-        for (const pluginSet of options.pluginSets) {
+      if (options.pluginPresets) {
+        for (const pluginSet of options.pluginPresets) {
           if (typeof pluginSet.enhanceApp !== 'undefined' && typeof pluginSet.enhanceApp === 'function')
             await pluginSet.enhanceApp(ctx)
         }

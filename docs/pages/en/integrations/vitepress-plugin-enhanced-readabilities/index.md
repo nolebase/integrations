@@ -82,7 +82,7 @@ export default defineConfig({
       include: [ // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
-    } // [!code ++]
+    }, // [!code ++]
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]

@@ -82,7 +82,7 @@ export default defineConfig({
       include: [ // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
-    } // [!code ++]
+    }, // [!code ++]
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]

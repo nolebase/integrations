@@ -134,28 +134,21 @@ watch(maxWidthValue, (val) => {
           </div>
         </MenuHelp>
       </div>
-      <fieldset
-        flex="~ row"
+      <NuInputSlider
+        v-model="maxWidthValue"
         bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-        w-full appearance-none rounded-lg border-none p-1 space-x-2
         text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-        outline="transparent 2px offset-4px dashed"
-        transition="outline duration-200 ease"
+        name="VitePress Nolebase Enhanced Readabilities page layout max width range slider"
         :class="{
           'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
           'rounded-md': isMenuHelpPoppedUp,
         }"
-      >
-        <NuInputSlider
-          v-model="maxWidthValue"
-          name="VitePress Nolebase Enhanced Readabilities page layout max width range slider"
-          :aria-label="t('layoutSwitch.pageLayoutMaxWidth.sliderAriaLabel')"
-          :disabled="disabled"
-          :min="minScaled"
-          :max="maxScaled"
-          :formatter="(val) => `${Math.ceil(val / 100)}%`"
-        />
-      </fieldset>
+        :aria-label="t('layoutSwitch.pageLayoutMaxWidth.sliderAriaLabel')"
+        :disabled="disabled"
+        :min="minScaled"
+        :max="maxScaled"
+        :formatter="(val) => `${Math.ceil(val / 100)}%`"
+      />
     </div>
   </NuVerticalTransition>
 </template>

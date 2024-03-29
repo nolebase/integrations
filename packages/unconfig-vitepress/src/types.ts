@@ -37,5 +37,5 @@ export interface DefineThemeUnconfigOptions {
   layout?: Layout
   enhanceApp?: Theme['enhanceApp']
   plugins?: Array<Plugin>
-  pluginSets?: Array<PluginSet>
+  pluginPresets?: Array<PluginSet>
 }

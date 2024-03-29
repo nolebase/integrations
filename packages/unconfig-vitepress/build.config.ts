@@ -11,6 +11,7 @@ export default defineBuildConfig({
     '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
   },
   entries: [
+    'src/plugins/index.ts',
     'src/index.ts',
   ],
   clean: true,

@@ -78,6 +78,11 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: { // [!code ++]
+    optimizeDeps: { // [!code ++]
+      include: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
@@ -110,6 +115,9 @@ export default defineConfig(() => {
       ], // [!code ++]
     }, // [!code ++]
     optimizeDeps: {
+      include: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
+      ], // [!code ++]
       exclude: ['vitepress'],
     },
     plugins: [

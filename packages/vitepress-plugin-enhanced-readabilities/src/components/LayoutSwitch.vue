@@ -2,12 +2,12 @@
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 import { useRoute } from 'vitepress'
+import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
 
 import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 
-import MenuOptions from './MenuOptions.vue'
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
 
@@ -28,6 +28,7 @@ const fieldOptions = computed(() => [
   {
     value: LayoutMode.FullWidth,
     title: t('layoutSwitch.optionFullWidth'),
+    helpMessage: t('layoutSwitch.optionFullWidthHelpMessage'),
     ariaLabel: t('layoutSwitch.optionFullWidthAriaLabel'),
     icon: 'i-icon-park-outline:full-screen-one',
     name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
@@ -35,6 +36,7 @@ const fieldOptions = computed(() => [
   {
     value: LayoutMode.SidebarWidthAdjustableOnly,
     title: t('layoutSwitch.optionSidebarWidthAdjustableOnly'),
+    helpMessage: t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage'),
     ariaLabel: t('layoutSwitch.optionSidebarWidthAdjustableOnlyAriaLabel'),
     icon: 'i-icon-park-outline:full-screen-two',
     name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
@@ -42,6 +44,7 @@ const fieldOptions = computed(() => [
   {
     value: LayoutMode.BothWidthAdjustable,
     title: t('layoutSwitch.optionBothWidthAdjustable'),
+    helpMessage: t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage'),
     ariaLabel: t('layoutSwitch.optionBothWidthAdjustableAriaLabel'),
     icon: 'i-icon-park-outline:full-screen',
     name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
@@ -49,8 +52,9 @@ const fieldOptions = computed(() => [
   {
     value: LayoutMode.Original,
     title: t('layoutSwitch.optionOriginalWidth'),
+    helpMessage: t('layoutSwitch.optionOriginalWidthHelpMessage'),
     ariaLabel: t('layoutSwitch.optionOriginalWidthAriaLabel'),
-    icon: 'i-icon-park-outline:off-screen',
+    icon: 'i-icon-park-outline:overall-reduction',
     name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
   },
 ])
@@ -123,7 +127,7 @@ onMounted(() => {
       <MenuTitle
         icon="i-icon-park-outline:layout-one"
         :title="t('layoutSwitch.title')"
-        :aria-label="t('layoutSwitch.titleArialLabel') || t('layoutSwitch.title')"
+        :aria-label="t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')"
         flex="1"
         :disabled="disabled"
         pr-4
@@ -140,39 +144,28 @@ onMounted(() => {
           <span>{{ t('layoutSwitch.titleHelpMessage') }}</span>
         </p>
         <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
-          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1 flex="~" items-center align-middle>
-              <span i-icon-park-outline:full-screen-one mr-1 />
-              <span>{{ t('layoutSwitch.optionFullWidth') }}</span>
+          <div
+            v-for="(option, index) in fieldOptions"
+            :key="index"
+            text="sm"
+            bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+            max-w-100
+            rounded-xl
+            p-3
+          >
+            <h5 text="sm" mb-2 flex="~" items-center align-middle>
+              <span mr-1 :class="[option.icon]" />
+              <span font-semibold>{{ option.title }}</span>
             </h5>
-            <span>{{ t('layoutSwitch.optionFullWidthHelpMessage') }}</span>
-          </div>
-          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1 flex="~" items-center align-middle>
-              <span i-icon-park-outline:full-screen-two mr-1 />
-              <span>{{ t('layoutSwitch.optionSidebarWidthAdjustableOnly') }}</span>
-            </h5>
-            <span>{{ t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage') }}</span>
-          </div>
-          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1 flex="~" items-center align-middle>
-              <span i-icon-park-outline:full-screen mr-1 />
-              <span>{{ t('layoutSwitch.optionBothWidthAdjustable') }}</span>
-            </h5>
-            <span>{{ t('layoutSwitch.optionBothWidthAdjustableHelpMessage') }}</span>
-          </div>
-          <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1 flex="~" items-center align-middle>
-              <span i-icon-park-outline:off-screen mr-1 />
-              <span>{{ t('layoutSwitch.optionOriginalWidth') }}</span>
-            </h5>
-            <span>{{ t('layoutSwitch.optionOriginalWidthHelpMessage') }}</span>
+            <span>{{ option.helpMessage }}</span>
           </div>
         </div>
       </MenuHelp>
     </div>
-    <MenuOptions
+    <NuInputHorizontalRadioGroup
       v-model="layoutMode"
+      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
       outline="transparent 2px offset-4px dashed"
       transition="outline duration-200 ease"
       :class="{

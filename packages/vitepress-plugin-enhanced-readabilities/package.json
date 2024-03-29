@@ -52,6 +52,7 @@
     "vitepress": ">=1.0.0-rc.44"
   },
   "devDependencies": {
+    "@nolebase/ui": "workspace:^",
     "@rollup/plugin-yaml": "^4.1.2"
   }
 }

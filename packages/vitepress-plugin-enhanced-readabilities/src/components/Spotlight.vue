@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useMediaQuery, useMounted, useStorage } from '@vueuse/core'
+import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, SpotlightToggledStorageKey } from '../constants'
 import SpotlightHoverBlock from './SpotlightHoverBlock.vue'
 import MenuTitle from './MenuTitle.vue'
-import MenuOptions from './MenuOptions.vue'
 import MenuHelp from './MenuHelp.vue'
 
 const options = inject(InjectionKey, {})
@@ -73,24 +74,26 @@ watch(isTouchScreen, () => {
         </p>
         <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
           <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1>
+            <h5 text="sm" mb-2>
               <span mr-1 font-bold>ON</span>
-              <span>{{ t('spotlight.optionOn') }}</span>
+              <span font-semibold>{{ t('spotlight.optionOn') }}</span>
             </h5>
             <span>{{ t('spotlight.optionOnHelpMessage') }}</span>
           </div>
           <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-            <h5 text="sm" mb-1>
+            <h5 text="sm" mb-2>
               <span mr-1 font-bold>OFF</span>
-              <span>{{ t('spotlight.optionOff') }}</span>
+              <span font-semibold>{{ t('spotlight.optionOff') }}</span>
             </h5>
             <span>{{ t('spotlight.optionOffHelpMessage') }}</span>
           </div>
         </div>
       </MenuHelp>
     </div>
-    <MenuOptions
+    <NuInputHorizontalRadioGroup
       v-model="spotlightToggledOn"
+      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
       outline="transparent 2px offset-4px dashed"
       transition="outline duration-200 ease"
       :class="{

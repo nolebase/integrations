@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
+import { NuInputSlider, NuVerticalTransition } from '@nolebase/ui'
 
 import { ContentLayoutMaxWidthStorageKey, InjectionKey, LayoutMode, LayoutSwitchModeStorageKey } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
@@ -8,7 +9,6 @@ import { useI18n } from '../composables/i18n'
 
 import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
-import MenuRange from './MenuSlider.vue'
 
 const min = ref(60)
 const minScaled = computed(() => min.value * 100)
@@ -98,18 +98,17 @@ watch(maxWidthValue, (val) => {
 </script>
 
 <template>
-  <Transition name="fade-shift">
+  <NuVerticalTransition :duration="200">
     <div
-      v-if="layoutMode === LayoutMode.BothWidthAdjustable"
+      v-show="layoutMode === LayoutMode.BothWidthAdjustable"
       space-y-2
       role="range"
-      class="VPNolebaseEnhancedReadabilitiesContentLayoutWidthSlider"
     >
       <div ref="menuTitleElementRef" flex items-center>
         <MenuTitle
           icon="i-icon-park-outline:auto-line-width"
           :title="t('layoutSwitch.contentLayoutMaxWidth.title')"
-          :aria-label="t('layoutSwitch.contentLayoutMaxWidth.titleArialLabel') || t('layoutSwitch.contentLayoutMaxWidth.title')"
+          :aria-label="t('layoutSwitch.contentLayoutMaxWidth.titleAriaLabel') || t('layoutSwitch.contentLayoutMaxWidth.title')"
           :disabled="disabled"
           flex="1"
           pr-4
@@ -127,9 +126,9 @@ watch(maxWidthValue, (val) => {
           </p>
           <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
             <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-              <h5 text="sm" mb-1 flex="~" items-center align-middle>
+              <h5 text="sm" mb-2 flex="~" items-center align-middle>
                 <span i-icon-park-outline:scale mr-1 />
-                <span>{{ t('layoutSwitch.contentLayoutMaxWidth.slider') }}</span>
+                <span font-semibold>{{ t('layoutSwitch.contentLayoutMaxWidth.slider') }}</span>
               </h5>
               <span>{{ t('layoutSwitch.contentLayoutMaxWidth.sliderHelpMessage') }}</span>
             </div>
@@ -138,7 +137,6 @@ watch(maxWidthValue, (val) => {
       </div>
       <fieldset
         flex="~ row"
-
         bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
         w-full appearance-none rounded-lg border-none p-1 space-x-2
         text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
@@ -149,7 +147,7 @@ watch(maxWidthValue, (val) => {
           'rounded-md': isMenuHelpPoppedUp,
         }"
       >
-        <MenuRange
+        <NuInputSlider
           v-model="maxWidthValue"
           name="VitePress Nolebase Enhanced Readabilities content layout max width range slider"
           :aria-label="t('layoutSwitch.contentLayoutMaxWidth.optionFullWidthAriaLabel')"
@@ -160,23 +158,5 @@ watch(maxWidthValue, (val) => {
         />
       </fieldset>
     </div>
-  </Transition>
+  </NuVerticalTransition>
 </template>
-
-<style scoped>
-.VPNolebaseEnhancedReadabilitiesContentLayoutWidthSlider {
-  max-height: 100px;
-}
-
-.fade-shift-enter-active,
-.fade-shift-leave-active {
-  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, max-height 0.2s ease-in-out;
-}
-
-.fade-shift-enter-from,
-.fade-shift-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
-  max-height: 0;
-}
-</style>

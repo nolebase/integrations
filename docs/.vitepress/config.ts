@@ -1,5 +1,4 @@
 import { cwd, env } from 'node:process'
-import { join, relative } from 'node:path'
 import { type DefaultTheme, defineConfig } from 'vitepress'
 import MarkdownItFootnote from 'markdown-it-footnote'
 
@@ -240,6 +239,11 @@ export default defineConfig({
     },
   },
   markdown: {
+    codeTransformers: [
+      transformerTwoslash({
+        errorRendering: 'hover',
+      }),
+    ],
     config(md) {
       md.use(MarkdownItFootnote)
       md.use(BiDirectionalLinks({
@@ -270,67 +274,28 @@ export default defineConfig({
         } as ElementTransformOptions
       })())
     },
-    codeTransformers: [
-      transformerTwoslash({
-        errorRendering: 'hover',
-      }),
-    ],
   },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({
       domain: 'https://nolebase-integrations.ayaka.io',
       category: {
-        customGetter: (page) => {
-          if (page.locale === 'root') {
-            const englishDocPath = relative(join('pages', 'en'), page.sourceFilePath.replace(/^\//, ''))
-            if (englishDocPath.startsWith('guide'))
-              return 'Guide'
-
-            if (englishDocPath.startsWith('integrations')) {
-              const englishIntegrationsDocPath = relative(join('pages', 'en', 'integrations'), page.sourceFilePath.replace(/^\//, ''))
-
-              if (englishIntegrationsDocPath.startsWith('markdown-it'))
-                return 'Markdown It Plugins'
-              if (englishIntegrationsDocPath.startsWith('obsidian-plugin'))
-                return 'Obsidian Plugins'
-              if (englishIntegrationsDocPath.startsWith('vitepress-plugin'))
-                return 'VitePress Plugins'
-
-              return 'Integrations'
-            }
-
-            if (englishDocPath.startsWith('ui'))
-              return 'UI Components'
-
-            return 'Documentations'
-          }
-
-          if (page.locale === 'zh-CN') {
-            const englishDocPath = relative(join('pages', 'zh-CN'), page.sourceFilePath.replace(/^\//, ''))
-            if (englishDocPath.startsWith('guide'))
-              return '指南'
-
-            if (englishDocPath.startsWith('integrations')) {
-              const englishIntegrationsDocPath = relative(join('pages', 'zh-CN', 'integrations'), page.sourceFilePath.replace(/^\//, ''))
-
-              if (englishIntegrationsDocPath.startsWith('markdown-it'))
-                return 'Markdown It 插件'
-              if (englishIntegrationsDocPath.startsWith('obsidian-plugin'))
-                return 'Obsidian 插件'
-              if (englishIntegrationsDocPath.startsWith('vitepress-plugin'))
-                return 'VitePress 插件'
-
-              return '集成'
-            }
-
-            if (englishDocPath.startsWith('ui'))
-              return 'UI 组件'
-
-            return '文档'
-          }
-
-          return page.frontmatter.category ?? ''
-        },
+        byPathPrefix: [
+          { prefix: '/pages/en/integrations/markdown-it', text: 'Markdown It Plugins' },
+          { prefix: '/pages/en/integrations/obsidian-plugin', text: 'Obsidian Plugins' },
+          { prefix: '/pages/en/integrations/vitepress-plugin', text: 'VitePress Plugins' },
+          { prefix: '/pages/en/integrations/', text: 'Integrations' },
+          { prefix: '/pages/en/guide/', text: 'Guide' },
+          { prefix: '/pages/en/ui/', text: 'UI Components' },
+          { prefix: '/pages/en/', text: 'Documentations' },
+          { prefix: '/pages/zh-CN/integrations/markdown-it', text: 'Markdown It 插件' },
+          { prefix: '/pages/zh-CN/integrations/obsidian-plugin', text: 'Obsidian 插件' },
+          { prefix: '/pages/zh-CN/integrations/vitepress-plugin', text: 'VitePress 插件' },
+          { prefix: '/pages/zh-CN/guide/', text: '指南' },
+          { prefix: '/pages/zh-CN/integrations/', text: '集成' },
+          { prefix: '/pages/zh-CN/ui/', text: 'UI 组件' },
+          { prefix: '/pages/zh-CN/', text: '文档' },
+        ],
+        fallbackWithFrontmatter: true,
       },
     })(siteConfig)
   },

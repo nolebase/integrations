@@ -3,6 +3,14 @@
   "compilerOptions": {
     "composite": false,
     "moduleResolution": "Node",
+    "paths": {
+      "@nolebase/ui": [
+        "../ui/src/index.ts"
+      ],
+      "@nolebase/ui/*": [
+        "../ui/src/components/*"
+      ]
+    },
     "types": [
       "./src/yaml.d.ts"
     ],

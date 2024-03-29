@@ -195,6 +195,9 @@ importers:
         specifier: '>=1.0.0-rc.44'
         version: 1.0.0-rc.44(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
     devDependencies:
+      '@nolebase/ui':
+        specifier: workspace:^
+        version: link:../ui
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)

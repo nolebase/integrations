@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
 
 import { useI18n } from '../composables/i18n'
 
 import MenuTitle from './MenuTitle.vue'
-import MenuOptions from './MenuOptions.vue'
 
 const { t } = useI18n()
 
@@ -37,7 +37,9 @@ const fieldOptions = computed(() => [
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>
     </div>
-    <MenuOptions
+    <NuInputHorizontalRadioGroup
+      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
       :options="fieldOptions"
       disabled
     />

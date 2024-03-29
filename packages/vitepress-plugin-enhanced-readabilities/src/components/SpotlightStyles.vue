@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useMediaQuery, useStorage } from '@vueuse/core'
+import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey, SpotlightToggledStorageKey } from '../constants'
 
 import MenuTitle from './MenuTitle.vue'
-import MenuOptions from './MenuOptions.vue'
 import MenuHelp from './MenuHelp.vue'
 
 const options = inject(InjectionKey, {})
@@ -75,24 +76,26 @@ watch(isTouchScreen, () => {
           </p>
           <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
             <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-              <h5 text="sm" mb-1>
+              <h5 text="sm" mb-2>
                 <span i-icon-park-outline:align-text-left-one mr-1 />
-                <span>{{ t('spotlight.styles.optionUnder') }}</span>
+                <span font-semibold>{{ t('spotlight.styles.optionUnder') }}</span>
               </h5>
               <span>{{ t('spotlight.styles.optionUnderHelpMessage') }}</span>
             </div>
             <div text="sm" bg="$vp-nolebase-enhanced-readabilities-menu-background-color" max-w-100 rounded-xl p-3>
-              <h5 text="sm" mb-1>
+              <h5 text="sm" mb-2>
                 <span i-icon-park-outline:align-left-one mr-1 />
-                <span>{{ t('spotlight.styles.optionAside') }}</span>
+                <span font-semibold>{{ t('spotlight.styles.optionAside') }}</span>
               </h5>
               <span>{{ t('spotlight.styles.optionAsideHelpMessage') }}</span>
             </div>
           </div>
         </MenuHelp>
       </div>
-      <MenuOptions
+      <NuInputHorizontalRadioGroup
         v-model="spotlightStyle"
+        bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+        text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
         outline="transparent 2px offset-4px dashed"
         transition="outline duration-200 ease"
         :class="{

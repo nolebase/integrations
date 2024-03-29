@@ -76,9 +76,16 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         ],
       },
       {
+        text: 'Inputs',
+        items: [
+          { text: 'Radio Group (Horizontal)', link: '/pages/en/ui/input-horizontal-radio-group/' },
+          { text: 'Slider', link: '/pages/en/ui/input-slider/' },
+        ],
+      },
+      {
         text: 'Animations',
         items: [
-          { text: 'Rive Canvas (Lazy Teleport)', link: '/pages/en/ui/lazyteleportrivecanvas/' },
+          { text: 'Rive Canvas (Lazy Teleport)', link: '/pages/en/ui/lazy-teleport-rive-canvas/' },
         ],
       },
     ],
@@ -150,9 +157,16 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         ],
       },
       {
+        text: '输入',
+        items: [
+          { text: '多个单选（水平）', link: '/pages/zh-CN/ui/input-horizontal-radio-group/' },
+          { text: '滑块', link: '/pages/zh-CN/ui/input-slider/' },
+        ],
+      },
+      {
         text: '动画',
         items: [
-          { text: 'Rive Canvas（懒 Teleport）', link: '/pages/zh-CN/ui/lazyteleportrivecanvas/' },
+          { text: 'Rive Canvas（懒 Teleport）', link: '/pages/zh-CN/ui/lazy-teleport-rive-canvas/' },
         ],
       },
     ],
@@ -277,7 +291,7 @@ export default defineConfig({
   },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({
-      domain: 'https://nolebase-integrations.ayaka.io',
+      baseUrl: 'https://nolebase-integrations.ayaka.io',
       category: {
         byPathPrefix: [
           { prefix: '/pages/en/integrations/markdown-it', text: 'Markdown It Plugins' },

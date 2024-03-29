@@ -12,6 +12,7 @@
     "declaration": false,
     "noEmit": false,
     "outDir": "./dist/client",
+    "removeComments": false,
     "sourceMap": true,
     "skipLibCheck": true
   },

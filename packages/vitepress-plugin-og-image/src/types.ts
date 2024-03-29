@@ -5,5 +5,6 @@ export interface PageItem extends DefaultTheme.SidebarItem {
   category: string
   locale: string
   sourceFilePath: string
+  normalizedSourceFilePath: string
   frontmatter: Record<string, any>
 }

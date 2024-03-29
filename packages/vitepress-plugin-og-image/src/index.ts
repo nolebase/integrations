@@ -1,10 +1,11 @@
 import { dirname, join, relative, resolve, sep } from 'node:path'
+import { sep as posixSep } from 'node:path/posix'
 import { fileURLToPath } from 'node:url'
 import type { Buffer } from 'node:buffer'
 import fs from 'fs-extra'
 import { glob } from 'glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
-import { gray, green, red, yellow } from 'colorette'
+import { cyan, gray, green, red, yellow } from 'colorette'
 import GrayMatter from 'gray-matter'
 import { unified } from 'unified'
 import RehypeMeta from 'rehype-meta'
@@ -161,18 +162,173 @@ async function renderSVGAndSavePNG(
   }
 }
 
-export function buildEndGenerateOpenGraphImages(options: {
-  domain: string
-  category?: {
-    byLevel?: number
-    fallbackWithFrontmatter?: boolean
-    customGetter?: (page: PageItem) => string
-  }
-}) {
-  const fallbackWithFrontmatter = typeof options.category?.fallbackWithFrontmatter === 'undefined'
-    ? true
-    : options.category.fallbackWithFrontmatter
+export interface BuildEndGenerateOpenGraphImagesOptions {
+  /**
+   * The base URL to use for open graph image.
+   *
+   * Must be a full URL, e.g. `https://example.com` or `https://example.com/path/of/baseUrl`.
+   *
+   * This is because for platforms like Telegram, Twitter, and Facebook, they wouldn't accept
+   * relative URLs for open graph image when dynamically fetching the image from the HTML meta tag.
+   * Instead, they require a full URL to the image.
+   *
+   * If you would ever need to use a dynamic base URL (e.g. Cloudflare Pages, Vercel, Netlify staging
+   * preview URL), you may need to create a separate stabled sub-domain or use a standalone services
+   * S3 to host the generated open graph images to make sure the image URL is full with domain.
+   */
+  baseUrl: string
+  /**
+   * The category options to use for open graph image.
+   */
+  category?: BuildEndGenerateOpenGraphImagesOptionsCategory
+}
 
+export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
+  /**
+   * Automatically extract category text from path with a specific level.
+   *
+   * For example, if you have a path like `/foo/bar/baz/index.md`, and you set `byLevel` to `1`,
+   * the category text will be `bar`. This is extremely useful when you have a file based routing,
+   * while having all the contents organized in a stable directory structure (e.g. knowledge base).
+   *
+   * As end user, either specify one of `byLevel`, `byPathPrefix`, or `byCustomGetter`, if multiple
+   * options are provided, `byCustomGetter` would be used as the first priority. `byPathPrefix` secondary,
+   * and `byLevel` as the last resort. If none of them are provided or produced undefined result for category
+   * text, it will fallback to frontmatter category text.
+   */
+  byLevel?: number
+  /**
+   * Automatically extract category text from path with a specific prefix.
+   *
+   * For example, if you have a path like `/foo/bar/baz/index.md`, and you set `byPathPrefix` to `[{ prefix: 'foo', text: 'Foo' }]`,
+   * the category text will be `Foo`. This is extremely useful when you use file based routing, while organized the contents
+   * inside a directory name that friendly to browsers.
+   *
+   * As end user, either specify one of `byLevel`, `byPathPrefix`, or `byCustomGetter`, if multiple
+   * options are provided, `byCustomGetter` would be used as the first priority. `byPathPrefix` secondary,
+   * and `byLevel` as the last resort. If none of them are provided or produced undefined result for category
+   * text, it will fallback to frontmatter category text.
+   */
+  byPathPrefix?: {
+    /**
+     * The prefix to match.
+     */
+    prefix: string
+    /**
+     * The text to use as category.
+     */
+    text: string
+  }[]
+  /**
+   * If `byLevel` or `byPathPrefix` is not enough, you can provide a custom getter to extract category text programmatically.
+   *
+   * For example you have a complex i18n system, or you want to extract category text from a specific field in frontmatter.
+   *
+   * As end user, either specify one of `byLevel`, `byPathPrefix`, or `byCustomGetter`, if multiple
+   * options are provided, `byCustomGetter` would be used as the first priority. `byPathPrefix` secondary,
+   * and `byLevel` as the last resort. If none of them are provided or produced undefined result for category
+   * text, it will fallback to frontmatter category text.
+   *
+   * @param {PageItem} page - The page item to process
+   * @returns {string} The category text
+   */
+  byCustomGetter?: (page: PageItem) => string | undefined | Promise<string | undefined>
+  /**
+   * Fallback to frontmatter category text when no category text found.
+   *
+   * Only effective when no category text found from `byLevel`, `byPathPrefix`, or `byCustomGetter`, or none of them
+   * were provided. If `true`, it will fallback to frontmatter category text when no category text found. Otherwise a 'Un-categorized'
+   * will be used as category text.
+   *
+   * @default true
+   */
+  fallbackWithFrontmatter?: boolean
+}
+
+async function applyCategoryText(pageItem: PageItem, categoryOptions?: BuildEndGenerateOpenGraphImagesOptionsCategory): Promise<string | undefined> {
+  if (typeof categoryOptions?.byCustomGetter !== 'undefined') {
+    const gotTextMaybePromise = categoryOptions.byCustomGetter({ ...pageItem })
+
+    if (typeof gotTextMaybePromise === 'undefined')
+      return undefined
+
+    if (gotTextMaybePromise instanceof Promise)
+      return await gotTextMaybePromise
+
+    if (gotTextMaybePromise)
+      return gotTextMaybePromise
+
+    return undefined
+  }
+
+  if (typeof categoryOptions?.byPathPrefix !== 'undefined') {
+    for (const { prefix, text } of categoryOptions.byPathPrefix) {
+      if (pageItem.normalizedSourceFilePath.startsWith(prefix)) {
+        if (!text) {
+          console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+          return undefined
+        }
+
+        return text
+      }
+      if (pageItem.normalizedSourceFilePath.startsWith(`/${prefix}`)) {
+        if (!text) {
+          console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+          return undefined
+        }
+
+        return text
+      }
+    }
+
+    console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} no path prefix matched for ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+    return undefined
+  }
+
+  if (typeof categoryOptions?.byLevel !== 'undefined') {
+    const level = Number.parseInt(String(categoryOptions?.byLevel ?? 0))
+    if (Number.isNaN(level)) {
+      console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[ERROR]')} byLevel must be a number, but got ${categoryOptions.byLevel} instead when processing ${pageItem.sourceFilePath} with categoryOptions.byLevel, will ignore...`)
+      return undefined
+    }
+
+    const dirs = pageItem.sourceFilePath.split(sep)
+    if (dirs.length > level)
+      return dirs[level]
+
+    console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${red(`[ERROR] byLevel is out of range for ${pageItem.sourceFilePath} with categoryOptions.byLevel.`)} will ignore...`)
+    return undefined
+  }
+
+  return undefined
+}
+
+async function applyCategoryTextWithFallback(pageItem: PageItem, categoryOptions?: BuildEndGenerateOpenGraphImagesOptionsCategory): Promise<string> {
+  const customText = await applyCategoryText(pageItem, categoryOptions)
+  if (customText)
+    return customText
+
+  const fallbackWithFrontmatter = typeof categoryOptions?.fallbackWithFrontmatter === 'undefined'
+    ? true
+    : categoryOptions.fallbackWithFrontmatter
+
+  if (fallbackWithFrontmatter
+    && 'category' in pageItem.frontmatter
+    && pageItem.frontmatter.category
+    && typeof pageItem.frontmatter.category === 'string'
+  )
+    return (pageItem.frontmatter as { category?: string }).category ?? ''
+
+  console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} no category text found for ${pageItem.sourceFilePath} with categoryOptions ${JSON.stringify(categoryOptions)}.}`)
+  return 'Un-categorized'
+}
+
+/**
+ * Build end generate open graph images.
+ * @param {BuildEndGenerateOpenGraphImagesOptions} options - Options used for generating open graph images.
+ * @returns Build end hook for VitePress
+ */
+export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGraphImagesOptions) {
   return async (siteConfig: SiteConfig) => {
     const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig)
 
@@ -185,8 +341,9 @@ export function buildEndGenerateOpenGraphImages(options: {
 
       for (const locale of sidebar.locales) {
         const flattenedSidebar = flattenSidebar(sidebar.sidebar[locale])
+        const items: PageItem[] = []
 
-        const items = flattenedSidebar.map((item) => {
+        for (const item of flattenedSidebar) {
           const relativeLink = item.link ?? ''
           const sourceFilePath = relativeLink.endsWith('/')
             ? `${relativeLink}index.md`
@@ -201,35 +358,13 @@ export function buildEndGenerateOpenGraphImages(options: {
             locale,
             frontmatter: data,
             sourceFilePath,
+            normalizedSourceFilePath: sourceFilePath.split(sep).join(posixSep),
           }
 
-          if (typeof options.category?.customGetter !== 'undefined') {
-            res.category = options.category.customGetter({ ...res })
-          }
-          else if (typeof options.category?.byLevel !== 'undefined') {
-            const level = Number.parseInt(String(options.category?.byLevel ?? 0))
+          res.category = await applyCategoryTextWithFallback(res, options.category)
 
-            if (!Number.isNaN(level)) {
-              const dirs = res.sourceFilePath.split(sep)
-
-              if (dirs.length > level)
-                res.category = dirs[level]
-            }
-          }
-
-          if (!res.category
-            && fallbackWithFrontmatter
-            && 'category' in res.frontmatter
-            && res.frontmatter.category
-            && typeof res.frontmatter.category === 'string'
-          )
-            res.category = (res.frontmatter as { category?: string }).category ?? ''
-
-          if (!res.category)
-            res.category = 'Un-categorized'
-
-          return res
-        }) satisfies PageItem[]
+          items.push(res)
+        }
 
         pages = pages.concat(items)
       }
@@ -283,7 +418,7 @@ export function buildEndGenerateOpenGraphImages(options: {
           file,
           ogImageTemplateSvg,
           ogImageTemplateSvgPath,
-          options.domain,
+          options.baseUrl,
         )
       }))
 

@@ -10,6 +10,7 @@
     "declaration": false,
     "noEmit": false,
     "outDir": "./dist",
+    "removeComments": false,
     "sourceMap": true,
     "skipLibCheck": true
   },

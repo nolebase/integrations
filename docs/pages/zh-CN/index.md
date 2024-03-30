@@ -85,6 +85,12 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     </template>
   </IntegrationCard>
 
+  <IntegrationCard type="vitepress" title="保密" package="vitepress-plugin-encrypt">
+    <template v-slot:badge>
+      <Badge type="danger" text="Alpha 测试" />
+    </template>
+  </IntegrationCard>
+
   <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss">
     <template v-slot:badge>
       <Badge type="warning" text="Beta 测试" />

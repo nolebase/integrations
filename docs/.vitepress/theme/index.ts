@@ -5,6 +5,7 @@ import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 
+import Protected from './components/Protected.vue'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 
@@ -29,6 +30,7 @@ export default defineThemeUnconfig({
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
     app.use(TwoslashFloatingVue as Plugin)
+    app.component('Protected', Protected)
   },
   pluginPresets: [
     NolebasePluginPreset({

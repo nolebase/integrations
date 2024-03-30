@@ -202,7 +202,7 @@ export function GitChangelog(options: {
       })
 
       // configure so that the git log messages can contain correct CJK characters
-      await git.raw(['config', '--global', 'core.quotepath', 'false'])
+      await git.raw(['config', '--local', 'core.quotepath', 'false'])
 
       spinner.text = `${spinnerPrefix} Gathering git logs...`
       spinner.color = 'yellow'

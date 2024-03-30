@@ -8,7 +8,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="双向链接" package="markdown-it-bi-directional-links">
   <template v-slot:badge>
-    <Badge type="tip" text="v1.27.0" />
+    <Badge type="tip" text="v1.27.1" />
   </template>
 </IntegrationCard>
 
@@ -16,7 +16,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform">
   <template v-slot:badge>
-    <Badge type="tip" text="v1.27.0" />
+    <Badge type="tip" text="v1.27.1" />
   </template>
 </IntegrationCard>
 
@@ -24,7 +24,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
-    <Badge type="tip" text="v1.27.0" />
+    <Badge type="tip" text="v1.27.1" />
   </template>
 </IntegrationCard>
 
@@ -40,7 +40,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading">
   <template v-slot:badge>
-    <Badge type="tip" text="v1.27.0" />
+    <Badge type="tip" text="v1.27.1" />
   </template>
 </IntegrationCard>
 

@@ -3,6 +3,14 @@
   "compilerOptions": {
     "composite": false,
     "moduleResolution": "Bundler",
+    "paths": {
+      "@nolebase/ui": [
+        "../ui/src/index.ts"
+      ],
+      "@nolebase/ui/*": [
+        "../ui/src/*"
+      ]
+    },
     "types": [
       "./src/yaml.d.ts"
     ],

@@ -1,8 +1,13 @@
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
 import type { Plugin } from 'vite'
 import { defineConfig } from 'vite'
 import Unocss from 'unocss/vite'
 import Vue from '@vitejs/plugin-vue'
 import Yaml from '@rollup/plugin-yaml'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 export default defineConfig({
   define: {
@@ -13,6 +18,9 @@ export default defineConfig({
     'import.meta.hot': 'import.meta.hot',
   },
   resolve: {
+    alias: {
+      '@nolebase/ui': resolve(__dirname, '../ui/src/'),
+    },
     dedupe: [
       'vue',
       'vitepress',

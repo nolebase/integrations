@@ -213,7 +213,14 @@ export function GitChangelog(options: {
       spinner.text = `${spinnerPrefix} Aggregating git logs...`
       spinner.color = 'green'
 
-      commits = await aggregateCommits(getRepoURL, getCommitURL, getReleaseTagURL, logs, includeDirs, rewritePaths)
+      commits = await aggregateCommits(
+        getRepoURL,
+        getCommitURL,
+        getReleaseTagURL,
+        logs,
+        includeDirs,
+        rewritePaths,
+      )
 
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${spinnerPrefix} Done. ${gray(`(${elapsed}ms)`)}`)

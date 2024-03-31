@@ -8,7 +8,7 @@
         "../ui/src/index.ts"
       ],
       "@nolebase/ui/*": [
-        "../ui/src/components/*"
+        "../ui/src/*"
       ]
     },
     "types": [

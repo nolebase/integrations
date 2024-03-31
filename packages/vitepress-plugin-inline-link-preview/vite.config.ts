@@ -1,11 +1,19 @@
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import type { Plugin } from 'vite'
 import Unocss from 'unocss/vite'
 import Vue from '@vitejs/plugin-vue'
 import Yaml from '@rollup/plugin-yaml'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 export default defineConfig({
   resolve: {
+    alias: {
+      '@nolebase/ui': resolve(__dirname, '../ui/src/'),
+    },
     dedupe: [
       'vue',
       'vitepress',

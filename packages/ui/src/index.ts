@@ -6,12 +6,15 @@ import NuInputHorizontalRadioGroup from './components/NuInputHorizontalRadioGrou
 import NuVerticalTransition from './components/NuVerticalTransition.vue'
 import NuLazyTeleportRiveCanvas from './components/NuLazyTeleportRiveCanvas.vue'
 
+import { createI18n } from './composables/i18n'
+
 export {
   NuButton,
   NuInputSlider,
   NuInputHorizontalRadioGroup,
   NuVerticalTransition,
   NuLazyTeleportRiveCanvas,
+  createI18n,
 }
 
 export function install(app: App): void {

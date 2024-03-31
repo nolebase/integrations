@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "types": [
       "vite/client",
-      "./src/client/virtual.d.ts",
       "./yaml.d.ts"
     ],
     "noImplicitAny": false,
@@ -19,6 +18,11 @@
     "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
   "include": [
     "src/client/**/*.ts",
     "src/client/**/*.d.ts",

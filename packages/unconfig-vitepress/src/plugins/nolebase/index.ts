@@ -247,7 +247,7 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       }
 
       if (opts.animatedMark?.enable)
-        await import('@nolebase/vitepress-plugin-enhanced-mark/dist/client/style.css')
+        await import('@nolebase/vitepress-plugin-enhanced-mark/client/style.css')
     },
   }
 }

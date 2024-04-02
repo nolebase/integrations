@@ -40,6 +40,7 @@ export default defineConfig({
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
       '@nolebase/unconfig-vitepress': resolve(__dirname, '../packages/unconfig-vitepress/src/'),
       '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
+      '@nolebase/vitepress-plugin-enhanced-mark/dist': resolve(__dirname, '../packages/vitepress-plugin-enhanced-mark/src/'),
     },
   },
   plugins: [

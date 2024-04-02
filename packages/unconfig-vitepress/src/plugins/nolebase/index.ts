@@ -58,6 +58,9 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
     enable?: boolean
     options?: NolebasePagePropertiesOptions<PagePropertiesObject>
   }
+  animatedMark?: {
+    enable?: boolean
+  }
 }
 
 const defaultOptions: NolebasePluginPresetOptions = {
@@ -178,6 +181,9 @@ const defaultOptions: NolebasePluginPresetOptions = {
       },
     },
   },
+  animatedMark: {
+    enable: true,
+  },
 }
 
 function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(options: NolebasePluginPresetOptions<any>): NolebasePluginPresetOptions<PagePropertiesObject> {
@@ -239,6 +245,9 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
 
         await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
       }
+
+      if (opts.animatedMark?.enable)
+        await import('@nolebase/vitepress-plugin-enhanced-mark/dist/client/style.css')
     },
   }
 }

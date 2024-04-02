@@ -1,0 +1,45 @@
+{
+  "name": "@nolebase/vitepress-plugin-enhanced-mark",
+  "type": "module",
+  "version": "1.27.2",
+  "description": "A VitePress plugin that empowers mark elements.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-enhanced-mark/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-enhanced-mark"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "css",
+    "animation",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": false,
+  "exports": {
+    "./client/style.css": "./dist/client/style.css"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
+    "build": "unbuild",
+    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
+  },
+  "peerDependencies": {
+    "vitepress": ">=1.0.0-rc.44"
+  }
+}

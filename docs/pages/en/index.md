@@ -87,7 +87,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
   <IntegrationCard type="vitepress" title="Enhanced <mark> elements" package="vitepress-plugin-enhanced-mark">
     <template v-slot:badge>
-      <Badge type="danger" text="Alpha" />
+      <Badge type="warning" text="Beta" />
     </template>
   </IntegrationCard>
 

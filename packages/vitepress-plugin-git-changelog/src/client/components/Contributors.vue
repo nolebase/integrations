@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { computedAsync } from '@vueuse/core'
+import { inject, onMounted, onServerPrefetch, ref } from 'vue'
 
 import Changelog from 'virtual:nolebase-git-changelog'
 
@@ -18,10 +17,31 @@ interface ContributorInfo {
 }
 
 const options = inject(InjectionKey, {})
+const contributors = ref<ContributorInfo[]>([])
 
 const { t } = useI18n()
 const rawPath = useRawPath()
 const commits = useCommits(Changelog.commits, rawPath)
+
+async function aggregateContributors(commits: Commit[]) {
+  const map: Record<string, ContributorInfo> = {}
+
+  for (const c of commits) {
+    await handleCommitAuthors(map, c.author_name, c.author_email, c.author_avatar)
+    await handleMultipleAuthors(map, c)
+  }
+
+  return Object.values(map).sort((a, b) => b.commitsCount - a.commitsCount)
+}
+
+onServerPrefetch(async () => {
+  contributors.value = await aggregateContributors(commits.value)
+})
+
+onMounted(async () => {
+  contributors.value = await aggregateContributors(commits.value)
+})
+
 const findRegisteredCreatorByName = (author_name: string) => options.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(author_name))
 const findRegisteredCreatorByEmail = (author_email: string) => options.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email))
 
@@ -88,20 +108,6 @@ async function handleCommitAuthors(map: Record<string, ContributorInfo>, authorN
 
   map[name].commitsCount++
 }
-
-const contributors = computedAsync<ContributorInfo[]>(
-  async () => {
-    const map: Record<string, ContributorInfo> = {}
-
-    for (const c of commits.value) {
-      await handleCommitAuthors(map, c.author_name, c.author_email, c.author_avatar)
-      await handleMultipleAuthors(map, c)
-    }
-
-    return Object.values(map).sort((a, b) => b.commitsCount - a.commitsCount)
-  },
-  [],
-)
 </script>
 
 <template>

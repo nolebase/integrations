@@ -1,4 +1,4 @@
-import { dirname, join, relative, resolve, sep } from 'node:path'
+import { basename, dirname, join, relative, resolve, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { fileURLToPath } from 'node:url'
 import type { Buffer } from 'node:buffer'
@@ -46,6 +46,10 @@ async function tryToLocateFontFile(siteConfig: SiteConfig): Promise<string | und
 
 /**
  * Render SVG and rewrite HTML
+ *
+ * Will always save the rendered Open Graph image as PNG under the same directory as the HTML file with
+ * the name `og-${fileName of rendered HTML}.png`.
+ *
  * @param {SiteConfig} siteConfig - Site configuration
  * @param {string} siteTitle - Site title
  * @param {string} siteDescription - Site description
@@ -66,8 +70,10 @@ async function renderSVGAndRewriteHTML(
   ogImageTemplateSvgPath: string,
   domain: string,
 ): Promise<TaskResult> {
-  const ogImageFilePathBaseName = `og-${page.title}.png`
+  const fileName = basename(file, '.html')
+  const ogImageFilePathBaseName = `og-${fileName}.png`
   const ogImageFilePathFullName = `${dirname(file)}/${ogImageFilePathBaseName}`
+
   const templatedOgImageSvg = templateSVG(
     siteTitle,
     siteDescription,

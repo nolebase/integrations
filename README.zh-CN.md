@@ -55,6 +55,7 @@ ni @nolebase/<integration-name> -D
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [页面属性（VitePress 插件](./packages/vitepress-plugin-page-properties/README.md)
 - [预览图片（社交媒体卡片）生成](./packages/vitepress-plugin-og-image/README.md)
+- [`<mark>` 元素增强](./packages/vitepress-plugin-enhanced-mark/README.md)
 
 ## 如何开发
 

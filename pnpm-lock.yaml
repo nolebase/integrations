@@ -95,6 +95,9 @@ importers:
       '@nolebase/unconfig-vitepress':
         specifier: workspace:^
         version: link:../packages/unconfig-vitepress
+      '@nolebase/vitepress-plugin-enhanced-mark':
+        specifier: workspace:^
+        version: link:../packages/vitepress-plugin-enhanced-mark
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-enhanced-readabilities
@@ -151,22 +154,6 @@ importers:
         specifier: ^13.0.2
         version: 13.0.2
 
-  packages/shared:
-    dependencies:
-      colorette:
-        specifier: ^2.0.20
-        version: 2.0.20
-      glob:
-        specifier: ^10.3.10
-        version: 10.3.10
-    devDependencies:
-      '@types/markdown-it':
-        specifier: ^13.0.7
-        version: 13.0.7
-      markdown-it:
-        specifier: ^13.0.2
-        version: 13.0.2
-
   packages/ui:
     dependencies:
       '@rive-app/canvas':
@@ -185,6 +172,9 @@ importers:
 
   packages/unconfig-vitepress:
     dependencies:
+      '@nolebase/vitepress-plugin-enhanced-mark':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-enhanced-mark
       '@nolebase/vitepress-plugin-enhanced-readabilities':
         specifier: workspace:^
         version: link:../vitepress-plugin-enhanced-readabilities
@@ -207,6 +197,12 @@ importers:
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
+
+  packages/vitepress-plugin-enhanced-mark:
+    dependencies:
+      vitepress:
+        specifier: '>=1.0.0-rc.44'
+        version: 1.0.0-rc.45(@algolia/client-search@4.23.1)(@types/node@20.11.28)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.2)
 
   packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
@@ -7505,7 +7501,7 @@ packages:
       '@types/node': 20.11.28
       esbuild: 0.19.12
       less: 4.2.0
-      postcss: 8.4.35
+      postcss: 8.4.38
       rollup: 4.10.0
     optionalDependencies:
       fsevents: 2.3.3

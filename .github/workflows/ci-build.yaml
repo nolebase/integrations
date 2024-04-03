@@ -77,7 +77,7 @@ jobs:
         env:
           # As suggested in Verbose Build option to be able to track down errors https://github.com/vuejs/vitepress/issues/422
           # vitepress build command does not have --debug option, so we need to set it manually where the debug package is used.
-          DEBUG: 'vitepress:*'
+          # DEBUG: 'vitepress:*'
           VUE_PROD_HYDRATION_MISMATCH_DETAILS_FLAG: '1'
 
       - name: Upload artifact

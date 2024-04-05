@@ -28,7 +28,7 @@ export default defineBuildConfig({
   externals: [
     'vite',
     'simple-git',
-    'md5',
+    'uncrypto',
     // builtins
     ...builtins,
   ],

@@ -1,13 +1,14 @@
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import { env } from 'node:process'
-import { defineConfig } from 'vite'
+import { type Plugin, defineConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
+import Yaml from '@rollup/plugin-yaml'
+
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
-import type { Plugin } from 'vite'
-import Yaml from '@rollup/plugin-yaml'
 
 function getVueProdHydrationMismatchDetailsFlag() {
   if (!env) {
@@ -22,14 +23,14 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 export default defineConfig({
+  define: {
+    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
+  },
   assetsInclude: [
     '**/*.mov',
     '**/*.mp4',
     '**/*.riv',
   ],
-  define: {
-    __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
-  },
   optimizeDeps: {
     exclude: [
       'vitepress',

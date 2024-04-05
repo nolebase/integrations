@@ -9,6 +9,7 @@ const __dirname = dirname(__filename)
 export default defineBuildConfig({
   alias: {
     '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
+    '@nolebase/vitepress-plugin-enhanced-img/client': resolve(__dirname, '../packages/vitepress-plugin-enhanced-img/src/client'),
   },
   entries: [
     'src/plugins/index.ts',

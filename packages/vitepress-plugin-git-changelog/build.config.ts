@@ -17,7 +17,6 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.vue'], loaders: ['vue'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'cjs', loaders: ['js'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
-    { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
     { builder: 'rollup', input: './src/locales/index.ts', outDir: './dist/locales' },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },

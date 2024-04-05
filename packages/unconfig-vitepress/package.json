@@ -58,6 +58,7 @@
     "vitepress": ">=1.0.0-rc.44"
   },
   "dependencies": {
+    "@nolebase/vitepress-plugin-enhanced-img": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",

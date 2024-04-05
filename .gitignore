@@ -6,6 +6,7 @@
 .idea
 .nuxt
 .temp
+.vite-inspect
 *.local
 *.log
 components.d.ts

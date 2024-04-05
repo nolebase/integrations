@@ -1,14 +1,16 @@
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-
 import { env } from 'node:process'
-import { type Plugin, defineConfig } from 'vite'
+
+import { defineConfig } from 'vite'
+import type { Plugin } from 'vite'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
 import Yaml from '@rollup/plugin-yaml'
 
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
+import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-enhanced-img/vite'
 
 function getVueProdHydrationMismatchDetailsFlag() {
   if (!env) {
@@ -42,6 +44,7 @@ export default defineConfig({
       '@nolebase/unconfig-vitepress': resolve(__dirname, '../packages/unconfig-vitepress/src/'),
       '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
       '@nolebase/vitepress-plugin-enhanced-mark': resolve(__dirname, '../packages/vitepress-plugin-enhanced-mark/src/'),
+      '@nolebase/vitepress-plugin-enhanced-img': resolve(__dirname, '../packages/vitepress-plugin-enhanced-img/src/'),
     },
   },
   plugins: [
@@ -74,6 +77,7 @@ export default defineConfig({
         join('pages', 'zh-CN', 'index.md'),
       ],
     }),
+    ThumbnailHashImages(),
     PageProperties(),
     PagePropertiesMarkdownSection({
       excludes: [
@@ -81,7 +85,10 @@ export default defineConfig({
         join('pages', 'zh-CN', 'index.md'),
       ],
     }),
-    Inspect(),
+    Inspect({
+      build: true,
+      outputDir: '.vite-inspect',
+    }),
     UnoCSS(),
     Yaml() as Plugin,
   ],

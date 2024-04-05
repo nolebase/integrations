@@ -15,6 +15,7 @@
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
     "@nolebase/unconfig-vitepress": "workspace:^",
+    "@nolebase/vitepress-plugin-enhanced-img": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
@@ -23,8 +24,10 @@
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@rive-app/canvas": "^2.11.1",
     "@rollup/plugin-yaml": "^4.1.2",
-    "@shikijs/vitepress-twoslash": "^1.2.1",
+    "@shikijs/vitepress-twoslash": "^1.2.4",
     "@types/markdown-it-footnote": "^3.0.4",
-    "markdown-it-footnote": "^4.0.0"
+    "markdown-it-footnote": "^4.0.0",
+    "thumbhash": "^0.1.1",
+    "unlazy": "^0.11.2"
   }
 }

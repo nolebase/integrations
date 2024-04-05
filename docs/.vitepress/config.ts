@@ -3,10 +3,11 @@ import { type DefaultTheme, defineConfig } from 'vitepress'
 import MarkdownItFootnote from 'markdown-it-footnote'
 
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
-import type { Options as ElementTransformOptions } from '@nolebase/markdown-it-element-transform'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
+import { transformHTMLForEnhancedImg } from '@nolebase/vitepress-plugin-enhanced-img/vitepress'
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
@@ -59,7 +60,14 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
-          { text: 'Enhanced &lt;mark&gt; elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
+          { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
+          {
+            text: 'Enhanced img elements',
+            items: [
+              { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/' },
+              { text: 'Try ThumbHash', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/thumbhash' },
+            ],
+          },
         ],
       },
     ],
@@ -141,7 +149,14 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
-          { text: '&lt;mark&gt; 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
+          { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
+          {
+            text: 'img 元素增强',
+            items: [
+              { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/' },
+              { text: '尝试 ThumbHash', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/thumbhash' },
+            ],
+          },
         ],
       },
     ],
@@ -265,7 +280,6 @@ export default defineConfig({
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
-
       md.use(ElementTransform, (() => {
         let transformNextLinkCloseToken = false
 
@@ -287,9 +301,13 @@ export default defineConfig({
                 break
             }
           },
-        } as ElementTransformOptions
+        }
       })())
     },
+  },
+  async transformHtml(code, id, ctx) {
+    code = await transformHTMLForEnhancedImg(code, id, ctx)
+    return code
   },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({
@@ -299,6 +317,7 @@ export default defineConfig({
           { prefix: '/pages/en/integrations/markdown-it', text: 'Markdown It Plugins' },
           { prefix: '/pages/en/integrations/obsidian-plugin', text: 'Obsidian Plugins' },
           { prefix: '/pages/en/integrations/vitepress-plugin', text: 'VitePress Plugins' },
+          { prefix: '/pages/en/integrations/vitepress-plugin/vitepress-plugin-enhanced-img', text: 'VitePress Plugin: Enhanced img Elements' },
           { prefix: '/pages/en/integrations/', text: 'Integrations' },
           { prefix: '/pages/en/guide/', text: 'Guide' },
           { prefix: '/pages/en/ui/', text: 'UI Components' },
@@ -306,8 +325,9 @@ export default defineConfig({
           { prefix: '/pages/zh-CN/integrations/markdown-it', text: 'Markdown It 插件' },
           { prefix: '/pages/zh-CN/integrations/obsidian-plugin', text: 'Obsidian 插件' },
           { prefix: '/pages/zh-CN/integrations/vitepress-plugin', text: 'VitePress 插件' },
-          { prefix: '/pages/zh-CN/guide/', text: '指南' },
+          { prefix: '/pages/zh-CN/integrations/vitepress-plugin/vitepress-plugin-enhanced-img', text: 'VitePress 插件: img 元素增强' },
           { prefix: '/pages/zh-CN/integrations/', text: '集成' },
+          { prefix: '/pages/zh-CN/guide/', text: '指南' },
           { prefix: '/pages/zh-CN/ui/', text: 'UI 组件' },
           { prefix: '/pages/zh-CN/', text: '文档' },
         ],

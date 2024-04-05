@@ -71,6 +71,20 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 <br />
 
 <IntegrationCard type="vitepress" title="Enhanced <mark> elements" package="vitepress-plugin-enhanced-mark">
+  <template v-slot:title>
+    Enhanced <code>&lt;mark&gt;</code> elements
+  </template>
+  <template v-slot:badge>
+    <Badge type="warning" text="Beta" />
+  </template>
+</IntegrationCard>
+
+<br />
+
+<IntegrationCard type="vitepress" title="Enhanced <img> elements" package="vitepress-plugin-enhanced-img">
+  <template v-slot:title>
+    Enhanced <code>&lt;img&gt;</code> elements
+  </template>
   <template v-slot:badge>
     <Badge type="warning" text="Beta" />
   </template>

@@ -3,11 +3,13 @@ import { useData } from 'vitepress'
 import VitePressLogo from '../assets/vitepress-logo-large.webp'
 import ObsidianLogo from '../assets/obsidian-logo.svg'
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   type: IntegrationType
   title: string
   package: string
-}>()
+}>(), {
+  title: '',
+})
 
 enum IntegrationType {
   markdownIt = 'markdown-it',
@@ -28,11 +30,25 @@ const data = useData()
     class="text-$vp-c-text-1!"
   >
     <span v-if="props.type === IntegrationType.markdownIt || props.type === IntegrationType.vitepress" flex="~ col 1" gap-2>
-      <span>{{ props.title }} <slot name="badge" /></span>
+      <span>
+        <template v-if="$slots.title">
+          <slot name="title" />
+        </template>
+        <template v-else>
+          {{ props.title }}
+        </template>
+        <slot name="badge" /></span>
       <span text="sm zinc-400 dark:zinc-600">@nolebase/{{ props.package }}</span>
     </span>
     <span v-if="props.type === IntegrationType.obsidian" flex="~ col 1" gap-2>
-      <span>{{ props.title }} <slot name="badge" /></span>
+      <span>
+        <template v-if="$slots.title">
+          <slot name="title" />
+        </template>
+        <template v-else>
+          {{ props.title }}
+        </template>
+        <slot name="badge" /></span>
       <span text="sm zinc-400 dark:zinc-600">{{ props.package }}</span>
     </span>
     <template v-if="props.type === IntegrationType.markdownIt">

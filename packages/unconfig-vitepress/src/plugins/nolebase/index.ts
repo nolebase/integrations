@@ -36,6 +36,10 @@ import {
   NolebasePagePropertiesPlugin,
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
+import {
+  UnlazyLoader,
+} from '@nolebase/vitepress-plugin-enhanced-img/client'
+
 import type { PluginSet } from '../../types'
 
 export interface NolebasePluginPresetOptions<PagePropertiesObject extends object = any> {
@@ -58,7 +62,10 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
     enable?: boolean
     options?: NolebasePagePropertiesOptions<PagePropertiesObject>
   }
-  animatedMark?: {
+  enhancedMark?: {
+    enable?: boolean
+  }
+  enhancedImg?: {
     enable?: boolean
   }
 }
@@ -181,7 +188,10 @@ const defaultOptions: NolebasePluginPresetOptions = {
       },
     },
   },
-  animatedMark: {
+  enhancedMark: {
+    enable: true,
+  },
+  enhancedImg: {
     enable: true,
   },
 }
@@ -212,6 +222,9 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
         helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
       }
+
+      if (opts.enhancedImg?.enable)
+        helpers.defineSlot('layout-top', () => h(UnlazyLoader))
     },
     async enhanceApp({ app }) {
       if (opts.enhancedReadabilities?.enable) {
@@ -246,7 +259,7 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
       }
 
-      if (opts.animatedMark?.enable)
+      if (opts.enhancedMark?.enable)
         await import('@nolebase/vitepress-plugin-enhanced-mark/client/style.css')
     },
   }

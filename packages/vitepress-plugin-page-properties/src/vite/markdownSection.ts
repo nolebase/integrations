@@ -133,6 +133,11 @@ export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSe
         : TemplatePageProperties()
 
       const parsedMarkdownContent = GrayMatter(code)
+      if ('nolebase' in parsedMarkdownContent.data && 'pageProperties' in parsedMarkdownContent.data.nolebase && !parsedMarkdownContent.data.nolebase.pageProperties)
+        return null
+      if ('pageProperties' in parsedMarkdownContent.data && !parsedMarkdownContent.data.pageProperties)
+        return null
+
       const hasFrontmatter = Object.keys(parsedMarkdownContent.data).length > 0
 
       // match any heading and move heading to top, then insert component after heading

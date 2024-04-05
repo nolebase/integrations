@@ -1,5 +1,7 @@
 import { relative } from 'node:path'
 import type { Plugin } from 'vite'
+import GrayMatter from 'gray-matter'
+
 import {
   pathEndsWith,
   pathEquals,
@@ -150,6 +152,12 @@ export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectio
       if (excludes.includes(relative(root, id)))
         return null
       if (exclude(id, { helpers: { pathStartsWith, pathEquals, pathEndsWith, idEndsWith, idEquals, idStartsWith } }))
+        return null
+
+      const parsedMarkdownContent = GrayMatter(code)
+      if ('nolebase' in parsedMarkdownContent.data && 'gitChangelog' in parsedMarkdownContent.data.nolebase && !parsedMarkdownContent.data.nolebase.gitChangelog)
+        return null
+      if ('gitChangelog' in parsedMarkdownContent.data && !parsedMarkdownContent.data.gitChangelog)
         return null
 
       if (!options?.sections?.disableContributors)

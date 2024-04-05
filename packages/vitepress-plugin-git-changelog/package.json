@@ -67,6 +67,7 @@
     "@nolebase/ui": "workspace:^",
     "colorette": "^2.0.20",
     "date-fns": "^3.3.1",
+    "gray-matter": "^4.0.3",
     "ora": "^8.0.1",
     "simple-git": "^3.22.0",
     "uncrypto": "^0.1.3"

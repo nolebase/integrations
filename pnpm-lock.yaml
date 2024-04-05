@@ -231,6 +231,9 @@ importers:
       date-fns:
         specifier: ^3.3.1
         version: 3.3.1
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       ora:
         specifier: ^8.0.1
         version: 8.0.1

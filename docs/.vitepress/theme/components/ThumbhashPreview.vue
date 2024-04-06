@@ -4,6 +4,24 @@ import { rgbaToThumbHash } from 'thumbhash'
 import { createPngDataUri } from 'unlazy/thumbhash'
 import { useClipboard } from '@vueuse/core'
 
+const props = withDefaults(defineProps<{
+  thumbhashText: string
+  applyThumbhashText: string
+  clickToUploadText: string
+  copyToClipboardText: string
+  clearInputThumbhashText: string
+  inputThumbhashPlaceholder: string
+  previewThumbhashText: string
+}>(), {
+  thumbhashText: 'Select image to generate thumbhash',
+  applyThumbhashText: 'Apply Thumbhash',
+  clickToUploadText: 'Click to upload image',
+  copyToClipboardText: 'Copy to clipboard',
+  clearInputThumbhashText: 'Clear thumbhash',
+  inputThumbhashPlaceholder: 'Input Thumbhash base64...',
+  previewThumbhashText: 'Input Thumbhash to preview',
+})
+
 const thumbhash = ref('')
 const thumbhashErrored = ref(false)
 const imageUploadRef = ref<HTMLInputElement | null>(null)
@@ -87,9 +105,9 @@ function handleApplyHash() {
   thumbhash.value = imageThumbhashBase64.value
 }
 
-function handleCopyHash() {
+async function handleCopyHash() {
   const { copy } = useClipboard()
-  copy(thumbhash.value)
+  await copy(imageThumbhashBase64.value)
 }
 
 function handleClearHash() {
@@ -98,156 +116,126 @@ function handleClearHash() {
 </script>
 
 <template>
-  <div flex="~ col" relative>
-    <button
-      v-if="imageUploadObjectURL"
-      bg="zinc-800/30 hover:zinc-800/80 active:zinc-800/50"
-      flex="~"
-      absolute right-4 top-4 h-10 w-10
-      items-center justify-center rounded-md
-      transition="all ease-in-out"
-      duration-250
-      text="white/50 hover:white"
-      @click="handleRemoveImage"
-    >
-      <div i-icon-park-outline:delete-five text-xl />
-    </button>
-    <label
-      bg="zinc-100 hover:zinc-200 active:zinc-100 dark:zinc-800 dark:hover:zinc-700 dark:active:zinc-800"
-      text="zinc-500 hover:zinc-700 active:zinc-500 dark:zinc-400 dark:hover:zinc-300 dark:active:zinc-400"
-      flex="~"
-      transition="all ease-in-out"
-      w-full cursor-pointer
-      items-center justify-center
-      overflow-hidden rounded-md duration-250
-    >
-      <input
-        ref="imageUploadRef"
-        type="file"
-        invisible hidden w-full appearance-none
-        @change="handleFileUpload"
-      >
-      <img v-if="imageUploadObjectURL" :src="imageUploadObjectURL">
-      <div
-        v-else
-        flex="~ row"
-        items-center
-        px-4 py-10
-      >
-        <div i-icon-park-outline:add-picture text-2xl />
-        <p font-semi-bold pl-3 text-lg>
-          <span>Click to upload image</span>
-        </p>
-      </div>
-    </label>
-  </div>
-  <div
-    bg="zinc-100 dark:zinc-800"
-    relative my-2 rounded-md px-4 py-2 font-mono
-  >
-    <span>
-      {{ imageThumbhashBase64 || 'Select image to generate thumbhash' }}
-    </span>
-    <button
-      border="2 solid zinc-200 dark:zinc-700"
-      flex="~"
-      bg="zinc-100 active:zinc-200 dark:zinc-800 dark:active:zinc-700"
-      text="zinc-500 dark:zinc-400"
-      absolute right-0 top-0 mx-1 my-1 h-8 w-8 items-center justify-center rounded-lg text-sm
-      transition="all ease-in-out" duration-250
-      @click="handleCopyHash"
-    >
-      <div i-icon-park-outline:clipboard />
-    </button>
-  </div>
-  <div flex="~" my-4 w-full items-center justify-center>
-    <button
-      class="apply-btn"
-      bg="zinc-100 dark:zinc-800 hover:zinc-200 active:zinc-100 dark:hover:zinc-700 dark:active:zinc-800"
-      transition="all ease-in-out"
-      flex="~ row"
-      items-center justify-center rounded-full
-      py-2 pl-2 pr-3
-      duration-250
-      @click="handleApplyHash"
-    >
-      <div
-        class="apply-btn-icon-container"
-        flex="~ row"
-        h-7 w-7 items-center justify-center overflow-hidden rounded-full
+  <div grid="~ cols-[1fr_40px_1fr] <sm:cols-[1fr]" w-full gap-1.5>
+    <div flex="~ col 1" relative order="1 <sm:1">
+      <button
+        v-if="imageUploadObjectURL"
+        bg="zinc-800/30 hover:zinc-800/80 active:zinc-800/50"
+        flex="~"
+        absolute right-4 top-4 h-8 w-8
+        items-center justify-center rounded-md
         transition="all ease-in-out"
         duration-250
+        text="white/50 hover:white"
+        @click="handleRemoveImage"
       >
-        <div class="apply-btn-icon" i-icon-park-outline:double-down text-base />
-      </div>
-      <p m="0!" pb-0 pl-1 pt-0>
-        <span text-sm>Apply Thumbhash</span>
-      </p>
-    </button>
-  </div>
-  <div
-    :class="[
-      thumbhashErrored ? 'bg-red-100 dark:bg-red-900' : 'bg-zinc-100 dark:bg-zinc-800',
-    ]"
-    relative my-2 rounded-md px-4 py-2 font-mono
-  >
-    <input v-model="thumbhash" placeholder="Input Thumbhash base64..." w-full text-base font-mono>
-    <button
-      border="2 solid zinc-200 dark:zinc-700"
-      flex="~"
-      bg="zinc-100 active:zinc-200 dark:zinc-800 dark:active:zinc-700"
+        <div i-icon-park-outline:delete-five text-xl />
+      </button>
+      <label
+        bg="zinc-100 hover:zinc-200 active:zinc-100 dark:zinc-800 dark:hover:zinc-700 dark:active:zinc-800"
+        text="zinc-500 hover:zinc-700 active:zinc-500 dark:zinc-400 dark:hover:zinc-300 dark:active:zinc-400"
+        flex="~"
+        transition="all ease-in-out"
+        h-full w-full cursor-pointer items-center justify-center overflow-hidden rounded-md duration-250
+      >
+        <input
+          ref="imageUploadRef"
+          type="file"
+          invisible hidden w-full appearance-none
+          @change="handleFileUpload"
+        >
+        <img v-if="imageUploadObjectURL" :src="imageUploadObjectURL" h-full w-full>
+        <div
+          v-else
+          flex="~ row"
+          h-full w-full items-center justify-center min-h="80 <sm:40"
+        >
+          <div i-icon-park-outline:add-picture text-2xl />
+          <p font-semi-bold pl-3 text-lg>
+            <span>{{ props.clickToUploadText }}</span>
+          </p>
+        </div>
+      </label>
+    </div>
+    <div order="2 <sm:3" />
+    <div
+      order="3 <sm:5"
+      bg="zinc-100 dark:zinc-800"
       text="zinc-500 dark:zinc-400"
-      absolute right-0 top-0 mx-1 my-1 h-8 w-8 items-center justify-center rounded-lg text-sm
-      transition="all ease-in-out" duration-250
-      @click="handleClearHash"
+      flex="~"
+      transition="all ease-in-out"
+      h-full w-full items-center justify-center overflow-hidden rounded-md duration-250
     >
-      <div i-icon-park-outline:clear-format />
-    </button>
-  </div>
-  <div flex="~ col" overflow-hidden rounded-md>
-    <img v-if="thumbhash" :src="dataUri">
+      <img v-if="thumbhash" :src="dataUri" h-full w-full>
+      <div v-else flex="~ row" h-full w-full items-center justify-center min-h="80 <sm:40">
+        <p font-semi-bold text-lg>
+          <span>{{ props.previewThumbhashText }}</span>
+        </p>
+      </div>
+    </div>
+    <div
+      order="4 <sm:2"
+      bg="zinc-100 dark:zinc-800"
+      relative my-2 rounded-md px-4 py-2 font-mono
+    >
+      <span>
+        {{ imageThumbhashBase64 || props.thumbhashText }}
+      </span>
+      <button
+        border="2 solid zinc-200 dark:zinc-700"
+        flex="~"
+        bg="zinc-100 active:zinc-200 dark:zinc-800 dark:active:zinc-700"
+        text="zinc-500 dark:zinc-400"
+        absolute right-0 top-0 mx-1 my-1 h-8 w-8 items-center justify-center rounded-lg text-sm
+        transition="all ease-in-out" duration-250
+        @click="handleCopyHash"
+      >
+        <div i-icon-park-outline:clipboard />
+      </button>
+    </div>
+    <div flex="~" my="2 <sm:0" mb="<sm:4" items-center justify-center order="5 <sm:4">
+      <button
+        class="apply-btn"
+        bg="zinc-100 dark:zinc-800 hover:zinc-200 active:zinc-100 dark:hover:zinc-700 dark:active:zinc-800"
+        transition="all ease-in-out"
+        flex="~ row"
+        h-full w-full items-center justify-center rounded-md duration-250 py="<sm:3"
+        @click="handleApplyHash"
+      >
+        <div
+          class="apply-btn-icon-container rotate-270 <sm:rotate-0"
+          flex="~ row"
+          transition="all ease-in-out"
+          h-full w-full items-center justify-center overflow-hidden rounded-full duration-250
+        >
+          <div class="apply-btn-icon" i-icon-park-outline:double-down text-base />
+        </div>
+      </button>
+    </div>
+    <div
+      :class="[
+        thumbhashErrored ? 'bg-red-100 dark:bg-red-900' : 'bg-zinc-100 dark:bg-zinc-800',
+      ]"
+      order="6 <sm:6"
+      relative my-2 rounded-md px-4 py-2 font-mono
+    >
+      <input v-model="thumbhash" :placeholder="props.inputThumbhashPlaceholder" w-full text-base font-mono>
+      <button
+        border="2 solid zinc-200 dark:zinc-700"
+        flex="~"
+        bg="zinc-100 active:zinc-200 dark:zinc-800 dark:active:zinc-700"
+        text="zinc-500 dark:zinc-400"
+        absolute right-0 top-0 mx-1 my-1 h-8 w-8 items-center justify-center rounded-lg text-sm
+        transition="all ease-in-out" duration-250
+        @click="handleClearHash"
+      >
+        <div i-icon-park-outline:clear-format />
+      </button>
+    </div>
   </div>
 </template>
 
 <style>
-.apply-btn::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  width: calc(50% - 100px);
-  display: inline-block;
-  height: 2px;
-  border-radius: 999.99px;
-  background: #f4f4f5;
-}
-
-.dark .apply-btn::before {
-  background: #3F3F46;
-}
-
-.apply-btn::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  width: calc(50% - 100px);
-  display: inline-block;
-  height: 2px;
-  border-radius: 999.99px;
-  background: #f4f4f5;
-}
-
-.dark .apply-btn::after {
-  background: #3F3F46;
-}
-
-.apply-btn:hover .apply-btn-icon-container {
-  background: #d4d4d8;
-}
-
-.dark .apply-btn:hover .apply-btn-icon-container {
-  background: #3F3F46;
-}
-
 .apply-btn:hover .apply-btn-icon {
   animation: topDown 2s ease-in-out;
 }
@@ -262,11 +250,11 @@ function handleClearHash() {
     opacity: 100%;
   }
   60% {
-    transform: translateY(35%);
+    transform: translateY(40%);
     opacity: 0;
   }
   80% {
-    transform: translateY(-35%);
+    transform: translateY(-40%);
     opacity: 0;
   }
   100% {

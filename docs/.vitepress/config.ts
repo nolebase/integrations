@@ -63,7 +63,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
           { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
           {
-            text: 'Enhanced img elements',
+            text: 'Enhanced image elements',
             items: [
               { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/' },
               { text: 'Try ThumbHash', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/thumbhash' },
@@ -152,7 +152,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
           { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
           {
-            text: 'img 元素增强',
+            text: 'image 元素增强',
             items: [
               { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/' },
               { text: '尝试 ThumbHash', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/thumbhash' },

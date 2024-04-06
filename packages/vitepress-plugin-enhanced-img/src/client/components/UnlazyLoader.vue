@@ -6,11 +6,11 @@ import { lazyLoad } from 'unlazy'
 const route = useRoute()
 
 onMounted(() => {
-  lazyLoad()
+  lazyLoad('img[loading="lazy"][data-src]')
 })
 
 watch(route, () => {
-  lazyLoad()
+  lazyLoad('img[loading="lazy"][data-src]')
 })
 </script>
 

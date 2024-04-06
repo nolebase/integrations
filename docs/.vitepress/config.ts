@@ -207,6 +207,13 @@ export default defineConfig({
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
     },
   },
+  vue: {
+    template: {
+      transformAssetUrls: {
+        img: ['src', 'data-src'],
+      },
+    },
+  },
   lastUpdated: true,
   themeConfig: {
     outline: 'deep',
@@ -271,11 +278,11 @@ export default defineConfig({
     },
   },
   markdown: {
-    // codeTransformers: [
-    //   transformerTwoslash({
-    //     errorRendering: 'hover',
-    //   }),
-    // ],
+    codeTransformers: [
+      transformerTwoslash({
+        errorRendering: 'hover',
+      }),
+    ],
     preConfig(md) {
       md.use(BiDirectionalLinks({
         dir: cwd(),
@@ -309,10 +316,6 @@ export default defineConfig({
       })())
     },
   },
-  // async transformHtml(code, id, ctx) {
-  //   code = await transformHTMLForEnhancedImg(code, id, ctx)
-  //   return code
-  // },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({
       baseUrl: 'https://nolebase-integrations.ayaka.io',

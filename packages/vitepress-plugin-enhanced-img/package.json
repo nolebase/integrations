@@ -36,7 +36,7 @@
     "./markdown-it": {
       "types": "./dist/markdown-it/index.d.ts",
       "import": "./dist/markdown-it/index.mjs",
-      "require": "./dist/markdown-it/index.js"
+      "require": "./dist/markdown-it/index.cjs"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",

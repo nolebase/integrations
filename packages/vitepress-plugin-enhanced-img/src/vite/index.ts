@@ -1,143 +1,20 @@
-import {
-  basename,
-  extname,
-  // basename,
-  // extname,
-  join,
-  relative,
-} from 'node:path'
-import {
-  mkdir,
-  readFile,
-  writeFile,
-} from 'node:fs/promises'
+import { join, relative } from 'node:path'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 
-import {
-  type Plugin,
-  normalizePath,
-} from 'vite'
+import { type Plugin, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
 
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
 import { createCanvas, loadImage } from '@napi-rs/canvas'
-import { subtle } from 'uncrypto'
 import { cyan, gray } from 'colorette'
 import ora from 'ora'
 import { glob } from 'glob'
 
+import type { ThumbHash, ThumbHashCalculated } from '../types'
+import { binaryToBase64, hash, normalizeBase64 } from './utils'
+
 interface VitePressConfig {
   vitepress: SiteConfig
-}
-
-interface ThumbHash {
-  /**
-   * The file name of the image. Will be normalized to be relative to the
-   * root of the VitePress configuration file.
-   */
-  assetFileName: string
-  /**
-   * The full file name of the image.
-   */
-  assetFullFileName: string
-  /**
-   * The hash of the image.
-   */
-  assetFullHash: string
-  /**
-   * The base64 encoded url safe hash of the image.
-   */
-  assetFileHash: string
-  /**
-   * The asset URL of the image. Will be used to render as `src` attribute
-   * in the HTML.
-   */
-  assetUrl: string
-  /**
-   * The asset URL of the image with base. Will be used to render as `data-src`
-   * attribute in the HTML used by unlazy.
-   *
-   * Value will be automatically calculated based on the `base` field
-   * configured in the VitePress configuration.
-   */
-  assetUrlWithBase: string
-  /**
-   * The thumbhash data URL of the image. Will be used to render as
-   * `src` attribute in the HTML.
-   */
-  dataUrl: string
-  /**
-   * The thumbhash data base64 of the image. Will be used to render as
-   * `data-thumbhash` attribute in the HTML.
-   */
-  dataBase64: string
-  /**
-   * The resized width of the image (thumbhash requires the image to be
-   * resized to less than 100px in width or height).
-   */
-  width: number
-  /**
-   * The original width of the image.
-   */
-  originalWidth: number
-  /**
-   * The resized height of the image (thumbhash requires the image to
-   * be resized to less than 100px in width or height).
-   */
-  height: number
-  /**
-   * The original height of the image.
-   */
-  originalHeight: number
-}
-
-// thumbhash/examples/browser/index.html at main · evanw/thumbhash
-// https://github.com/evanw/thumbhash/blob/main/examples/browser/index.html
-const binaryToBase64 = (binary: Uint8Array) => btoa(String.fromCharCode(...binary))
-
-/**
- * Hashes the given data using SHA-256 algorithm.
- *
- * Official example by MDN: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
- * @param {Uint8Array} data - The data to be hashed
- * @returns {Promise<string>} - The SHA-256 hash of the message
- */
-async function digestUint8ArrayDataSha256(data: Uint8Array) {
-  const hashBuffer = await subtle.digest('SHA-256', data) // hash the message
-  return Array.from(new Uint8Array(hashBuffer)) // convert buffer to byte array
-}
-
-/**
- * Simulate hash function of rollup.
- *
- * About hashing, please read the documentation of rollup:
- * https://rollupjs.org/configuration-options/#output-hashcharacters
- * https://github.com/rollup/rollup/blob/1b85663fde96d84fceaa2360dba246d3cb92789b/docs/configuration-options/index.md?plain=1#L628
- *
- * For implementation details, please read the source code of rollup:
- * https://github.com/rollup/rollup/blob/1b85663fde96d84fceaa2360dba246d3cb92789b/src/utils/FileEmitter.ts#L259
- * https://github.com/rollup/rollup/blob/1b85663fde96d84fceaa2360dba246d3cb92789b/src/utils/crypto.ts#L12
- *
- * @param {Uint8Array} data - The data to be hashed
- * @param {number} length - The length of the hash
- * @returns {Promise<string>} - The first 10 characters of the SHA-256 hash of the message
- */
-async function hash(data: Uint8Array, length = 10) {
-  const hashResult = await digestUint8ArrayDataSha256(data)
-  const hashBase64 = binaryToBase64(new Uint8Array(hashResult)) // convert bytes to base64 encoded string
-  if (length > 0)
-    return hashBase64.substring(0, length)
-
-  return hashBase64
-}
-
-/**
- * Normalize the base64 string to be used in the URL.
- *
- * @param {string} base64 - The base64 string to be normalized
- * @returns {string} - The normalized base64 string
- */
-function normalizeBase64(base64: string) {
-  return base64.replace('/', '_').replace('+', '-').replace('=', '-')
 }
 
 /**
@@ -154,7 +31,7 @@ function normalizeBase64(base64: string) {
  * @param {Uint8Array} imageData - The image data to be calculated
  * @returns {Promise<Omit<ThumbHash, 'fileName' | 'assetUrl' | 'assetUrlWithBase'>>} - The thumbhash data of the image
  */
-async function calculateThumbHashForFile(imageData: Uint8Array): Promise<Omit<ThumbHash, 'assetFileName' | 'assetFullFileName' | 'assetFullHash' | 'assetFileHash' | 'assetUrl' | 'assetUrlWithBase'>> {
+async function calculateThumbHashForFile(imageData: Uint8Array): Promise<ThumbHashCalculated> {
   const image = await loadImage(imageData)
   const width = image.width
   const height = image.height
@@ -195,7 +72,7 @@ function createThumbHashDataFromThumbHash(
   imageFullFileName: string,
   imageFullHash: string,
   imageFileHash: string,
-  thumbHash: Omit<ThumbHash, 'assetFileName' | 'assetFullFileName' | 'assetFullHash' | 'assetFileHash' | 'assetUrl' | 'assetUrlWithBase'>,
+  thumbHash: ThumbHashCalculated,
 ): ThumbHash {
   const fileName = relative(rootDir, imageFileName)
 
@@ -279,28 +156,12 @@ export function ThumbnailHashImages(): Plugin {
         // Calculate the thumbhash data for the image as thumbhash demonstrates.
         const calculatedThumbhashData = await calculateThumbHashForFile(readImageRawData)
 
-        // Concat file names as the default of rollup: [name].[hash].[ext]
-        const fileName = `${basename(file).replace(extname(file), '')}.${imageFileHash}${extname(file)}`
-
-        // Thanks for the implementation of `vite-plugin-image-presets` as a reference:
-        // ElMassimo/vite-plugin-image-presets: 🖼 Image Presets for Vite.js apps
-        // https://github.com/ElMassimo/vite-plugin-image-presets
-        this.emitFile({
-          type: 'asset',
-          // Use file name here since we need to ensure the file name is possible to be obtained
-          // and stored to the assets directory, thumbhash map.
-          //
-          // REVIEW: What about the other plugins that wanted to manipulate the images?
-          fileName: join(vitepressConfig.assetsDir, fileName),
-          source: readImageRawData,
-        })
-
         // Construct the thumbhash data for the image.
         return createThumbHashDataFromThumbHash(
           root,
           vitepressConfig.assetsDir,
           vitepressConfig.site.base,
-          fileName,
+          file,
           file,
           imageFullHash,
           imageFileHash,
@@ -320,72 +181,5 @@ export function ThumbnailHashImages(): Plugin {
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${spinnerPrefix} Done. ${gray(`(${elapsed}ms)`)}`)
     },
-    // /**
-    //  * Thanks for the implementation of `vite-plugin-image-presets` as a reference:
-    //  * ElMassimo/vite-plugin-image-presets: 🖼 Image Presets for Vite.js apps
-    //  * https://github.com/ElMassimo/vite-plugin-image-presets
-    //  *
-    //  * as well as the great answer from Stack Overflow:
-    //  * Generate thumbnail images in sveltekit/vite on build - Stack Overflow
-    //  * https://stackoverflow.com/questions/75789944/generate-thumbnail-images-in-sveltekit-vite-on-build
-    //  *
-    //  * as well as the great article from DEV community:
-    //  * Automated Image Compression: A Vite Plugin Using Sharp - DEV Community
-    //  * https://dev.to/mrwaip/automated-image-compression-a-vite-plugin-using-sharp-3h5d
-    //  *
-    //  * @param {string} _ - The code of the image. The reason why the first parameter `code` is omitted
-    //  *                     as `_` is because the code itself will never be the original raw data of the
-    //  *                     image, instead, it will be __VITE_ASSET__<id>__, and this is useless for
-    //  *                     calculating and hashing.
-    //  * @param {string} id - The id of the image
-    //  * @returns {Promise<string | undefined>} - The thumbhash data URL of the image
-    //  */
-    // async transform(_, id) {
-    //   // TODO: Add support for more image formats.
-    //   if (!(id.endsWith('.jpg') || id.endsWith('.jpeg') || id.endsWith('.png')))
-    //     return
-
-    //   // Concat file names as the default of rollup: [name].[hash].[ext]
-    //   const fileName = `${basename(id).replace(extname(id), '')}.${fileHashBase64}${extname(id)}`
-
-    //   // Calculate the thumbhash data for the image as thumbhash demonstrates.
-    //   const calculatedData = await calculateThumbHashForFile(readImageRawData)
-
-    //   if (!emittedFileNames.has(fileName)) {
-    //     // Thanks for the implementation of `vite-plugin-image-presets` as a reference:
-    //   // ElMassimo/vite-plugin-image-presets: 🖼 Image Presets for Vite.js apps
-    //   // https://github.com/ElMassimo/vite-plugin-image-presets
-    //     this.emitFile({
-    //       type: 'asset',
-    //       // Use file name here since we need to ensure the file name is possible to be obtained
-    //       // and stored to the assets directory, thumbhash map.
-    //       //
-    //       // REVIEW: What about the other plugins that wanted to manipulate the images?
-    //       fileName: join(vitepressConfig.assetsDir, fileName),
-    //       source: readImageRawData,
-    //     })
-    //   }
-
-    //   // Cache the emitted file names for later use.
-    //   emittedFileNames.add(fileName)
-
-    //   // Construct the thumbhash data for the image.
-    //   const thumbhashData = createThumbHashDataFromThumbHash(root, vitepressConfig.assetsDir, vitepressConfig.site.base, id, fileHashBase64, calculatedData)
-    //   // Cache the thumbhash data for later use.
-    //   thumbhashMap[thumbhashData.dataUrl] = thumbhashData
-
-    //   return `export default ${JSON.stringify(thumbhashData.dataUrl)}`
-    // },
-    // async buildEnd() {
-    //   await mkdir(
-    //     join(vitepressConfig.cacheDir, 'nolebase', 'vitepress-plugin-enhanced-img'),
-    //     { recursive: true },
-    //   )
-
-    //   await writeFile(
-    //     join(vitepressConfig.cacheDir, 'nolebase', 'vitepress-plugin-enhanced-img', 'thumbhash-map.json'),
-    //     JSON.stringify(thumbhashMap, null, 2),
-    //   )
-    // },
   }
 }

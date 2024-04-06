@@ -37,6 +37,7 @@ import {
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
 import {
+  NolebaseEnhancedImg,
   UnlazyLoader,
 } from '@nolebase/vitepress-plugin-enhanced-img/client'
 
@@ -261,6 +262,9 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
 
       if (opts.enhancedMark?.enable)
         await import('@nolebase/vitepress-plugin-enhanced-mark/client/style.css')
+
+      if (opts.enhancedImg?.enable)
+        app.component('NolebaseEnhancedImg', NolebaseEnhancedImg)
     },
   }
 }

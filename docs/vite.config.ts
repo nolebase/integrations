@@ -77,7 +77,6 @@ export default defineConfig({
         join('pages', 'zh-CN', 'index.md'),
       ],
     }),
-    ThumbnailHashImages(),
     PageProperties(),
     PagePropertiesMarkdownSection({
       excludes: [
@@ -85,6 +84,7 @@ export default defineConfig({
         join('pages', 'zh-CN', 'index.md'),
       ],
     }),
+    ThumbnailHashImages(),
     Inspect({
       build: true,
       outputDir: '.vite-inspect',

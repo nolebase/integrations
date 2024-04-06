@@ -1,5 +1,5 @@
 import { join, relative } from 'node:path'
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 
 import { type Plugin, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
@@ -101,11 +101,6 @@ function createThumbHashDataFromThumbHash(
  * @returns {Plugin} - The Vite plugin instance
  */
 export function ThumbnailHashImages(): Plugin {
-  const thumbhashMap: Record<string, ThumbHash> = {}
-  // const emittedFileNames = new Set<string>()
-  let root = ''
-  let vitepressConfig: SiteConfig
-
   return {
     name: '@nolebase/vitepress-plugin-enhanced-img/thumbnail-hash-images',
     enforce: 'pre',
@@ -123,11 +118,10 @@ export function ThumbnailHashImages(): Plugin {
         },
       }
     },
-    configResolved(config) {
-      root = config.root
-      vitepressConfig = (config as unknown as VitePressConfig).vitepress
-    },
-    async buildStart() {
+    async configResolved(config) {
+      const root = config.root
+      const vitepressConfig = (config as unknown as VitePressConfig).vitepress
+
       const startsAt = Date.now()
 
       const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-enhanced-img/thumbnail-hash-images')
@@ -138,6 +132,7 @@ export function ThumbnailHashImages(): Plugin {
 
       const cacheDir = join(vitepressConfig.cacheDir, '@nolebase', 'vitepress-plugin-enhanced-img', 'thumbhashes')
       await mkdir(cacheDir, { recursive: true })
+      await rm(join(cacheDir, '*'), { force: true, recursive: true })
 
       spinner.text = `${spinnerPrefix} Searching for images...`
 
@@ -170,6 +165,8 @@ export function ThumbnailHashImages(): Plugin {
       }))
 
       spinner.text = `${spinnerPrefix} Aggregating calculated thumbhash data...`
+
+      const thumbhashMap: Record<string, ThumbHash> = {}
 
       for (const thumbhash of thumbhashes)
         thumbhashMap[thumbhash.assetFileName] = thumbhash

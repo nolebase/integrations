@@ -215,6 +215,9 @@ importers:
       '@napi-rs/canvas':
         specifier: ^0.1.51
         version: 0.1.51
+      '@unlazy/vue':
+        specifier: ^0.11.3
+        version: 0.11.3
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
@@ -2720,6 +2723,16 @@ packages:
 
   /@unlazy/core@0.11.2:
     resolution: {integrity: sha512-+KXT4NPpKfzUZGg62/xu/7Z7f5KgqofF0efGJ3mETPJCCR13GgxnJAhd71LnJaOrzjRb4RXouMsfR0P84of4Dg==}
+
+  /@unlazy/core@0.11.3:
+    resolution: {integrity: sha512-y/d2UkDjp6Eftp01To8FYXR5V9XxJu2vebHkYUx200d9gsOQ7qd9U+IEgc/9TqVPL7cqRrLqttj0HFb2CEtAjw==}
+    dev: false
+
+  /@unlazy/vue@0.11.3:
+    resolution: {integrity: sha512-h3KQgsDxYbwXrLSNYirlczIvoAdFZnZHsmmTpQtmHG4uzr5II08jURem3HZtpmQJ67VZkLhBLkRKYlyFsF4gUg==}
+    dependencies:
+      unlazy: 0.11.3
+    dev: false
 
   /@unocss/astro@0.57.7(rollup@3.29.4)(vite@5.2.7):
     resolution: {integrity: sha512-X4KSBdrAADdtS4x7xz02b016xpRDt9mD/d/oq23HyZAZ+sZc4oZs8el9MLSUJgu2okdWzAE62lRRV/oc4HWI1A==}
@@ -7779,6 +7792,12 @@ packages:
     resolution: {integrity: sha512-qDbcdL9D8H7tR9m2GeW7SpxJrBj/H7OopBb2t4rMB9txSlUv+BFM5190M7OpfFIPYhuivlSEMptpFMcY/rGO3Q==}
     dependencies:
       '@unlazy/core': 0.11.2
+
+  /unlazy@0.11.3:
+    resolution: {integrity: sha512-GyNHIU+sMdKQGO/OLJw7Jb4L1/xBHHvjoSL9lOwFxRGv5N7COmXCc6n6hzTE7YTNs4SB1ff1pyO20WtSMkTKBg==}
+    dependencies:
+      '@unlazy/core': 0.11.3
+    dev: false
 
   /unocss@0.57.7(postcss@8.4.38)(rollup@3.29.4)(vite@5.2.7):
     resolution: {integrity: sha512-Z99ZZPkbkjIUXEM7L+K/7Y5V5yqUS0VigG7ZIFzLf/npieKmXHKlrPyvQWFQaf3OqooMFuKBQivh75TwvSOkcQ==}

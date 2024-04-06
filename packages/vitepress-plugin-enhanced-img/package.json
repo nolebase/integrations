@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.51",
+    "@unlazy/vue": "^0.11.3",
     "colorette": "^2.0.20",
     "glob": "^10.3.10",
     "markdown-it": "^13.0.2",

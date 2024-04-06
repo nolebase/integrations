@@ -210,7 +210,7 @@ export default defineConfig({
   vue: {
     template: {
       transformAssetUrls: {
-        img: ['src', 'data-src'],
+        NolebaseEnhancedImg: ['src'],
       },
     },
   },

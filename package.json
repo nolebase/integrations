@@ -50,7 +50,7 @@
     "unbuild": "^2.0.0",
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.7.10",
-    "vite": "^5.1.6",
+    "vite": "^5.1.7",
     "vite-plugin-inspect": "^0.8.3",
     "vitepress": "^1.0.0-rc.45",
     "vue": "3.4.19",

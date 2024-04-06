@@ -1,4 +1,5 @@
 import { cwd, env } from 'node:process'
+
 import { type DefaultTheme, defineConfig } from 'vitepress'
 import MarkdownItFootnote from 'markdown-it-footnote'
 
@@ -7,7 +8,7 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
-import { transformHTMLForEnhancedImg } from '@nolebase/vitepress-plugin-enhanced-img/vitepress'
+import { ThumbhashImg } from '@nolebase/vitepress-plugin-enhanced-img/markdown-it'
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
@@ -270,16 +271,19 @@ export default defineConfig({
     },
   },
   markdown: {
-    codeTransformers: [
-      transformerTwoslash({
-        errorRendering: 'hover',
-      }),
-    ],
-    config(md) {
-      md.use(MarkdownItFootnote)
+    // codeTransformers: [
+    //   transformerTwoslash({
+    //     errorRendering: 'hover',
+    //   }),
+    // ],
+    preConfig(md) {
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
+      md.use(ThumbhashImg())
+    },
+    config(md) {
+      md.use(MarkdownItFootnote)
       md.use(ElementTransform, (() => {
         let transformNextLinkCloseToken = false
 
@@ -305,10 +309,10 @@ export default defineConfig({
       })())
     },
   },
-  async transformHtml(code, id, ctx) {
-    code = await transformHTMLForEnhancedImg(code, id, ctx)
-    return code
-  },
+  // async transformHtml(code, id, ctx) {
+  //   code = await transformHTMLForEnhancedImg(code, id, ctx)
+  //   return code
+  // },
   async buildEnd(siteConfig) {
     await buildEndGenerateOpenGraphImages({
       baseUrl: 'https://nolebase-integrations.ayaka.io',

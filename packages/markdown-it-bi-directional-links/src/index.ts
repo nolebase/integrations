@@ -34,7 +34,7 @@ function logIncorrectMatchedMarkupWarning(
   if (!shouldLog)
     return
 
-  console.warn(`${yellow(`[@nolebase/markdown-it-bi-directional-links] [WARN] Matched markup '`) + input + yellow(`' is not at the start of the text.`)} ${yellow(`
+  console.warn(`${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')} ${yellow('[WARN]')} Matched markup '${input}' is not at the start of the text. ${yellow(`
 
 Things to check:
 
@@ -57,7 +57,7 @@ function logNoMatchedFileWarning(
   path: string,
   relevantPath?: { key: string, source: string },
 ) {
-  console.warn(`${yellow('[@nolebase/markdown-it-bi-directional-links] [WARN]')} ${yellow(`No matched file found for '`) + osSpecificHref + yellow(`', ignored.`)} ${yellow(`
+  console.warn(`${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')} ${yellow('[WARN]')} No matched file found for '${osSpecificHref}', ignored. ${yellow(`
 
 Things to check:
 

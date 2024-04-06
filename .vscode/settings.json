@@ -27,7 +27,10 @@
     "Twoslash",
     "unconfig",
     "uncrypto",
-    "unlazy"
+    "unlazy",
+    "ElMassimo",
+    "nodir",
+    "thumbhashes"
   ],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

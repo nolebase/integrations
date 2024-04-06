@@ -7,7 +7,7 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'cjs', loaders: ['js'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
-    { builder: 'rollup', input: './src/vitepress/index', outDir: './dist/vitepress' },
+    { builder: 'rollup', input: './src/markdown-it/index', outDir: './dist/markdown-it' },
   ],
   clean: true,
   sourcemap: true,
@@ -18,7 +18,6 @@ export default defineBuildConfig({
     'thumbhash',
     'colorette',
     'uncrypto',
-    'unified',
     'unlazy',
     'vitepress',
     // builtins

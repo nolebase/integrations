@@ -1,0 +1,62 @@
+{
+  "name": "@nolebase/markdown-it-unlazy-img",
+  "type": "module",
+  "version": "1.27.2",
+  "description": "A markdown-it plugin wraps and transforms image tags to support lazy loading, blurhash, thumbhash, and more.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/markdown-it-unlazy-img/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/markdown-it-unlazy-img"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "readabilities",
+    "markdown",
+    "markdown-it",
+    "markdown-it-plugin",
+    "vitepress-plugin",
+    "nolebase-integration",
+    "image-optimization",
+    "blurhash",
+    "thumbhash"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "stub": "unbuild --stub",
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
+  },
+  "peerDependencies": {
+    "markdown-it": ">=13.0.1"
+  },
+  "dependencies": {
+    "colorette": "^2.0.20",
+    "glob": "^10.3.10",
+    "vite": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^13.0.7",
+    "markdown-it": "^13.0.2"
+  }
+}

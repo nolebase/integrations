@@ -3,23 +3,6 @@
   "compilerOptions": {
     "composite": false,
     "baseUrl": ".",
-    "paths": {
-      "@nolebase/ui": [
-        "../ui/src/index.ts"
-      ],
-      "@nolebase/ui/*": [
-        "../ui/src/*"
-      ],
-      "@nolebase/vitepress-plugin-git-changelog/*": [
-        "../vitepress-plugin-git-changelog/src/*"
-      ],
-      "@nolebase/vitepress-plugin-thumbnail-hash/client": [
-        "../vitepress-plugin-thumbnail-hash/src/client"
-      ]
-    },
-    "types": [
-      "vite/client"
-    ],
     "strict": true,
     "strictNullChecks": true,
     "noFallthroughCasesInSwitch": true,

@@ -49,6 +49,12 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
+  <IntegrationCard type="markdown-it" title="Lazy loading blurred thumbnails" package="markdown-it-unlazy-img">
+    <template v-slot:badge>
+      <Badge type="tip" text="Beta" />
+    </template>
+  </IntegrationCard>
+
   <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
       <Badge type="tip" text="v1.27.2" />
@@ -86,6 +92,15 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Enhanced <mark> elements" package="vitepress-plugin-enhanced-mark">
+    <template v-slot:title>
+      Enhanced <code>&lt;mark&gt;</code> elements
+    </template>
+    <template v-slot:badge>
+      <Badge type="warning" text="Beta" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="Thumbnail hashing for images" package="vitepress-plugin-thumbnail-hash">
     <template v-slot:badge>
       <Badge type="warning" text="Beta" />
     </template>

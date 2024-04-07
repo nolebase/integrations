@@ -36,6 +36,10 @@ import {
   NolebasePagePropertiesPlugin,
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
+import {
+  NolebaseUnlazyImg,
+} from '@nolebase/vitepress-plugin-thumbnail-hash/client'
+
 import type { PluginSet } from '../../types'
 
 export interface NolebasePluginPresetOptions<PagePropertiesObject extends object = any> {
@@ -58,7 +62,10 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
     enable?: boolean
     options?: NolebasePagePropertiesOptions<PagePropertiesObject>
   }
-  animatedMark?: {
+  enhancedMark?: {
+    enable?: boolean
+  }
+  enhancedImg?: {
     enable?: boolean
   }
 }
@@ -181,7 +188,10 @@ const defaultOptions: NolebasePluginPresetOptions = {
       },
     },
   },
-  animatedMark: {
+  enhancedMark: {
+    enable: true,
+  },
+  enhancedImg: {
     enable: true,
   },
 }
@@ -246,8 +256,11 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
       }
 
-      if (opts.animatedMark?.enable)
+      if (opts.enhancedMark?.enable)
         await import('@nolebase/vitepress-plugin-enhanced-mark/client/style.css')
+
+      if (opts.enhancedImg?.enable)
+        app.component('NolebaseUnlazyImg', NolebaseUnlazyImg)
     },
   }
 }

@@ -49,13 +49,15 @@ To find out the integration name, there is a list of integrations below.
 - [UnoCSS (for Obsidian)](https://github.com/nolebase/obsidian-plugin-unocss)
 - [Bi-Directional Links (for `markdown-it`)](./packages/markdown-it-bi-directional-links/README.md)
 - [Elements Transformation (for `markdown-it`)](./packages/markdown-it-element-transform/README.md)
+- [Lazy loading blurred thumbnails (for `markdown-it`)](./packages/markdown-it-unlazy-img/README.md)
 - [Enhanced Readabilities (for VitePress)](./packages/vitepress-plugin-enhanced-readabilities/README.md)
 - [Changelog & File history (for VitePress)](./packages/vitepress-plugin-git-changelog/README.md)
 - [Inline Link Previewing (for VitePress)](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [Blinking highlight targeted heading (for VitePress)](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [Page properties (for VitePress)](./packages/vitepress-plugin-page-properties/README.md)
-- [Previewing image (social media card) generation](./packages/vitepress-plugin-og-image/README.md)
-- [Enhanced `<mark>` element](./packages/vitepress-plugin-enhanced-mark/README.md)
+- [Previewing image (social media card) generation (for VitePress)](./packages/vitepress-plugin-og-image/README.md)
+- [Enhanced `<mark>` element (for VitePress)](./packages/vitepress-plugin-enhanced-mark/README.md)
+- [Thumbnail hashing for images (for VitePress)](./packages/vitepress-plugin-thumbnail-hash/README.md)
 
 ## How to develop
 

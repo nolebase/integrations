@@ -144,7 +144,7 @@ function handleClearHash() {
           invisible hidden w-full appearance-none
           @change="handleFileUpload"
         >
-        <img v-if="imageUploadObjectURL" :src="imageUploadObjectURL" h-full w-full>
+        <img v-if="imageUploadObjectURL" :src="imageUploadObjectURL" h-full w-full object-cover>
         <div
           v-else
           flex="~ row"
@@ -166,7 +166,7 @@ function handleClearHash() {
       transition="all ease-in-out"
       h-full w-full items-center justify-center overflow-hidden rounded-md duration-250
     >
-      <img v-if="thumbhash" :src="dataUri" h-full w-full>
+      <img v-if="thumbhash" :src="dataUri" h-full w-full object-cover>
       <div v-else flex="~ row" h-full w-full items-center justify-center min-h="80 <sm:40">
         <p font-semi-bold text-lg>
           <span>{{ props.previewThumbhashText }}</span>

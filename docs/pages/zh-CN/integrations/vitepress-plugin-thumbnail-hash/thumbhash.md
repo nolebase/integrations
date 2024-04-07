@@ -5,7 +5,7 @@ nolebase:
   pageProperties: false
 ---
 
-# Thumbhash
+# 尝试 Thumbhash
 
 <br />
 

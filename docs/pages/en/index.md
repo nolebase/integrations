@@ -51,7 +51,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
   <IntegrationCard type="markdown-it" title="Lazy loading blurred thumbnails" package="markdown-it-unlazy-img">
     <template v-slot:badge>
-      <Badge type="tip" text="Beta" />
+      <Badge type="warning" text="Beta" />
     </template>
   </IntegrationCard>
 

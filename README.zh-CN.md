@@ -49,13 +49,15 @@ ni @nolebase/<integration-name> -D
 - [UnoCSS (Obsidian 插件)](https://github.com/nolebase/obsidian-plugin-unocss)
 - [双向链接（`markdown-it` 插件）](./packages/markdown-it-bi-directional-links/README.md)
 - [元素转换（`markdown-it` 插件）](./packages/markdown-it-element-transform/README.md)
+- [懒加载模糊预览图（`markdown-it` 插件）](./packages/markdown-it-unlazy-img/README.md)
 - [阅读增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-readabilities/README.md)
 - [变更记录 及 文件历史（VitePress 插件）](./packages/vitepress-plugin-git-changelog/README.md)
 - [行内链接预览（VitePress 插件）](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
-- [页面属性（VitePress 插件](./packages/vitepress-plugin-page-properties/README.md)
-- [预览图片（社交媒体卡片）生成](./packages/vitepress-plugin-og-image/README.md)
-- [`<mark>` 元素增强](./packages/vitepress-plugin-enhanced-mark/README.md)
+- [页面属性（VitePress 插件）](./packages/vitepress-plugin-page-properties/README.md)
+- [预览图片（社交媒体卡片）生成（VitePress 插件）](./packages/vitepress-plugin-og-image/README.md)
+- [`<mark>` 元素增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-mark/README.md)
+- [缩略图模糊哈希生成（VitePress 插件）](./packages/vitepress-plugin-thumbnail-hash/README.md)
 
 ## 如何开发
 

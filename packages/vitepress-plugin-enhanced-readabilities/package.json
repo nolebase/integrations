@@ -49,7 +49,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": ">=1.0.0-rc.44"
+    "vitepress": "^1.0.0"
   },
   "devDependencies": {
     "@nolebase/ui": "workspace:^",

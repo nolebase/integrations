@@ -66,7 +66,13 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
+    "vitepress": "^1.0.0",
     "vue": "^3.2.0"
+  },
+  "peerDependenciesMeta": {
+    "vitepress": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@rive-app/canvas": "^2.11.1",

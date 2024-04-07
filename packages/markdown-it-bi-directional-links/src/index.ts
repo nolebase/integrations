@@ -11,7 +11,28 @@ const biDirectionalLinkPattern = /\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 /** it will match [[file]] and [[file|text]] but only at the start of the text */
 const biDirectionalLinkPatternWithStart = /^\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 
-const IMAGES_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.bmp', '.tiff', '.apng', '.avif', '.jfif', '.pjpeg', '.pjp', '.png', '.svg', '.webp', '.xbm']
+const IMAGES_EXTENSIONS = [
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.gif',
+  '.svg',
+  '.webp',
+  '.ico',
+  '.bmp',
+  '.tiff',
+  '.apng',
+  '.avif',
+  '.jfif',
+  '.pjpeg',
+  '.pjp',
+  '.png',
+  '.svg',
+  '.webp',
+  '.xbm',
+]
+
+const logModulePrefix = `${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')}`
 
 function logIncorrectMatchedMarkupWarning(
   input: string,
@@ -34,7 +55,7 @@ function logIncorrectMatchedMarkupWarning(
   if (!shouldLog)
     return
 
-  console.warn(`${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')} ${yellow('[WARN]')} Matched markup '${input}' is not at the start of the text. ${yellow(`
+  console.warn(`${logModulePrefix} ${yellow('[WARN]')} Matched markup '${input}' is not at the start of the text. ${yellow(`
 
 Things to check:
 
@@ -50,6 +71,7 @@ ${yellow('Source text:')}
 }
 
 function logNoMatchedFileWarning(
+  rootDir: string,
   inputContent: string,
   markupTextContent: string,
   href: string,
@@ -57,7 +79,7 @@ function logNoMatchedFileWarning(
   path: string,
   relevantPath?: { key: string, source: string },
 ) {
-  console.warn(`${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')} ${yellow('[WARN]')} No matched file found for '${osSpecificHref}', ignored. ${yellow(`
+  console.warn(`${logModulePrefix} ${yellow('[WARN]')} No matched file found for '${osSpecificHref}' based on ${rootDir}, ignored. ${yellow(`
 
 Things to check:
 
@@ -203,8 +225,14 @@ export const BiDirectionalLinks: (options: {
 
       const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 
+      // Extract the pathname from the href
+      const parsedHref = new URL(href, 'https://a.com')
+      // 1. Remove the leading slash since pathname always starts with a slash and we don't want it
+      // 2. Decode the pathname since it is url-encoded
+      const parsedPathname = decodeURIComponent(parsedHref.pathname.slice(1))
+
       // Convert href to os specific path for matching and resolving
-      let osSpecificHref = href.split('/').join(sep)
+      let osSpecificHref = parsedPathname.split('/').join(sep)
 
       // if osSpecificHref has no extension, suffix it with .md
       if (!isImageRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
@@ -213,17 +241,25 @@ export const BiDirectionalLinks: (options: {
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
-        logNoMatchedFileWarning(inputContent, markupTextContent, href, osSpecificHref, state.env.path, relevantPath)
+        logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, relevantPath)
 
         return false
       }
 
-      const resolvedNewHref = posix.join(options.baseDir ?? '/', relative(rootDir, matchedHref).split(sep).join('/'))
+      let resolvedNewHref = posix.join(
+        options.baseDir ?? '/',
+        relative(rootDir, matchedHref)
+          .split(sep)
+          .join('/'),
+      )
 
-      if (isImageRef)
+      if (isImageRef) {
         genImage(state, resolvedNewHref, text, link)
-      else
+      }
+      else {
+        resolvedNewHref = resolvedNewHref + parsedHref.search + parsedHref.hash
         genLink(state, resolvedNewHref, text, md, href, link)
+      }
 
       return true
     })

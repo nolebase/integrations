@@ -28,7 +28,10 @@
     "packages:build": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run build",
     "packages:publish": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run package:publish",
     "cleanup:dist": "rimraf --glob **/dist",
-    "cleanup:node_modules": "rimraf --glob **/node_modules"
+    "cleanup:node_modules": "rimraf --glob **/node_modules",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.8.3",
@@ -41,6 +44,7 @@
     "@unocss/eslint-config": "^0.58.6",
     "@unocss/eslint-plugin": "^0.58.6",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/ui": "^1.4.0",
     "@vueuse/core": "^10.9.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
@@ -53,6 +57,7 @@
     "vite": "^5.1.7",
     "vite-plugin-inspect": "^0.8.3",
     "vitepress": "^1.0.0-rc.45",
+    "vitest": "^1.4.0",
     "vue": "3.4.19",
     "vue-tsc": "^1.8.27"
   },

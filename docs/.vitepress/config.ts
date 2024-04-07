@@ -42,7 +42,14 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
       {
         text: 'Markdown It Plugins',
         items: [
-          { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+          {
+            text: 'Bi-directional links',
+            collapsed: true,
+            items: [
+              { text: 'Getting Started', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+              { text: 'Syntax', link: '/pages/en/integrations/markdown-it-bi-directional-links/syntax' },
+            ],
+          },
           { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
           { text: 'Lazy loading blurred thumbnails', link: '/pages/en/integrations/markdown-it-unlazy-img/' },
         ],
@@ -59,6 +66,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
           {
             text: 'Thumbnail hashing for images',
+            collapsed: true,
             items: [
               { text: 'Usage', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/' },
               { text: 'Try ThumbHash', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/thumbhash' },
@@ -132,7 +140,14 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
       {
         text: 'Markdown It 插件',
         items: [
-          { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+          {
+            text: '双向链接',
+            collapsed: true,
+            items: [
+              { text: '快速上手', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+              { text: '语法', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/syntax' },
+            ],
+          },
           { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
           { text: '懒加载模糊缩略图', link: '/pages/zh-CN/integrations/markdown-it-unlazy-img/' },
         ],

@@ -37,9 +37,8 @@ import {
 } from '@nolebase/vitepress-plugin-page-properties/client'
 
 import {
-  NolebaseEnhancedImg,
-  UnlazyLoader,
-} from '@nolebase/vitepress-plugin-enhanced-img/client'
+  NolebaseUnlazyImg,
+} from '@nolebase/vitepress-plugin-thumbnail-hash/client'
 
 import type { PluginSet } from '../../types'
 
@@ -223,9 +222,6 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
         helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
       }
-
-      if (opts.enhancedImg?.enable)
-        helpers.defineSlot('layout-top', () => h(UnlazyLoader))
     },
     async enhanceApp({ app }) {
       if (opts.enhancedReadabilities?.enable) {
@@ -264,7 +260,7 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         await import('@nolebase/vitepress-plugin-enhanced-mark/client/style.css')
 
       if (opts.enhancedImg?.enable)
-        app.component('NolebaseEnhancedImg', NolebaseEnhancedImg)
+        app.component('NolebaseUnlazyImg', NolebaseUnlazyImg)
     },
   }
 }

@@ -13,8 +13,8 @@
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "../vitepress-plugin-git-changelog/src/*"
       ],
-      "@nolebase/vitepress-plugin-enhanced-img/client": [
-        "../vitepress-plugin-enhanced-img/src/client"
+      "@nolebase/vitepress-plugin-thumbnail-hash/client": [
+        "../vitepress-plugin-thumbnail-hash/src/client"
       ]
     },
     "types": [

@@ -8,7 +8,7 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
-import { ThumbhashImg } from '@nolebase/vitepress-plugin-enhanced-img/markdown-it'
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
@@ -40,16 +40,11 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         ],
       },
       {
-        text: 'Obsidian Plugins',
-        items: [
-          { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
-        ],
-      },
-      {
         text: 'Markdown It Plugins',
         items: [
           { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
           { text: 'Elements Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
+          { text: 'Lazy loading blurred thumbnails', link: '/pages/en/integrations/markdown-it-unlazy-img/' },
         ],
       },
       {
@@ -63,12 +58,18 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
           { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
           {
-            text: 'Enhanced image elements',
+            text: 'Thumbnail hashing for images',
             items: [
-              { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/' },
-              { text: 'Try ThumbHash', link: '/pages/en/integrations/vitepress-plugin-enhanced-img/thumbhash' },
+              { text: 'Usage', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/' },
+              { text: 'Try ThumbHash', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/thumbhash' },
             ],
           },
+        ],
+      },
+      {
+        text: 'Obsidian Plugins',
+        items: [
+          { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
         ],
       },
     ],
@@ -129,16 +130,11 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         ],
       },
       {
-        text: 'Obsidian 插件',
-        items: [
-          { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
-        ],
-      },
-      {
         text: 'Markdown It 插件',
         items: [
           { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
           { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
+          { text: '懒加载模糊缩略图', link: '/pages/zh-CN/integrations/markdown-it-unlazy-img/' },
         ],
       },
       {
@@ -152,12 +148,18 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
           { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
           {
-            text: 'image 元素增强',
+            text: '缩略图模糊哈希生成',
             items: [
-              { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/' },
-              { text: '尝试 ThumbHash', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-img/thumbhash' },
+              { text: '用法', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/' },
+              { text: '尝试 ThumbHash', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/thumbhash' },
             ],
           },
+        ],
+      },
+      {
+        text: 'Obsidian 插件',
+        items: [
+          { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
         ],
       },
     ],
@@ -210,7 +212,7 @@ export default defineConfig({
   vue: {
     template: {
       transformAssetUrls: {
-        NolebaseEnhancedImg: ['src'],
+        NolebaseUnlazyImg: ['src'],
       },
     },
   },
@@ -287,7 +289,9 @@ export default defineConfig({
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
-      md.use(ThumbhashImg())
+      md.use(UnlazyImages(), {
+        imgElementTag: 'NolebaseUnlazyImg',
+      })
     },
     config(md) {
       md.use(MarkdownItFootnote)
@@ -324,7 +328,7 @@ export default defineConfig({
           { prefix: '/pages/en/integrations/markdown-it', text: 'Markdown It Plugins' },
           { prefix: '/pages/en/integrations/obsidian-plugin', text: 'Obsidian Plugins' },
           { prefix: '/pages/en/integrations/vitepress-plugin', text: 'VitePress Plugins' },
-          { prefix: '/pages/en/integrations/vitepress-plugin/vitepress-plugin-enhanced-img', text: 'VitePress Plugin: Enhanced img Elements' },
+          { prefix: '/pages/en/integrations/vitepress-plugin/vitepress-plugin-thumbnail-hash', text: 'VitePress Plugin: Thumbnail hashing for images' },
           { prefix: '/pages/en/integrations/', text: 'Integrations' },
           { prefix: '/pages/en/guide/', text: 'Guide' },
           { prefix: '/pages/en/ui/', text: 'UI Components' },
@@ -332,7 +336,7 @@ export default defineConfig({
           { prefix: '/pages/zh-CN/integrations/markdown-it', text: 'Markdown It 插件' },
           { prefix: '/pages/zh-CN/integrations/obsidian-plugin', text: 'Obsidian 插件' },
           { prefix: '/pages/zh-CN/integrations/vitepress-plugin', text: 'VitePress 插件' },
-          { prefix: '/pages/zh-CN/integrations/vitepress-plugin/vitepress-plugin-enhanced-img', text: 'VitePress 插件: img 元素增强' },
+          { prefix: '/pages/zh-CN/integrations/vitepress-plugin/vitepress-plugin-thumbnail-hash', text: 'VitePress 插件：缩略图模糊哈希生成' },
           { prefix: '/pages/zh-CN/integrations/', text: '集成' },
           { prefix: '/pages/zh-CN/guide/', text: '指南' },
           { prefix: '/pages/zh-CN/ui/', text: 'UI 组件' },

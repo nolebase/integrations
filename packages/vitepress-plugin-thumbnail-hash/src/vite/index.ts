@@ -102,18 +102,18 @@ function createThumbHashDataFromThumbHash(
  */
 export function ThumbnailHashImages(): Plugin {
   return {
-    name: '@nolebase/vitepress-plugin-enhanced-img/thumbnail-hash-images',
+    name: '@nolebase/vitepress-plugin-thumbnail-hash/images',
     enforce: 'pre',
     config() {
       return {
         optimizeDeps: {
           exclude: [
-            '@nolebase/vitepress-plugin-enhanced-img/client',
+            '@nolebase/vitepress-plugin-thumbnail-hash/client',
           ],
         },
         ssr: {
           noExternal: [
-            '@nolebase/vitepress-plugin-enhanced-img',
+            '@nolebase/vitepress-plugin-thumbnail-hash',
           ],
         },
       }
@@ -124,13 +124,13 @@ export function ThumbnailHashImages(): Plugin {
 
       const startsAt = Date.now()
 
-      const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-enhanced-img/thumbnail-hash-images')
+      const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-thumbnail-hash/images')
       const grayPrefix = gray(':')
       const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
 
       const spinner = ora(`${spinnerPrefix} Prepare to generate hashes for images...`).start()
 
-      const cacheDir = join(vitepressConfig.cacheDir, '@nolebase', 'vitepress-plugin-enhanced-img', 'thumbhashes')
+      const cacheDir = join(vitepressConfig.cacheDir, '@nolebase', 'vitepress-plugin-thumbnail-hash', 'thumbhashes')
       await mkdir(cacheDir, { recursive: true })
       await rm(join(cacheDir, '*'), { force: true, recursive: true })
 

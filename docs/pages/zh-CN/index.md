@@ -49,6 +49,12 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     </template>
   </IntegrationCard>
 
+  <IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
+    <template v-slot:badge>
+      <Badge type="tip" text="Beta 测试" />
+    </template>
+  </IntegrationCard>
+
   <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
       <Badge type="tip" text="v1.27.2" />
@@ -94,10 +100,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     </template>
   </IntegrationCard>
 
-  <IntegrationCard type="vitepress" title="<img> 元素增强" package="vitepress-plugin-enhanced-img">
-    <template v-slot:title>
-      <code>&lt;img&gt;</code> 元素增强
-    </template>
+  <IntegrationCard type="vitepress" title="缩略图模糊哈希生成" package="vitepress-plugin-thumbnail-hash">
     <template v-slot:badge>
       <Badge type="warning" text="Beta 测试" />
     </template>

@@ -227,6 +227,11 @@ export default defineConfig({
   vue: {
     template: {
       transformAssetUrls: {
+        video: ['src', 'poster'],
+        source: ['src'],
+        img: ['src'],
+        image: ['xlink:href', 'href'],
+        use: ['xlink:href', 'href'],
         NolebaseUnlazyImg: ['src'],
       },
     },

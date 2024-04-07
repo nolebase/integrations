@@ -121,6 +121,8 @@ interface ThumbnailImageOptions {
   thumbhash?: ThumbnailImageThumbhashOptions
 }
 
+const logModulePrefix = `${cyan(`@nolebase/markdown-it-unlazy-img`)}${gray(':')}`
+
 /**
  * The same regexp as VitePress uses
  * https://github.com/vuejs/vitepress/blob/3113dad002e60312ca7b679cf38b887196c33303/src/shared/shared.ts#L17
@@ -210,7 +212,7 @@ export const UnlazyImages: () => PluginWithOptions<ThumbnailImageOptions> = () =
         return imageRule(tokens, idx, options, env, self)
       // Skip unsupported image formats
       if (['.png', '.jpg', '.jpeg'].every(ext => imgSrc.endsWith(ext))) {
-        console.warn(`${yellow(`[@nolebase/markdown-it-unlazy-img] [WARN]`)} ${yellow(`unsupported image format for ${imgSrc}`)}`)
+        console.warn(`${logModulePrefix} ${yellow('[WARN]')} unsupported image format for ${imgSrc}`)
         return imageRule(tokens, idx, options, env, self)
       }
 
@@ -263,7 +265,7 @@ export const UnlazyImages: () => PluginWithOptions<ThumbnailImageOptions> = () =
       const matchedThumbhashData = thumbhashMap?.[resolvedImgSrc]
       if (!matchedThumbhashData) {
         // Usually this should not happen
-        console.warn(`${cyan(`@nolebase/markdown-it-unlazy-img`)}${gray(':')} ${yellow(`[WARN]`)} thumbhash data not found for ${resolvedImgSrc}}`)
+        console.warn(`${logModulePrefix} ${yellow(`[WARN]`)} thumbhash data not found for ${resolvedImgSrc}}`)
         return imageRule(tokens, idx, options, env, self)
       }
 

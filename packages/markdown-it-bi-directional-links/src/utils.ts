@@ -23,7 +23,14 @@ export function findBiDirectionalLinks(
   return possibleBiDirectionalLinksInFilePaths[href]
 }
 
-export function genLink(state: StateInline, resolvedNewHref: string, text: string, md: MarkdownIt, href: string, link: RegExpMatchArray) {
+export function genLink(
+  state: StateInline,
+  resolvedNewHref: string,
+  text: string,
+  md: MarkdownIt,
+  href: string,
+  link: RegExpMatchArray,
+) {
   // Create new link_open
   const openToken = state.push('link_open', 'a', 1)
   openToken.attrSet('href', resolvedNewHref)
@@ -31,8 +38,14 @@ export function genLink(state: StateInline, resolvedNewHref: string, text: strin
   // Final inline tokens for link content
   const linkTokenChildrenContent: Token[] = []
 
+  // Remove the search and hash from the href
+  const parsedUrl = new URL(href, 'https://a.com')
+  const hrefWithoutSearchAndHash = decodeURIComponent(parsedUrl.pathname.slice(1))
+
   // Produces a set of inline tokens and each contains a set of children tokens
-  const parsedInlineTokens = text ? md.parseInline(text, state.env) : md.parseInline(href, state.env) || []
+  const parsedInlineTokens = text
+    ? md.parseInline(text, state.env)
+    : md.parseInline(hrefWithoutSearchAndHash, state.env) || []
 
   // We are going to push the children tokens of each inline token to the final inline tokens
   // Need to check if the parsed inline tokens have children tokens
@@ -61,7 +74,12 @@ export function genLink(state: StateInline, resolvedNewHref: string, text: strin
   state.pos += link![0].length
 }
 
-export function genImage(state: StateInline, resolvedNewHref: string, text: string, link: RegExpMatchArray) {
+export function genImage(
+  state: StateInline,
+  resolvedNewHref: string,
+  text: string,
+  link: RegExpMatchArray,
+) {
   const openToken = state.push('image', 'img', 1)
   openToken.attrSet('src', resolvedNewHref)
   openToken.attrSet('alt', '')

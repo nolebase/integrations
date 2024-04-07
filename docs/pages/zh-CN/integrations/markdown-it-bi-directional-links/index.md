@@ -14,21 +14,21 @@
 ::: info 语法支持矩阵
 
 <div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>基本语法</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>支持处理 hash tags <code>#</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>支持处理 query strings <code>?</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>图片双链</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>自定义文案</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>自定义 HTML 属性</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>同名文件语法</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>绝对路径语法</span>
 </div>
 

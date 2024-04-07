@@ -3,21 +3,21 @@
 The following syntaxes are supported:
 
 <div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Basic syntax</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Able to handle hash tags <code>#</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Able to handle query strings <code>?</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Images</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Custom text</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Custom HTML attributes</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Same name pages</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>Absolute path</span>
 </div>
 
@@ -95,7 +95,7 @@ Demo
 
 ![[foxtail field.jpg]]
 
-#### Custom Text
+### Custom Text
 
 ```markdown
 [[Bi-directional Links Example Page]]
@@ -104,30 +104,6 @@ Demo
 Demo
 
 [[Bi-directional Links Example Page|Custom Text]]
-
-#### Compatible with [`markdown-it-attrs`](https://github.com/arve0/markdown-it-attrs) to modify HTML attributes
-
-<br>
-
-### Change color
-
-```markdown
-[[Bi-directional Links Example Page]]{style="color: red;"}
-```
-
-Demo
-
-[[Bi-directional Links Example Page]]{style="color: red;"}
-
-### Change class name
-
-```markdown
-[[Bi-directional Links Example Page]]{.custom-class}
-```
-
-Demo
-
-[[Bi-directional Links Example Page]]{.custom-class}
 
 ### Use Markdown markup in custom text
 
@@ -139,10 +115,6 @@ Demo
 [[Some Full Path Reference to Your Page|*Italic Before* Middle *After*]]
 
 [[Some Full Path Reference to Your Page|~~Strikethrough Before~~ Middle ~~Strikethrough After~~]]
-
-[[Some Full Path Reference to Your Page|<span style="color: red;">Custom HTML</span>]]
-
-[[Some Full Path Reference to Your Page|<span style="color: red;">Custom HTML (Before)</span> Middle <span style="color: blue;">Custom HTML (After)</span>]]
 ```
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|`Code Block (Before)` Middle `Code Block (After)`]]
@@ -153,9 +125,41 @@ Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|~~Strikethrough (Before)~~ Middle ~~Strikethrough (After)~~]]
 
+### Use HTML markup in custom text
+
+```markdown
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span>]]
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span> Middle <span style="color: blue;">Custom HTML</span>]]
+```
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span>]]
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span> Middle <span style="color: blue;">Custom HTML</span>]]
+
+### Compatible with [`markdown-it-attrs`](https://github.com/arve0/markdown-it-attrs) to modify HTML attributes
+
+<br>
+
+#### Change color
+
+```markdown
+[[Bi-directional Links Example Page]]{style="color: red;"}
+```
+
+Demo
+
+[[Bi-directional Links Example Page]]{style="color: red;"}
+
+#### Change class name
+
+```markdown
+[[Bi-directional Links Example Page]]{.custom-class}
+```
+
+Demo
+
+[[Bi-directional Links Example Page]]{.custom-class}
 
 ### Absolute path
 

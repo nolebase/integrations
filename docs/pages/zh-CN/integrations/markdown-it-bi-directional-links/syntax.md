@@ -3,21 +3,21 @@
 当前支持以下语法：
 
 <div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>基本语法</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>支持处理 hash tags <code>#</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>支持处理 query strings <code>?</code></span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>图片双链</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>自定义文案</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>自定义 HTML 属性</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>同名文件语法</span>
-  <span i-icon-park-outline:check-one text="green-400 dark:green-600" />
+  <span i-icon-park-outline:check-one text="green-600" />
   <span>绝对路径语法</span>
 </div>
 
@@ -101,7 +101,7 @@ document.querySelector('#为什么')
 
 ![[一片 狗尾草.jpg]]
 
-### 改显示的文案
+### 自定义显示的文案
 
 ```markdown
 [[双向链接示例页面|自定义文案]]
@@ -110,12 +110,46 @@ document.querySelector('#为什么')
 效果
 
 [[双向链接示例页面|自定义文案]]
+
+#### 自定义文案中使用 Markdown 语法
+
+```markdown
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
+```
+
+效果
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
+
+#### 自定义文案中使用 HTML 语法
+
+```markdown
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
+```
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
 
 ### 兼容 [`markdown-it-attrs`](https://github.com/arve0/markdown-it-attrs) 修改 HTML 属性（Attribute）
 
 <br>
 
-### 改颜色
+#### 改颜色
 
 ```markdown
 [[双向链接示例页面]]{style="color: red;"}
@@ -125,7 +159,7 @@ document.querySelector('#为什么')
 
 [[双向链接示例页面]]{style="color: red;"}
 
-### 改类名
+#### 改类名
 
 ```markdown
 [[双向链接示例页面]]{.some-class}
@@ -134,36 +168,6 @@ document.querySelector('#为什么')
 效果
 
 [[双向链接示例页面]]{.some-class}
-
-### 自定义文案中使用 Markdown 语法
-
-```markdown
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
-```
-
-效果
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|`代码块（前缀）` 中间的内容 `代码块（后缀）`]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|**粗体（前缀）** 中间的内容 **粗体（后缀）**]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|*斜体（前缀）* 中间的内容 *斜体（后缀）*]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|~~删除线（前缀）~~ 中间的内容 ~~删除线（后缀）~~]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span>]]
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面|<span style="color: red;">自定义 HTML</span> 中间的内容 <span style="color: blue;">自定义 HTML</span>]]
 
 ### 绝对路径
 

@@ -179,7 +179,7 @@ document.querySelector('#为什么')
 
 [[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
 
-### 图片配合绝对路径
+#### 图片配合绝对路径
 
 ```markdown
 ![[zh-CN/integrations/markdown-it-bi-directional-links/images/海滩铁轨 同名图片.jpg]]
@@ -199,7 +199,7 @@ document.querySelector('#为什么')
 
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/images/same-name/海滩铁轨 同名图片.jpg]]
 
-### 绝对路径和自定义文案
+#### 绝对路径和自定义文案
 
 ```markdown
 [[某个文件夹|自定义文案]]

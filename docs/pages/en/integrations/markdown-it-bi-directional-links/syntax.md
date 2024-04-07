@@ -21,7 +21,9 @@ The following syntaxes are supported:
   <span>Absolute path</span>
 </div>
 
-## Basic
+## Syntax Reference
+
+### Basic
 
 The syntax is the same as what [Internal links - Obsidian Help](https://help.obsidian.md/Linking+notes+and+files/Internal+links) supported and simple to write:
 
@@ -105,7 +107,7 @@ Demo
 
 [[Bi-directional Links Example Page|Custom Text]]
 
-### Use Markdown markup in custom text
+#### Use Markdown markup in custom text
 
 ```markdown
 [[Some Full Path Reference to Your Page|`Code Block (Before)` Middle `Code Block (After)`]]
@@ -125,7 +127,7 @@ Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|~~Strikethrough (Before)~~ Middle ~~Strikethrough (After)~~]]
 
-### Use HTML markup in custom text
+#### Use HTML markup in custom text
 
 ```markdown
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|<span style="color: red;">Custom HTML</span>]]
@@ -171,7 +173,7 @@ Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
 
-### Image with absolute path
+#### Image with absolute path
 
 ```markdown
 ![[en/integrations/markdown-it-bi-directional-links/images/railway near by beach same name.jpg]]
@@ -191,7 +193,7 @@ Demo
 
 ![[pages/en/integrations/markdown-it-bi-directional-links/images/same-name/railway near by beach same name.jpg]]
 
-### Absolute path with custom text
+#### Absolute path with custom text
 
 ```markdown
 [[Some Full Path Reference to Your Page|Custom Text]]

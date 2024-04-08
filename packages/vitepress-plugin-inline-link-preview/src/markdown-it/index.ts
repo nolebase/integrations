@@ -22,7 +22,7 @@ export const InlineLinkPreviewElementTransform: PluginWithOptions<{ tag: string 
               return
 
             if (!transformNextHtmlInlineCloseToken) {
-              token.content = token.content.replace(/<a/, `${tagName}`)
+              token.content = token.content.replace(/<a/, `<${tagName}`)
               transformNextHtmlInlineCloseToken = true
             }
             else {

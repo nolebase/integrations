@@ -4,7 +4,7 @@ This is a low-level plugin that is intended to be used by advanced users who wan
 
 ::: warning Before you start
 
-This plugin primarily is a helper utility markdown-it plugin for [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/) to help to transform all the `<a>` elements to `<NolebaseInlineLinkPreview>` components.
+This plugin primarily is a helper utility markdown-it plugin for [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/) to help to transform all the `<a>` elements to `<VPNolebaseInlineLinkPreview>` components.
 
 When using this plugin directly, you may encounter errors like `Invalid tag`, or `Element missing end tag` errors when integrating with VitePress or Vue markdown plugins after transforming [tokens](https://markdown-it.github.io/markdown-it/#Token) and elements,
 or other markdown-it plugins that are not compatible with the transformed elements. Please use it when you understand how the [Token API](https://markdown-it.github.io/markdown-it/#Token) of `markdown-it` works.
@@ -52,15 +52,7 @@ Check out install instructions in the [`vite-plugin-inspect` docs](https://githu
 
 :::
 
-### Use with [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/)
-
-Use this plugin with [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/) to replace all the `<a>` elements to `<NolebaseInlineLinkPreview>` components to enable the abilities to preview the links.
-
-::: danger Implementation may change in the future for [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/)
-
-Such usage is a temporary workaround due to the fact that we haven't had time to refactor [Inline Links Previewing](/pages/en/integrations/vitepress-plugin-inline-link-preview/) plugin to listen the mouse hovering event of all the `<a>` elements as singleton instance across all pages for both better accessibility and compatibilities (since it replaces all the `<a>` elements and may break the markdown processing pipelines for advanced users).
-
-:::
+### Change the tag of the elements
 
 This is the living example code where we use it as references:
 
@@ -79,11 +71,13 @@ markdownIt.use(ElementTransform, (() => {
     transform(token) {
       switch (token.type) {
         case 'link_open':
+          // You can have some conditions here to skip the transformation
+          //
           // Skip the transformation if the token is a header anchor
-          // because the header anchor doesn't need to be previewed
+          // since usually the header anchor is not quite the same as the normal link
           if (token.attrGet('class') !== 'header-anchor') {
             // Modify the tag of the token
-            token.tag = 'NolebaseInlineLinkPreview'
+            token.tag = 'YourLinkComponentName'
             // Set the flag to transform the next link_close token
             transformNextLinkCloseToken = true
           }
@@ -92,7 +86,7 @@ markdownIt.use(ElementTransform, (() => {
           // Transform the token if the flag is set
           if (transformNextLinkCloseToken) {
             // Modify the tag of the token
-            token.tag = 'NolebaseInlineLinkPreview'
+            token.tag = 'YourLinkComponentName'
             // Reset the flag
             transformNextLinkCloseToken = false
           }

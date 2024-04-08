@@ -6,7 +6,7 @@ import MarkdownItFootnote from 'markdown-it-footnote'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
-import { ElementTransform } from '@nolebase/markdown-it-element-transform'
+import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 
@@ -310,6 +310,15 @@ export default defineConfig({
     codeTransformers: [
       transformerTwoslash({
         errorRendering: 'hover',
+        twoslashOptions: {
+          compilerOptions: {
+            target: 99,
+            moduleResolution: 100,
+            esModuleInterop: true,
+            isolatedModules: true,
+            verbatimModuleSyntax: true,
+          },
+        },
       }),
     ],
     preConfig(md) {
@@ -322,29 +331,7 @@ export default defineConfig({
     },
     config(md) {
       md.use(MarkdownItFootnote)
-      md.use(ElementTransform, (() => {
-        let transformNextLinkCloseToken = false
-
-        return {
-          transform(token) {
-            switch (token.type) {
-              case 'link_open':
-                if (token.attrGet('class') !== 'header-anchor') {
-                  token.tag = 'VPNolebaseInlineLinkPreview'
-                  transformNextLinkCloseToken = true
-                }
-                break
-              case 'link_close':
-                if (transformNextLinkCloseToken) {
-                  token.tag = 'VPNolebaseInlineLinkPreview'
-                  transformNextLinkCloseToken = false
-                }
-
-                break
-            }
-          },
-        }
-      })())
+      md.use(InlineLinkPreviewElementTransform)
     },
   },
   async buildEnd(siteConfig) {

@@ -12,10 +12,10 @@ import {
 
 import type {
   Options as NolebaseInlineLinkPreviewOptions,
-} from '@nolebase/vitepress-plugin-inline-link-preview'
+} from '@nolebase/vitepress-plugin-inline-link-preview/client'
 import {
   NolebaseInlineLinkPreviewPlugin,
-} from '@nolebase/vitepress-plugin-inline-link-preview'
+} from '@nolebase/vitepress-plugin-inline-link-preview/client'
 
 import {
   NolebaseHighlightTargetedHeading,
@@ -240,8 +240,6 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       if (opts.linkPreview?.enable) {
         const linkPreviewOptions = opts.linkPreview?.options ? [opts.linkPreview.options] : []
         app.use(NolebaseInlineLinkPreviewPlugin, ...linkPreviewOptions)
-
-        await import('@nolebase/vitepress-plugin-inline-link-preview/dist/style.css')
       }
 
       if (opts.gitChangelog?.enable) {

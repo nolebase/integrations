@@ -4,7 +4,7 @@
 
 ::: warning 在开始之前
 
-此插件主要是 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 的辅助工具 `markdown-it` 插件，用于将所有 `<a>` 元素转换为 `<NolebaseInlineLinkPreview>` 组件。
+此插件主要是 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 的辅助工具 `markdown-it` 插件，用于将所有 `<a>` 元素转换为 `<VPNolebaseInlineLinkPreview>` 组件。
 
 当直接使用此插件时，您可能会在转换 [Token](https://markdown-it.github.io/markdown-it/#Token) 和元素后与 VitePress 或 Vue markdown 插件集成时遇到诸如 `Invalid tag` 或 `Element missing end tag` 等错误，
 或者与不兼容转换后元素的其他 `markdown-it` 插件集成时遇到错误。请在了解 `markdown-it` 的 [Token API](https://markdown-it.github.io/markdown-it/#Token) 如何工作后使用它。
@@ -51,15 +51,7 @@ yarn add @nolebase/markdown-it-bi-element-transform -D
 
 :::
 
-### 与 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 一起使用
-
-可以与 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 一起使用，以将所有 `<a>` 元素替换为 `<NolebaseInlineLinkPreview>` 组件来启用预览链接的功能。
-
-::: danger 未来可能会更改 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 的实现方式
-
-这种用法是一个临时解决方案，因为我们还没有时间重构 [行内链接预览](/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/) 插件以监听所有页面上所有 `<a>` 元素的鼠标悬停事件作为单例实例，以获得更好的可访问性和兼容性（因为它替换了所有 `<a>` 元素，可能会破坏高级用户的 markdown 处理管道）。
-
-:::
+### 更改元素的标签
 
 这里有段示例代码，我们可以用它作为参考：
 
@@ -78,10 +70,11 @@ markdownIt.use(ElementTransform, (() => {
     transform(token) {
       switch (token.type) {
         case 'link_open':
-          // 如果是标题锚点，则不转换，因为标题锚点不需要预览
+          // 可以进行一些条件判断，以决定是否转换 Token
+          // 比如此处的：如果是标题锚点，则不转换，因为标题锚点链接和普通链接处理方法可能会有所不同
           if (token.attrGet('class') !== 'header-anchor') {
             // 修改 Token 的标签
-            token.tag = 'NolebaseInlineLinkPreview'
+            token.tag = '你的组件名'
             // 设置标记以便在下一个 Token 中转换
             transformNextLinkCloseToken = true
           }
@@ -90,7 +83,7 @@ markdownIt.use(ElementTransform, (() => {
           // 如果标记为 true，则转换 Token
           if (transformNextLinkCloseToken) {
             // 修改 Token 的标签
-            token.tag = 'NolebaseInlineLinkPreview'
+            token.tag = '你的组件名'
             // 还原标记
             transformNextLinkCloseToken = false
           }

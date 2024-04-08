@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "composite": false,
-    "moduleResolution": "Bundler",
+    "baseUrl": ".",
     "paths": {
       "@nolebase/ui": [
         "../ui/src/index.ts"
@@ -12,20 +12,26 @@
       ]
     },
     "types": [
-      "./src/yaml.d.ts"
+      "./yaml.d.ts"
     ],
-    "noImplicitAny": false,
-    "declaration": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "declaration": true,
     "noEmit": false,
     "outDir": "./dist",
+    "removeComments": false,
     "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
@@ -33,6 +39,7 @@
     "src/**/*.tsx"
   ],
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "node_modules"
   ]
 }

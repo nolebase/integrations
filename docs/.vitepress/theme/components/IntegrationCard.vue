@@ -30,26 +30,28 @@ const data = useData()
     class="text-$vp-c-text-1!"
   >
     <span v-if="props.type === IntegrationType.markdownIt || props.type === IntegrationType.vitepress" flex="~ col 1" gap-2>
-      <span>
+      <span text="<sm:sm">
         <template v-if="$slots.title">
           <slot name="title" />
         </template>
         <template v-else>
           {{ props.title }}
         </template>
-        <slot name="badge" /></span>
-      <span text="sm zinc-400 dark:zinc-600">@nolebase/{{ props.package }}</span>
+        <slot name="badge" />
+      </span>
+      <span text="sm <sm:xs zinc-400 dark:zinc-600">@nolebase/{{ props.package }}</span>
     </span>
     <span v-if="props.type === IntegrationType.obsidian" flex="~ col 1" gap-2>
-      <span>
+      <span text="<sm:sm">
         <template v-if="$slots.title">
           <slot name="title" />
         </template>
         <template v-else>
           {{ props.title }}
         </template>
-        <slot name="badge" /></span>
-      <span text="sm zinc-400 dark:zinc-600">{{ props.package }}</span>
+        <slot name="badge" />
+      </span>
+      <span text="sm <sm:xs zinc-400 dark:zinc-600">{{ props.package }}</span>
     </span>
     <template v-if="props.type === IntegrationType.markdownIt">
       <span class="i-octicon:markdown-16" h-15 w-15 text-5xl />

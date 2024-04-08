@@ -4,8 +4,7 @@ import { InjectionKey } from './constants'
 import type { Options } from './types'
 
 import InlineLinkPreview from './components/InlineLinkPreview.vue'
-
-import 'virtual:uno.css'
+import PopupIframe from './components/PopupIframe.vue'
 
 export type {
   Options,
@@ -13,6 +12,7 @@ export type {
 
 export {
   InlineLinkPreview as NolebaseInlineLinkPreview,
+  PopupIframe,
   InjectionKey,
 }
 

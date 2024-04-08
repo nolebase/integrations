@@ -241,7 +241,7 @@ import {
 If you are working on a VitePress and wanted to install it into Vue instance, you can do it like this:
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
@@ -264,7 +264,7 @@ export default Theme
 Of course you can also provide the relevant configuration directly when installing the plugin:
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
@@ -318,7 +318,7 @@ import {
 
 ## Configuration
 
-The Reading Enhancements plugin currently provides configuration options related to **Internationalization** and **Help Tooltip**.
+The Enhanced Readabilities plugin currently provides configuration options related to **Internationalization** and **Help Tooltip**.
 
 ### Configure in VitePress
 
@@ -329,7 +329,7 @@ Therefore we offer a way with [Vue's dependency injection](https://vuejs.org/api
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
@@ -493,16 +493,16 @@ The Enhanced Readabilities plugin does not use [vue-i18n](https://vue-i18n.intli
 
 The Enhanced Readabilities plugin supports internationalization by default, with English and Simplified Chinese as supported languages by default.
 
-You can override the plugin's localized text through configuration, and before you start, you need to understand how VitePress is internationalized: [Internationalization of VitePress](https://vitepress.dev/guide/i18n). The Reading Enhancement plugin reads the VitePress language field by default, so you'll need to be careful to keep the internationalized language code the same as the VitePress language code when configuring it.
+You can override the plugin's localized text through configuration, and before you start, you need to understand how VitePress is internationalized: [Internationalization of VitePress](https://vitepress.dev/guide/i18n). The Enhanced Readabilities plugin reads the VitePress language field by default, so you'll need to be careful to keep the internationalized language code the same as the VitePress language code when configuring it.
 
 ### Configure in VitePress
 
-In the [Configuration](#configuration) section, we've learned how to provide configuration options for the Reading Enhancement plugin in VitePress, and we can configure internationalization by adding the `locales` field to the configuration options:
+In the [Configuration](#configuration) section, we've learned how to provide configuration options for the Enhanced Readabilities plugin in VitePress, and we can configure internationalization by adding the `locales` field to the configuration options:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'

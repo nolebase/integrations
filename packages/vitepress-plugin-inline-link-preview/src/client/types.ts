@@ -1,7 +1,7 @@
 /**
  * Localization options
  */
-export interface Locale {
+export interface Locale extends Record<string, any> {
   /**
    * Popup options
    */

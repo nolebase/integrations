@@ -133,7 +133,7 @@ export default defineConfig(() => {
 
 #### 添加 VitePress 主题相关的配置
 
-在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-enhanced-readabilities` 导入，并且将其添加到 `Layout` 的拓展中：
+在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），**将 `@nolebase/vitepress-plugin-enhanced-readabilities` 导入，并且将其添加到 `Layout` 的拓展中**：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
@@ -242,7 +242,7 @@ import {
 如果是要给 VitePress 的 Vue 实例进行安装的话，你可以这样写：
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
@@ -265,7 +265,7 @@ export default Theme
 当然你也可以直接在安装插件的时候直接提供相关的配置：
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
@@ -328,7 +328,7 @@ import {
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
@@ -501,7 +501,7 @@ export interface Options {
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { Theme as ThemeConfig } from 'vitepress'
+import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
 import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'

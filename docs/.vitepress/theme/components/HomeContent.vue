@@ -14,14 +14,14 @@
 
 @media (min-width: 640px) {
   .container {
-    padding: 0 48px;
+    padding: 0 24px;
   }
 }
 
 @media (min-width: 960px) {
   .container {
     width: 100%;
-    padding: 0 64px;
+    padding: 0 48px;
   }
 }
 </style>

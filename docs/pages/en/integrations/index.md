@@ -40,7 +40,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="tip" text="v1.28.0" />
   </template>
 </IntegrationCard>
 

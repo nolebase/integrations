@@ -16,6 +16,9 @@
       "@nolebase/unconfig-vitepress/*": [
         "./packages/unconfig-vitepress/src/*"
       ],
+      "@nolebase/vitepress-plugin-inline-link-preview/*": [
+        "./packages/vitepress-plugin-git-changelog/src/*"
+      ],
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
       ]

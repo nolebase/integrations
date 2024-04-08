@@ -363,3 +363,76 @@ interface Locale extends Record<string, any> {
 ## 无障碍
 
 行内链接预览插件默认提供了无障碍的支持，你可以通过 [配置](#配置) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
+
+## 更多自定义能力？
+
+可以的，没问题。
+
+<!--@include: @/pages/zh-CN/snippets/configure-on-your-own-warning.md-->
+
+行内链接预览插件会导出内部使用的组件，所以如果你不喜欢默认组件的样式和封装，你可以创建自己的组件来代替它们。
+
+### 作为 Vue 插件使用
+
+```typescript twoslash
+import {
+  NolebaseInlineLinkPreviewPlugin // [!code focus]
+} from '@nolebase/vitepress-plugin-inline-link-preview/client'
+```
+
+如果您正在使用 VitePress，并希望将其安装到 Vue 实例中，可以这样做：
+
+```typescript twoslash
+import type { Theme as ThemeConfig } from 'vitepress'
+import DefaultTheme from 'vitepress/theme'
+
+import { NolebaseInlineLinkPreviewPlugin } from '@nolebase/vitepress-plugin-inline-link-preview/client' // [!code ++]
+
+// Rest of the code...
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // Rest of the code...
+  },
+  enhanceApp({ app }) {
+    app.use(NolebaseInlineLinkPreviewPlugin) // [!code ++]
+  },
+}
+
+export default Theme
+```
+
+#### 按需导入弹出式 iframe 封装组件
+
+```typescript twoslash
+import {
+  PopupIframe,  // [!code focus]
+} from '@nolebase/vitepress-plugin-inline-link-preview/client'
+```
+
+配置插件或组件后，您需要自定义 `markdown-it` 插件如何将 `[]()` 链接标记或 `<a>` 元素转换为您的自定义组件，而不是默认的 `<VPNolebaseInlineLinkPreview>` 组件。
+
+### 自定义 `markdown-it` 插件
+
+```typescript twoslash
+import { defineConfig } from 'vitepress'
+
+import {
+  InlineLinkPreviewElementTransform, // [!code focus]
+} from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
+
+export default defineConfig({
+  lang: 'en',
+  title: 'Site Name',
+  themeConfig: {
+    // rest of the options...
+  },
+  markdown: {
+    config(md) {
+      // other markdown-it configurations...
+      md.use(InlineLinkPreviewElementTransform, { tag: 'YourComponentName' }) // [!code focus]
+    }
+  }
+})
+```

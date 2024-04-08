@@ -12,23 +12,27 @@ Any scrolling, clicking, and browsing abilities are supported when interacting w
 
 :::
 
-<div relative min-h="[440px]" min-w="[620px]">
-  <a href="/pages/en/integrations/">Integrations</a>
-  <div
-      flex="~ col"
-      absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
-      border="1 solid $vp-c-divider"
-      class="max-w-[100vw]"
-      :style="{
-        left: `0px`,
-        top: `30px`,
-        width: `600px`,
-        height: `400px`,
-      }"
-      shadow="2xl"
-    >
-      <PopupIframe href="/pages/en/integrations/" />
-    </div>
+<div flex="~" justify-center>
+  <div relative h-full min-h="[440px]" w-full max-w="[640px] <sm:100%">
+    <a href="/pages/en/integrations/">How it looks when previewing Integrations page</a>
+    <div
+        flex="~ col"
+        absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
+        border="3 solid $vp-c-divider"
+        class="max-w-[100vw]"
+        :style="{
+          left: `0px`,
+          top: `30px`,
+          width: `100%`,
+          maxWidth: `600px`,
+          height: `400px`,
+          maxHeight: `440px`,
+        }"
+        shadow="2xl"
+      >
+        <PopupIframe href="/pages/en/integrations/" />
+      </div>
+  </div>
 </div>
 
 Try to hover your cursor over this link, you will see a popup that shows the preview content of the link:

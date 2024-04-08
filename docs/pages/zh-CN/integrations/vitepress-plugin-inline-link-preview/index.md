@@ -12,23 +12,27 @@ import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/clie
 
 :::
 
-<div relative min-h="[440px]" min-w="[620px]">
-  <a href="/pages/zh-CN/integrations/">集成</a>
-  <div
-      flex="~ col"
-      absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
-      border="1 solid $vp-c-divider"
-      class="max-w-[100vw]"
-      :style="{
-        left: `0px`,
-        top: `30px`,
-        width: `600px`,
-        height: `400px`,
-      }"
-      shadow="2xl"
-    >
-      <PopupIframe href="/pages/zh-CN/integrations/" />
-    </div>
+<div flex="~" justify-center>
+  <div relative h-full min-h="[440px]" w-full max-w="[640px] <sm:100%">
+    <a href="/pages/zh-CN/integrations/">一览预览「集成」页面时的效果</a>
+    <div
+        flex="~ col"
+        absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
+        border="3 solid $vp-c-divider"
+        class="max-w-[100vw]"
+        :style="{
+          left: `0px`,
+          top: `30px`,
+          width: `100%`,
+          maxWidth: `600px`,
+          height: `400px`,
+          maxHeight: `440px`,
+        }"
+        shadow="2xl"
+      >
+        <PopupIframe href="/pages/zh-CN/integrations/" />
+      </div>
+  </div>
 </div>
 
 尝试把光标悬停在这个链接上，你会看到一个弹窗，展示了链接的预览内容：

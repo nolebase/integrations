@@ -44,7 +44,7 @@ export default defineBuildConfig({
       if (Array.isArray(options.plugins))
         options.plugins.push(Yaml())
     },
-    'build:done': async () => {
+    'mkdist:done': async () => {
       // Since not all the users would choose to use unocss,
       // we bundle the styles from unocss here for users to opt-in.
       //

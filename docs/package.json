@@ -26,7 +26,9 @@
     "@rive-app/canvas": "^2.11.1",
     "@rollup/plugin-yaml": "^4.1.2",
     "@shikijs/vitepress-twoslash": "^1.2.4",
+    "@types/markdown-it": "^13.0.7",
     "@types/markdown-it-footnote": "^3.0.4",
+    "markdown-it": "^13.0.2",
     "markdown-it-footnote": "^4.0.0",
     "thumbhash": "^0.1.1",
     "unlazy": "^0.11.2"

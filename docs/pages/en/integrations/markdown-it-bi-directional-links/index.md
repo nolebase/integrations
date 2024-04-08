@@ -55,6 +55,10 @@ Install `@nolebase/markdown-it-bi-directional-links` to your project dependencie
 
 ::: code-group
 
+```shell [@antfu/ni]
+ni @nolebase/markdown-it-bi-directional-links -D
+```
+
 ```shell [pnpm]
 pnpm add @nolebase/markdown-it-bi-directional-links -D
 ```
@@ -113,8 +117,8 @@ Then you need to use the `use()` member methods from the `markdown-it` instance 
 With a options object that contains a `dir` field which is the root directory of your project supplied, the value for `dir` field can be obtained through `cwd()` function call that imported from either `process` or `node:process`:
 
 ```typescript twoslash
-import type { MarkdownIt } from 'markdown-it'
-let markdownIt = null as MarkdownIt
+import MarkdownIt from 'markdown-it'
+let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 import { cwd } from 'node:process' // [!code ++]

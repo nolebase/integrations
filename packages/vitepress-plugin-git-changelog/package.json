@@ -43,7 +43,8 @@
       "types": "./dist/client/index.d.ts",
       "import": "./dist/client/index.mjs",
       "require": "./dist/client/index.js"
-    }
+    },
+    "./client/styles.css": "./dist/client/styles.css"
   },
   "main": "./dist/vite/index.cjs",
   "module": "./dist/vite/index.mjs",

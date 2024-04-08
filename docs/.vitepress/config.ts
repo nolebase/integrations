@@ -237,6 +237,13 @@ export default defineConfig({
     },
   },
   lastUpdated: true,
+  ignoreDeadLinks: [
+    // Site Config | VitePress
+    // https://vitepress.dev/reference/site-config#ignoredeadlinks
+    //
+    // ignore all localhost links
+    /^https?:\/\/localhost/,
+  ],
   themeConfig: {
     outline: 'deep',
     socialLinks: [

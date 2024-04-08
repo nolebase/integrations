@@ -265,7 +265,7 @@ export const UnlazyImages: () => PluginWithOptions<ThumbnailImageOptions> = () =
       const matchedThumbhashData = thumbhashMap?.[resolvedImgSrc]
       if (!matchedThumbhashData) {
         // Usually this should not happen
-        console.warn(`${logModulePrefix} ${yellow(`[WARN]`)} thumbhash data not found for ${resolvedImgSrc}}`)
+        console.warn(`${logModulePrefix} ${yellow(`[WARN]`)} thumbhash data not found for ${resolvedImgSrc}`)
         return imageRule(tokens, idx, options, env, self)
       }
 

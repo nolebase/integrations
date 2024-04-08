@@ -1,10 +1,58 @@
+<script setup>
+import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'
+</script>
+
 # 行内链接预览 <Badge type="tip" text="v1.28.0" />
 
 这个 VitePress 插件实现了类似 Obsidian 的链接预览功能。
 
+::: info 🤗 在预览时也支持完整的交互能力！
+
+在与下面的预览弹出窗口进行交互和尝试时，任何的滚动、点击和浏览能力都是支持的，而且不会干扰到外部的页面。
+
+:::
+
+<div relative min-h="[440px]" min-w="[620px]">
+  <a href="/pages/zh-CN/integrations/">集成</a>
+  <div
+      flex="~ col"
+      absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
+      border="1 solid $vp-c-divider"
+      class="max-w-[100vw]"
+      :style="{
+        left: `0px`,
+        top: `30px`,
+        width: `600px`,
+        height: `400px`,
+      }"
+      shadow="2xl"
+    >
+      <PopupIframe href="/pages/zh-CN/integrations/" />
+    </div>
+</div>
+
 尝试把光标悬停在这个链接上，你会看到一个弹窗，展示了链接的预览内容：
 
 [[双向链接示例页面]]
+
+## 特性
+
+<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>与<a href="/pages/zh-CN/integrations/markdown-it-bi-directional-links">双向链接</a>一起搭配更佳</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>预览任何页面</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>隐藏页面内元素</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>智能判断外链</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>原生与 VitePress 样式兼容</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>遵循 Nolebase Integrations 国际化规范标准</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>无障碍最佳实践</span>
+</div>
 
 ## 安装
 

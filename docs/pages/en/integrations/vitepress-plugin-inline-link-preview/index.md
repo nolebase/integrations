@@ -1,10 +1,58 @@
+<script setup>
+import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'
+</script>
+
 # Inline Links Previewing <Badge type="tip" text="v1.28.0" />
 
 This VitePress plugin is an implementation that similar to Obsidian's link previewing functionalities.
 
+::: info 🤗 Full interactive functionalities when previewing!
+
+Any scrolling, clicking, and browsing abilities are supported when interacting with and trying out the preview popups below, and do not interfere with the external page.
+
+:::
+
+<div relative min-h="[440px]" min-w="[620px]">
+  <a href="/pages/en/integrations/">Integrations</a>
+  <div
+      flex="~ col"
+      absolute top-0 z-1 m-0 overflow-hidden rounded-lg p-0
+      border="1 solid $vp-c-divider"
+      class="max-w-[100vw]"
+      :style="{
+        left: `0px`,
+        top: `30px`,
+        width: `600px`,
+        height: `400px`,
+      }"
+      shadow="2xl"
+    >
+      <PopupIframe href="/pages/en/integrations/" />
+    </div>
+</div>
+
 Try to hover your cursor over this link, you will see a popup that shows the preview content of the link:
 
 [[Bi-directional Links Example Page]]
+
+## Features
+
+<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Better with <a href="/pages/zh-CN/integrations/markdown-it-bi-directional-links">Bi-directional Links</a></span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Preview any links</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Options to hide elements</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Automatically detect external links</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Natively compatible with VitePress design</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Follow the i18n regulations of Nolebase Integrations</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Best practices of a11y</span>
+</div>
 
 ## Installation
 

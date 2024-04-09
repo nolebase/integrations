@@ -23,6 +23,33 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Integrations',
         items: [
           { text: 'Overview', link: '/pages/en/integrations/' },
+          {
+            text: 'Markdown-it plugins',
+            items: [
+              { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+              { text: 'Element Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
+              { text: 'Lazy loading blurred thumbnails', link: '/pages/en/integrations/markdown-it-unlazy-img/' },
+            ],
+          },
+          {
+            text: 'VitePress plugins',
+            items: [
+              { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+              { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
+              { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
+              { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
+              { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
+              { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
+              { text: 'Thumbnail hashing for images', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/' },
+            ],
+          },
+          {
+            text: 'Obsidian plugins',
+            items: [
+              { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
+            ],
+          },
         ],
       },
       {
@@ -46,7 +73,8 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             text: 'Bi-directional links',
             collapsed: true,
             items: [
-              { text: 'Getting Started', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+              { text: 'Overview', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
+              { text: 'Getting Started', link: '/pages/en/integrations/markdown-it-bi-directional-links/getting-started' },
               { text: 'Syntax', link: '/pages/en/integrations/markdown-it-bi-directional-links/syntax' },
             ],
           },
@@ -58,7 +86,15 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'VitePress Plugins',
         items: [
           { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
-          { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+          {
+            text: 'Inline Links Previewing',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/getting-started' },
+              { text: 'Configuration', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/configuration' },
+            ],
+          },
           { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
           { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
@@ -121,6 +157,33 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: '集成',
         items: [
           { text: '概览', link: '/pages/zh-CN/integrations/' },
+          {
+            text: 'Markdown It 插件',
+            items: [
+              { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+              { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
+              { text: '懒加载模糊缩略图', link: '/pages/zh-CN/integrations/markdown-it-unlazy-img/' },
+            ],
+          },
+          {
+            text: 'VitePress 插件',
+            items: [
+              { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+              { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
+              { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
+              { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
+              { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
+              { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
+              { text: '缩略图模糊哈希生成', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/' },
+            ],
+          },
+          {
+            text: 'Obsidian 插件',
+            items: [
+              { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
+            ],
+          },
         ],
       },
       {
@@ -144,7 +207,8 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             text: '双向链接',
             collapsed: true,
             items: [
-              { text: '快速上手', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+              { text: '介绍', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
+              { text: '快速上手', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/getting-started' },
               { text: '语法', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/syntax' },
             ],
           },
@@ -156,7 +220,15 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'VitePress 插件',
         items: [
           { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
-          { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+          {
+            text: '行内链接预览',
+            collapsed: true,
+            items: [
+              { text: '介绍', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
+              { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/getting-started' },
+              { text: '配置', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/configuration' },
+            ],
+          },
           { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
           { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
@@ -164,6 +236,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
           {
             text: '缩略图模糊哈希生成',
+            collapsed: true,
             items: [
               { text: '用法', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/' },
               { text: '尝试 ThumbHash', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/thumbhash' },

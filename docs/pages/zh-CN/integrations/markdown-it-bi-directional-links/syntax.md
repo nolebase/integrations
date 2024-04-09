@@ -6,9 +6,9 @@
   <span i-icon-park-outline:check-one text="green-600" />
   <span>基本语法</span>
   <span i-icon-park-outline:check-one text="green-600" />
-  <span>支持处理 hash tags <code>#</code></span>
+  <span>带有 hash tags <code>#</code> 的链接</span>
   <span i-icon-park-outline:check-one text="green-600" />
-  <span>支持处理 query strings <code>?</code></span>
+  <span>带有 query strings <code>?</code> 的链接</span>
   <span i-icon-park-outline:check-one text="green-600" />
   <span>图片双链</span>
   <span i-icon-park-outline:check-one text="green-600" />

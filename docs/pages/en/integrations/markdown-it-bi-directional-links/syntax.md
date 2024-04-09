@@ -6,9 +6,9 @@ The following syntaxes are supported:
   <span i-icon-park-outline:check-one text="green-600" />
   <span>Basic syntax</span>
   <span i-icon-park-outline:check-one text="green-600" />
-  <span>Able to handle hash tags <code>#</code></span>
+  <span>Links with hash tags <code>#</code></span>
   <span i-icon-park-outline:check-one text="green-600" />
-  <span>Able to handle query strings <code>?</code></span>
+  <span>Links with query strings <code>?</code></span>
   <span i-icon-park-outline:check-one text="green-600" />
   <span>Images</span>
   <span i-icon-park-outline:check-one text="green-600" />

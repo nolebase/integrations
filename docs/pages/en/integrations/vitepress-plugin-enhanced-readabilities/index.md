@@ -126,7 +126,6 @@ export default defineConfig(() => {
     // other vite configurations...
   }
 })
-
 ```
 
 If you haven't configured any of the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) before but still want to have a try with the above configuration, you can create a `vite.config.ts` file in the root directory of your VitePress project and add the above configuration to it. (Don't forget to install `vite` through your package manager as well!)

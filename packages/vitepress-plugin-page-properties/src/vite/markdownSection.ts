@@ -14,6 +14,7 @@ export interface Context {
      * A helper function to help to determine whether the passed string parameter equals the
      * current transforming module ID with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param equalsWith - String to equal with
      * @returns boolean
      */
@@ -22,6 +23,7 @@ export interface Context {
      * A helper function to help to determine whether the passed string parameter startsWith the
      * current transforming module ID with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param startsWith - String to start with
      * @returns boolean
      */
@@ -30,6 +32,7 @@ export interface Context {
      * A helper function to help to determine whether the passed string parameter endsWith the
      * current transforming module ID with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param endsWith - String to end with
      * @returns boolean
      */
@@ -38,6 +41,7 @@ export interface Context {
      * A helper function to help to determine whether the passed first path parameter
      * equals the second passed string with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param path - Path to be compared with
      * @param equalsWith - String to equal with
      * @returns boolean
@@ -47,6 +51,7 @@ export interface Context {
      * A helper function to help to determine whether the passed first path parameter
      * startsWith the second passed string with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param path - Path to be compared with
      * @param startsWith - String to start with
      * @returns boolean
@@ -56,6 +61,7 @@ export interface Context {
      * A helper function to help to determine whether the passed first path parameter
      * endsWith the second passed string with normalization of paths capabilities and
      * cross platform / OS compatibilities.
+     *
      * @param path - Path to be compared with
      * @param endsWith - String to end with
      * @returns boolean
@@ -67,11 +73,13 @@ export interface Context {
 export interface PagePropertiesMarkdownSectionOptions {
   /**
    * The list of file names to exclude from the transformation
+   *
    * @default ['index.md']
    */
   excludes?: string[]
   /**
    * The function to exclude the file from the transformation
+   *
    * @param id - the current transforming module ID (comes from vite when transform hook is called)
    * @param context - the context object, contains several helper functions
    * @returns boolean
@@ -133,6 +141,7 @@ export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSe
         : TemplatePageProperties()
 
       const parsedMarkdownContent = GrayMatter(code)
+
       if ('nolebase' in parsedMarkdownContent.data && 'pageProperties' in parsedMarkdownContent.data.nolebase && !parsedMarkdownContent.data.nolebase.pageProperties)
         return null
       if ('pageProperties' in parsedMarkdownContent.data && !parsedMarkdownContent.data.pageProperties)

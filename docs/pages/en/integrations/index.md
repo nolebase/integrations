@@ -83,7 +83,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     Enhanced <code>&lt;mark&gt;</code> elements
   </template>
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="tip" text="v1.28.0" />
   </template>
 </IntegrationCard>
 

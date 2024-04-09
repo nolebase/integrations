@@ -1,7 +1,90 @@
-# Enhanced `<mark>` <mark>elements</mark> <Badge type="warning" text="Beta" />
+# Enhanced `<mark>` <mark>elements</mark> <Badge type="tip" text="v1.28.0" />
 
-::: warning 🚧 Constructing
-Nice to meet you! But sorry, this page is still under construction. If you don’t find the information you are interested in, you can first find the content you are interested in in the navigation in the sidebar to start reading.
+As an interesting little plugin, it adds a <mark>sliding animation</mark> to your `<mark>` highlighted elements.
+
+## Features
+
+<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>No JavaScripts</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Stunning looking <mark>animations</mark></span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Multi-line supports</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Day / Night theme (Dark mode) supported</span>
+  <span i-icon-park-outline:check-one text="green-600" />
+  <span>Natively compatible with VitePress design</span>
+</div>
+
+::: info 🤔 Performance drop? No!
+
+This plugin doesn't contain any JavaScript code, only one stylesheet is provided.
+
+Therefore, it should be theoretically performant, and won't cause any page lag.
+
 :::
 
-This is a paragraph that contains <mark>highlighted text with a animated yellow background</mark>.
+## Take a look
+
+It works like this:
+
+Lorem ipsum dolor sit amet, <mark>consectetur adipiscing elit. Phasellus imperdiet augue ac est iaculis, sed laoreet leo sodales.</mark> Curabitur varius elit sed semper vehicula. Fusce luctus velit vel lacinia sagittis. Nullam sed nisl dictum augue accumsan placerat accumsan sed libero. Morbi aliquam felis id sem sollicitudin, <mark>sit amet convallis velit fermentum. Ut hendrerit leo sodales, placerat nibh ac, consequat purus.</mark> Integer turpis dui, viverra id nunc vestibulum, condimentum ultrices arcu.
+
+Or in blockquotes:
+
+> Lorem ipsum dolor sit amet, <mark>consectetur adipiscing elit. Phasellus imperdiet augue ac est iaculis, sed laoreet leo sodales.</mark> Curabitur varius elit sed semper vehicula. Fusce luctus velit vel lacinia sagittis. Nullam sed nisl dictum augue accumsan placerat accumsan sed libero. Morbi aliquam felis id sem sollicitudin, <mark>sit amet convallis velit fermentum. Ut hendrerit leo sodales, placerat nibh ac, consequat purus.</mark> Integer turpis dui, viverra id nunc vestibulum, condimentum ultrices arcu.
+
+## Installation
+
+Install `@nolebase/vitepress-plugin-enhanced-mark` to your project dependencies by running the following command:
+
+::: code-group
+
+```shell [@antfu/ni]
+ni @nolebase/vitepress-plugin-enhanced-mark -D
+```
+
+```shell [pnpm]
+pnpm add @nolebase/vitepress-plugin-enhanced-mark -D
+```
+
+```shell [npm]
+npm install @nolebase/vitepress-plugin-enhanced-mark -D
+```
+
+```shell [yarn]
+yarn add @nolebase/vitepress-plugin-enhanced-mark -D
+```
+
+:::
+
+## Configuration
+
+In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), **import the enhanced mark style**:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+::: code-group
+
+```typescript twoslash [.vitepress/theme/index.ts]
+import { h } from 'vue'
+import DefaultTheme from 'vitepress/theme'
+import type { Theme as ThemeConfig } from 'vitepress'
+
+import '@nolebase/vitepress-plugin-enhanced-mark/client/style.css' // [!code ++]
+
+export const Theme: ThemeConfig = {
+  extends: DefaultTheme,
+  Layout: () => {
+    // other configurations...
+  },
+  enhanceApp({ app }) {
+    // other configurations...
+  },
+}
+
+export default Theme
+```
+
+:::

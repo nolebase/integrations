@@ -83,7 +83,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     <code>&lt;mark&gt;</code> 元素增强
   </template>
   <template v-slot:badge>
-    <Badge type="warning" text="Beta 测试" />
+    <Badge type="tip" text="v1.28.0" />
   </template>
 </IntegrationCard>
 

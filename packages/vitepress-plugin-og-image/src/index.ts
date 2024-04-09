@@ -18,6 +18,8 @@ import type { PageItem } from './types'
 import { getDescriptionWithLocales, getTitleWithLocales } from './utils/vitepress/locales'
 import { renderSVG, templateSVG } from './utils/svg/render'
 
+const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-og-image`)}${gray(':')}`
+
 async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<string | undefined> {
   const templateSvgPathUnderPublicDir = resolve(siteConfig.root, 'public', 'og-template.svg')
   if (await fs.pathExists(templateSvgPathUnderPublicDir))
@@ -119,7 +121,11 @@ async function renderSVGAndRewriteHTML(
     await fs.writeFile(file, String(result), 'utf-8')
   }
   catch (err) {
-    console.error(`${red('✗')} failed to write transformed HTML on path [${relative(siteConfig.root, file)}] due to ${err}`, `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`)
+    console.error(
+      `${logModulePrefix} `,
+      `${red('[ERROR] ✗')} failed to write transformed HTML on path [${relative(siteConfig.root, file)}] due to ${err}`,
+      `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
+    )
     return {
       filePath: file,
       status: 'errored',
@@ -149,10 +155,11 @@ async function renderSVGAndSavePNG(
   }
   catch (err) {
     console.error(
-    `${red('✗')} failed to generate open graph image as ${green(`[${saveAs}]`)} with ${green(`[${forSvgSource}]`)} due to ${red(String(err))}`,
-    `skipped open graph image generation for ${green(`[${forFile}]`)}`,
-    `\n\nSVG Content:\n\n${svgContent}`,
-    `\n\nDetailed stack information bellow:\n\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
+      `${logModulePrefix} `,
+      `${red('[ERROR] ✗')} failed to generate open graph image as ${green(`[${saveAs}]`)} with ${green(`[${forSvgSource}]`)} due to ${red(String(err))}`,
+      `skipped open graph image generation for ${green(`[${forFile}]`)}`,
+      `\n\nSVG Content:\n\n${svgContent}`,
+      `\n\nDetailed stack information bellow:\n\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
     )
 
     throw err
@@ -162,7 +169,11 @@ async function renderSVGAndSavePNG(
     await fs.writeFile(saveAs, pngBuffer, 'binary')
   }
   catch (err) {
-    console.error(`${red('✗')} open graph image rendered successfully, but failed to write generated open graph image on path [${saveAs}] due to ${err}`, `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`)
+    console.error(
+      `${logModulePrefix} `,
+      `${red('[ERROR] ✗')} open graph image rendered successfully, but failed to write generated open graph image on path [${saveAs}] due to ${err}`,
+      `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
+    )
 
     throw err
   }
@@ -271,7 +282,9 @@ async function applyCategoryText(pageItem: PageItem, categoryOptions?: BuildEndG
     for (const { prefix, text } of categoryOptions.byPathPrefix) {
       if (pageItem.normalizedSourceFilePath.startsWith(prefix)) {
         if (!text) {
-          console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+          console.warn(
+            `${logModulePrefix} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`,
+          )
           return undefined
         }
 
@@ -279,7 +292,9 @@ async function applyCategoryText(pageItem: PageItem, categoryOptions?: BuildEndG
       }
       if (pageItem.normalizedSourceFilePath.startsWith(`/${prefix}`)) {
         if (!text) {
-          console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+          console.warn(
+            `${logModulePrefix} ${yellow('[WARN]')} empty text for prefix ${prefix} when processing ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`,
+          )
           return undefined
         }
 
@@ -287,14 +302,18 @@ async function applyCategoryText(pageItem: PageItem, categoryOptions?: BuildEndG
       }
     }
 
-    console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} no path prefix matched for ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`)
+    console.warn(
+      `${logModulePrefix} ${yellow('[WARN]')} no path prefix matched for ${pageItem.sourceFilePath} with categoryOptions.byPathPrefix, will ignore...`,
+    )
     return undefined
   }
 
   if (typeof categoryOptions?.byLevel !== 'undefined') {
     const level = Number.parseInt(String(categoryOptions?.byLevel ?? 0))
     if (Number.isNaN(level)) {
-      console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[ERROR]')} byLevel must be a number, but got ${categoryOptions.byLevel} instead when processing ${pageItem.sourceFilePath} with categoryOptions.byLevel, will ignore...`)
+      console.warn(
+        `${logModulePrefix} ${yellow('[ERROR]')} byLevel must be a number, but got ${categoryOptions.byLevel} instead when processing ${pageItem.sourceFilePath} with categoryOptions.byLevel, will ignore...`,
+      )
       return undefined
     }
 
@@ -302,7 +321,7 @@ async function applyCategoryText(pageItem: PageItem, categoryOptions?: BuildEndG
     if (dirs.length > level)
       return dirs[level]
 
-    console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${red(`[ERROR] byLevel is out of range for ${pageItem.sourceFilePath} with categoryOptions.byLevel.`)} will ignore...`)
+    console.warn(`${logModulePrefix} ${red(`[ERROR] byLevel is out of range for ${pageItem.sourceFilePath} with categoryOptions.byLevel.`)} will ignore...`)
     return undefined
   }
 
@@ -325,7 +344,7 @@ async function applyCategoryTextWithFallback(pageItem: PageItem, categoryOptions
   )
     return (pageItem.frontmatter as { category?: string }).category ?? ''
 
-  console.warn(`${cyan('[@nolebase/vitepress-plugin-og-image]')} ${yellow('[WARN]')} no category text found for ${pageItem.sourceFilePath} with categoryOptions ${JSON.stringify(categoryOptions)}.}`)
+  console.warn(`${logModulePrefix} ${yellow('[WARN]')} no category text found for ${pageItem.sourceFilePath} with categoryOptions ${JSON.stringify(categoryOptions)}.}`)
   return 'Un-categorized'
 }
 

@@ -57,21 +57,19 @@ export default defineConfig({
       },
     }),
     GitChangelogMarkdownSection({
-      getChangelogTitle: (_, __, { helpers }): string => {
-        if (helpers.idStartsWith(join('pages', 'en')))
-          return 'File History'
-        if (helpers.idStartsWith(join('pages', 'zh-CN')))
-          return '文件历史'
-
-        return 'File History'
-      },
-      getContributorsTitle: (_, __, { helpers }): string => {
-        if (helpers.idStartsWith(join('pages', 'en')))
-          return 'Contributors'
-        if (helpers.idStartsWith(join('pages', 'zh-CN')))
-          return '贡献者'
-
-        return 'Contributors'
+      locales: {
+        'zh-CN': {
+          gitChangelogMarkdownSectionTitles: {
+            changelog: '文件历史',
+            contributors: '贡献者',
+          },
+        },
+        'en': {
+          gitChangelogMarkdownSectionTitles: {
+            changelog: 'File History',
+            contributors: 'Contributors',
+          },
+        },
       },
       excludes: [
         join('pages', 'en', 'index.md'),

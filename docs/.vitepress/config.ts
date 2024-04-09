@@ -96,7 +96,15 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             ],
           },
           { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
-          { text: 'Changelog & File history', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
+          {
+            text: 'Changelog & File history',
+            collapsed: true,
+            items: [
+              { text: 'Overview', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
+              { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-git-changelog/getting-started' },
+              { text: 'Configuration', link: '/pages/en/integrations/vitepress-plugin-git-changelog/configuration' },
+            ],
+          },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
           { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
@@ -230,7 +238,15 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             ],
           },
           { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
-          { text: '变更日志 及 文件历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
+          {
+            text: '变更日志 及 文件历史',
+            collapsed: true,
+            items: [
+              { text: '介绍', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
+              { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/getting-started' },
+              { text: '配置', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/configuration' },
+            ],
+          },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
           { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },

@@ -9,22 +9,22 @@ This plugin is a fully featured compatible implementation version of [Obsidian](
 
 ## Features
 
-<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-600" />
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Basic syntax</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Able to handle hash tags <code>#</code></span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Able to handle query strings <code>?</code></span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Images</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom text</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom HTML attributes</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Same name pages</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Absolute path</span>
 </div>
 

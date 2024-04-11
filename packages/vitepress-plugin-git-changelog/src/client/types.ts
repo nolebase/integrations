@@ -1,11 +1,29 @@
 import type { Contributor } from '../types'
 
 export interface Locale extends Record<string, any> {
+  /**
+   * What to display when there are no logs
+   */
   noLogs?: string
+  /**
+   * What to display when there are no contributors
+   */
   noContributors?: string
+  /**
+   * What to display when the page was last edited
+   */
   lastEdited?: string
+  /**
+   * The name of the locale to use for date-fns
+   */
   lastEditedDateFnsLocaleName?: string
+  /**
+   * What to display when the user wants to view the full history
+   */
   viewFullHistory?: string
+  /**
+   * What to display when the commit was committed
+   */
   committedOn?: string
 }
 

@@ -11,6 +11,60 @@ import { subtle } from 'uncrypto'
 
 import type { Changelog, Commit } from '../types'
 
+export interface GitChangelogOptions {
+  /**
+   * When fetching git logs, what directories should be included?
+   */
+  includeDirs?: string[]
+  /**
+   * Your repository URL.
+   * Yes, you can dynamically generate it.
+   *
+   * @default 'https://github.com/example/example'
+   */
+  repoURL?: string | ((commit: Commit) => string)
+  /**
+   * A function to get the release tag URL.
+   *
+   * @default (commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
+   */
+  getReleaseTagURL?: (commit: Commit) => string
+  /**
+   * A function to get the commit URL.
+   *
+   * @default (commit) => `${commit.repo_url}/commit/${commit.hash}`
+   */
+  getCommitURL?: (commit: Commit) => string
+  /**
+   * A map that contains rewrite rules of paths.
+   *
+   * This is quite useful when you have your pages in a different directory than the base url after deployed since the
+   * data will be calculated again on the client side.
+   *
+   * For example:
+   *  - We have a page at `docs/pages/en/integrations/page.md`
+   *  - And we will deploy it to `https://example.com/en/integrations/page.md`
+   *
+   * Then you can set the rewrite paths like this:
+   * ```json
+   * {
+   *  "docs/": ""
+   * }
+   *
+   * This will rewrite the path to `en/integrations/page.md`
+   * Which is the correct path for the deployed page and runtime scripts to work properly.
+   */
+  rewritePaths?: Record<string, string>
+  /**
+   * The maximum number of git logs to fetch.
+   */
+  maxGitLogCount?: number
+  /**
+   * The maximum number of concurrent processes to fetch git logs.
+   */
+  maxConcurrentProcesses?: number
+}
+
 const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
@@ -134,15 +188,7 @@ async function aggregateCommits(
   return processedLogs.filter(i => i.path?.length || i.tag)
 }
 
-export function GitChangelog(options: {
-  includeDirs?: string[]
-  repoURL?: string | ((commit: Commit) => string)
-  getReleaseTagURL?: (commit: Commit) => string
-  getCommitURL?: (commit: Commit) => string
-  rewritePaths?: Record<string, string>
-  maxGitLogCount?: number
-  maxConcurrentProcesses?: number
-} = {}): Plugin {
+export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
   if (!options)
     options = {}
 

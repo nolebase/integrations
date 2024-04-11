@@ -29,8 +29,8 @@
     "packages:publish": "pnpm cleanup:dist && pnpm -r --filter=./packages/* run package:publish",
     "cleanup:dist": "rimraf --glob **/dist",
     "cleanup:node_modules": "rimraf --glob **/node_modules",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
+    "test": "vitest --coverage",
+    "test:ui": "vitest --ui --coverage --coverage.enabled=true",
     "test:run": "vitest run"
   },
   "devDependencies": {
@@ -45,6 +45,7 @@
     "@unocss/eslint-config": "^0.58.9",
     "@unocss/eslint-plugin": "^0.58.9",
     "@vitejs/plugin-vue": "^5.0.4",
+    "@vitest/coverage-v8": "^1.4.0",
     "@vitest/ui": "^1.4.0",
     "@vueuse/core": "^10.9.0",
     "concurrently": "^8.2.2",

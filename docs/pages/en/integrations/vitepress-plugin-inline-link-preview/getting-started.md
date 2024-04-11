@@ -81,7 +81,7 @@ Therefore, for those `[]()` link markup and `<a>` elements you don't want to tra
 
 Since the `InlineLinkPreviewElementTransform` plugin will transform the `[]()` link markup or `<a>` elements into the `<VPNolebaseInlineLinkPreview>` elements, you need to install the `VPNolebaseInlineLinkPreview` component into your VitePress theme in order to render the inline link previewing UI.
 
-In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), install the :
+In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), install the Vue plugins:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
@@ -95,6 +95,10 @@ import { // [!code ++]
   NolebaseInlineLinkPreviewPlugin, // [!code ++]
 } from '@nolebase/vitepress-plugin-inline-link-preview/client' // [!code ++]
 
+// If you are UnoCSS user, you don't need to import the styles manually,
+// UnoCSS should be able to take care of it during build time.
+import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
+
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
   Layout: () => {
@@ -107,5 +111,22 @@ export const Theme: ThemeConfig = {
 
 export default Theme
 ```
+
+:::
+
+::: info A little more about `.css` styles...
+
+If you are not using or never configured UnoCSS, please import the styles manually:
+
+```typescript twoslash [docs/.vitepress/theme/index.ts]
+import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
+```
+
+Since all Nolebase integrations follow the guideline of shipping both the original Vue SFC component files and the compiled and packaged CSS files (with the Vue SFC source files UnoCSS will be able to transpile and generate the required styles at build time), if you are a UnoCSS user you will always have a choice to:
+
+1. either **Use UnoCSS to generate the styles for you and don't worry about the styles** or
+2. either **Import the pre-compiled and packaged CSS files directly**.
+
+It's up to you, depending on your preference and current configuration.
 
 :::

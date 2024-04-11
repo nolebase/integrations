@@ -8,22 +8,22 @@ This VitePress plugin is an implementation that similar to Obsidian's link previ
 
 ## Features
 
-<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-600" />
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Better with <a href="/pages/zh-CN/integrations/markdown-it-bi-directional-links/">Bi-directional Links</a></span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Preview any links</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Options to hide elements</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Smart popup positioning</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Automatically detect external links</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Natively compatible with VitePress design</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Follow the i18n guidelines of Nolebase Integrations</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Best practices of a11y</span>
 </div>
 

@@ -51,7 +51,7 @@ To find out the integration name, there is a list of integrations below.
 - [Elements Transformation (for `markdown-it`)](./packages/markdown-it-element-transform/README.md)
 - [Lazy loading blurred thumbnails (for `markdown-it`)](./packages/markdown-it-unlazy-img/README.md)
 - [Enhanced Readabilities (for VitePress)](./packages/vitepress-plugin-enhanced-readabilities/README.md)
-- [Changelog & File history (for VitePress)](./packages/vitepress-plugin-git-changelog/README.md)
+- [Git-based page histories (for VitePress)](./packages/vitepress-plugin-git-changelog/README.md)
 - [Inline Link Previewing (for VitePress)](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [Blinking highlight targeted heading (for VitePress)](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [Page properties (for VitePress)](./packages/vitepress-plugin-page-properties/README.md)

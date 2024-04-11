@@ -1,64 +1,51 @@
-# Changelog & File history <Badge type="danger" text="Alpha" />
+# Git-based page histories <Badge type="tip" text="v1.28.0" />
 
-This vitepress plugin read the git log as file history and renders through components with both Contributors section and Changelog section available in Markdown file.
+## Why
 
-The reason why we haven't made a documentation for it is because we have another pending issue #45 to improve the overall performance and user experience, we might change the API in the nearby future when refactoring.
+Just like what [VueUse documentations site](https://vueuse.org/core/useStorage/#contributors) has, wouldn't a Git-based page histories be a great feature for your VitePress site?
 
-This is roughly the most complex one to configure with.
+> Documentations engineering is a process of continuous improvement.
 
-First, you need a `vite.config.ts` or vite option in config property of `vitepress`, and then configure these two Vite plugins to read, prepare the git log data for components to render with, transform the Markdown file with the two new additional sections:
+Most advanced content management systems, like those used by operating systems and knowledge bases (e.g., Wikipedia, Notion, Confluence, Outline), track the timestamp of the last edit on files and pages. Documenting the evolution of your content is crucial—it informs users of the most recent updates and identifies the contributors responsible for those changes. Including a changelog and a list of contributors is essential for transparency and acknowledgment.
 
-```ts
- GitChangelog({
-   repoURL: () => 'https://github.com/nolebase/integrations',
-   rewritePaths: {
-     'docs/': '',
-   },
- }),
- GitChangelogMarkdownSection({
-   getChangelogTitle: (_, __, { helpers }): string => {
-     if (helpers.idStartsWith(join('pages', 'en')))
-       return 'File History'
-     if (helpers.idStartsWith(join('pages', 'zh-CN')))
-       return '文件历史'
+Enter the `@nolebase/vitepress-plugin-git-changelog` plugin. It's a tool that generates changelogs and contributor lists, seamlessly integrating them into your VitePress site.
 
-     return 'File History'
-   },
-   excludes: [],
-   exclude: (_, { helpers }): boolean => {
-     if (helpers.idEquals(join('pages', 'en', 'index.md')))
-       return true
-     if (helpers.idEquals(join('pages', 'zh-CN', 'index.md')))
-       return true
+It harnesses the robust capabilities of git—a staple for developers, technical writers, and documentation specialists—to maintain a comprehensive log of revisions.
 
-     return false
-   },
- }),
-```
+No need to setup and pay for additional databases, preparing operating systems, or subscribe to online services. **Git logs are all you need.**
 
-And use the components as follows:
+Curious to see this feature in use? Try click [Contributors](#contributors) and [File History](#file-history)! 🚀
 
-```ts
- app.provide(NolebaseGitChangelogInjectionKey, {
-   mapContributors: [
-     {
-       name: 'Neko',
-       avatar: 'https://github.com/nekomeowww.png',
-       nameAliases: ['Neko Ayaka', 'Ayaka Neko'],
-       emailAliases: ['neko@ayaka.moe'],
-     },
-     {
-       name: 'Rizumu',
-       avatar: 'https://github.com/LittleSound.png',
-       nameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
-       emailAliases: ['rizumu@ayaka.moe'],
-     },
-   ],
- })
-```
+## Features
 
-Don't forget to include the stylesheets as well:
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Git logs are all you need. No service fees, online databases, or additional setup required.</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Build-time generation of changelog and contributors sections</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Instantly fast and reliable</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Customizable to configure author name alias, email alias, display name mapping, etc.</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Natively compatible with VitePress design</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Follow the i18n guidelines of Nolebase Integrations</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Best practices of a11y</span>
+</div>
 
-```ts
-import '@nolebase/vitepress-plugin-git-changelog/client/style.css'
-```
+## Live use cases?
+
+Yes for sure!
+
+- [ALT Gnome Wiki| Russian](https://alt-gnome.wiki/download.html#%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B8)
+- [Shalo.DOCS | Russian](https://docs.shalotts.site/docs/01_introduction/#changelog)
+
+## Installation
+
+It is not that much easy and straightforward to install this plugin into your VitePress project. Luckily, we wrote good documentations! Please follow the steps under [Getting started](./getting-started) page.
+
+## Configuration
+
+Git-based page histories plugin comes with many options to customize, including contributors info, and display texts! To learn more, please read [Configuration](./configure-ui) page.

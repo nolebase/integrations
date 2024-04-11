@@ -1,11 +1,11 @@
 import { type InjectionKey, computed, inject } from 'vue'
 import { useData } from 'vitepress'
 
-function getValueByPropertyPaths(path: string, obj?: Record<string, any>): string | undefined {
+function getValueByPropertyPaths<T extends PropertyKey>(path: T, obj?: Record<string, any>): string | undefined {
   if (!obj)
     return undefined
 
-  const properties = path.split('.')
+  const properties = String(path).split('.')
   let value = obj
 
   for (const property of properties) {

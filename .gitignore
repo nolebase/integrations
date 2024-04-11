@@ -20,3 +20,5 @@ node_modules
 **/.netlify/functions-serve/*
 
 .npmrc
+
+coverage/

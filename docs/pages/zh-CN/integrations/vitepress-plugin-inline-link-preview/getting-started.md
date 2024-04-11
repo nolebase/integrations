@@ -91,6 +91,10 @@ import { // [!code ++]
   NolebaseInlineLinkPreviewPlugin, // [!code ++]
 } from '@nolebase/vitepress-plugin-inline-link-preview/client' // [!code ++]
 
+// 如果你是 UnoCSS 用户，你不需要手动导入样式，
+// UnoCSS 应该能在构建时处理它。
+import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
+
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
   Layout: () => {
@@ -103,5 +107,22 @@ export const Theme: ThemeConfig = {
 
 export default Theme
 ```
+
+:::
+
+::: info 关于 `.css` 样式的一点说明...
+
+如果你现在没有在使用或者从未配置过 UnoCSS，请手动导入 CSS 文件：
+
+```typescript twoslash [docs/.vitepress/theme/index.ts]
+import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
+```
+
+由于所有 Nolebase 集成都遵循既交付原始 Vue SFC 组件文件和编译打包后的 CSS 文件的准则（有 Vue SFC 源文件之后 UnoCSS 就能够在构建时进行转译并生成所需的样式），因此如果你是 UnoCSS 用户，你永远可以选择：
+
+1. 要么 **使用 UnoCSS 为您生成样式，无需担心样式问题**
+2. 要么 **直接导入预编译和打包好的 CSS 文件**
+
+完全取决于你的喜好和当前的配置。
 
 :::

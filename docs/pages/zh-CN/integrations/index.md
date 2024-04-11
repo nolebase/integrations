@@ -54,7 +54,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <br />
 
-<IntegrationCard type="vitepress" title="变更日志 及 文件历史" package="vitepress-plugin-git-changelog">
+<IntegrationCard type="vitepress" title="基于 Git 的页面历史" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
     <Badge type="tip" text="v1.28.0" />
   </template>

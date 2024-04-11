@@ -2,13 +2,21 @@ import { relative } from 'node:path'
 import type { Plugin } from 'vite'
 import GrayMatter from 'gray-matter'
 import type { SiteConfig } from 'vitepress'
+
+import type { Locale } from './locales'
 import { defaultEnLocale } from './locales'
 import { createHelpers } from './helpers'
-import type { GitChangelogMarkdownSectionOptions } from './types'
+import type { Context, GitChangelogMarkdownSectionOptions } from './types'
 import { tTitles } from './i18n'
 
 interface VitePressConfig {
   vitepress: SiteConfig
+}
+
+export type {
+  GitChangelogMarkdownSectionOptions,
+  Context,
+  Locale,
 }
 
 export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectionOptions): Plugin {

@@ -4,16 +4,16 @@
 
 ## 功能
 
-<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-600" />
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>无 JavaScripts</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>炒鸡好看的<mark>动画</mark></span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>多行文本也支持</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>亮/暗色主题（暗色模式）适配</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>原生与 VitePress 样式兼容</span>
 </div>
 

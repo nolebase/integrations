@@ -4,16 +4,16 @@ As an interesting little plugin, it adds a <mark>sliding animation</mark> to you
 
 ## Features
 
-<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-600" />
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>No JavaScripts</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Stunning looking <mark>animations</mark></span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Multi-line supports</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Day / Night theme (Dark mode) supported</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Natively compatible with VitePress design</span>
 </div>
 

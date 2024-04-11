@@ -6,4 +6,9 @@ export default defineConfig({
   plugins: [
     Yaml() as Plugin,
   ],
+  test: {
+    coverage: {
+      reporter: ['json'],
+    },
+  },
 })

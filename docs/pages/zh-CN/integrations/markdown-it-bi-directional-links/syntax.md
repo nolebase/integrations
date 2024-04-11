@@ -2,22 +2,22 @@
 
 当前支持以下语法：
 
-<div grid="~ cols-[auto_1fr] gap-1" items-center my-1>
-  <span i-icon-park-outline:check-one text="green-600" />
+<div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>基本语法</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>带有 hash tags <code>#</code> 的链接</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>带有 query strings <code>?</code> 的链接</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>图片双链</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义文案</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义 HTML 属性</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>同名文件语法</span>
-  <span i-icon-park-outline:check-one text="green-600" />
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>绝对路径语法</span>
 </div>
 

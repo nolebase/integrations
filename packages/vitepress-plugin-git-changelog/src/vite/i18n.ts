@@ -4,6 +4,20 @@ import type { Helpers } from './helpers'
 import type { GitChangelogMarkdownSectionOptions } from './types'
 import { type Locale, defaultEnLocale, defaultLocales } from './locales'
 
+export type I18nTHandler = (key: keyof Locale) => string | undefined
+export interface LinksPair { language?: string, linkPrefix?: string }
+
+export interface Options {
+  getChangelogTitle?: GitChangelogMarkdownSectionOptions['getChangelogTitle']
+  getContributorsTitle?: GitChangelogMarkdownSectionOptions['getContributorsTitle']
+}
+
+interface VitePressConfigLike {
+  site: {
+    locales: Record<string, LocaleConfig<DefaultTheme.Config> | any>
+  }
+}
+
 function getValueByPropertyPaths<T extends PropertyKey>(path: T, obj?: Record<string, any>): string | undefined {
   if (!obj)
     return undefined
@@ -23,10 +37,10 @@ function getValueByPropertyPaths<T extends PropertyKey>(path: T, obj?: Record<st
   return String(value)
 }
 
-export function createI18nWithLinksPairs(localesLinksPairs: { language?: string, linkPrefix?: string }[], helpers: Helpers, locales: Record<string, Locale>) {
-  return {
-    t(key: keyof Locale): string | undefined {
-      const foundLocales = localesLinksPairs.filter(({ linkPrefix }) => {
+export function createI18nWithLinksPairs(localesLinksPairs: Array<LinksPair>, helpers: Helpers, locales: Record<string, Locale>) {
+  function t(key: keyof Locale): string | undefined {
+    const foundLocales = localesLinksPairs
+      .filter(({ linkPrefix }) => {
         if (!linkPrefix)
           return false
 
@@ -36,52 +50,46 @@ export function createI18nWithLinksPairs(localesLinksPairs: { language?: string,
 
         return helpers.idStartsWith(linkPrefix.slice(1))
       })
-      if (foundLocales.length === 0)
-        return
 
-      const language = foundLocales[0].language
-      if (!language)
-        return
+    if (foundLocales.length === 0)
+      return
 
-      const locale = locales?.[language]
-      if (!locale)
-        return
+    const language = foundLocales[0].language
+    if (!language)
+      return
 
-      return getValueByPropertyPaths(key, locale)
-    },
+    const locale = locales?.[language]
+    if (!locale)
+      return
+
+    return getValueByPropertyPaths(key, locale)
   }
+
+  return { t }
 }
 
-export function tChangelogTitle(t: (key: keyof Locale) => string | undefined, code: string, id: string, helpers: Helpers, options?: {
-  getChangelogTitle?: GitChangelogMarkdownSectionOptions['getChangelogTitle']
-  getContributorsTitle?: GitChangelogMarkdownSectionOptions['getContributorsTitle']
-}) {
-  if (typeof options?.getChangelogTitle !== 'undefined' && typeof options?.getChangelogTitle === 'function') {
+export function tChangelogTitle(t: I18nTHandler, code: string, id: string, helpers: Helpers, options?: Options) {
+  const defaultValue = defaultEnLocale!.gitChangelogMarkdownSectionTitles!.changelog!
+
+  if (typeof options?.getChangelogTitle === 'function') {
     const changelogTitle = options?.getChangelogTitle(code, id, { helpers })
     if (changelogTitle)
       return changelogTitle
   }
 
-  return t('gitChangelogMarkdownSectionTitles.changelog') ?? defaultEnLocale!.gitChangelogMarkdownSectionTitles!.changelog!
+  return t('gitChangelogMarkdownSectionTitles.changelog') ?? defaultValue
 }
 
-export function tContributorsTitle(t: (key: keyof Locale) => string | undefined, code: string, id: string, helpers: Helpers, options?: {
-  getChangelogTitle?: GitChangelogMarkdownSectionOptions['getChangelogTitle']
-  getContributorsTitle?: GitChangelogMarkdownSectionOptions['getContributorsTitle']
-}) {
-  if (typeof options?.getContributorsTitle !== 'undefined' && typeof options?.getContributorsTitle === 'function') {
+export function tContributorsTitle(t: I18nTHandler, code: string, id: string, helpers: Helpers, options?: Options) {
+  const defaultValue = defaultEnLocale!.gitChangelogMarkdownSectionTitles!.contributors!
+
+  if (typeof options?.getContributorsTitle === 'function') {
     const contributorsTitle = options?.getContributorsTitle(code, id, { helpers })
     if (contributorsTitle)
       return contributorsTitle
   }
 
-  return t('gitChangelogMarkdownSectionTitles.contributors') ?? defaultEnLocale!.gitChangelogMarkdownSectionTitles!.contributors!
-}
-
-interface VitePressConfigLike {
-  site: {
-    locales: Record<string, LocaleConfig<DefaultTheme.Config> | any>
-  }
+  return t('gitChangelogMarkdownSectionTitles.contributors') ?? defaultValue
 }
 
 export function tTitles(
@@ -93,9 +101,7 @@ export function tTitles(
 ) {
   const localesLinksPairs = Object
     .entries((vitepressConfig.site.locales))
-    .map(([_, config]) => {
-      return { language: config.lang, linkPrefix: config.link }
-    })
+    .map(([_, config]) => ({ language: config.lang, linkPrefix: config.link }))
 
   let locales: Record<string, Locale> = {}
 
@@ -105,5 +111,8 @@ export function tTitles(
     locales = defaultLocales
 
   const { t } = createI18nWithLinksPairs(localesLinksPairs, helpers, locales)
-  return { changelogTitle: tChangelogTitle(t, code, id, helpers, options), contributorsTitle: tContributorsTitle(t, code, id, helpers, options) }
+  return {
+    changelogTitle: tChangelogTitle(t, code, id, helpers, options),
+    contributorsTitle: tContributorsTitle(t, code, id, helpers, options),
+  }
 }

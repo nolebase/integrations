@@ -54,7 +54,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <br />
 
-<IntegrationCard type="vitepress" title="Changelog & File history" package="vitepress-plugin-git-changelog">
+<IntegrationCard type="vitepress" title="Git-based page histories" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
     <Badge type="tip" text="v1.28.0" />
   </template>

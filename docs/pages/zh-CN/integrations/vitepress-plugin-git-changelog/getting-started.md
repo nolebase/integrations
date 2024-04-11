@@ -2,8 +2,6 @@
 
 ## 安装
 
-## 安装
-
 通过运行以下命令将 `@nolebase/vitepress-plugin-git-changelog` 安装到您的项目依赖项中：
 
 ::: code-group

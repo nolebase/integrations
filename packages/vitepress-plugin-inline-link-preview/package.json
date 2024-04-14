@@ -34,7 +34,7 @@
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
-      "import": "./dist/client/index.js",
+      "import": "./dist/client/index.mjs",
       "require": "./dist/client/index.js"
     },
     "./client/style.css": "./dist/client/style.css",

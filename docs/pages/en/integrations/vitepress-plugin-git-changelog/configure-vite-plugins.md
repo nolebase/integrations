@@ -38,7 +38,7 @@ But the options don't stop there. We have more options to configure the plugin t
 
 ```typescript twoslash
 import type {
-  Commit
+  Commit, RewritePathsBy
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 // ---cut---
 interface Options {
@@ -73,18 +73,46 @@ interface Options {
    *
    * For example:
    *  - We have a page at `docs/pages/en/integrations/page.md`
-   *  - And we will deploy it to `https://example.com/en/integrations/page.md`
+   *  - And we will deploy it to `https://example.com/en/integrations/page`
    *
    * Then you can set the rewrite paths like this:
    * ```json
    * {
    *  "docs/": ""
    * }
+   * ```
    *
    * This will rewrite the path to `en/integrations/page.md`
    * Which is the correct path for the deployed page and runtime scripts to work properly.
+   *
+   * Note: in runtime, which is client side, the final extension will be replaced with `.md` if the extension is `.html`.
    */
   rewritePaths?: Record<string, string>
+  /**
+   * Rules to rewrite paths by patterns.
+   *
+   * Same as `rewritePaths`, but it can be a function that returns a promise or plain value.
+   * Besides that, we offer some built-in handlers to rewrite paths by patterns:
+   *
+   *  - `rewritePathsByRewritingExtension(from: string, to: string)`: to rewrite paths by rewriting the extension.
+   *
+   * @example
+   *
+   * ```typescript
+   * import { GitChangelog, rewritePathsByRewritingExtension } from '@nolebase/vitepress-plugin-git-changelog/vite'
+   *
+   * GitChangelog({
+   *  rewritePathsBy: {
+   *   // to rewrite `example.md` to `example.html`
+   *  handler: rewritePathsByRewritingExtension('.md', '.html')
+   * }
+   * })
+   * ```
+   *
+   * @see rewritePathsByRewritingExtension
+   *
+   */
+  rewritePathsBy?: RewritePathsBy
   /**
    * The maximum number of git logs to fetch.
    */

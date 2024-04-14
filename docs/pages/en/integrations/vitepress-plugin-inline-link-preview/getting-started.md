@@ -95,8 +95,6 @@ import { // [!code ++]
   NolebaseInlineLinkPreviewPlugin, // [!code ++]
 } from '@nolebase/vitepress-plugin-inline-link-preview/client' // [!code ++]
 
-// If you are UnoCSS user, you don't need to import the styles manually,
-// UnoCSS should be able to take care of it during build time.
 import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
@@ -111,22 +109,5 @@ export const Theme: ThemeConfig = {
 
 export default Theme
 ```
-
-:::
-
-::: info A little more about `.css` styles...
-
-If you are not using or never configured UnoCSS, please import the styles manually:
-
-```typescript twoslash [docs/.vitepress/theme/index.ts]
-import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
-```
-
-Since all Nolebase integrations follow the guideline of shipping both the original Vue SFC component files and the compiled and packaged CSS files (with the Vue SFC source files UnoCSS will be able to transpile and generate the required styles at build time), if you are a UnoCSS user you will always have a choice to:
-
-1. either **Use UnoCSS to generate the styles for you and don't worry about the styles** or
-2. either **Import the pre-compiled and packaged CSS files directly**.
-
-It's up to you, depending on your preference and current configuration.
 
 :::

@@ -37,7 +37,7 @@
       "import": "./dist/client/index.js",
       "require": "./dist/client/index.js"
     },
-    "./client/styles.css": "./dist/client/styles.css",
+    "./client/style.css": "./dist/client/style.css",
     "./markdown-it": {
       "types": "./dist/markdown-it/index.d.ts",
       "import": "./dist/markdown-it/index.mjs",
@@ -72,6 +72,9 @@
     "unified": "^11.0.4"
   },
   "devDependencies": {
+    "@iconify-json/icon-park-outline": "^1.1.15",
+    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/svg-spinners": "^1.1.2",
     "@rollup/plugin-yaml": "^4.1.2",
     "@types/hast": "^3.0.4",
     "@types/markdown-it": "^13.0.7",

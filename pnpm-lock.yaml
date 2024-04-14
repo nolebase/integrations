@@ -14,18 +14,6 @@ importers:
       '@antfu/ni':
         specifier: ^0.21.12
         version: 0.21.12
-      '@iconify-json/carbon':
-        specifier: ^1.1.31
-        version: 1.1.31
-      '@iconify-json/icon-park-outline':
-        specifier: ^1.1.15
-        version: 1.1.15
-      '@iconify-json/octicon':
-        specifier: ^1.1.53
-        version: 1.1.53
-      '@iconify-json/svg-spinners':
-        specifier: ^1.1.2
-        version: 1.1.2
       '@types/node':
         specifier: ^20.12.5
         version: 20.12.5
@@ -95,6 +83,15 @@ importers:
 
   docs:
     devDependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
+      '@iconify-json/svg-spinners':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@nolebase/markdown-it-bi-directional-links':
         specifier: workspace:^
         version: link:../packages/markdown-it-bi-directional-links
@@ -268,6 +265,12 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
+      '@iconify-json/carbon':
+        specifier: ^1.1.31
+        version: 1.1.31
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
@@ -348,6 +351,15 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
+      '@iconify-json/svg-spinners':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
@@ -431,6 +443,12 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.2)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)

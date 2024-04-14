@@ -3,12 +3,12 @@ import { h } from 'vue'
 import {
   LayoutMode,
   type Options as NolebaseEnhancedReadabilitiesOptions,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesPlugin,
   NolebaseEnhancedReadabilitiesScreenMenu,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 import type {
   Options as NolebaseInlineLinkPreviewOptions,
@@ -227,8 +227,6 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       if (opts.enhancedReadabilities?.enable) {
         const enhancedReadabilitiesOptions = opts.enhancedReadabilities?.options ? [opts.enhancedReadabilities.options] : []
         app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)
-
-        await import('@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css')
       }
 
       if (opts.highlightTargetedHeading?.enable) {

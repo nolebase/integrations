@@ -78,11 +78,16 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: { // [!code ++]
-    optimizeDeps: { // [!code ++]
+    optimizeDeps: {
       include: [ // [!code ++]
+        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
+        // for Vite to properly bundle it. // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
-    }, // [!code ++]
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
+      ], // [!code ++]
+    },
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
@@ -108,18 +113,23 @@ import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
   return {
+    optimizeDeps: {
+      include: [ // [!code ++]
+        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
+        // for Vite to properly bundle it. // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
+      ], // [!code ++]
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
+        'vitepress' // [!code ++]
+      ], // [!code ++]
+    },
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
-    optimizeDeps: {
-      include: [ // [!code ++]
-        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
-      ], // [!code ++]
-      exclude: ['vitepress'],
-    },
     plugins: [
       // 其他 Vite 插件配置...
     ],
@@ -146,11 +156,13 @@ import type { Theme as ThemeConfig } from 'vitepress'
 import { // [!code ++]
   NolebaseEnhancedReadabilitiesMenu, // [!code ++]
   NolebaseEnhancedReadabilitiesScreenMenu, // [!code ++]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 import './styles/vars.css'
 import './styles/main.css'
-import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css' // [!code ++]
+
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -236,7 +248,8 @@ export default Theme
 ```typescript twoslash
 import {
   NolebaseEnhancedReadabilitiesPlugin // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 ```
 
 如果是要给 VitePress 的 Vue 实例进行安装的话，你可以这样写：
@@ -245,7 +258,8 @@ import {
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 // 其他部分的代码...
 
@@ -268,8 +282,9 @@ export default Theme
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -305,7 +320,7 @@ export default Theme
 import {
   LayoutSwitch,  // [!code focus]
   ScreenLayoutSwitch,  // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 ```
 
 #### 按需导入聚光灯组件
@@ -314,7 +329,7 @@ import {
 import {
   Spotlight,  // [!code focus]
   ScreenSpotlight, // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 ```
 
 ## 配置
@@ -331,8 +346,8 @@ import {
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
-import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -360,11 +375,11 @@ export const Theme: ThemeConfig = {
 ```typescript twoslash
 import {
   SpotlightStyles as NolebaseEnhancedReadabilitiesSpotlightStyles,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import type {
   Locale,
   LayoutMode,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 type SpotlightStyles = typeof NolebaseEnhancedReadabilitiesSpotlightStyles
 // ---cut---
 /**
@@ -504,8 +519,8 @@ export interface Options {
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
-import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 // 其他部分的代码...
 

@@ -55,7 +55,7 @@ export default defineBuildConfig({
       //
       // The use of CLI was suggested by how to use unocss with rollup? · unocss/unocss · Discussion #542
       // https:// github.com/unocss/unocss/discussions/542
-      await execAsync('unocss "./src/client/**/*.vue" -o dist/client/styles.css')
+      await execAsync('unocss "./src/client/**/*.vue" -o dist/client/style.css')
     },
   },
 })

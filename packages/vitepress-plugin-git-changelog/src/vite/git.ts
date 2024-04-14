@@ -1,106 +1,52 @@
-import { posix, sep, win32 } from 'node:path'
+import { extname, posix, sep, win32 } from 'node:path'
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 
 import type { Plugin } from 'vite'
+import { normalizePath } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
-import { subtle } from 'uncrypto'
 
 import type { Changelog, Commit } from '../types'
-
-export interface GitChangelogOptions {
-  /**
-   * When fetching git logs, what directories should be included?
-   */
-  includeDirs?: string[]
-  /**
-   * Your repository URL.
-   * Yes, you can dynamically generate it.
-   *
-   * @default 'https://github.com/example/example'
-   */
-  repoURL?: string | ((commit: Commit) => string)
-  /**
-   * A function to get the release tag URL.
-   *
-   * @default (commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
-   */
-  getReleaseTagURL?: (commit: Commit) => string
-  /**
-   * A function to get the commit URL.
-   *
-   * @default (commit) => `${commit.repo_url}/commit/${commit.hash}`
-   */
-  getCommitURL?: (commit: Commit) => string
-  /**
-   * A map that contains rewrite rules of paths.
-   *
-   * This is quite useful when you have your pages in a different directory than the base url after deployed since the
-   * data will be calculated again on the client side.
-   *
-   * For example:
-   *  - We have a page at `docs/pages/en/integrations/page.md`
-   *  - And we will deploy it to `https://example.com/en/integrations/page.md`
-   *
-   * Then you can set the rewrite paths like this:
-   * ```json
-   * {
-   *  "docs/": ""
-   * }
-   *
-   * This will rewrite the path to `en/integrations/page.md`
-   * Which is the correct path for the deployed page and runtime scripts to work properly.
-   */
-  rewritePaths?: Record<string, string>
-  /**
-   * The maximum number of git logs to fetch.
-   */
-  maxGitLogCount?: number
-  /**
-   * The maximum number of concurrent processes to fetch git logs.
-   */
-  maxConcurrentProcesses?: number
-}
+import { digestStringAsSHA256 } from './helpers'
 
 const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
-const execAsync = promisify(exec)
+const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gray(':')}`
 
-/**
- * Hashes a string using SHA-256
- *
- * Official example by MDN: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
- * @param {string} message - The message to be hashed
- * @returns {Promise<string>} - The SHA-256 hash of the message
- */
-export async function digestStringAsSHA256(message: string) {
-  const msgUint8 = new TextEncoder().encode(message) // encode as (utf-8) Uint8Array
-  const hashBuffer = await subtle.digest('SHA-256', msgUint8) // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)) // convert buffer to byte array
-  const hashHex = hashArray
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('') // convert bytes to hex string
-  return hashHex
+const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
+const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
+
+export type CommitToStringHandler = (commit: Commit) => string | Promise<string> | null | undefined
+export type CommitAndPathToStringHandler = (commit: Commit, path: string) => Commit | Promise<Commit> | null | undefined
+export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
+
+async function returnOrResolvePromise<T>(val: T | Promise<T>) {
+  if (!(val instanceof Promise))
+    return val
+
+  return await val
 }
 
-function normalizePath(path: string[][]) {
+const execAsync = promisify(exec)
+
+function normalizeGitLogPath(path: string[][]) {
   // normalize paths
   for (const [index, files] of path.entries()) {
     if (files[1])
-      path[index][1] = files[1].split(sep).join('/')
+      path[index][1] = normalizePath(files[1])
 
     if (files[2])
-      path[index][2] = files[2].split(sep).join('/')
+      path[index][2] = normalizePath(files[2])
   }
 
   return path
 }
 
-function rewritePath(path: string[][], rewritePaths: Record<string, string>) {
+function rewritePaths(path: string[][], rewritePaths: Record<string, string>) {
   // rewrite paths
   for (const [index, files] of path.entries()) {
     for (const [key, value] of Object.entries(rewritePaths)) {
@@ -115,11 +61,57 @@ function rewritePath(path: string[][], rewritePaths: Record<string, string>) {
   return path
 }
 
+async function rewritePathsByPatterns(commit: Commit, path: string, patterns?: RewritePathsBy): Promise<string> {
+  if (typeof patterns === 'undefined' || patterns === null)
+    return path
+
+  if ('handler' in patterns && typeof patterns.handler === 'function') {
+    const resolvedCommit = await returnOrResolvePromise(patterns.handler(commit, path))
+    if (!resolvedCommit)
+      return path
+
+    return path
+  }
+
+  return path
+}
+
+/**
+ * A rewritePathsBy.handler handler that rewrites paths by rewriting the extension.
+ *
+ * @example
+ *
+ * ```typescript
+ * import { GitChangelog, rewritePathsByRewritingExtension } from '@nolebase/vitepress-plugin-git-changelog/vite'
+ *
+ * GitChangelog({
+ *   rewritePathsBy: {
+ *     // to rewrite `example.md` to `example.html`
+ *     handler: rewritePathsByRewritingExtension('.md', '.html')
+ *   }
+ * })
+ * ```
+ *
+ * @param from - The extension to rewrite from.
+ * @param to - The extension to rewrite to.
+ * @returns A handler that rewrites paths by rewriting the extension.
+ */
+export function rewritePathsByRewritingExtension(from: string, to: string) {
+  return (_: Commit, path: string) => {
+    const ext = extname(path)
+    if (ext !== from)
+      return path
+
+    return path.replace(new RegExp(`${from}$`), to)
+  }
+}
+
 async function aggregateCommit(
-  getReleaseTagURL: (log: Commit) => string,
+  getReleaseTagURL: CommitToStringHandler,
   log: Commit,
   includeDirs: string[] = [],
-  rewritePaths: Record<string, string> = {},
+  optsRewritePaths?: Record<string, string>,
+  optsRewritePathsByPatterns?: RewritePathsBy,
 ) {
   // release logs
   if (log.message.includes('release: ')) {
@@ -127,7 +119,7 @@ async function aggregateCommit(
       .split(' ')[1]
       .trim()
 
-    log.release_tag_url = getReleaseTagURL(log)
+    log.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(log))) ?? defaultReleaseTagURLHandler(log)
 
     return log
   }
@@ -157,35 +149,128 @@ async function aggregateCommit(
   )
 
   // normalize paths
-  log.path = normalizePath(log.path)
-  // rewrite paths
-  log.path = rewritePath(log.path, rewritePaths)
+  log.path = normalizeGitLogPath(log.path)
+  if (typeof optsRewritePaths !== 'undefined') {
+    // rewrite paths
+    log.path = rewritePaths(log.path, optsRewritePaths)
+  }
+  if (typeof optsRewritePathsByPatterns !== 'undefined') {
+    // rewrite paths
+    for (const [index, files] of log.path.entries()) {
+      log.path[index][1] = await rewritePathsByPatterns(log, files[1], optsRewritePathsByPatterns)
+      log.path[index][2] = await rewritePathsByPatterns(log, files[2], optsRewritePathsByPatterns)
+    }
+  }
 
   return log
 }
 
 async function aggregateCommits(
-  getRepoURL: (log: Commit) => string,
-  getCommitURL: (log: Commit) => string,
-  getReleaseTagURL: (log: Commit) => string,
+  getRepoURL: CommitToStringHandler,
+  getCommitURL: CommitToStringHandler,
+  getReleaseTagURL: CommitToStringHandler,
   logs: Commit[],
   includeDirs: string[] = [],
-  rewritePaths: Record<string, string> = {},
+  rewritePaths?: Record<string, string>,
+  rewritePathsBy?: RewritePathsBy,
 ) {
   for (const log of logs) {
     // hash url
-    log.hash_url = getCommitURL(log)
+    log.hash_url = (await returnOrResolvePromise(getCommitURL(log))) ?? defaultCommitURLHandler(log)
     // repo url
-    log.repo_url = getRepoURL(log)
+    log.repo_url = (await returnOrResolvePromise(getRepoURL(log))) ?? 'https://github.com/example/example'
     // timestamp
     log.date_timestamp = new Date(log.date).getTime()
     // generate author avatar based on md5 hash of email (gravatar style)
     log.author_avatar = await digestStringAsSHA256(log.author_email)
   }
 
-  const processedLogsPromises = logs.map(async log => aggregateCommit(getReleaseTagURL, log, includeDirs, rewritePaths))
+  const processedLogsPromises = logs.map(async log => aggregateCommit(getReleaseTagURL, log, includeDirs, rewritePaths, rewritePathsBy))
   const processedLogs = await Promise.all(processedLogsPromises)
+
   return processedLogs.filter(i => i.path?.length || i.tag)
+}
+
+export interface GitChangelogOptions {
+  /**
+   * When fetching git logs, what directories should be included?
+   */
+  includeDirs?: string[]
+  /**
+   * Your repository URL.
+   * Yes, you can dynamically generate it.
+   *
+   * @default 'https://github.com/example/example'
+   */
+  repoURL?: string | CommitToStringHandler
+  /**
+   * A function to get the release tag URL.
+   *
+   * @default (commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
+   */
+  getReleaseTagURL?: CommitToStringHandler
+  /**
+   * A function to get the commit URL.
+   *
+   * @default (commit) => `${commit.repo_url}/commit/${commit.hash}`
+   */
+  getCommitURL?: CommitToStringHandler
+  /**
+   * A map that contains rewrite rules of paths.
+   *
+   * This is quite useful when you have your pages in a different directory than the base url after deployed since the
+   * data will be calculated again on the client side.
+   *
+   * For example:
+   *  - We have a page at `docs/pages/en/integrations/page.md`
+   *  - And we will deploy it to `https://example.com/en/integrations/page`
+   *
+   * Then you can set the rewrite paths like this:
+   * ```json
+   * {
+   *  "docs/": ""
+   * }
+   * ```
+   *
+   * This will rewrite the path to `en/integrations/page.md`
+   * Which is the correct path for the deployed page and runtime scripts to work properly.
+   *
+   * Note: in runtime, which is client side, the final extension will be replaced with `.md` if the extension is `.html`.
+   */
+  rewritePaths?: Record<string, string>
+  /**
+   * Rules to rewrite paths by patterns.
+   *
+   * Same as `rewritePaths`, but it can be a function that returns a promise or plain value.
+   * Besides that, we offer some built-in handlers to rewrite paths by patterns:
+   *
+   *  - `rewritePathsByRewritingExtension(from: string, to: string)`: to rewrite paths by rewriting the extension.
+   *
+   * @example
+   *
+   * ```typescript
+   * import { GitChangelog, rewritePathsByRewritingExtension } from '@nolebase/vitepress-plugin-git-changelog/vite'
+   *
+   * GitChangelog({
+   *  rewritePathsBy: {
+   *   // to rewrite `example.md` to `example.html`
+   *  handler: rewritePathsByRewritingExtension('.md', '.html')
+   * }
+   * })
+   * ```
+   *
+   * @see rewritePathsByRewritingExtension
+   *
+   */
+  rewritePathsBy?: RewritePathsBy
+  /**
+   * The maximum number of git logs to fetch.
+   */
+  maxGitLogCount?: number
+  /**
+   * The maximum number of concurrent processes to fetch git logs.
+   */
+  maxConcurrentProcesses?: number
 }
 
 export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
@@ -197,9 +282,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     maxConcurrentProcesses,
     includeDirs = [],
     repoURL = 'https://github.com/example/example',
-    getReleaseTagURL = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`,
-    getCommitURL = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`,
-    rewritePaths = {},
+    getReleaseTagURL = defaultReleaseTagURLHandler,
+    getCommitURL = defaultCommitURLHandler,
   } = options
 
   let commits: Commit[] = []
@@ -232,11 +316,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     async buildStart() {
       const startsAt = Date.now()
 
-      const moduleNamePrefix = cyan('@nolebase/vitepress-plugin-git-changelog')
-      const grayPrefix = gray(':')
-      const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
-
-      const spinner = ora(`${spinnerPrefix} Prepare to gather git logs...`).start()
+      const spinner = ora(`${logModulePrefix} Prepare to gather git logs...`).start()
 
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
@@ -250,13 +330,13 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       // configure so that the git log messages can contain correct CJK characters
       await git.raw(['config', '--local', 'core.quotepath', 'false'])
 
-      spinner.text = `${spinnerPrefix} Gathering git logs...`
+      spinner.text = `${logModulePrefix} Gathering git logs...`
       spinner.color = 'yellow'
 
       const gitLogsRaw = await git.log({ maxCount: maxGitLogCount })
       const logs = gitLogsRaw.all as Commit[]
 
-      spinner.text = `${spinnerPrefix} Aggregating git logs...`
+      spinner.text = `${logModulePrefix} Aggregating git logs...`
       spinner.color = 'green'
 
       commits = await aggregateCommits(
@@ -265,11 +345,12 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         getReleaseTagURL,
         logs,
         includeDirs,
-        rewritePaths,
+        options.rewritePaths,
+        options.rewritePathsBy,
       )
 
       const elapsed = Date.now() - startsAt
-      spinner.succeed(`${spinnerPrefix} Done. ${gray(`(${elapsed}ms)`)}`)
+      spinner.succeed(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
     },
     resolveId(id) {
       if (id === VirtualModuleID)

@@ -22,8 +22,6 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'cjs', loaders: ['js'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
     { builder: 'rollup', input: './src/locales/index', outDir: './dist/locales' },
-    { builder: 'rollup', input: './src/markdown-it/index', outDir: './dist/markdown-it' },
-    { builder: 'rollup', input: './src/markdown-it/index', outDir: './dist/markdown-it' },
   ],
   clean: true,
   sourcemap: true,
@@ -31,9 +29,6 @@ export default defineBuildConfig({
   rollup: {
     emitCJS: true,
   },
-  externals: [
-    'markdown-it',
-  ],
   hooks: {
     'rollup:options': (_, options) => {
       if (Array.isArray(options.plugins))

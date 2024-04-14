@@ -22,3 +22,15 @@ const { t } = useI18n()
     </div>
   </div>
 </template>
+
+<style>
+.VPNolebaseEnhancedReadabilitiesMenu {
+  --vp-nolebase-enhanced-readabilities-menu-background-color: #EBEDF2;
+  --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
+}
+
+.dark .VPNolebaseEnhancedReadabilitiesMenu {
+  --vp-nolebase-enhanced-readabilities-menu-background-color: #2c2f35;
+  --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
+}
+</style>

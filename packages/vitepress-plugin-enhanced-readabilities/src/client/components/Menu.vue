@@ -31,18 +31,28 @@ const { t } = useI18n()
   </VPFlyout>
 </template>
 
-<style less>
+<style>
+.VPNolebaseEnhancedReadabilitiesMenu {
+  --vp-nolebase-enhanced-readabilities-menu-background-color: #EBEDF2;
+  --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
+}
+
+.dark .VPNolebaseEnhancedReadabilitiesMenu {
+  --vp-nolebase-enhanced-readabilities-menu-background-color: #2c2f35;
+  --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
+}
+
 .VPNolebaseEnhancedReadabilitiesMenuFlyout {
   display: none;
+}
 
-  &::before {
-    margin-right: 8px;
-    margin-left: 8px;
-    width: 1px;
-    height: 24px;
-    background-color: var(--vp-c-divider);
-    content: "";
-  }
+.VPNolebaseEnhancedReadabilitiesMenuFlyout::before {
+  margin-right: 8px;
+  margin-left: 8px;
+  width: 1px;
+  height: 24px;
+  background-color: var(--vp-c-divider);
+  content: "";
 }
 
 @media (min-width: 768px) {

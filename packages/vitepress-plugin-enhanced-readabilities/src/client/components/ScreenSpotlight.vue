@@ -31,7 +31,7 @@ const fieldOptions = computed(() => [
     <MenuTitle
       icon="i-icon-park-outline:click"
       :title="t('spotlight.title')"
-      :aria-label="t('spotlight.titleArialLabel') || t('spotlight.title')"
+      :aria-label="t('spotlight.titleAriaLabel') || t('spotlight.title')"
       disabled
     />
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>

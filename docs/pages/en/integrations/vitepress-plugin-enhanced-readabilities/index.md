@@ -80,7 +80,12 @@ export default defineConfig({
   vite: { // [!code ++]
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
+        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
+        // for Vite to properly bundle it. // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
+      ], // [!code ++]
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
     ssr: { // [!code ++]
@@ -108,18 +113,23 @@ import { defineConfig } from 'vite'
 
 export default defineConfig(() => {
   return {
+    optimizeDeps: {
+      include: [ // [!code ++]
+        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
+        // for Vite to properly bundle it. // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
+      ], // [!code ++]
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
+        'vitepress' // [!code ++]
+      ], // [!code ++]
+    },
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
-    optimizeDeps: {
-      include: [ // [!code ++]
-        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
-      ], // [!code ++]
-      exclude: ['vitepress'],
-    },
     plugins: [
       // other vite plugins...
     ],
@@ -145,11 +155,12 @@ import type { Theme as ThemeConfig } from 'vitepress'
 import { // [!code ++]
   NolebaseEnhancedReadabilitiesMenu, // [!code ++]
   NolebaseEnhancedReadabilitiesScreenMenu, // [!code ++]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 import './styles/vars.css'
 import './styles/main.css'
-import '@nolebase/vitepress-plugin-enhanced-readabilities/dist/style.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -234,7 +245,8 @@ The Enhanced Readabilities plugin exports the components it uses internally, so 
 ```typescript twoslash
 import {
   NolebaseEnhancedReadabilitiesPlugin // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 ```
 
 If you are working on a VitePress and wanted to install it into Vue instance, you can do it like this:
@@ -243,7 +255,8 @@ If you are working on a VitePress and wanted to install it into Vue instance, yo
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 // Rest of the code...
 
@@ -266,8 +279,9 @@ Of course you can also provide the relevant configuration directly when installi
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
-import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { NolebaseEnhancedReadabilitiesPlugin } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import '@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -303,7 +317,7 @@ For more information on configuration, see [Configuration](#configuration).
 import {
   LayoutSwitch,  // [!code focus]
   ScreenLayoutSwitch,  // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 ```
 
 #### Import spotlight components on demand
@@ -312,7 +326,7 @@ import {
 import {
   Spotlight,  // [!code focus]
   ScreenSpotlight, // [!code focus]
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 ```
 
 ## Configuration
@@ -331,8 +345,8 @@ Therefore we offer a way with [Vue's dependency injection](https://vuejs.org/api
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
-import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities' // [!code ++]
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities/client' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,
@@ -360,11 +374,11 @@ For more information on internationalization configuration, see [Internationaliz
 ```typescript twoslash
 import {
   SpotlightStyles as NolebaseEnhancedReadabilitiesSpotlightStyles,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import type {
   Locale,
   LayoutMode,
-} from '@nolebase/vitepress-plugin-enhanced-readabilities'
+} from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 type SpotlightStyles = typeof NolebaseEnhancedReadabilitiesSpotlightStyles
 // ---cut---
 /**
@@ -504,8 +518,8 @@ In the [Configuration](#configuration) section, we've learned how to provide con
 import type { Theme as ThemeConfig } from 'vitepress'
 import DefaultTheme from 'vitepress/theme'
 
-import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities'
-import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities'
+import type { Options } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
+import { InjectionKey } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 
 // Rest of code...
 

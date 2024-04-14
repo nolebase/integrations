@@ -16,6 +16,7 @@ export default defineConfig({
         'min-width': '1.2rem',
       },
       warn: true,
+      autoInstall: true,
     }),
   ],
 })

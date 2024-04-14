@@ -12,7 +12,7 @@
       ]
     },
     "types": [
-      "./src/yaml.d.ts"
+      "./yaml.d.ts"
     ],
     "noImplicitAny": false,
     "declaration": false,
@@ -22,11 +22,6 @@
     "sourceMap": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

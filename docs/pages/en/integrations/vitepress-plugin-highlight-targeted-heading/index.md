@@ -154,9 +154,9 @@ import type { Theme as ThemeConfig } from 'vitepress'
 
 import {  // [!code ++]
   NolebaseHighlightTargetedHeading,  // [!code ++]
-} from '@nolebase/vitepress-plugin-highlight-targeted-heading' // [!code ++]
+} from '@nolebase/vitepress-plugin-highlight-targeted-heading/client' // [!code ++]
 
-import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css' // [!code ++]*
+import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' // [!code ++]*
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,

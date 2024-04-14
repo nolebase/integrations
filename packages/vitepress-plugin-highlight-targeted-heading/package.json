@@ -26,26 +26,25 @@
   ],
   "sideEffects": false,
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.umd.cjs"
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./client/style.css": "./dist/client/style.css"
   },
-  "main": "./dist/index.umd.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/client/index.js",
+  "module": "./dist/client/index.mjs",
+  "types": "./dist/client/index.d.ts",
   "files": [
     "README.md",
     "dist",
     "package.json"
   ],
   "scripts": {
-    "dev": "concurrently \"pnpm run build:watch\" \"pnpm run emit-types\"",
-    "emit-types": "vue-tsc --declaration --emitDeclarationOnly",
-    "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "build:watch": "vite build --mode development --watch",
+    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
+    "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {

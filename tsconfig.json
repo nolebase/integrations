@@ -16,6 +16,12 @@
       "@nolebase/unconfig-vitepress/*": [
         "./packages/unconfig-vitepress/src/*"
       ],
+      "@nolebase/vitepress-plugin-enhanced-readabilities/*": [
+        "./packages/vitepress-plugin-enhanced-readabilities/src/*"
+      ],
+      "@nolebase/vitepress-plugin-highlight-targeted-heading/*": [
+        "./packages/vitepress-plugin-highlight-targeted-heading/src/*"
+      ],
       "@nolebase/vitepress-plugin-inline-link-preview/*": [
         "./packages/vitepress-plugin-inline-link-preview/src/*"
       ],
@@ -23,7 +29,7 @@
         "./packages/vitepress-plugin-git-changelog/src/*"
       ],
       "@nolebase/vitepress-plugin-thumbnail-hash/*": [
-        "../vitepress-plugin-thumbnail-hash/src/*"
+        "./packages/vitepress-plugin-thumbnail-hash/src/*"
       ]
     },
     "resolveJsonModule": true,

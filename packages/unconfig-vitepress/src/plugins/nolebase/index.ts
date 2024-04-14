@@ -245,8 +245,6 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       if (opts.pageProperties?.enable) {
         const pagePropertiesOptions = opts.pageProperties?.options ? [opts.pageProperties.options] : []
         app.use(NolebasePagePropertiesPlugin<PagePropertiesObject>(), ...pagePropertiesOptions)
-
-        await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
       }
 
       if (opts.enhancedMark?.enable)

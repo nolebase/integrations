@@ -19,16 +19,10 @@
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,
-    "outDir": "./dist/client",
     "removeComments": false,
     "sourceMap": true,
     "skipLibCheck": true
   },
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",

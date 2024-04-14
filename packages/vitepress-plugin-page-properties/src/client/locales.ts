@@ -1,12 +1,12 @@
+import { defaultEnLocale, defaultZhCNLocale } from '../locales'
 import type { Locale } from './types'
 
-import enLocale from './locales/en.yaml'
-import zhCNLocale from './locales/zh-CN.yaml'
+export {
+  defaultEnLocale,
+  defaultZhCNLocale,
+}
 
-export const defaultEnLocale = enLocale as Locale
-export const defaultZhCNLocale = zhCNLocale as Locale
-
-export const defaultLocales = {
+export const defaultLocales: Record<string, Locale> = {
   'zh-CN': defaultZhCNLocale,
   'zh-Hans': defaultZhCNLocale,
   'zh': defaultZhCNLocale,

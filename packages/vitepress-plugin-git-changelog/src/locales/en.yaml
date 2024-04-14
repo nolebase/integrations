@@ -4,7 +4,3 @@ lastEdited: 'Last edited {{daysAgo}}'
 lastEditedDateFnsLocaleName: 'enUS'
 viewFullHistory: 'View full history'
 committedOn: ' on {{date}}'
-
-gitChangelogMarkdownSectionTitles:
-  changelog: 'Changelog'
-  contributors: 'Contributors'

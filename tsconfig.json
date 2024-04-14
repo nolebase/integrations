@@ -28,6 +28,9 @@
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
       ],
+      "@nolebase/vitepress-plugin-page-properties/*": [
+        "./packages/vitepress-plugin-page-properties/src/*"
+      ],
       "@nolebase/vitepress-plugin-thumbnail-hash/*": [
         "./packages/vitepress-plugin-thumbnail-hash/src/*"
       ]

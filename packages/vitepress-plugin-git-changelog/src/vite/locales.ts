@@ -1,7 +1,16 @@
-import { defaultEnLocale, defaultZhCNLocale } from '../locales'
+const defaultEnLocale: Locale = {
+  gitChangelogMarkdownSectionTitles: {
+    changelog: 'Changelog',
+    contributors: 'Contributors',
+  },
+}
 
-const defaultEnLocaleAsLocale = defaultEnLocale as Locale
-const defaultZhCNLocaleAsLocale = defaultZhCNLocale as Locale
+const defaultZhCNLocale: Locale = {
+  gitChangelogMarkdownSectionTitles: {
+    changelog: '页面历史',
+    contributors: '贡献者',
+  },
+}
 
 export interface Locale extends Record<string, any> {
   gitChangelogMarkdownSectionTitles?: {
@@ -11,8 +20,8 @@ export interface Locale extends Record<string, any> {
 }
 
 export {
-  defaultEnLocaleAsLocale as defaultEnLocale,
-  defaultZhCNLocaleAsLocale as defaultZhCNLocale,
+  defaultEnLocale,
+  defaultZhCNLocale,
 }
 
 export const defaultLocales: Record<string, Locale> = {

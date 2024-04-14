@@ -1,4 +1,4 @@
-# Blinking highlight targeted heading <Badge type="tip" text="v2.0.0-rc1" />
+# Blinking highlight targeted heading <Badge type="tip" text="v2.0.0-rc2" />
 
 ## Demo
 

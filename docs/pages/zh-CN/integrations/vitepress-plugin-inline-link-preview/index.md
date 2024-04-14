@@ -2,7 +2,7 @@
 import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 </script>
 
-# 行内链接预览 <Badge type="tip" text="v2.0.0-rc1" />
+# 行内链接预览 <Badge type="tip" text="v2.0.0-rc2" />
 
 这个 VitePress 插件实现了类似 Obsidian 的链接预览功能。
 

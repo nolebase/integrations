@@ -1,4 +1,4 @@
-# Git-based page histories <Badge type="tip" text="v2.0.0-rc1" />
+# Git-based page histories <Badge type="tip" text="v2.0.0-rc2" />
 
 ## Why
 

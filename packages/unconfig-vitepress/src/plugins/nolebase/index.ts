@@ -20,7 +20,7 @@ import {
 import {
   NolebaseHighlightTargetedHeading,
   NolebaseNolebaseHighlightTargetedHeadingPlugin,
-} from '@nolebase/vitepress-plugin-highlight-targeted-heading'
+} from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
 
 import type {
   Options as NolebaseGitChangelogOptions,
@@ -229,11 +229,8 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)
       }
 
-      if (opts.highlightTargetedHeading?.enable) {
+      if (opts.highlightTargetedHeading?.enable)
         app.use(NolebaseNolebaseHighlightTargetedHeadingPlugin)
-
-        await import('@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css')
-      }
 
       if (opts.linkPreview?.enable) {
         const linkPreviewOptions = opts.linkPreview?.options ? [opts.linkPreview.options] : []

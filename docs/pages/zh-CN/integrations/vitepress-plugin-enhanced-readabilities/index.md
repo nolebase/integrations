@@ -1,4 +1,4 @@
-# 阅读增强 <Badge type="tip" text="v1.28.0" />
+# 阅读增强 <Badge type="tip" text="v2.0.0-rc1" />
 
 ## 效果演示
 

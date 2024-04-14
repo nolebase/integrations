@@ -1,4 +1,4 @@
-# Elements Transformation <Badge type="tip" text="v1.28.0" />
+# Elements Transformation <Badge type="tip" text="v2.0.0-rc1" />
 
 This is a low-level plugin that is intended to be used by advanced users who want to transform the `markdown-it` [tokens](https://markdown-it.github.io/markdown-it/#Token) to perform tasks like replacing elements, adding attributes, etc.
 

@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-git-changelog",
   "type": "module",
-  "version": "1.28.0",
+  "version": "2.0.0-rc1",
   "description": "A VitePress plugin that adds a changelog fetched from git to your documentation.",
   "author": {
     "name": "Nólëbase",

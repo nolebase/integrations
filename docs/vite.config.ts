@@ -46,10 +46,12 @@ export default defineConfig({
       '@nolebase/vitepress-plugin-highlight-targeted-heading': resolve(__dirname, '../packages/vitepress-plugin-highlight-targeted-heading/src/'),
       '@nolebase/vitepress-plugin-inline-link-preview': resolve(__dirname, '../packages/vitepress-plugin-inline-link-preview/src/'),
       '@nolebase/vitepress-plugin-git-changelog': resolve(__dirname, '../packages/vitepress-plugin-git-changelog/src/'),
+      '@nolebase/vitepress-plugin-page-properties': resolve(__dirname, '../packages/vitepress-plugin-page-properties/src/'),
       '@nolebase/vitepress-plugin-thumbnail-hash': resolve(__dirname, '../packages/vitepress-plugin-thumbnail-hash/src'),
     },
   },
   plugins: [
+    Yaml() as Plugin,
     GitChangelog({
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',
@@ -90,6 +92,5 @@ export default defineConfig({
       outputDir: '.vite-inspect',
     }),
     UnoCSS(),
-    Yaml() as Plugin,
   ],
 })

@@ -32,6 +32,7 @@
     "@shikijs/vitepress-twoslash": "^1.2.4",
     "@types/markdown-it": "^13.0.7",
     "@types/markdown-it-footnote": "^3.0.4",
+    "colorette": "^2.0.20",
     "markdown-it": "^13.0.2",
     "markdown-it-footnote": "^4.0.0",
     "thumbhash": "^0.1.1",

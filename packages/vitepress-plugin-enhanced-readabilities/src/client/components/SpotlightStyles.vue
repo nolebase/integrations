@@ -58,7 +58,7 @@ watch(isTouchScreen, () => {
         <MenuTitle
           icon="i-icon-park-outline:click"
           :title="t('spotlight.styles.title')"
-          :aria-label="t('spotlight.styles.titleArialLabel') || t('spotlight.styles.title')"
+          :aria-label="t('spotlight.styles.titleAriaLabel') || t('spotlight.styles.title')"
           :disabled="disabled"
           flex="1"
           pr-4

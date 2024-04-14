@@ -3,7 +3,7 @@ import type { LayoutMode, SpotlightStyle } from './constants'
 /**
  * Locale
  */
-export interface Locale {
+export interface Locale extends Record<string, any> {
   /**
    * Title
    *

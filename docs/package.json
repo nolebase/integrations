@@ -11,6 +11,9 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
+    "@iconify-json/icon-park-outline": "^1.1.15",
+    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/svg-spinners": "^1.1.2",
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/markdown-it-unlazy-img": "workspace:^",

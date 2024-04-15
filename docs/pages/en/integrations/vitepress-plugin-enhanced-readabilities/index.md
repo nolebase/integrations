@@ -1,4 +1,4 @@
-# Enhanced Readabilities <Badge type="tip" text="v2.0.0-rc2" />
+# Enhanced Readabilities <Badge type="tip" text="v2.0.0-rc3" />
 
 ## Demo
 

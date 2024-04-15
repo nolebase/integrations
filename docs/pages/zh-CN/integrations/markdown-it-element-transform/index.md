@@ -1,4 +1,4 @@
-# 元素转换 <Badge type="tip" text="v2.0.0-rc2" />
+# 元素转换 <Badge type="tip" text="v2.0.0-rc3" />
 
 这是一个面向高级用户的低级插件，旨在用于转换 `markdown-it` 的 [Token](https://markdown-it.github.io/markdown-it/#Token) 以执行诸如「替换元素」、「添加属性」等任务。
 

@@ -2,7 +2,7 @@
 import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 </script>
 
-# Inline Links Previewing <Badge type="tip" text="v2.0.0-rc2" />
+# Inline Links Previewing <Badge type="tip" text="v2.0.0-rc3" />
 
 This VitePress plugin is an implementation that similar to Obsidian's link previewing functionalities.
 

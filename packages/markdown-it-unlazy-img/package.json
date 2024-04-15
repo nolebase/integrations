@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/markdown-it-unlazy-img",
   "type": "module",
-  "version": "2.0.0-rc2",
+  "version": "2.0.0-rc3",
   "description": "A markdown-it plugin wraps and transforms image tags to support lazy loading, blurhash, thumbhash, and more.",
   "author": {
     "name": "Nólëbase",

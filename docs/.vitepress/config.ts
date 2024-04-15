@@ -8,8 +8,10 @@ import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
-import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image'
+import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
+
+import packageJSON from '../../package.json'
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
@@ -57,6 +59,20 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'UI Components',
         items: [
           { text: 'Overview', link: '/pages/en/ui/' },
+        ],
+      },
+      {
+        text: 'Releasing',
+        items: [
+          {
+            text: 'Migration guides',
+            items: [
+              {
+                text: 'Migrate from v1 to v2',
+                link: '/pages/en/releases/migrations/v1-to-v2',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -200,6 +216,20 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'UI 组件',
         items: [
           { text: '概览', link: '/pages/zh-CN/ui/' },
+        ],
+      },
+      {
+        text: '版本发布',
+        items: [
+          {
+            text: '迁移指南',
+            items: [
+              {
+                text: '自 v1 迁移至 v2',
+                link: '/pages/zh-CN/releases/migrations/v1-to-v2',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -378,6 +408,20 @@ export default defineConfig({
           { text: 'Guide', link: '/pages/en/guide/getting-started' },
           { text: 'Integrations', link: '/pages/en/integrations/' },
           { text: 'UI Components', link: '/pages/en/ui/' },
+          {
+            text: packageJSON.version,
+            items: [
+              {
+                text: 'Migrations',
+                items: [
+                  {
+                    text: 'Migrate from v1 to v2',
+                    link: '/pages/en/releases/migrations/v1-to-v2',
+                  },
+                ],
+              },
+            ],
+          },
         ],
         sidebar: sidebars.en,
       },
@@ -393,6 +437,20 @@ export default defineConfig({
           { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
           { text: 'UI 组件', link: '/pages/zh-CN/ui/' },
+          {
+            text: packageJSON.version,
+            items: [
+              {
+                text: '迁移指南',
+                items: [
+                  {
+                    text: '自 v1 迁移至 v2',
+                    link: '/pages/zh-CN/releases/migrations/v1-to-v2',
+                  },
+                ],
+              },
+            ],
+          },
         ],
         sidebar: sidebars['zh-CN'],
       },
@@ -466,7 +524,7 @@ export default defineConfig({
     },
   },
   async buildEnd(siteConfig) {
-    await buildEndGenerateOpenGraphImages({
+    const newBuilder = buildEndGenerateOpenGraphImages({
       baseUrl: 'https://nolebase-integrations.ayaka.io',
       category: {
         byPathPrefix: [
@@ -495,6 +553,8 @@ export default defineConfig({
         ],
         fallbackWithFrontmatter: true,
       },
-    })(siteConfig)
+    })
+
+    await newBuilder(siteConfig)
   },
 })

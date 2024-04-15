@@ -1,4 +1,4 @@
-# Enhanced `<mark>` <mark>elements</mark> <Badge type="tip" text="v2.0.0-rc3" />
+# Enhanced `<mark>` <mark>elements</mark> <Badge type="tip" text="v2.0.0-rc4" />
 
 As an interesting little plugin, it adds a <mark>sliding animation</mark> to your `<mark>` highlighted elements.
 

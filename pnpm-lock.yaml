@@ -483,6 +483,9 @@ importers:
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
+      fs-extra:
+        specifier: ^11.2.0
+        version: 11.2.0
 
 packages:
 

@@ -11,6 +11,9 @@ hero:
       text: Get Started
       link: /pages/en/guide/getting-started
     - theme: alt
+      text: Join Discord server
+      link: https://discord.gg/XuNFDcDZGj
+    - theme: alt
       text: View on GitHub
       link: https://github.com/nolebase/integrations
 

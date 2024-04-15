@@ -370,6 +370,7 @@ export default defineConfig({
     outline: 'deep',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nolebase/integrations' },
+      { icon: 'discord', link: 'https://discord.gg/XuNFDcDZGj' },
     ],
     search: {
       provider: 'local',

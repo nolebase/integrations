@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { rewritePathsByRewritingExtension } from './git'
+import { rewritePathsByPatterns, rewritePathsByRewritingExtension } from './helpers'
 
 describe('rewritePathsByRewritingExtension', () => {
   it('should rewrite paths', () => {
@@ -31,5 +31,19 @@ describe('rewritePathsByRewritingExtension', () => {
       rewrittenPaths.push(rewriterHandler(undefined as any as Commit, path))
 
     expect(rewrittenPaths).toEqual(['a.md.jpg.html', 'b.html.md.html', 'c.html'])
+  })
+})
+
+describe('rewritePathsByPatterns', () => {
+  it('should rewrite paths', async () => {
+    const rewrittenPath = await rewritePathsByPatterns(
+      undefined as any as Commit,
+      'a.md',
+      {
+        handler: rewritePathsByRewritingExtension('.md', '.html'),
+      },
+    )
+
+    expect(rewrittenPath).toBe('a.html')
   })
 })

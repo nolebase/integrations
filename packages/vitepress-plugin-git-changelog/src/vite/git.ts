@@ -1,16 +1,33 @@
-import { extname, posix, sep, win32 } from 'node:path'
+import { posix, sep, win32 } from 'node:path'
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 
 import type { Plugin } from 'vite'
-import { normalizePath } from 'vite'
 import simpleGit from 'simple-git'
 import type { SimpleGit } from 'simple-git'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 
 import type { Changelog, Commit } from '../types'
-import { digestStringAsSHA256 } from './helpers'
+import {
+  type CommitToStringHandler,
+  type RewritePathsBy,
+  digestStringAsSHA256,
+  normalizeGitLogPath,
+  returnOrResolvePromise,
+  rewritePaths,
+  rewritePathsByPatterns,
+  rewritePathsByRewritingExtension,
+} from './helpers'
+
+export type {
+  CommitToStringHandler,
+  RewritePathsBy,
+}
+
+export {
+  rewritePathsByRewritingExtension,
+}
 
 const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
@@ -20,91 +37,7 @@ const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gr
 const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
 const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
 
-export type CommitToStringHandler = (commit: Commit) => string | Promise<string> | null | undefined
-export type CommitAndPathToStringHandler = (commit: Commit, path: string) => Commit | Promise<Commit> | null | undefined
-export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
-
-async function returnOrResolvePromise<T>(val: T | Promise<T>) {
-  if (!(val instanceof Promise))
-    return val
-
-  return await val
-}
-
 const execAsync = promisify(exec)
-
-function normalizeGitLogPath(path: string[][]) {
-  // normalize paths
-  for (const [index, files] of path.entries()) {
-    if (files[1])
-      path[index][1] = normalizePath(files[1])
-
-    if (files[2])
-      path[index][2] = normalizePath(files[2])
-  }
-
-  return path
-}
-
-function rewritePaths(path: string[][], rewritePaths: Record<string, string>) {
-  // rewrite paths
-  for (const [index, files] of path.entries()) {
-    for (const [key, value] of Object.entries(rewritePaths)) {
-      if (files[1])
-        path[index][1] = files[1].replace(key, value)
-
-      if (files[2])
-        path[index][2] = files[2].replace(key, value)
-    }
-  }
-
-  return path
-}
-
-async function rewritePathsByPatterns(commit: Commit, path: string, patterns?: RewritePathsBy): Promise<string> {
-  if (typeof patterns === 'undefined' || patterns === null)
-    return path
-
-  if ('handler' in patterns && typeof patterns.handler === 'function') {
-    const resolvedCommit = await returnOrResolvePromise(patterns.handler(commit, path))
-    if (!resolvedCommit)
-      return path
-
-    return path
-  }
-
-  return path
-}
-
-/**
- * A rewritePathsBy.handler handler that rewrites paths by rewriting the extension.
- *
- * @example
- *
- * ```typescript
- * import { GitChangelog, rewritePathsByRewritingExtension } from '@nolebase/vitepress-plugin-git-changelog/vite'
- *
- * GitChangelog({
- *   rewritePathsBy: {
- *     // to rewrite `example.md` to `example.html`
- *     handler: rewritePathsByRewritingExtension('.md', '.html')
- *   }
- * })
- * ```
- *
- * @param from - The extension to rewrite from.
- * @param to - The extension to rewrite to.
- * @returns A handler that rewrites paths by rewriting the extension.
- */
-export function rewritePathsByRewritingExtension(from: string, to: string) {
-  return (_: Commit, path: string) => {
-    const ext = extname(path)
-    if (ext !== from)
-      return path
-
-    return path.replace(new RegExp(`${from}$`), to)
-  }
-}
 
 async function aggregateCommit(
   getReleaseTagURL: CommitToStringHandler,

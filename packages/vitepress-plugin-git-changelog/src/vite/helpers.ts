@@ -1,4 +1,4 @@
-import { relative } from 'node:path'
+import { extname, relative } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
 
@@ -108,4 +108,88 @@ export async function digestStringAsSHA256(message: string) {
     .map(b => b.toString(16).padStart(2, '0'))
     .join('') // convert bytes to hex string
   return hashHex
+}
+
+export function normalizeGitLogPath(path: string[][]) {
+  // normalize paths
+  for (const [index, files] of path.entries()) {
+    if (files[1])
+      path[index][1] = normalizePath(files[1])
+
+    if (files[2])
+      path[index][2] = normalizePath(files[2])
+  }
+
+  return path
+}
+
+export type CommitToStringHandler = (commit: Commit) => string | Promise<string> | null | undefined
+export type CommitAndPathToStringHandler = (commit: Commit, path: string) => string | Promise<string> | null | undefined
+export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
+
+export async function returnOrResolvePromise<T>(val: T | Promise<T>) {
+  if (!(val instanceof Promise))
+    return val
+
+  return await val
+}
+
+export function rewritePaths(path: string[][], rewritePaths: Record<string, string>) {
+  // rewrite paths
+  for (const [index, files] of path.entries()) {
+    for (const [key, value] of Object.entries(rewritePaths)) {
+      if (files[1])
+        path[index][1] = files[1].replace(key, value)
+
+      if (files[2])
+        path[index][2] = files[2].replace(key, value)
+    }
+  }
+
+  return path
+}
+
+export async function rewritePathsByPatterns(commit: Commit, path: string, patterns?: RewritePathsBy): Promise<string> {
+  if (typeof patterns === 'undefined' || patterns === null)
+    return path
+
+  if ('handler' in patterns && typeof patterns.handler === 'function') {
+    const resolvedPath = await returnOrResolvePromise(patterns.handler(commit, path))
+    if (!resolvedPath)
+      return path
+
+    return resolvedPath
+  }
+
+  return path
+}
+
+/**
+ * A rewritePathsBy.handler handler that rewrites paths by rewriting the extension.
+ *
+ * @example
+ *
+ * ```typescript
+ * import { GitChangelog, rewritePathsByRewritingExtension } from '@nolebase/vitepress-plugin-git-changelog/vite'
+ *
+ * GitChangelog({
+ *   rewritePathsBy: {
+ *     // to rewrite `example.md` to `example.html`
+ *     handler: rewritePathsByRewritingExtension('.md', '.html')
+ *   }
+ * })
+ * ```
+ *
+ * @param from - The extension to rewrite from.
+ * @param to - The extension to rewrite to.
+ * @returns A handler that rewrites paths by rewriting the extension.
+ */
+export function rewritePathsByRewritingExtension(from: string, to: string) {
+  return (_: Commit, path: string) => {
+    const ext = extname(path)
+    if (ext !== from)
+      return path
+
+    return path.replace(new RegExp(`${from}$`), to)
+  }
 }

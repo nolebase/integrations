@@ -56,9 +56,6 @@ export function PageProperties(): Plugin {
     enforce: 'pre',
     config: () => ({
       optimizeDeps: {
-        include: [
-          '@nolebase/vitepress-plugin-page-properties > @nolebase/ui > @rive-canvas/app',
-        ],
         exclude: [
           '@nolebase/vitepress-plugin-page-properties/client',
         ],

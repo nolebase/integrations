@@ -1,8 +1,9 @@
+import { copy } from 'fs-extra'
 import { defineBuildConfig } from 'unbuild'
 
 export default defineBuildConfig({
   entries: [
-    './src/index',
+    { builder: 'rollup', input: './src/vitepress/index', outDir: 'dist/vitepress/' },
   ],
   clean: true,
   sourcemap: true,
@@ -22,8 +23,7 @@ export default defineBuildConfig({
   hooks: {
     'build:done': async () => {
       // copy all things under src/assets to dist/assets
-      const { copy } = await import('fs-extra')
-      await copy('src/assets', 'dist/assets')
+      await copy('src/vitepress/assets', 'dist/vitepress/assets')
     },
   },
 })

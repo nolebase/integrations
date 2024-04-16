@@ -88,10 +88,18 @@
   );
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #8d73bf90 30%,
-    #d6c0e890
+    #cdbdea 30%,
+    rgba(226, 207, 241, 0.56)
   );
   --vp-home-hero-image-filter: blur(30px);
+}
+
+.dark:root {
+  --vp-home-hero-image-background-image: linear-gradient(
+    -45deg,
+    #382558 30%,
+    #382558
+  );
 }
 
 @media (min-width: 640px) {

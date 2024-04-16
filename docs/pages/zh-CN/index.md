@@ -6,6 +6,8 @@ hero:
   name: Nólëbase 集成
   text: 多元化的文档工程工具合集
   tagline: 为基于本地优先的知识库和静态生成器的文档工程提供更好的体验
+  image:
+    src: /logo-day.png
   actions:
     - theme: brand
       text: 开始使用

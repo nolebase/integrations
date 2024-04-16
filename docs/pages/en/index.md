@@ -6,6 +6,8 @@ hero:
   name: Nólëbase Integrations
   text: A collection of diverse documentation engineering tools
   tagline: "For a better experience of documentation engineering based on local-first knowledge base and static site generator"
+  image:
+    src: /logo-day.png
   actions:
     - theme: brand
       text: Get Started

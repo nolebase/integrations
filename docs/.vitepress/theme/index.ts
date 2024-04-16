@@ -6,6 +6,7 @@ import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 
+import VPHeroImage from './components/VPHeroImage.vue'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 import ThumbhashPreview from './components/ThumbhashPreview.vue'
@@ -23,6 +24,11 @@ export default defineThemeUnconfig({
       'layout-top': {
         node: [
           () => h(NuLazyTeleportRiveCanvas),
+        ],
+      },
+      'home-hero-image': {
+        node: [
+          () => h(VPHeroImage),
         ],
       },
     },

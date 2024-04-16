@@ -41,5 +41,8 @@
   },
   "peerDependencies": {
     "vitepress": "^1.0.0"
+  },
+  "dependencies": {
+    "less": "^4.2.0"
   }
 }

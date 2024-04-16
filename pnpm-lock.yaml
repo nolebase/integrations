@@ -258,12 +258,21 @@ importers:
 
   packages/vitepress-plugin-enhanced-mark:
     dependencies:
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       vitepress:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.3)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
 
   packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
+      '@nolebase/ui':
+        specifier: workspace:^
+        version: link:../ui
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       vitepress:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.3)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
@@ -274,9 +283,6 @@ importers:
       '@iconify-json/icon-park-outline':
         specifier: ^1.1.15
         version: 1.1.15
-      '@nolebase/ui':
-        specifier: workspace:^
-        version: link:../ui
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
@@ -295,6 +301,9 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       ora:
         specifier: ^8.0.1
         version: 8.0.1
@@ -320,6 +329,9 @@ importers:
 
   packages/vitepress-plugin-highlight-targeted-heading:
     dependencies:
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       vitepress:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.23.3)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
@@ -332,6 +344,9 @@ importers:
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -418,6 +433,9 @@ importers:
       gray-matter:
         specifier: ^4.0.3
         version: 4.0.3
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       markdown-it:
         specifier: ^13.0.2
         version: 13.0.2
@@ -464,6 +482,9 @@ importers:
       glob:
         specifier: ^10.3.10
         version: 10.3.10
+      less:
+        specifier: ^4.2.0
+        version: 4.2.0
       ora:
         specifier: ^8.0.1
         version: 8.0.1

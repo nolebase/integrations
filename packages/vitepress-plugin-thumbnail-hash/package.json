@@ -61,6 +61,7 @@
     "@unlazy/vue": "^0.11.3",
     "colorette": "^2.0.20",
     "glob": "^10.3.10",
+    "less": "^4.2.0",
     "ora": "^8.0.1",
     "thumbhash": "^0.1.1",
     "uncrypto": "^0.1.3",

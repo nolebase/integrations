@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { rewritePathsByPatterns, rewritePathsByRewritingExtension } from './helpers'
+import type { Commit } from '../types'
+import { parseGitLogRefsAsTags, rewritePathsByPatterns, rewritePathsByRewritingExtension } from './helpers'
 
 describe('rewritePathsByRewritingExtension', () => {
   it('should rewrite paths', () => {
@@ -45,5 +46,31 @@ describe('rewritePathsByPatterns', () => {
     )
 
     expect(rewrittenPath).toBe('a.html')
+  })
+})
+
+describe('parseGitLogRefsAsTags', () => {
+  it('should return empty array if refs is not provided', () => {
+    expect(parseGitLogRefsAsTags()).toEqual([])
+  })
+
+  it('should return parse one tag', () => {
+    expect(parseGitLogRefsAsTags('tag: v1.0.0')).toEqual(['v1.0.0'])
+  })
+
+  it('should return empty when only HEAD', () => {
+    expect(parseGitLogRefsAsTags('HEAD -> main')).toEqual([])
+  })
+
+  it('should return parse with HEAD', () => {
+    expect(parseGitLogRefsAsTags('HEAD -> main, tag: v1.0.0')).toEqual(['v1.0.0'])
+  })
+
+  it('should return parse with multiple tags', () => {
+    expect(parseGitLogRefsAsTags('HEAD -> main, tag: v1.0.0, tag: v1.0.1')).toEqual(['v1.0.0', 'v1.0.1'])
+  })
+
+  it('should return parse with multiple tags without HEAD', () => {
+    expect(parseGitLogRefsAsTags('tag: v1.0.0, tag: v1.0.1')).toEqual(['v1.0.0', 'v1.0.1'])
   })
 })

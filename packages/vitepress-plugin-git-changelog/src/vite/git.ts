@@ -4,16 +4,18 @@ import { promisify } from 'node:util'
 
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
-import type { SimpleGit } from 'simple-git'
+import type { DefaultLogFields, ListLogLine, SimpleGit } from 'simple-git'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 
 import type { Changelog, Commit } from '../types'
 import {
   type CommitToStringHandler,
+  type CommitToStringsHandler,
   type RewritePathsBy,
   digestStringAsSHA256,
   normalizeGitLogPath,
+  parseGitLogRefsAsTags,
   returnOrResolvePromise,
   rewritePaths,
   rewritePathsByPatterns,
@@ -24,6 +26,8 @@ export type {
   CommitToStringHandler,
   RewritePathsBy,
 }
+
+type SimpleGitCommit = Readonly<Readonly<(DefaultLogFields & ListLogLine)>[]>
 
 export {
   rewritePathsByRewritingExtension,
@@ -36,25 +40,26 @@ const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gr
 
 const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
 const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
+const defaultReleaseTagsURLHandler = (commit: Commit) => commit.tags?.map(tag => `${commit.repo_url}/releases/tag/${tag}`)
 
 const execAsync = promisify(exec)
 
 async function aggregateCommit(
   getReleaseTagURL: CommitToStringHandler,
+  getReleaseTagsURL: CommitToStringsHandler,
   log: Commit,
   includeDirs: string[] = [],
   optsRewritePaths?: Record<string, string>,
   optsRewritePathsByPatterns?: RewritePathsBy,
 ) {
+  const tags = parseGitLogRefsAsTags(log.refs)
+
   // release logs
-  if (log.message.includes('release: ')) {
-    log.tag = log.message
-      .split(' ')[1]
-      .trim()
-
+  if (tags && tags.length > 0) {
+    log.tags = tags
+    log.tag = log.tags?.[0] || undefined
     log.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(log))) ?? defaultReleaseTagURLHandler(log)
-
-    return log
+    log.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(log))) ?? defaultReleaseTagsURLHandler(log)
   }
 
   // get change log of each file
@@ -68,7 +73,7 @@ async function aggregateCommit(
     .split('\n')
     .map(str => str.split('\t'))
 
-  log.path = Array.from(
+  log.paths = Array.from(
     new Set(
       files
         .filter((i) => {
@@ -82,16 +87,16 @@ async function aggregateCommit(
   )
 
   // normalize paths
-  log.path = normalizeGitLogPath(log.path)
+  log.paths = normalizeGitLogPath(log.paths)
   if (typeof optsRewritePaths !== 'undefined') {
     // rewrite paths
-    log.path = rewritePaths(log.path, optsRewritePaths)
+    log.paths = rewritePaths(log.paths, optsRewritePaths)
   }
   if (typeof optsRewritePathsByPatterns !== 'undefined') {
     // rewrite paths
-    for (const [index, files] of log.path.entries()) {
-      log.path[index][1] = await rewritePathsByPatterns(log, files[1], optsRewritePathsByPatterns)
-      log.path[index][2] = await rewritePathsByPatterns(log, files[2], optsRewritePathsByPatterns)
+    for (const [index, files] of log.paths.entries()) {
+      log.paths[index][1] = await rewritePathsByPatterns(log, files[1], optsRewritePathsByPatterns)
+      log.paths[index][2] = await rewritePathsByPatterns(log, files[2], optsRewritePathsByPatterns)
     }
   }
 
@@ -102,26 +107,49 @@ async function aggregateCommits(
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
-  logs: Commit[],
+  getReleaseTagsURL: CommitToStringsHandler,
+  commits: SimpleGitCommit,
   includeDirs: string[] = [],
   rewritePaths?: Record<string, string>,
   rewritePathsBy?: RewritePathsBy,
 ) {
-  for (const log of logs) {
+  const transformedCommits: Commit[] = []
+
+  for (const commit of commits) {
+    const transformedCommit: Commit = {
+      paths: [],
+      hash: commit.hash,
+      date: commit.date,
+      date_timestamp: 0,
+      message: commit.message,
+      refs: commit.refs,
+      body: commit.body,
+      author_name: commit.author_name,
+      author_email: commit.author_email,
+      author_avatar: '',
+    }
+
     // hash url
-    log.hash_url = (await returnOrResolvePromise(getCommitURL(log))) ?? defaultCommitURLHandler(log)
+    transformedCommit.hash_url = (await returnOrResolvePromise(getCommitURL(transformedCommit))) ?? defaultCommitURLHandler(transformedCommit)
     // repo url
-    log.repo_url = (await returnOrResolvePromise(getRepoURL(log))) ?? 'https://github.com/example/example'
+    transformedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(transformedCommit))) ?? 'https://github.com/example/example'
     // timestamp
-    log.date_timestamp = new Date(log.date).getTime()
+    transformedCommit.date_timestamp = new Date(commit.date).getTime()
     // generate author avatar based on md5 hash of email (gravatar style)
-    log.author_avatar = await digestStringAsSHA256(log.author_email)
+    transformedCommit.author_avatar = await digestStringAsSHA256(commit.author_email)
+
+    transformedCommits.push(transformedCommit)
   }
 
-  const processedLogsPromises = logs.map(async log => aggregateCommit(getReleaseTagURL, log, includeDirs, rewritePaths, rewritePathsBy))
-  const processedLogs = await Promise.all(processedLogsPromises)
+  const processedCommits = await Promise.all(
+    transformedCommits.map(
+      async (commit) => {
+        return aggregateCommit(getReleaseTagURL, getReleaseTagsURL, commit, includeDirs, rewritePaths, rewritePathsBy)
+      },
+    ),
+  )
 
-  return processedLogs.filter(i => i.path?.length || i.tag)
+  return processedCommits.filter(i => i.paths?.length || i.tag)
 }
 
 export interface GitChangelogOptions {
@@ -142,6 +170,12 @@ export interface GitChangelogOptions {
    * @default (commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
    */
   getReleaseTagURL?: CommitToStringHandler
+  /**
+   * A function to get the release tags URL.
+   *
+   * @default (commit) => commit.tags?.map(tag => `${commit.repo_url}/releases/tag/${tag}`)
+   */
+  getReleaseTagsURL?: CommitToStringsHandler
   /**
    * A function to get the commit URL.
    *
@@ -216,6 +250,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     includeDirs = [],
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = defaultReleaseTagURLHandler,
+    getReleaseTagsURL = defaultReleaseTagsURLHandler,
     getCommitURL = defaultCommitURLHandler,
   } = options
 
@@ -267,7 +302,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       spinner.color = 'yellow'
 
       const gitLogsRaw = await git.log({ maxCount: maxGitLogCount })
-      const logs = gitLogsRaw.all as Commit[]
 
       spinner.text = `${logModulePrefix} Aggregating git logs...`
       spinner.color = 'green'
@@ -276,7 +310,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         getRepoURL,
         getCommitURL,
         getReleaseTagURL,
-        logs,
+        getReleaseTagsURL,
+        gitLogsRaw.all,
         includeDirs,
         options.rewritePaths,
         options.rewritePathsBy,

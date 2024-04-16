@@ -64,6 +64,7 @@
     "@nolebase/ui": "workspace:^",
     "date-fns": "^3.3.1",
     "gray-matter": "^4.0.3",
+    "less": "^4.2.0",
     "markdown-it": "^13.0.2",
     "uuid": "^9.0.1"
   },

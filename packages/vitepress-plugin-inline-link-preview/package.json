@@ -64,6 +64,7 @@
   "dependencies": {
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
+    "less": "^4.2.0",
     "markdown-it": "^13.0.2",
     "markdown-it-attrs": "^4.1.6"
   },

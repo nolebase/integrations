@@ -55,10 +55,13 @@
   "peerDependencies": {
     "vitepress": "^1.0.0"
   },
+  "dependencies": {
+    "@nolebase/ui": "workspace:^",
+    "less": "^4.2.0"
+  },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/icon-park-outline": "^1.1.15",
-    "@nolebase/ui": "workspace:^",
     "@rollup/plugin-yaml": "^4.1.2"
   }
 }

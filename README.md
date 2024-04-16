@@ -1,5 +1,17 @@
 <p align="center">
-  <img width="350" src="https://user-images.githubusercontent.com/19204772/193437443-b5e04990-9957-4339-a83c-72b33307dbff.png">
+  <picture>
+    <source
+      width="250"
+      srcset="./docs/public/logo-dark.png"
+      media="(prefers-color-scheme: dark)"
+    />
+    <source
+      width="250"
+      srcset="./docs/public/logo-day.png"
+      media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
+    />
+    <img width="250" src="./docs/public/logo-day.png" />
+  </picture>
 </p>
 
 <p align="center">

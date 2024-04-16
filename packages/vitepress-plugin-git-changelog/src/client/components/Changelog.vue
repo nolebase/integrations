@@ -8,11 +8,13 @@ import Changelog from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
-import { formatDistanceToNowFromValue, renderCommitMessage } from '../utils'
+import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
 import type { Locale } from '../types'
 import { defaultEnLocale, defaultLocales } from '../locales'
+import CommitRegularLine from './CommitRegularLine.vue'
+import CommitTagLine from './CommitTagLine.vue'
 
 const toggleViewMore = ref(false)
 
@@ -92,43 +94,11 @@ onMounted(() => {
         text="<sm:xs"
       >
         <template v-for="(commit) of commits" :key="commit.hash">
-          <template v-if="commit.tag">
-            <div class="m-auto h-[1.75em] w-[1.75em] inline-flex rounded-full bg-gray-400/10 opacity-90">
-              <div class="i-octicon:rocket-16 !h-[50%] !min-h-[50%] !min-w-[50%] !w-[50%]" m="auto" />
-            </div>
-            <div flex items-center gap-1>
-              <a :href="commit.release_tag_url" target="_blank">
-                <code class="font-bold">{{ commit.tag }}</code>
-              </a>
-              <ClientOnly>
-                <span class="text-xs opacity-50" :title="toDate(commit.date_timestamp).toString()">
-                  {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
-                </span>
-              </ClientOnly>
-            </div>
+          <template v-if="commit.tag && commit.tags && commit.release_tag_url && commit.release_tags_url">
+            <CommitTagLine :commit="commit" />
           </template>
           <template v-else>
-            <div class="i-octicon:git-commit-16 m-auto rotate-90 transform opacity-30" />
-            <div flex items-center gap-1>
-              <a :href="`${commit.repo_url}/commit/${commit.hash}`" target="_blank">
-                <code
-                  class="text-xs text-$vp-c-brand-1 hover:text-$vp-c-brand-1"
-                  transition="color ease-in-out"
-                  duration-200
-                >
-                  {{ commit.hash.slice(0, 5) }}
-                </code>
-              </a>
-              <span>-</span>
-              <span>
-                <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
-                <ClientOnly>
-                  <span class="text-xs opacity-50" :title="toDate(commit.date_timestamp).toString()">
-                    {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
-                  </span>
-                </ClientOnly>
-              </span>
-            </div>
+            <CommitRegularLine :commit="commit" />
           </template>
         </template>
       </div>

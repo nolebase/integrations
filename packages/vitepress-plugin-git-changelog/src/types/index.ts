@@ -2,15 +2,23 @@ export interface Commit {
   /**
    * The path of the file that the commit is related to.
    */
-  path: string[][]
+  paths: string[][]
   /**
-   * The matched tag of the commit.
+   * The matched first tag of the commit.
    */
   tag?: string
+  /**
+   * The matched tags of the commit.
+   */
+  tags?: string[]
   /**
    * The URL of the release tag.
    */
   release_tag_url?: string
+  /**
+   * The URLs of the release tags.
+   */
+  release_tags_url?: string[]
   /**
    * The hash of the commit.
    */

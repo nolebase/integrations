@@ -10,6 +10,8 @@
     "antfu.iconify",
     "yzhang.markdown-all-in-one",
     "antfu.unocss",
-    "Vue.volar"
+    "Vue.volar",
+    "vitest.explorer",
+    "redhat.vscode-yaml"
   ]
 }

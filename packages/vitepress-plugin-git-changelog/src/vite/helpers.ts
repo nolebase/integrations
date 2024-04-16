@@ -1,6 +1,7 @@
 import { extname, relative } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
+import type { Commit } from '../types'
 
 export interface Helpers {
   /**
@@ -124,6 +125,7 @@ export function normalizeGitLogPath(path: string[][]) {
 }
 
 export type CommitToStringHandler = (commit: Commit) => string | Promise<string> | null | undefined
+export type CommitToStringsHandler = (commit: Commit) => string[] | Promise<string[]> | null | undefined
 export type CommitAndPathToStringHandler = (commit: Commit, path: string) => string | Promise<string> | null | undefined
 export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
 
@@ -192,4 +194,16 @@ export function rewritePathsByRewritingExtension(from: string, to: string) {
 
     return path.replace(new RegExp(`${from}$`), to)
   }
+}
+
+export function parseGitLogRefsAsTags(refs?: string): string[] {
+  if (!refs)
+    return []
+
+  const refsArray = refs.split(', ').map(ref => ref.trim())
+  const tags = refsArray.filter(ref => ref.startsWith('tag: '))
+  if (!tags)
+    return []
+
+  return tags.map(tag => tag.replace('tag: ', '').trim())
 }

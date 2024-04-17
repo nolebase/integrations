@@ -77,13 +77,7 @@ async function aggregateCommit(
   log.paths = Array.from(
     new Set(
       files
-        .filter((i) => {
-          // include is not set, it is /^.+\md$/
-          // include is set, it is /^(${include.join('|')})\/.+\md$/
-          // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-          const regexp = generateCommitPathsRegExp(includeDirs, includeExtensions)
-          return !!i[1]?.match(regexp)?.[0]
-        }),
+        .filter((i) => !!i[1]?.match(generateCommitPathsRegExp(includeDirs, includeExtensions))?.[0]),
     ),
   )
 

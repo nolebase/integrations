@@ -208,6 +208,15 @@ export function parseGitLogRefsAsTags(refs?: string): string[] {
   return tags.map(tag => tag.replace('tag: ', '').trim())
 }
 
+/**
+ * Generate RegExp for filtering out paths of commits.
+ *
+ * It follows the rules that:
+ * - includes is not set, it is /^.+.md$/
+ * - includeDirs is set, it is /^(${includeDirs.join('|')})\/.+.md$/
+ * - includeExtensions is set, it is /^.+(${includeExtensions.join('|')})$/
+ * - in another word, /^(includeDir1|includeDir2)\/.+(includeExtension1|includeExtensions2)$/
+ */
 export function generateCommitPathsRegExp(includeDirs: string[], includeExtensions: `.${string}`[]): RegExp {
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }

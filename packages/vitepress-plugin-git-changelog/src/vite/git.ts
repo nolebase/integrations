@@ -49,6 +49,7 @@ async function aggregateCommit(
   getReleaseTagsURL: CommitToStringsHandler,
   log: Commit,
   includeDirs: string[] = [],
+  includeExtensions: `.${string}`[] = [],
   optsRewritePaths?: Record<string, string>,
   optsRewritePathsByPatterns?: RewritePathsBy,
 ) {
@@ -80,7 +81,7 @@ async function aggregateCommit(
           // include is not set, it is /^.+\md$/
           // include is set, it is /^(${include.join('|')})\/.+\md$/
           // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-          const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\.md$`)
+          const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
           return !!i[1]?.match(regexp)?.[0]
         }),
     ),
@@ -110,6 +111,7 @@ async function aggregateCommits(
   getReleaseTagsURL: CommitToStringsHandler,
   commits: SimpleGitCommit,
   includeDirs: string[] = [],
+  includeExtensions: `.${string}`[] = [],
   rewritePaths?: Record<string, string>,
   rewritePathsBy?: RewritePathsBy,
 ) {
@@ -144,7 +146,7 @@ async function aggregateCommits(
   const processedCommits = await Promise.all(
     transformedCommits.map(
       async (commit) => {
-        return aggregateCommit(getReleaseTagURL, getReleaseTagsURL, commit, includeDirs, rewritePaths, rewritePathsBy)
+        return aggregateCommit(getReleaseTagURL, getReleaseTagsURL, commit, includeDirs, includeExtensions, rewritePaths, rewritePathsBy)
       },
     ),
   )
@@ -157,6 +159,10 @@ export interface GitChangelogOptions {
    * When fetching git logs, what directories should be included?
    */
   includeDirs?: string[]
+  /**
+   * When fetching git logs, what extensions should be included?
+   */
+  includeExtensions?: `.${string}`[]
   /**
    * Your repository URL.
    * Yes, you can dynamically generate it.
@@ -248,6 +254,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     maxGitLogCount,
     maxConcurrentProcesses,
     includeDirs = [],
+    includeExtensions = [],
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = defaultReleaseTagURLHandler,
     getReleaseTagsURL = defaultReleaseTagsURLHandler,
@@ -313,6 +320,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         getReleaseTagsURL,
         gitLogsRaw.all,
         includeDirs,
+        includeExtensions,
         options.rewritePaths,
         options.rewritePathsBy,
       )

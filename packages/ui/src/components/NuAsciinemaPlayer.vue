@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
+import 'asciinema-player/dist/bundle/asciinema-player.css'
 
 const props = defineProps<{
   src: string
@@ -245,7 +246,6 @@ onMounted(async () => {
   if (!playerRef.value)
     return
 
-  await ('asciinema-player/dist/bundle/asciinema-player.css')
   const AsciinemaPlayer = await import('asciinema-player')
   asciinemaPlayer.value = AsciinemaPlayer.create(props.src, playerRef.value, {
     ...props,
@@ -264,5 +264,5 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div ref="playerRef" w-full />
+  <div ref="playerRef" />
 </template>

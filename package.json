@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/integrations",
   "type": "module",
-  "version": "2.0.0-rc4",
+  "version": "2.0.0-rc5",
   "packageManager": "pnpm@8.15.7",
   "description": "A collection of diverse documentation engineering tools.",
   "author": {

@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/ui",
   "type": "module",
-  "version": "2.0.0-rc4",
+  "version": "2.0.0-rc5",
   "description": "A collection of Vue components Nolebase uses.",
   "author": {
     "name": "Nólëbase",

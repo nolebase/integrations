@@ -1,4 +1,4 @@
-import { extname, relative } from 'node:path'
+import { extname, posix, relative, sep, win32 } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
 import type { Commit } from '../types'
@@ -206,4 +206,8 @@ export function parseGitLogRefsAsTags(refs?: string): string[] {
     return []
 
   return tags.map(tag => tag.replace('tag: ', '').trim())
+}
+
+export function generateCommitPathsRegExp(includeDirs: string[], includeExtensions: `.${string}`[]): RegExp {
+  return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }

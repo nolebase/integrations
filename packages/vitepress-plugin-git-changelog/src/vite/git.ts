@@ -1,4 +1,3 @@
-import { posix, sep, win32 } from 'node:path'
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 
@@ -14,6 +13,7 @@ import {
   type CommitToStringsHandler,
   type RewritePathsBy,
   digestStringAsSHA256,
+  generateCommitPathsRegExp,
   normalizeGitLogPath,
   parseGitLogRefsAsTags,
   returnOrResolvePromise,
@@ -81,7 +81,7 @@ async function aggregateCommit(
           // include is not set, it is /^.+\md$/
           // include is set, it is /^(${include.join('|')})\/.+\md$/
           // in another word, /^(includeItem1|includeItem2|includeItem3)\/.+\md$/
-          const regexp = new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+\\${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
+          const regexp = generateCommitPathsRegExp(includeDirs, includeExtensions)
           return !!i[1]?.match(regexp)?.[0]
         }),
     ),

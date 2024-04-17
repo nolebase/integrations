@@ -77,7 +77,9 @@ async function aggregateCommit(
   log.paths = Array.from(
     new Set(
       files
-        .filter((i) => !!i[1]?.match(generateCommitPathsRegExp(includeDirs, includeExtensions))?.[0]),
+        .filter(i => {
+          return !!i[1]?.match(generateCommitPathsRegExp(includeDirs, includeExtensions))?.[0]
+        }),
     ),
   )
 

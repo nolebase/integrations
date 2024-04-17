@@ -88,6 +88,8 @@ Add the Blinking highlight targeted heading plugin package name `@nolebase/vitep
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
 
@@ -113,6 +115,8 @@ export default defineConfig({
 You might have configured the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) if you are already mastered Vite. In this case, you could ignore the above configuration and add the following configuration to your Vite configuration file:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vite'
@@ -144,6 +148,8 @@ If you haven't configured any of the separated [Vite configuration file](https:/
 In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-highlight-targeted-heading` import and add it to the `Layout` extension:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ::: code-group
 
@@ -189,3 +195,9 @@ Now build or open the VitePress development server again, you will be able to ob
 - The URL containing `#` is loaded for the first time
 
 That's all, happy writing!
+
+## Troubleshooting
+
+### Encountered `Cannot find module ... or its corresponding type declarations` error?
+
+<!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->

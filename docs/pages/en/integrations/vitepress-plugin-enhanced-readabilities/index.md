@@ -72,6 +72,8 @@ Add the Enhanced Readabilities plugin package name `@nolebase/vitepress-plugin-e
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
 
@@ -107,6 +109,8 @@ export default defineConfig({
 You might have configured the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) if you are already mastered Vite. In this case, you could ignore the above configuration and add the following configuration to your Vite configuration file:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vite'
@@ -145,6 +149,8 @@ If you haven't configured any of the separated [Vite configuration file](https:/
 In VitePress's [**theme configuration file**](https://vitepress.dev/reference/default-theme-config#default-theme-config) (note that it's not a **configuration file**, it's usually located at `docs/.vitepress/theme/index.ts`, file paths and extensions may be vary), import `@nolebase/vitepress-plugin-enhanced-readabilities` package and add it to the `Layout` section as a slot:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ::: code-group
 
@@ -811,6 +817,10 @@ The Enhanced Readabilities plugin provides accessibility support by default. You
 
 ## Problems? Let's Troubleshoot
 
+### Encountered `Cannot find module ... or its corresponding type declarations` error?
+
+<!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->
+
 ### The requested module `vitepress` does not provide an export named `useData` or The requested module `vitepress` does not provide an export named `useRoute`
 
 If you have already configured your VitePress that working properly, you might encounter the above error when you try to install and integrate the Enhanced Readabilities plugin for the first time.
@@ -872,3 +882,4 @@ The line `vitepress v1.0.0-rc.12` indicates your VitePress version as `v1.0.0-rc
 #### You might missed the configurations in section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite)
 
 If you incautiously missed the configurations in section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite), the reference to `vitepress` inside of the Enhanced Readabilities plugin might be broken or miss-processed when building your VitePress site. So you have to configure it accurately by following the section [Add plugin-specific options into configurations of Vite](#add-plugin-specific-options-into-configurations-of-vite) accordingly.
+

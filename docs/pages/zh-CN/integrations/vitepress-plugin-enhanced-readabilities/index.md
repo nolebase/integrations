@@ -72,6 +72,8 @@ yarn add @nolebase/vitepress-plugin-enhanced-readabilities -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
 
@@ -107,6 +109,8 @@ export default defineConfig({
 如果你很厉害，为 VitePress 的文档站点配置了分离和单独的 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`），那你也可以省略上面的配置，直接在 Vite 的配置文件中添加下面的配置：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vite'
@@ -146,6 +150,8 @@ export default defineConfig(() => {
 在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），**将 `@nolebase/vitepress-plugin-enhanced-readabilities` 导入，并且将其添加到 `Layout` 的拓展中**：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ::: code-group
 
@@ -811,6 +817,10 @@ export interface Locale {
 阅读增强插件默认提供了无障碍的支持，你可以通过 [配置](#配置) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
 
 ## 遇到了问题？
+
+### 遭遇了 `Cannot find module ... or its corresponding type declarations` 错误？
+
+<!--@include: @/pages/zh-CN/snippets/troubleshooting-cannot-find-module.md-->
 
 ### 请求的模块 `vitepress` 没有提供名为 `useData` 的导出 或者 请求的模块 `vitepress` 没有提供名为 `useRoute` 的导出
 

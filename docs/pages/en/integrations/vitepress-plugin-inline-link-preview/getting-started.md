@@ -37,6 +37,8 @@ First of all, in VitePress's [**primary configuration file**](https://vitepress.
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
 ::: code-group
 
 ```typescript twoslash
@@ -85,6 +87,8 @@ In VitePress's [**theme configuration file**](https://vitepress.dev/reference/de
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
 ::: code-group
 
 ```typescript twoslash [.vitepress/theme/index.ts]
@@ -111,3 +115,9 @@ export default Theme
 ```
 
 :::
+
+## Troubleshooting
+
+### Encountered `Cannot find module ... or its corresponding type declarations` error?
+
+<!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->

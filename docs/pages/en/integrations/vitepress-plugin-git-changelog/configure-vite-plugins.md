@@ -4,6 +4,8 @@ Besides the UI widget components, Git-based page histories offer another two Vit
 
 ### Configure Vite plugins
 
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
 #### `GitChangelog` plugin
 
 Remember this part back at the time where we first introduced the `GitChangelog` plugin?

@@ -88,6 +88,8 @@ yarn add @nolebase/vitepress-plugin-highlight-targeted-heading -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
 
@@ -113,6 +115,8 @@ export default defineConfig({
 如果你很厉害，为 VitePress 的文档站点配置了分离和单独的 [Vite 配置文件](https://vitejs.dev/config/)（比如 `vite.config.ts`），那你也可以省略上面的配置，直接在 Vite 的配置文件中添加下面的配置：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vite'
@@ -144,6 +148,8 @@ export default defineConfig(() => {
 在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)中（注意不是**配置文件**，通常为 `docs/.vitepress/theme/index.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-highlight-targeted-heading` 导入，并且将其添加到 `Layout` 的拓展中：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ::: code-group
 
@@ -190,3 +196,9 @@ export default Theme
 - 首次加载含有 `#` 的 URL
 
 就是这么多了，祝撰写愉快！
+
+## 错误排查
+
+### 遭遇了 `Cannot find module ... or its corresponding type declarations` 错误？
+
+<!--@include: @/pages/zh-CN/snippets/troubleshooting-cannot-find-module.md-->

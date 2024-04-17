@@ -37,6 +37,8 @@ yarn add @nolebase/vitepress-plugin-inline-link-preview -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ::: code-group
 
 ```typescript twoslash
@@ -81,6 +83,8 @@ export default defineConfig({
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ::: code-group
 
 ```typescript twoslash [.vitepress/theme/index.ts]
@@ -107,3 +111,9 @@ export default Theme
 ```
 
 :::
+
+## 错误排查
+
+### 遭遇了 `Cannot find module ... or its corresponding type declarations` 错误？
+
+<!--@include: @/pages/zh-CN/snippets/troubleshooting-cannot-find-module.md-->

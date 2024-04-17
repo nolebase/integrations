@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import type { Commit } from '../types'
-import { parseGitLogRefsAsTags, rewritePathsByPatterns, rewritePathsByRewritingExtension } from './helpers'
+import { generateCommitPathsRegExp, parseGitLogRefsAsTags, rewritePathsByPatterns, rewritePathsByRewritingExtension } from './helpers'
 
 describe('rewritePathsByRewritingExtension', () => {
   it('should rewrite paths', () => {
@@ -72,5 +72,20 @@ describe('parseGitLogRefsAsTags', () => {
 
   it('should return parse with multiple tags without HEAD', () => {
     expect(parseGitLogRefsAsTags('tag: v1.0.0, tag: v1.0.1')).toEqual(['v1.0.0', 'v1.0.1'])
+  })
+})
+
+describe('generateCommitPathsRegExp', () => {
+  it('default', () => {
+    expect(generateCommitPathsRegExp([], [])).toEqual(/^.+.md$/)
+  })
+  it('includeDirs', () => {
+    expect(generateCommitPathsRegExp(['docs', 'packages'], [])).toEqual(/^(docs|packages)\/.+.md$/)
+  })
+  it('includeExtensions', () => {
+    expect(generateCommitPathsRegExp([], ['.md', '.ts'])).toEqual(/^.+(.md|.ts)$/)
+  })
+  it('includeDirs and includeExtensions', () => {
+    expect(generateCommitPathsRegExp(['docs', 'packages'], ['.md', '.ts'])).toEqual(/^(docs|packages)\/.+(.md|.ts)$/)
   })
 })

@@ -2,9 +2,13 @@ name: CI
 
 on:
   push:
+    paths-ignore:
+      - 'docs/pages/**'
     branches:
       - main
   pull_request:
+    paths-ignore:
+      - 'docs/pages/**'
     branches:
       - main
 

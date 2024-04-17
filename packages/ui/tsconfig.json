@@ -4,7 +4,8 @@
     "composite": false,
     "baseUrl": ".",
     "types": [
-      "vite/client"
+      "vite/client",
+      "./asciinema.d.ts"
     ],
     "noImplicitAny": true,
     "declaration": true,

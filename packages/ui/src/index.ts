@@ -5,6 +5,7 @@ import NuInputSlider from './components/NuInputSlider.vue'
 import NuInputHorizontalRadioGroup from './components/NuInputHorizontalRadioGroup/index.vue'
 import NuVerticalTransition from './components/NuVerticalTransition.vue'
 import NuLazyTeleportRiveCanvas from './components/NuLazyTeleportRiveCanvas.vue'
+import NuAsciinemaPlayer from './components/NuAsciinemaPlayer.vue'
 
 import { createI18n } from './composables/i18n'
 
@@ -14,6 +15,7 @@ export {
   NuInputHorizontalRadioGroup,
   NuVerticalTransition,
   NuLazyTeleportRiveCanvas,
+  NuAsciinemaPlayer,
   createI18n,
 }
 
@@ -24,4 +26,6 @@ export function install(app: App): void {
   // Animations
   app.component('NuLazyTeleportRiveCanvas', NuLazyTeleportRiveCanvas)
   app.component('NuVerticalTransition', NuVerticalTransition)
+  // Media
+  app.component('NuAsciinemaPlayer', NuAsciinemaPlayer)
 }

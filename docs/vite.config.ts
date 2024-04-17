@@ -32,6 +32,7 @@ export default defineConfig({
     '**/*.mov',
     '**/*.mp4',
     '**/*.riv',
+    '**/*.cast',
   ],
   optimizeDeps: {
     exclude: [

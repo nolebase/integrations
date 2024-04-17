@@ -76,6 +76,7 @@
   },
   "dependencies": {
     "@rive-app/canvas": "^2.11.1",
+    "asciinema-player": "^3.7.1",
     "less": "^4.2.0"
   },
   "devDependencies": {

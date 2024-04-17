@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
     "antfu",
+    "asciicast",
+    "asciinema",
     "Astro",
     "Attributify",
     "blurhash",
@@ -8,6 +10,7 @@
     "colorette",
     "datetime",
     "easytag",
+    "ElMassimo",
     "emittypes",
     "evanw",
     "frontmatter",
@@ -17,6 +20,7 @@
     "mkdist",
     "napi",
     "Nisekoi5",
+    "nodir",
     "nolebase",
     "Nólëbase",
     "quotepath",
@@ -24,13 +28,11 @@
     "resvg",
     "shikijs",
     "thumbhash",
+    "thumbhashes",
     "Twoslash",
     "unconfig",
     "uncrypto",
-    "unlazy",
-    "ElMassimo",
-    "nodir",
-    "thumbhashes"
+    "unlazy"
   ],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

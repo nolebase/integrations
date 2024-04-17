@@ -166,6 +166,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
       {
         text: 'Animations',
         items: [
+          { text: 'Asciinema player', link: '/pages/en/ui/asciinema-player/' },
           { text: 'Rive Canvas (Lazy Teleport)', link: '/pages/en/ui/lazy-teleport-rive-canvas/' },
         ],
       },
@@ -323,6 +324,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
       {
         text: '动画',
         items: [
+          { text: 'Asciinema 播放器', link: '/pages/en/ui/asciinema-player/' },
           { text: 'Rive Canvas（懒 Teleport）', link: '/pages/zh-CN/ui/lazy-teleport-rive-canvas/' },
         ],
       },

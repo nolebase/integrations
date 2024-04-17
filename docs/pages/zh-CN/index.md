@@ -13,7 +13,7 @@ hero:
       text: 开始使用
       link: /pages/zh-CN/guide/getting-started
     - theme: alt
-    - text: 加入 Discord 服务器
+      text: 加入 Discord 服务器
       link: https://discord.gg/XuNFDcDZGj
     - theme: alt
       text: 在 GitHub 上查看

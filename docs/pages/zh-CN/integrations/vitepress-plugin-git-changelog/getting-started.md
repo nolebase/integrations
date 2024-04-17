@@ -180,7 +180,7 @@ import { // [!code ++]
   NolebaseGitChangelogPlugin // [!code ++]
 } from '@nolebase/vitepress-plugin-git-changelog/client' // [!code ++]
 
-import '@nolebase/vitepress-plugin-git-changelog/client/styles.css' // [!code ++]
+import '@nolebase/vitepress-plugin-git-changelog/client/style.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,

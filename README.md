@@ -7,10 +7,10 @@
     />
     <source
       width="250"
-      srcset="./docs/public/logo-day.png"
+      srcset="./docs/public/logo-light.png"
       media="(prefers-color-scheme: light), (prefers-color-scheme: no-preference)"
     />
-    <img width="250" src="./docs/public/logo-day.png" />
+    <img width="250" src="./docs/public/logo-light.png" />
   </picture>
 </p>
 

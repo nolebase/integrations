@@ -20,6 +20,8 @@ import { InjectionKey } from './constants'
 import NolebasePageProperties from './components/PageProperties.vue'
 import NolebasePagePropertiesEditor from './components/PagePropertiesEditor.vue'
 
+import '@nolebase/ui/client/style.css'
+
 const components = {
   NolebasePageProperties,
   NolebasePagePropertiesEditor,

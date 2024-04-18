@@ -65,39 +65,39 @@ function OmitReplacing(omit: string, actualModulePath: string, options?: {
   return {
     name: '@nolebase/vite-plugin-omit-replacing',
     async config(): Promise<void | Omit<UserConfig, 'plugins'>> {
-      if (!doNotOmitIfActualModulePathExists) {
-        return {
-          resolve: {
-            alias: [
-              {
-                find: omit,
-                replacement: resolvedOmittedModuleId,
+      if (doNotOmitIfActualModulePathExists) {
+        try {
+          const isExists = await exists(actualModulePath)
+          if (isExists) {
+            // eslint-disable-next-line no-console
+            console.log(`${logModulePrefix}: the actual module path "${actualModulePath}" exists, will not omit the module "${omit}"`)
+            return {
+              resolve: {
+                alias: [
+                  {
+                    find: omit,
+                    replacement: actualModulePath,
+                  },
+                ],
               },
-            ],
-          },
+            }
+          }
+        }
+        catch (error) {
+          console.error(`${logModulePrefix} ${red(`[ERROR]`)}: an error occurred while checking the actual module path "${actualModulePath}", ${error}`)
+          throw error
         }
       }
 
-      try {
-        const isExists = await exists(actualModulePath)
-        if (isExists) {
-          // eslint-disable-next-line no-console
-          console.log(`${logModulePrefix}: the actual module path "${actualModulePath}" exists, will not omit the module "${omit}"`)
-          return {
-            resolve: {
-              alias: [
-                {
-                  find: omit,
-                  replacement: actualModulePath,
-                },
-              ],
+      return {
+        resolve: {
+          alias: [
+            {
+              find: omit,
+              replacement: virtualOmittedModuleId,
             },
-          }
-        }
-      }
-      catch (error) {
-        console.error(`${logModulePrefix} ${red(`[ERROR]`)}: an error occurred while checking the actual module path "${actualModulePath}", ${error}`)
-        throw error
+          ],
+        },
       }
     },
     configResolved(c) {

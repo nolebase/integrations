@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import { useData } from 'vitepress'
+import { NuTag } from '@nolebase/ui'
 
 import { InjectionKey } from '../constants'
 import {
@@ -17,7 +18,6 @@ import { useI18n } from '../composables/i18n'
 import { usePageProperties } from '../composables/data'
 import { formatDurationFromValue } from '../utils'
 
-import Tag from './Tag/index.vue'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
@@ -201,9 +201,9 @@ const readingTime = computed(() => {
               v-for="(valueItem, valueItemIndex) in property.value"
               :key="valueItemIndex"
             >
-              <Tag :id="String(valueItemIndex)" :tag="{ content: valueItem }">
+              <NuTag :id="String(valueItemIndex)" :tag="{ content: valueItem }">
                 {{ valueItem }}
-              </Tag>
+              </NuTag>
             </template>
           </template>
           <template v-else-if="isDatetimeProperty(property.value, property.pageProperty)">

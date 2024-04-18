@@ -1,6 +1,7 @@
 import { extname, posix, relative, sep, win32 } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
+import type { DefaultLogFields, ListLogLine } from 'simple-git'
 import type { Commit } from '../types'
 
 export interface Helpers {
@@ -129,6 +130,10 @@ export type CommitToStringsHandler = (commit: Commit) => string[] | Promise<stri
 export type CommitAndPathToStringHandler = (commit: Commit, path: string) => string | Promise<string> | null | undefined
 export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
 
+export const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
+export const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
+export const defaultReleaseTagsURLHandler = (commit: Commit) => commit.tags?.map(tag => `${commit.repo_url}/releases/tag/${tag}`)
+
 export async function returnOrResolvePromise<T>(val: T | Promise<T>) {
   if (!(val instanceof Promise))
     return val
@@ -219,4 +224,49 @@ export function parseGitLogRefsAsTags(refs?: string): string[] {
  */
 export function generateCommitPathsRegExp(includeDirs: string[], includeExtensions: `.${string}`[]): RegExp {
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
+}
+
+export type SimpleGitCommit = Readonly<Readonly<(DefaultLogFields & ListLogLine)>[]>
+
+export async function initCommitWithFieldsTransformed(
+  commit: SimpleGitCommit[number],
+  getRepoURL: CommitToStringHandler,
+  getCommitURL: CommitToStringHandler,
+  getReleaseTagURL: CommitToStringHandler,
+  getReleaseTagsURL: CommitToStringsHandler,
+): Promise<Commit> {
+  const transformedCommit: Commit = {
+    paths: [],
+    hash: commit.hash,
+    date: commit.date,
+    date_timestamp: 0,
+    message: commit.message,
+    refs: commit.refs,
+    body: commit.body,
+    author_name: commit.author_name,
+    author_email: commit.author_email,
+    author_avatar: '',
+  }
+
+  // repo url
+  transformedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(transformedCommit))) ?? 'https://github.com/example/example'
+  // hash url
+  transformedCommit.hash_url = (await returnOrResolvePromise(getCommitURL(transformedCommit))) ?? defaultCommitURLHandler(transformedCommit)
+
+  const tags = parseGitLogRefsAsTags(transformedCommit.refs)
+
+  // release logs
+  if (tags && tags.length > 0) {
+    transformedCommit.tags = tags
+    transformedCommit.tag = transformedCommit.tags?.[0] || undefined
+    transformedCommit.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(transformedCommit))) ?? defaultReleaseTagURLHandler(transformedCommit)
+    transformedCommit.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(transformedCommit))) ?? defaultReleaseTagsURLHandler(transformedCommit)
+  }
+
+  // timestamp
+  transformedCommit.date_timestamp = new Date(commit.date).getTime()
+  // generate author avatar based on md5 hash of email (gravatar style)
+  transformedCommit.author_avatar = await digestStringAsSHA256(commit.author_email)
+
+  return transformedCommit
 }

@@ -11,6 +11,7 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
+    "@iconify-json/carbon": "^1.1.31",
     "@iconify-json/icon-park-outline": "^1.1.15",
     "@iconify-json/octicon": "^1.1.53",
     "@iconify-json/svg-spinners": "^1.1.2",

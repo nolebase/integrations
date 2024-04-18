@@ -3,7 +3,7 @@ import { promisify } from 'node:util'
 
 import type { Plugin } from 'vite'
 import simpleGit from 'simple-git'
-import type { DefaultLogFields, ListLogLine, SimpleGit } from 'simple-git'
+import type { SimpleGit } from 'simple-git'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 
@@ -12,11 +12,13 @@ import {
   type CommitToStringHandler,
   type CommitToStringsHandler,
   type RewritePathsBy,
-  digestStringAsSHA256,
+  type SimpleGitCommit,
+  defaultCommitURLHandler,
+  defaultReleaseTagURLHandler,
+  defaultReleaseTagsURLHandler,
   generateCommitPathsRegExp,
+  initCommitWithFieldsTransformed,
   normalizeGitLogPath,
-  parseGitLogRefsAsTags,
-  returnOrResolvePromise,
   rewritePaths,
   rewritePathsByPatterns,
   rewritePathsByRewritingExtension,
@@ -27,8 +29,6 @@ export type {
   RewritePathsBy,
 }
 
-type SimpleGitCommit = Readonly<Readonly<(DefaultLogFields & ListLogLine)>[]>
-
 export {
   rewritePathsByRewritingExtension,
 }
@@ -38,31 +38,15 @@ const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gray(':')}`
 
-const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
-const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
-const defaultReleaseTagsURLHandler = (commit: Commit) => commit.tags?.map(tag => `${commit.repo_url}/releases/tag/${tag}`)
-
 const execAsync = promisify(exec)
 
 async function aggregateCommit(
-  getReleaseTagURL: CommitToStringHandler,
-  getReleaseTagsURL: CommitToStringsHandler,
   log: Commit,
   includeDirs: string[] = [],
   includeExtensions: `.${string}`[] = [],
   optsRewritePaths?: Record<string, string>,
   optsRewritePathsByPatterns?: RewritePathsBy,
 ) {
-  const tags = parseGitLogRefsAsTags(log.refs)
-
-  // release logs
-  if (tags && tags.length > 0) {
-    log.tags = tags
-    log.tag = log.tags?.[0] || undefined
-    log.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(log))) ?? defaultReleaseTagURLHandler(log)
-    log.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(log))) ?? defaultReleaseTagsURLHandler(log)
-  }
-
   // get change log of each file
   // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-only', '-r', log.hash])
   // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-status', '-r', '-M', log.hash])
@@ -113,36 +97,13 @@ async function aggregateCommits(
 ) {
   const transformedCommits: Commit[] = []
 
-  for (const commit of commits) {
-    const transformedCommit: Commit = {
-      paths: [],
-      hash: commit.hash,
-      date: commit.date,
-      date_timestamp: 0,
-      message: commit.message,
-      refs: commit.refs,
-      body: commit.body,
-      author_name: commit.author_name,
-      author_email: commit.author_email,
-      author_avatar: '',
-    }
-
-    // hash url
-    transformedCommit.hash_url = (await returnOrResolvePromise(getCommitURL(transformedCommit))) ?? defaultCommitURLHandler(transformedCommit)
-    // repo url
-    transformedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(transformedCommit))) ?? 'https://github.com/example/example'
-    // timestamp
-    transformedCommit.date_timestamp = new Date(commit.date).getTime()
-    // generate author avatar based on md5 hash of email (gravatar style)
-    transformedCommit.author_avatar = await digestStringAsSHA256(commit.author_email)
-
-    transformedCommits.push(transformedCommit)
-  }
+  for (const commit of commits)
+    transformedCommits.push(await initCommitWithFieldsTransformed(commit, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL))
 
   const processedCommits = await Promise.all(
     transformedCommits.map(
       async (commit) => {
-        return aggregateCommit(getReleaseTagURL, getReleaseTagsURL, commit, includeDirs, includeExtensions, rewritePaths, rewritePathsBy)
+        return aggregateCommit(commit, includeDirs, includeExtensions, rewritePaths, rewritePathsBy)
       },
     ),
   )

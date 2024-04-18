@@ -4,7 +4,7 @@
 
 ### 配置 Vite 插件
 
-<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 #### `GitChangelog` 插件
 

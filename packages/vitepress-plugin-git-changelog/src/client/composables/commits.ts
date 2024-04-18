@@ -22,8 +22,8 @@ export function useCommits(allCommits: Commit[], path: MaybeRefOrGetter<string>)
       })
     })
 
-    return commits.filter((i, idx) => {
-      if (i.tag && (!commits[idx + 1] || commits[idx + 1]?.tag))
+    return commits.filter((commit, index) => {
+      if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))
         return false
 
       return true

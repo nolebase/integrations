@@ -1,4 +1,4 @@
-# 基于 Git 的页面历史 <Badge type="tip" text="v2.0.0-rc5" />
+# 基于 Git 的页面历史 <Badge type="tip" text="v2.0.0-rc6" />
 
 ## 为什么
 

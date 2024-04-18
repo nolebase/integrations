@@ -1,4 +1,4 @@
-# `<mark>` <mark>元素增强</mark> <Badge type="tip" text="v2.0.0-rc5" />
+# `<mark>` <mark>元素增强</mark> <Badge type="tip" text="v2.0.0-rc6" />
 
 这是一个很有意思的小插件，为你的 `<mark>` 高亮元素添加<mark>展开划过</mark>的小动画。
 

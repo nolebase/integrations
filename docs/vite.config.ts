@@ -4,7 +4,7 @@ import { env } from 'node:process'
 
 import { readFile, stat } from 'node:fs/promises'
 import { defineConfig } from 'vite'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin, ResolvedConfig, UserConfig } from 'vite'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
 import Yaml from '@rollup/plugin-yaml'
@@ -64,32 +64,40 @@ function OmitReplacing(omit: string, actualModulePath: string, options?: {
 
   return {
     name: '@nolebase/vite-plugin-omit-replacing',
-    enforce: 'pre',
-    async config() {
-      if (doNotOmitIfActualModulePathExists) {
-        try {
-          const isExists = await exists(actualModulePath)
-          if (isExists) {
-            // eslint-disable-next-line no-console
-            console.log(`${logModulePrefix}: the actual module path "${actualModulePath}" exists, will not omit the module "${omit}"`)
-            return
-          }
-        }
-        catch (error) {
-          console.error(`${logModulePrefix} ${red(`[ERROR]`)}: an error occurred while checking the actual module path "${actualModulePath}", ${error}`)
-          throw error
+    async config(): Promise<void | Omit<UserConfig, 'plugins'>> {
+      if (!doNotOmitIfActualModulePathExists) {
+        return {
+          resolve: {
+            alias: [
+              {
+                find: omit,
+                replacement: resolvedOmittedModuleId,
+              },
+            ],
+          },
         }
       }
 
-      return {
-        resolve: {
-          alias: [
-            {
-              find: omit,
-              replacement: resolvedOmittedModuleId,
+      try {
+        const isExists = await exists(actualModulePath)
+        if (isExists) {
+          // eslint-disable-next-line no-console
+          console.log(`${logModulePrefix}: the actual module path "${actualModulePath}" exists, will not omit the module "${omit}"`)
+          return {
+            resolve: {
+              alias: [
+                {
+                  find: omit,
+                  replacement: actualModulePath,
+                },
+              ],
             },
-          ],
-        },
+          }
+        }
+      }
+      catch (error) {
+        console.error(`${logModulePrefix} ${red(`[ERROR]`)}: an error occurred while checking the actual module path "${actualModulePath}", ${error}`)
+        throw error
       }
     },
     configResolved(c) {

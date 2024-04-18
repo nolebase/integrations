@@ -24,6 +24,8 @@ import Spotlight from './components/Spotlight.vue'
 import ScreenSpotlight from './components/ScreenSpotlight.vue'
 import SpotlightStyles from './components/SpotlightStyles.vue'
 
+import '@nolebase/ui/client/style.css'
+
 export type {
   Options,
   Locale,

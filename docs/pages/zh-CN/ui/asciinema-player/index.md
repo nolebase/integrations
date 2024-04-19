@@ -15,6 +15,30 @@ import { NuAsciinemaPlayer } from '@nolebase/ui'
   :loop="true"
 />
 
+## 安装
+
+运行以下命令，将 `@nolebase/ui` 和 `asciinema-player` 安装到项目依赖项中：
+
+::: code-group
+
+```shell [@antfu/ni]
+ni @nolebase/ui asciinema-player
+```
+
+```shell [pnpm]
+pnpm add @nolebase/ui asciinema-player
+```
+
+```shell [npm]
+npm install @nolebase/ui asciinema-player
+```
+
+```shell [yarn]
+yarn add @nolebase/ui asciinema-player
+```
+
+:::
+
 ```vue
 <script setup>
 import { NuAsciinemaPlayer } from '@nolebase/ui'

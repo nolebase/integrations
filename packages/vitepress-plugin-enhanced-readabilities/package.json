@@ -26,6 +26,11 @@
   ],
   "sideEffects": false,
   "exports": {
+    ".": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
+    },
     "./client": {
       "types": "./dist/client/index.d.ts",
       "import": "./dist/client/index.mjs",
@@ -56,12 +61,12 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
+    "@iconify-json/carbon": "^1.1.31",
+    "@iconify-json/icon-park-outline": "^1.1.15",
     "@nolebase/ui": "workspace:^",
     "less": "^4.2.0"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.31",
-    "@iconify-json/icon-park-outline": "^1.1.15",
     "@rollup/plugin-yaml": "^4.1.2"
   }
 }

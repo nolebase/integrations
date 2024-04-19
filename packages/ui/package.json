@@ -35,6 +35,7 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
+    "./style.css": "./dist/style.css",
     "./*": {
       "types": "./dist/*",
       "import": "./dist/*.mjs",
@@ -66,17 +67,24 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
+    "@rive-app/canvas": "^2.11.1",
+    "asciinema-player": "^3.7.1",
     "vitepress": "^1.0.0",
     "vue": "^3.2.0"
   },
   "peerDependenciesMeta": {
+    "@rive-app/canvas": {
+      "optional": true
+    },
+    "asciinema-player": {
+      "optional": true
+    },
     "vitepress": {
       "optional": true
     }
   },
   "dependencies": {
-    "@rive-app/canvas": "^2.11.1",
-    "asciinema-player": "^3.7.1",
+    "@iconify-json/octicon": "^1.1.53",
     "less": "^4.2.0"
   },
   "devDependencies": {

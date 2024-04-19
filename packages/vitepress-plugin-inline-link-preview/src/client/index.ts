@@ -6,7 +6,7 @@ import type { Options } from './types'
 import InlineLinkPreview from './components/InlineLinkPreview.vue'
 import PopupIframe from './components/PopupIframe.vue'
 
-import '@nolebase/ui/client/style.css'
+import '@nolebase/ui/style.css'
 
 export type {
   Options,

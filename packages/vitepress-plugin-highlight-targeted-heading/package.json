@@ -24,7 +24,7 @@
     "vitepress-plugin",
     "nolebase-integration"
   ],
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "exports": {
     ".": {
       "types": "./dist/client/index.d.ts",

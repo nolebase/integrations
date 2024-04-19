@@ -8,7 +8,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="markdown-it" title="双向链接" package="markdown-it-bi-directional-links">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -16,7 +16,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -32,7 +32,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -40,7 +40,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="行内链接预览" package="vitepress-plugin-inline-link-preview">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -48,7 +48,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -56,7 +56,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="基于 Git 的页面历史" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 
@@ -83,7 +83,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     <code>&lt;mark&gt;</code> 元素增强
   </template>
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc7" />
+    <Badge type="tip" text="v2.0.0-rc8" />
   </template>
 </IntegrationCard>
 

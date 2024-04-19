@@ -1,4 +1,8 @@
-# Bi-directional Links <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
+</script>
+
+# Bi-directional Links <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 **Bi-directional links** (also known as internal links), and another concept you may know and hear about [WikiLinks](https://en.wikipedia.org/wiki/Help:Link), holds a important place in the document engineering area. It is usually used to quickly establish a connection (or link) from one page to another page, and widely used in Wiki pages such as [Wikipedia](https://wikipedia.org), and now days popular tools such as [Obsidian](https://obsidian.md/) and [Logseq](https://logseq.com/).
 

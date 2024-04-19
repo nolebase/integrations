@@ -1,4 +1,8 @@
-# 闪烁高亮当前的目标标题 <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
+</script>
+
+# 闪烁高亮当前的目标标题 <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 ## 效果演示
 

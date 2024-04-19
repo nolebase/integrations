@@ -6,92 +6,92 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 ## Integrations List
 
-<IntegrationCard type="markdown-it" title="Bi-Directional Links" package="markdown-it-bi-directional-links">
+<IntegrationCard type="markdown-it" title="双向链接" package="markdown-it-bi-directional-links">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="markdown-it" title="Elements Transformation" package="markdown-it-element-transform">
+<IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="markdown-it" title="Lazy loading blurred images" package="markdown-it-unlazy-img">
+<IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="warning" text="Beta 测试" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
+<IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview">
+<IntegrationCard type="vitepress" title="行内链接预览" package="vitepress-plugin-inline-link-preview">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading">
+<IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Git-based page histories" package="vitepress-plugin-git-changelog">
+<IntegrationCard type="vitepress" title="基于 Git 的页面历史" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Previewing image (social media card) generation" package="vitepress-plugin-og-image">
+<IntegrationCard type="vitepress" title="预览图片（社交媒体卡片）生成" package="vitepress-plugin-og-image">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="warning" text="Beta 测试" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Page properties" package="vitepress-plugin-page-properties">
+<IntegrationCard type="vitepress" title="页面属性" package="vitepress-plugin-page-properties">
   <template v-slot:badge>
-    <Badge type="danger" text="Alpha" />
+    <Badge type="danger" text="Alpha 测试" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Enhanced <mark> elements" package="vitepress-plugin-enhanced-mark">
+<IntegrationCard type="vitepress" title="<mark> 元素增强" package="vitepress-plugin-enhanced-mark">
   <template v-slot:title>
-    Enhanced <code>&lt;mark&gt;</code> elements
+    <code>&lt;mark&gt;</code> 元素增强
   </template>
   <template v-slot:badge>
-    <Badge type="tip" text="v2.0.0-rc6" />
+    <Badge type="tip" text="v2.0.0-rc7" />
   </template>
 </IntegrationCard>
 
 <br />
 
-<IntegrationCard type="vitepress" title="Thumbnail hashing for images" package="vitepress-plugin-thumbnail-hash">
+<IntegrationCard type="vitepress" title="缩略图模糊哈希生成" package="vitepress-plugin-thumbnail-hash">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="warning" text="Beta 测试" />
   </template>
 </IntegrationCard>
 
@@ -99,6 +99,8 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="obsidian" title="UnoCSS" package="obsidian-plugin-unocss">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta" />
+    <Badge type="warning" text="Beta 测试" />
   </template>
 </IntegrationCard>
+
+<br />

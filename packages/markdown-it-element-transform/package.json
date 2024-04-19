@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/markdown-it-element-transform",
   "type": "module",
-  "version": "2.0.0-rc6",
+  "version": "2.0.0-rc7",
   "description": "A markdown-it plugin that transforms elements.",
   "author": {
     "name": "Nólëbase",

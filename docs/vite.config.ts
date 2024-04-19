@@ -137,6 +137,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      '~/packages': resolve(__dirname, '../packages'),
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
       '@nolebase/unconfig-vitepress': resolve(__dirname, '../packages/unconfig-vitepress/src/'),
       '@nolebase/vitepress-plugin-enhanced-readabilities': resolve(__dirname, '../packages/vitepress-plugin-enhanced-readabilities/src/'),

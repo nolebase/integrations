@@ -1,4 +1,8 @@
-# 双向链接 <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
+</script>
+
+# 双向链接 <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 **双向链接** （也被称之为内部链接，英文 Bi-directional links 和 Internal links），和也许你也了解和听说过另一个有关的概念 [WikiLinks](https://en.wikipedia.org/wiki/Help:Link)，在文档工程中有着非常重要的地位，它通常用于快速的建立一个页面到另一个页面的连接（或者链接），在 [Wikipedia](https://wikipedia.org) 这样的 Wiki 框架中，以及现在所流行的 [Obsidian](https://obsidian.md/) 和 [Logseq](https://logseq.com/) 中都被广泛使用。
 

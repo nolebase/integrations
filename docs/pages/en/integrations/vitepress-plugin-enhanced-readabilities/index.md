@@ -1,4 +1,8 @@
-# Enhanced Readabilities <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+</script>
+
+# Enhanced Readabilities <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 ## Demo
 

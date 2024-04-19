@@ -1,4 +1,8 @@
-# 基于 Git 的页面历史 <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/vitepress-plugin-git-changelog/package.json'
+</script>
+
+# 基于 Git 的页面历史 <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 ## 为什么
 

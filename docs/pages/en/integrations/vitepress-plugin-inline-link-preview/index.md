@@ -1,8 +1,9 @@
 <script setup>
+import packageJSON from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 </script>
 
-# Inline Links Previewing <Badge type="tip" text="v2.0.0-rc6" />
+# Inline Links Previewing <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 This VitePress plugin is an implementation that similar to Obsidian's link previewing functionalities.
 

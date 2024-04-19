@@ -1,4 +1,8 @@
-# Blinking highlight targeted heading <Badge type="tip" text="v2.0.0-rc6" />
+<script setup>
+import packageJSON from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
+</script>
+
+# Blinking highlight targeted heading <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 ## Demo
 

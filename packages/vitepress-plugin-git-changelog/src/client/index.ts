@@ -7,7 +7,7 @@ import NolebaseGitContributors from './components/Contributors.vue'
 import type { Locale, Options } from './types'
 import { InjectionKey } from './constants'
 
-import '@nolebase/ui/client/style.css'
+import '@nolebase/ui/style.css'
 
 export { default as NolebaseGitChangelog } from './components/Changelog.vue'
 export { default as NolebaseGitContributors } from './components/Contributors.vue'

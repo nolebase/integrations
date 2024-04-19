@@ -211,6 +211,9 @@ importers:
 
   packages/ui:
     dependencies:
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
       '@rive-app/canvas':
         specifier: ^2.11.1
         version: 2.11.1
@@ -273,6 +276,12 @@ importers:
 
   packages/vitepress-plugin-enhanced-readabilities:
     dependencies:
+      '@iconify-json/carbon':
+        specifier: ^1.1.31
+        version: 1.1.31
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
@@ -283,18 +292,15 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
-      '@iconify-json/carbon':
-        specifier: ^1.1.31
-        version: 1.1.31
-      '@iconify-json/icon-park-outline':
-        specifier: ^1.1.15
-        version: 1.1.15
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
+      '@iconify-json/octicon':
+        specifier: ^1.1.52
+        version: 1.1.52
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
@@ -323,9 +329,6 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
-      '@iconify-json/octicon':
-        specifier: ^1.1.52
-        version: 1.1.52
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
@@ -344,6 +347,15 @@ importers:
 
   packages/vitepress-plugin-inline-link-preview:
     dependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
+      '@iconify-json/svg-spinners':
+        specifier: ^1.1.2
+        version: 1.1.2
       '@nolebase/markdown-it-element-transform':
         specifier: workspace:^
         version: link:../markdown-it-element-transform
@@ -363,15 +375,6 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
-      '@iconify-json/icon-park-outline':
-        specifier: ^1.1.15
-        version: 1.1.15
-      '@iconify-json/octicon':
-        specifier: ^1.1.53
-        version: 1.1.53
-      '@iconify-json/svg-spinners':
-        specifier: ^1.1.2
-        version: 1.1.2
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
@@ -430,6 +433,12 @@ importers:
 
   packages/vitepress-plugin-page-properties:
     dependencies:
+      '@iconify-json/icon-park-outline':
+        specifier: ^1.1.15
+        version: 1.1.15
+      '@iconify-json/octicon':
+        specifier: ^1.1.53
+        version: 1.1.53
       '@nolebase/ui':
         specifier: workspace:^
         version: link:../ui
@@ -452,12 +461,6 @@ importers:
         specifier: ^1.0.0
         version: 1.0.2(@algolia/client-search@4.22.1)(@types/node@20.12.5)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.4)
     devDependencies:
-      '@iconify-json/icon-park-outline':
-        specifier: ^1.1.15
-        version: 1.1.15
-      '@iconify-json/octicon':
-        specifier: ^1.1.53
-        version: 1.1.53
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@3.29.4)
@@ -1659,35 +1662,30 @@ packages:
     resolution: {integrity: sha512-CAvECFfiwGyZmlcuM2JLMRDEN3VsIEZv6lml7Xf+3giQ5oXloADm0b5wiVPFZmONKM5jXERmx+E7YSvAtFJIbw==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
 
   /@iconify-json/icon-park-outline@1.1.15:
     resolution: {integrity: sha512-jQbk/ETARyYPjX6HolkdjSLJHsNCfSBfYUqcUQLXYK/1tfuVnQsUdWG2IM2a7VBpxJtrK7r4n1iwPOFaZ5T46g==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
 
   /@iconify-json/octicon@1.1.52:
     resolution: {integrity: sha512-0bLc9t54p55nVlQ8SKF7BYOBTy/Q5SfvqYcOD09APDksRTikO45MwKTfG3fzkbaIwpobuVQM1sXiSCsyWJX9Tg==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
+    dev: false
 
   /@iconify-json/octicon@1.1.53:
     resolution: {integrity: sha512-QaVwZsO7v4F5J1oj3uhxLXYA4fCzrvWFlruyMXOhUDZtrKTc6Vb5nIO1b7A4NOwzlTW638XZzHW70PnE0V0F8g==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
 
   /@iconify-json/svg-spinners@1.1.2:
     resolution: {integrity: sha512-Aab6SqkORaTJ1W+ooufn6C8BsBitrn3uk8iRQLPA6pjhyvQAhkKCGMctyXIL5ZjrycnoFVsZ4mx7KnwEMra8qg==}
     dependencies:
       '@iconify/types': 2.0.0
-    dev: true
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
 
   /@iconify/utils@2.1.22:
     resolution: {integrity: sha512-6UHVzTVXmvO8uS6xFF+L/QTSpTzA/JZxtgU+KYGFyDYMEObZ1bu/b5l+zNJjHy+0leWjHI+C0pXlzGvv3oXZMA==}

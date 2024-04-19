@@ -29,22 +29,27 @@
   ],
   "sideEffects": false,
   "exports": {
-    "./vite": {
+    ".": {
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.mjs",
       "require": "./dist/vite/index.cjs"
-    },
-    "./locales": {
-      "types": "./dist/locales/index.d.ts",
-      "import": "./dist/locales/index.mjs",
-      "require": "./dist/locales/index.cjs"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
       "import": "./dist/client/index.mjs",
       "require": "./dist/client/index.js"
     },
-    "./client/style.css": "./dist/client/style.css"
+    "./client/style.css": "./dist/client/style.css",
+    "./locales": {
+      "types": "./dist/locales/index.d.ts",
+      "import": "./dist/locales/index.mjs",
+      "require": "./dist/locales/index.cjs"
+    },
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.mjs",
+      "require": "./dist/vite/index.cjs"
+    }
   },
   "main": "./dist/vite/index.cjs",
   "module": "./dist/vite/index.mjs",
@@ -64,6 +69,7 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
+    "@iconify-json/octicon": "^1.1.52",
     "@nolebase/ui": "workspace:^",
     "colorette": "^2.0.20",
     "date-fns": "^3.3.1",
@@ -74,7 +80,6 @@
     "uncrypto": "^0.1.3"
   },
   "devDependencies": {
-    "@iconify-json/octicon": "^1.1.52",
     "@rollup/plugin-yaml": "^4.1.2",
     "builtin-modules": "^3.3.0"
   }

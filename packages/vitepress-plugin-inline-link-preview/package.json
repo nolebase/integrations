@@ -27,10 +27,10 @@
   ],
   "sideEffects": false,
   "exports": {
-    "./locales": {
-      "types": "./dist/locales/index.d.ts",
-      "import": "./dist/locales/index.mjs",
-      "require": "./dist/locales/index.cjs"
+    ".": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
@@ -38,6 +38,11 @@
       "require": "./dist/client/index.js"
     },
     "./client/style.css": "./dist/client/style.css",
+    "./locales": {
+      "types": "./dist/locales/index.d.ts",
+      "import": "./dist/locales/index.mjs",
+      "require": "./dist/locales/index.cjs"
+    },
     "./markdown-it": {
       "types": "./dist/markdown-it/index.d.ts",
       "import": "./dist/markdown-it/index.mjs",
@@ -62,6 +67,9 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
+    "@iconify-json/icon-park-outline": "^1.1.15",
+    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/svg-spinners": "^1.1.2",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
     "less": "^4.2.0",
@@ -69,9 +77,6 @@
     "markdown-it-attrs": "^4.1.6"
   },
   "devDependencies": {
-    "@iconify-json/icon-park-outline": "^1.1.15",
-    "@iconify-json/octicon": "^1.1.53",
-    "@iconify-json/svg-spinners": "^1.1.2",
     "@rollup/plugin-yaml": "^4.1.2",
     "@types/markdown-it": "^13.0.7",
     "@types/markdown-it-attrs": "^4.1.3"

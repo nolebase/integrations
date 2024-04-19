@@ -30,6 +30,11 @@
   ],
   "sideEffects": false,
   "exports": {
+    ".": {
+      "types": "./dist/vitepress/index.d.ts",
+      "import": "./dist/vitepress/index.mjs",
+      "require": "./dist/vitepress/index.cjs"
+    },
     "./vitepress": {
       "types": "./dist/vitepress/index.d.ts",
       "import": "./dist/vitepress/index.mjs",

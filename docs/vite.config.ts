@@ -148,7 +148,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    OmitReplacing('@nolebase/ui/client/style.css', resolve(__dirname, '../packages/ui/dist/client/style.css')),
+    OmitReplacing('@nolebase/ui/style.css', resolve(__dirname, '../packages/ui/dist/style.css')),
     Yaml() as Plugin,
     GitChangelog({
       maxGitLogCount: 2000,

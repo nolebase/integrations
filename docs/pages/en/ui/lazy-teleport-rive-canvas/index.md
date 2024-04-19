@@ -29,6 +29,30 @@ Rive Canvas is a very special component. Unlike regular components, regular comp
   </div>
 </div>
 
+## Installation
+
+Install `@nolebase/ui` and `@rive-app/canvas` to your project dependencies by running the following command:
+
+::: code-group
+
+```shell [@antfu/ni]
+ni @nolebase/ui @rive-app/canvas
+```
+
+```shell [pnpm]
+pnpm add @nolebase/ui @rive-app/canvas
+```
+
+```shell [npm]
+npm install @nolebase/ui @rive-app/canvas
+```
+
+```shell [yarn]
+yarn add @nolebase/ui @rive-app/canvas
+```
+
+:::
+
 ## Usage
 
 ### Register as a global component

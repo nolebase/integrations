@@ -15,6 +15,30 @@ import { NuAsciinemaPlayer } from '@nolebase/ui'
   :loop="true"
 />
 
+## Installation
+
+Install `@nolebase/ui` and `asciinema-player` to your project dependencies by running the following command:
+
+::: code-group
+
+```shell [@antfu/ni]
+ni @nolebase/ui asciinema-player
+```
+
+```shell [pnpm]
+pnpm add @nolebase/ui asciinema-player
+```
+
+```shell [npm]
+npm install @nolebase/ui asciinema-player
+```
+
+```shell [yarn]
+yarn add @nolebase/ui asciinema-player
+```
+
+:::
+
 ```vue
 <script setup>
 import { NuAsciinemaPlayer } from '@nolebase/ui'

@@ -29,6 +29,30 @@ Rive Canvas（懒 Teleport）是一种极为特殊的组件，和常规的组件
   </div>
 </div>
 
+## 安装
+
+运行以下命令，将 `@nolebase/ui` 和 `@rive-app/canvas` 安装到项目依赖项中：
+
+::: code-group
+
+```shell [@antfu/ni]
+ni @nolebase/ui @rive-app/canvas
+```
+
+```shell [pnpm]
+pnpm add @nolebase/ui @rive-app/canvas
+```
+
+```shell [npm]
+npm install @nolebase/ui @rive-app/canvas
+```
+
+```shell [yarn]
+yarn add @nolebase/ui @rive-app/canvas
+```
+
+:::
+
 ## 用法
 
 ### 注册为全局组件

@@ -149,6 +149,9 @@ importers:
       '@types/markdown-it-footnote':
         specifier: ^3.0.4
         version: 3.0.4
+      asciinema-player:
+        specifier: ^3.7.1
+        version: 3.7.1
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
@@ -3779,7 +3782,6 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.9
       solid-js: 1.8.16
-    dev: false
 
   /assertion-error@1.1.0:
     resolution: {integrity: sha512-jgsaNduz+ndvGyFt3uSuWqvy4lCnIJiovtouQN5JZHOKCS2QuhEdbcQHFhVksz2N2U9hXJo8odG7ETyWlEeuDw==}
@@ -7416,12 +7418,10 @@ packages:
       seroval: ^1.0
     dependencies:
       seroval: 1.0.5
-    dev: false
 
   /seroval@1.0.5:
     resolution: {integrity: sha512-TM+Z11tHHvQVQKeNlOUonOWnsNM+2IBwZ4vwoi4j3zKzIpc5IDw8WPwCfcc8F17wy6cBcJGbZbFOR0UCuTZHQA==}
     engines: {node: '>=10'}
-    dev: false
 
   /shebang-command@2.0.0:
     resolution: {integrity: sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==}
@@ -7492,7 +7492,6 @@ packages:
       csstype: 3.1.3
       seroval: 1.0.5
       seroval-plugins: 1.0.5(seroval@1.0.5)
-    dev: false
 
   /source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}

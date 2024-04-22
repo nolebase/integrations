@@ -14,6 +14,7 @@ import ThumbhashPreview from './components/ThumbhashPreview.vue'
 import 'virtual:uno.css'
 
 import '@shikijs/vitepress-twoslash/style.css'
+import 'asciinema-player/dist/bundle/asciinema-player.css'
 
 import './styles/vars.css'
 import './styles/main.css'

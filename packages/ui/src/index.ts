@@ -1,5 +1,3 @@
-import type { App } from 'vue'
-
 import NuTag from './components/NuTag/index.vue'
 import NuButton from './components/NuButton.vue'
 import NuInputSlider from './components/NuInputSlider.vue'
@@ -20,16 +18,4 @@ export {
   NuLazyTeleportRiveCanvas,
   NuAsciinemaPlayer,
   createI18n,
-}
-
-export function install(app: App): void {
-  app.component('NuTag', NuTag)
-  app.component('NuButton', NuButton)
-  app.component('NuInputSlider', NuInputSlider)
-  app.component('NuInputHorizontalRadioGroup', NuInputHorizontalRadioGroup)
-  // Animations
-  app.component('NuLazyTeleportRiveCanvas', NuLazyTeleportRiveCanvas)
-  app.component('NuVerticalTransition', NuVerticalTransition)
-  // Media
-  app.component('NuAsciinemaPlayer', NuAsciinemaPlayer)
 }

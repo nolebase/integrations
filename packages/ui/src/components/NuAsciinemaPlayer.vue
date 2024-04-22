@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue'
-import 'asciinema-player/dist/bundle/asciinema-player.css'
 
 const props = defineProps<{
   src: string

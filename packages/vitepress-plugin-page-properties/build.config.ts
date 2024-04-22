@@ -22,6 +22,7 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.vue'], loaders: ['vue'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'cjs', loaders: ['js'] },
     { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.ts'], format: 'esm', loaders: ['js'] },
+    { builder: 'mkdist', input: './src/client', outDir: './dist/client', pattern: ['**/*.css'], loaders: ['postcss'] },
     { builder: 'rollup', input: './src/locales/index', outDir: './dist/locales' },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
@@ -53,7 +54,7 @@ export default defineBuildConfig({
       //
       // The use of CLI was suggested by how to use unocss with rollup? · unocss/unocss · Discussion #542
       // https:// github.com/unocss/unocss/discussions/542
-      await execAsync('unocss "./src/client/**/*.vue" -o dist/client/style.css')
+      await execAsync('unocss "./src/client/**/*.vue" -o dist/client/unocss.css')
     },
   },
 })

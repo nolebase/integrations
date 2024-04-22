@@ -28,7 +28,7 @@
     "preview-image",
     "meta"
   ],
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "exports": {
     ".": {
       "types": "./dist/vitepress/index.d.ts",

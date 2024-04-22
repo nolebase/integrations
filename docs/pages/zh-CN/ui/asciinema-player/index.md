@@ -39,9 +39,12 @@ yarn add @nolebase/ui asciinema-player
 
 :::
 
+## 用法
+
 ```vue
 <script setup>
 import { NuAsciinemaPlayer } from '@nolebase/ui'
+import 'asciinema-player/dist/bundle/asciinema-player.css'
 </script>
 
 <template>

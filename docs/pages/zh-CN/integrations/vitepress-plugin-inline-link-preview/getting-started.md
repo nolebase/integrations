@@ -95,7 +95,7 @@ import { // [!code ++]
   NolebaseInlineLinkPreviewPlugin, // [!code ++]
 } from '@nolebase/vitepress-plugin-inline-link-preview/client' // [!code ++]
 
-import '@nolebase/vitepress-plugin-inline-link-preview/client/styles.css' // [!code ++]
+import '@nolebase/vitepress-plugin-inline-link-preview/client/style.css' // [!code ++]
 
 export const Theme: ThemeConfig = {
   extends: DefaultTheme,

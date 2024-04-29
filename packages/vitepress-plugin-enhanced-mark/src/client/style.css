@@ -3,7 +3,7 @@
   css - How can I animate my text to highlight from left to right? - Stack Overflow
   https://stackoverflow.com/questions/70364899/how-can-i-animate-my-text-to-highlight-from-left-to-right
 */
-mark {
+.vp-doc mark {
   --vp-nolebase-mark-bg-shift: 0.4lh;
   --vp-nolebase-mark-bg-color: #ffce0050;
 

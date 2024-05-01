@@ -275,6 +275,7 @@ export async function initCommitWithFieldsTransformed(
 
 export async function getCommits(
   file: string,
+  srcDir: string,
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
@@ -287,9 +288,12 @@ export async function getCommits(
   const fileName = basename(file)
   const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd })
 
+  const _srcDir = `${srcDir.replace(/^\.\/|\/$/g, '')}/`
+
   const commits = await Promise.all(stdout.split('\n').map(async (raw) => {
     const [hash, author_name, author_email, date, message, body, refs] = raw.split('|')
     const commit: Commit = {
+      path: file.replace(_srcDir, ''),
       hash,
       date,
       date_timestamp: 0,

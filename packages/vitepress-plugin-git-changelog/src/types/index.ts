@@ -1,4 +1,5 @@
 export interface Commit {
+  path: string
   /**
    * The matched first tag of the commit.
    */
@@ -62,7 +63,7 @@ export interface Commit {
 }
 
 export interface Changelog {
-  [path: string]: Commit[]
+  commits: Commit[]
 }
 
 export interface SocialEntry {

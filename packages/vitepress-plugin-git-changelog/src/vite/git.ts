@@ -33,6 +33,14 @@ const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gr
 
 export interface GitChangelogOptions {
   /**
+   * The directory where your markdown pages are stored, relative to project root
+   *
+   * @default `''`
+   *
+   * @see https://vitepress.dev/reference/site-config#srcdir
+   */
+  srcDir?: string
+  /**
    * When fetching git logs, what directories should be included?
    */
   includeDirs?: string[]
@@ -134,6 +142,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     options = {}
 
   const {
+    srcDir = '.',
     maxGitLogCount,
     includeDirs = [],
     includeExtensions = [],
@@ -143,8 +152,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     getCommitURL = defaultCommitURLHandler,
   } = options
 
-  const commits: Commit[] = []
-  const changelogData: Changelog = {}
+  let commits: Commit[] = []
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -195,9 +203,12 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         cwd: cwd(),
       })
 
-      await Promise.all(paths.map(async (path) => {
-        changelogData[path] = await getCommits(path, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount)
-      }))
+      commits = (await Promise.all(
+        paths.map(async (path) => {
+          return await getCommits(path, srcDir, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount)
+        }),
+      ))
+        .flat()
 
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
@@ -210,7 +221,11 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       if (id !== ResolvedVirtualModuleId)
         return null
 
-      return `export default ${JSON.stringify(changelogData)}`
+      const changelog: Changelog = {
+        commits,
+      }
+
+      return `export default ${JSON.stringify(changelog)}`
     },
   }
 }

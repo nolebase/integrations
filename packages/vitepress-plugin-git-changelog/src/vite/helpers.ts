@@ -1,4 +1,4 @@
-import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:path'
+import { basename, dirname, extname, join, posix, relative, sep, win32 } from 'node:path'
 import fs from 'node:fs'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
@@ -142,17 +142,10 @@ export async function returnOrResolvePromise<T>(val: T | Promise<T>) {
   return await val
 }
 
-export function rewritePaths(path: string[][], rewritePaths: Record<string, string>) {
+export function rewritePaths(path: string, rewritePaths: Record<string, string>) {
   // rewrite paths
-  for (const [index, files] of path.entries()) {
-    for (const [key, value] of Object.entries(rewritePaths)) {
-      if (files[1])
-        path[index][1] = files[1].replace(key, value)
-
-      if (files[2])
-        path[index][2] = files[2].replace(key, value)
-    }
-  }
+  for (const [key, value] of Object.entries(rewritePaths))
+    path = path.replace(key, value)
 
   return path
 }
@@ -228,26 +221,26 @@ export function generateCommitPathsRegExp(includeDirs: string[], includeExtensio
 }
 
 export async function getCommits(
-  file: string,
-  srcDir: string,
+  path: string,
+  cwd: string,
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
   maxGitLogCount?: number,
+  optsRewritePaths?: Record<string, string>,
+  optsRewritePathsByPatterns?: RewritePathsBy,
 ): Promise<Commit[]> {
-  const cwd = dirname(file)
+  cwd = dirname(join(cwd, path))
   if (!fs.existsSync(cwd))
     return []
-  const fileName = basename(file)
+  const fileName = basename(path)
   const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd })
-
-  const _srcDir = `${srcDir.replace(/^\.\/|\/$/g, '')}/`
 
   const commits = await Promise.all(stdout.split('\n').map(async (raw) => {
     const [hash, author_name, author_email, date, message, body, refs] = raw.split('|')
     const commit: Commit = {
-      path: file.replace(_srcDir, ''),
+      path,
       hash,
       date,
       date_timestamp: 0,
@@ -258,12 +251,18 @@ export async function getCommits(
       author_avatar: '',
     }
 
+    // rewrite path
+    if (typeof optsRewritePaths !== 'undefined')
+      commit.path = rewritePaths(commit.path, optsRewritePaths)
+    if (typeof optsRewritePathsByPatterns !== 'undefined')
+      commit.path = await rewritePathsByPatterns(commit, commit.path, optsRewritePathsByPatterns)
+
     // repo url
     commit.repo_url = (await returnOrResolvePromise(getRepoURL(commit))) ?? 'https://github.com/example/example'
     // hash url
     commit.hash_url = (await returnOrResolvePromise(getCommitURL(commit))) ?? defaultCommitURLHandler(commit)
 
-    const tags = parseGitLogRefsAsTags(refs.replace(/[\(\)]/g, ''))
+    const tags = parseGitLogRefsAsTags(refs?.replace(/[\(\)]/g, ''))
 
     // release logs
     if (tags && tags.length > 0) {

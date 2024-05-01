@@ -1,4 +1,4 @@
-import { cwd } from 'node:process'
+import { cwd as _cwd } from 'node:process'
 import type { Plugin } from 'vite'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
@@ -33,19 +33,27 @@ const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gr
 
 export interface GitChangelogOptions {
   /**
-   * The directory where your markdown pages are stored, relative to project root
+   * The current working directory in which to search.
    *
-   * @default `''`
-   *
-   * @see https://vitepress.dev/reference/site-config#srcdir
+   * @default process.cwd()
    */
-  srcDir?: string
+  cwd?: string
+  /**
+   * When fetching git logs, what files should be included?
+   *
+   * @default ['** /*.md', '!node_modules']
+   */
+  include?: string[]
   /**
    * When fetching git logs, what directories should be included?
+   *
+   * @deprecated
    */
   includeDirs?: string[]
   /**
    * When fetching git logs, what extensions should be included?
+   *
+   * @deprecated
    */
   includeExtensions?: `.${string}`[]
   /**
@@ -95,7 +103,6 @@ export interface GitChangelogOptions {
    *
    * Note: in runtime, which is client side, the final extension will be replaced with `.md` if the extension is `.html`.
    *
-   * @deprecated
    */
   rewritePaths?: Record<string, string>
   /**
@@ -121,8 +128,6 @@ export interface GitChangelogOptions {
    *
    * @see rewritePathsByRewritingExtension
    *
-   * @deprecated
-   *
    */
   rewritePathsBy?: RewritePathsBy
   /**
@@ -142,14 +147,15 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     options = {}
 
   const {
-    srcDir = '.',
+    cwd = _cwd(),
     maxGitLogCount,
-    includeDirs = [],
-    includeExtensions = [],
+    include = ['**/*.md', '!node_modules'],
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = defaultReleaseTagURLHandler,
     getReleaseTagsURL = defaultReleaseTagsURLHandler,
     getCommitURL = defaultCommitURLHandler,
+    rewritePaths,
+    rewritePathsBy,
   } = options
 
   let commits: Commit[] = []
@@ -194,18 +200,14 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       spinner.text = `${logModulePrefix} Gathering git logs...`
       spinner.color = 'yellow'
 
-      const paths = await globby(['**/*.md', '!node_modules'], {
-        expandDirectories: {
-          files: includeDirs,
-          extensions: includeExtensions,
-        },
+      const paths = await globby(include, {
         gitignore: true,
-        cwd: cwd(),
+        cwd,
       })
 
       commits = (await Promise.all(
         paths.map(async (path) => {
-          return await getCommits(path, srcDir, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount)
+          return await getCommits(path, cwd, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount, rewritePaths, rewritePathsBy)
         }),
       ))
         .flat()

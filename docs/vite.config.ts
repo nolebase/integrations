@@ -1,6 +1,6 @@
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { env } from 'node:process'
+import { cwd, env } from 'node:process'
 
 import { readFile, stat } from 'node:fs/promises'
 import { defineConfig } from 'vite'
@@ -154,9 +154,6 @@ export default defineConfig({
     GitChangelog({
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',
-      rewritePaths: {
-        'docs/': '',
-      },
     }),
     GitChangelogMarkdownSection({
       locales: {

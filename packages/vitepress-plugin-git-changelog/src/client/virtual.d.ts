@@ -1,9 +1,5 @@
 interface Commit {
   /**
-   * The path of the file that the commit is related to.
-   */
-  paths: string[][]
-  /**
    * The matched first tag of the commit.
    */
   tag?: string
@@ -67,7 +63,7 @@ interface Commit {
 
 declare module 'virtual:nolebase-git-changelog' {
   interface Changelog {
-    commits: Commit[]
+    [path: string]: Commit[]
   }
 
   const changelog: Changelog

@@ -22,8 +22,7 @@ const options = inject(InjectionKey, { locales: defaultLocales })
 
 const { lang } = useData()
 const { t } = useI18n()
-const rawPath = useRawPath()
-const commits = useCommits(Changelog.commits, rawPath)
+const commits = useCommits(Changelog, useRawPath())
 
 const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
 

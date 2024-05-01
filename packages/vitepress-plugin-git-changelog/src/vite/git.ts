@@ -1,26 +1,19 @@
-import { exec } from 'node:child_process'
-import { promisify } from 'node:util'
-
+import { cwd } from 'node:process'
 import type { Plugin } from 'vite'
-import simpleGit from 'simple-git'
-import type { SimpleGit } from 'simple-git'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
+import { globby } from 'globby'
+import { execa } from 'execa'
 
 import type { Changelog, Commit } from '../types'
 import {
   type CommitToStringHandler,
   type CommitToStringsHandler,
   type RewritePathsBy,
-  type SimpleGitCommit,
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
-  generateCommitPathsRegExp,
-  initCommitWithFieldsTransformed,
-  normalizeGitLogPath,
-  rewritePaths,
-  rewritePathsByPatterns,
+  getCommits,
   rewritePathsByRewritingExtension,
 } from './helpers'
 
@@ -37,79 +30,6 @@ const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gray(':')}`
-
-const execAsync = promisify(exec)
-
-async function aggregateCommit(
-  log: Commit,
-  includeDirs: string[] = [],
-  includeExtensions: `.${string}`[] = [],
-  optsRewritePaths?: Record<string, string>,
-  optsRewritePathsByPatterns?: RewritePathsBy,
-) {
-  // get change log of each file
-  // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-only', '-r', log.hash])
-  // const raw = await git.raw(['diff-tree', '--no-commit-id', '--name-status', '-r', '-M', log.hash])
-  const raw = await execAsync(`git diff-tree --no-commit-id --name-status -r -M ${log.hash}`)
-
-  const files = raw.stdout
-    .replace(/\\/g, '/')
-    .trim()
-    .split('\n')
-    .map(str => str.split('\t'))
-
-  log.paths = Array.from(
-    new Set(
-      files
-        .filter((i) => {
-          return !!i[1]?.match(generateCommitPathsRegExp(includeDirs, includeExtensions))?.[0]
-        }),
-    ),
-  )
-
-  // normalize paths
-  log.paths = normalizeGitLogPath(log.paths)
-  if (typeof optsRewritePaths !== 'undefined') {
-    // rewrite paths
-    log.paths = rewritePaths(log.paths, optsRewritePaths)
-  }
-  if (typeof optsRewritePathsByPatterns !== 'undefined') {
-    // rewrite paths
-    for (const [index, files] of log.paths.entries()) {
-      log.paths[index][1] = await rewritePathsByPatterns(log, files[1], optsRewritePathsByPatterns)
-      log.paths[index][2] = await rewritePathsByPatterns(log, files[2], optsRewritePathsByPatterns)
-    }
-  }
-
-  return log
-}
-
-async function aggregateCommits(
-  getRepoURL: CommitToStringHandler,
-  getCommitURL: CommitToStringHandler,
-  getReleaseTagURL: CommitToStringHandler,
-  getReleaseTagsURL: CommitToStringsHandler,
-  commits: SimpleGitCommit,
-  includeDirs: string[] = [],
-  includeExtensions: `.${string}`[] = [],
-  rewritePaths?: Record<string, string>,
-  rewritePathsBy?: RewritePathsBy,
-) {
-  const transformedCommits: Commit[] = []
-
-  for (const commit of commits)
-    transformedCommits.push(await initCommitWithFieldsTransformed(commit, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL))
-
-  const processedCommits = await Promise.all(
-    transformedCommits.map(
-      async (commit) => {
-        return aggregateCommit(commit, includeDirs, includeExtensions, rewritePaths, rewritePathsBy)
-      },
-    ),
-  )
-
-  return processedCommits.filter(i => i.paths?.length || i.tag)
-}
 
 export interface GitChangelogOptions {
   /**
@@ -166,6 +86,8 @@ export interface GitChangelogOptions {
    * Which is the correct path for the deployed page and runtime scripts to work properly.
    *
    * Note: in runtime, which is client side, the final extension will be replaced with `.md` if the extension is `.html`.
+   *
+   * @deprecated
    */
   rewritePaths?: Record<string, string>
   /**
@@ -191,6 +113,8 @@ export interface GitChangelogOptions {
    *
    * @see rewritePathsByRewritingExtension
    *
+   * @deprecated
+   *
    */
   rewritePathsBy?: RewritePathsBy
   /**
@@ -199,6 +123,8 @@ export interface GitChangelogOptions {
   maxGitLogCount?: number
   /**
    * The maximum number of concurrent processes to fetch git logs.
+   *
+   * @deprecated
    */
   maxConcurrentProcesses?: number
 }
@@ -209,7 +135,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
 
   const {
     maxGitLogCount,
-    maxConcurrentProcesses,
     includeDirs = [],
     includeExtensions = [],
     repoURL = 'https://github.com/example/example',
@@ -218,8 +143,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     getCommitURL = defaultCommitURLHandler,
   } = options
 
-  let commits: Commit[] = []
-  let git: SimpleGit
+  const commits: Commit[] = []
+  const changelogData: Changelog = {}
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -255,32 +180,24 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       if (commits.length > 0)
         return
 
-      git ??= simpleGit({
-        maxConcurrentProcesses,
-      })
-
       // configure so that the git log messages can contain correct CJK characters
-      await git.raw(['config', '--local', 'core.quotepath', 'false'])
+      await execa('git', ['config', '--local', 'core.quotepath', 'false'])
 
       spinner.text = `${logModulePrefix} Gathering git logs...`
       spinner.color = 'yellow'
 
-      const gitLogsRaw = await git.log({ maxCount: maxGitLogCount })
+      const paths = await globby(['**/*.md', '!node_modules'], {
+        expandDirectories: {
+          files: includeDirs,
+          extensions: includeExtensions,
+        },
+        gitignore: true,
+        cwd: cwd(),
+      })
 
-      spinner.text = `${logModulePrefix} Aggregating git logs...`
-      spinner.color = 'green'
-
-      commits = await aggregateCommits(
-        getRepoURL,
-        getCommitURL,
-        getReleaseTagURL,
-        getReleaseTagsURL,
-        gitLogsRaw.all,
-        includeDirs,
-        includeExtensions,
-        options.rewritePaths,
-        options.rewritePathsBy,
-      )
+      await Promise.all(paths.map(async (path) => {
+        changelogData[path] = await getCommits(path, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount)
+      }))
 
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
@@ -292,10 +209,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     load(id) {
       if (id !== ResolvedVirtualModuleId)
         return null
-
-      const changelogData: Changelog = {
-        commits,
-      }
 
       return `export default ${JSON.stringify(changelogData)}`
     },

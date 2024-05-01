@@ -21,7 +21,7 @@ const contributors = ref<ContributorInfo[]>([])
 
 const { t } = useI18n()
 const rawPath = useRawPath()
-const commits = useCommits(Changelog.commits, rawPath)
+const commits = useCommits(Changelog, rawPath)
 
 async function aggregateContributors(commits: Commit[]) {
   const map: Record<string, ContributorInfo> = {}

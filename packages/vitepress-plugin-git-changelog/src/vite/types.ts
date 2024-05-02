@@ -7,7 +7,7 @@ export interface Context {
 
 export interface GitChangelogOptions {
   /**
-   * The current working directory in which to search.
+   * The current working directory in which to search files.
    *
    * @default process.cwd()
    */
@@ -56,33 +56,31 @@ export interface GitChangelogOptions {
    */
   getCommitURL?: CommitToStringHandler
   /**
-   * A map that contains rewrite rules of paths.
-   *
-   * This is quite useful when you have your pages in a different directory than the base url after deployed since the
-   * data will be calculated again on the client side.
-   *
-   * For example:
-   *  - We have a page at `docs/pages/en/integrations/page.md`
-   *  - And we will deploy it to `https://example.com/en/integrations/page`
-   *
-   * Then you can set the rewrite paths like this:
-   * ```json
-   * {
-   *  "docs/": ""
-   * }
-   * ```
-   *
-   * This will rewrite the path to `en/integrations/page.md`
-   * Which is the correct path for the deployed page and runtime scripts to work properly.
-   *
-   * Note: in runtime, which is client side, the final extension will be replaced with `.md` if the extension is `.html`.
-   *
-   */
-  rewritePaths?: Record<string, string>
-  /**
    * Rules to rewrite paths by patterns.
    *
-   * Same as `rewritePaths`, but it can be a function that returns a promise or plain value.
+   * This can be quite useful when your pages are in different directories,
+   * or when they are generated at runtime according to path.ts.
+   *
+   * Since the plugin matches the git information for each page by comparing the local path,
+   * you can override the local file path to `vitepress.useData.page.value.filePath` with this option.
+   *
+   * @example
+   *
+   * ```typescript
+   * GitChangelog({
+   *   rewritePathsBy: {
+   *     handler: (_commit, path) => {
+   *       if (path) {
+   *         // path: packages/characters/src/lib1.ts
+   *         if (path.startsWith('packages/characters/src/') && !path.includes('index.ts'))
+   *           return `${path.replace('packages/characters/src/', '').slice(0, -3)}.md`
+   *       }
+   *       return path
+   *     },
+   *   },
+   * })
+   * ```
+   *
    * Besides that, we offer some built-in handlers to rewrite paths by patterns:
    *
    *  - `rewritePathsByRewritingExtension(from: string, to: string)`: to rewrite paths by rewriting the extension.
@@ -101,9 +99,8 @@ export interface GitChangelogOptions {
    * ```
    *
    * @see rewritePathsByRewritingExtension
-   *
    */
-  rewritePathsBy?: RewritePathsBy
+  rewritePaths?: RewritePathsBy
   /**
    * The maximum number of git logs to fetch.
    */

@@ -1,6 +1,6 @@
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { cwd, env } from 'node:process'
+import { env } from 'node:process'
 
 import { readFile, stat } from 'node:fs/promises'
 import { defineConfig } from 'vite'

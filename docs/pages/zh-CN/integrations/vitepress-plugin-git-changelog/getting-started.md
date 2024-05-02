@@ -41,7 +41,7 @@ yarn add @nolebase/vitepress-plugin-git-changelog -D
 
 有两种将基于 Git 的页面历史 Vite 插件集成到您的 VitePress 项目中的方法：
 
-1. [**推荐**：在 VitePress 的主要配置文件中使用 `vite` 选项（通常位于 `docs/.vitepress/config.ts`，文件路径和扩展名可能会有所不同）](#在-vitepresss-配置文件中配置-vite-插件)
+1. [**推荐**：在 VitePress 的主要配置文件中使用 `vite` 选项（通常位于 `docs/.vitepress/config.ts`，文件路径和扩展名可能会有所不同）](#在-vitepress-的配置文件中配置-vite-插件)
 2. [在 VitePress 项目的根目录中创建一个单独的 Vite 配置文件（例如 `vite.config.ts`）](#在单独的-vite-配置文件中配置-vite-插件)
 
 #### 在 VitePress 的配置文件中配置 Vite 插件

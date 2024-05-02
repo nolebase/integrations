@@ -8,6 +8,7 @@ import { execa } from 'execa'
 import type { Changelog, Commit } from '../types'
 import {
   type CommitToStringHandler,
+  type CommitToStringsHandler,
   type RewritePathsBy,
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
@@ -19,6 +20,7 @@ import type { GitChangelogOptions } from './types'
 
 export type {
   CommitToStringHandler,
+  CommitToStringsHandler,
   RewritePathsBy,
 }
 

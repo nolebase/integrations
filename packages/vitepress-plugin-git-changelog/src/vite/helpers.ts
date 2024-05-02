@@ -228,7 +228,7 @@ export async function getCommits(
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
   maxGitLogCount?: number,
-  optsRewritePaths?: RewritePathsBy,
+  optsRewritePathsBy?: RewritePathsBy,
 ): Promise<Commit[]> {
   const fileDir = dirname(file)
   const fileName = basename(file)
@@ -250,8 +250,8 @@ export async function getCommits(
     }
 
     // rewrite path
-    if (typeof optsRewritePaths !== 'undefined')
-      commit.path = await rewritePathsByPatterns(commit, commit.path, optsRewritePaths)
+    if (typeof optsRewritePathsBy !== 'undefined')
+      commit.path = await rewritePathsByPatterns(commit, commit.path, optsRewritePathsBy)
 
     // repo url
     commit.repo_url = (await returnOrResolvePromise(getRepoURL(commit))) ?? 'https://github.com/example/example'

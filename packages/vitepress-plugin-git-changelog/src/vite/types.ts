@@ -100,7 +100,7 @@ export interface GitChangelogOptions {
    *
    * @see rewritePathsByRewritingExtension
    */
-  rewritePaths?: RewritePathsBy
+  rewritePathsBy?: RewritePathsBy
   /**
    * The maximum number of git logs to fetch.
    */

@@ -2,7 +2,11 @@ import { describe, expect, it } from 'vitest'
 
 import type { Commit } from '../types'
 import {
+  defaultCommitURLHandler,
+  defaultReleaseTagURLHandler,
+  defaultReleaseTagsURLHandler,
   generateCommitPathsRegExp,
+  initCommitWithFieldsTransformed,
   parseGitLogRefsAsTags,
   rewritePathsByPatterns,
   rewritePathsByRewritingExtension,
@@ -92,5 +96,118 @@ describe('generateCommitPathsRegExp', () => {
   })
   it('includeDirs and includeExtensions', () => {
     expect(generateCommitPathsRegExp(['docs', 'packages'], ['.md', '.ts'])).toEqual(/^(docs|packages)\/.+(.md|.ts)$/)
+  })
+})
+
+describe('initCommitWithFieldsTransformed', () => {
+  it('should init commit with fields transformed', async () => {
+    const mockedCommit = {
+      hash: '0e4565940b08cc145d378169e85c37eca20d6036',
+      date: '2023-11-10T11:59:06+08:00',
+      message: 'release: v1.0.0',
+      refs: 'tag: v1.0.0',
+      body: 'Signed-off-by: First Last <user@example.com>\n',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+
+    const commit = await initCommitWithFieldsTransformed(
+      mockedCommit,
+      () => 'https://github.com/example-org/example',
+      defaultCommitURLHandler,
+      defaultReleaseTagURLHandler,
+      defaultReleaseTagsURLHandler,
+    )
+
+    expect(commit).toEqual({
+      paths: [],
+      tag: 'v1.0.0',
+      tags: ['v1.0.0'],
+      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.0.0',
+      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.0.0'],
+      hash: '0e4565940b08cc145d378169e85c37eca20d6036',
+      hash_url: 'https://github.com/example-org/example/commit/0e4565940b08cc145d378169e85c37eca20d6036',
+      date: '2023-11-10T11:59:06+08:00',
+      date_timestamp: 1699588746000,
+      message: 'release: v1.0.0',
+      refs: 'tag: v1.0.0',
+      body: 'Signed-off-by: First Last <user@example.com>\n',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+      repo_url: 'https://github.com/example-org/example',
+    })
+  })
+
+  it('should transform for commit contains no refs', async () => {
+    const mockedCommit = {
+      hash: '77be05bfb36ce894638648bf5530122b31b951f8',
+      date: '2023-10-29T19:52:13+08:00',
+      message: 'docs: updated README.md',
+      refs: '',
+      body: 'Signed-off-by: First Last <user@example.com>\n',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+    const commit = await initCommitWithFieldsTransformed(
+      mockedCommit,
+      () => 'https://github.com/example-org/example',
+      defaultCommitURLHandler,
+      defaultReleaseTagURLHandler,
+      defaultReleaseTagsURLHandler,
+    )
+
+    expect(commit).toEqual({
+      paths: [],
+      hash: '77be05bfb36ce894638648bf5530122b31b951f8',
+      hash_url: 'https://github.com/example-org/example/commit/77be05bfb36ce894638648bf5530122b31b951f8',
+      date: '2023-10-29T19:52:13+08:00',
+      date_timestamp: 1698580333000,
+      message: 'docs: updated README.md',
+      refs: '',
+      body: 'Signed-off-by: First Last <user@example.com>\n',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+      repo_url: 'https://github.com/example-org/example',
+    })
+  })
+
+  it('should transform for commit contains no body', async () => {
+    const mockedCommit = {
+      hash: '485f621e56a1c799d6081e00f901a43bd4935d5a',
+      date: '2023-11-05T21:38:23+08:00',
+      message: 'release: v1.0.0',
+      refs: 'tag: v1.0.0',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+    const commit = await initCommitWithFieldsTransformed(
+      mockedCommit,
+      () => 'https://github.com/example-org/example',
+      defaultCommitURLHandler,
+      defaultReleaseTagURLHandler,
+      defaultReleaseTagsURLHandler,
+    )
+
+    expect(commit).toEqual({
+      paths: [],
+      tag: 'v1.0.0',
+      tags: ['v1.0.0'],
+      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.0.0',
+      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.0.0'],
+      hash: '485f621e56a1c799d6081e00f901a43bd4935d5a',
+      hash_url: 'https://github.com/example-org/example/commit/485f621e56a1c799d6081e00f901a43bd4935d5a',
+      date: '2023-11-05T21:38:23+08:00',
+      date_timestamp: 1699191503000,
+      message: 'release: v1.0.0',
+      refs: 'tag: v1.0.0',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+      repo_url: 'https://github.com/example-org/example',
+    })
   })
 })

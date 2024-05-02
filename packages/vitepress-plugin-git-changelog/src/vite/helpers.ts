@@ -214,12 +214,14 @@ export function parseGitLogRefsAsTags(refs?: string): string[] {
  * - includeDirs is set, it is /^(${includeDirs.join('|')})\/.+.md$/
  * - includeExtensions is set, it is /^.+(${includeExtensions.join('|')})$/
  * - in another word, /^(includeDir1|includeDir2)\/.+(includeExtension1|includeExtensions2)$/
+ *
+ * @deprecated
  */
 export function generateCommitPathsRegExp(includeDirs: string[], includeExtensions: `.${string}`[]): RegExp {
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }
 
-async function getRawGitLog(file: string, maxGitLogCount?: number) {
+export async function getRawCommitLogs(file: string, maxGitLogCount?: number) {
   const fileDir = dirname(file)
   const fileName = basename(file)
   /**
@@ -229,32 +231,43 @@ async function getRawGitLog(file: string, maxGitLogCount?: number) {
    *
    * @link [documentation](https://git-scm.com/docs/pretty-formats)
    *
-   * Note: Make sure that `body` is in last position, as `\n` in body may breaks subsequent processing.
+   * Note: Make sure that `body` is in last position, as `\n` or `|` in body may breaks subsequent processing.
+   *
+   * @example stdout
+   *
+   * ```bash
+   * $ git log --format="%H|%an|%ae|%ad|%s|%d|%b[GIT_LOG_COMMIT_END]" --follow docs/pages/en/integrations/index.md
+   * 62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|Neko Ayaka|neko@ayaka.moe|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: Neko Ayaka <neko@ayaka.moe>
+   * [GIT_LOG_COMMIT_END]
+   * 34357cc0956db77d1fc597327ba880d7eebf67ce|Rizumu Ayaka|rizumu@ayaka.moe|Mon Apr 22 22:51:24 2024 +0800|release: pre-release v2.0.0-rc10| (tag: v2.0.0-rc10)|Signed-off-by: Rizumu Ayaka <rizumu@ayaka.moe>
+   * [GIT_LOG_COMMIT_END]
+   * (END)
+   * ```
    */
   const format = '%H|%an|%ae|%ad|%s|%d|%b'
   const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, `--format=${format}[GIT_LOG_COMMIT_END]`, '--follow', '--', fileName], { cwd: fileDir })
-  // Remove the last blank line
-  return stdout.split('[GIT_LOG_COMMIT_END]').slice(0, -1)
+  // remove "[GIT_LOG_COMMIT_END]" in last line: split stdout into lines and avoid empty strings
+  return stdout.replace(/\[GIT_LOG_COMMIT_END\]$/, '').split('[GIT_LOG_COMMIT_END]\n')
 }
 
-export async function getCommits(
-  file: string,
-  srcDir: string,
-  cwd: string,
+export function getRelativePath(file: string, srcDir: string, cwd: string) {
+  cwd = normalizePath(cwd)
+  return file.replace(srcDir, '').replace(cwd, '').replace(/^\//, '')
+}
+
+export async function parseCommits(
+  path: string,
+  rawLogs: string[],
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
-  maxGitLogCount?: number,
   optsRewritePathsBy?: RewritePathsBy,
 ): Promise<Commit[]> {
-  cwd = normalizePath(cwd)
-
-  const rawLogs = await getRawGitLog(file, maxGitLogCount)
   const commits = await Promise.all(rawLogs.map(async (raw) => {
     const [hash, author_name, author_email, date, message, refs, body] = raw.split('|')
     const commit: Commit = {
-      path: file.replace(srcDir, '').replace(cwd, '').replace(/^\//, ''),
+      path,
       hash,
       date,
       date_timestamp: 0,
@@ -274,6 +287,7 @@ export async function getCommits(
     // hash url
     commit.hash_url = (await returnOrResolvePromise(getCommitURL(commit))) ?? defaultCommitURLHandler(commit)
 
+    // remove `()` in refs, e.g. ` (tag: v2.0.0-rc7)`
     const tags = parseGitLogRefsAsTags(refs?.replace(/[\(\)]/g, ''))
 
     // release logs

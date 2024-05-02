@@ -13,7 +13,9 @@ import {
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
-  getCommits,
+  getRawCommitLogs,
+  getRelativePath,
+  parseCommits,
   rewritePathsByRewritingExtension,
 } from './helpers'
 import type { GitChangelogOptions } from './types'
@@ -103,7 +105,9 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
 
       commits = (await Promise.all(
         paths.map(async (path) => {
-          return await getCommits(path, srcDir, cwd, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount, rewritePathsBy)
+          const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
+          const relativePath = getRelativePath(path, srcDir, cwd)
+          return await parseCommits(relativePath, rawLogs, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, rewritePathsBy)
         }),
       ))
         .flat()

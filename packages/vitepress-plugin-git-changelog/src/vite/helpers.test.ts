@@ -6,7 +6,7 @@ import {
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
   generateCommitPathsRegExp,
-  initCommitWithFieldsTransformed,
+  parseCommits,
   parseGitLogRefsAsTags,
   rewritePathsByPatterns,
   rewritePathsByRewritingExtension,
@@ -84,72 +84,57 @@ describe('parseGitLogRefsAsTags', () => {
   })
 })
 
-describe('generateCommitPathsRegExp', () => {
-  it('default', () => {
-    expect(generateCommitPathsRegExp([], [])).toEqual(/^.+.md$/)
-  })
-  it('includeDirs', () => {
-    expect(generateCommitPathsRegExp(['docs', 'packages'], [])).toEqual(/^(docs|packages)\/.+.md$/)
-  })
-  it('includeExtensions', () => {
-    expect(generateCommitPathsRegExp([], ['.md', '.ts'])).toEqual(/^.+(.md|.ts)$/)
-  })
-  it('includeDirs and includeExtensions', () => {
-    expect(generateCommitPathsRegExp(['docs', 'packages'], ['.md', '.ts'])).toEqual(/^(docs|packages)\/.+(.md|.ts)$/)
-  })
-})
+// describe('generateCommitPathsRegExp', () => {
+//   it('default', () => {
+//     expect(generateCommitPathsRegExp([], [])).toEqual(/^.+.md$/)
+//   })
+//   it('includeDirs', () => {
+//     expect(generateCommitPathsRegExp(['docs', 'packages'], [])).toEqual(/^(docs|packages)\/.+.md$/)
+//   })
+//   it('includeExtensions', () => {
+//     expect(generateCommitPathsRegExp([], ['.md', '.ts'])).toEqual(/^.+(.md|.ts)$/)
+//   })
+//   it('includeDirs and includeExtensions', () => {
+//     expect(generateCommitPathsRegExp(['docs', 'packages'], ['.md', '.ts'])).toEqual(/^(docs|packages)\/.+(.md|.ts)$/)
+//   })
+// })
 
-describe('initCommitWithFieldsTransformed', () => {
+describe('parseCommits', () => {
   it('should init commit with fields transformed', async () => {
-    const mockedCommit = {
-      hash: '0e4565940b08cc145d378169e85c37eca20d6036',
-      date: '2023-11-10T11:59:06+08:00',
-      message: 'release: v1.0.0',
-      refs: 'tag: v1.0.0',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-    }
+    const mockedCommits = ['c16db1033fce57f50b261e9944c136a26fcaccc6|Neko Ayaka|neko@ayaka.moe|Mon Mar 25 20:05:53 2024 +0800|release: v1.24.3| (tag: v1.24.3)|Signed-off-by: Neko Ayaka <neko@ayaka.moe>\n']
 
-    const commit = await initCommitWithFieldsTransformed(
-      mockedCommit,
+    const commit = await parseCommits(
+      '',
+      mockedCommits,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
       defaultReleaseTagURLHandler,
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual({
-      paths: [],
-      tag: 'v1.0.0',
-      tags: ['v1.0.0'],
-      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.0.0',
-      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.0.0'],
-      hash: '0e4565940b08cc145d378169e85c37eca20d6036',
-      hash_url: 'https://github.com/example-org/example/commit/0e4565940b08cc145d378169e85c37eca20d6036',
-      date: '2023-11-10T11:59:06+08:00',
-      date_timestamp: 1699588746000,
-      message: 'release: v1.0.0',
-      refs: 'tag: v1.0.0',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+    expect(commit).toEqual([{
+      path: '',
+      tag: 'v1.24.3',
+      tags: ['v1.24.3'],
+      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.24.3',
+      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.24.3'],
+      hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+      hash_url: 'https://github.com/example-org/example/commit/c16db1033fce57f50b261e9944c136a26fcaccc6',
+      date: 'Mon Mar 25 20:05:53 2024 +0800',
+      date_timestamp: 1711368353000,
+      message: 'release: v1.24.3',
+      body: 'Signed-off-by: Neko Ayaka <neko@ayaka.moe>\n',
+      author_name: 'Neko Ayaka',
+      author_email: 'neko@ayaka.moe',
+      author_avatar: '8002ecc992a1c4aba4c49fd04ea4b48ecf2468b85d3b9cdd6dae4163bf1bb945',
       repo_url: 'https://github.com/example-org/example',
-    })
+    }])
   })
 
   it('should transform for commit contains no refs', async () => {
-    const mockedCommit = {
-      hash: '77be05bfb36ce894638648bf5530122b31b951f8',
-      date: '2023-10-29T19:52:13+08:00',
-      message: 'docs: updated README.md',
-      refs: '',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-    }
-    const commit = await initCommitWithFieldsTransformed(
+    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|Neko Ayaka|neko@ayaka.moe|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: Neko Ayaka <neko@ayaka.moe>\n']
+    const commit = await parseCommits(
+      '',
       mockedCommit,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
@@ -157,33 +142,25 @@ describe('initCommitWithFieldsTransformed', () => {
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual({
-      paths: [],
-      hash: '77be05bfb36ce894638648bf5530122b31b951f8',
-      hash_url: 'https://github.com/example-org/example/commit/77be05bfb36ce894638648bf5530122b31b951f8',
-      date: '2023-10-29T19:52:13+08:00',
-      date_timestamp: 1698580333000,
-      message: 'docs: updated README.md',
-      refs: '',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+    expect(commit).toEqual([{
+      path: '',
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      hash_url: 'https://github.com/example-org/example/commit/62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      date_timestamp: 1713939884000,
+      message: 'docs: fix english integrations list',
+      body: 'Signed-off-by: Neko Ayaka <neko@ayaka.moe>\n',
+      author_name: 'Neko Ayaka',
+      author_email: 'neko@ayaka.moe',
+      author_avatar: '8002ecc992a1c4aba4c49fd04ea4b48ecf2468b85d3b9cdd6dae4163bf1bb945',
       repo_url: 'https://github.com/example-org/example',
-    })
+    }])
   })
 
   it('should transform for commit contains no body', async () => {
-    const mockedCommit = {
-      hash: '485f621e56a1c799d6081e00f901a43bd4935d5a',
-      date: '2023-11-05T21:38:23+08:00',
-      message: 'release: v1.0.0',
-      refs: 'tag: v1.0.0',
-      body: '',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-    }
-    const commit = await initCommitWithFieldsTransformed(
+    const mockedCommit = ['fa0fb328b988499c74983e9164f6db4e2e92afd8|Rizumu Ayaka|rizumu@ayaka.moe|Sun Apr 7 22:27:57 2024 +0800|release: v1.28.0| (tag: v1.28.0)|']
+    const commit = await parseCommits(
+      '',
       mockedCommit,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
@@ -191,23 +168,22 @@ describe('initCommitWithFieldsTransformed', () => {
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual({
-      paths: [],
-      tag: 'v1.0.0',
-      tags: ['v1.0.0'],
-      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.0.0',
-      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.0.0'],
-      hash: '485f621e56a1c799d6081e00f901a43bd4935d5a',
-      hash_url: 'https://github.com/example-org/example/commit/485f621e56a1c799d6081e00f901a43bd4935d5a',
-      date: '2023-11-05T21:38:23+08:00',
-      date_timestamp: 1699191503000,
-      message: 'release: v1.0.0',
-      refs: 'tag: v1.0.0',
+    expect(commit).toEqual([{
+      path: '',
+      hash: 'fa0fb328b988499c74983e9164f6db4e2e92afd8',
+      date: 'Sun Apr 7 22:27:57 2024 +0800',
+      date_timestamp: 1712500077000,
+      message: 'release: v1.28.0',
       body: '',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
+      author_name: 'Rizumu Ayaka',
+      author_email: 'rizumu@ayaka.moe',
+      author_avatar: '898fff9a9daaaad0a2bf6e1ae59a3610189b9ec42a7bc6c26c7e9f855cf8576e',
       repo_url: 'https://github.com/example-org/example',
-    })
+      hash_url: 'https://github.com/example-org/example/commit/fa0fb328b988499c74983e9164f6db4e2e92afd8',
+      tags: ['v1.28.0'],
+      tag: 'v1.28.0',
+      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.28.0',
+      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.28.0'],
+    }])
   })
 })

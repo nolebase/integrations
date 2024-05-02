@@ -219,6 +219,24 @@ export function generateCommitPathsRegExp(includeDirs: string[], includeExtensio
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }
 
+async function getRawGitLog(file: string, maxGitLogCount?: number) {
+  const fileDir = dirname(file)
+  const fileName = basename(file)
+  /**
+   * The format of git log.
+   *
+   * ${commit_hash} ${author_name} ${author_email} ${author_date} ${subject} ${ref} ${body}
+   *
+   * @link [documentation](https://git-scm.com/docs/pretty-formats)
+   *
+   * Note: Make sure that `body` is in last position, as `\n` in body may breaks subsequent processing.
+   */
+  const format = '%H|%an|%ae|%ad|%s|%d|%b'
+  const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, `--format=${format}[GIT_LOG_COMMIT_END]`, '--follow', '--', fileName], { cwd: fileDir })
+  // Remove the last blank line
+  return stdout.split('[GIT_LOG_COMMIT_END]').slice(0, -1)
+}
+
 export async function getCommits(
   file: string,
   srcDir: string,
@@ -230,17 +248,11 @@ export async function getCommits(
   maxGitLogCount?: number,
   optsRewritePathsBy?: RewritePathsBy,
 ): Promise<Commit[]> {
-  const fileDir = dirname(file)
-  const fileName = basename(file)
   cwd = normalizePath(cwd)
-  // Explain: ${commit_hash} ${author_name} ${author_email} ${author_date} ${subject} ${ref}
-  // 
-  // Documentations
-  // https://git-scm.com/docs/pretty-formats
-  const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd: fileDir })
 
-  const commits = await Promise.all(stdout.split('\n').map(async (raw) => {
-    const [hash, author_name, author_email, date, message, body, refs] = raw.split('|')
+  const rawLogs = await getRawGitLog(file, maxGitLogCount)
+  const commits = await Promise.all(rawLogs.map(async (raw) => {
+    const [hash, author_name, author_email, date, message, refs, body] = raw.split('|')
     const commit: Commit = {
       path: file.replace(srcDir, '').replace(cwd, '').replace(/^\//, ''),
       hash,

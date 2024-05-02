@@ -2,6 +2,7 @@
 import { inject, onMounted, onServerPrefetch, ref } from 'vue'
 
 import Changelog from 'virtual:nolebase-git-changelog'
+import type { Commit } from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
@@ -46,7 +47,7 @@ const findRegisteredCreatorByName = (author_name: string) => options.mapContribu
 const findRegisteredCreatorByEmail = (author_email: string) => options.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email))
 
 // This regular expression is used to match and parse commit messages that contain multiple author information.
-const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?$/gmi
+const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?/gmi
 
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.

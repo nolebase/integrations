@@ -1,5 +1,4 @@
-import { basename, dirname, extname, join, posix, relative, sep, win32 } from 'node:path'
-import fs from 'node:fs'
+import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
 import { execa } from 'execa'
@@ -221,7 +220,8 @@ export function generateCommitPathsRegExp(includeDirs: string[], includeExtensio
 }
 
 export async function getCommits(
-  path: string,
+  file: string,
+  srcDir: string,
   cwd: string,
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
@@ -231,16 +231,15 @@ export async function getCommits(
   optsRewritePaths?: Record<string, string>,
   optsRewritePathsByPatterns?: RewritePathsBy,
 ): Promise<Commit[]> {
-  cwd = dirname(join(cwd, path))
-  if (!fs.existsSync(cwd))
-    return []
-  const fileName = basename(path)
-  const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd })
+  const fileDir = dirname(file)
+  const fileName = basename(file)
+  cwd = normalizePath(cwd)
+  const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd: fileDir })
 
   const commits = await Promise.all(stdout.split('\n').map(async (raw) => {
     const [hash, author_name, author_email, date, message, body, refs] = raw.split('|')
     const commit: Commit = {
-      path,
+      path: file.replace(srcDir, '').replace(cwd, '').replace(/^\//, ''),
       hash,
       date,
       date_timestamp: 0,

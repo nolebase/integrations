@@ -48,6 +48,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
   } = options
 
   let commits: Commit[] = []
+  let srcDir = ''
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -73,6 +74,10 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         ],
       },
     }),
+    configResolved(config) {
+      // @ts-expect-error The vitepress configuration is included in the vite configuration
+      srcDir = config.vitepress.srcDir
+    },
     async buildStart() {
       const startsAt = Date.now()
 
@@ -92,11 +97,12 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       const paths = await globby(include, {
         gitignore: true,
         cwd,
+        absolute: true,
       })
 
       commits = (await Promise.all(
         paths.map(async (path) => {
-          return await getCommits(path, cwd, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount, rewritePaths, rewritePathsBy)
+          return await getCommits(path, srcDir, cwd, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, maxGitLogCount, rewritePaths, rewritePathsBy)
         }),
       ))
         .flat()

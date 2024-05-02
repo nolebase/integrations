@@ -233,6 +233,10 @@ export async function getCommits(
   const fileDir = dirname(file)
   const fileName = basename(file)
   cwd = normalizePath(cwd)
+  // Explain: ${commit_hash} ${author_name} ${author_email} ${author_date} ${subject} ${ref}
+  // 
+  // Documentations
+  // https://git-scm.com/docs/pretty-formats
   const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, '--format=%H|%an|%ae|%ad|%s|%d|%d', '--follow', '--', fileName], { cwd: fileDir })
 
   const commits = await Promise.all(stdout.split('\n').map(async (raw) => {

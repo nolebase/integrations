@@ -34,6 +34,8 @@ export default defineConfig(() => {
 
 在 `GitChangelog` 插件中，您可以配置 `repoURL` 选项，使其指向您的 Git 仓库托管的 URL。这是插件正常工作的唯一必要选项。
 
+此外，由于 `GitChangelog` 插件需要调用 Git 程序并且涉及文件 IO，因此此功能会对启动与热更新速度造成严重影响，所以我们还推荐您设置 `apply: build`，以提高开发体验。
+
 但选项并不止于此。我们还有更多选项来配置插件，以满足您的需求。
 
 ::: details 完整选项
@@ -131,6 +133,12 @@ interface Options {
    * The maximum number of git logs to fetch.
    */
   maxGitLogCount?: number
+  /**
+   * Determine whether to enable the plugin in development mode.
+   *
+   * @default always
+   */
+  apply?: 'build' | 'always'
 }
 ```
 

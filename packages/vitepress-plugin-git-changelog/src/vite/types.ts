@@ -111,6 +111,12 @@ export interface GitChangelogOptions {
    * @deprecated
    */
   maxConcurrentProcesses?: number
+  /**
+   * Determine whether to enable the plugin in development mode.
+   *
+   * @default always
+   */
+  apply?: 'build' | 'always'
 }
 
 export interface GitChangelogMarkdownSectionOptions {

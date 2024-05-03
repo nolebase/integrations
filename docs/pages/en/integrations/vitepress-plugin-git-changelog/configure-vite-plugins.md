@@ -34,6 +34,8 @@ export default defineConfig(() => {
 
 In the `GitChangelog` plugin, you can configure the `repoURL` option to point to your repository URL. This is the only required option for the plugin to work properly.
 
+Since the `GitChangelog` plugin needs to call Git binary and involves file IO, this function will seriously affect the startup and hot update speed, so we also recommend you set `apply: build` to improve the development experience.
+
 But the options don't stop there. We have more options to configure the plugin to fit your needs.
 
 ::: details Full list of options
@@ -131,6 +133,12 @@ interface Options {
    * The maximum number of git logs to fetch.
    */
   maxGitLogCount?: number
+  /**
+   * Determine whether to enable the plugin in development mode.
+   *
+   * @default always
+   */
+  apply?: 'build' | 'always'
 }
 ```
 

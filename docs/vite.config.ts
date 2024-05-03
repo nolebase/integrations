@@ -152,6 +152,7 @@ export default defineConfig({
     OmitReplacing('@nolebase/ui/style.css', resolve(__dirname, '../packages/ui/dist/style.css')),
     Yaml() as Plugin,
     GitChangelog({
+      apply: 'build',
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',
     }),

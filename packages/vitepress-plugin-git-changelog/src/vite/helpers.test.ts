@@ -83,20 +83,6 @@ describe('parseGitLogRefsAsTags', () => {
   })
 })
 
-// describe('generateCommitPathsRegExp', () => {
-//   it('default', () => {
-//     expect(generateCommitPathsRegExp([], [])).toEqual(/^.+.md$/)
-//   })
-//   it('includeDirs', () => {
-//     expect(generateCommitPathsRegExp(['docs', 'packages'], [])).toEqual(/^(docs|packages)\/.+.md$/)
-//   })
-//   it('includeExtensions', () => {
-//     expect(generateCommitPathsRegExp([], ['.md', '.ts'])).toEqual(/^.+(.md|.ts)$/)
-//   })
-//   it('includeDirs and includeExtensions', () => {
-//     expect(generateCommitPathsRegExp(['docs', 'packages'], ['.md', '.ts'])).toEqual(/^(docs|packages)\/.+(.md|.ts)$/)
-//   })
-// })
 
 describe('parseCommits', () => {
   it('should init commit with fields transformed', async () => {

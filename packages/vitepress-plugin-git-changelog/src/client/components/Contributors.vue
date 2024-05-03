@@ -46,8 +46,14 @@ onMounted(async () => {
 const findRegisteredCreatorByName = (author_name: string) => options.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(author_name))
 const findRegisteredCreatorByEmail = (author_email: string) => options.mapContributors?.find(item => item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email))
 
-// This regular expression is used to match and parse commit messages that contain multiple author information.
-const multipleAuthorsRegex = /^ *?Co-authored-by:(.*)(?:<|\(|\[|\{)(.*)(?:>|\)|\]|\}) *?/gmi
+/**
+ * This regular expression is used to match and parse commit messages that contain multiple author information.
+ *
+ * @see {@link https://regex101.com/r/q5YB8m/1 | Regexp demo}
+ * @see {@link https://en.wikipedia.org/wiki/Email_address#Local-part | Email addres}
+ * @see {@link https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors | Creating a commit with multiple authors in GitHub}
+ */
+const multipleAuthorsRegex = /^ *?Co-authored-by: ?(.*) ?(?:<)(.*)(?:>) *?/gmi
 
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.
@@ -59,9 +65,8 @@ async function handleMultipleAuthors(map: Record<string, ContributorInfo>, c: Co
   multipleAuthorsRegex.lastIndex = 0
   // eslint-disable-next-line no-cond-assign
   while (result = multipleAuthorsRegex.exec(c.body)) {
-    let [, name, email] = result
-    email = email.trim()
-    handleCommitAuthors(map, name.trim(), email, await digestStringAsSHA256(email))
+    const [, name, email] = result
+    handleCommitAuthors(map, name.trim(), email.trim(), await digestStringAsSHA256(email))
   }
 }
 

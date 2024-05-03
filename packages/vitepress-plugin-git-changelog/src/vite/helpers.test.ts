@@ -83,7 +83,6 @@ describe('parseGitLogRefsAsTags', () => {
   })
 })
 
-
 describe('parseCommits', () => {
   it('should init commit with fields transformed', async () => {
     const mockedCommits = ['c16db1033fce57f50b261e9944c136a26fcaccc6|First Last|user@example.com|Mon Mar 25 20:05:53 2024 +0800|release: v1.24.3| (tag: v1.24.3)|Signed-off-by: First Last <user@example.com>\n']

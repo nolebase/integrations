@@ -1,5 +1,5 @@
 import { cwd as _cwd } from 'node:process'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin } from 'vite'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
@@ -40,7 +40,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     options = {}
 
   const {
-    apply = 'always',
     cwd = _cwd(),
     maxGitLogCount,
     include = ['**/*.md', '!node_modules'],
@@ -52,7 +51,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
   } = options
 
   let commits: Commit[] = []
-  let viteConfig: ResolvedConfig
+  let srcDir = ''
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -78,18 +77,14 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         ],
       },
     }),
-    configResolved(resolvedConfig) {
-      viteConfig = resolvedConfig
+    configResolved(config) {
+      // @ts-expect-error The vitepress configuration is included in the vite configuration
+      srcDir = config.vitepress.srcDir
     },
     async buildStart() {
       const startsAt = Date.now()
 
       const spinner = ora(`${logModulePrefix} Prepare to gather git logs...`).start()
-
-      if (apply === 'build' && viteConfig.command === 'serve') {
-        spinner.succeed(`${logModulePrefix} Skip gathering logs in development mode.`)
-        return
-      }
 
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
@@ -108,8 +103,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         absolute: true,
       })
 
-      // @ts-expect-error The vitepress configuration is included in the vite configuration
-      const srcDir = viteConfig.vitepress.srcDir
       commits = (await Promise.all(
         paths.map(async (path) => {
           const rawLogs = await getRawCommitLogs(path, maxGitLogCount)

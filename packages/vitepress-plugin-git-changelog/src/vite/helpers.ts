@@ -229,7 +229,7 @@ export async function getRawCommitLogs(file: string, maxGitLogCount?: number) {
    *
    * ${commit_hash} ${author_name} ${author_email} ${author_date} ${subject} ${ref} ${body}
    *
-   * @link [documentation](https://git-scm.com/docs/pretty-formats)
+   * @see {@link https://git-scm.com/docs/pretty-formats | documentation} for details.
    *
    * Note: Make sure that `body` is in last position, as `\n` or `|` in body may breaks subsequent processing.
    *

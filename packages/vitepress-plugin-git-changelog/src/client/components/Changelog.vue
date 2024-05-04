@@ -21,8 +21,8 @@ const toggleViewMore = ref(false)
 const options = inject(InjectionKey, { locales: defaultLocales })
 
 const { lang } = useData()
-const { t } = useI18n()
 const rawPath = useRawPath()
+const { t } = useI18n()
 const commits = useCommits(Changelog.commits, rawPath)
 
 const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))

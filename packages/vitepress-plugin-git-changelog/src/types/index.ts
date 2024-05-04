@@ -1,8 +1,11 @@
 export interface Commit {
   /**
-   * The path of the file that the commit is related to.
+   * The file path for this commit.
+   *
+   * When the file is located in `srcDir`, the path is relative to `srcDir`.
+   * Otherwise, the path is relative to cwd. Paths without `. /`.
    */
-  paths: string[][]
+  path: string
   /**
    * The matched first tag of the commit.
    */

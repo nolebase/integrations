@@ -1,7 +1,7 @@
-import { extname, posix, relative, sep, win32 } from 'node:path'
+import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:path'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
-import type { DefaultLogFields, ListLogLine } from 'simple-git'
+import { execa } from 'execa'
 import type { Commit } from '../types'
 
 export interface Helpers {
@@ -141,17 +141,10 @@ export async function returnOrResolvePromise<T>(val: T | Promise<T>) {
   return await val
 }
 
-export function rewritePaths(path: string[][], rewritePaths: Record<string, string>) {
+export function rewritePaths(path: string, rewritePaths: Record<string, string>) {
   // rewrite paths
-  for (const [index, files] of path.entries()) {
-    for (const [key, value] of Object.entries(rewritePaths)) {
-      if (files[1])
-        path[index][1] = files[1].replace(key, value)
-
-      if (files[2])
-        path[index][2] = files[2].replace(key, value)
-    }
-  }
+  for (const [key, value] of Object.entries(rewritePaths))
+    path = path.replace(key, value)
 
   return path
 }
@@ -221,52 +214,97 @@ export function parseGitLogRefsAsTags(refs?: string): string[] {
  * - includeDirs is set, it is /^(${includeDirs.join('|')})\/.+.md$/
  * - includeExtensions is set, it is /^.+(${includeExtensions.join('|')})$/
  * - in another word, /^(includeDir1|includeDir2)\/.+(includeExtension1|includeExtensions2)$/
+ *
+ * @deprecated
  */
 export function generateCommitPathsRegExp(includeDirs: string[], includeExtensions: `.${string}`[]): RegExp {
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }
 
-export type SimpleGitCommit = Readonly<Readonly<(DefaultLogFields & ListLogLine)>[]>
+export async function getRawCommitLogs(file: string, maxGitLogCount?: number) {
+  const fileDir = dirname(file)
+  const fileName = basename(file)
+  /**
+   * The format of git log.
+   *
+   * ${commit_hash} ${author_name} ${author_email} ${author_date} ${subject} ${ref} ${body}
+   *
+   * @see {@link https://git-scm.com/docs/pretty-formats | documentation} for details.
+   *
+   * Note: Make sure that `body` is in last position, as `\n` or `|` in body may breaks subsequent processing.
+   *
+   * @example stdout
+   *
+   * ```bash
+   * $ git log --format="%H|%an|%ae|%ad|%s|%d|%b[GIT_LOG_COMMIT_END]" --follow docs/pages/en/integrations/index.md
+   * 62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|Neko Ayaka|neko@ayaka.moe|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: Neko Ayaka <neko@ayaka.moe>
+   * [GIT_LOG_COMMIT_END]
+   * 34357cc0956db77d1fc597327ba880d7eebf67ce|Rizumu Ayaka|rizumu@ayaka.moe|Mon Apr 22 22:51:24 2024 +0800|release: pre-release v2.0.0-rc10| (tag: v2.0.0-rc10)|Signed-off-by: Rizumu Ayaka <rizumu@ayaka.moe>
+   * [GIT_LOG_COMMIT_END]
+   * (END)
+   * ```
+   */
+  const format = '%H|%an|%ae|%ad|%s|%d|%b'
+  const { stdout } = await execa('git', ['log', `--max-count=${maxGitLogCount ?? -1}`, `--format=${format}[GIT_LOG_COMMIT_END]`, '--follow', '--', fileName], { cwd: fileDir })
+  // remove "[GIT_LOG_COMMIT_END]" in last line: split stdout into lines and avoid empty strings
+  return stdout.replace(/\[GIT_LOG_COMMIT_END\]$/, '').split('[GIT_LOG_COMMIT_END]\n')
+}
 
-export async function initCommitWithFieldsTransformed(
-  commit: SimpleGitCommit[number],
+export function getRelativePath(file: string, srcDir: string, cwd: string) {
+  cwd = normalizePath(cwd)
+  return file.replace(srcDir, '').replace(cwd, '').replace(/^\//, '')
+}
+
+export async function parseCommits(
+  path: string,
+  rawLogs: string[],
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
-): Promise<Commit> {
-  const transformedCommit: Commit = {
-    paths: [],
-    hash: commit.hash,
-    date: commit.date,
-    date_timestamp: 0,
-    message: commit.message,
-    refs: commit.refs,
-    body: commit.body,
-    author_name: commit.author_name,
-    author_email: commit.author_email,
-    author_avatar: '',
-  }
+  optsRewritePathsBy?: RewritePathsBy,
+): Promise<Commit[]> {
+  const commits = await Promise.all(rawLogs.map(async (raw) => {
+    const [hash, author_name, author_email, date, message, refs, body] = raw.split('|')
+    const commit: Commit = {
+      path,
+      hash,
+      date,
+      date_timestamp: 0,
+      message,
+      body,
+      author_name,
+      author_email,
+      author_avatar: '',
+    }
 
-  // repo url
-  transformedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(transformedCommit))) ?? 'https://github.com/example/example'
-  // hash url
-  transformedCommit.hash_url = (await returnOrResolvePromise(getCommitURL(transformedCommit))) ?? defaultCommitURLHandler(transformedCommit)
+    // rewrite path
+    if (typeof optsRewritePathsBy !== 'undefined')
+      commit.path = await rewritePathsByPatterns(commit, commit.path, optsRewritePathsBy)
 
-  const tags = parseGitLogRefsAsTags(transformedCommit.refs)
+    // repo url
+    commit.repo_url = (await returnOrResolvePromise(getRepoURL(commit))) ?? 'https://github.com/example/example'
+    // hash url
+    commit.hash_url = (await returnOrResolvePromise(getCommitURL(commit))) ?? defaultCommitURLHandler(commit)
 
-  // release logs
-  if (tags && tags.length > 0) {
-    transformedCommit.tags = tags
-    transformedCommit.tag = transformedCommit.tags?.[0] || undefined
-    transformedCommit.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(transformedCommit))) ?? defaultReleaseTagURLHandler(transformedCommit)
-    transformedCommit.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(transformedCommit))) ?? defaultReleaseTagsURLHandler(transformedCommit)
-  }
+    // remove `()` in refs, e.g. ` (tag: v2.0.0-rc7)`
+    const tags = parseGitLogRefsAsTags(refs?.replace(/[\(\)]/g, ''))
 
-  // timestamp
-  transformedCommit.date_timestamp = new Date(commit.date).getTime()
-  // generate author avatar based on md5 hash of email (gravatar style)
-  transformedCommit.author_avatar = await digestStringAsSHA256(commit.author_email)
+    // release logs
+    if (tags && tags.length > 0) {
+      commit.tags = tags
+      commit.tag = commit.tags?.[0] || undefined
+      commit.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(commit))) ?? defaultReleaseTagURLHandler(commit)
+      commit.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(commit))) ?? defaultReleaseTagsURLHandler(commit)
+    }
 
-  return transformedCommit
+    // timestamp
+    commit.date_timestamp = new Date(commit.date).getTime()
+    // generate author avatar based on md5 hash of email (gravatar style)
+    commit.author_avatar = await digestStringAsSHA256(commit.author_email)
+
+    return commit
+  }))
+
+  return commits
 }

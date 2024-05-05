@@ -141,6 +141,15 @@ const defaultOptions: NolebasePluginPresetOptions = {
               dateFnsLocaleName: 'enUS',
             },
           },
+          {
+            key: 'someCustomProperty',
+            type: 'dynamic',
+            title: 'Some custom property',
+            options: {
+              type: 'custom',
+              getter: () => 'Custom value',
+            },
+          },
         ],
         'zh-CN': [
           {
@@ -182,6 +191,15 @@ const defaultOptions: NolebasePluginPresetOptions = {
             options: {
               type: 'readingTime',
               dateFnsLocaleName: 'zhCN',
+            },
+          },
+          {
+            key: 'someCustomProperty',
+            type: 'dynamic',
+            title: '自定义属性',
+            options: {
+              type: 'custom',
+              getter: () => 'Custom value',
             },
           },
         ],

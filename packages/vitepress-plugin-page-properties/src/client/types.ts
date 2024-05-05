@@ -1,3 +1,5 @@
+import type { VitePressData } from 'vitepress'
+
 export interface TagsProperty<K extends PropertyKey> {
   type: 'tags'
   key: K
@@ -36,14 +38,17 @@ export interface LinkProperty<K extends PropertyKey> {
   omitEmpty?: boolean
 }
 
-export interface DynamicProperty<K extends PropertyKey> {
+export interface DynamicProperty<K extends PropertyKey, OP extends DynamicPropertyOptions = DynamicPropertyOptions> {
   type: 'dynamic'
   key: K | string
   title: string
-  options:
-    DynamicWordsCountProperty |
-    DynamicReadingTimeProperty
+  options: OP
 }
+
+export type DynamicPropertyOptions =
+  | DynamicWordsCountProperty
+  | DynamicReadingTimeProperty
+  | DynamicCustomProperty
 
 export interface DynamicWordsCountProperty {
   type: 'wordsCount'
@@ -54,13 +59,18 @@ export interface DynamicReadingTimeProperty {
   dateFnsLocaleName?: string
 }
 
+export interface DynamicCustomProperty {
+  type: 'custom'
+  getter: (data: VitePressData) => string | Promise<string>
+}
+
 export type Property<K extends PropertyKey> =
-  TagsProperty<K> |
-  PlainProperty<K> |
-  DatetimeProperty<K> |
-  ProgressProperty<K> |
-  LinkProperty<K> |
-  DynamicProperty<K>
+  | TagsProperty<K>
+  | PlainProperty<K>
+  | DatetimeProperty<K>
+  | ProgressProperty<K>
+  | LinkProperty<K>
+  | DynamicProperty<K>
 
 export type PropertyType = Property<PropertyKey>['type']
 export type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']

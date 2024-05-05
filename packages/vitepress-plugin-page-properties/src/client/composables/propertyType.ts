@@ -1,6 +1,9 @@
 import type {
   DatetimeProperty,
+  DynamicCustomProperty,
   DynamicProperty,
+  DynamicReadingTimeProperty,
+  DynamicWordsCountProperty,
   LinkProperty,
   PlainProperty,
   ProgressProperty,
@@ -53,15 +56,22 @@ export function isLinkProperty(_?: any, property?: Property<PropertyKey> | null)
   return false
 }
 
-export function isDynamicWordsCountProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
+export function isDynamicWordsCountProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey, DynamicWordsCountProperty> | null {
   if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'wordsCount')
     return true
 
   return false
 }
 
-export function isDynamicReadingTimeProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey> | null {
+export function isDynamicReadingTimeProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey, DynamicReadingTimeProperty> | null {
   if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'readingTime')
+    return true
+
+  return false
+}
+
+export function isDynamicCustomProperty(_?: any, property?: Property<PropertyKey> | null): property is DynamicProperty<PropertyKey, DynamicCustomProperty> | null {
+  if (property && property.type && property.type === 'dynamic' && property.options && property.options.type === 'custom')
     return true
 
   return false

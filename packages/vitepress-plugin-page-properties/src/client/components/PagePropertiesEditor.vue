@@ -6,6 +6,7 @@ import { NuTag } from '@nolebase/ui'
 import { InjectionKey } from '../constants'
 import {
   isDatetimeProperty,
+  isDynamicCustomProperty,
   isDynamicReadingTimeProperty,
   isDynamicWordsCountProperty,
   isLinkProperty,
@@ -18,11 +19,13 @@ import { useI18n } from '../composables/i18n'
 import { usePageProperties } from '../composables/data'
 import { formatDurationFromValue } from '../utils'
 
+import type { Property } from '../types'
 import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
 const options = inject(InjectionKey, {})
-const { lang, frontmatter } = useData()
+const vitePressData = useData()
+const { lang, frontmatter } = vitePressData
 const { t } = useI18n()
 const rawPath = useRawPath()
 const pagePropertiesData = usePageProperties()
@@ -172,6 +175,9 @@ const readingTime = computed(() => {
             <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty)">
               <div i-icon-park-outline:timer mr-1 />
             </template>
+            <template v-else-if="isDynamicCustomProperty(property.value, property.pageProperty)">
+              <div i-icon-park-outline:block-nine mr-1 />
+            </template>
             <template v-else-if="typeof property.value === 'object'">
               <div i-icon-park-outline:triangle-round-rectangle mr-1 />
             </template>
@@ -267,6 +273,17 @@ const readingTime = computed(() => {
               w-full inline-flex items-center
             >
               <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
+            </div>
+          </template>
+          <template v-else-if="isDynamicCustomProperty(property.value, property.pageProperty)">
+            <div
+              class="vp-nolebase-page-property"
+              data-page-property="value"
+              data-page-property-type="dynamic"
+              data-page-property-dynamic-type="custom"
+              w-full inline-flex items-center
+            >
+              <span>{{ property.pageProperty.options.getter(vitePressData) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

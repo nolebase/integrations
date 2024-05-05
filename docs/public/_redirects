@@ -1,2 +1,10 @@
+# Plausible.io analytics
+#
+# Proxying Plausible through Netlify | Plausible docs
+# https://plausible.io/docs/proxy/guides/netlify
+/assets/page-external-data/js/script.js https://plausible.io/js/script.js 200
+/api/v1/page-external-data/submit https://plausible.io/api/event 200
+
+# i18n
 /*  /pages/en/:splat     301
 /*  /pages/zh-CN/:splat  301  Language=zh-cn

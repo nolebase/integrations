@@ -28,7 +28,9 @@
     "nolebase",
     "nolebase-integration"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -84,7 +86,7 @@
     }
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/octicon": "^1.1.54",
     "less": "^4.2.0"
   },
   "devDependencies": {

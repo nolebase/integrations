@@ -28,7 +28,9 @@
     "preview-image",
     "meta"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/vitepress/index.d.ts",
@@ -59,11 +61,11 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
-    "@resvg/resvg-js": "^2.6.0",
+    "@resvg/resvg-js": "^2.6.2",
     "colorette": "^2.0.20",
     "emoji-regex": "^10.3.0",
     "fs-extra": "^11.2.0",
-    "glob": "^10.3.10",
+    "glob": "^10.3.12",
     "gray-matter": "^4.0.3",
     "ora": "^8.0.1",
     "rehype": "^13.0.1",

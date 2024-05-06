@@ -24,7 +24,9 @@
     "vitepress-plugin",
     "nolebase-integration"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/client/index.d.ts",
@@ -61,7 +63,7 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
-    "@iconify-json/carbon": "^1.1.31",
+    "@iconify-json/carbon": "^1.1.32",
     "@iconify-json/icon-park-outline": "^1.1.15",
     "@nolebase/ui": "workspace:^",
     "less": "^4.2.0"

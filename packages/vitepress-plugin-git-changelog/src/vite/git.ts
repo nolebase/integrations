@@ -1,5 +1,6 @@
 import { cwd as _cwd } from 'node:process'
-import type { Plugin } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
+import type { SiteConfig } from 'vitepress'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
@@ -30,6 +31,10 @@ export {
   rewritePathsByRewritingExtension,
 }
 
+interface VitePressConfig extends ResolvedConfig {
+  vitepress: SiteConfig
+}
+
 const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
@@ -51,7 +56,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
   } = options
 
   let commits: Commit[] = []
-  let srcDir = ''
+  let config: VitePressConfig
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -77,14 +82,15 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         ],
       },
     }),
-    configResolved(config) {
-      // @ts-expect-error The vitepress configuration is included in the vite configuration
-      srcDir = config.vitepress.srcDir
+    configResolved(_config) {
+      config = _config as VitePressConfig
     },
     async buildStart() {
       const startsAt = Date.now()
 
-      const spinner = ora(`${logModulePrefix} Prepare to gather git logs...`).start()
+      const spinner = ora({ discardStdin: false, isEnabled: config.command === 'serve' })
+
+      spinner.start(`${logModulePrefix} Prepare to gather git logs...`)
 
       const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
@@ -102,6 +108,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         cwd,
         absolute: true,
       })
+
+      const srcDir = config.vitepress.srcDir
 
       commits = (await Promise.all(
         paths.map(async (path) => {

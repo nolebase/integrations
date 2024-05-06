@@ -128,7 +128,9 @@ export function ThumbnailHashImages(): Plugin {
       const grayPrefix = gray(':')
       const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
 
-      const spinner = ora(`${spinnerPrefix} Prepare to generate hashes for images...`).start()
+      const spinner = ora({ discardStdin: false, isEnabled: config.command === 'serve' })
+
+      spinner.start(`${spinnerPrefix} Prepare to generate hashes for images...`)
 
       const cacheDir = join(vitepressConfig.cacheDir, '@nolebase', 'vitepress-plugin-thumbnail-hash', 'thumbhashes')
       await mkdir(cacheDir, { recursive: true })

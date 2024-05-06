@@ -133,11 +133,10 @@ async function handleCommitAuthors(map: Record<string, ContributorInfo>, authorN
         <a
           v-if="(typeof c.url !== 'undefined')"
           :href="c.url"
+          class="flex items-center gap-2"
         >
-          <div class="flex items-center gap-2">
-            <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
-            {{ c.name }}
-          </div>
+          <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
+          {{ c.name }}
         </a>
         <div
           v-else

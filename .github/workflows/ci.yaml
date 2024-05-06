@@ -55,6 +55,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Stub
+        run: pnpm run packages:stub
+
       - name: Test
         run: pnpm run test:run
 

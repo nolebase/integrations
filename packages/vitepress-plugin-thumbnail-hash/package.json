@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-thumbnail-hash",
   "type": "module",
-  "version": "2.0.0-rc10",
+  "version": "2.0.0-rc11",
   "description": "A VitePress plugin that scan and generate data with blurhash, thumbhash hashing algorithm for images, as well as a standalone component to render images with blurhash and thumbhash.",
   "author": {
     "name": "Nólëbase",

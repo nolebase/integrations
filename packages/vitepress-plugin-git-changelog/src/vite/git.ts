@@ -88,7 +88,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     async buildStart() {
       const startsAt = Date.now()
 
-      const spinner = ora({ discardStdin: false, isSilent: config.command === 'build' })
+      const spinner = ora({ discardStdin: false, isEnabled: config.command === 'serve' })
 
       spinner.start(`${logModulePrefix} Prepare to gather git logs...`)
 

@@ -128,7 +128,7 @@ export function ThumbnailHashImages(): Plugin {
       const grayPrefix = gray(':')
       const spinnerPrefix = `${moduleNamePrefix}${grayPrefix}`
 
-      const spinner = ora({ discardStdin: false, isSilent: config.command === 'build' })
+      const spinner = ora({ discardStdin: false, isEnabled: config.command === 'serve' })
 
       spinner.start(`${spinnerPrefix} Prepare to generate hashes for images...`)
 

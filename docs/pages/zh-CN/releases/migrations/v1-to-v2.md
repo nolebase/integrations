@@ -202,6 +202,13 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css' //
 import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' // [!code ++]
 ```
 
+## 基于 Git 的页面历史
+
+1.`includeDirs` 和 `includeExtensions` 已被弃用并合并到 `include` 中，配置时，可以使用带有 `!` 作为否定的 glob 匹配模式。
+2.如果最终会被渲染的文件所对应的页面文件位于 VitePress 根目录（即 `.vitepress`所在目录）之外，**请将 `cwd`（当前工作目录）配置为页面文件的父目录**。(例如，在 Monorepo 中，如果需要读取 `docs/` 以外的文件，则需要将 `cwd` 设置为 Monorepo 的根目录，而不是 VitePress 的根目录）。
+3.不再需要配置 `rewritePaths`，因此 `rewritePaths` 已被弃用，可以安全删除。
+4.`rewritePaths` 模式应配置为针对文件系统路径，而不是 URL 路由路径。
+
 ## 预览图片（社交媒体卡片）生成
 
 在 `@nolebase/vitepress-plugin-og-image` 插件中有一些破坏性更改。

@@ -202,6 +202,13 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/dist/style.css' //
 import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' // [!code ++]
 ```
 
+## Git-based page histories
+
+1. `includeDirs` and `includeExtensions` have been deprecated and merged into `include`, which is a list of glob modes with `!` negation.
+2. If a renderable page file located outside of the VitePress root (where `.vitepress` lives), please configure the `cwd` (current working directory) to the parent directory of the page files. (For example, in a Monorepo, if the source file that rendered a page s located outside of `docs/`, you need to set `cwd` to the root directory of the Monorepo instead of the root of VitePress.)
+3. No longer needed to configure `rewritePaths`, therefor `rewritePaths` is now deprecated, can be safely removed.
+4. `rewritePaths` pattern should be configured in the against to filesystem paths, not the URL route paths.
+
 ## Previewing image (social media card) generation
 
 There are some breaking changes in the `@nolebase/vitepress-plugin-og-image` plugin.

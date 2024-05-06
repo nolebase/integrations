@@ -49,10 +49,10 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "glob": "^10.3.10"
+    "glob": "^10.3.12"
   },
   "devDependencies": {
-    "@types/markdown-it": "^13.0.7",
+    "@types/markdown-it": "^13.0.8",
     "markdown-it": "^13.0.2"
   }
 }

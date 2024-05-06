@@ -25,7 +25,9 @@
     "vitepress-plugin",
     "nolebase-integration"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/client/index.d.ts",
@@ -68,7 +70,7 @@
   },
   "dependencies": {
     "@iconify-json/icon-park-outline": "^1.1.15",
-    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/octicon": "^1.1.54",
     "@iconify-json/svg-spinners": "^1.1.2",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
@@ -78,7 +80,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",
-    "@types/markdown-it": "^13.0.7",
+    "@types/markdown-it": "^13.0.8",
     "@types/markdown-it-attrs": "^4.1.3"
   }
 }

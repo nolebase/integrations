@@ -11,9 +11,9 @@
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.31",
+    "@iconify-json/carbon": "^1.1.32",
     "@iconify-json/icon-park-outline": "^1.1.15",
-    "@iconify-json/octicon": "^1.1.53",
+    "@iconify-json/octicon": "^1.1.54",
     "@iconify-json/svg-spinners": "^1.1.2",
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
@@ -28,16 +28,16 @@
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "@rive-app/canvas": "^2.11.1",
+    "@rive-app/canvas": "^2.15.2",
     "@rollup/plugin-yaml": "^4.1.2",
-    "@shikijs/vitepress-twoslash": "^1.2.4",
-    "@types/markdown-it": "^13.0.7",
+    "@shikijs/vitepress-twoslash": "^1.4.0",
+    "@types/markdown-it": "^13.0.8",
     "@types/markdown-it-footnote": "^3.0.4",
     "asciinema-player": "^3.7.1",
     "colorette": "^2.0.20",
     "markdown-it": "^13.0.2",
     "markdown-it-footnote": "^4.0.0",
     "thumbhash": "^0.1.1",
-    "unlazy": "^0.11.2"
+    "unlazy": "^0.11.3"
   }
 }

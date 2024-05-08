@@ -203,17 +203,24 @@ watch(mounted, render)
       :style="{ height: `${width}px` }"
       mb-4 w-full cursor-move overflow-hidden rounded-md
     />
-    <div>
-      <div class="bar" flex items-center justify-center>
-        <div bg="[#f6f3ef] dark:[#191717]" text="yellow-900 dark:yellow-50/90" block w-fit px-2 py-1 text-center text-sm font-mono translate-y="[0.5px]" leading="[12px]">
-          <span>CONSTRUCTING</span>
-        </div>
+    <div class="bar" flex items-center justify-center>
+      <div
+        bg="[#f6f3ef] dark:[#191717]"
+        font-baloo-2 block w-fit px-1 py-1
+      >
+        <span
+          block
+          leading="[16px]"
+          text="xl center yellow-900 dark:yellow-50"
+        >
+          CONSTRUCTING
+        </span>
       </div>
     </div>
   </div>
 </template>
 
-<style>
+<style scoped>
 .bar {
   position: absolute;
   width: 100%;
@@ -226,8 +233,8 @@ watch(mounted, render)
     45deg,
     #ffd66e,
     #ffd66e 6px,
-    #ffefcb23 6px,
-    #ffefcb23 12px
+    #ffe8b227 6px,
+    #ffe8b227 12px
   );
 }
 

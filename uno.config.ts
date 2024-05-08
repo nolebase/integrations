@@ -1,4 +1,10 @@
-import { defineConfig, presetAttributify, presetIcons, presetUno } from 'unocss'
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  presetWebFonts,
+} from 'unocss'
 
 export default defineConfig({
   shortcuts: [],
@@ -17,6 +23,13 @@ export default defineConfig({
       },
       warn: true,
       autoInstall: true,
+    }),
+    presetWebFonts({
+      fonts: {
+        'chakra-petch': ['Chakra Petch'],
+        'baloo-2': ['Baloo 2'],
+        'jura': ['Jura'],
+      },
     }),
   ],
 })

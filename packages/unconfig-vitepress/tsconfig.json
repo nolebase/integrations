@@ -23,7 +23,7 @@
         "../vitepress-plugin-git-changelog/src/*"
       ],
       "@nolebase/vitepress-plugin-graph-view/*": [
-        "./packages/vitepress-plugin-graph-view/src/*"
+        "../vitepress-plugin-graph-view/src/*"
       ],
       "@nolebase/vitepress-plugin-page-properties/*": [
         "../vitepress-plugin-page-properties/src/*"

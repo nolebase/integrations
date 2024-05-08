@@ -251,6 +251,9 @@ importers:
       '@nolebase/vitepress-plugin-git-changelog':
         specifier: workspace:^
         version: link:../vitepress-plugin-git-changelog
+      '@nolebase/vitepress-plugin-graph-view':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-graph-view
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: workspace:^
         version: link:../vitepress-plugin-highlight-targeted-heading

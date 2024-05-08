@@ -21,7 +21,7 @@ jobs:
       matrix:
         node-version: ['20.x', '22.x']
 
-    name: Unit tests - ${{ matrix.node-version }}
+    name: Unit Tests - ${{ matrix.node-version }}
     runs-on: 'ubuntu-latest'
 
     steps:
@@ -36,7 +36,7 @@ jobs:
       - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
-          version: '9.0.6'
+          version: '9.1.0'
           run_install: false
 
       - name: Get pnpm store directory
@@ -62,26 +62,22 @@ jobs:
         run: pnpm run test:run
 
   lint:
-    strategy:
-      matrix:
-        node-version: ['18.x', '20.x']
-
-    name: Lint - ${{ matrix.node-version }}
+    name: Lint
     runs-on: 'ubuntu-latest'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
+      - name: Install Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '22.x'
 
       - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
-          version: '9.0.6'
+          version: '9.1.0'
           run_install: false
 
       - name: Get pnpm store directory
@@ -103,27 +99,23 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-  packages-build-test:
-    strategy:
-      matrix:
-        node-version: ['18.x', '20.x']
-
-    name: Packages Build Test - ${{ matrix.node-version }}
+  package-build-test:
+    name: Packages Build Test
     runs-on: 'ubuntu-latest'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
+      - name: Install Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '22.x'
 
       - uses: pnpm/action-setup@v3
         name: Install pnpm
         with:
-          version: '9.0.6'
+          version: '9.1.0'
           run_install: false
 
       - name: Get pnpm store directory
@@ -142,5 +134,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Packages Build
         run: pnpm run packages:build

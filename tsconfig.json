@@ -31,6 +31,9 @@
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
       ],
+      "@nolebase/vitepress-plugin-graph-view/*": [
+        "./packages/vitepress-plugin-graph-view/src/*"
+      ],
       "@nolebase/vitepress-plugin-page-properties/*": [
         "./packages/vitepress-plugin-page-properties/src/*"
       ],

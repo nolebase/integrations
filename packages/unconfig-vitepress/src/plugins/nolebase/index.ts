@@ -40,6 +40,10 @@ import {
   NolebaseUnlazyImg,
 } from '@nolebase/vitepress-plugin-thumbnail-hash/client'
 
+import {
+  NolebaseGraphView,
+} from '@nolebase/vitepress-plugin-graph-view/client'
+
 import type { PluginSet } from '../../types'
 
 export interface NolebasePluginPresetOptions<PagePropertiesObject extends object = any> {
@@ -57,6 +61,9 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
   gitChangelog?: {
     enable?: boolean
     options?: NolebaseGitChangelogOptions
+  }
+  graphView?: {
+    enable?: boolean
   }
   pageProperties?: {
     enable?: boolean
@@ -93,6 +100,9 @@ const defaultOptions: NolebasePluginPresetOptions = {
     options: {
       mapContributors: [],
     },
+  },
+  graphView: {
+    enable: true,
   },
   pageProperties: {
     enable: true,
@@ -222,6 +232,9 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
         helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
         helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
       }
+
+      if (opts.graphView?.enable)
+        helpers.defineSlot('aside-top', () => h(NolebaseGraphView))
     },
     async enhanceApp({ app }) {
       if (opts.enhancedReadabilities?.enable) {

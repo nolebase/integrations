@@ -23,6 +23,7 @@
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
+    "@nolebase/vitepress-plugin-graph-view": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",

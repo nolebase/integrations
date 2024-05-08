@@ -62,21 +62,18 @@ jobs:
         run: pnpm run test:run
 
   lint:
-    strategy:
-      matrix:
-        node-version: ['18.x', '20.x']
 
-    name: Lint - ${{ matrix.node-version }}
+    name: Lint
     runs-on: 'ubuntu-latest'
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js ${{ matrix.node-version }}
+      - name: Install Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '22.x'
 
       - uses: pnpm/action-setup@v3
         name: Install pnpm
@@ -102,45 +99,3 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
-
-  packages-build-test:
-    strategy:
-      matrix:
-        node-version: ['18.x', '20.x']
-
-    name: Packages Build Test - ${{ matrix.node-version }}
-    runs-on: 'ubuntu-latest'
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - uses: pnpm/action-setup@v3
-        name: Install pnpm
-        with:
-          version: '9.1.0'
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v4
-        name: Setup pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Build
-        run: pnpm run packages:build

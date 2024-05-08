@@ -1,0 +1,78 @@
+{
+  "name": "@nolebase/vitepress-plugin-graph-view",
+  "type": "module",
+  "version": "0.1.0",
+  "private": "true",
+  "description": "A VitePress plugin that provides a graph view for your pages.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-graph-view/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-graph-view"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "vite",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.mjs",
+      "require": "./dist/vite/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
+    },
+    "./client/style.css": "./dist/client/style.css",
+    "./vite": {
+      "types": "./dist/vite/index.d.ts",
+      "import": "./dist/vite/index.mjs",
+      "require": "./dist/vite/index.cjs"
+    }
+  },
+  "main": "./dist/vite/index.cjs",
+  "module": "./dist/vite/index.mjs",
+  "types": "./dist/vite/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
+    "build": "unbuild"
+  },
+  "peerDependencies": {
+    "vitepress": "^1.0.0"
+  },
+  "dependencies": {
+    "colorette": "^2.0.20",
+    "d3": "^7.9.0",
+    "d3-force": "^3.0.0",
+    "glob": "^10.3.12",
+    "less": "^4.2.0",
+    "ora": "^8.0.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/d3-force": "^3.0.9",
+    "builtin-modules": "^3.3.0",
+    "fs-extra": "^11.2.0"
+  }
+}

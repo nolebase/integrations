@@ -219,8 +219,8 @@ watch(mounted, render)
         <span
           block
           leading="[16px]"
-          text="xl center yellow-900 dark:yellow-50"
-          translate-y="[0.6px]"
+          text="xl center stone-700 dark:yellow-50"
+          translate-y="[0.8px]"
         >
           CONSTRUCTING
         </span>

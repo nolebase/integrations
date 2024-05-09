@@ -1,7 +1,6 @@
 import { basename, dirname, join, relative, resolve, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { fileURLToPath } from 'node:url'
-import type { Buffer } from 'node:buffer'
 import fs from 'fs-extra'
 import { glob } from 'glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
@@ -148,10 +147,21 @@ async function renderSVGAndSavePNG(
     fontPath?: string
   },
 ) {
-  let pngBuffer: Buffer
-
   try {
-    pngBuffer = await renderSVG(svgContent, { fontPath: options.fontPath })
+    const pngBuffer = await renderSVG(svgContent, { fontPath: options.fontPath })
+
+    try {
+      await fs.writeFile(saveAs, pngBuffer, 'binary')
+    }
+    catch (err) {
+      console.error(
+        `${logModulePrefix} `,
+        `${red('[ERROR] ✗')} open graph image rendered successfully, but failed to write generated open graph image on path [${saveAs}] due to ${err}`,
+        `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
+      )
+
+      throw err
+    }
   }
   catch (err) {
     console.error(
@@ -160,19 +170,6 @@ async function renderSVGAndSavePNG(
       `skipped open graph image generation for ${green(`[${forFile}]`)}`,
       `\n\nSVG Content:\n\n${svgContent}`,
       `\n\nDetailed stack information bellow:\n\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
-    )
-
-    throw err
-  }
-
-  try {
-    await fs.writeFile(saveAs, pngBuffer, 'binary')
-  }
-  catch (err) {
-    console.error(
-      `${logModulePrefix} `,
-      `${red('[ERROR] ✗')} open graph image rendered successfully, but failed to write generated open graph image on path [${saveAs}] due to ${err}`,
-      `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
     )
 
     throw err

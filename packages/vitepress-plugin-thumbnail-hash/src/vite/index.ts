@@ -5,7 +5,7 @@ import { type Plugin, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
 
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
-import { createCanvas, loadImage } from '@napi-rs/canvas'
+import CanvasKitInit from 'canvaskit-wasm'
 import { cyan, gray } from 'colorette'
 import ora from 'ora'
 import { glob } from 'glob'
@@ -32,21 +32,25 @@ interface VitePressConfig {
  * @returns {Promise<Omit<ThumbHash, 'fileName' | 'assetUrl' | 'assetUrlWithBase'>>} - The thumbhash data of the image
  */
 async function calculateThumbHashForFile(imageData: Uint8Array): Promise<ThumbHashCalculated> {
-  const image = await loadImage(imageData)
-  const width = image.width
-  const height = image.height
+  const canvasKit = await CanvasKitInit()
+  const image = canvasKit.MakeImageFromEncoded(imageData)
+  if (!image)
+    throw new Error('Failed to make image from encoded data.')
+
+  const width = image.width()
+  const height = image.height()
 
   const scale = 100 / Math.max(width, height)
   const resizedWidth = Math.round(width * scale)
   const resizedHeight = Math.round(height * scale)
 
   // Paint the image to the canvas.
-  const canvas = createCanvas(resizedWidth, resizedHeight)
-  const context = canvas.getContext('2d')
-  context.drawImage(image, 0, 0, canvas.width, canvas.height)
+  const canvas = canvasKit.MakeCanvas(resizedWidth, resizedHeight)
+  const context = canvas.getContext('2d')!
+  context.drawImage(image as unknown as CanvasImageSource, 0, 0, resizedWidth, resizedHeight)
   // Retrieve back the image data for thumbhash calculation as the
   // form of RGBA matrix.
-  const pixels = context.getImageData(0, 0, canvas.width, canvas.height)
+  const pixels = context.getImageData(0, 0, resizedWidth, resizedHeight)
 
   // Easy calculation of thumbhash data.
   const thumbHashBinary = rgbaToThumbHash(pixels.width, pixels.height, pixels.data)

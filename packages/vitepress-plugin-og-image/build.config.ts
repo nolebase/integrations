@@ -14,8 +14,8 @@ export default defineBuildConfig({
     'fs-extra',
     'glob',
     'emoji-regex',
-    '@resvg/resvg-js',
     'gray-matter',
+    '@resvg/resvg-wasm',
   ],
   rollup: {
     emitCJS: true,

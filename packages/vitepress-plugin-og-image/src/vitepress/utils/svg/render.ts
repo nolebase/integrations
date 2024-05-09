@@ -1,5 +1,4 @@
-import type { Buffer } from 'node:buffer'
-import { Resvg } from '@resvg/resvg-js'
+import { Resvg } from '@resvg/resvg-wasm'
 
 import { removeEmoji } from '../emoji'
 import { escape } from './escape'
@@ -40,11 +39,9 @@ export function templateSVG(siteName: string, siteDescription: string, title: st
   })
 }
 
-export async function renderSVG(svgContent: string, options?: { fontPath?: string }): Promise<Buffer> {
-  let resvg: Resvg
-
+export async function renderSVG(svgContent: string, options?: { fontPath?: string }): Promise<Uint8Array> {
   try {
-    resvg = new Resvg(svgContent, {
+    const resvg = new Resvg(svgContent, {
       fitTo: { mode: 'width', value: 1200 },
       font: {
         fontFiles: options?.fontPath ? [options.fontPath] : [],
@@ -52,15 +49,15 @@ export async function renderSVG(svgContent: string, options?: { fontPath?: strin
         loadSystemFonts: false,
       },
     })
+
+    try {
+      return resvg.render().asPng()
+    }
+    catch (err) {
+      throw new Error(`Failed to render open graph images on path due to ${err}`)
+    }
   }
   catch (err) {
     throw new Error(`Failed to initiate Resvg instance to render open graph images due to ${err}`)
-  }
-
-  try {
-    return resvg.render().asPng()
-  }
-  catch (err) {
-    throw new Error(`Failed to render open graph images on path due to ${err}`)
   }
 }

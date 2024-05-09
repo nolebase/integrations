@@ -61,7 +61,7 @@
     "vitepress": "^1.0.0"
   },
   "dependencies": {
-    "@resvg/resvg-js": "^2.6.2",
+    "@resvg/resvg-wasm": "^2.6.2",
     "colorette": "^2.0.20",
     "emoji-regex": "^10.3.0",
     "fs-extra": "^11.2.0",

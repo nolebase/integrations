@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted, onServerPrefetch, ref } from 'vue'
 
-import Changelog from 'virtual:nolebase-git-changelog'
 import type { Commit } from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
@@ -9,6 +8,7 @@ import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
 import { digestStringAsSHA256 } from '../utils'
+import { useGitChangelog } from '../composables/data'
 
 interface ContributorInfo {
   name: string
@@ -22,7 +22,32 @@ const contributors = ref<ContributorInfo[]>([])
 
 const { t } = useI18n()
 const rawPath = useRawPath()
-const commits = useCommits(Changelog.commits, rawPath)
+const { data, applyGitChangelogData } = useGitChangelog()
+const commits = useCommits(data.value.commits, rawPath)
+
+if (import.meta.hot) {
+  // Plugin API | Vite
+  // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+  import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+    if (!data || typeof data !== 'object')
+      return
+
+    applyGitChangelogData(data)
+  })
+
+  // HMR API | Vite
+  // https://vitejs.dev/guide/api-hmr.html
+  import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+    if (!newModule)
+      return
+    if (!('default' in newModule))
+      return
+    if (!newModule.default || typeof newModule.default !== 'object')
+      return
+
+    applyGitChangelogData(newModule.default)
+  })
+}
 
 async function aggregateContributors(commits: Commit[]) {
   const map: Record<string, ContributorInfo> = {}

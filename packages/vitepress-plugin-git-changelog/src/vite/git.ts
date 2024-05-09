@@ -1,12 +1,14 @@
 import { cwd as _cwd } from 'node:process'
+import { extname, join } from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { SiteConfig } from 'vitepress'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
 import { execa } from 'execa'
+import micromatch from 'micromatch'
 
-import type { Changelog, Commit } from '../types'
+import type { Changelog } from '../types'
 import {
   type CommitToStringHandler,
   type CommitToStringsHandler,
@@ -16,6 +18,8 @@ import {
   defaultReleaseTagsURLHandler,
   getRawCommitLogs,
   getRelativePath,
+  normalizeAsMarkdownPath,
+  normalizeWithRelative,
   parseCommits,
   rewritePathsByRewritingExtension,
 } from './helpers'
@@ -55,8 +59,25 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     rewritePathsBy,
   } = options
 
-  let commits: Commit[] = []
+  const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
+
+  const changelog: Changelog = { commits: [] }
+  let srcDir = ''
   let config: VitePressConfig
+
+  const commitFromPath = async (path: string) => {
+    const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
+    const relativePath = getRelativePath(path, srcDir, cwd)
+    return await parseCommits(
+      relativePath,
+      rawLogs,
+      getRepoURL,
+      getCommitURL,
+      getReleaseTagURL,
+      getReleaseTagsURL,
+      rewritePathsBy,
+    )
+  }
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -92,9 +113,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
 
       spinner.start(`${logModulePrefix} Prepare to gather git logs...`)
 
-      const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
-
-      if (commits.length > 0)
+      if (changelog.commits.length > 0)
         return
 
       // configure so that the git log messages can contain correct CJK characters
@@ -109,16 +128,14 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         absolute: true,
       })
 
-      const srcDir = config.vitepress.srcDir
+      srcDir = config.vitepress.srcDir
 
-      commits = (await Promise.all(
-        paths.map(async (path) => {
-          const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
-          const relativePath = getRelativePath(path, srcDir, cwd)
-          return await parseCommits(relativePath, rawLogs, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, rewritePathsBy)
-        }),
-      ))
-        .flat()
+      if (config.command === 'build') {
+        changelog.commits = (await Promise.all(
+          paths.map(async path => await commitFromPath(path)),
+        ))
+          .flat()
+      }
 
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
@@ -131,11 +148,48 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       if (id !== ResolvedVirtualModuleId)
         return null
 
-      const changelog: Changelog = {
-        commits,
-      }
-
       return `export default ${JSON.stringify(changelog)}`
+    },
+    configureServer(server) {
+      server.middlewares.use(async (req, _, next) => {
+        if (!req)
+          return next()
+        if (!req.url)
+          return next()
+        const toMarkdownFilePath = normalizeAsMarkdownPath(req.url)
+        if (extname(toMarkdownFilePath) !== '.md')
+          return next()
+
+        const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+        if (!virtualModule)
+          return next()
+
+        const url = new URL(req.url, 'https://a.com')
+        changelog.commits = [...(await commitFromPath(join(srcDir, url.pathname)))]
+
+        server.moduleGraph.invalidateModule(virtualModule)
+        server.hot.send({
+          type: 'custom',
+          event: 'nolebase-git-changelog:updated',
+          data: changelog,
+        })
+
+        next()
+      })
+    },
+    async handleHotUpdate(ctx) {
+      const hotReloadingModuleFilePath = normalizeWithRelative(config.root, ctx.file)
+
+      if (micromatch([hotReloadingModuleFilePath], include)) {
+        const virtualModule = ctx.server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+
+        if (virtualModule) {
+          changelog.commits = [...(await commitFromPath(ctx.file))]
+          ctx.server.moduleGraph.invalidateModule(virtualModule)
+
+          return [virtualModule]
+        }
+      }
     },
   }
 }

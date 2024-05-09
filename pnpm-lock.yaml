@@ -347,6 +347,9 @@ importers:
       less:
         specifier: ^4.2.0
         version: 4.2.0
+      micromatch:
+        specifier: ^4.0.5
+        version: 4.0.5
       ora:
         specifier: ^8.0.1
         version: 8.0.1
@@ -360,6 +363,9 @@ importers:
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@4.14.0)
+      '@types/micromatch':
+        specifier: ^4.0.7
+        version: 4.0.7
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0
@@ -1534,6 +1540,9 @@ packages:
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
     engines: {node: '>=10.13.0'}
 
+  '@types/braces@3.0.4':
+    resolution: {integrity: sha512-0WR3b8eaISjEW7RpZnclONaLFDf7buaowRHdqLp4vLj54AsSAYWfh3DRbfiYJY9XDxMgx1B4sE1Afw2PGpuHOA==}
+
   '@types/d3-array@3.2.1':
     resolution: {integrity: sha512-Y2Jn2idRrLzUfAKV2LyRImR+y4oa2AntrgID95SHJxuMUrkNXmanDSed71sRNZysveJVt1hLLemQZIady0FpEg==}
 
@@ -1680,6 +1689,9 @@ packages:
 
   '@types/mdurl@2.0.0':
     resolution: {integrity: sha512-RGdgjQUZba5p6QEFAVx2OGb8rQDL/cPRG7GiedRzMcJ1tYnUANBncjbSB1NRGwbvjcPeikRABz2nshyPk1bhWg==}
+
+  '@types/micromatch@4.0.7':
+    resolution: {integrity: sha512-C/FMQ8HJAZhTsDpl4wDKZdMeeW5USjgzOczUwTGbRc1ZopPgOhIEnxY2ZgUrsuyy4DwK1JVOJZKFakv3TbCKiA==}
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
@@ -6024,6 +6036,8 @@ snapshots:
 
   '@trysound/sax@0.2.0': {}
 
+  '@types/braces@3.0.4': {}
+
   '@types/d3-array@3.2.1': {}
 
   '@types/d3-axis@3.0.6':
@@ -6202,6 +6216,10 @@ snapshots:
   '@types/mdurl@1.0.5': {}
 
   '@types/mdurl@2.0.0': {}
+
+  '@types/micromatch@4.0.7':
+    dependencies:
+      '@types/braces': 3.0.4
 
   '@types/ms@0.7.34': {}
 
@@ -7078,7 +7096,7 @@ snapshots:
       '@vue/compiler-dom': 3.4.26
       '@vue/shared': 3.4.26
       computeds: 0.0.1
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       muggle-string: 0.3.1
       path-browserify: 1.0.1
       vue-template-compiler: 2.7.16
@@ -7906,7 +7924,7 @@ snapshots:
       eslint-import-resolver-node: 0.3.9
       get-tsconfig: 4.7.3
       is-glob: 4.0.3
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
@@ -7954,7 +7972,7 @@ snapshots:
       get-tsconfig: 4.7.3
       globals: 15.0.0
       ignore: 5.3.1
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       semver: 7.6.0
 
   eslint-plugin-no-only-tests@3.1.0: {}
@@ -7963,7 +7981,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/utils': 7.5.0(eslint@8.57.0)(typescript@5.4.5)
       eslint: 8.57.0
-      minimatch: 9.0.3
+      minimatch: 9.0.4
       natural-compare-lite: 1.4.0
     optionalDependencies:
       vue-eslint-parser: 9.4.2(eslint@8.57.0)

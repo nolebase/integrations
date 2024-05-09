@@ -12,6 +12,7 @@
       ]
     },
     "types": [
+      "vite/client",
       "./src/client/virtual.d.ts",
       "./yaml.d.ts"
     ],

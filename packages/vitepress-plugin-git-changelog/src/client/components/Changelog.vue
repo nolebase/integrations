@@ -4,10 +4,10 @@ import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 
 import { NuVerticalTransition } from '@nolebase/ui'
-import Changelog from 'virtual:nolebase-git-changelog'
 
 import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
+import { useGitChangelog } from '../composables/data'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
@@ -23,7 +23,32 @@ const options = inject(InjectionKey, { locales: defaultLocales })
 const { lang } = useData()
 const rawPath = useRawPath()
 const { t } = useI18n()
-const commits = useCommits(Changelog.commits, rawPath)
+const { data, applyGitChangelogData } = useGitChangelog()
+const commits = useCommits(data.value.commits, rawPath)
+
+if (import.meta.hot) {
+  // Plugin API | Vite
+  // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+  import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+    if (!data || typeof data !== 'object')
+      return
+
+    applyGitChangelogData(data)
+  })
+
+  // HMR API | Vite
+  // https://vitejs.dev/guide/api-hmr.html
+  import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+    if (!newModule)
+      return
+    if (!('default' in newModule))
+      return
+    if (!newModule.default || typeof newModule.default !== 'object')
+      return
+
+    applyGitChangelogData(newModule.default)
+  })
+}
 
 const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
 

@@ -1,5 +1,5 @@
 import { join, relative } from 'node:path'
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
 
 import { type Plugin, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
@@ -99,6 +99,48 @@ function createThumbHashDataFromThumbHash(
   return thumbhashData
 }
 
+function getCacheDir(vitePressCacheDir: string) {
+  return join(vitePressCacheDir, '@nolebase', 'vitepress-plugin-thumbnail-hash', 'thumbhashes')
+}
+
+function getMapFilename(cacheDir: string) {
+  return join(cacheDir, 'map.json')
+}
+
+async function exists(path: string) {
+  try {
+    await stat(path)
+    return true
+  }
+  catch (error) {
+    if (!(error instanceof Error))
+      throw error
+    if (!('code' in error))
+      throw error
+    if (error.code !== 'ENOENT')
+      throw error
+
+    return false
+  }
+}
+
+async function mkdirIfNotExist(dir: string) {
+  const targetDirExists = await exists(dir)
+  if (targetDirExists)
+    return
+
+  await mkdir(dir, { recursive: true })
+}
+
+async function readCachedMapFile(path: string): Promise<Record<string, ThumbHash>> {
+  const targetPathExists = await exists(path)
+  if (!targetPathExists)
+    return {}
+
+  const content = await readFile(path)
+  return JSON.parse(content.toString('utf-8'))
+}
+
 /**
  * The Vite plugin to pre-process images and generate thumbhash data for them.
  *
@@ -136,9 +178,9 @@ export function ThumbnailHashImages(): Plugin {
 
       spinner.start(`${spinnerPrefix} Prepare to generate hashes for images...`)
 
-      const cacheDir = join(vitepressConfig.cacheDir, '@nolebase', 'vitepress-plugin-thumbnail-hash', 'thumbhashes')
-      await mkdir(cacheDir, { recursive: true })
-      await rm(join(cacheDir, '*'), { force: true, recursive: true })
+      const cacheDir = getCacheDir(vitepressConfig.cacheDir)
+      await mkdirIfNotExist(cacheDir)
+      const thumbhashMap = await readCachedMapFile(getMapFilename(cacheDir))
 
       spinner.text = `${spinnerPrefix} Searching for images...`
 
@@ -147,6 +189,10 @@ export function ThumbnailHashImages(): Plugin {
       spinner.text = `${spinnerPrefix} Calculating thumbhashes for images...`
 
       const thumbhashes = await Promise.all(files.map(async (file) => {
+        const cacheHit: ThumbHash | undefined = thumbhashMap[normalizePath(relative(root, file))]
+        if (cacheHit)
+          return cacheHit
+
         const readImageRawData = await readFile(file)
 
         // The hash implementation is mirrored and simulated from the rollup.
@@ -172,14 +218,12 @@ export function ThumbnailHashImages(): Plugin {
 
       spinner.text = `${spinnerPrefix} Aggregating calculated thumbhash data...`
 
-      const thumbhashMap: Record<string, ThumbHash> = {}
-
       for (const thumbhash of thumbhashes)
         thumbhashMap[thumbhash.assetFileName] = thumbhash
 
       spinner.text = `${spinnerPrefix} Writing thumbhash data to cache...`
 
-      await writeFile(join(cacheDir, 'map.json'), JSON.stringify(thumbhashMap, null, 2))
+      await writeFile(getMapFilename(cacheDir), JSON.stringify(thumbhashMap, null, 2))
 
       const elapsed = Date.now() - startsAt
       spinner.succeed(`${spinnerPrefix} Done. ${gray(`(${elapsed}ms)`)}`)

@@ -198,13 +198,15 @@ watch(mounted, render)
   <div relative>
     <div
       h="[224px]" mb-4 w-full cursor-move overflow-hidden rounded-md
+      border="1 solid $vp-c-divider hover:zinc-400 dark:hover:zinc-600"
+      bg="$vp-c-bg-alt hover:zinc-100 dark:hover:zinc-800"
+      transition="all ease-in-out duration-250"
     >
       <ClientOnly>
         <div
           ref="divRef"
-          transition="all ease-in-out duration-250" w-full
-          border="1 solid $vp-c-divider hover:zinc-400 dark:hover:zinc-600"
-          bg="$vp-c-bg-alt hover:zinc-100 dark:hover:zinc-800"
+          transition="all ease-in-out duration-250"
+          w-full
           :style="{ height: width ? `${width}px` : '100%' }"
         />
       </ClientOnly>
@@ -218,6 +220,7 @@ watch(mounted, render)
           block
           leading="[16px]"
           text="xl center yellow-900 dark:yellow-50"
+          translate-y="[0.6px]"
         >
           CONSTRUCTING
         </span>
@@ -228,19 +231,66 @@ watch(mounted, render)
 
 <style scoped>
 .bar {
+  /**
+    By default, each second, one bar, and a gap between them, will be scrolled.
+   */
+   --speed-factor: 1;
+
+  --wb: 8;
+  --h: 54;
+
+  /**
+    Wb = width of the bar
+    W = 2 * H + Wb
+
+    For example:
+      Wb = 8px
+      H = 64px
+
+    This would give us:
+      W = 2 * 64px + 8px = 136px
+   */
+  --w: calc(var(--h) * 2 + var(--wb));
+
+  /**
+    The width of the full bar, which includes the gap between the bars.
+   */
+  --wf: calc(var(--w) * 2);
+
+  /**
+    Since the speed is 2bar per second:
+      V = 2 * Wb
+    the duration of the animation should be:
+      T = Wf / V * speed-factor
+
+    Which is
+      T = (2 * H + Wb) * 2 / Wb * speed-factor
+   */
+  --t: calc(var(--w) / var(--wb) * var(--speed-factor));
+
   position: absolute;
   width: 100%;
-  height: 50px;
+  height: calc(var(--h) * 1px);
   overflow: hidden;
   bottom: 40px;
-  animation: scrolling 20s linear infinite;
-  background-size: 306.5px 50px;
+
+  animation: scrolling linear infinite;
+  animation-duration: calc(var(--t) * 1s);
+
+  /**
+    If H = 32, Wb = 8, we need to shift -4px
+    If H = 40, Wb = 8, we need to shift +2px
+    If H = 54, Wb = 8, we need to shift -3px
+
+    Why?
+   */
+  background-size: calc(var(--w) * 1px - 3px) calc(var(--h) * 1px);
   background-image: repeating-linear-gradient(
     45deg,
     #ffd66e,
-    #ffd66e 6px,
-    #ffe8b227 6px,
-    #ffe8b227 12px
+    #ffd66e calc(var(--wb) * 1px),
+    #ffe8b227 calc(var(--wb) * 1px),
+    #ffe8b227 calc(var(--wb) * 1px * 2)
   );
 }
 
@@ -248,10 +298,18 @@ watch(mounted, render)
   background-image: repeating-linear-gradient(
     45deg,
     #735823c9,
-    #735823c9 6px,
-    #2b210c23 6px,
-    #2b210c23 12px
+    #735823c9 calc(var(--wb) * 1px),
+    #2b210c23 calc(var(--wb) * 1px),
+    #2b210c23 calc(var(--wb) * 1px * 2)
   );
+}
+
+.bar div span {
+  animation: blinking-light calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite;
+}
+
+.dark .bar div span {
+  animation: blinking calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite;
 }
 
 @keyframes scrolling {
@@ -259,7 +317,31 @@ watch(mounted, render)
     background-position: 0 0;
   }
   100% {
-    background-position: 320px 0;
+    background-position: calc(var(--w) * 1px * 2) 0;
+  }
+}
+
+@keyframes blinking {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blinking-light {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
   }
 }
 </style>

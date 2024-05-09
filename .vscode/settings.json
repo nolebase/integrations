@@ -63,8 +63,10 @@
     "./docs",
     "./packages/vitepress-plugin-enhanced-readabilities",
     "./packages/vitepress-plugin-git-changelog",
+    "./packages/vitepress-plugin-graph-view",
     "./packages/vitepress-plugin-inline-link-preview",
-    "./packages/vitepress-plugin-page-properties"
+    "./packages/vitepress-plugin-page-properties",
+    "./packages/vitepress-plugin-thumbnail-hash"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "i18n-ally.localesPaths": [

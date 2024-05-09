@@ -206,7 +206,7 @@ watch(mounted, render)
     <div class="bar" flex items-center justify-center>
       <div
         bg="[#f6f3ef] dark:[#191717]"
-        font-baloo-2 block w-fit px-1 py-1
+        block w-fit px-1 py-1 font-baloo-2
       >
         <span
           block

@@ -61,13 +61,17 @@
     "skipLibCheck": true
   },
   "include": [
-    "packages/**/*.ts",
     "packages/**/*.d.ts",
+    "packages/**/*.d.mts",
+    "packages/**/*.ts",
+    "packages/**/*.mts",
     "packages/**/*.tsx",
     "packages/**/*.vue",
     "docs/**/*.ts",
+    "docs/**/*.mts",
     "docs/**/*.vue",
     "docs/**/.vitepress/**/*.ts",
+    "docs/**/.vitepress/**/*.mts",
     "docs/**/.vitepress/**/*.vue"
   ],
   "exclude": [

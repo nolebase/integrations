@@ -19,8 +19,7 @@ export default defineBuildConfig({
   declaration: true,
   externals: [
     'vite',
-    '@napi-rs/canvas',
-    'thumbhash',
+    'canvaskit-wasm',
     'colorette',
     'uncrypto',
     'unlazy',

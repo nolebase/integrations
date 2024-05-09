@@ -109,6 +109,8 @@ function zoomed(
 }
 
 async function render() {
+  if (import.meta.env.SSR)
+    return
   if (!window)
     return
   if (!document)
@@ -195,18 +197,22 @@ watch(mounted, render)
 <template>
   <div relative>
     <div
-      ref="divRef"
-      border="1 solid $vp-c-divider hover:zinc-400 dark:hover:zinc-600"
-      bg="$vp-c-bg-alt hover:zinc-100 dark:hover:zinc-800"
-      transition="all ease-in-out duration-250"
-      min-h="[224px]"
-      :style="{ height: `${width}px` }"
-      mb-4 w-full cursor-move overflow-hidden rounded-md
-    />
+      h="[224px]" mb-4 w-full cursor-move overflow-hidden rounded-md
+    >
+      <ClientOnly>
+        <div
+          ref="divRef"
+          transition="all ease-in-out duration-250" w-full
+          border="1 solid $vp-c-divider hover:zinc-400 dark:hover:zinc-600"
+          bg="$vp-c-bg-alt hover:zinc-100 dark:hover:zinc-800"
+          :style="{ height: width ? `${width}px` : '100%' }"
+        />
+      </ClientOnly>
+    </div>
     <div class="bar" flex items-center justify-center>
       <div
         bg="[#f6f3ef] dark:[#191717]"
-        font-baloo-2 block w-fit px-1 py-1
+        block w-fit px-1 py-1 font-baloo-2
       >
         <span
           block
@@ -224,11 +230,11 @@ watch(mounted, render)
 .bar {
   position: absolute;
   width: 100%;
-  height: 40px;
+  height: 50px;
   overflow: hidden;
   bottom: 40px;
   animation: scrolling 20s linear infinite;
-  background-size: 306.5px 40px;
+  background-size: 306.5px 50px;
   background-image: repeating-linear-gradient(
     45deg,
     #ffd66e,

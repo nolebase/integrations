@@ -58,10 +58,10 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": "^1.0.0"
+    "vitepress": "^1.1.4"
   },
   "dependencies": {
-    "@resvg/resvg-js": "^2.6.2",
+    "@resvg/resvg-wasm": "^2.6.2",
     "colorette": "^2.0.20",
     "emoji-regex": "^10.3.0",
     "fs-extra": "^11.2.0",

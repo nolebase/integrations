@@ -65,7 +65,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": "^1.0.0"
+    "vitepress": "^1.1.4"
   },
   "dependencies": {
     "@iconify-json/icon-park-outline": "^1.1.15",

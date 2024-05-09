@@ -221,6 +221,7 @@ watch(mounted, render)
           leading="[16px]"
           text="xl center stone-700 dark:yellow-50"
           translate-y="[0.8px]"
+          class="glitch" data-glitch="CONSTRUCTING"
         >
           CONSTRUCTING
         </span>
@@ -249,8 +250,14 @@ watch(mounted, render)
 
     This would give us:
       W = 2 * 64px + 8px = 136px
+
+    However,
+      If H = 32, Wb = 8, we need to shift -4px
+      If H = 40, Wb = 8, we need to shift +2px
+      If H = 54, Wb = 8, we need to shift -3px
+    Why?
    */
-  --w: calc(var(--h) * 2 + var(--wb));
+  --w: calc(var(--h) * 2 + var(--wb) - 3);
 
   /**
     The width of the full bar, which includes the gap between the bars.
@@ -277,14 +284,7 @@ watch(mounted, render)
   animation: scrolling linear infinite;
   animation-duration: calc(var(--t) * 1s);
 
-  /**
-    If H = 32, Wb = 8, we need to shift -4px
-    If H = 40, Wb = 8, we need to shift +2px
-    If H = 54, Wb = 8, we need to shift -3px
-
-    Why?
-   */
-  background-size: calc(var(--w) * 1px - 3px) calc(var(--h) * 1px);
+  background-size: calc(var(--w) * 1px) calc(var(--h) * 1px);
   background-image: repeating-linear-gradient(
     45deg,
     #ffd66e,
@@ -305,10 +305,6 @@ watch(mounted, render)
 }
 
 .bar div span {
-  animation: blinking-light calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite;
-}
-
-.dark .bar div span {
   animation: blinking calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite;
 }
 
@@ -322,18 +318,6 @@ watch(mounted, render)
 }
 
 @keyframes blinking {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes blinking-light {
   0% {
     opacity: 1;
   }

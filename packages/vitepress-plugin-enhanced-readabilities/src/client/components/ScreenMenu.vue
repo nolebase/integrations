@@ -14,7 +14,7 @@ const { t } = useI18n()
     <MenuTitle
       icon="i-icon-park-outline:book-open"
       :title="t('title.title')"
-      :aria-label="t('title.titleArialLabel') || t('title.title')"
+      :aria-label="t('title.titleAriaLabel') || t('title.title')"
     />
     <div flex="~ col" pl-4 space-y-2>
       <ScreenLayoutSwitch />

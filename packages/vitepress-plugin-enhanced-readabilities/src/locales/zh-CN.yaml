@@ -26,6 +26,7 @@ layoutSwitch:
     slider: 调整内容最大宽度
     sliderAriaLabel: 调整内容最大宽度
     sliderHelpMessage: 一个可调整的滑块，用于选择和自定义内容最大宽度。
+    optionFullWidthAriaLabel: 内容最大宽度
   pageLayoutMaxWidth:
     title: 页面最大宽度
     titleAriaLabel: 页面最大宽度

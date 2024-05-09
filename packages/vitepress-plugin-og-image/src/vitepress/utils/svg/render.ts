@@ -1,4 +1,6 @@
-import { Resvg } from '@resvg/resvg-wasm'
+import { readFile } from 'node:fs/promises'
+import { createRequire } from 'node:module'
+import { Resvg, initWasm } from '@resvg/resvg-wasm'
 
 import { removeEmoji } from '../emoji'
 import { escape } from './escape'
@@ -39,16 +41,52 @@ export function templateSVG(siteName: string, siteDescription: string, title: st
   })
 }
 
-export async function renderSVG(svgContent: string, options?: { fontPath?: string }): Promise<Uint8Array> {
+let resvgInit = false
+
+export async function initSVGRenderer() {
   try {
-    const resvg = new Resvg(svgContent, {
-      fitTo: { mode: 'width', value: 1200 },
-      font: {
-        fontFiles: options?.fontPath ? [options.fontPath] : [],
-        // Load system fonts might cost more time
-        loadSystemFonts: false,
+    if (!resvgInit) {
+      const wasm = readFile(createRequire(import.meta.url).resolve('@resvg/resvg-wasm/index_bg.wasm'))
+      await initWasm(wasm)
+      resvgInit = true
+    }
+  }
+  catch (err) {
+    throw new Error(`Failed to init resvg wasm due to ${err}`)
+  }
+}
+
+let fontBuffer: Uint8Array
+
+export async function initFontBuffer(options?: { fontPath?: string }): Promise<Uint8Array | undefined> {
+  if (!options?.fontPath)
+    return
+  if (fontBuffer)
+    return fontBuffer
+
+  try {
+    fontBuffer = await readFile(options.fontPath)
+  }
+  catch (err) {
+    throw new Error(`Failed to read font file due to ${err}`)
+  }
+
+  return fontBuffer
+}
+
+export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array): Promise<Uint8Array> {
+  try {
+    const resvg = new Resvg(
+      svgContent,
+      {
+        fitTo: { mode: 'width', value: 1200 },
+        font: {
+          fontBuffers: fontBuffer ? [fontBuffer] : [],
+          // Load system fonts might cost more time
+          loadSystemFonts: false,
+        },
       },
-    })
+    )
 
     try {
       return resvg.render().asPng()

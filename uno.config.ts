@@ -27,7 +27,21 @@ export default defineConfig({
     presetWebFonts({
       fonts: {
         'chakra-petch': ['Chakra Petch'],
-        'baloo-2': ['Baloo 2'],
+        'baloo-2': [
+          {
+            name: 'Baloo 2',
+          },
+          {
+            name: 'Noto Sans',
+          },
+          {
+            name: 'Roboto',
+          },
+          {
+            name: 'sans-serif',
+            provider: 'none',
+          },
+        ],
         'jura': ['Jura'],
       },
     }),

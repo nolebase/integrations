@@ -55,7 +55,7 @@
     "build": "unbuild"
   },
   "peerDependencies": {
-    "vitepress": "^1.0.0"
+    "vitepress": "^1.1.4"
   },
   "dependencies": {
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",

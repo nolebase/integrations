@@ -15,7 +15,7 @@ import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
 import { type TaskResult, renderTaskResultsSummary, task } from './utils/task'
 import type { PageItem } from './types'
 import { getDescriptionWithLocales, getTitleWithLocales } from './utils/vitepress/locales'
-import { renderSVG, templateSVG } from './utils/svg/render'
+import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils/svg/render'
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-og-image`)}${gray(':')}`
 
@@ -148,7 +148,7 @@ async function renderSVGAndSavePNG(
   },
 ) {
   try {
-    const pngBuffer = await renderSVG(svgContent, { fontPath: options.fontPath })
+    const pngBuffer = await renderSVG(svgContent, await initFontBuffer(options))
 
     try {
       await fs.writeFile(saveAs, pngBuffer, 'binary')
@@ -352,6 +352,8 @@ async function applyCategoryTextWithFallback(pageItem: PageItem, categoryOptions
  */
 export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGraphImagesOptions) {
   return async (siteConfig: SiteConfig) => {
+    await initSVGRenderer()
+
     const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig)
 
     await task('rendering open graph images', async (): Promise<string | undefined> => {

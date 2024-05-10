@@ -17,7 +17,6 @@ import {
   defaultReleaseTagsURLHandler,
   getRawCommitLogs,
   getRelativePath,
-  normalizeWithRelative,
   parseCommits,
   rewritePathsByRewritingExtension,
 } from './helpers'
@@ -181,9 +180,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       })
     },
     async handleHotUpdate(ctx) {
-      const hotReloadingModuleFilePath = normalizeWithRelative(config.root, ctx.file)
-
-      if (micromatch([hotReloadingModuleFilePath], include).length === 0) {
+      if (micromatch([ctx.file], include).length === 0) {
         const virtualModule = ctx.server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
 
         if (virtualModule) {

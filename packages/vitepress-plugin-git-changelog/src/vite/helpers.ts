@@ -308,27 +308,3 @@ export async function parseCommits(
 
   return commits
 }
-
-export function normalizeWithRelative(from: string, path: string) {
-  return normalizePath(relative(from, path)).toLowerCase()
-}
-
-export function normalizeAsMarkdownPath(url: string) {
-  // parse url to get the pathname without query strings
-  let toMarkdownFilePath = url.split('?')[0]
-  // if the pathname starts with '/', remove it
-  if (toMarkdownFilePath.startsWith('/'))
-    toMarkdownFilePath = toMarkdownFilePath.slice(1)
-  // if the pathname ends with '/', append 'index.md'
-  if (toMarkdownFilePath.endsWith('/')) {
-    toMarkdownFilePath += 'index.md'
-  }
-  else {
-    if (extname(toMarkdownFilePath) === '.html') {
-      toMarkdownFilePath = toMarkdownFilePath
-        .replace(/^(.+?)(\.html)?$/s, '$1.md')
-    }
-  }
-
-  return toMarkdownFilePath
-}

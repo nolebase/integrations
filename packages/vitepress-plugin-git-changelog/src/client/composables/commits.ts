@@ -14,8 +14,6 @@ export function useCommits(pageData: Ref<PageData>) {
       const currentPath = toValue(pageData.value.filePath)
 
       const preCommits = gitChangelog.value.commits
-      // eslint-disable-next-line no-console
-      console.log('preCommits', (preCommits))
       // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
       const commits = preCommits.filter(c => c.path === currentPath) || []
 

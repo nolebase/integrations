@@ -39,9 +39,6 @@ onMounted(() => {
 
       if (data.commits)
         update(data.commits)
-
-      // eslint-disable-next-line no-console
-      console.log('nolebase-git-changelog:updated commits', data.commits)
     })
 
     // HMR API | Vite

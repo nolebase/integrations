@@ -1,20 +1,31 @@
-import type { MaybeRefOrGetter } from 'vue'
-import { computed, toValue } from 'vue'
+import { type Ref, computed, ref, toValue } from 'vue'
 
+import type { PageData } from 'vitepress'
+import Changelog from 'virtual:nolebase-git-changelog'
 import type { Commit } from '../../types'
 
-export function useCommits(allCommits: Commit[], path: MaybeRefOrGetter<string>) {
-  return computed<Commit[]>(() => {
-    const currentPath = toValue(path)
+export function useCommits(pageData: Ref<PageData>) {
+  const gitChangelog = ref<typeof Changelog>(Changelog)
+  if (!gitChangelog.value)
+    gitChangelog.value = { commits: [] }
 
-    // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
-    const commits = allCommits.filter(c => c.path === currentPath) || []
+  return {
+    commits: computed<Commit[]>(() => {
+      const currentPath = toValue(pageData.value.filePath)
 
-    return commits.filter((commit, index) => {
-      if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))
-        return false
+      const preCommits = gitChangelog.value.commits
+      // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
+      const commits = preCommits.filter(c => c.path === currentPath) || []
 
-      return true
-    })
-  })
+      return commits.filter((commit, index) => {
+        if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))
+          return false
+
+        return true
+      })
+    }),
+    update(data: Commit[]) {
+      gitChangelog.value = { commits: data }
+    },
+  }
 }

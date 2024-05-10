@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { inject, onMounted, onServerPrefetch, ref } from 'vue'
+import { inject, onMounted, onServerPrefetch, ref, watch } from 'vue'
+import { useData } from 'vitepress'
 
-import Changelog from 'virtual:nolebase-git-changelog'
 import type { Commit } from 'virtual:nolebase-git-changelog'
 
-import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
@@ -21,8 +20,42 @@ const options = inject(InjectionKey, {})
 const contributors = ref<ContributorInfo[]>([])
 
 const { t } = useI18n()
-const rawPath = useRawPath()
-const commits = useCommits(Changelog.commits, rawPath)
+const { page } = useData()
+const { commits, update } = useCommits(page)
+
+onMounted(() => {
+  if (import.meta.hot) {
+    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
+      page: {
+        filePath: page.value.filePath,
+      },
+    })
+
+    // Plugin API | Vite
+    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+      if (!data || typeof data !== 'object')
+        return
+
+      if (data.commits)
+        update(data.commits)
+    })
+
+    // HMR API | Vite
+    // https://vitejs.dev/guide/api-hmr.html
+    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+      if (!newModule)
+        return
+      if (!('default' in newModule))
+        return
+      if (!newModule.default || typeof newModule.default !== 'object')
+        return
+
+      if (newModule.default.commits)
+        update(newModule.default.commits)
+    })
+  }
+})
 
 async function aggregateContributors(commits: Commit[]) {
   const map: Record<string, ContributorInfo> = {}
@@ -41,6 +74,10 @@ onServerPrefetch(async () => {
 
 onMounted(async () => {
   contributors.value = await aggregateContributors(commits.value)
+})
+
+watch(commits, async (newCommits) => {
+  contributors.value = await aggregateContributors(newCommits)
 })
 
 const findRegisteredCreatorByName = (author_name: string) => options.mapContributors?.find(item => item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(author_name))

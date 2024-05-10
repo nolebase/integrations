@@ -55,8 +55,26 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     rewritePathsBy,
   } = options
 
-  let commits: Commit[] = []
+  const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
+
+  const changelog: Changelog = { commits: [] }
+  const hotModuleReloadCachedCommits: Record<string, Commit[]> = {}
+  let srcDir = ''
   let config: VitePressConfig
+
+  const commitFromPath = async (path: string) => {
+    const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
+    const relativePath = getRelativePath(path, srcDir, cwd)
+    return await parseCommits(
+      relativePath,
+      rawLogs,
+      getRepoURL,
+      getCommitURL,
+      getReleaseTagURL,
+      getReleaseTagsURL,
+      rewritePathsBy,
+    )
+  }
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog',
@@ -84,17 +102,18 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     }),
     configResolved(_config) {
       config = _config as VitePressConfig
+      srcDir = config.vitepress.srcDir
     },
     async buildStart() {
-      const startsAt = Date.now()
+      if (config.command !== 'build')
+        return
 
-      const spinner = ora({ discardStdin: false, isEnabled: config.command === 'serve' })
+      const startsAt = Date.now()
+      const spinner = ora({ discardStdin: false, isEnabled: false })
 
       spinner.start(`${logModulePrefix} Prepare to gather git logs...`)
 
-      const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
-
-      if (commits.length > 0)
+      if (changelog.commits.length > 0)
         return
 
       // configure so that the git log messages can contain correct CJK characters
@@ -109,14 +128,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         absolute: true,
       })
 
-      const srcDir = config.vitepress.srcDir
-
-      commits = (await Promise.all(
-        paths.map(async (path) => {
-          const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
-          const relativePath = getRelativePath(path, srcDir, cwd)
-          return await parseCommits(relativePath, rawLogs, getRepoURL, getCommitURL, getReleaseTagURL, getReleaseTagsURL, rewritePathsBy)
-        }),
+      changelog.commits = (await Promise.all(
+        paths.map(async path => await commitFromPath(path)),
       ))
         .flat()
 
@@ -131,11 +144,39 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       if (id !== ResolvedVirtualModuleId)
         return null
 
-      const changelog: Changelog = {
-        commits,
-      }
-
       return `export default ${JSON.stringify(changelog)}`
+    },
+    configureServer(server) {
+      server.hot.on('nolebase-git-changelog:client-mounted', async (data) => {
+        if (!data || typeof data !== 'object')
+          return
+        if (!('page' in data && 'filePath' in data.page))
+          return
+
+        let commits: Commit[] = []
+        if (hotModuleReloadCachedCommits[data.page.filePath]) {
+          commits = hotModuleReloadCachedCommits[data.page.filePath]
+        }
+        else {
+          commits = [...(await commitFromPath(data.page.filePath))]
+          hotModuleReloadCachedCommits[data.page.filePath] = commits
+        }
+        if (!commits.length)
+          return
+
+        const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+        if (!virtualModule)
+          return
+
+        changelog.commits = commits
+
+        server.moduleGraph.invalidateModule(virtualModule)
+        server.hot.send({
+          type: 'custom',
+          event: 'nolebase-git-changelog:updated',
+          data: changelog,
+        })
+      })
     },
   }
 }

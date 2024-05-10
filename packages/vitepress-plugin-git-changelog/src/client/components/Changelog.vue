@@ -4,9 +4,7 @@ import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 
 import { NuVerticalTransition } from '@nolebase/ui'
-import Changelog from 'virtual:nolebase-git-changelog'
 
-import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
@@ -20,12 +18,47 @@ const toggleViewMore = ref(false)
 
 const options = inject(InjectionKey, { locales: defaultLocales })
 
-const { lang } = useData()
-const rawPath = useRawPath()
+const { lang, page } = useData()
 const { t } = useI18n()
-const commits = useCommits(Changelog.commits, rawPath)
+const { commits, update } = useCommits(page)
 
-const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
+onMounted(() => {
+  if (import.meta.hot) {
+    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
+      page: {
+        filePath: page.value.filePath,
+      },
+    })
+
+    // Plugin API | Vite
+    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+      if (!data || typeof data !== 'object')
+        return
+
+      if (data.commits)
+        update(data.commits)
+    })
+
+    // HMR API | Vite
+    // https://vitejs.dev/guide/api-hmr.html
+    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+      if (!newModule)
+        return
+      if (!('default' in newModule))
+        return
+      if (!newModule.default || typeof newModule.default !== 'object')
+        return
+
+      if (newModule.default.commits)
+        update(newModule.default.commits)
+    })
+  }
+})
+
+const lastChangeDate = computed<Date>(() => {
+  return toDate(commits.value[0]?.date_timestamp)
+})
 
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
@@ -39,10 +72,6 @@ const isFreshChange = computed(() => {
     return false
 
   return differenceInDays(new Date(), lastChangeDate.value) < 1
-})
-
-onMounted(() => {
-  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
 })
 </script>
 

@@ -42,7 +42,7 @@ export default defineBuildConfig({
   hooks: {
     'rollup:options': (_, options) => {
       if (Array.isArray(options.plugins))
-        options.plugins.push(Yaml())
+        options.plugins.push(Yaml() as any)
     },
     'mkdist:done': async (ctx) => {
       if (ctx.options.stub)

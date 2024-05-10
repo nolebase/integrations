@@ -39,6 +39,7 @@
     "markdown-it": "^13.0.2",
     "markdown-it-footnote": "^4.0.0",
     "thumbhash": "^0.1.1",
-    "unlazy": "^0.11.3"
+    "unlazy": "^0.11.3",
+    "vite-plugin-vue-devtools": "^7.1.3"
   }
 }

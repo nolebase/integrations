@@ -5,9 +5,7 @@ import { useData } from 'vitepress'
 
 import { NuVerticalTransition } from '@nolebase/ui'
 
-import { useRawPath } from '../composables/path'
 import { useCommits } from '../composables/commits'
-import { useGitChangelog } from '../composables/data'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
@@ -20,37 +18,47 @@ const toggleViewMore = ref(false)
 
 const options = inject(InjectionKey, { locales: defaultLocales })
 
-const { lang } = useData()
-const rawPath = useRawPath()
+const { lang, page } = useData()
 const { t } = useI18n()
-const { data, applyGitChangelogData } = useGitChangelog()
-const commits = useCommits(data.value.commits, rawPath)
+const { commits, update } = useCommits(page)
 
-if (import.meta.hot) {
-  // Plugin API | Vite
-  // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
-  import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
-    if (!data || typeof data !== 'object')
-      return
+onMounted(() => {
+  if (import.meta.hot) {
+    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
+      page: {
+        filePath: page.value.filePath,
+      },
+    })
 
-    applyGitChangelogData(data)
-  })
+    // Plugin API | Vite
+    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+      if (!data || typeof data !== 'object')
+        return
 
-  // HMR API | Vite
-  // https://vitejs.dev/guide/api-hmr.html
-  import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
-    if (!newModule)
-      return
-    if (!('default' in newModule))
-      return
-    if (!newModule.default || typeof newModule.default !== 'object')
-      return
+      if (data.commits)
+        update(data.commits)
+    })
 
-    applyGitChangelogData(newModule.default)
-  })
-}
+    // HMR API | Vite
+    // https://vitejs.dev/guide/api-hmr.html
+    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+      if (!newModule)
+        return
+      if (!('default' in newModule))
+        return
+      if (!newModule.default || typeof newModule.default !== 'object')
+        return
 
-const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
+      if (newModule.default.commits)
+        update(newModule.default.commits)
+    })
+  }
+})
+
+const lastChangeDate = computed<Date>(() => {
+  return toDate(commits.value[0]?.date_timestamp)
+})
 
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
@@ -64,10 +72,6 @@ const isFreshChange = computed(() => {
     return false
 
   return differenceInDays(new Date(), lastChangeDate.value) < 1
-})
-
-onMounted(() => {
-  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
 })
 </script>
 

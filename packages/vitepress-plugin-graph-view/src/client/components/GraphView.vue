@@ -214,16 +214,21 @@ watch(mounted, render)
     <div class="bar" flex items-center justify-center>
       <div
         bg="[#f6f3ef] dark:[#191717]"
-        block w-fit px-1 py-1 font-baloo-2
+        block w-full px-1 py-1 font-baloo-2
       >
         <span
-          block
+          flex="~ row"
           leading="[16px]"
-          text="xl center stone-700 dark:yellow-50"
-          translate-y="[0.8px]"
-          class="glitch" data-glitch="CONSTRUCTING"
+          text="xl center stone-700 dark:stone-300"
+          mt="[2px]"
+          min-h="[1rem]"
         >
-          CONSTRUCTING
+          <span absolute translate-x="[224px]">
+            CONSTRUCTING
+          </span>
+          <span absolute aria-hidden="true" translate-x="[224px]">
+            CONSTRUCTING
+          </span>
         </span>
       </div>
     </div>
@@ -304,8 +309,12 @@ watch(mounted, render)
   );
 }
 
-.bar div span {
-  animation: blinking calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite;
+.bar div span span:nth-child(1) {
+  animation: blinking calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite, marquee-1-nth-child calc(var(--t) * 1s) linear infinite;
+}
+
+.bar div span span:nth-child(2) {
+  animation: blinking calc(var(--speed-factor) * 2 * 1s) ease-in-out infinite, marquee-1-nth-child calc(var(--t) * 1s) calc((var(--t) / 2) * 1s) linear infinite;
 }
 
 @keyframes scrolling {
@@ -326,6 +335,28 @@ watch(mounted, render)
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes marquee-1-nth-child {
+  0% {
+    transform: translateX(224px);
+  }
+  97% {
+    visibility: visible;
+    transform: translateX(calc(-100% - 4px));
+  }
+  98% {
+    visibility: hidden;
+    transform: translateX(calc(-100% - 4px));
+  }
+  99% {
+    visibility: hidden;
+    transform: translateX(224px);
+  }
+  100% {
+    visibility: visible;
+    transform: translateX(224px);
   }
 }
 </style>

@@ -5,7 +5,6 @@ import ora from 'ora'
 import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
 import { execa } from 'execa'
-import micromatch from 'micromatch'
 
 import type { Changelog, Commit } from '../types'
 import {
@@ -178,18 +177,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
           data: changelog,
         })
       })
-    },
-    async handleHotUpdate(ctx) {
-      if (micromatch([ctx.file], include).length === 0) {
-        const virtualModule = ctx.server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
-
-        if (virtualModule) {
-          changelog.commits = []
-          ctx.server.moduleGraph.invalidateModule(virtualModule)
-
-          return [virtualModule]
-        }
-      }
     },
   }
 }

@@ -52,7 +52,7 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "glob": "^10.3.12",
+    "glob": "^10.3.14",
     "vite": "^5.2.11"
   },
   "devDependencies": {

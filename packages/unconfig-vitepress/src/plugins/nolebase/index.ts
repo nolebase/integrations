@@ -82,7 +82,7 @@ const defaultOptions: NolebasePluginPresetOptions = {
     enable: true,
     options: {
       layoutSwitch: {
-        defaultMode: LayoutMode.BothWidthAdjustable,
+        defaultMode: LayoutMode.SidebarWidthAdjustableOnly,
       },
       spotlight: {
         defaultToggle: true,

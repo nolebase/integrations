@@ -20,6 +20,8 @@
   "scripts": {
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "lint": "eslint --cache .",
+    "dev": "pnpm run packages:stub && pnpm run docs:dev",
+    "build": "pnpm run packages:build && pnpm run docs:build",
     "docs:dev": "pnpm -r --filter=./docs run dev",
     "docs:build": "pnpm -r --filter=./docs run build",
     "docs:preview": "pnpm -r --filter=./docs run preview",
@@ -34,9 +36,9 @@
     "test:run": "vitest run"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.16.1",
+    "@antfu/eslint-config": "^2.17.0",
     "@antfu/ni": "^0.21.12",
-    "@types/node": "^20.12.8",
+    "@types/node": "^20.12.11",
     "@unocss/cli": "^0.59.4",
     "@unocss/eslint-config": "^0.58.9",
     "@unocss/eslint-plugin": "^0.58.9",
@@ -47,7 +49,7 @@
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "less": "^4.2.0",
-    "rimraf": "^5.0.5",
+    "rimraf": "^5.0.6",
     "typescript": "^5.4.5",
     "unbuild": "^2.0.0",
     "unocss": "^0.57.7",
@@ -56,7 +58,7 @@
     "vite-plugin-inspect": "^0.8.4",
     "vitepress": "^1.1.4",
     "vitest": "^1.6.0",
-    "vue": "^3.4.26",
+    "vue": "3.4.26",
     "vue-tsc": "^1.8.27"
   },
   "workspaces": [

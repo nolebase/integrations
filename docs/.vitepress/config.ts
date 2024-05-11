@@ -361,6 +361,7 @@ export default defineConfig({
     },
   },
   lastUpdated: true,
+  cleanUrls: true,
   ignoreDeadLinks: [
     // Site Config | VitePress
     // https://vitepress.dev/reference/site-config#ignoredeadlinks

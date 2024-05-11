@@ -52,53 +52,55 @@ refs.forEach((ref, index) => {
 
 <template>
   <div relative h-60 w-60>
-    <VPHeroImageLayer ref="layer1Ref" class="layer-1" z="4" shadow-md>
-      <div left="8" absolute h-44 w-44 z="1">
-        <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />
-      </div>
-      <div h-full w-full opacity-60 blur-lg>
-        <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />
-      </div>
-    </VPHeroImageLayer>
-    <VPHeroImageLayer ref="layer2Ref" class="layer-2" z="3" shadow-md>
-      <div h-full w-full>
-        <div
-          v-motion
-          :initial="{ opacity: 0.3 }"
-          :enter="{ opacity: 0.6, transition: { duration: 3000, repeat: Infinity, repeatType: 'mirror' } }"
-          h-full w-full blur-lg
-        >
-          <div from="[#6fbef880]" to="[#ab45f680]" h-full w-full rounded-xl bg-gradient-to-r>
-            <img :src="VitePressLogo">
+    <ClientOnly>
+      <VPHeroImageLayer ref="layer1Ref" class="layer-1" z="4" shadow-md>
+        <div left="8" absolute h-44 w-44 z="1">
+          <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />
+        </div>
+        <div h-full w-full opacity-60 blur-lg>
+          <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />
+        </div>
+      </VPHeroImageLayer>
+      <VPHeroImageLayer ref="layer2Ref" class="layer-2" z="3" shadow-md>
+        <div h-full w-full>
+          <div
+            v-motion
+            :initial="{ opacity: 0.3 }"
+            :enter="{ opacity: 0.6, transition: { duration: 3000, repeat: Infinity, repeatType: 'mirror' } }"
+            h-full w-full blur-lg
+          >
+            <div from="[#6fbef880]" to="[#ab45f680]" h-full w-full rounded-xl bg-gradient-to-r>
+              <img :src="VitePressLogo">
+            </div>
           </div>
         </div>
-      </div>
-    </VPHeroImageLayer>
-    <VPHeroImageLayer ref="layer3Ref" class="layer-3" z="2" shadow-md>
-      <div h-full w-full>
-        <div
-          v-motion
-          h
-          :initial="{ opacity: 0.3 }"
-          :enter="{ opacity: 0.6, transition: { duration: 3000, delay: 500, repeat: Infinity, repeatType: 'mirror' } }"
-          h-full w-full rounded-xl opacity-80 blur-lg
-        >
-          <img :src="ObsidianLogo" h-full w-full>
+      </VPHeroImageLayer>
+      <VPHeroImageLayer ref="layer3Ref" class="layer-3" z="2" shadow-md>
+        <div h-full w-full>
+          <div
+            v-motion
+            h
+            :initial="{ opacity: 0.3 }"
+            :enter="{ opacity: 0.6, transition: { duration: 3000, delay: 500, repeat: Infinity, repeatType: 'mirror' } }"
+            h-full w-full rounded-xl opacity-80 blur-lg
+          >
+            <img :src="ObsidianLogo" h-full w-full>
+          </div>
         </div>
-      </div>
-    </VPHeroImageLayer>
-    <VPHeroImageLayer ref="layer4Ref" class="layer-4" z="1" shadow-md>
-      <div h-full w-full>
-        <div
-          v-motion
-          :initial="{ opacity: 0 }"
-          :enter="{ opacity: 0.3, transition: { duration: 3000, delay: 2500, repeat: Infinity, repeatType: 'mirror' } }"
-          h-full w-full blur-lg
-        >
-          <div i-octicon:markdown-24 h-full w-full text="dark:white" />
+      </VPHeroImageLayer>
+      <VPHeroImageLayer ref="layer4Ref" class="layer-4" z="1" shadow-md>
+        <div h-full w-full>
+          <div
+            v-motion
+            :initial="{ opacity: 0 }"
+            :enter="{ opacity: 0.3, transition: { duration: 3000, delay: 2500, repeat: Infinity, repeatType: 'mirror' } }"
+            h-full w-full blur-lg
+          >
+            <div i-octicon:markdown-24 h-full w-full text="dark:white" />
+          </div>
         </div>
-      </div>
-    </VPHeroImageLayer>
+      </VPHeroImageLayer>
+    </ClientOnly>
   </div>
 </template>
 

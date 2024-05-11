@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.32",
+    "@iconify-json/fluent-emoji": "^1.1.18",
     "@iconify-json/icon-park-outline": "^1.1.15",
     "@iconify-json/octicon": "^1.1.54",
     "@iconify-json/svg-spinners": "^1.1.2",
@@ -34,10 +35,12 @@
     "@shikijs/vitepress-twoslash": "^1.4.0",
     "@types/markdown-it": "^13.0.8",
     "@types/markdown-it-footnote": "^3.0.4",
+    "@vueuse/motion": "^2.1.0",
     "asciinema-player": "^3.7.1",
     "colorette": "^2.0.20",
     "markdown-it": "^13.0.2",
     "markdown-it-footnote": "^4.0.0",
+    "motion": "^10.17.0",
     "thumbhash": "^0.1.1",
     "unlazy": "^0.11.3",
     "vite-plugin-vue-devtools": "^7.1.3"

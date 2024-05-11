@@ -1,15 +1,17 @@
 import { h } from 'vue'
 
+import { MotionPlugin } from '@vueuse/motion'
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 
-import VPHeroImage from './components/VPHeroImage.vue'
+import VPHeroImageLogo from './components/VPHeroImageLogo.vue'
 import IntegrationCard from './components/IntegrationCard.vue'
 import HomeContent from './components/HomeContent.vue'
 import ThumbhashPreview from './components/ThumbhashPreview.vue'
+import NavHeader from './components/NavHeader.vue'
 
 import 'virtual:uno.css'
 
@@ -27,9 +29,14 @@ export default defineThemeUnconfig({
           () => h(NuLazyTeleportRiveCanvas),
         ],
       },
+      'home-hero-before': {
+        node: [
+          () => h(NavHeader),
+        ],
+      },
       'home-hero-image': {
         node: [
-          () => h(VPHeroImage),
+          () => h(VPHeroImageLogo),
         ],
       },
     },
@@ -39,6 +46,7 @@ export default defineThemeUnconfig({
     app.component('HomeContent', HomeContent)
     app.component('ThumbhashPreview', ThumbhashPreview)
     app.use(TwoslashFloatingVue)
+    app.use(MotionPlugin)
   },
   pluginPresets: [
     NolebasePluginPreset({

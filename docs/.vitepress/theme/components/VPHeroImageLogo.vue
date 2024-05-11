@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useMotion } from '@vueuse/motion'
 
+import { useMediaQuery } from '@vueuse/core'
 import VitePressLogo from '../assets/vitepress-logo-large.webp'
 import ObsidianLogo from '../assets/obsidian-logo.svg'
 import VPHeroImageLayer from './VPHeroImageLogoLayer.vue'
@@ -11,11 +12,33 @@ const layer2Ref = ref<HTMLDivElement>()
 const layer3Ref = ref<HTMLDivElement>()
 const layer4Ref = ref<HTMLDivElement>()
 
+const isLessThanLg = useMediaQuery('(max-width: 1023px)')
+
 const refs = [
-  { ref: layer1Ref, initial: { y: -75 }, enter: { y: -75 }, levitate: { y: -45 } },
-  { ref: layer2Ref, initial: { y: -45 }, enter: { y: -45 }, levitate: { y: -5 } },
-  { ref: layer3Ref, initial: { y: -10 }, enter: { y: -10 }, levitate: { y: 35 } },
-  { ref: layer4Ref, initial: { y: 20 }, enter: { y: 20 }, levitate: { y: 75 } },
+  {
+    ref: layer1Ref,
+    initial: { y: isLessThanLg.value ? 15 : -75 },
+    enter: { y: isLessThanLg.value ? 15 : -75 },
+    levitate: { y: isLessThanLg.value ? 40 : -45 },
+  },
+  {
+    ref: layer2Ref,
+    initial: { y: isLessThanLg.value ? 45 : -45 },
+    enter: { y: isLessThanLg.value ? 45 : -45 },
+    levitate: { y: isLessThanLg.value ? 75 : -5 },
+  },
+  {
+    ref: layer3Ref,
+    initial: { y: isLessThanLg.value ? 75 : -10 },
+    enter: { y: isLessThanLg.value ? 75 : -10 },
+    levitate: { y: isLessThanLg.value ? 110 : 35 },
+  },
+  {
+    ref: layer4Ref,
+    initial: { y: isLessThanLg.value ? 110 : 20 },
+    enter: { y: isLessThanLg.value ? 110 : 20 },
+    levitate: { y: isLessThanLg.value ? 145 : 75 },
+  },
 ]
 
 refs.forEach((ref, index) => {
@@ -51,10 +74,17 @@ refs.forEach((ref, index) => {
 </script>
 
 <template>
-  <div relative h-60 w-60>
+  <div relative h="60 <lg:55 <md:50 <sm:40" w="60 <lg:55 <md:50 <sm:40" m-auto>
     <ClientOnly>
       <VPHeroImageLayer ref="layer1Ref" class="layer-1" z="4" shadow-md>
-        <div left="8" absolute h-44 w-44 z="1">
+        <div
+          left="8 <md:7 <sm:6"
+          top="<md:7 <sm:5"
+          absolute
+          h="44 <lg:40 <md:36 <sm:30"
+          w="44 <lg:40 <md:36 <sm:30"
+          z="1"
+        >
           <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />
         </div>
         <div h-full w-full opacity-60 blur-lg>

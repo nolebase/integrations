@@ -13,7 +13,6 @@ import {
   isProgressProperty,
   isTagsProperty,
 } from '../composables/propertyType'
-import { useRawPath } from '../composables/path'
 import { useI18n } from '../composables/i18n'
 import { usePageProperties } from '../composables/data'
 import { formatDurationFromValue } from '../utils'
@@ -22,10 +21,8 @@ import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
 
 const options = inject(InjectionKey, {})
-const { lang, frontmatter } = useData()
+const { lang, page } = useData()
 const { t } = useI18n()
-const rawPath = useRawPath()
-const pagePropertiesData = usePageProperties()
 
 const pageProperties = computed(() => {
   if (!options.properties)
@@ -36,82 +33,13 @@ const pageProperties = computed(() => {
   return options.properties[lang.value]
 })
 
-type AggregatedPageProperties = Array<{
-  key: PropertyKey | 'unknown'
-  pageProperty: Property<any>
-  value: any
-  omitEmpty: boolean
-}>
-
-const frontmatterAggregated = computed(() => {
-  if (!pageProperties.value || pageProperties.value.length === 0)
-    return []
-
-  const mPageProperties: AggregatedPageProperties = pageProperties.value.map((item) => {
-    const { key } = item
-
-    const baseResolvedProperties: AggregatedPageProperties[number] = {
-      key: 'unknown',
-      pageProperty: item,
-      value: '',
-      omitEmpty: true,
-    }
-
-    if (item.type === 'dynamic') {
-      if (item.key)
-        baseResolvedProperties.key = item.key
-      else
-        baseResolvedProperties.key = item.type
-
-      baseResolvedProperties.value = pagePropertiesData.data[rawPath.value] ? pagePropertiesData.data[rawPath.value] : ''
-      baseResolvedProperties.omitEmpty = false
-
-      return baseResolvedProperties
-    }
-
-    if (!key)
-      return baseResolvedProperties
-
-    baseResolvedProperties.key = item.key
-
-    if ('omitEmpty' in item)
-      baseResolvedProperties.omitEmpty = !!item.omitEmpty
-
-    if (!frontmatter.value[String(key)])
-      return baseResolvedProperties
-
-    baseResolvedProperties.value = frontmatter.value[String(key)]
-
-    return baseResolvedProperties
-  })
-
-  return mPageProperties.filter((item) => {
-    if (item.omitEmpty && !item.value)
-      return false
-
-    return true
-  })
-})
-
-const wordsCount = computed(() => {
-  if (!pagePropertiesData.data[rawPath.value] || !pagePropertiesData.data[rawPath.value].wordsCount)
-    return 0
-
-  return pagePropertiesData.data[rawPath.value].wordsCount
-})
-
-const readingTime = computed(() => {
-  if (!pagePropertiesData.data[rawPath.value] || !pagePropertiesData.data[rawPath.value].readingTime)
-    return 0
-
-  return pagePropertiesData.data[rawPath.value].readingTime
-})
+const { config, data } = usePageProperties(page, pageProperties)
 </script>
 
 <template>
   <div my-4>
     <div class="grid grid-cols-[180px_auto] gap-1 <sm:grid-cols-[120px_auto]">
-      <template v-for="(property) of frontmatterAggregated" :key="property.key">
+      <template v-for="(property) of config" :key="property.key">
         <div
           transition="all ease-in-out"
           flex items-start
@@ -231,7 +159,7 @@ const readingTime = computed(() => {
               data-page-property-dynamic-type="word-count"
               w-full inline-flex items-center
             >
-              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount } }) }}</span>
+              <span>{{ t('pageProperties.wordsCount', { props: { wordsCount: data.wordsCount } }) }}</span>
             </div>
           </template>
           <template v-else-if="isDynamicReadingTimeProperty(property.value, property.pageProperty) && property.pageProperty.options.type === 'readingTime'">
@@ -242,7 +170,7 @@ const readingTime = computed(() => {
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
+              <span>{{ formatDurationFromValue(data.readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

@@ -3,10 +3,11 @@ import {
   lstatSync,
   readFileSync,
 } from 'node:fs'
-import { extname, join, relative } from 'node:path'
+import { extname, relative } from 'node:path'
 import type { Plugin, ResolvedConfig } from 'vite'
 import { normalizePath } from 'vite'
 import GrayMatter from 'gray-matter'
+import type { SiteConfig } from 'vitepress'
 import type { PagePropertiesData } from './types'
 import type { LanguageHandler, ReadingTimeStats } from './dynamic/readingTime'
 import { calculateWordsCountAndReadingTime } from './dynamic/readingTime'
@@ -19,33 +20,18 @@ export type {
   ReadingTimeStats as ReadingTimeResult,
 }
 
+interface VitePressConfig extends ResolvedConfig {
+  vitepress: SiteConfig
+}
+
 function normalizeWithRelative(from: string, path: string) {
   return normalizePath(relative(from, path)).toLowerCase()
 }
 
-function normalizeAsMarkdownPath(url: string) {
-  // parse url to get the pathname without query strings
-  let toMarkdownFilePath = url.split('?')[0]
-  // if the pathname starts with '/', remove it
-  if (toMarkdownFilePath.startsWith('/'))
-    toMarkdownFilePath = toMarkdownFilePath.slice(1)
-  // if the pathname ends with '/', append 'index.md'
-  if (toMarkdownFilePath.endsWith('/')) {
-    toMarkdownFilePath += 'index.md'
-  }
-  else {
-    if (extname(toMarkdownFilePath) === '.html') {
-      toMarkdownFilePath = toMarkdownFilePath
-        .replace(/^(.+?)(\.html)?$/s, '$1.md')
-    }
-  }
-
-  return toMarkdownFilePath
-}
-
 export function PageProperties(): Plugin {
-  let _config: ResolvedConfig
-  const data: PagePropertiesData = {}
+  let _config: VitePressConfig
+  let srcDir = ''
+  const calculatedPagePropertiesActualData: PagePropertiesData = {}
   const knownMarkdownFiles = new Set<string>()
 
   return {
@@ -67,7 +53,8 @@ export function PageProperties(): Plugin {
       },
     }),
     configResolved(config) {
-      _config = config
+      _config = config as VitePressConfig
+      srcDir = _config.vitepress.srcDir
     },
     resolveId(id) {
       if (id === VirtualModuleID)
@@ -77,81 +64,60 @@ export function PageProperties(): Plugin {
       if (id !== ResolvedVirtualModuleId)
         return null
 
-      return `export default ${JSON.stringify(data)}`
+      return `export default ${JSON.stringify(calculatedPagePropertiesActualData)}`
     },
     transform(code, id) {
       if (!id.endsWith('.md'))
         return null
 
       const parsedContent = GrayMatter(code)
-      data[normalizeWithRelative(_config.root, id)] = calculateWordsCountAndReadingTime(parsedContent.content)
+      calculatedPagePropertiesActualData[normalizeWithRelative(srcDir, id)] = calculateWordsCountAndReadingTime(parsedContent.content)
     },
     configureServer(server) {
-      server.middlewares.use(async (req, _, next) => {
-        if (!req)
-          return next()
-        if (!req.url)
-          return next()
+      server.hot.on('nolebase-page-properties:client-mounted', async (data) => {
+        if (!data || typeof data !== 'object')
+          return
+        if (!('page' in data && 'filePath' in data.page))
+          return
 
-        const toMarkdownFilePath = normalizeAsMarkdownPath(req.url)
-        if (extname(toMarkdownFilePath) !== '.md')
-          return next()
-
-        const completeFilePath = join(_config.root, toMarkdownFilePath)
+        const toMarkdownFilePath = data.page.filePath
+        if (extname(data.page.filePath) !== '.md')
+          return
 
         if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
           try {
-            const exists = await existsSync(completeFilePath)
+            const exists = await existsSync(toMarkdownFilePath)
             if (!exists)
-              return next()
+              return
 
-            const stat = await lstatSync(completeFilePath)
+            const stat = await lstatSync(toMarkdownFilePath)
             if (!stat.isFile())
-              return next()
+              return
 
             knownMarkdownFiles.add(toMarkdownFilePath.toLowerCase())
           }
           catch (e) {
-            return next()
+            return
           }
         }
         if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase()))
-          return next()
+          return
 
-        const content = await readFileSync(completeFilePath, 'utf-8')
+        const content = await readFileSync(toMarkdownFilePath, 'utf-8')
         const parsedContent = GrayMatter(content)
-        const key = normalizeWithRelative(_config.root, completeFilePath)
-        data[key] = calculateWordsCountAndReadingTime(parsedContent.content)
+        calculatedPagePropertiesActualData[toMarkdownFilePath] = calculateWordsCountAndReadingTime(parsedContent.content)
 
         const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
         if (!virtualModule)
-          return next()
+          return
 
         server.moduleGraph.invalidateModule(virtualModule)
         server.hot.send({
           type: 'custom',
           event: 'nolebase-page-properties:updated',
-          data,
+          data: calculatedPagePropertiesActualData,
         })
-
-        next()
       })
-    },
-    async handleHotUpdate(ctx) {
-      const hotReloadingModuleFilePath = normalizeWithRelative(_config.root, ctx.file)
-
-      if (extname(hotReloadingModuleFilePath) === '.md') {
-        const virtualModule = ctx.server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
-
-        if (virtualModule) {
-          const content = await ctx.read()
-          const parsedContent = GrayMatter(content)
-          data[hotReloadingModuleFilePath] = calculateWordsCountAndReadingTime(parsedContent.content)
-          ctx.server.moduleGraph.invalidateModule(virtualModule)
-
-          return [virtualModule]
-        }
-      }
     },
   }
 }

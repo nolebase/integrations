@@ -13,43 +13,94 @@ const layer3Ref = ref<HTMLDivElement>()
 const layer4Ref = ref<HTMLDivElement>()
 
 const isLessThanLg = useMediaQuery('(max-width: 1023px)')
+const isLessThanMd = useMediaQuery('(max-width: 767px)')
 
 const refs = [
   {
     ref: layer1Ref,
-    initial: { y: isLessThanLg.value ? 15 : -75 },
-    enter: { y: isLessThanLg.value ? 15 : -75 },
-    levitate: { y: isLessThanLg.value ? 40 : -45 },
+    mobile: {
+      initial: { y: 15 },
+      enter: { y: 15 },
+      levitate: { y: 30 },
+    },
+    tablet: {
+      initial: { y: 15 },
+      enter: { y: 15 },
+      levitate: { y: 40 },
+    },
+    desktop: {
+      initial: { y: -75 },
+      enter: { y: -75 },
+      levitate: { y: -45 },
+    },
   },
   {
     ref: layer2Ref,
-    initial: { y: isLessThanLg.value ? 45 : -45 },
-    enter: { y: isLessThanLg.value ? 45 : -45 },
-    levitate: { y: isLessThanLg.value ? 75 : -5 },
+    mobile: {
+      initial: { y: 35 },
+      enter: { y: 35 },
+      levitate: { y: 55 },
+    },
+    tablet: {
+      initial: { y: 45 },
+      enter: { y: 45 },
+      levitate: { y: 75 },
+    },
+    desktop: {
+      initial: { y: -45 },
+      enter: { y: -45 },
+      levitate: { y: -5 },
+    },
   },
   {
     ref: layer3Ref,
-    initial: { y: isLessThanLg.value ? 75 : -10 },
-    enter: { y: isLessThanLg.value ? 75 : -10 },
-    levitate: { y: isLessThanLg.value ? 110 : 35 },
+    mobile: {
+      initial: { y: 60 },
+      enter: { y: 60 },
+      levitate: { y: 85 },
+    },
+    tablet: {
+      initial: { y: 75 },
+      enter: { y: 75 },
+      levitate: { y: 110 },
+    },
+    desktop: {
+      initial: { y: -10 },
+      enter: { y: -10 },
+      levitate: { y: 35 },
+    },
   },
   {
     ref: layer4Ref,
-    initial: { y: isLessThanLg.value ? 110 : 20 },
-    enter: { y: isLessThanLg.value ? 110 : 20 },
-    levitate: { y: isLessThanLg.value ? 145 : 75 },
+    mobile: {
+      initial: { y: 85 },
+      enter: { y: 85 },
+      levitate: { y: 110 },
+    },
+    tablet: {
+      initial: { y: 110 },
+      enter: { y: 110 },
+      levitate: { y: 145 },
+    },
+    desktop: {
+      initial: { y: 20 },
+      enter: { y: 20 },
+      levitate: { y: 75 },
+    },
   },
 ]
 
 refs.forEach((ref, index) => {
+  const key = isLessThanMd.value ? 'mobile' : isLessThanLg.value ? 'tablet' : 'desktop'
+
   const { variant } = useMotion(ref.ref, {
     initial: {
       scale: 1,
-      y: ref.initial.y,
+      y: ref[key].initial.y,
       transform: 'rotateX(50deg) rotateZ(-45deg)',
     },
     enter: {
-      y: ref.enter.y,
+      y: ref[key].enter.y,
       transition: {
         type: 'spring',
         stiffness: 320,
@@ -61,7 +112,7 @@ refs.forEach((ref, index) => {
       },
     },
     levitate: {
-      y: ref.levitate.y,
+      y: ref[key].levitate.y,
       transition: {
         duration: 3000,
         repeat: Number.POSITIVE_INFINITY,
@@ -74,15 +125,15 @@ refs.forEach((ref, index) => {
 </script>
 
 <template>
-  <div relative h="60 <lg:55 <md:50 <sm:40" w="60 <lg:55 <md:50 <sm:40" m-auto>
+  <div relative h="60 <lg:55 <md:50 <sm:45" w="60 <lg:55 <md:50 <sm:45" m-auto>
     <ClientOnly>
       <VPHeroImageLayer ref="layer1Ref" class="layer-1" z="4" shadow-md>
         <div
-          left="8 <md:7 <sm:6"
-          top="<md:7 <sm:5"
+          left="8 <md:7 <sm:7"
+          top="<md:7 <sm:6"
           absolute
-          h="44 <lg:40 <md:36 <sm:30"
-          w="44 <lg:40 <md:36 <sm:30"
+          h="44 <lg:40 <md:36 <sm:32"
+          w="44 <lg:40 <md:36 <sm:32"
           z="1"
         >
           <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />

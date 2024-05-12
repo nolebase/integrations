@@ -1,5 +1,6 @@
 import { cwd as _cwd } from 'node:process'
-import type { Plugin, ResolvedConfig } from 'vite'
+import { join } from 'node:path'
+import { type Plugin, type ResolvedConfig, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
 import ora from 'ora'
 import { cyan, gray } from 'colorette'
@@ -158,7 +159,8 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
           commits = hotModuleReloadCachedCommits[data.page.filePath]
         }
         else {
-          commits = [...(await commitFromPath(data.page.filePath))]
+          const path = normalizePath(join(srcDir, data.page.filePath))
+          commits = [...(await commitFromPath(path))]
           hotModuleReloadCachedCommits[data.page.filePath] = commits
         }
         if (!commits.length)

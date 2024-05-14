@@ -6,6 +6,14 @@ import packageJSON from '~/packages/vitepress-plugin-enhanced-mark/package.json'
 
 As an interesting little plugin, it adds a <mark>sliding animation</mark> to your `<mark>` highlighted elements.
 
+::: info 🤔 Performance drop? No!
+
+This plugin doesn't contain any JavaScript code, only one stylesheet is provided.
+
+Therefore, it should be theoretically performant, and won't cause any page lag.
+
+:::
+
 ## Features
 
 <div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
@@ -20,14 +28,6 @@ As an interesting little plugin, it adds a <mark>sliding animation</mark> to you
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Natively compatible with VitePress design</span>
 </div>
-
-::: info 🤔 Performance drop? No!
-
-This plugin doesn't contain any JavaScript code, only one stylesheet is provided.
-
-Therefore, it should be theoretically performant, and won't cause any page lag.
-
-:::
 
 ## Take a look
 

@@ -1,4 +1,4 @@
-import type { Contributor } from '../types'
+import type { Author, Contributor } from '../types'
 
 export interface Locale extends Record<string, any> {
   /**
@@ -60,5 +60,10 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
+  /**
+   * @deprecated Use `mapAuthors` instead
+   * @see mapAuthors
+   */
   mapContributors?: Contributor[]
+  mapAuthors?: Author[]
 }

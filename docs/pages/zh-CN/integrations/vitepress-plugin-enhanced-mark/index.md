@@ -6,6 +6,14 @@ import packageJSON from '~/packages/vitepress-plugin-enhanced-mark/package.json'
 
 这是一个很有意思的小插件，为你的 `<mark>` 高亮元素添加<mark>展开划过</mark>的小动画。
 
+::: info 🤔 性能问题？完全不用担心！
+
+该插件不包含任何 JavaScript 代码，只为 `<mark>` 元素提供动画样式。
+
+因此，理论上它的性能应该很好，不会造成任何页面掉帧卡顿。
+
+:::
+
 ## 功能
 
 <div grid="~ cols-[auto_1fr] gap-1" items-start my-1>
@@ -20,14 +28,6 @@ import packageJSON from '~/packages/vitepress-plugin-enhanced-mark/package.json'
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>原生与 VitePress 样式兼容</span>
 </div>
-
-::: info 🤔 Performance drop? No!
-
-This plugin doesn't contain any JavaScript code, only one stylesheet is provided.
-
-Therefore, it should be theoretically performant, and won't cause any page lag.
-
-:::
 
 ## 一览效果
 

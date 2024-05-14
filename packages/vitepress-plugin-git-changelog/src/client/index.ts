@@ -1,5 +1,5 @@
 import type { Plugin } from 'vue'
-import type { Changelog, Commit } from '../types'
+import type { Author, Changelog, Commit, Contributor } from '../types'
 
 import NolebaseGitChangelog from './components/Changelog.vue'
 import NolebaseGitContributors from './components/Contributors.vue'
@@ -31,6 +31,8 @@ export {
 
 export type {
   Commit,
+  Author,
+  Contributor,
   Changelog,
   Options,
   Locale,

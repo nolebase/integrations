@@ -57,20 +57,23 @@ export default defineThemeUnconfig({
           mapContributors: [
             {
               name: 'Neko',
-              avatar: 'https://github.com/nekomeowww.png',
+              username: 'nekomeowww',
               mapByNameAliases: ['Neko Ayaka', 'Ayaka Neko'],
               mapByEmailAliases: ['neko@ayaka.moe'],
             },
             {
               name: 'Rizumu',
-              avatar: 'https://github.com/LittleSound.png',
+              username: 'LittleSound',
               mapByNameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
               mapByEmailAliases: ['rizumu@ayaka.moe'],
             },
             {
               name: 'Nisekoi5',
-              avatar: 'https://github.com/Nisekoi5.png',
-              mapByNameAliases: ['Nisekoi5'],
+              username: 'Nisekoi5',
+            },
+            {
+              name: 'Northword',
+              username: 'northword',
             },
           ],
         },

@@ -27,11 +27,22 @@ describe('findMapAuthorByName', () => {
     const creators: Contributor[] = [
       {
         name: 'John Doe',
-        mapByNameAliases: ['John Doe'],
       },
     ]
 
     const creator = findMapAuthorByName(creators, 'John Doe')
+    expect(creator).toEqual(creators[0])
+  })
+
+  it('should return the registered creator by nameAliases', () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John Doe',
+        mapByNameAliases: ['Johndoe'],
+      },
+    ]
+
+    const creator = findMapAuthorByName(creators, 'Johndoe')
     expect(creator).toEqual(creators[0])
   })
 })
@@ -117,6 +128,45 @@ describe('findMapAuthorLink', () => {
 
     const link = findMapAuthorLink(creator)
     expect(link).toEqual('example.com')
+  })
+
+  it('should return the registered creator link with no links', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      username: 'johndoe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('https://github.com/johndoe')
+  })
+
+  it('should return undefined when no links and username', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty string', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: '',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty array', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
   })
 })
 

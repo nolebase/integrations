@@ -10,7 +10,7 @@ export interface AuthorInfo {
 
 export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
   return mapContributors?.find((item) => {
-    const res = item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)
+    const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name
     if (res)
       return true
 
@@ -31,13 +31,13 @@ export function findMapAuthorByEmail(mapContributors: Contributor[] | undefined,
 }
 
 export function findMapAuthorLink(creator: Contributor): string | undefined {
+  if (!creator.links && !!creator.username)
+    return `https://github.com/${creator.username}`
+
   if (typeof creator.links === 'string' && !!creator.links)
     return creator.links
   if (!Array.isArray(creator.links))
     return
-
-  if (!creator.links && !!creator.username)
-    return `https://github.com/${creator.username}`
 
   const priority = ['github', 'twitter']
   for (const p of priority) {

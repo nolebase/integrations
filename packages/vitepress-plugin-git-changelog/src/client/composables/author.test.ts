@@ -27,11 +27,22 @@ describe('findMapAuthorByName', () => {
     const creators: Contributor[] = [
       {
         name: 'John Doe',
-        mapByNameAliases: ['John Doe'],
       },
     ]
 
     const creator = findMapAuthorByName(creators, 'John Doe')
+    expect(creator).toEqual(creators[0])
+  })
+
+  it('should return the registered creator by nameAliases', () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John Doe',
+        mapByNameAliases: ['Johndoe'],
+      },
+    ]
+
+    const creator = findMapAuthorByName(creators, 'Johndoe')
     expect(creator).toEqual(creators[0])
   })
 })

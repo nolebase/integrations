@@ -10,7 +10,7 @@ export interface AuthorInfo {
 
 export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
   return mapContributors?.find((item) => {
-    const res = item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)
+    const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name
     if (res)
       return true
 

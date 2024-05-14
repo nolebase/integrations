@@ -204,6 +204,15 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 
 ## 基于 Git 的页面历史
 
+### UI 配置
+
+1. `mapContributors` 现在已经被废弃，请使用对书写作者更为中立的 `mapAuthors`；
+2. `nameAliases` 现在已经被废弃，请使用更清晰，并与其他插件保持一致的 `mapByNameAliases`；
+3. `emailAliases` 现在已经被废弃，请使用更清晰，并与其他插件保持一致的 `mapByEmailAliases`；
+4. 添加了新的 `username` 字段映射，以便更好地支持 GitHub 头像。
+
+### `Vite` 配置
+
 1.`includeDirs` 和 `includeExtensions` 已被弃用并合并到 `include` 中，配置时，可以使用带有 `!` 作为否定的 glob 匹配模式。
 2.如果最终会被渲染的文件所对应的页面文件位于 VitePress 根目录（即 `.vitepress`所在目录）之外，**请将 `cwd`（当前工作目录）配置为页面文件的父目录**。(例如，在 Monorepo 中，如果需要读取 `docs/` 以外的文件，则需要将 `cwd` 设置为 Monorepo 的根目录，而不是 VitePress 的根目录）。
 3.不再需要配置 `rewritePaths`，因此 `rewritePaths` 已被弃用，可以安全删除。

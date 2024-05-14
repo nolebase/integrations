@@ -204,6 +204,15 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 
 ## Git-based page histories
 
+### UI config
+
+1. `mapContributors` now deprecated, please use `mapAuthors` instead since it's more neutral for writers.
+2. `nameAliases` now deprecated, please use `mapByNameAliases` instead, which is more clear and consistent with other plugins.
+3. `emailAliases` now deprecated, please use `mapByEmailAliases` instead, which is more clear and consistent with other plugins.
+4. Added new `username` field, which is the username of the author on GitHub used to fetch the avatar.
+
+### `Vite` config
+
 1. `includeDirs` and `includeExtensions` have been deprecated and merged into `include`, which is a list of glob modes with `!` negation.
 2. If a renderable page file located outside of the VitePress root (where `.vitepress` lives), please configure the `cwd` (current working directory) to the parent directory of the page files. (For example, in a Monorepo, if the source file that rendered a page s located outside of `docs/`, you need to set `cwd` to the root directory of the Monorepo instead of the root of VitePress.)
 3. No longer needed to configure `rewritePaths`, therefor `rewritePaths` is now deprecated, can be safely removed.

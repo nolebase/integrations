@@ -87,7 +87,7 @@ Author: John Doe <john.doe@anothersite.com>
 现在我们有两个来自同一个人的提交，只有电子邮件地址不同。在不进行任何配置的默认情况下，插件会将它们视为两个不同的贡献者。
 这种情况通常是因为你或者其他贡献者更改了自己的电子邮件地址。
 
-要解决这个问题，我们可以使用 `mapContributors` 选项：
+要解决这个问题，我们可以使用 `mapAuthors` 选项：
 
 ```typescript twoslash
 import type { Theme as ThemeConfig } from 'vitepress'
@@ -104,11 +104,11 @@ export const Theme: ThemeConfig = {
     // Rest of the code...
 
     app.provide(InjectionKey, { // [!code focus]
-      mapContributors: [ // [!code focus]
+      mapAuthors: [ // [!code focus]
         { // [!code focus]
           name: 'John Doe', // [!code focus]
-          email: 'john.doe@example.com', // [!code focus]
-          emailAliases: ['john.doe@anothersite.com'] // [!code focus]
+          username: 'john_doe', // [!code focus]
+          mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
         } // [!code focus]
       ] // [!code focus]
     }) // [!code focus]
@@ -192,35 +192,35 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  mapContributors?: Array<{
+  mapAuthors?: Array<{
     /**
      * The overriding display name of the contributor
      */
     name?: string
     /**
+     * The overriding GitHub, GitLab, Gitea username of the contributor
+     */
+    username?: string
+    /**
      * The overriding avatar of the contributor
      */
     avatar?: string
     /**
-     * The overriding email of the contributor
-     */
-    email?: string
-    /**
      * Whether to add a link to the contributor's profile
      */
-    links?: SocialEntry[]
+    links?: string | SocialEntry[]
     /**
      * More names to be recognized as the same contributor.
      *
      * Useful when you changed your name or email address in the past.
      */
-    nameAliases?: string[]
+    mapByNameAliases?: string[]
     /**
      * More emails to be recognized as the same contributor.
      *
      * Useful when you changed your email address in the past.
      */
-    emailAliases?: string[]
+    mapByEmailAliases?: string[]
   }>
 }
 ```

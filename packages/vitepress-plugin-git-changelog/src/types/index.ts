@@ -74,7 +74,6 @@ export interface Changelog {
 
 export interface SocialEntry {
   type: 'github' | 'twitter' | 'email' | string
-  icon: string
   link: string
 }
 
@@ -84,27 +83,49 @@ export interface Contributor {
    */
   name?: string
   /**
+   * The overriding GitHub, GitLab, Gitea username of the contributor
+   */
+  username?: string
+  /**
    * The overriding avatar of the contributor
    */
   avatar?: string
   /**
-   * The overriding email of the contributor
-   */
-  email?: string
-  /**
    * Whether to add a link to the contributor's profile
    */
-  links?: SocialEntry[]
+  links?: string | SocialEntry[]
+  /**
+   * More names to be recognized as the same contributor.
+   *
+   * Useful when you changed your name or email address in the past.
+   *
+   * @deprecated Use `mapByNameAliases` instead
+   * @see mapByNameAliases
+   */
+  nameAliases?: string[]
   /**
    * More names to be recognized as the same contributor.
    *
    * Useful when you changed your name or email address in the past.
    */
-  nameAliases?: string[]
+  mapByNameAliases?: string[]
+  /**
+   * More emails to be recognized as the same contributor.
+   *
+   * Useful when you changed your email address in the past.
+   *
+   * @deprecated Use `mapByEmailAliases` instead
+   * @see mapByEmailAliases
+   */
+  emailAliases?: string[]
   /**
    * More emails to be recognized as the same contributor.
    *
    * Useful when you changed your email address in the past.
    */
-  emailAliases?: string[]
+  mapByEmailAliases?: string[]
+}
+
+export type {
+  Contributor as Author,
 }

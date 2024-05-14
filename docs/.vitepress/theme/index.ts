@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { type Plugin, h } from 'vue'
 
 import { MotionPlugin } from '@vueuse/motion'
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
@@ -45,8 +45,9 @@ export default defineThemeUnconfig({
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
     app.component('ThumbhashPreview', ThumbhashPreview)
-    app.use(TwoslashFloatingVue)
-    app.use(MotionPlugin)
+
+    app.use(TwoslashFloatingVue as Plugin)
+    app.use(MotionPlugin as Plugin)
   },
   pluginPresets: [
     NolebasePluginPreset({
@@ -56,20 +57,23 @@ export default defineThemeUnconfig({
           mapContributors: [
             {
               name: 'Neko',
-              avatar: 'https://github.com/nekomeowww.png',
-              nameAliases: ['Neko Ayaka', 'Ayaka Neko'],
-              emailAliases: ['neko@ayaka.moe'],
+              username: 'nekomeowww',
+              mapByNameAliases: ['Neko Ayaka', 'Ayaka Neko'],
+              mapByEmailAliases: ['neko@ayaka.moe'],
             },
             {
               name: 'Rizumu',
-              avatar: 'https://github.com/LittleSound.png',
-              nameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
-              emailAliases: ['rizumu@ayaka.moe'],
+              username: 'LittleSound',
+              mapByNameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
+              mapByEmailAliases: ['rizumu@ayaka.moe'],
             },
             {
               name: 'Nisekoi5',
-              avatar: 'https://github.com/Nisekoi5.png',
-              nameAliases: ['Nisekoi5'],
+              username: 'Nisekoi5',
+            },
+            {
+              name: 'Northword',
+              username: 'northword',
             },
           ],
         },

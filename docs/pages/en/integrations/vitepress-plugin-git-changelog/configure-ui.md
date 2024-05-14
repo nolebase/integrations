@@ -67,9 +67,9 @@ export const Theme: ThemeConfig = {
 }
 ```
 
-### Option `mapContributors` - Map contributors' information
+### Option `mapAuthors` - Map contributors' information
 
-The `mapContributors` field in the configuration options is used to map the contributors' information. You can provide the `mapContributors` field in the configuration options to map the contributors' information, including the display name, avatar, email, social links, and aliases.
+The `mapAuthors` field in the configuration options is used to map the contributors' information. You can provide the `mapAuthors` field in the configuration options to map the contributors' information, including the display name, avatar, email, social links, and aliases.
 
 Let's say we have these logs:
 
@@ -89,7 +89,7 @@ Author: John Doe <john.doe@anothersite.com>
 We now have two commits from the same person, with only the email address is different. By default, the plugin will treat them as two different contributors.
 Such case happens when you changed your name or email address in the past.
 
-To solve this, you can provide the `mapContributors` field in the configuration options to map the contributors' information:
+To solve this, you can provide the `mapAuthors` field in the configuration options to map the contributors' information:
 
 ```typescript twoslash
 import type { Theme as ThemeConfig } from 'vitepress'
@@ -106,11 +106,11 @@ export const Theme: ThemeConfig = {
     // Rest of the code...
 
     app.provide(InjectionKey, { // [!code focus]
-      mapContributors: [ // [!code focus]
+      mapAuthors: [ // [!code focus]
         { // [!code focus]
           name: 'John Doe', // [!code focus]
-          email: 'john.doe@example.com', // [!code focus]
-          emailAliases: ['john.doe@anothersite.com'] // [!code focus]
+          username: 'john_doe', // [!code focus]
+          mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
         } // [!code focus]
       ] // [!code focus]
     }) // [!code focus]
@@ -194,35 +194,35 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  mapContributors?: Array<{
+  mapAuthors?: Array<{
     /**
      * The overriding display name of the contributor
      */
     name?: string
     /**
+     * The overriding GitHub, GitLab, Gitea username of the contributor
+     */
+    username?: string
+    /**
      * The overriding avatar of the contributor
      */
     avatar?: string
     /**
-     * The overriding email of the contributor
-     */
-    email?: string
-    /**
      * Whether to add a link to the contributor's profile
      */
-    links?: SocialEntry[]
+    links?: string | SocialEntry[]
     /**
      * More names to be recognized as the same contributor.
      *
      * Useful when you changed your name or email address in the past.
      */
-    nameAliases?: string[]
+    mapByNameAliases?: string[]
     /**
      * More emails to be recognized as the same contributor.
      *
      * Useful when you changed your email address in the past.
      */
-    emailAliases?: string[]
+    mapByEmailAliases?: string[]
   }>
 }
 ```

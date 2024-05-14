@@ -129,6 +129,45 @@ describe('findMapAuthorLink', () => {
     const link = findMapAuthorLink(creator)
     expect(link).toEqual('example.com')
   })
+
+  it('should return the registered creator link with no links', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      username: 'johndoe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('https://github.com/johndoe')
+  })
+
+  it('should return undefined when no links and username', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty string', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: '',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty array', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
 })
 
 describe('newAvatarForAuthor', () => {

@@ -31,13 +31,13 @@ export function findMapAuthorByEmail(mapContributors: Contributor[] | undefined,
 }
 
 export function findMapAuthorLink(creator: Contributor): string | undefined {
+  if (!creator.links && !!creator.username)
+    return `https://github.com/${creator.username}`
+
   if (typeof creator.links === 'string' && !!creator.links)
     return creator.links
   if (!Array.isArray(creator.links))
     return
-
-  if (!creator.links && !!creator.username)
-    return `https://github.com/${creator.username}`
 
   const priority = ['github', 'twitter']
   for (const p of priority) {

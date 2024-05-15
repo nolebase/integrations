@@ -3,28 +3,82 @@ import type { Author, Contributor } from '../types'
 export interface Locale extends Record<string, any> {
   /**
    * What to display when there are no logs
+   *
+   * @deprecated Use `changelog.noData` instead
    */
   noLogs?: string
   /**
    * What to display when there are no contributors
+   *
+   * @deprecated Use `contributors.noData` instead
    */
   noContributors?: string
   /**
    * What to display when the page was last edited
+   *
+   * @deprecated Use `changelog.lastEdited` instead
    */
   lastEdited?: string
   /**
    * The name of the locale to use for date-fns
+   *
+   * @deprecated Use `changelog.lastEditedDateFnsLocaleName` instead
    */
   lastEditedDateFnsLocaleName?: string
   /**
    * What to display when the user wants to view the full history
+   *
+   * @deprecated Use `changelog.viewFullHistory` instead
    */
   viewFullHistory?: string
   /**
    * What to display when the commit was committed
+   *
+   * @deprecated Use `changelog.committedOn` instead
    */
   committedOn?: string
+  /**
+   * The changelog section configuration
+   */
+  changelog?: {
+    /**
+     * The title of the changelog section
+     */
+    title?: string
+    /**
+     * What to display when there are no logs
+     */
+    noData?: string
+    /**
+     * What to display when the page was last edited
+     */
+    lastEdited?: string
+    /**
+     * The name of the locale to use for date-fns
+     */
+    lastEditedDateFnsLocaleName?: string
+    /**
+     * What to display when the user wants to view the full history
+     */
+    viewFullHistory?: string
+    /**
+     * What to display when the commit was committed
+     */
+    committedOn?: string
+  }
+  /**
+   * The contributors section configuration
+   */
+  contributors?: {
+    /**
+     * The title of the contributors section
+     */
+    title?: string
+    /**
+     * What to display when there are no contributors
+     */
+    noData?: string
+  }
 }
 
 export interface Options {

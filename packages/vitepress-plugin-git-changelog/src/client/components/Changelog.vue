@@ -11,6 +11,7 @@ import { useI18n } from '../composables/i18n'
 import { InjectionKey } from '../constants'
 import type { Locale } from '../types'
 import { defaultEnLocale, defaultLocales } from '../locales'
+
 import CommitRegularLine from './CommitRegularLine.vue'
 import CommitTagLine from './CommitTagLine.vue'
 
@@ -76,7 +77,10 @@ const isFreshChange = computed(() => {
 </script>
 
 <template>
-  <em v-if="!commits.length" opacity="70">{{ t('noLogs') }}</em>
+  <h2 :id="t('changelog.title')">
+    {{ t('changelog.title') }}
+  </h2>
+  <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
   <div
     v-else
     :class="[
@@ -95,7 +99,12 @@ const isFreshChange = computed(() => {
           <span v-if="commits[0]">
             {{ t('lastEdited', {
               props: {
-                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.lastEditedDateFnsLocaleName || lang || 'enUS'),
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || lang || 'enUS'),
+              },
+              omitEmpty: true,
+            }) || t('changelog.lastEdited', {
+              props: {
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || lang || 'enUS'),
               },
             }) }}
           </span>
@@ -103,7 +112,7 @@ const isFreshChange = computed(() => {
         <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
         <span class="vp-nolebase-git-changelog-view-full-history-title inline-flex cursor-pointer items-center gap-3">
           <span class="<sm:hidden">
-            {{ t('viewFullHistory') }}
+            {{ t('viewFullHistory', { omitEmpty: true }) || t('changelog.viewFullHistory') }}
           </span>
           <svg
             class="i-octicon:chevron-down-16"

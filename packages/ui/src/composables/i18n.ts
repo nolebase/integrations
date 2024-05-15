@@ -71,7 +71,7 @@ export function createI18n(injectionKey: InjectionKey<LocalesOptions>, defaultLo
     const language = computed(() => lang.value || 'en')
 
     return {
-      t(key: string, translateOptions?: { props: Record<string, any> }) {
+      t(key: string, translateOptions?: { props?: Record<string, any>, omitEmpty?: boolean }) {
         const translatedValue = computed(() => {
           return getTranslationValueByI18nPropertyKey(language.value, key, {
             locales: options.locales || {},
@@ -81,14 +81,16 @@ export function createI18n(injectionKey: InjectionKey<LocalesOptions>, defaultLo
         })
 
         if (!translatedValue.value)
-          return key
+          return translateOptions?.omitEmpty ? '' : key
+        if (translateOptions?.omitEmpty && translatedValue.value === key)
+          return ''
         if (!translateOptions || !translateOptions.props)
           return translatedValue.value
 
         return computed(() => {
           let result = translatedValue.value
 
-          Object.entries(translateOptions.props).forEach(([property, value]) => {
+          Object.entries(translateOptions.props || {}).forEach(([property, value]) => {
             result = result.replace(new RegExp(`{{${property}}}`, 'g'), String(value))
           })
 

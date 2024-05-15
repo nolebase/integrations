@@ -1,6 +1,10 @@
-noLogs: 'No recent changes'
-noContributors: 'No contributors'
-lastEdited: 'Last edited {{daysAgo}}'
-lastEditedDateFnsLocaleName: 'enUS'
-viewFullHistory: 'View full history'
-committedOn: ' on {{date}}'
+changelog:
+  title: 'Changelog'
+  noData: 'No recent changes'
+  lastEdited: 'Last edited {{daysAgo}}'
+  lastEditedDateFnsLocaleName: 'enUS'
+  viewFullHistory: 'View full history'
+  committedOn: ' on {{date}}'
+contributors:
+  title: 'Contributors'
+  noData: 'No contributors'

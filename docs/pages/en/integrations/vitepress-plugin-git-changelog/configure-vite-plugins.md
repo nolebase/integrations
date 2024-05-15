@@ -1,5 +1,13 @@
 # Configure Vite plugins
 
+::: danger Deprecating the `locales` field of `GitChangelogMarkdownSection` plugin options
+
+We migrated the `locales` configurations to [UI config](/pages/en/integrations/vitepress-plugin-git-changelog/configure-ui#locales-options). You no longer need to set `locales` for `GitChangelogMarkdownSection` plugin.
+
+For information, please refer to [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
+
+:::
+
 Besides the UI widget components, Git-based page histories offer another two Vite plugins for data fetching and rendering. These plugins are `GitChangelog` and `GitChangelogMarkdownSection`.
 
 ### Configure Vite plugins
@@ -161,33 +169,9 @@ It does have more options to configure.
 ::: details Full list of options
 
 ```typescript twoslash
-import type { Context, Locale } from '@nolebase/vitepress-plugin-git-changelog/vite'
+import type { Context } from '@nolebase/vitepress-plugin-git-changelog/vite'
 // ---cut---
 interface GitChangelogMarkdownSectionOptions {
-  /**
-   * The locales options
-   */
-  locales?: Record<string, Locale>
-  /**
-   * The getter function to get the title of the changelog section
-   *
-   * @param code - raw markdown code (comes from vite when transform hook is called)
-   * @param id - the current transforming module ID (comes from vite when transform hook is called)
-   * @param context - the context object, contains several helper functions
-   * @returns string
-   * @default () => 'Changelog'
-   */
-  getChangelogTitle?: (code: string, id: string, context: Context) => string
-  /**
-   * The getter function to get the title of the contributors section
-   *
-   * @param code - raw markdown code (comes from vite when transform hook is called)
-   * @param id - the current transforming module ID (comes from vite when transform hook is called)
-   * @param context - the context object, contains several helper functions
-   * @returns string
-   * @default () => 'Contributors'
-   */
-  getContributorsTitle?: (code: string, id: string, context: Context) => string
   /**
    * The list of file names to exclude from the transformation
    *
@@ -220,85 +204,6 @@ interface GitChangelogMarkdownSectionOptions {
 ```
 
 :::
-
-#### Internationalization
-
-The `GitChangelogMarkdownSection` plugin supports internationalization. You can configure the `locales` option to provide the translations for the section titles.
-
-::: tip Why internationalization again, in Vite plugin, seriously?
-
-VitePress has a function called [outline](https://vitepress.dev/reference/default-theme-config#outline), where it read all the heading titles in one page and generate the sidebar navigation based on these data.
-
-So in order to make the changelog (page history) and contributors section titles to be included into outline, we have to inject them into the Markdown before it got rendered into HTML, then pass them to VitePress to render the pages into HTML.
-
-And transforming and manipulating `markdown-it` AST tree is a tough work to do by comparing to directly manipulate them in Vite plugins, or through Remark API, but this would be another story for another time.
-
-In conclusion, we have to inject the sections into the Markdown before it got rendered into HTML, as well as the internationalization support.
-
-:::
-
-```typescript twoslash
-import { defineConfig } from 'vite'
-import { // [!code focus]
-  GitChangelogMarkdownSection, // [!code focus]
-} from '@nolebase/vitepress-plugin-git-changelog/vite' // [!code focus]
-
-export default defineConfig({
-  plugins: [
-    GitChangelogMarkdownSection({ // [!code focus]
-      locales: { // [!code focus]
-        'zh-CN': { // [!code focus]
-          gitChangelogMarkdownSectionTitles: { // [!code focus]
-            changelog: '文件历史', // [!code focus]
-            contributors: '贡献者', // [!code focus]
-          }, // [!code focus]
-        }, // [!code focus]
-        'en': { // [!code focus]
-          gitChangelogMarkdownSectionTitles: { // [!code focus]
-            changelog: 'File History', // [!code focus]
-            contributors: 'Contributors', // [!code focus]
-          }, // [!code focus]
-        }, // [!code focus]
-      }, // [!code focus]
-    }), // [!code focus]
-  ],
-  // other vite configurations...
-})
-```
-
-or if you would like to dynamically generate the translations:
-
-```typescript twoslash
-import { join } from 'node:path'
-import { defineConfig } from 'vite'
-import { // [!code focus]
-  GitChangelogMarkdownSection, // [!code focus]
-} from '@nolebase/vitepress-plugin-git-changelog/vite' // [!code focus]
-
-export default defineConfig({
-  plugins: [
-    GitChangelogMarkdownSection({ // [!code focus]
-      getChangelogTitle: (_, __, { helpers }): string => {
-        if (helpers.idStartsWith(join('pages', 'en')))
-          return 'File History'
-        if (helpers.idStartsWith(join('pages', 'zh-CN')))
-          return '文件历史'
-
-        return 'File History'
-      },
-      getContributorsTitle: (_, __, { helpers }): string => {
-        if (helpers.idStartsWith(join('pages', 'en')))
-          return 'Contributors'
-        if (helpers.idStartsWith(join('pages', 'zh-CN')))
-          return '贡献者'
-
-        return 'Contributors'
-      },
-    }), // [!code focus]
-  ],
-  // other vite configurations...
-})
-```
 
 #### Excluding a page from the transformation of `GitChangelogMarkdownSection`
 

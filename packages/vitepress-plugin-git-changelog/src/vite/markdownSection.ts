@@ -1,22 +1,13 @@
 import { relative } from 'node:path'
 import type { Plugin } from 'vite'
 import GrayMatter from 'gray-matter'
-import type { SiteConfig } from 'vitepress'
 
-import type { Locale } from './locales'
-import { defaultEnLocale } from './locales'
 import { createHelpers } from './helpers'
 import type { Context, GitChangelogMarkdownSectionOptions } from './types'
-import { tTitles } from './i18n'
-
-interface VitePressConfig {
-  vitepress: SiteConfig
-}
 
 export type {
   GitChangelogMarkdownSectionOptions,
   Context,
-  Locale,
 }
 
 export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectionOptions): Plugin {
@@ -26,7 +17,6 @@ export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectio
   } = options ?? {}
 
   let root = ''
-  let vitepressConfig: SiteConfig
 
   return {
     name: '@nolebase/vitepress-plugin-git-changelog-markdown-section',
@@ -36,7 +26,6 @@ export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectio
     enforce: 'pre',
     configResolved(config) {
       root = config.root ?? ''
-      vitepressConfig = (config as unknown as VitePressConfig).vitepress
     },
     transform(code, id) {
       if (!id.endsWith('.md'))
@@ -56,30 +45,25 @@ export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectio
       if ('gitChangelog' in parsedMarkdownContent.data && !parsedMarkdownContent.data.gitChangelog)
         return null
 
-      const { contributorsTitle, changelogTitle } = tTitles(vitepressConfig, options, code, id, helpers)
       if (!options?.sections?.disableContributors)
-        code = TemplateContributors(code, contributorsTitle ?? defaultEnLocale!.gitChangelogMarkdownSectionTitles!.contributors!)
+        code = TemplateContributors(code)
       if (!options?.sections?.disableChangelog)
-        code = TemplateChangelog(code, changelogTitle ?? defaultEnLocale!.gitChangelogMarkdownSectionTitles!.changelog!)
+        code = TemplateChangelog(code)
 
       return code
     },
   }
 }
 
-function TemplateContributors(code: string, title: string) {
+function TemplateContributors(code: string) {
   return `${code}
-
-## ${title}
 
 <NolebaseGitContributors />
 `
 }
 
-function TemplateChangelog(code: string, title: string) {
+function TemplateChangelog(code: string) {
   return `${code}
-
-## ${title}
 
 <NolebaseGitChangelog />
 `

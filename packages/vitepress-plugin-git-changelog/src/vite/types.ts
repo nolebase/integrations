@@ -1,5 +1,9 @@
-import type { CommitToStringHandler, CommitToStringsHandler, Helpers, RewritePathsBy } from './helpers'
-import type { Locale } from './locales'
+import type {
+  CommitToStringHandler,
+  CommitToStringsHandler,
+  Helpers,
+  RewritePathsBy,
+} from './helpers'
 
 export interface Context {
   helpers: Helpers
@@ -114,30 +118,6 @@ export interface GitChangelogOptions {
 }
 
 export interface GitChangelogMarkdownSectionOptions {
-  /**
-   * The locales options
-   */
-  locales?: Record<string, Locale>
-  /**
-   * The getter function to get the title of the changelog section
-   *
-   * @param code - raw markdown code (comes from vite when transform hook is called)
-   * @param id - the current transforming module ID (comes from vite when transform hook is called)
-   * @param context - the context object, contains several helper functions
-   * @returns string
-   * @default () => 'Changelog'
-   */
-  getChangelogTitle?: (code: string, id: string, context: Context) => string
-  /**
-   * The getter function to get the title of the contributors section
-   *
-   * @param code - raw markdown code (comes from vite when transform hook is called)
-   * @param id - the current transforming module ID (comes from vite when transform hook is called)
-   * @param context - the context object, contains several helper functions
-   * @returns string
-   * @default () => 'Contributors'
-   */
-  getContributorsTitle?: (code: string, id: string, context: Context) => string
   /**
    * The list of file names to exclude from the transformation
    *

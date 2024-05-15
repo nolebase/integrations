@@ -107,7 +107,7 @@ describe('parseCommits', () => {
       date: 'Mon Mar 25 20:05:53 2024 +0800',
       date_timestamp: 1711368353000,
       message: 'release: v1.24.3',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
+      body: 'Signed-off-by: First Last <user@example.com>',
       author_name: 'First Last',
       author_email: 'user@example.com',
       author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
@@ -116,7 +116,7 @@ describe('parseCommits', () => {
   })
 
   it('should transform for commit contains no refs', async () => {
-    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>\n']
+    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>']
     const commit = await parseCommits(
       '',
       mockedCommit,
@@ -133,7 +133,7 @@ describe('parseCommits', () => {
       date: 'Wed Apr 24 14:24:44 2024 +0800',
       date_timestamp: 1713939884000,
       message: 'docs: fix english integrations list',
-      body: 'Signed-off-by: First Last <user@example.com>\n',
+      body: 'Signed-off-by: First Last <user@example.com>',
       author_name: 'First Last',
       author_email: 'user@example.com',
       author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',

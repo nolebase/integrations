@@ -210,13 +210,24 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 2. `nameAliases` now deprecated, please use `mapByNameAliases` instead, which is more clear and consistent with other plugins.
 3. `emailAliases` now deprecated, please use `mapByEmailAliases` instead, which is more clear and consistent with other plugins.
 4. Added new `username` field, which is the username of the author on GitHub used to fetch the avatar.
+5. The `locales` in the original Vite plugin `GitChangelogMarkdownSection` no longer need to be configured and have been migrated to the UI configuration under `locales`:
+	1. `changelog.title`
+	2. `contributors.title`;
+6. In order to better structure the organization of the i18n fields, the original
+	1. `noLogs` i18n configuration changed to `changelog.noData`; 
+	2. `noContributors` i18n configuration was changed to `contributors.noData`.
+	3. `lastEdited` i18n Configuration changed to `lastEdited`.
+	4. `lastEditedDateFnsLocaleName` configuration changed to `changelog.lastEditedDateFnsLocaleName`
+	5. `viewFullHistory` i18n Configuration changed to `changelog.viewFullHistory`
+	6. `committedOn` i18n configuration changed to `changelog.committedOn`
 
 ### `Vite` config
 
-1. `includeDirs` and `includeExtensions` have been deprecated and merged into `include`, which is a list of glob modes with `!` negation.
-2. If a renderable page file located outside of the VitePress root (where `.vitepress` lives), please configure the `cwd` (current working directory) to the parent directory of the page files. (For example, in a Monorepo, if the source file that rendered a page s located outside of `docs/`, you need to set `cwd` to the root directory of the Monorepo instead of the root of VitePress.)
-3. No longer needed to configure `rewritePaths`, therefor `rewritePaths` is now deprecated, can be safely removed.
-4. `rewritePaths` pattern should be configured in the against to filesystem paths, not the URL route paths.
+1. There is no longer a need to configure the `locales` field for `GitChangelogMarkdownSection`, and all of the internationalized i18n configuration has been migrated to the UI configuration.
+2. `includeDirs` and `includeExtensions` have been deprecated and merged into `include`, which is a list of glob modes with `!` negation.
+3. If a renderable page file located outside of the VitePress root (where `.vitepress` lives), please configure the `cwd` (current working directory) to the parent directory of the page files. (For example, in a Monorepo, if the source file that rendered a page s located outside of `docs/`, you need to set `cwd` to the root directory of the Monorepo instead of the root of VitePress.)
+4. No longer needed to configure `rewritePaths`, therefor `rewritePaths` is now deprecated, can be safely removed.
+5. `rewritePathsBy` pattern should be configured in the against to filesystem paths, not the URL route paths.
 
 ## Previewing image (social media card) generation
 

@@ -55,6 +55,7 @@ words:
   - uncrypto
   - unlazy
   - unocss
+  - Vite
   - vitepress
   - vueuse
 ignoreWords: []

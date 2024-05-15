@@ -209,14 +209,25 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 1. `mapContributors` 现在已经被废弃，请使用对书写作者更为中立的 `mapAuthors`；
 2. `nameAliases` 现在已经被废弃，请使用更清晰，并与其他插件保持一致的 `mapByNameAliases`；
 3. `emailAliases` 现在已经被废弃，请使用更清晰，并与其他插件保持一致的 `mapByEmailAliases`；
-4. 添加了新的 `username` 字段映射，以便更好地支持 GitHub 头像。
+4. 添加了新的 `username` 字段映射，以便更好地支持 GitHub 头像；
+5. 原先的 Vite 插件 `GitChangelogMarkdownSection` 中的 `locales` 已经不再需要配置了，迁移到了 UI 配置的 `locales` 下的
+	1. `changelog.title`
+	2. `contributors.title`；
+6. 为了能更好的结构化组织 i18n 的各字段，原先的
+	1. `noLogs` i18n 配置变更为了 `changelog.noData`
+	2. `noContributors` i18n 配置变更为了 `contributors.noData`
+	3. `lastEdited` i18n 配置变更为了 `lastEdited`
+	4. `lastEditedDateFnsLocaleName` 配置变更为了 `changelog.lastEditedDateFnsLocaleName`
+	5. `viewFullHistory` i18n 配置变更为了 `changelog.viewFullHistory`
+	6. `committedOn` i18n 配置变更为了 `changelog.committedOn`
 
 ### `Vite` 配置
 
-1.`includeDirs` 和 `includeExtensions` 已被弃用并合并到 `include` 中，配置时，可以使用带有 `!` 作为否定的 glob 匹配模式。
-2.如果最终会被渲染的文件所对应的页面文件位于 VitePress 根目录（即 `.vitepress`所在目录）之外，**请将 `cwd`（当前工作目录）配置为页面文件的父目录**。(例如，在 Monorepo 中，如果需要读取 `docs/` 以外的文件，则需要将 `cwd` 设置为 Monorepo 的根目录，而不是 VitePress 的根目录）。
-3.不再需要配置 `rewritePaths`，因此 `rewritePaths` 已被弃用，可以安全删除。
-4.`rewritePaths` 模式应配置为针对文件系统路径，而不是 URL 路由路径。
+1. 不再需要为 `GitChangelogMarkdownSection` 配置 `locales` 字段了，全部的国际化 i18n 配置都已经迁移到了 UI 配置中。
+2. `includeDirs` 和 `includeExtensions` 已被弃用并合并到 `include` 中，配置时，可以使用带有 `!` 作为否定的 glob 匹配模式。
+3. 如果最终会被渲染的文件所对应的页面文件位于 VitePress 根目录（即 `.vitepress`所在目录）之外，**请将 `cwd`（当前工作目录）配置为页面文件的父目录**。(例如，在 Monorepo 中，如果需要读取 `docs/` 以外的文件，则需要将 `cwd` 设置为 Monorepo 的根目录，而不是 VitePress 的根目录）。
+4. 不再需要配置 `rewritePaths`，因此 `rewritePaths` 已被弃用，可以安全删除。
+5. `rewritePathsBy` 模式应配置为针对文件系统路径，而不是 URL 路由路径。
 
 ## 预览图片（社交媒体卡片）生成
 

@@ -122,6 +122,12 @@ export const Theme: ThemeConfig = {
 
 ## Options inside
 
+::: warning Deprecating warning
+
+We have changed the structure of locales config since `2.0.0-rc14`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
+
+:::
+
 ::: details Complete configurable options
 
 ```typescript twoslash
@@ -133,29 +139,47 @@ interface SocialEntry {
 
 interface Locale extends Record<string, any> {
   /**
-   * What to display when there are no logs
+   * The changelog section configuration
    */
-  noLogs?: string
+  changelog?: {
+    /**
+     * The title of the changelog section
+     */
+    title?: string
+    /**
+     * What to display when there are no logs
+     */
+    noData?: string
+    /**
+     * What to display when the page was last edited
+     */
+    lastEdited?: string
+    /**
+     * The name of the locale to use for date-fns
+     */
+    lastEditedDateFnsLocaleName?: string
+    /**
+     * What to display when the user wants to view the full history
+     */
+    viewFullHistory?: string
+    /**
+     * What to display when the commit was committed
+     */
+    committedOn?: string
+  }
   /**
-   * What to display when there are no contributors
+   * The contributors section configuration
    */
-  noContributors?: string
-  /**
-   * What to display when the page was last edited
-   */
-  lastEdited?: string
-  /**
-   * The name of the locale to use for date-fns
-   */
-  lastEditedDateFnsLocaleName?: string
-  /**
-   * What to display when the user wants to view the full history
-   */
-  viewFullHistory?: string
-  /**
-   * What to display when the commit was committed
-   */
-  committedOn?: string
+  contributors?: {
+    /**
+     * The title of the contributors section
+     */
+    title?: string
+    /**
+     * What to display when there are no contributors
+     */
+    noData?: string
+  }
 }
 // ---cut---
 /**
@@ -176,18 +200,24 @@ export interface Options {
    * {
    *  locales: {
    *    'en': {
-   *      noLogs: 'No recent changes',
-   *      lastEdited: 'This page was last edited {{daysAgo}}',
-   *      lastEditedDateFnsLocaleName: 'enUS',
-   *      viewFullHistory: 'View full history',
-   *      committedOn: ' on {{date}}',
+   *      changelog: {
+   *        title: 'Changelog',
+   *        noData: 'No recent changes',
+   *        lastEdited: 'This page was last edited {{daysAgo}}',
+   *        lastEditedDateFnsLocaleName: 'enUS',
+   *        viewFullHistory: 'View full history',
+   *        committedOn: ' on {{date}}',
+   *      }
    *    },
    *    'zh-CN': {
-   *      noLogs: '暂无最近变更历史',
-   *      lastEdited: '本页面最后编辑于 {{daysAgo}}',
-   *      lastEditedDateFnsLocaleName: 'zhCN',
-   *      viewFullHistory: '查看完整历史',
-   *      committedOn: '于 {{date}} 提交',
+   *       changelog: {
+   *         title: '页面历史'
+   *         noData: '暂无最近变更历史',
+   *         lastEdited: '本页面最后编辑于 {{daysAgo}}',
+   *         lastEditedDateFnsLocaleName: 'zhCN',
+   *         viewFullHistory: '查看完整历史',
+   *         committedOn: '于 {{date}} 提交',
+   *       }
    *     },
    *   }
    * }
@@ -287,6 +317,12 @@ export const Theme: ThemeConfig = {
 
 ### Locales options
 
+::: warning Deprecating warning
+
+We have changed the structure of locales config since `2.0.0-rc14`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
+
+:::
+
 ::: details Complete internationalization field options
 
 ```typescript twoslash
@@ -295,29 +331,47 @@ export const Theme: ThemeConfig = {
  */
 interface Locale {
   /**
-   * What to display when there are no logs
+   * The changelog section configuration
    */
-  noLogs?: string
+  changelog?: {
+    /**
+     * The title of the changelog section
+     */
+    title?: string
+    /**
+     * What to display when there are no logs
+     */
+    noData?: string
+    /**
+     * What to display when the page was last edited
+     */
+    lastEdited?: string
+    /**
+     * The name of the locale to use for date-fns
+     */
+    lastEditedDateFnsLocaleName?: string
+    /**
+     * What to display when the user wants to view the full history
+     */
+    viewFullHistory?: string
+    /**
+     * What to display when the commit was committed
+     */
+    committedOn?: string
+  }
   /**
-   * What to display when there are no contributors
+   * The contributors section configuration
    */
-  noContributors?: string
-  /**
-   * What to display when the page was last edited
-   */
-  lastEdited?: string
-  /**
-   * The name of the locale to use for date-fns
-   */
-  lastEditedDateFnsLocaleName?: string
-  /**
-   * What to display when the user wants to view the full history
-   */
-  viewFullHistory?: string
-  /**
-   * What to display when the commit was committed
-   */
-  committedOn?: string
+  contributors?: {
+    /**
+     * The title of the contributors section
+     */
+    title?: string
+    /**
+     * What to display when there are no contributors
+     */
+    noData?: string
+  }
 }
 ```
 

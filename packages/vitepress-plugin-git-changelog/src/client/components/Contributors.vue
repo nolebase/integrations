@@ -83,11 +83,14 @@ watch(commits, async (newCommits) => {
 </script>
 
 <template>
+  <h2 :id="t('contributors.title')">
+    {{ t('contributors.title') }}
+  </h2>
   <div class="flex flex-wrap gap-4 pt-2">
     <em
       v-if="!contributors.length"
     >
-      {{ t('noContributors') }}
+      {{ t('noContributors', { omitEmpty: true }) || t('contributors.noData') }}
     </em>
     <template
       v-else

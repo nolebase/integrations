@@ -29,7 +29,7 @@ const { t } = useI18n()
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
       <ClientOnly>
         <span class="text-xs opacity-50" :title="toDate(commit.date_timestamp).toString()">
-          {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
+          {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() }, omitEmpty: true }) || t('changelog.committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
         </span>
       </ClientOnly>
     </span>

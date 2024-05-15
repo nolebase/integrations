@@ -227,7 +227,7 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 2. `includeDirs` and `includeExtensions` have been deprecated and merged into `include`, which is a list of glob modes with `!` negation.
 3. If a renderable page file located outside of the VitePress root (where `.vitepress` lives), please configure the `cwd` (current working directory) to the parent directory of the page files. (For example, in a Monorepo, if the source file that rendered a page s located outside of `docs/`, you need to set `cwd` to the root directory of the Monorepo instead of the root of VitePress.)
 4. No longer needed to configure `rewritePaths`, therefor `rewritePaths` is now deprecated, can be safely removed.
-5. `rewritePaths` pattern should be configured in the against to filesystem paths, not the URL route paths.
+5. `rewritePathsBy` pattern should be configured in the against to filesystem paths, not the URL route paths.
 
 ## Previewing image (social media card) generation
 

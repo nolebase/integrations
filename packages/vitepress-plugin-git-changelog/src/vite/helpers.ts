@@ -271,10 +271,10 @@ export async function parseCommits(
       hash: hash.trim(),
       date: date.trim(),
       date_timestamp: 0,
-      message: message.trim(),
-      body: body.trim(),
-      author_name: author_name.trim(),
-      author_email: author_email.trim(),
+      message,
+      body,
+      author_name,
+      author_email,
       author_avatar: '',
     }
 

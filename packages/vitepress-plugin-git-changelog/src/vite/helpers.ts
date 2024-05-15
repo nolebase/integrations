@@ -265,7 +265,7 @@ export async function parseCommits(
   optsRewritePathsBy?: RewritePathsBy,
 ): Promise<Commit[]> {
   const commits = await Promise.all(rawLogs.map(async (raw) => {
-    const [hash, author_name, author_email, date, message, refs, body] = raw.split('|')
+    const [hash, author_name, author_email, date, message, refs, body] = raw.split('|').map(v => v.trim())
     const commit: Commit = {
       path,
       hash,

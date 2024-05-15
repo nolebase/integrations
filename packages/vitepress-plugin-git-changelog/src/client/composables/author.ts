@@ -74,9 +74,9 @@ export async function extractAuthorsWithMultiple(
   while (result = multipleAuthorsRegex.exec(c.body)) {
     const [, name, email] = result
     await mapCommitAuthors(mapContributors, map, {
-      author_name: name,
-      author_email: email,
-      author_avatar: await digestStringAsSHA256(email),
+      author_name: name.trim(),
+      author_email: email.trim(),
+      author_avatar: await digestStringAsSHA256(email.trim()),
     })
   }
 }

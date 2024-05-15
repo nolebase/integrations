@@ -74,7 +74,6 @@ export default defineThemeUnconfig({
             {
               name: 'Northword',
               username: 'northword',
-              mapByNameAliases: ['northword'],
             },
           ],
         },

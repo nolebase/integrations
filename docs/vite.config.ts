@@ -62,20 +62,6 @@ export default defineConfig({
       repoURL: () => 'https://github.com/nolebase/integrations',
     }),
     GitChangelogMarkdownSection({
-      locales: {
-        'zh-CN': {
-          gitChangelogMarkdownSectionTitles: {
-            changelog: '文件历史',
-            contributors: '贡献者',
-          },
-        },
-        'en': {
-          gitChangelogMarkdownSectionTitles: {
-            changelog: 'File History',
-            contributors: 'Contributors',
-          },
-        },
-      },
       excludes: [
         join('pages', 'en', 'index.md'),
         join('pages', 'zh-CN', 'index.md'),

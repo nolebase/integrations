@@ -116,7 +116,7 @@ describe('parseCommits', () => {
   })
 
   it('should transform for commit contains no refs', async () => {
-    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>']
+    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>\n']
     const commit = await parseCommits(
       '',
       mockedCommit,

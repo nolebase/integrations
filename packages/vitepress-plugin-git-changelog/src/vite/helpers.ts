@@ -267,14 +267,14 @@ export async function parseCommits(
   const commits = await Promise.all(rawLogs.map(async (raw) => {
     const [hash, author_name, author_email, date, message, refs, body] = raw.split('|')
     const commit: Commit = {
-      path,
-      hash,
-      date,
+      path: path.trim(),
+      hash: hash.trim(),
+      date: date.trim(),
       date_timestamp: 0,
-      message,
-      body,
-      author_name,
-      author_email,
+      message: message.trim(),
+      body: body.trim(),
+      author_name: author_name.trim(),
+      author_email: author_email.trim(),
       author_avatar: '',
     }
 

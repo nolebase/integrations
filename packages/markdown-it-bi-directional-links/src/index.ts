@@ -3,7 +3,7 @@ import { cwd } from 'node:process'
 import { globSync } from 'glob'
 import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
-import { debug as _debug } from 'debug'
+import _debug from 'debug'
 
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genImage, genLink } from './utils'

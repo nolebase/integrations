@@ -29,7 +29,6 @@ yarn add @nolebase/markdown-it-bi-directional-links -D
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { cwd } from 'node:process' // [!code ++]
 import { defineConfigWithTheme } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
@@ -42,9 +41,7 @@ export default defineConfigWithTheme({
   },
   markdown: {
     config: (md) => {
-      md.use(BiDirectionalLinks({ // [!code ++]
-        dir: cwd(), // 注意这行不要漏掉了哦 // [!code ++]
-      })) // [!code ++]
+      md.use(BiDirectionalLinks()) // [!code ++]
     },
   },
 })
@@ -67,12 +64,46 @@ import type { MarkdownIt } from 'markdown-it'
 let markdownIt = null as MarkdownIt
 // ---cut---
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
-import { cwd } from 'process' // [!code ++]
 
 // 中间剩余的其他代码...
 
 // @noErrors
-markdownIt.use(BiDirectionalLinks({ // [!code ++]
-  dir: cwd() // [!code ++]
-})) // [!code ++]
+markdownIt.use(BiDirectionalLinks()) // [!code ++]
+```
+
+### 配置选项
+
+```typescript twoslash
+interface BiDirectionalLinksOptions {
+  /**
+   * The directory to search for bi-directional links.
+   *
+   * @default cwd() - Current working directory
+   */
+  dir?: string
+  /**
+   * The base directory joined as href for bi-directional links.
+   *
+   * @default '/'
+   */
+  baseDir?: string
+  /**
+   * The glob patterns to search for bi-directional linked files.
+   *
+   * @default '*.md, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp, *.ico, *.bmp, *.tiff, *.apng, *.avif, *.jfif, *.pjpeg, *.pjp, *.png, *.svg, *.webp, *.xbm'
+   */
+  includesPatterns?: string[]
+  /**
+   * Whether to include debugging logs.
+   *
+   * @default false
+   */
+  debug?: boolean
+  /**
+   * Whether to exclude the warning when no matched file is found.
+   *
+   * @default false
+   */
+  noNoMatchedFileWarning?: boolean
+}
 ```

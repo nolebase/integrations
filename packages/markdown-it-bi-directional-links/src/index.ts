@@ -1,9 +1,11 @@
 import { basename, extname, posix, relative, sep } from 'node:path'
-import { env } from 'node:process'
+import { cwd } from 'node:process'
 import { globSync } from 'glob'
 import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
+import _debug from 'debug'
 
+import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genImage, genLink } from './utils'
 
 /** it will match [[file]] and [[file|text]] */
@@ -32,30 +34,30 @@ const IMAGES_EXTENSIONS = [
   '.xbm',
 ]
 
-const logModulePrefix = `${cyan(`@nolebase/markdown-it-bi-directional-links`)}${gray(':')}`
+const debug = _debug(packageJSON.name)
+const logModulePrefix = `${cyan(packageJSON.name)}${gray(':')}`
+
+function warn(debugOn: boolean, format: string, ...params: any) {
+  if (debugOn)
+    console.warn(`${logModulePrefix} ${yellow('[WARN]')} ${format}`, ...params)
+  else
+    debug(`${logModulePrefix} ${yellow('[WARN]')} ${format}`, ...params)
+}
+
+function logFailedToMatchMarkupWarning(
+  input: string,
+  debugOn: boolean,
+) {
+  warn(debugOn, `Failed to match markup '${input}'.`)
+}
 
 function logIncorrectMatchedMarkupWarning(
   input: string,
   src: string,
   path: string,
+  debugOn: boolean,
 ) {
-  const debug = (env?.DEBUG) ?? ''
-
-  if (!debug)
-    return
-
-  let shouldLog = false
-  if (debug === '@nolebase/*')
-    shouldLog = true
-  if (debug === '@nolebase/markdown-it-*')
-    shouldLog = true
-  if (debug === '@nolebase/markdown-it-bi-directional-links')
-    shouldLog = true
-
-  if (!shouldLog)
-    return
-
-  console.warn(`${logModulePrefix} ${yellow('[WARN]')} Matched markup '${input}' is not at the start of the text. ${yellow(`
+  warn(debugOn, `Matched markup '${input}' is not at the start of the text. ${yellow(`
 
 Things to check:
 
@@ -77,9 +79,10 @@ function logNoMatchedFileWarning(
   href: string,
   osSpecificHref: string,
   path: string,
+  debugOn: boolean,
   relevantPath?: { key: string, source: string },
 ) {
-  console.warn(`${logModulePrefix} ${yellow('[WARN]')} No matched file found for '${osSpecificHref}' based on ${rootDir}, ignored. ${yellow(`
+  warn(debugOn, `No matched file found for '${osSpecificHref}' based on ${rootDir}, ignored. ${yellow(`
 
 Things to check:
 
@@ -129,6 +132,39 @@ function findTheMostRelevantOne(
   }
 }
 
+export interface BiDirectionalLinksOptions {
+  /**
+   * The directory to search for bi-directional links.
+   *
+   * @default cwd() - Current working directory
+   */
+  dir?: string
+  /**
+   * The base directory joined as href for bi-directional links.
+   *
+   * @default '/'
+   */
+  baseDir?: string
+  /**
+   * The glob patterns to search for bi-directional linked files.
+   *
+   * @default '*.md, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp, *.ico, *.bmp, *.tiff, *.apng, *.avif, *.jfif, *.pjpeg, *.pjp, *.png, *.svg, *.webp, *.xbm'
+   */
+  includesPatterns?: string[]
+  /**
+   * Whether to include debugging logs.
+   *
+   * @default false
+   */
+  debug?: boolean
+  /**
+   * Whether to exclude the warning when no matched file is found.
+   *
+   * @default false
+   */
+  noNoMatchedFileWarning?: boolean
+}
+
 /**
  * A markdown-it plugin to support bi-directional links.
  * @param options - Options.
@@ -137,13 +173,12 @@ function findTheMostRelevantOne(
  * @param options.includesPatterns - The glob patterns to search for bi-directional links.
  * @returns A markdown-it plugin.
  */
-export const BiDirectionalLinks: (options: {
-  dir: string
-  baseDir?: string
-  includesPatterns?: string[]
-}) => PluginSimple = (options) => {
-  const rootDir = options.dir
+export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => PluginSimple = (options) => {
+  const rootDir = options?.dir ?? cwd()
+  const baseDir = options?.baseDir ?? '/'
   const includes = options?.includesPatterns ?? []
+  const debugOn = options?.debug ?? false
+  const noNoMatchedFileWarning = options?.noNoMatchedFileWarning ?? false
 
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
   const possibleBiDirectionalLinksInFullFilePaths: Record<string, string> = {}
@@ -196,11 +231,15 @@ export const BiDirectionalLinks: (options: {
     md.inline.ruler.after('text', 'bi_directional_link_replace', (state) => {
       const src = state.src.slice(state.pos, state.posMax)
       const link = src.match(biDirectionalLinkPattern)
-      if (!link)
+      if (!link) {
+        logFailedToMatchMarkupWarning(src, debugOn)
         return false
+      }
 
-      if (!link.input)
+      if (!link.input) {
+        logFailedToMatchMarkupWarning(src, debugOn)
         return false
+      }
 
       // Sometimes the matched markup is not at the start of the text
       // in many scenarios, e.g.:
@@ -212,7 +251,7 @@ export const BiDirectionalLinks: (options: {
       // by setting `DEBUG=@nolebase/markdown-it-bi-directional-links` in the environment variable
       // or by setting `import.meta.env.DEBUG = '@nolebase/markdown-it-bi-directional-links'` in the script.
       if (!biDirectionalLinkPatternWithStart.exec(link.input)) {
-        logIncorrectMatchedMarkupWarning(link.input, src, state.env.path)
+        logIncorrectMatchedMarkupWarning(link.input, src, state.env.path, debugOn)
         return false
       }
 
@@ -241,13 +280,13 @@ export const BiDirectionalLinks: (options: {
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
       if (!matchedHref) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
-        logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, relevantPath)
+        logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, !noNoMatchedFileWarning, relevantPath)
 
         return false
       }
 
       let resolvedNewHref = posix.join(
-        options.baseDir ?? '/',
+        baseDir,
         relative(rootDir, matchedHref)
           .split(sep)
           .join('/'),

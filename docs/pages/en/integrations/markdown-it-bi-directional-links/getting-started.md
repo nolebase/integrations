@@ -33,7 +33,6 @@ In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the fi
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
 ```typescript twoslash
-import { cwd } from 'node:process' // [!code ++]
 import { defineConfigWithTheme } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
@@ -46,9 +45,7 @@ export default defineConfigWithTheme({
   },
   markdown: {
     config: (md) => {
-      md.use(BiDirectionalLinks({ // [!code ++]
-        dir: cwd(), // [!code ++]
-      })) // [!code ++]
+      md.use(BiDirectionalLinks()) // [!code ++]
     },
   },
 })
@@ -72,11 +69,45 @@ import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
-import { cwd } from 'node:process' // [!code ++]
 
 // Rest of the code...
 // @noErrors
-markdownIt.use(BiDirectionalLinks({ // [!code ++]
-  dir: cwd() // [!code ++]
-})) // [!code ++]
+markdownIt.use(BiDirectionalLinks()) // [!code ++]
+```
+
+### Configuration options
+
+```typescript twoslash
+interface BiDirectionalLinksOptions {
+  /**
+   * The directory to search for bi-directional links.
+   *
+   * @default cwd() - Current working directory
+   */
+  dir?: string
+  /**
+   * The base directory joined as href for bi-directional links.
+   *
+   * @default '/'
+   */
+  baseDir?: string
+  /**
+   * The glob patterns to search for bi-directional linked files.
+   *
+   * @default '*.md, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp, *.ico, *.bmp, *.tiff, *.apng, *.avif, *.jfif, *.pjpeg, *.pjp, *.png, *.svg, *.webp, *.xbm'
+   */
+  includesPatterns?: string[]
+  /**
+   * Whether to include debugging logs.
+   *
+   * @default false
+   */
+  debug?: boolean
+  /**
+   * Whether to exclude the warning when no matched file is found.
+   *
+   * @default false
+   */
+  noNoMatchedFileWarning?: boolean
+}
 ```

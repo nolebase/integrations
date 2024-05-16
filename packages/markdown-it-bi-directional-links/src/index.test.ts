@@ -68,4 +68,20 @@ describe('markdown-it-bi-directional-links', () => {
 
     expect(rendered).toBe(`<p><a href="/foo bar.md?bar=baz">foo bar</a></p>\n`)
   })
+
+  it('should skip rendering when no matched files', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render(`[[some random words]]`)
+
+    expect(rendered).toBe(`<p>[[some random words]]</p>\n`)
+  })
+
+  it('should skip rendering with no logs when no matched files', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir, noNoMatchedFileWarning: true }))
+      .render(`[[some random words]]`)
+
+    expect(rendered).toBe(`<p>[[some random words]]</p>\n`)
+  })
 })

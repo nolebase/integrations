@@ -188,10 +188,16 @@ importers:
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
       glob:
         specifier: ^10.3.14
         version: 10.3.14
     devDependencies:
+      '@types/debug':
+        specifier: ^4.1.12
+        version: 4.1.12
       '@types/markdown-it':
         specifier: ^13.0.8
         version: 13.0.8

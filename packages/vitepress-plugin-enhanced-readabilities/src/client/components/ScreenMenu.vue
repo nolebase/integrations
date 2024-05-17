@@ -12,10 +12,13 @@ const { t } = useI18n()
 <template>
   <div v-if="mounted" space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
     <MenuTitle
-      icon="i-icon-park-outline:book-open"
       :title="t('title.title')"
       :aria-label="t('title.titleAriaLabel') || t('title.title')"
-    />
+    >
+      <template #icon>
+        <span i-icon-park-outline:book-open mr-1 aria-hidden="true" />
+      </template>
+    </MenuTitle>
     <div flex="~ col" pl-4 space-y-2>
       <ScreenLayoutSwitch />
       <ScreenSpotlight />

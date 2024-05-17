@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   title?: string
-  icon?: string
   disabled?: boolean
 }>()
 </script>
@@ -14,7 +13,7 @@ const props = defineProps<{
     text="[14px] $vp-nolebase-enhanced-readabilities-menu-text-color"
     inline-flex select-none items-center align-middle font-medium
   >
-    <span v-if="props.icon" :class="props.icon" mr-1 aria-hidden="true" />
+    <slot name="icon" />
     <span v-if="props.title">{{ props.title }}</span>
     <slot />
   </h3>

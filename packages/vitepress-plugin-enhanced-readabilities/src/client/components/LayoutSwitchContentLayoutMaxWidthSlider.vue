@@ -106,13 +106,17 @@ watch(maxWidthValue, (val) => {
     >
       <div ref="menuTitleElementRef" flex items-center>
         <MenuTitle
-          icon="i-icon-park-outline:auto-line-width"
           :title="t('layoutSwitch.contentLayoutMaxWidth.title')"
           :aria-label="t('layoutSwitch.contentLayoutMaxWidth.titleAriaLabel') || t('layoutSwitch.contentLayoutMaxWidth.title')"
           :disabled="disabled"
           flex="1"
           pr-4
-        />
+        >
+          <template #icon>
+            <span i-icon-park-outline:layout-one mr-1 aria-hidden="true" />
+          </template>
+          <span i-icon-park-outline:auto-line-width />
+        </MenuTitle>
         <MenuHelp
           v-if="!options.layoutSwitch?.contentLayoutMaxWidth?.disableHelp"
           v-model:is-popped-up="isMenuHelpPoppedUp"

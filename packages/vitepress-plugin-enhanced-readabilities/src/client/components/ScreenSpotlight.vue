@@ -29,11 +29,14 @@ const fieldOptions = computed(() => [
 <template>
   <div space-y-2>
     <MenuTitle
-      icon="i-icon-park-outline:click"
       :title="t('spotlight.title')"
       :aria-label="t('spotlight.titleAriaLabel') || t('spotlight.title')"
       disabled
-    />
+    >
+      <template #icon>
+        <span i-icon-park-outline:click mr-1 aria-hidden="true" />
+      </template>
+    </MenuTitle>
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>
     </div>

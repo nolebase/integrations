@@ -125,13 +125,16 @@ onMounted(() => {
   <div space-y-2 role="radiogroup">
     <div ref="menuTitleElementRef" flex items-center>
       <MenuTitle
-        icon="i-icon-park-outline:layout-one"
         :title="t('layoutSwitch.title')"
         :aria-label="t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')"
         flex="1"
         :disabled="disabled"
         pr-4
-      />
+      >
+        <template #icon>
+          <span i-icon-park-outline:layout-one mr-1 aria-hidden="true" />
+        </template>
+      </MenuTitle>
       <MenuHelp
         v-if="!options.layoutSwitch?.disableHelp"
         v-model:is-popped-up="isMenuHelpPoppedUp"

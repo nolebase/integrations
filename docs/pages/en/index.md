@@ -83,6 +83,15 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     </template>
   </IntegrationCard>
 
+  <IntegrationCard type="vitepress" title="Page <meta> metadata generation" package="vitepress-plugin-og-image">
+    <template v-slot:title>
+      Page <code>&lt;meta&gt;</code> metadata generation
+    </template>
+    <template v-slot:badge>
+      <Badge type="warning" text="Beta" />
+    </template>
+  </IntegrationCard>
+
   <IntegrationCard type="vitepress" title="Previewing image (social media card) generation" package="vitepress-plugin-og-image">
     <template v-slot:badge>
       <Badge type="warning" text="Beta" />

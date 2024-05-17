@@ -21,6 +21,7 @@ words:
   - composables
   - contributor
   - datetime
+  - defu
   - easytag
   - ElMassimo
   - emittypes
@@ -45,9 +46,11 @@ words:
   - quotepath
   - Rehype
   - resvg
+  - retext
   - rizumu
   - Roboto
   - shikijs
+  - testdata
   - thumbhash
   - thumbhashes
   - Twoslash

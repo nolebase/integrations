@@ -27,6 +27,7 @@
     "@nolebase/vitepress-plugin-graph-view": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
+    "@nolebase/vitepress-plugin-meta": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",

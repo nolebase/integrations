@@ -72,6 +72,7 @@ To find out the integration name, there is a list of integrations below.
 - [Inline Link Previewing (for VitePress)](./packages/vitepress-plugin-inline-link-preview/README.md)
 - [Blinking highlight targeted heading (for VitePress)](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [Page properties (for VitePress)](./packages/vitepress-plugin-page-properties/README.md)
+- [Page `<meta>` metadata generation](./packages/vitepress-plugin-meta/README.md)
 - [Previewing image (social media card) generation (for VitePress)](./packages/vitepress-plugin-og-image/README.md)
 - [Enhanced `<mark>` element (for VitePress)](./packages/vitepress-plugin-enhanced-mark/README.md)
 - [Thumbnail hashing for images (for VitePress)](./packages/vitepress-plugin-thumbnail-hash/README.md)

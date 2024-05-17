@@ -107,8 +107,6 @@ async function renderSVGAndRewriteHTML(
     .use(RehypeMeta, {
       og: true,
       twitter: true,
-      name: siteTitle,
-      description: siteDescription,
       image: {
         url: `${domain}/${encodeURIComponent(relative(siteConfig.outDir, ogImageFilePathFullName))}`,
       },

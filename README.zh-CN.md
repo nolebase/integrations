@@ -73,6 +73,7 @@ ni @nolebase/<integration-name> -D
 - [闪烁高亮当前的目标标题（VitePress 插件）](./packages/vitepress-plugin-highlight-targeted-heading/README.md)
 - [页面属性（VitePress 插件）](./packages/vitepress-plugin-page-properties/README.md)
 - [预览图片（社交媒体卡片）生成（VitePress 插件）](./packages/vitepress-plugin-og-image/README.md)
+- [页面 `<meta>` 元信息生成](./packages/vitepress-plugin-meta/README.md)
 - [`<mark>` 元素增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-mark/README.md)
 - [缩略图模糊哈希生成（VitePress 插件）](./packages/vitepress-plugin-thumbnail-hash/README.md)
 

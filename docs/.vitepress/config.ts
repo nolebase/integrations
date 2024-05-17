@@ -1,4 +1,4 @@
-import { cwd, env } from 'node:process'
+import { argv, cwd, env } from 'node:process'
 
 import { gray } from 'colorette'
 import { type DefaultTheme, defineConfig } from 'vitepress'
@@ -16,8 +16,7 @@ import packageJSON from '../../package.json'
 import { compilerOptions } from './twoslashConfig'
 
 function noTwoslash() {
-  // return true
-  return env.NODE_ENV === 'development'
+  return argv.some(v => v.includes('vitepress')) && argv.includes('dev')
 }
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {

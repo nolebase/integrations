@@ -3,11 +3,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "NODE_ENV=development pnpm run docs:dev",
-    "build": "NODE_ENV=production pnpm run docs:build",
+    "dev": "pnpm run docs:dev",
+    "build": "pnpm run docs:build",
     "preview": "pnpm run docs:preview",
-    "docs:dev": "NODE_ENV=development vitepress dev",
-    "docs:build": "NODE_ENV=production vitepress build",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {

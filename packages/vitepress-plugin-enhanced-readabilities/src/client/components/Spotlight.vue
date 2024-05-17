@@ -60,7 +60,9 @@ watch(isTouchScreen, () => {
         flex="1"
         pr-4
       >
-        <span i-icon-park-outline:click />
+        <template #icon>
+          <span i-icon-park-outline:click mr-1 aria-hidden="true" />
+        </template>
       </MenuTitle>
       <MenuHelp
         v-if="!options.spotlight?.disableHelp"

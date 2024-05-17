@@ -112,6 +112,9 @@ watch(maxWidthValue, (val) => {
           flex="1"
           pr-4
         >
+          <template #icon>
+            <span i-icon-park-outline:layout-one mr-1 aria-hidden="true" />
+          </template>
           <span i-icon-park-outline:auto-line-width />
         </MenuTitle>
         <MenuHelp

@@ -48,7 +48,9 @@ const fieldOptions = computed(() => [
       :aria-label="t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')"
       disabled
     >
-      <slot i-icon-park-outline:layout-one />
+      <template #icon>
+        <slot i-icon-park-outline:layout-one mr-1 aria-hidden="true" />
+      </template>
     </MenuTitle>
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>

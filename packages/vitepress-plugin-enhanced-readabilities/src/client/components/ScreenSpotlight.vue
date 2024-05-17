@@ -33,7 +33,9 @@ const fieldOptions = computed(() => [
       :aria-label="t('spotlight.titleAriaLabel') || t('spotlight.title')"
       disabled
     >
-      <span i-icon-park-outline:click />
+      <template #icon>
+        <span i-icon-park-outline:click mr-1 aria-hidden="true" />
+      </template>
     </MenuTitle>
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('spotlight.titleScreenNavWarningMessage') }}</span>

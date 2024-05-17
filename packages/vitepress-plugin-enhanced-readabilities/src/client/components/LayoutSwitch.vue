@@ -131,7 +131,9 @@ onMounted(() => {
         :disabled="disabled"
         pr-4
       >
-        <span i-icon-park-outline:layout-one />
+        <template #icon>
+          <span i-icon-park-outline:layout-one mr-1 aria-hidden="true" />
+        </template>
       </MenuTitle>
       <MenuHelp
         v-if="!options.layoutSwitch?.disableHelp"

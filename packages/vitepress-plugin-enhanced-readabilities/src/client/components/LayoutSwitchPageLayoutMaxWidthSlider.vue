@@ -111,7 +111,9 @@ watch(maxWidthValue, (val) => {
           flex="1"
           pr-2
         >
-          <span i-icon-park-outline:auto-width-one />
+          <template #icon>
+            <span i-icon-park-outline:auto-width-one mr-1 aria-hidden="true" />
+          </template>
         </MenuTitle>
         <MenuHelp
           v-if="!options.layoutSwitch?.pageLayoutMaxWidth?.disableHelp"

@@ -15,7 +15,9 @@ const { t } = useI18n()
       :title="t('title.title')"
       :aria-label="t('title.titleAriaLabel') || t('title.title')"
     >
-      <span i-icon-park-outline:book-open />
+      <template #icon>
+        <span i-icon-park-outline:book-open mr-1 aria-hidden="true" />
+      </template>
     </MenuTitle>
     <div flex="~ col" pl-4 space-y-2>
       <ScreenLayoutSwitch />

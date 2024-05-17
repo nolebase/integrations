@@ -62,6 +62,17 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <br />
 
+<IntegrationCard type="vitepress" title="页面 <meta> 元信息生成" package="vitepress-plugin-meta">
+  <template v-slot:title>
+    页面 <code>&lt;meta&gt;</code> 元信息生成
+  </template>
+  <template v-slot:badge>
+    <Badge type="warning" text="Beta 测试" />
+  </template>
+</IntegrationCard>
+
+<br />
+
 <IntegrationCard type="vitepress" title="预览图片（社交媒体卡片）生成" package="vitepress-plugin-og-image">
   <template v-slot:badge>
     <Badge type="warning" text="Beta 测试" />

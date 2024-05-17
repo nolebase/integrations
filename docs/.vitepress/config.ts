@@ -10,8 +10,15 @@ import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
+import { transformHeadMeta } from '@nolebase/vitepress-plugin-meta/vitepress'
 
 import packageJSON from '../../package.json'
+import { compilerOptions } from './twoslashConfig'
+
+function noTwoslash() {
+  // return true
+  return env.NODE_ENV === 'development'
+}
 
 export const sidebars: Record<string, DefaultTheme.Sidebar> = {
   'en': {
@@ -22,61 +29,6 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
         ],
       },
-      {
-        text: 'Integrations',
-        items: [
-          { text: 'Overview', link: '/pages/en/integrations/' },
-          {
-            text: 'Markdown-it plugins',
-            items: [
-              { text: 'Bi-directional links', link: '/pages/en/integrations/markdown-it-bi-directional-links/' },
-              { text: 'Element Transformation', link: '/pages/en/integrations/markdown-it-element-transform/' },
-              { text: 'Lazy loading blurred thumbnails', link: '/pages/en/integrations/markdown-it-unlazy-img/' },
-            ],
-          },
-          {
-            text: 'VitePress plugins',
-            items: [
-              { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
-              { text: 'Inline Links Previewing', link: '/pages/en/integrations/vitepress-plugin-inline-link-preview/' },
-              { text: 'Blinking highlight targeted heading', link: '/pages/en/integrations/vitepress-plugin-highlight-targeted-heading/' },
-              { text: 'Git-based page histories', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
-              { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
-              { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
-              { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
-              { text: 'Thumbnail hashing for images', link: '/pages/en/integrations/vitepress-plugin-thumbnail-hash/' },
-            ],
-          },
-          {
-            text: 'Obsidian plugins',
-            items: [
-              { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
-            ],
-          },
-        ],
-      },
-      {
-        text: 'UI Components',
-        items: [
-          { text: 'Overview', link: '/pages/en/ui/' },
-        ],
-      },
-      {
-        text: 'Releasing',
-        items: [
-          {
-            text: 'Migration guides',
-            items: [
-              {
-                text: 'Migrate from v1 to v2',
-                link: '/pages/en/releases/migrations/v1-to-v2',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    '/pages/en/integrations/': [
       {
         text: 'Integrations',
         items: [
@@ -124,6 +76,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             ],
           },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
+          { text: 'Page metadata generation', link: '/pages/en/integrations/vitepress-plugin-meta/' },
           { text: 'Previewing image (social media card) generation', link: '/pages/en/integrations/vitepress-plugin-og-image/' },
           { text: 'Enhanced mark elements', link: '/pages/en/integrations/vitepress-plugin-enhanced-mark/' },
           {
@@ -140,6 +93,26 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Obsidian Plugins',
         items: [
           { text: 'UnoCSS', link: '/pages/en/integrations/obsidian-plugin-unocss/' },
+        ],
+      },
+      {
+        text: 'UI Components',
+        items: [
+          { text: 'Overview', link: '/pages/en/ui/' },
+        ],
+      },
+      {
+        text: 'Releasing',
+        items: [
+          {
+            text: 'Migration guides',
+            items: [
+              {
+                text: 'Migrate from v1 to v2',
+                link: '/pages/en/releases/migrations/v1-to-v2',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -180,61 +153,6 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
           { text: '如何开始', link: '/pages/zh-CN/guide/getting-started' },
         ],
       },
-      {
-        text: '集成',
-        items: [
-          { text: '概览', link: '/pages/zh-CN/integrations/' },
-          {
-            text: 'Markdown It 插件',
-            items: [
-              { text: '双向链接', link: '/pages/zh-CN/integrations/markdown-it-bi-directional-links/' },
-              { text: '元素转换', link: '/pages/zh-CN/integrations/markdown-it-element-transform/' },
-              { text: '懒加载模糊缩略图', link: '/pages/zh-CN/integrations/markdown-it-unlazy-img/' },
-            ],
-          },
-          {
-            text: 'VitePress 插件',
-            items: [
-              { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
-              { text: '行内链接预览', link: '/pages/zh-CN/integrations/vitepress-plugin-inline-link-preview/' },
-              { text: '闪烁高亮当前的目标标题', link: '/pages/zh-CN/integrations/vitepress-plugin-highlight-targeted-heading/' },
-              { text: '基于 Git 的页面历史', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
-              { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
-              { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
-              { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
-              { text: '缩略图模糊哈希生成', link: '/pages/zh-CN/integrations/vitepress-plugin-thumbnail-hash/' },
-            ],
-          },
-          {
-            text: 'Obsidian 插件',
-            items: [
-              { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
-            ],
-          },
-        ],
-      },
-      {
-        text: 'UI 组件',
-        items: [
-          { text: '概览', link: '/pages/zh-CN/ui/' },
-        ],
-      },
-      {
-        text: '版本发布',
-        items: [
-          {
-            text: '迁移指南',
-            items: [
-              {
-                text: '自 v1 迁移至 v2',
-                link: '/pages/zh-CN/releases/migrations/v1-to-v2',
-              },
-            ],
-          },
-        ],
-      },
-    ],
-    '/pages/zh-CN/integrations/': [
       {
         text: '集成',
         items: [
@@ -282,6 +200,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             ],
           },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
+          { text: '页面元信息生成', link: '/pages/zh-CN/integrations/vitepress-plugin-meta/' },
           { text: '预览图片（社交媒体卡片）生成', link: '/pages/zh-CN/integrations/vitepress-plugin-og-image/' },
           { text: 'mark 元素增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-mark/' },
           {
@@ -298,6 +217,20 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Obsidian 插件',
         items: [
           { text: 'UnoCSS', link: '/pages/zh-CN/integrations/obsidian-plugin-unocss/' },
+        ],
+      },
+      {
+        text: '版本发布',
+        items: [
+          {
+            text: '迁移指南',
+            items: [
+              {
+                text: '自 v1 迁移至 v2',
+                link: '/pages/zh-CN/releases/migrations/v1-to-v2',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -466,59 +399,17 @@ export default defineConfig({
     },
   },
   markdown: {
-    codeTransformers: [
-      transformerTwoslash({
-        errorRendering: 'hover',
-        onTwoslashError(error, _, __, ___) {
-          console.error('Twoslash Error:', (error as Error)?.message, '\n', (error as Error)?.stack ? gray(String((error as Error)?.stack)) : '')
-        },
-        twoslashOptions: {
-          cache: true,
-          compilerOptions: {
-            baseUrl: cwd(),
-            target: 99,
-            module: 99,
-            moduleResolution: 100,
-            paths: {
-              '@nolebase/ui': [
-                '../packages/ui/src/index.ts',
-              ],
-              '@nolebase/unconfig-vitepress/*': [
-                '../packages/unconfig-vitepress/src/*',
-              ],
-              '@nolebase/vitepress-plugin-enhanced-readabilities/*': [
-                '../packages/vitepress-plugin-enhanced-readabilities/src/*',
-              ],
-              '@nolebase/vitepress-plugin-highlight-targeted-heading/*': [
-                '../packages/vitepress-plugin-highlight-targeted-heading/src/*',
-              ],
-              '@nolebase/vitepress-plugin-inline-link-preview/*': [
-                '../packages/vitepress-plugin-inline-link-preview/src/*',
-              ],
-              '@nolebase/vitepress-plugin-git-changelog/*': [
-                '../packages/vitepress-plugin-git-changelog/src/*',
-              ],
-              '@nolebase/vitepress-plugin-page-properties/*': [
-                '../packages/vitepress-plugin-page-properties/src/*',
-              ],
-              '@nolebase/vitepress-plugin-thumbnail-hash/*': [
-                '../packages/vitepress-plugin-thumbnail-hash/src/*',
-              ],
+    codeTransformers: noTwoslash()
+      ? []
+      : [
+          transformerTwoslash({
+            errorRendering: 'hover',
+            onTwoslashError(error, _, __, ___) {
+              console.error('Twoslash Error:', (error as Error)?.message, '\n', (error as Error)?.stack ? gray(String((error as Error)?.stack)) : '')
             },
-            resolveJsonModule: true,
-            types: [
-              'node',
-              'vite/client',
-            ],
-            esModuleInterop: true,
-            isolatedModules: true,
-            verbatimModuleSyntax: true,
-            skipLibCheck: true,
-            skipDefaultLibCheck: true,
-          },
-        },
-      }),
-    ],
+            twoslashOptions: compilerOptions,
+          }),
+        ],
     preConfig(md) {
       md.use(BiDirectionalLinks({
         dir: cwd(),
@@ -531,6 +422,15 @@ export default defineConfig({
       md.use(MarkdownItFootnote)
       md.use(InlineLinkPreviewElementTransform)
     },
+  },
+  async transformHead(context) {
+    let head = [...context.head]
+
+    const returnedHead = await transformHeadMeta()(head, context)
+    if (typeof returnedHead !== 'undefined')
+      head = returnedHead
+
+    return head
   },
   async buildEnd(siteConfig) {
     const newBuilder = buildEndGenerateOpenGraphImages({

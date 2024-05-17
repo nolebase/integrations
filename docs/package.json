@@ -3,11 +3,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "pnpm run docs:dev",
-    "build": "pnpm run docs:build",
+    "dev": "NODE_ENV=development pnpm run docs:dev",
+    "build": "NODE_ENV=production pnpm run docs:build",
     "preview": "pnpm run docs:preview",
-    "docs:dev": "vitepress dev",
-    "docs:build": "vitepress build",
+    "docs:dev": "NODE_ENV=development vitepress dev",
+    "docs:build": "NODE_ENV=production vitepress build",
     "docs:preview": "vitepress preview"
   },
   "devDependencies": {
@@ -27,6 +27,7 @@
     "@nolebase/vitepress-plugin-graph-view": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
+    "@nolebase/vitepress-plugin-meta": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",

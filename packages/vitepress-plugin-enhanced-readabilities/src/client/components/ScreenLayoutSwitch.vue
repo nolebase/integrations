@@ -44,11 +44,12 @@ const fieldOptions = computed(() => [
 <template>
   <div space-y-2>
     <MenuTitle
-      icon="i-icon-park-outline:layout-one"
       :title="t('layoutSwitch.title')"
       :aria-label="t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')"
       disabled
-    />
+    >
+      <slot i-icon-park-outline:layout-one />
+    </MenuTitle>
     <div border="1 red/50 solid" bg="red/30" flex items-center rounded-lg p-2 opacity-50>
       <span text-xs>{{ t('layoutSwitch.titleScreenNavWarningMessage') }}</span>
     </div>

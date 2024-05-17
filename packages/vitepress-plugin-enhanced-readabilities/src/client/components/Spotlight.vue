@@ -54,13 +54,14 @@ watch(isTouchScreen, () => {
     />
     <div ref="menuTitleElementRef" relative flex items-center>
       <MenuTitle
-        icon="i-icon-park-outline:click"
         :title="t('spotlight.title')"
         :aria-label="t('spotlight.titleAriaLabel') || t('spotlight.title')"
         :disabled="disabled"
         flex="1"
         pr-4
-      />
+      >
+        <span i-icon-park-outline:click />
+      </MenuTitle>
       <MenuHelp
         v-if="!options.spotlight?.disableHelp"
         v-model:is-popped-up="isMenuHelpPoppedUp"

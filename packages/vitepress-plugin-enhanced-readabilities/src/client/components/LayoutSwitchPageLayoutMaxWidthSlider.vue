@@ -105,13 +105,14 @@ watch(maxWidthValue, (val) => {
     >
       <div ref="menuTitleElementRef" flex items-center>
         <MenuTitle
-          icon="i-icon-park-outline:auto-width-one"
           :title="t('layoutSwitch.pageLayoutMaxWidth.title')"
           :aria-label="t('layoutSwitch.pageLayoutMaxWidth.titleAriaLabel') || t('layoutSwitch.pageLayoutMaxWidth.title')"
           :disabled="disabled"
           flex="1"
           pr-2
-        />
+        >
+          <span i-icon-park-outline:auto-width-one />
+        </MenuTitle>
         <MenuHelp
           v-if="!options.layoutSwitch?.pageLayoutMaxWidth?.disableHelp"
           v-model:is-popped-up="isMenuHelpPoppedUp"

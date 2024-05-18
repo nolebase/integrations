@@ -21,7 +21,7 @@ const { t } = useI18n()
         transition="color ease-in-out"
         duration-200
       >
-        {{ commit.hash.slice(0, 5) }}
+        {{ commit.hash.slice(0, 7) }}
       </code>
     </a>
     <span>-</span>

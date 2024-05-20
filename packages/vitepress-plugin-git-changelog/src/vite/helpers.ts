@@ -264,6 +264,8 @@ export async function parseCommits(
   getReleaseTagsURL: CommitToStringsHandler,
   optsRewritePathsBy?: RewritePathsBy,
 ): Promise<Commit[]> {
+  rawLogs = rawLogs.filter(log => !!log)
+
   const commits = await Promise.all(rawLogs.map(async (raw) => {
     const [hash, author_name, author_email, date, message, refs, body] = raw.split('|').map(v => v.trim())
     const commit: Commit = {

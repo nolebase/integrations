@@ -23,6 +23,8 @@ const { lang, page } = useData()
 const { t } = useI18n()
 const { commits, update } = useCommits(page)
 
+const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
+
 onMounted(() => {
   if (import.meta.hot) {
     import.meta.hot.send('nolebase-git-changelog:client-mounted', {
@@ -57,8 +59,8 @@ onMounted(() => {
   }
 })
 
-const lastChangeDate = computed<Date>(() => {
-  return toDate(commits.value[0]?.date_timestamp)
+onMounted(() => {
+  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
 })
 
 const locale = computed<Locale>(() => {

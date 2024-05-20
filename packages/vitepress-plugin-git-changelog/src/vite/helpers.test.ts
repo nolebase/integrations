@@ -116,7 +116,10 @@ describe('parseCommits', () => {
   })
 
   it('should transform for commit contains no refs', async () => {
-    const mockedCommit = ['62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>\n']
+    const mockedCommit = [
+      '', // empty commit, could occur when the file contains no history or git cli bugged
+      '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>\n',
+    ]
     const commit = await parseCommits(
       '',
       mockedCommit,
@@ -142,7 +145,10 @@ describe('parseCommits', () => {
   })
 
   it('should transform for commit contains no body', async () => {
-    const mockedCommit = ['fa0fb328b988499c74983e9164f6db4e2e92afd8|First Last|user@example.com|Sun Apr 7 22:27:57 2024 +0800|release: v1.28.0| (tag: v1.28.0)|']
+    const mockedCommit = [
+      '', // empty commit, could occur when the file contains no history or git cli bugged
+      'fa0fb328b988499c74983e9164f6db4e2e92afd8|First Last|user@example.com|Sun Apr 7 22:27:57 2024 +0800|release: v1.28.0| (tag: v1.28.0)|',
+    ]
     const commit = await parseCommits(
       '',
       mockedCommit,
@@ -169,5 +175,21 @@ describe('parseCommits', () => {
       release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.28.0',
       release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.28.0'],
     }])
+  })
+
+  it('should return no commits when empty', async () => {
+    const mockedCommit = [
+      '', // empty commit, could occur when the file contains no history or git cli bugged
+    ]
+    const commit = await parseCommits(
+      '',
+      mockedCommit,
+      () => 'https://github.com/example-org/example',
+      defaultCommitURLHandler,
+      defaultReleaseTagURLHandler,
+      defaultReleaseTagsURLHandler,
+    )
+
+    expect(commit).toEqual([])
   })
 })

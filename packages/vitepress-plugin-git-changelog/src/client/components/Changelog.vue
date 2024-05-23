@@ -88,6 +88,7 @@ const isFreshChange = computed(() => {
     :class="[
       isFreshChange ? 'bg-green/16' : 'bg-$vp-custom-block-details-bg',
     ]"
+    class="vp-nolebase-git-changelog vp-nolebase-git-changelog-history vp-nolebase-git-changelog-history-list vp-nolebase-git-changelog-history-container"
     rounded-lg p-4
   >
     <label cursor-pointer>

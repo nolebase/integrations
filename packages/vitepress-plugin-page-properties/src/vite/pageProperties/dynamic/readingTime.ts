@@ -32,7 +32,7 @@ const languageHandlers: Record<string, LanguageHandler> = {
     wordsPerMinute: 300, // Average reading speed for Chinese
   },
   latinCyrillic: {
-    regex: /[\p{Script=Latin}\p{Script=Cyrillic}\p{Mark}\p{Punctuation}\p{Number}'\b]+/gu, // Match Latin and Cyrillic characters
+    regex: /[\p{Script=Latin}\p{Script=Cyrillic}\p{Mark}\p{Punctuation}\p{Number}]+/gu, // Match Latin and Cyrillic characters
     wordsPerMinute: 160, // Average reading speed for English and similar languages
   },
 }

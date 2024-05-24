@@ -290,7 +290,7 @@ export async function parseCommits(
     commit.hash_url = (await returnOrResolvePromise(getCommitURL(commit))) ?? defaultCommitURLHandler(commit)
 
     // remove `()` in refs, e.g. ` (tag: v2.0.0-rc7)`
-    const tags = parseGitLogRefsAsTags(refs?.replace(/[\(\)]/g, ''))
+    const tags = parseGitLogRefsAsTags(refs?.replace(/[()]/g, ''))
 
     // release logs
     if (tags && tags.length > 0) {

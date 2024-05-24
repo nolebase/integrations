@@ -9,9 +9,10 @@ import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genImage, genLink } from './utils'
 
 /** it will match [[file]] and [[file|text]] */
-const biDirectionalLinkPattern = /\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
+const biDirectionalLinkPattern = /!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
 /** it will match [[file]] and [[file|text]] but only at the start of the text */
-const biDirectionalLinkPatternWithStart = /^\!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
+// eslint-disable-next-line regexp/no-unused-capturing-group
+const biDirectionalLinkPatternWithStart = /^!?\[\[[^|\]\n]+(\|[^\]\n]+)?\]\](?!\()/
 
 const IMAGES_EXTENSIONS = [
   '.png',

@@ -12,13 +12,13 @@ export const InlineLinkPreviewElementTransform: PluginWithOptions<{ tag: string 
       transform(token) {
         switch (token.type) {
           case 'html_inline':
-            if (/<a.*(data-inline-link-preview="false").*>/.test(token.content))
+            if (/<a.*data-inline-link-preview="false".*>/.test(token.content))
               return
 
-            if (/<a.*class=("header-anchor"|".* header-anchor"|"header-anchor .*"|".* header-anchor .*").*>/.test(token.content))
+            if (/<a.*class="header-anchor"|".* header-anchor"|"header-anchor .*"|".* header-anchor [^\n\r"\u2028\u2029]*".*>/.test(token.content))
               return
 
-            if (/<a.*class=("no-inline-link-preview"|".* no-inline-link-preview"|"no-inline-link-preview .*"|".* no-inline-link-preview .*").*>/.test(token.content))
+            if (/<a.*class="no-inline-link-preview"|".* no-inline-link-preview"|"no-inline-link-preview .*"|".* no-inline-link-preview [^\n\r"\u2028\u2029]*".*>/.test(token.content))
               return
 
             if (!transformNextHtmlInlineCloseToken) {

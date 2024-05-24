@@ -10,7 +10,7 @@ const escapeMap: Record<string, string> = {
 }
 
 export function escape(content: string, ignore?: string): string {
-  ignore = (ignore || '').replace(/[^&"<>\']/g, '')
+  ignore = (ignore || '').replace(/[^&"<>']/g, '')
   const pattern = '([&"<>\'])'.replace(new RegExp(`[${ignore}]`, 'g'), '')
 
   return content.replace(new RegExp(pattern, 'g'), (_, item) => {

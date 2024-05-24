@@ -150,7 +150,7 @@ export function PagePropertiesMarkdownSection(options?: PagePropertiesMarkdownSe
       const hasFrontmatter = Object.keys(parsedMarkdownContent.data).length > 0
 
       // match any heading and move heading to top, then insert component after heading
-      const headingMatch = parsedMarkdownContent.content.match(/^#{1} .*/m)
+      const headingMatch = parsedMarkdownContent.content.match(/^# .*/m)
       if (!headingMatch || !headingMatch[0] || headingMatch.index === undefined) {
         if (!hasFrontmatter)
           return `${targetComponent}\n\n${code}`

@@ -32,7 +32,7 @@ export function templateSVG(siteName: string, siteDescription: string, title: st
     line3: `${lines[2] || ''}${lines[3] ? '...' : ''}`,
   }
 
-  return ogTemplate.replace(/\{\{([^}]+)}}/g, (_, name) => {
+  return ogTemplate.replace(/\{\{([^}]+)\}\}/g, (_, name) => {
     if (!name || typeof name !== 'string' || !(name in data))
       return ''
 

@@ -29,7 +29,7 @@ function RehypeRetext(option: { selector: string, removeSelectors: string[] }): 
       return
 
     const text = toText(vpDocElement)
-      .replaceAll(/(\n){2,}/gm, ' ')
+      .replaceAll(/(\n){2,}/g, ' ')
 
     nodes.children = [{ type: 'text', value: text }]
   }

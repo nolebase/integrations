@@ -56,15 +56,15 @@ export function findMapAuthorLink(creator: Contributor): string | undefined {
  * @see {@link https://en.wikipedia.org/wiki/Email_address#Local-part | Email addres}
  * @see {@link https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors | Creating a commit with multiple authors in GitHub}
  */
-const multipleAuthorsRegex = /^ *?Co-authored-by: ?(.*) ?(?:<)(.*)(?:>) *?/gmi
+const multipleAuthorsRegex = /^ *Co-authored-by: ?([^<]*)<([^>]*)> */gim
 
 // This function handles multiple authors in a commit.
 // It uses the regular expression to extract the name and email of each author from the commit message.
 // About the docs: https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
 export async function extractAuthorsWithMultiple(
   mapContributors: Contributor[] | undefined,
-  map: Record<string, AuthorInfo>,
-  c: Commit,
+  authorDataMap: Record<string, AuthorInfo>,
+  c: Pick<Commit, 'body'>,
 ) {
   if (!c.body)
     return
@@ -73,7 +73,7 @@ export async function extractAuthorsWithMultiple(
   // eslint-disable-next-line no-cond-assign
   while (result = multipleAuthorsRegex.exec(c.body)) {
     const [, name, email] = result
-    await mapCommitAuthors(mapContributors, map, {
+    await mapCommitAuthors(mapContributors, authorDataMap, {
       author_name: name.trim(),
       author_email: email.trim(),
       author_avatar: await digestStringAsSHA256(email.trim()),

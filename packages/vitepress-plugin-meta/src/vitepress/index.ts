@@ -2,21 +2,36 @@ import type { HeadConfig, TransformContext } from 'vitepress'
 
 import { unified } from 'unified'
 import RehypeParse from 'rehype-parse'
-import { select } from 'hast-util-select'
+import { select, selectAll } from 'hast-util-select'
 import type { Nodes } from 'hast'
 import { toText } from 'hast-util-to-text'
-import { fromText } from 'hast-util-from-text'
 import RetextStringify from 'retext-stringify'
+import { remove } from 'unist-util-remove'
+import { removePosition } from 'unist-util-remove-position'
 import { defu } from 'defu'
 
-function RehypeRetext(option: { selector: string }): (tree: Nodes) => void {
+function RehypeRetext(option: { selector: string, removeSelectors: string[] }): (tree: Nodes) => void {
   return (nodes) => {
     const vpDocElement = select(option.selector, nodes)
     if (!vpDocElement)
       return
+    if (vpDocElement.children.length === 0)
+      return
+
+    for (const selector of option.removeSelectors) {
+      const elements = selectAll(selector, vpDocElement)
+      if (elements)
+        remove(vpDocElement, elements)
+    }
+
+    removePosition(vpDocElement)
+    if (nodes.type !== 'root' && nodes.type !== 'element')
+      return
 
     const text = toText(vpDocElement)
-    fromText(nodes, text)
+      .replaceAll(/(\n){2,}/gm, ' ')
+
+    nodes.children = [{ type: 'text', value: text }]
   }
 }
 
@@ -34,6 +49,12 @@ interface TransformHeadMetaOptions {
    */
   contentSelector?: string
   /**
+   * CSS selector for the content element to remove.
+   *
+   * @default ['h1','.nolebase-page-properties-container']
+   */
+  removeContentSelector?: string[]
+  /**
    * Whether to use the tagline from the frontmatter for the home layout.
    */
   useTaglineForHomeLayout?: boolean
@@ -41,6 +62,10 @@ interface TransformHeadMetaOptions {
    * Handle the excerpt before adding it to the head.
    */
   handleExcerpt?: (excerpt: string, context: Readonly<TransformContext>) => Promise<string>
+}
+
+function getMeta(head: HeadConfig[], fromKey: string, withValue: string): HeadConfig | undefined {
+  return head.find(([key, attrs]) => key === 'meta' && attrs[fromKey] === withValue)
 }
 
 function updateMetaOrCreateMeta(head: HeadConfig[], fromKey: string, withValue: string, asContent: string): HeadConfig[] {
@@ -57,7 +82,13 @@ function updateMetaOrCreateMeta(head: HeadConfig[], fromKey: string, withValue: 
 export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: HeadConfig[], context: Readonly<TransformContext>) => Promise<HeadConfig[] | void> {
   const opts = defu(options, {
     length: 200,
-    selectorForContent: '#VPContent div.content main .vp-doc div',
+    contentSelector: '#VPContent div.content main .vp-doc div',
+    removeContentSelector: [
+      'h1',
+      '.vp-nolebase-page-properties-container',
+      '.vp-nolebase-git-changelog-history-container',
+      '.vp-nolebase-git-changelog-contributors-container',
+    ],
     useTaglineForHomeLayout: true,
   })
 
@@ -65,7 +96,10 @@ export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: He
     const result = (await unified()
       .data({ settings: { fragment: true } })
       .use(RehypeParse)
-      .use(RehypeRetext, { selector: opts.selectorForContent })
+      .use(RehypeRetext, {
+        selector: opts.contentSelector,
+        removeSelectors: opts.removeContentSelector,
+      })
       .use(RetextStringify)
       .process(context.content))
       .toString()
@@ -84,6 +118,10 @@ export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: He
       else if (handledResult instanceof Promise)
         excerpt = await handledResult
     }
+
+    const ogTitle = getMeta(head, 'property', 'og:title')
+    if (!ogTitle && context.pageData.title)
+      head = updateMetaOrCreateMeta(head, 'property', 'og:title', context.pageData.title)
 
     head = updateMetaOrCreateMeta(head, 'name', 'description', excerpt)
     head = updateMetaOrCreateMeta(head, 'property', 'og:description', excerpt)

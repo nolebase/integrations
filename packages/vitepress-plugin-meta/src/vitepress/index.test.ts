@@ -8,15 +8,15 @@ describe('meta', () => {
     const content = await readFile('packages/vitepress-plugin-meta/src/vitepress/testdata/index.en.html')
     const contentStr = content.toString('utf-8')
 
-    const head = await transformHeadMeta({ length: 100 })([], {
+    const head = await transformHeadMeta({ length: 300 })([], {
       content: contentStr,
       pageData: { },
       siteConfig: { site: { description: 'Test' } },
     } as TransformContext)
     expect(head).toMatchObject([
-      ['meta', { name: 'description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
-      ['meta', { property: 'og:description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
-      ['meta', { property: 'twitter:description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
+      ['meta', { name: 'description', content: `You could find the integration you interested in by navigating to the Integrations page, and then follow the documentation of the corresponding integration to operate and configure. In VitePress's theme configuration file (note that it's not a configuration file, it's usually located at docs/.vitepr...` }],
+      ['meta', { property: 'og:description', content: `You could find the integration you interested in by navigating to the Integrations page, and then follow the documentation of the corresponding integration to operate and configure. In VitePress's theme configuration file (note that it's not a configuration file, it's usually located at docs/.vitepr...` }],
+      ['meta', { property: 'twitter:description', content: `You could find the integration you interested in by navigating to the Integrations page, and then follow the documentation of the corresponding integration to operate and configure. In VitePress's theme configuration file (note that it's not a configuration file, it's usually located at docs/.vitepr...` }],
     ])
   })
 
@@ -30,9 +30,9 @@ describe('meta', () => {
       siteConfig: { site: { description: '站点测试介绍' } },
     } as TransformContext)
     expect(head).toMatchObject([
-      ['meta', { name: 'description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
-      ['meta', { property: 'og:description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
-      ['meta', { property: 'twitter:description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
+      ['meta', { name: 'description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
+      ['meta', { property: 'og:description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
+      ['meta', { property: 'twitter:description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
     ])
   })
 
@@ -85,9 +85,9 @@ describe('meta', () => {
       siteConfig: { site: { description: 'Test' } },
     } as unknown as TransformContext)
     expect(head).toMatchObject([
-      ['meta', { name: 'description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
-      ['meta', { property: 'og:description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
-      ['meta', { property: 'twitter:description', content: '快速开始 ​你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vite...' }],
+      ['meta', { name: 'description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
+      ['meta', { property: 'og:description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
+      ['meta', { property: 'twitter:description', content: '你可以通过前往集成页面来寻找你感兴趣的集成，然后按照对应的集成的文档进行操作和配置。 首先，请在你的 VitePress 核心配置文件 中（注意不是主题配置文件，通常为 docs/.vitepress...' }],
     ])
   })
 
@@ -127,9 +127,9 @@ describe('meta', () => {
       siteConfig: { site: { description: 'Test' } },
     } as TransformContext)
     expect(head).toMatchObject([
-      ['meta', { name: 'description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
-      ['meta', { property: 'og:description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
-      ['meta', { property: 'twitter:description', content: 'Getting Started ​You could find the integration you interested in by navigating to the Integrations...' }],
+      ['meta', { name: 'description', content: `You could find the integration you interested in by navigating to the Integrations page, and then fo...` }],
+      ['meta', { property: 'og:description', content: `You could find the integration you interested in by navigating to the Integrations page, and then fo...` }],
+      ['meta', { property: 'twitter:description', content: `You could find the integration you interested in by navigating to the Integrations page, and then fo...` }],
     ])
   })
 })

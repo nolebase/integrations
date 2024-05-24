@@ -479,9 +479,6 @@ importers:
       hast:
         specifier: ^1.0.0
         version: 1.0.0
-      hast-util-from-text:
-        specifier: ^3.0.0
-        version: 3.0.0
       hast-util-select:
         specifier: ^6.0.2
         version: 6.0.2
@@ -500,6 +497,12 @@ importers:
       unified:
         specifier: ^11.0.4
         version: 11.0.4
+      unist-util-remove:
+        specifier: ^4.0.0
+        version: 4.0.0
+      unist-util-remove-position:
+        specifier: ^5.0.0
+        version: 5.0.0
       vitepress:
         specifier: ^1.1.4
         version: 1.1.4(@algolia/client-search@4.22.1)(@types/node@20.12.11)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
@@ -3522,9 +3525,6 @@ packages:
   hast-util-from-selector@3.0.0:
     resolution: {integrity: sha512-NBgM9vHLJkBXLDrajYgsKF77DH1qM2NS33ojBmzOy9HBk2Op4iY+558o1I7FCf4UWvtY+yZTu2h8ePPxzJm6yQ==}
 
-  hast-util-from-text@3.0.0:
-    resolution: {integrity: sha512-7aKIf+Sqg+ySOCHFfxOyJrwNfumBsFWXKp3iGpXMWGoooMtL3lK9OpI2JIjIrGXLYN44ceMoFcBsZLNwVh9qvw==}
-
   hast-util-has-property@3.0.0:
     resolution: {integrity: sha512-MNilsvEKLFpV604hwfhVStK0usFY/QmM5zX16bo7EjnAEGofr5YyI37kzopBlZJkHD4t887i+q/C8/tr5Q94cA==}
 
@@ -5102,6 +5102,12 @@ packages:
 
   unist-util-position@5.0.0:
     resolution: {integrity: sha512-fucsC7HjXvkB5R3kTCO7kUjRdrS0BJt3M/FPxmHMBOm8JQi2BsHAHFsy27E0EolP8rp0NzXsJ+jNPyDWvOJZPA==}
+
+  unist-util-remove-position@5.0.0:
+    resolution: {integrity: sha512-Hp5Kh3wLxv0PHj9m2yZhhLt58KzPtEYKQQ4yxfYFEO7EvHwzyDYnduhHnY1mDxoqr7VUwVuHXk9RXKIiYS1N8Q==}
+
+  unist-util-remove@4.0.0:
+    resolution: {integrity: sha512-b4gokeGId57UVRX/eVKej5gXqGlc9+trkORhFJpu9raqZkZhU0zm8Doi05+HaiBsMEIJowL+2WtQ5ItjsngPXg==}
 
   unist-util-stringify-position@2.0.3:
     resolution: {integrity: sha512-3faScn5I+hy9VleOq/qNbAd6pAx7iH5jYBMS9I1HgQVijz/4mv5Bvw5iw1sC/90CODiKo81G/ps8AJrISn687g==}
@@ -8974,10 +8980,6 @@ snapshots:
       devlop: 1.1.0
       hastscript: 8.0.0
 
-  hast-util-from-text@3.0.0:
-    dependencies:
-      '@types/hast': 3.0.4
-
   hast-util-has-property@3.0.0:
     dependencies:
       '@types/hast': 3.0.4
@@ -10745,6 +10747,17 @@ snapshots:
   unist-util-position@5.0.0:
     dependencies:
       '@types/unist': 3.0.2
+
+  unist-util-remove-position@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.2
+      unist-util-visit: 5.0.0
+
+  unist-util-remove@4.0.0:
+    dependencies:
+      '@types/unist': 3.0.2
+      unist-util-is: 6.0.0
+      unist-util-visit-parents: 6.0.1
 
   unist-util-stringify-position@2.0.3:
     dependencies:

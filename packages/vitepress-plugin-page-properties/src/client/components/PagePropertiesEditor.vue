@@ -71,8 +71,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div my-4>
-    <div class="grid grid-cols-[180px_auto] gap-1 <sm:grid-cols-[120px_auto]">
+  <div my-4 class="vp-nolebase-page-properties vp-nolebase-page-properties-container">
+    <div class="vp-nolebase-page-properties-grid grid grid-cols-[180px_auto] gap-1 <sm:grid-cols-[120px_auto]">
       <template v-for="(property) of config" :key="property.key">
         <div
           transition="all ease-in-out"

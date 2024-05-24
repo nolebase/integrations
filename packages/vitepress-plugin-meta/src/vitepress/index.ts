@@ -5,9 +5,9 @@ import RehypeParse from 'rehype-parse'
 import { select, selectAll } from 'hast-util-select'
 import type { Nodes } from 'hast'
 import { toText } from 'hast-util-to-text'
-import { fromText } from 'hast-util-from-text'
 import RetextStringify from 'retext-stringify'
 import { remove } from 'unist-util-remove'
+import { removePosition } from 'unist-util-remove-position'
 import { defu } from 'defu'
 
 function RehypeRetext(option: { selector: string, removeSelectors: string[] }): (tree: Nodes) => void {
@@ -24,7 +24,14 @@ function RehypeRetext(option: { selector: string, removeSelectors: string[] }): 
         remove(vpDocElement, elements)
     }
 
-    fromText(nodes, toText(vpDocElement))
+    removePosition(vpDocElement)
+    if (nodes.type !== 'root' && nodes.type !== 'element')
+      return
+
+    const text = toText(vpDocElement)
+      .replaceAll(/(\n){2,}/gm, ' ')
+
+    nodes.children = [{ type: 'text', value: text }]
   }
 }
 
@@ -55,6 +62,10 @@ interface TransformHeadMetaOptions {
    * Handle the excerpt before adding it to the head.
    */
   handleExcerpt?: (excerpt: string, context: Readonly<TransformContext>) => Promise<string>
+}
+
+function getMeta(head: HeadConfig[], fromKey: string, withValue: string): HeadConfig | undefined {
+  return head.find(([key, attrs]) => key === 'meta' && attrs[fromKey] === withValue)
 }
 
 function updateMetaOrCreateMeta(head: HeadConfig[], fromKey: string, withValue: string, asContent: string): HeadConfig[] {
@@ -107,6 +118,10 @@ export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: He
       else if (handledResult instanceof Promise)
         excerpt = await handledResult
     }
+
+    const ogTitle = getMeta(head, 'property', 'og:title')
+    if (!ogTitle && context.pageData.title)
+      head = updateMetaOrCreateMeta(head, 'property', 'og:title', context.pageData.title)
 
     head = updateMetaOrCreateMeta(head, 'name', 'description', excerpt)
     head = updateMetaOrCreateMeta(head, 'property', 'og:description', excerpt)

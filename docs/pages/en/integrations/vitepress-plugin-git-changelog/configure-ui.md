@@ -124,7 +124,7 @@ export const Theme: ThemeConfig = {
 
 ::: warning Deprecating warning
 
-We have changed the structure of locales config since `2.0.0-rc14`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
+We have changed the structure of locales config since `2.0.0`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
 
 :::
 
@@ -319,7 +319,7 @@ export const Theme: ThemeConfig = {
 
 ::: warning Deprecating warning
 
-We have changed the structure of locales config since `2.0.0-rc14`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
+We have changed the structure of locales config since `2.0.0`, and the old structure will be deprecated in the next major version. Please update your configuration according to the new structure. For migration guides, see [Migrate from v1 to v2](/pages/en/releases/migrations/v1-to-v2).
 
 :::
 

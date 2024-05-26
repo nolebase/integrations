@@ -3,6 +3,7 @@
     <div
       class="nav-header-bg dark:[mask-image:linear-gradient(white,transparent)]"
       absolute top-0 left="10% <md:0"
+      max-w="[calc(100%-10%)] <md:100%"
       h="[25rem]" w-full
     >
       <div

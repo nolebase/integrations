@@ -109,7 +109,7 @@ const reversedCommits = computed(() => {
         text="<sm:xs" duration-200
       >
         <span class="vp-nolebase-git-changelog-last-edited-title inline-flex items-center gap-3">
-          <svg class="i-octicon:history-16" />
+          <div class="i-octicon:history-16" />
           <span v-if="commits[0]">
             {{ t('lastEdited', {
               props: {

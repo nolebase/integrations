@@ -83,7 +83,7 @@ const reversedCommits = computed(() => {
   // reverse() will change the original array, so deep copy it
   // we can also use toReversed() in order to not change original array
   // but toReversed() has lack of compatibility
-  const temp: typeof commits.value = JSON.parse(JSON.stringify(commits.value))
+  const temp: typeof commits.value = [ ...commits.value ]
   return temp.reverse()
 })
 </script>

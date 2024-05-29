@@ -119,8 +119,11 @@ async function render() {
     return
 
   // Specify the color scale.
-  const color = scaleOrdinal([document.body.computedStyleMap().get('--vp-c-brand-2')!.toString(), ...schemeAccent])
-
+  // ! Since firefox does not support computedStyleMap yet
+  // ! see https://developer.mozilla.org/en-US/docs/Web/API/Element/computedStyleMap#browser_compatibility
+  // ! we need use getComputedStyle & getPropertyValue instead
+  const vitepressBrandColor2 = getComputedStyle(document.body).getPropertyValue('--vp-c-brand-2')?.toString() || ''
+  const color = scaleOrdinal([vitepressBrandColor2, ...schemeAccent])
   // Create a simulation with several forces.
   const simulation = forceSimulation(nodes)
     .force('link', forceLink(links).id(d => (d as Node).id))

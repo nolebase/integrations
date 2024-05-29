@@ -1,5 +1,6 @@
 changelog:
   title: 'Changelog'
+  titleId: 'changelog'
   noData: 'No recent changes'
   lastEdited: 'Last edited {{daysAgo}}'
   lastEditedDateFnsLocaleName: 'enUS'
@@ -7,4 +8,5 @@ changelog:
   committedOn: ' on {{date}}'
 contributors:
   title: 'Contributors'
+  titleId: 'contributors'
   noData: 'No contributors'

@@ -66,6 +66,10 @@ export interface Commit {
    * The repository URL.
    */
   repo_url?: string
+  /**
+   * The digits of commit hash.
+   */
+  commitHashDigits?: number
 }
 
 export interface Changelog {

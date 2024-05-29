@@ -110,6 +110,11 @@ export interface GitChangelogOptions {
    */
   maxGitLogCount?: number
   /**
+   * digits of commit hash which will be rendered in `Changelog` section
+   * @default 7
+   */
+  commitHashDigits?: number
+  /**
    * The maximum number of concurrent processes to fetch git logs.
    *
    * @deprecated

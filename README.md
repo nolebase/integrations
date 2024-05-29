@@ -87,6 +87,8 @@ To find out the integration name, there is a list of integrations below.
 The project uses [`unbuild`](https://github.com/unjs/unbuild) and [`vite`](https://github.com/vitejs/vite) to develop and build. With the powerful features offered from [`jiti`](https://github.com/unjs/jiti), we no longer need to use [Rollup](https://rollupjs.org/) for tedious configuration and then watch the local file changes and bundle the modified and developed the modules without [`vite`](https://github.com/vitejs/vite) for hot-reload. We can directly run the following command to output the bundled file and get started on development:
 
 ```shell
+# run these scripts in root folder
+pnpm i
 pnpm run packages:stub
 ```
 
@@ -131,5 +133,13 @@ If you use [`@antfu/ni`](https://github.com/antfu/ni), you can also use the foll
 ```shell
 nr docs:build
 ```
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=nolebase/integrations&type=Date)](https://star-history.com/#nolebase/integrations&Date)
+
+## Project Status
+
+🚧 The project owner should go to [Repobeats](https://repobeats.axiom.co/) website and generate a URL.
 
 ### Written with ♥

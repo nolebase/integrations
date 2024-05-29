@@ -1,5 +1,6 @@
 changelog:
   title: '页面历史'
+  titleId: '页面历史'
   noData: '暂无最近变更历史'
   lastEdited: '最后编辑于 {{daysAgo}}'
   lastEditedDateFnsLocaleName: 'zhCN'
@@ -7,4 +8,5 @@ changelog:
   committedOn: ' 于 {{date}}'
 contributors:
   title: '贡献者'
+  titleId: '贡献者'
   noData: '暂无相关贡献者'

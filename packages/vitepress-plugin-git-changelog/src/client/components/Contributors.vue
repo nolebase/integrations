@@ -83,7 +83,7 @@ watch(commits, async (newCommits) => {
 </script>
 
 <template>
-  <h2 :id="t('contributors.title')">
+  <h2 :id="t('contributors.titleId')">
     {{ t('contributors.title') }}
   </h2>
   <div

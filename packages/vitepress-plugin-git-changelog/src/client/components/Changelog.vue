@@ -91,6 +91,7 @@ const reversedCommits = computed(() => {
 <template>
   <h2 :id="t('changelog.titleId')">
     {{ t('changelog.title') }}
+    <a class="header-anchor" :href="`#${t('changelog.titleId')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
   <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
   <div

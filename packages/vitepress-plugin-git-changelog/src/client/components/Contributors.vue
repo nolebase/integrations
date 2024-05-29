@@ -85,6 +85,7 @@ watch(commits, async (newCommits) => {
 <template>
   <h2 :id="t('contributors.titleId')">
     {{ t('contributors.title') }}
+    <a class="header-anchor" :href="`#${t('contributors.titleId')}`" :aria-label="`Permalink to '${t('contributors.title')}'`" />
   </h2>
   <div
     class="vp-nolebase-git-changelog vp-nolebase-git-changelog-contributors vp-nolebase-git-changelog-contributors-container vp-nolebase-git-changelog-contributors-list"

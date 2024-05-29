@@ -140,6 +140,6 @@ nr docs:build
 
 ## Project Status
 
-🚧 The project owner should go to [Repobeats](https://repobeats.axiom.co/) website and generate a URL.
+![Repobeats analytics image](https://repobeats.axiom.co/api/embed/422f7e142085eeb0c7ef854046101bf90927de91.svg "Repobeats analytics image")
 
 ### Written with ♥

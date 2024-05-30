@@ -133,6 +133,7 @@ export interface RewritePathsBy { handler?: CommitAndPathToStringHandler }
 export const defaultCommitURLHandler = (commit: Commit) => `${commit.repo_url}/commit/${commit.hash}`
 export const defaultReleaseTagURLHandler = (commit: Commit) => `${commit.repo_url}/releases/tag/${commit.tag}`
 export const defaultReleaseTagsURLHandler = (commit: Commit) => commit.tags?.map(tag => `${commit.repo_url}/releases/tag/${tag}`)
+export const defaultCommitHashDigits = 7
 
 export async function returnOrResolvePromise<T>(val: T | Promise<T>) {
   if (!(val instanceof Promise))
@@ -263,6 +264,7 @@ export async function parseCommits(
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
   optsRewritePathsBy?: RewritePathsBy,
+  commitHashDigits?: number,
 ): Promise<Commit[]> {
   rawLogs = rawLogs.filter(log => !!log)
 
@@ -278,6 +280,7 @@ export async function parseCommits(
       author_name,
       author_email,
       author_avatar: '',
+      commitHashDigits,
     }
 
     // rewrite path

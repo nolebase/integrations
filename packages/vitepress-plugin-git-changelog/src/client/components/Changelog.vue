@@ -16,6 +16,8 @@ import CommitRegularLine from './CommitRegularLine.vue'
 import CommitTagLine from './CommitTagLine.vue'
 
 const toggleViewMore = ref(false)
+// The order of commits, defaults to true (descending order)
+const isDescending = ref(true)
 
 const options = inject(InjectionKey, { locales: defaultLocales })
 
@@ -76,11 +78,20 @@ const isFreshChange = computed(() => {
 
   return differenceInDays(new Date(), lastChangeDate.value) < 1
 })
+
+const reversedCommits = computed(() => {
+  // reverse() will change the original array, so deep copy it
+  // we can also use toReversed() in order to not change original array
+  // but toReversed() has lack of compatibility
+  const temp: typeof commits.value = [...commits.value]
+  return temp.reverse()
+})
 </script>
 
 <template>
-  <h2 :id="t('changelog.title')">
+  <h2 :id="t('changelog.titleId')">
     {{ t('changelog.title') }}
+    <a class="header-anchor" :href="`#${t('changelog.titleId')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
   <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
   <div
@@ -91,14 +102,14 @@ const isFreshChange = computed(() => {
     class="vp-nolebase-git-changelog vp-nolebase-git-changelog-history vp-nolebase-git-changelog-history-list vp-nolebase-git-changelog-history-container"
     rounded-lg p-4
   >
-    <label cursor-pointer>
+    <label cursor-pointer @click="toggleViewMore = !toggleViewMore">
       <div
         class="vp-nolebase-git-changelog-title flex select-none items-center justify-between"
         transition="color ease-in-out"
         text="<sm:xs" duration-200
       >
         <span class="vp-nolebase-git-changelog-last-edited-title inline-flex items-center gap-3">
-          <span class="i-octicon:history-16" />
+          <div class="i-octicon:history-16" />
           <span v-if="commits[0]">
             {{ t('lastEdited', {
               props: {
@@ -112,7 +123,10 @@ const isFreshChange = computed(() => {
             }) }}
           </span>
         </span>
-        <input v-model="toggleViewMore" type="checkbox" invisible appearance-none>
+        <div
+          :class="isDescending ? 'i-octicon:sort-desc-16' : 'i-octicon:sort-asc-16'" ml-auto mr-4 cursor-pointer
+          @click.stop="toggleViewMore && (isDescending = !isDescending)"
+        />
         <span class="vp-nolebase-git-changelog-view-full-history-title inline-flex cursor-pointer items-center gap-3">
           <span class="<sm:hidden">
             {{ t('viewFullHistory', { omitEmpty: true }) || t('changelog.viewFullHistory') }}
@@ -134,7 +148,7 @@ const isFreshChange = computed(() => {
         class="grid grid-cols-[30px_auto] mt-3 gap-1.5 children:my-auto -ml-1.5"
         text="<sm:xs"
       >
-        <template v-for="(commit) of commits" :key="commit.hash">
+        <template v-for="(commit) of (isDescending ? commits : reversedCommits)" :key="commit.hash">
           <template v-if="commit.tag && commit.tags && commit.release_tag_url && commit.release_tags_url">
             <CommitTagLine :commit="commit" />
           </template>

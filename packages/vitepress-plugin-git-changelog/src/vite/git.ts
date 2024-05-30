@@ -12,6 +12,7 @@ import {
   type CommitToStringHandler,
   type CommitToStringsHandler,
   type RewritePathsBy,
+  defaultCommitHashDigits,
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
@@ -54,6 +55,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     getReleaseTagsURL = defaultReleaseTagsURLHandler,
     getCommitURL = defaultCommitURLHandler,
     rewritePathsBy,
+    commitHashDigits = defaultCommitHashDigits,
   } = options
 
   const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
@@ -74,6 +76,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       getReleaseTagURL,
       getReleaseTagsURL,
       rewritePathsBy,
+      typeof commitHashDigits === 'number' ? commitHashDigits : defaultCommitHashDigits,
     )
   }
 

@@ -2,13 +2,14 @@
 import { computed, inject, onMounted, ref } from 'vue'
 import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
+import { defu } from 'defu'
 
 import { NuVerticalTransition } from '@nolebase/ui'
 
 import { useCommits } from '../composables/commits'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
-import { InjectionKey } from '../constants'
+import { InjectionKey, defaultOptions } from '../constants'
 import type { Locale } from '../types'
 import { defaultEnLocale, defaultLocales } from '../locales'
 
@@ -19,7 +20,7 @@ const toggleViewMore = ref(false)
 // The order of commits, defaults to true (descending order)
 const isDescending = ref(true)
 
-const options = inject(InjectionKey, { locales: defaultLocales })
+const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { lang, page } = useData()
 const { t } = useI18n()

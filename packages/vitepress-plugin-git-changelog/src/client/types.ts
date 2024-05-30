@@ -120,4 +120,10 @@ export interface Options {
    */
   mapContributors?: Contributor[]
   mapAuthors?: Author[]
+  /**
+   * Number of commit hash letters to display
+   *
+   * @default 7
+   */
+  numCommitHashLetters?: number
 }

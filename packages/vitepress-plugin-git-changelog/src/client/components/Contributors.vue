@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { inject, onMounted, onServerPrefetch, ref, watch } from 'vue'
 import { useData } from 'vitepress'
+import { defu } from 'defu'
 
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
-import { InjectionKey } from '../constants'
+import { InjectionKey, defaultOptions } from '../constants'
 import type { Commit } from '../../types'
 import type { AuthorInfo } from '../composables/author'
 import { extractAuthorsWithMultiple, mapCommitAuthors } from '../composables/author'
 
-const options = inject(InjectionKey, {})
+const options = defu(inject(InjectionKey, {}), defaultOptions)
 const contributors = ref<AuthorInfo[]>([])
 
 const { t } = useI18n()

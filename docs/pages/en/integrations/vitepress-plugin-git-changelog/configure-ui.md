@@ -254,6 +254,12 @@ export interface Options {
      */
     mapByEmailAliases?: string[]
   }>
+  /**
+   * Number of commit hash letters to display
+   *
+   * @default 7
+   */
+  numCommitHashLetters?: number
 }
 ```
 

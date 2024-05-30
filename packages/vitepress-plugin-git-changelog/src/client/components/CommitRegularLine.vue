@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { toDate } from 'date-fns'
+import { defu } from 'defu'
+import { inject } from 'vue'
 
 import { useI18n } from '../composables/i18n'
 import type { Commit } from '../../types'
 import { renderCommitMessage } from '../utils'
+import { InjectionKey, defaultNumCommitHashLetters, defaultOptions } from '../constants'
 
 const props = defineProps<{
   commit: Commit
 }>()
+
+const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 </script>
@@ -21,7 +26,7 @@ const { t } = useI18n()
         transition="color ease-in-out"
         duration-200
       >
-        {{ commit.hash.slice(0, commit.commitHashDigits) }}
+        {{ commit.hash.slice(0, options.numCommitHashLetters || defaultNumCommitHashLetters) }}
       </code>
     </a>
     <span>-</span>

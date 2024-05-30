@@ -295,6 +295,22 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
 
+  packages/vitepress-plugin-data-driver:
+    dependencies:
+      colorette:
+        specifier: ^2.0.20
+        version: 2.0.20
+      ora:
+        specifier: ^8.0.1
+        version: 8.0.1
+      vitepress:
+        specifier: ^1.1.4
+        version: 1.2.2(@algolia/client-search@4.22.1)(@types/node@20.12.12)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.4.5)
+    devDependencies:
+      builtin-modules:
+        specifier: ^3.3.0
+        version: 3.3.0
+
   packages/vitepress-plugin-enhanced-mark:
     dependencies:
       less:
@@ -340,6 +356,9 @@ importers:
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       execa:
         specifier: ^8.0.1
         version: 8.0.1

@@ -336,8 +336,9 @@ async function applyCategoryTextWithFallback(pageItem: PageItem, categoryOptions
     && 'category' in pageItem.frontmatter
     && pageItem.frontmatter.category
     && typeof pageItem.frontmatter.category === 'string'
-  )
+  ) {
     return (pageItem.frontmatter as { category?: string }).category ?? ''
+  }
 
   console.warn(`${logModulePrefix} ${yellow('[WARN]')} no category text found for ${pageItem.sourceFilePath} with categoryOptions ${JSON.stringify(categoryOptions)}.}`)
   return 'Un-categorized'

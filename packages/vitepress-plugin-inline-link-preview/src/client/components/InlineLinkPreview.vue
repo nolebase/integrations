@@ -128,16 +128,18 @@ function watchHandler(isOutsideOfTargetElements: boolean) {
       if (isOutsideAnchorElement.value
         && !hoverOverAnchorElement.value
         && isOutsideIframeWrapperElement.value
-        && !hoverOverIframeWrapperElement.value)
+        && !hoverOverIframeWrapperElement.value) {
         hovering.value = false
+      }
     }, 200)
 
     return
   }
 
   if (!((hoverOverAnchorElement.value || hoverOverIframeWrapperElement.value)
-    && (!isOutsideAnchorElement.value || !isOutsideIframeWrapperElement.value)))
+    && (!isOutsideAnchorElement.value || !isOutsideIframeWrapperElement.value))) {
     return
+  }
 
   if (!anchorElement.value)
     return

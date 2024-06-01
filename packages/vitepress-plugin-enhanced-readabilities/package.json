@@ -60,7 +60,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": "^1.1.4"
+    "vitepress": "^1.2.2"
   },
   "dependencies": {
     "@iconify-json/carbon": "^1.1.34",

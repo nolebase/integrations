@@ -1,6 +1,6 @@
-import type { PluginWithOptions } from 'markdown-it'
-import type StateCore from 'markdown-it/lib/rules_core/state_core'
-import type Token from 'markdown-it/lib/token'
+import type MarkdownIt from 'markdown-it'
+import type StateCore from 'markdown-it/lib/rules_core/state_core.mjs'
+import type Token from 'markdown-it/lib/token.mjs'
 
 export interface Options {
   /**
@@ -18,7 +18,7 @@ export interface Options {
  * @param options The options for the plugin
  * @param options.transform The function to transform the token
  */
-export const ElementTransform: PluginWithOptions<Options> = (md, options) => {
+export function ElementTransform(md: MarkdownIt, options: Options) {
   if (!options || !options.transform)
     throw new Error('The `transform` option is required')
 

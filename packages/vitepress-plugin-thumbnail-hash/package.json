@@ -62,7 +62,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": "^1.1.4"
+    "vitepress": "^1.2.2"
   },
   "dependencies": {
     "@unlazy/vue": "^0.11.3",

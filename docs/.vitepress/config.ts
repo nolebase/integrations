@@ -3,12 +3,12 @@ import { argv, cwd, env } from 'node:process'
 import { gray } from 'colorette'
 import { type DefaultTheme, defineConfig } from 'vitepress'
 import MarkdownItFootnote from 'markdown-it-footnote'
-
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
 import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
+import type { UnlazyImagesOptions } from '@nolebase/markdown-it-unlazy-img'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
 import { transformHeadMeta } from '@nolebase/vitepress-plugin-meta/vitepress'
 
@@ -410,15 +410,18 @@ export default defineConfig({
           }),
         ],
     preConfig(md) {
+      // @ts-expect-error unmatched types for vitepress
       md.use(BiDirectionalLinks({
         dir: cwd(),
       }))
+      // @ts-expect-error unmatched types for vitepress
       md.use(UnlazyImages(), {
         imgElementTag: 'NolebaseUnlazyImg',
-      })
+      } as UnlazyImagesOptions)
     },
     config(md) {
       md.use(MarkdownItFootnote)
+      // @ts-expect-error unmatched types for vitepress
       md.use(InlineLinkPreviewElementTransform)
     },
   },

@@ -65,7 +65,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "vitepress": "^1.1.4"
+    "vitepress": "^1.2.2"
   },
   "dependencies": {
     "@iconify-json/icon-park-outline": "^1.1.15",
@@ -74,12 +74,10 @@
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
-    "markdown-it": "^13.0.2",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",
-    "@types/markdown-it": "^13.0.8",
     "@types/uuid": "^9.0.8",
     "builtin-modules": "^3.3.0",
     "unplugin-yaml": "^0.1.1"

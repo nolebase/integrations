@@ -2,9 +2,9 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path/posix'
 import { globSync } from 'glob'
 
-import type { PluginWithOptions } from 'markdown-it'
 import { normalizePath } from 'vite'
 import { cyan, gray, yellow } from 'colorette'
+import type MarkdownIt from 'markdown-it'
 
 const defaultMapGlobPatterns = [
   '**/.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json',
@@ -106,7 +106,7 @@ interface ThumbnailImageThumbhashOptionsMap {
 
 type ThumbnailImageThumbhashOptions = ThumbnailImageThumbhashOptionsGlobPattern | ThumbnailImageThumbhashOptionsPath | ThumbnailImageThumbhashOptionsMap
 
-interface ThumbnailImageOptions {
+export interface UnlazyImagesOptions {
   /**
    * The tag name of the image element.
    *
@@ -179,7 +179,7 @@ function ensureThumbhashMap(
   return JSON.parse(readFileSync(foundThumbhashMapPath, 'utf-8'))
 }
 
-export const UnlazyImages: () => PluginWithOptions<ThumbnailImageOptions> = () => {
+export const UnlazyImages: () => (md: MarkdownIt, options: UnlazyImagesOptions) => void = () => {
   return (md, options) => {
     const {
       thumbhash = {

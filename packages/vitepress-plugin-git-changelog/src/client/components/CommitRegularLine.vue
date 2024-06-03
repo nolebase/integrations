@@ -4,7 +4,7 @@ import { defu } from 'defu'
 import { inject } from 'vue'
 
 import { useI18n } from '../composables/i18n'
-import type { Commit } from '../../types'
+import type { Commit } from '../types'
 import { renderCommitMessage } from '../utils'
 import { InjectionKey, defaultNumCommitHashLetters, defaultOptions } from '../constants'
 

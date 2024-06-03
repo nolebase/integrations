@@ -6,7 +6,7 @@ import { defu } from 'defu'
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
-import type { Commit } from '../../types'
+import type { Commit } from '../types'
 import type { AuthorInfo } from '../composables/author'
 import { extractAuthorsWithMultiple, mapCommitAuthors } from '../composables/author'
 

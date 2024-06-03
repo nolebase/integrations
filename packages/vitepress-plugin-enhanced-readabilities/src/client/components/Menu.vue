@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useMounted } from '@vueuse/core'
-import VPFlyout from 'vitepress/dist/client/theme-default/components/VPFlyout.vue'
-
 import { useI18n } from '../composables/i18n'
+import { VPFlyout } from './deps'
 
 import LayoutSwitch from './LayoutSwitch.vue'
 import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'

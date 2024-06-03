@@ -245,7 +245,7 @@ onMounted(async () => {
   if (!playerRef.value)
     return
 
-  const AsciinemaPlayer = await import('asciinema-player')
+  const { AsciinemaPlayer } = await import('./deps')
   asciinemaPlayer.value = AsciinemaPlayer.create(props.src, playerRef.value, {
     ...props,
     fit: false,

@@ -1,6 +1,6 @@
 # `@nolebase/ui-asciinema`
 
-Wrapper of asciinema-player for VitePress documentation sites.
+Wrapper of `asciinema-player` for VitePress documentation sites.
 
 > [!CAUTION]
 >

@@ -1,6 +1,6 @@
 # `@nolebase/ui-rive-canvas`
 
-A collection of Vue components Nolebase uses.
+Wrapper of `@rive-app/canvas` for VitePress documentation sites.
 
 > [!CAUTION]
 >

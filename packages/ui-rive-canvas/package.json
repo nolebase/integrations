@@ -2,18 +2,18 @@
   "name": "@nolebase/ui-rive-canvas",
   "type": "module",
   "version": "2.1.0",
-  "description": "A collection of Vue components Nolebase uses.",
+  "description": "Wrapper of `@rive-app/canvas` for VitePress documentation sites.",
   "author": {
     "name": "Nólëbase",
     "email": "nolebase@ayaka.moe",
     "url": "https://github.com/nolebase"
   },
   "license": "MIT",
-  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/ui/",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/ui/lazy-teleport-rive-canvas/",
   "repository": {
     "type": "git",
     "url": "https://github.com/nolebase/integrations.git",
-    "directory": "packages/ui"
+    "directory": "packages/ui-rive-canvas"
   },
   "keywords": [
     "unjs",
@@ -26,7 +26,9 @@
     "markdown",
     "frontmatter",
     "nolebase",
-    "nolebase-integration"
+    "nolebase-integration",
+    "lottie",
+    "rive"
   ],
   "sideEffects": [
     "**/*.css"

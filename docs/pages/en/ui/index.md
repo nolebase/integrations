@@ -34,7 +34,7 @@ export default defineConfig(() => {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // Add this line to your vite.config.ts's optimizeDeps.include array // [!code ++]
-        '@nolebase/ui > @rive-app/canvas', // [!code ++]
+        '@nolebase/ui-rive-canvas > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }

@@ -31,24 +31,24 @@ Rive Canvas is a very special component. Unlike regular components, regular comp
 
 ## Installation
 
-Install `@nolebase/ui` and `@rive-app/canvas` to your project dependencies by running the following command:
+Install `@nolebase/ui-rive-canvas` to your project dependencies by running the following command:
 
 ::: code-group
 
 ```shell [@antfu/ni]
-ni @nolebase/ui @rive-app/canvas
+ni @nolebase/ui-rive-canvas
 ```
 
 ```shell [pnpm]
-pnpm add @nolebase/ui @rive-app/canvas
+pnpm add @nolebase/ui-rive-canvas
 ```
 
 ```shell [npm]
-npm install @nolebase/ui @rive-app/canvas
+npm install @nolebase/ui-rive-canvas
 ```
 
 ```shell [yarn]
-yarn add @nolebase/ui @rive-app/canvas
+yarn add @nolebase/ui-rive-canvas
 ```
 
 :::
@@ -63,7 +63,7 @@ First, you need to import the `NuLazyTeleportRiveCanvas` component in the Vue co
 import type { App } from 'vue'
 let app = null as unknown as App
 // ---cut---
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui';
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas';
 
 app.component('NuLazyTeleportRiveCanvas', NuLazyTeleportRiveCanvas);
 ```
@@ -80,7 +80,7 @@ export default defineConfig(() => {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // 添加这一行到你的 vite.config.ts 的 optimizeDeps.include 数组中 // [!code ++]
-        '@nolebase/ui  @rive-app/canvas', // [!code ++]
+        '@nolebase/ui-rive-canvas > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }
@@ -112,7 +112,7 @@ Then add the `<NuLazyTeleportRiveCanvas />` component in the entry file (`App.vu
 
 ```vue twoslash
 <script setup lang="ts">
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui' // [!code ++]
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas' // [!code ++]
 </script>
 
 <template>
@@ -126,7 +126,7 @@ Or add `<NuLazyTeleportRiveCanvas />` component into `layout-top` slot you can s
 // .vitepress/theme/index.ts
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
 
 export default {
   extends: DefaultTheme,

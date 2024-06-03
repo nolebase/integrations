@@ -41,6 +41,7 @@ export default defineConfigWithTheme({
   },
   markdown: {
     config: (md) => {
+      // @ts-expect-error unmatched type for VitePress, ref https://github.com/nolebase/integrations/pull/228 [!code ++]
       md.use(BiDirectionalLinks()) // [!code ++]
     },
   },

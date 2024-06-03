@@ -71,6 +71,7 @@ export default defineConfig({
   markdown: {
     // ...
     config: (md) => {
+      // @ts-expect-error unmatched type for VitePress, ref https://github.com/nolebase/integrations/pull/228 [!code ++]
       md.use(InlineLinkPreviewElementTransform) // [!code ++]
     },
   },
@@ -119,6 +120,7 @@ export default defineConfig({
         } as ElementTransformOptions // [!code --]
       })()) // [!code --]
 
+      // @ts-expect-error unmatched type for VitePress, ref https://github.com/nolebase/integrations/pull/228 [!code ++]
       md.use(InlineLinkPreviewElementTransform) // [!code ++]
     },
   },
@@ -214,7 +216,7 @@ import '@nolebase/vitepress-plugin-highlight-targeted-heading/client/style.css' 
 	1. `changelog.title`
 	2. `contributors.title`;
 6. In order to better structure the organization of the i18n fields, the original
-	1. `noLogs` i18n configuration changed to `changelog.noData`; 
+	1. `noLogs` i18n configuration changed to `changelog.noData`;
 	2. `noContributors` i18n configuration was changed to `contributors.noData`.
 	3. `lastEdited` i18n Configuration changed to `lastEdited`.
 	4. `lastEditedDateFnsLocaleName` configuration changed to `changelog.lastEditedDateFnsLocaleName`

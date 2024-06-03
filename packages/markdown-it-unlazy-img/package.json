@@ -53,7 +53,7 @@
   "dependencies": {
     "colorette": "^2.0.20",
     "glob": "^10.4.1",
-    "vite": "^5.2.11"
+    "vite": "5.2.11"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.0.0"

@@ -16,8 +16,17 @@
       "@nolebase/ui": [
         "./packages/ui/src/index.ts"
       ],
+      "@nolebase/ui-asciinema": [
+        "./packages/ui-asciinema/src/index.ts"
+      ],
+      "@nolebase/ui-rive-canvas": [
+        "./packages/ui-rive-canvas/src/index.ts"
+      ],
       "@nolebase/unconfig-vitepress/*": [
         "./packages/unconfig-vitepress/src/*"
+      ],
+      "@nolebase/vitepress-plugin-data-driver/*": [
+        "./packages/vitepress-plugin-data-driver/src/*"
       ],
       "@nolebase/vitepress-plugin-enhanced-readabilities/*": [
         "./packages/vitepress-plugin-enhanced-readabilities/src/*"

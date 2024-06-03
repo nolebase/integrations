@@ -32,7 +32,7 @@ export default defineConfig(() => {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // 添加这一行到你的 vite.config.ts 的 optimizeDeps.include 数组中 // [!code ++]
-        '@nolebase/ui > @rive-app/canvas', // [!code ++]
+        '@nolebase/ui-rive-canvas > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }

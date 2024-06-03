@@ -1,5 +1,5 @@
 {
-  "name": "@nolebase/ui",
+  "name": "@nolebase/ui-rive-canvas",
   "type": "module",
   "version": "2.1.0",
   "description": "A collection of Vue components Nolebase uses.",
@@ -69,6 +69,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
+    "@rive-app/canvas": "^2.11.1",
     "vitepress": "^1.2.2",
     "vue": "^3.4.27"
   },
@@ -78,7 +79,6 @@
     }
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.1.54",
     "less": "^4.2.0"
   },
   "devDependencies": {

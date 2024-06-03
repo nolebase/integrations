@@ -35,6 +35,7 @@ export default defineBuildConfig({
   declaration: true,
   clean: true,
   externals: [
+    '@rive-app/canvas',
     'vue',
   ],
   hooks: {

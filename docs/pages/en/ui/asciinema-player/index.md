@@ -1,5 +1,5 @@
 <script setup>
-import { NuAsciinemaPlayer } from '@nolebase/ui'
+import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 </script>
 
 # Asciinema Player
@@ -17,24 +17,24 @@ import { NuAsciinemaPlayer } from '@nolebase/ui'
 
 ## Installation
 
-Install `@nolebase/ui` and `asciinema-player` to your project dependencies by running the following command:
+Install `@nolebase/ui-asciinema` to your project dependencies by running the following command:
 
 ::: code-group
 
 ```shell [@antfu/ni]
-ni @nolebase/ui asciinema-player
+ni @nolebase/ui-asciinema
 ```
 
 ```shell [pnpm]
-pnpm add @nolebase/ui asciinema-player
+pnpm add @nolebase/ui-asciinema
 ```
 
 ```shell [npm]
-npm install @nolebase/ui asciinema-player
+npm install @nolebase/ui-asciinema
 ```
 
 ```shell [yarn]
-yarn add @nolebase/ui asciinema-player
+yarn add @nolebase/ui-asciinema
 ```
 
 :::
@@ -43,7 +43,7 @@ yarn add @nolebase/ui asciinema-player
 
 ```vue
 <script setup>
-import { NuAsciinemaPlayer } from '@nolebase/ui'
+import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 import 'asciinema-player/dist/bundle/asciinema-player.css'
 </script>
 

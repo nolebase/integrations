@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toDate } from 'date-fns'
 
-import type { Commit } from '../../types'
+import type { Commit } from '../types'
 import { useI18n } from '../composables/i18n'
 
 const props = defineProps<{

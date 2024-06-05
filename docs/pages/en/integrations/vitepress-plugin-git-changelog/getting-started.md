@@ -201,9 +201,9 @@ export default Theme
 
 ::: tip What is CI/CD?
 
-Usually, documents using Git-based page history plugin will integrate with [GitHub Actions] (https://github.com/features/actions) or [GitLab's CI/CD P Ipelines] (https://docs.gitlab.com/ee/ci/yaml/) to automate the building process against documentations in the dedicated environment after pushing change commits instead of asking users to execute commands manually and carry out complex construction processes when needed to deploy. You can read more here: [Platform Guides - VitePress](https://vitepress.dev/guide/deploy#platform-guides)
+Usually, documents using Git-based page history plugin will integrate with [GitHub Actions](https://github.com/features/actions) or [GitLab's CI/CD Pipelines](https://docs.gitlab.com/ee/ci/yaml/) to automate the building process against documentations in the dedicated environment after pushing change commits instead of asking users to execute commands manually and carry out complex construction processes when needed to deploy. You can read more here: [Platform Guides - VitePress](https://vitepress.dev/guide/deploy#platform-guides)
 
-Tools like [GitHub Actions] (https://github.com/features/actions) and [GitLab's CI/CD Pipelines](https://docs.g Itlab.com/ee/ci/yaml/) provided by GitHub and GitLab to automate the process of building sites, artifacts are one of the step called [CD (Continuous Deployment)]([Continuous deployment - Wikipedia](https://en.wikipedia.org/wiki/Continuous_deployment)) and is part of the larger concept called [CI/CD (continuous integration/continuous deployment](https://en.wikipedia.org/wiki/CI/CD) .
+Tools like [GitHub Actions](https://github.com/features/actions) and [GitLab's CI/CD Pipelines](https://docs.gitlab.com/ee/ci/yaml/) provided by GitHub and GitLab to automate the process of building sites, artifacts are one of the step called [CD (Continuous Deployment)]([Continuous deployment - Wikipedia](https://en.wikipedia.org/wiki/Continuous_deployment)) and is part of the larger concept called [CI/CD (continuous integration/continuous deployment](https://en.wikipedia.org/wiki/CI/CD) .
 
 Of course, the CI/CD capabilities of the two Git code hosting platforms listed above are only the tip of the iceberg. In fact, there are other tools out there:
 
@@ -253,9 +253,9 @@ By default, Netlify can get all Git logs during the CI/CD build.
 
 #### Build on Cloudflare Pages
 
-The CI/CD pipeline feature of Cloudflare Pages does not provide a way to fetch all Git logs. The only solution is building sites in a controlled environment like GitHub Actions or GitLab CI/CD Pipeline then deploy the artifacts through Cloudflare's official [`wrangler`] (https://de Velopers.cloudflare.com/workers/wrangler/install-and-update/) CLI tool.
+The CI/CD pipeline feature of Cloudflare Pages does not provide a way to fetch all Git logs. The only solution is building sites in a controlled environment like GitHub Actions or GitLab CI/CD Pipeline then deploy the artifacts through Cloudflare's official [`wrangler`](https://developers.cloudflare.com/workers/wrangler/install-and-update/) CLI tool.
 
-For example, you can use the GitHub Actions plugin [`pages-action`](https://github.com/cloudflare/pages-action) with the `fetch-depth: 0` parameter described in [build on GitHub Actions](#build on -github -actions-) with the `fetch-depth: 0` parameter described in [Build on GitHub Actions](#Build on -actions-).
+For example, you can use the GitHub Actions plugin [`pages-action`](https://github.com/cloudflare/pages-action) with the `fetch-depth: 0` parameter described in [build on GitHub Actions](#build on -github -actions-) with the `fetch-depth: 0` parameter described in [Build on GitHub Actions](#build-on-github-actions).
 
 #### Build on Vercel
 

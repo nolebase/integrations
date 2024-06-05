@@ -197,8 +197,74 @@ export default Theme
 
 :::
 
+### When will the Git page history information be generated? Configure deployment tools and CI/CD
+
+::: tip What is CI/CD?
+
+Usually, documents using Git-based page history plugin will integrate with [GitHub Actions](https://github.com/features/actions) or [GitLab's CI/CD Pipelines](https://docs.gitlab.com/ee/ci/yaml/) to automate the building process against documentations in the dedicated environment after pushing change commits instead of asking users to execute commands manually and carry out complex construction processes when needed to deploy. You can read more here: [Platform Guides - VitePress](https://vitepress.dev/guide/deploy#platform-guides)
+
+Tools like [GitHub Actions](https://github.com/features/actions) and [GitLab's CI/CD Pipelines](https://docs.gitlab.com/ee/ci/yaml/) provided by GitHub and GitLab to automate the process of building sites, artifacts are one of the step called [CD (Continuous Deployment)]([Continuous deployment - Wikipedia](https://en.wikipedia.org/wiki/Continuous_deployment)) and is part of the larger concept called [CI/CD (continuous integration/continuous deployment](https://en.wikipedia.org/wiki/CI/CD) .
+
+Of course, the CI/CD capabilities of the two Git code hosting platforms listed above are only the tip of the iceberg. In fact, there are other tools out there:
+
+- [Netlify's build hook] (https://docs.netlify.com/configure-builds/build-hooks/)
+- [Git integration of Cloudflare Pages] (https://developers.cloudflare.com/pages/configuration/git-integration/ )
+- [Vercel's GitHub integration] (https://vercel.com/docs/deployments/git/vercel-for-github)
+- [CircleCI](https://circleci.com/)
+
+These are platforms that provide static site hosting plus CI/CD pipeline features. In summary, they allows users to automatically generate static sites according to pre-configured commands and processing pipelines after pushing commits against files.
+
+CI/CD will be run in an dedicated server environment, therefore all the building processes, building commands, and environments are  and reprodusable environment.
+
+Whenever contributors / authors commit a file through the `git` command or Git client, or merge the committed files modified from Pull Request, a "commit" event will be triggered. Generally, CI/CD will be based on such "commit" event where a new, dedicated build environment got created.
+
+:::
+
+CI/CD is triggered by Git commits, and Git-based page history relies on Git commits, so when using a tool like CI/CD, we need to check and configure it before using it to make sure that Git logs are fetched in full or quantitatively, or else there will be no way to fetch Git logs correctly.
+
+#### Build on [GitHub Actions](https://github.com/features/actions)
+
+When using it with Github Actions, we only need to add the configuration of `fetch-depth: 0` to the `with` parameter of `actions/checkout` to ensure that it is in CI/CD The Git log obtained in the environment contains all the information:
+
+```yaml
+name: Build Docs
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout codes # [!code focus]
+        uses: actions/checkout@v4 # [!code focus]
+        with: # [!code focus]
+          fetch-depth: 0 # [!code focus]
+
+      # ... other steps
+```
+
+#### Build on Netlify
+
+By default, Netlify can get all Git logs during the CI/CD build.
+
+#### Build on Cloudflare Pages
+
+The CI/CD pipeline feature of Cloudflare Pages does not provide a way to fetch all Git logs. The only solution is building sites in a controlled environment like GitHub Actions or GitLab CI/CD Pipeline then deploy the artifacts through Cloudflare's official [`wrangler`](https://developers.cloudflare.com/workers/wrangler/install-and-update/) CLI tool.
+
+For example, you can use the GitHub Actions plugin [`pages-action`](https://github.com/cloudflare/pages-action) with the `fetch-depth: 0` parameter described in [build on GitHub Actions](#build on -github -actions-) with the `fetch-depth: 0` parameter described in [Build on GitHub Actions](#build-on-github-actions).
+
+#### Build on Vercel
+
+Vercel's own CI/CD environment does not provide a way to fetch all Git logs[^1]. The only solution is to build in the controlled environment of GitHub Actions or GitLab CI/CD Pipelines, and then deploy it through Vercel's official [`vercel`] (https://vercel.com/docs/cli) CLI tool.
+
 ## Troubleshooting
 
 ### Encountered `Cannot find module ... or its corresponding type declarations` error?
 
 <!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->
+
+[^1]: [Access git logs in build process · vercel/vercel · Discussion #4101](https://github.com/vercel/vercel/discussions/4101)

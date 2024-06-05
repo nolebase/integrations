@@ -259,10 +259,12 @@ For example, you can use the GitHub Actions plugin [`pages-action`](https://gith
 
 #### Build on Vercel
 
-Vercel's own CI/CD environment does not provide a way to fetch all Git logs [^1]. The only solution is to build in the controlled environment of GitHub Actions or GitLab CI/CD Pipelines, and then deploy it through Vercel's official [`vercel`] (https://vercel.com/docs/cli) CLI tool.
+Vercel's own CI/CD environment does not provide a way to fetch all Git logs[^1]. The only solution is to build in the controlled environment of GitHub Actions or GitLab CI/CD Pipelines, and then deploy it through Vercel's official [`vercel`] (https://vercel.com/docs/cli) CLI tool.
 
 ## Troubleshooting
 
 ### Encountered `Cannot find module ... or its corresponding type declarations` error?
 
 <!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->
+
+[^1]: [Access git logs in build process · vercel/vercel · Discussion #4101](https://github.com/vercel/vercel/discussions/4101)

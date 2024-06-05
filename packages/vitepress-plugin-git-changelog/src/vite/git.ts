@@ -81,11 +81,6 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     name: '@nolebase/vitepress-plugin-git-changelog',
     config: () => ({
       optimizeDeps: {
-        include: [
-          // @rive-app/canvas is a CJS/UMD module, so it needs to be included here
-          // for Vite to properly bundle it.
-          '@nolebase/vitepress-plugin-git-changelog > @nolebase/ui > @rive-app/canvas',
-        ],
         exclude: [
           '@nolebase/vitepress-plugin-git-changelog/client',
         ],

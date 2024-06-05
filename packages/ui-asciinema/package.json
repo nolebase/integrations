@@ -1,19 +1,19 @@
 {
-  "name": "@nolebase/ui",
+  "name": "@nolebase/ui-asciinema",
   "type": "module",
-  "version": "2.1.1",
-  "description": "A collection of Vue components Nolebase uses.",
+  "version": "2.1.0",
+  "description": "Wrapper of `asciinema-player` for VitePress documentation sites.",
   "author": {
     "name": "Nólëbase",
     "email": "nolebase@ayaka.moe",
     "url": "https://github.com/nolebase"
   },
   "license": "MIT",
-  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/ui/",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/ui/asciinema-player/",
   "repository": {
     "type": "git",
     "url": "https://github.com/nolebase/integrations.git",
-    "directory": "packages/ui"
+    "directory": "packages/ui-asciinema"
   },
   "keywords": [
     "unjs",
@@ -26,7 +26,9 @@
     "markdown",
     "frontmatter",
     "nolebase",
-    "nolebase-integration"
+    "nolebase-integration",
+    "asciinema",
+    "asciinema-player"
   ],
   "sideEffects": [
     "**/*.css"
@@ -69,6 +71,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
+    "asciinema-player": "^3.7.1",
     "vitepress": "^1.2.2",
     "vue": "^3.4.27"
   },
@@ -78,7 +81,6 @@
     }
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.1.54",
     "less": "^4.2.0"
   },
   "devDependencies": {

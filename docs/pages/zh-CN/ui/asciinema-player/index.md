@@ -1,5 +1,5 @@
 <script setup>
-import { NuAsciinemaPlayer } from '@nolebase/ui'
+import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 </script>
 
 # Asciinema 播放器
@@ -17,24 +17,24 @@ import { NuAsciinemaPlayer } from '@nolebase/ui'
 
 ## 安装
 
-运行以下命令，将 `@nolebase/ui` 和 `asciinema-player` 安装到项目依赖项中：
+运行以下命令，将 `@nolebase/ui-asciinema` 安装到项目依赖项中：
 
 ::: code-group
 
 ```shell [@antfu/ni]
-ni @nolebase/ui asciinema-player
+ni @nolebase/ui-asciinema
 ```
 
 ```shell [pnpm]
-pnpm add @nolebase/ui asciinema-player
+pnpm add @nolebase/ui-asciinema
 ```
 
 ```shell [npm]
-npm install @nolebase/ui asciinema-player
+npm install @nolebase/ui-asciinema
 ```
 
 ```shell [yarn]
-yarn add @nolebase/ui asciinema-player
+yarn add @nolebase/ui-asciinema
 ```
 
 :::
@@ -43,7 +43,7 @@ yarn add @nolebase/ui asciinema-player
 
 ```vue
 <script setup>
-import { NuAsciinemaPlayer } from '@nolebase/ui'
+import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 import 'asciinema-player/dist/bundle/asciinema-player.css'
 </script>
 

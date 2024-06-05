@@ -31,24 +31,24 @@ Rive Canvas（懒 Teleport）是一种极为特殊的组件，和常规的组件
 
 ## 安装
 
-运行以下命令，将 `@nolebase/ui` 和 `@rive-app/canvas` 安装到项目依赖项中：
+运行以下命令，将 `@nolebase/ui-rive-canvas` 安装到项目依赖项中：
 
 ::: code-group
 
 ```shell [@antfu/ni]
-ni @nolebase/ui @rive-app/canvas
+ni @nolebase/ui-rive-canvas
 ```
 
 ```shell [pnpm]
-pnpm add @nolebase/ui @rive-app/canvas
+pnpm add @nolebase/ui-rive-canvas
 ```
 
 ```shell [npm]
-npm install @nolebase/ui @rive-app/canvas
+npm install @nolebase/ui-rive-canvas
 ```
 
 ```shell [yarn]
-yarn add @nolebase/ui @rive-app/canvas
+yarn add @nolebase/ui-rive-canvas
 ```
 
 :::
@@ -63,7 +63,7 @@ yarn add @nolebase/ui @rive-app/canvas
 import type { App } from 'vue'
 let app = null as unknown as App
 // ---cut---
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui';
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas';
 
 app.component('NuLazyTeleportRiveCanvas', NuLazyTeleportRiveCanvas);
 ```
@@ -80,7 +80,7 @@ export default defineConfig(() => {
     optimizeDeps: { // [!code ++]
       include: [ // [!code ++]
         // 添加这一行到你的 vite.config.ts 的 optimizeDeps.include 数组中 // [!code ++]
-        '@nolebase/ui  @rive-app/canvas', // [!code ++]
+        '@nolebase/ui-rive-canvas > @rive-app/canvas', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }
@@ -112,7 +112,7 @@ export default defineConfig(() => {
 
 ```vue twoslash
 <script setup lang="ts">
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui' // [!code ++]
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas' // [!code ++]
 </script>
 
 <template>
@@ -126,7 +126,7 @@ import { NuLazyTeleportRiveCanvas } from '@nolebase/ui' // [!code ++]
 // .vitepress/theme/index.ts
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
 
 export default {
   extends: DefaultTheme,

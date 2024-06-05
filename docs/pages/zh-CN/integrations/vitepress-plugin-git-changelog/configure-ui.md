@@ -401,11 +401,6 @@ import { defineConfig } from 'vite'
 export default defineConfig(() => {
   return {
     optimizeDeps: {
-      include: [
-        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here
-        // for Vite to properly bundle it.
-        '@nolebase/vitepress-plugin-git-changelog > @nolebase/ui > @rive-app/canvas',
-      ],
       exclude: [
         '@nolebase/vitepress-plugin-git-changelog/client',
       ],

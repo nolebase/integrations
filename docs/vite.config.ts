@@ -44,6 +44,8 @@ export default defineConfig({
     alias: {
       '~/packages': resolve(__dirname, '../packages'),
       '@nolebase/ui': resolve(__dirname, '../packages/ui/src/'),
+      '@nolebase/ui-asciinema': resolve(__dirname, '../packages/ui-asciinema/src/'),
+      '@nolebase/ui-rive-canvas': resolve(__dirname, '../packages/ui-rive-canvas/src/'),
       '@nolebase/unconfig-vitepress': resolve(__dirname, '../packages/unconfig-vitepress/src/'),
       '@nolebase/vitepress-plugin-enhanced-readabilities': resolve(__dirname, '../packages/vitepress-plugin-enhanced-readabilities/src/'),
       '@nolebase/vitepress-plugin-highlight-targeted-heading': resolve(__dirname, '../packages/vitepress-plugin-highlight-targeted-heading/src/'),
@@ -56,7 +58,7 @@ export default defineConfig({
   },
   plugins: [
     Yaml() as Plugin,
-    VueDevTools(),
+    VueDevTools() as Plugin,
     GitChangelog({
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',

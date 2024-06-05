@@ -3,7 +3,7 @@ import { type Plugin, h } from 'vue'
 import { MotionPlugin } from '@vueuse/motion'
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui'
+import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 

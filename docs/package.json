@@ -20,6 +20,8 @@
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/markdown-it-unlazy-img": "workspace:^",
     "@nolebase/ui": "workspace:^",
+    "@nolebase/ui-asciinema": "workspace:^",
+    "@nolebase/ui-rive-canvas": "workspace:^",
     "@nolebase/unconfig-vitepress": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
@@ -44,6 +46,6 @@
     "motion": "^10.17.0",
     "thumbhash": "^0.1.1",
     "unlazy": "^0.11.3",
-    "vite-plugin-vue-devtools": "^7.2.1"
+    "vite-plugin-vue-devtools": "^7.1.3"
   }
 }

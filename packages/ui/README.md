@@ -26,7 +26,7 @@ A collection of Vue components Nolebase uses.
 >     optimizeDeps: {
 >       include: [
 >         // Add this line to your vite.config.ts
->         '@nolebase/ui > @rive-app/canvas',
+>         '@nolebase/ui-rive-canvas > @rive-app/canvas',
 >       ],
 >     },
 >   }

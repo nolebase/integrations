@@ -85,11 +85,6 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   vite: { // [!code ++]
     optimizeDeps: {
-      include: [ // [!code ++]
-        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
-        // for Vite to properly bundle it. // [!code ++]
-        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
-      ], // [!code ++]
       exclude: [ // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
       ], // [!code ++]
@@ -122,11 +117,6 @@ import { defineConfig } from 'vite'
 export default defineConfig(() => {
   return {
     optimizeDeps: {
-      include: [ // [!code ++]
-        // @rive-app/canvas is a CJS/UMD module, so it needs to be included here // [!code ++]
-        // for Vite to properly bundle it. // [!code ++]
-        '@nolebase/vitepress-plugin-enhanced-readabilities > @nolebase/ui > @rive-app/canvas', // [!code ++]
-      ], // [!code ++]
       exclude: [ // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
         'vitepress' // [!code ++]

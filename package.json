@@ -54,7 +54,7 @@
     "unbuild": "^2.0.0",
     "unocss": "^0.57.7",
     "unplugin-vue-macros": "^2.9.2",
-    "vite": "^5.2.11",
+    "vite": "5.2.11",
     "vite-plugin-inspect": "^0.8.4",
     "vitepress": "^1.2.2",
     "vitest": "^1.6.0",

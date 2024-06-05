@@ -62,7 +62,8 @@ const updatePageMaxWidth = useDebounceFn((val: number) => {
     document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-page-max-width', `100%`)
   }
   else {
-    triggerAnimation(document.body)
+    if (!options.layoutSwitch?.pageLayoutMaxWidth?.disableAnimation)
+      triggerAnimation(document.body)
     document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-page-max-width', `${Math.ceil(val / 100)}%`)
   }
 }, 1000)

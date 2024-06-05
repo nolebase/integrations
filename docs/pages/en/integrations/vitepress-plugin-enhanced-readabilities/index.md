@@ -424,6 +424,10 @@ export interface Options {
      */
     disableHelp?: boolean
     /**
+    * Disable Layout Switch animation
+    */
+    disableAnimation?: boolean,
+    /**
      * Default mode for layout switch
      *
      * @default LayoutMode.Original (3)
@@ -445,6 +449,10 @@ export interface Options {
        * @default 100 (100%)
        */
       defaultMaxWidth?: number
+      /**
+      * Disable Layout Max Width animation
+      */
+      disableAnimation?: boolean,
     }
     /**
      * Page layout max width slider configuration
@@ -462,6 +470,10 @@ export interface Options {
        * @default 800 (80%)
        */
       defaultMaxWidth?: number
+      /**
+      * Disable Layout Max Width animation
+      */
+      disableAnimation?: boolean,
     }
   }
   /**
@@ -491,7 +503,7 @@ export interface Options {
      *
      * @default SpotlightStyle.Aside (2)
      */
-    defaultStyle?: SpotlightStyles
+    defaultStyle?: SpotlightStyle
   }
 }
 ```

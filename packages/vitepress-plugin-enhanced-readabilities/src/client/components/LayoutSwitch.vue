@@ -1,124 +1,154 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue'
-import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
-import { useRoute } from 'vitepress'
-import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+import { computed, inject, onMounted, ref, watch } from "vue";
+import { useLocalStorage, useMediaQuery, useMounted } from "@vueuse/core";
+import { useRoute } from "vitepress";
+import { NuInputHorizontalRadioGroup } from "@nolebase/ui";
 
-import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
-import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
-import { useI18n } from '../composables/i18n'
+import {
+  InjectionKey,
+  LayoutMode,
+  LayoutSwitchModeStorageKey,
+  supportedLayoutModes,
+} from "../constants";
+import { useLayoutAppearanceChangeAnimation } from "../composables/animation";
+import { useI18n } from "../composables/i18n";
 
-import MenuTitle from './MenuTitle.vue'
-import MenuHelp from './MenuHelp.vue'
+import MenuTitle from "./MenuTitle.vue";
+import MenuHelp from "./MenuHelp.vue";
 
-const options = inject(InjectionKey, {})
+const options = inject(InjectionKey, {});
 
-const menuTitleElementRef = ref<HTMLDivElement>()
-const isMenuHelpPoppedUp = ref(false)
-const disabled = ref(false)
+const menuTitleElementRef = ref<HTMLDivElement>();
+const isMenuHelpPoppedUp = ref(false);
+const disabled = ref(false);
 
-const route = useRoute()
-const mounted = useMounted()
-const isLargerThanMobile = useMediaQuery('(min-width: 768px)')
-const layoutMode = useLocalStorage<LayoutMode>(LayoutSwitchModeStorageKey, options.layoutSwitch?.defaultMode || LayoutMode.Original)
-const { t } = useI18n()
-const { trigger: triggerAnimation } = useLayoutAppearanceChangeAnimation()
+const route = useRoute();
+const mounted = useMounted();
+const isLargerThanMobile = useMediaQuery("(min-width: 768px)");
+const layoutMode = useLocalStorage<LayoutMode>(
+  LayoutSwitchModeStorageKey,
+  options.layoutSwitch?.defaultMode || LayoutMode.Original
+);
+const { t } = useI18n();
+const { trigger: triggerAnimation } = useLayoutAppearanceChangeAnimation();
 
 const fieldOptions = computed(() => [
   {
     value: LayoutMode.FullWidth,
-    title: t('layoutSwitch.optionFullWidth'),
-    helpMessage: t('layoutSwitch.optionFullWidthHelpMessage'),
-    ariaLabel: t('layoutSwitch.optionFullWidthAriaLabel'),
-    icon: 'i-icon-park-outline:full-screen-one',
-    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+    title: t("layoutSwitch.optionFullWidth"),
+    helpMessage: t("layoutSwitch.optionFullWidthHelpMessage"),
+    ariaLabel: t("layoutSwitch.optionFullWidthAriaLabel"),
+    icon: "i-icon-park-outline:full-screen-one",
+    name: "VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox",
   },
   {
     value: LayoutMode.SidebarWidthAdjustableOnly,
-    title: t('layoutSwitch.optionSidebarWidthAdjustableOnly'),
-    helpMessage: t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage'),
-    ariaLabel: t('layoutSwitch.optionSidebarWidthAdjustableOnlyAriaLabel'),
-    icon: 'i-icon-park-outline:full-screen-two',
-    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+    title: t("layoutSwitch.optionSidebarWidthAdjustableOnly"),
+    helpMessage: t("layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage"),
+    ariaLabel: t("layoutSwitch.optionSidebarWidthAdjustableOnlyAriaLabel"),
+    icon: "i-icon-park-outline:full-screen-two",
+    name: "VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox",
   },
   {
     value: LayoutMode.BothWidthAdjustable,
-    title: t('layoutSwitch.optionBothWidthAdjustable'),
-    helpMessage: t('layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage'),
-    ariaLabel: t('layoutSwitch.optionBothWidthAdjustableAriaLabel'),
-    icon: 'i-icon-park-outline:full-screen',
-    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+    title: t("layoutSwitch.optionBothWidthAdjustable"),
+    helpMessage: t("layoutSwitch.optionSidebarWidthAdjustableOnlyHelpMessage"),
+    ariaLabel: t("layoutSwitch.optionBothWidthAdjustableAriaLabel"),
+    icon: "i-icon-park-outline:full-screen",
+    name: "VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox",
   },
   {
     value: LayoutMode.Original,
-    title: t('layoutSwitch.optionOriginalWidth'),
-    helpMessage: t('layoutSwitch.optionOriginalWidthHelpMessage'),
-    ariaLabel: t('layoutSwitch.optionOriginalWidthAriaLabel'),
-    icon: 'i-icon-park-outline:overall-reduction',
-    name: 'VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox',
+    title: t("layoutSwitch.optionOriginalWidth"),
+    helpMessage: t("layoutSwitch.optionOriginalWidthHelpMessage"),
+    ariaLabel: t("layoutSwitch.optionOriginalWidthAriaLabel"),
+    icon: "i-icon-park-outline:overall-reduction",
+    name: "VitePress Nolebase Enhanced Readabilities Layout Mode Checkbox",
   },
-])
+]);
 
 function setClasses(val: LayoutMode, animated: boolean) {
   switch (val) {
     case LayoutMode.FullWidth:
-      animated && triggerAnimation(document.body)
-      document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
-      break
+      animated && triggerAnimation(document.body);
+      document.body.classList.add(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable"
+      );
+      break;
     case LayoutMode.SidebarWidthAdjustableOnly:
-      animated && triggerAnimation(document.body)
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
-      document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
-      break
+      animated && triggerAnimation(document.body);
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth"
+      );
+      document.body.classList.add(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable"
+      );
+      break;
     case LayoutMode.BothWidthAdjustable:
-      animated && triggerAnimation(document.body)
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly')
-      document.body.classList.add('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
-      break
+      animated && triggerAnimation(document.body);
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly"
+      );
+      document.body.classList.add(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable"
+      );
+      break;
     case LayoutMode.Original:
-      animated && triggerAnimation(document.body)
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly')
-      document.body.classList.remove('VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable')
-      break
+      animated && triggerAnimation(document.body);
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly"
+      );
+      document.body.classList.remove(
+        "VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable"
+      );
+      break;
   }
 }
 
 watch(mounted, (val) => {
-  if (!val)
-    return
+  if (!val) return;
 
-  setClasses(layoutMode.value, false)
+  setClasses(layoutMode.value, false);
   if (!supportedLayoutModes.includes(layoutMode.value))
-    layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
-})
+    layoutMode.value =
+      options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable;
+});
 
 watch(layoutMode, (val) => {
-  if (!mounted.value)
-    return
+  if (!mounted.value) return;
 
-  setClasses(val, true)
+  setClasses(val, true && !options.layoutSwitch?.disableAnimation);
   if (!supportedLayoutModes.includes(val))
-    layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
-})
+    layoutMode.value =
+      options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable;
+});
 
 watch(route, () => {
-  setClasses(layoutMode.value, true)
-})
+  setClasses(layoutMode.value, true && !options.layoutSwitch?.disableAnimation);
+});
 
 watch(isLargerThanMobile, () => {
-  if (!isLargerThanMobile.value)
-    disabled.value = true
-})
+  if (!isLargerThanMobile.value) disabled.value = true;
+});
 
 onMounted(() => {
-  if (!isLargerThanMobile.value)
-    disabled.value = true
-})
+  if (!isLargerThanMobile.value) disabled.value = true;
+});
 </script>
 
 <template>
@@ -126,7 +156,9 @@ onMounted(() => {
     <div ref="menuTitleElementRef" flex items-center>
       <MenuTitle
         :title="t('layoutSwitch.title')"
-        :aria-label="t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')"
+        :aria-label="
+          t('layoutSwitch.titleAriaLabel') || t('layoutSwitch.title')
+        "
         flex="1"
         :disabled="disabled"
         pr-4
@@ -141,10 +173,10 @@ onMounted(() => {
         :menu-title-element-ref="menuTitleElementRef"
       >
         <h4 text-md mb-1 font-semibold>
-          {{ t('layoutSwitch.title') }}
+          {{ t("layoutSwitch.title") }}
         </h4>
         <p text="sm" mb-2 max-w-100>
-          <span>{{ t('layoutSwitch.titleHelpMessage') }}</span>
+          <span>{{ t("layoutSwitch.titleHelpMessage") }}</span>
         </p>
         <div space-y-2 class="VPNolebaseEnhancedReadabilitiesMenu">
           <div
@@ -211,7 +243,8 @@ onMounted(() => {
   }
 
   .VPContent.has-sidebar {
-    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out, padding-right 0.5s ease-in-out;
+    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out,
+      padding-right 0.5s ease-in-out;
   }
 
   .VPDoc .container {
@@ -241,13 +274,34 @@ onMounted(() => {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-full-width-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-full-width-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-full-width-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (
+                var(--vp-nolebase-enhanced-readabilities-full-width-max-width) -
+                  64px
+              )
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
 
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-full-width-max-width
+      ) !important;
     }
 
     .VPNavBar.has-sidebar > .wrapper > .container > .content {
@@ -258,14 +312,39 @@ onMounted(() => {
 
     /* Overriding styles of sidebar section */
     .VPSidebar {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-full-width-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-full-width-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-full-width-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (
+                var(--vp-nolebase-enhanced-readabilities-full-width-max-width) -
+                  64px
+              )
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
 
     /* Overriding styles of document section */
     .VPContent.has-sidebar {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) / 2 + var(--vp-sidebar-width)) !important;
-      padding-right: calc((100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) / 2) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) /
+          2 + var(--vp-sidebar-width)
+      ) !important;
+      padding-right: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) /
+          2
+      ) !important;
     }
 
     .VPDoc.has-aside .content-container {
@@ -287,7 +366,10 @@ onMounted(() => {
     }
 
     .VPNavBar.has-sidebar > .divider {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) / 2 + var(--vp-sidebar-width)) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) /
+          2 + var(--vp-sidebar-width)
+      ) !important;
     }
   }
 
@@ -306,13 +388,31 @@ onMounted(() => {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-page-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
 
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-page-max-width
+      ) !important;
     }
 
     .VPNavBar.has-sidebar > .wrapper > .container > .content {
@@ -323,24 +423,51 @@ onMounted(() => {
 
     /* Overriding styles of sidebar section */
     .VPSidebar {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-page-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
   }
 
   @media (min-width: 1440px) {
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-page-max-width
+      ) !important;
     }
 
     .VPNavBar.has-sidebar > .divider {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-page-max-width)) / 2 + var(--vp-sidebar-width)) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-page-max-width)) / 2 +
+          var(--vp-sidebar-width)
+      ) !important;
     }
 
     .VPContent.has-sidebar {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2 + var(--vp-sidebar-width)) !important;
-      padding-right: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) /
+          2 + var(--vp-sidebar-width)
+      ) !important;
+      padding-right: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) /
+          2
+      ) !important;
     }
   }
 }
@@ -349,13 +476,31 @@ onMounted(() => {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-page-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
 
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-page-max-width
+      ) !important;
     }
 
     .VPNavBar.has-sidebar > .wrapper > .container > .content {
@@ -366,8 +511,24 @@ onMounted(() => {
 
     /* Overriding styles of sidebar section */
     .VPSidebar {
-      padding-left: max(32px, calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2)) !important;
-      width: calc((100% - (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)) / 2 + var(--vp-sidebar-width) - 32px) !important;
+      padding-left: max(
+        32px,
+        calc(
+          (
+              100% -
+                (
+                  var(--vp-nolebase-enhanced-readabilities-page-max-width) -
+                    64px
+                )
+            ) / 2
+        )
+      ) !important;
+      width: calc(
+        (
+            100% -
+              (var(--vp-nolebase-enhanced-readabilities-page-max-width) - 64px)
+          ) / 2 + var(--vp-sidebar-width) - 32px
+      ) !important;
     }
 
     .VPDoc.has-aside .content-container {
@@ -386,23 +547,36 @@ onMounted(() => {
   @media (min-width: 1440px) {
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-page-max-width
+      ) !important;
     }
 
     .VPNavBar.has-sidebar > .divider {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-page-max-width)) / 2 + var(--vp-sidebar-width)) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-page-max-width)) / 2 +
+          var(--vp-sidebar-width)
+      ) !important;
     }
 
     .VPContent.has-sidebar {
-      padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2 + var(--vp-sidebar-width)) !important;
-      padding-right: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2) !important;
+      padding-left: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) /
+          2 + var(--vp-sidebar-width)
+      ) !important;
+      padding-right: calc(
+        (100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) /
+          2
+      ) !important;
     }
   }
 
   @media (min-width: 1536px) {
     .VPNavBar > .wrapper > .container,
     .VPNavBar.has-sidebar > .wrapper > .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+      max-width: var(
+        --vp-nolebase-enhanced-readabilities-page-max-width
+      ) !important;
     }
 
     .VPDoc .container {

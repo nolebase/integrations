@@ -59,11 +59,13 @@ const { trigger: triggerAnimation } = useLayoutAppearanceChangeAnimation()
 
 const updatePageMaxWidth = useDebounceFn((val: number) => {
   if (!shouldActivateMaxWidth.value) {
-    triggerAnimation(document.body)
+    if (!options.layoutSwitch?.contentLayoutMaxWidth?.disableAnimation)
+      triggerAnimation(document.body)
     document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-content-max-width', `100%`)
   }
   else {
-    triggerAnimation(document.body)
+    if (!options.layoutSwitch?.contentLayoutMaxWidth?.disableAnimation)
+      triggerAnimation(document.body)
     document.body.style.setProperty('--vp-nolebase-enhanced-readabilities-content-max-width', `${Math.ceil(val / 100)}%`)
   }
 }, 1000)

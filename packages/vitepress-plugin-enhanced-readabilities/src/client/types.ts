@@ -295,6 +295,10 @@ export interface Options {
      */
     defaultMode?: LayoutMode
     /**
+    * Disable Layout Switch animation
+    */
+    disableAnimation?: boolean
+    /**
      * Content layout max width slider configuration
      */
     contentLayoutMaxWidth?: {
@@ -310,6 +314,10 @@ export interface Options {
        * @default 100 (100%)
        */
       defaultMaxWidth?: number
+      /**
+      * Disable Layout Max Width animation
+      */
+      disableAnimation?: boolean
     }
     /**
      * Page layout max width slider configuration
@@ -327,6 +335,10 @@ export interface Options {
        * @default 800 (80%)
        */
       defaultMaxWidth?: number
+      /**
+      * Disable Layout Max Width animation
+      */
+      disableAnimation?: boolean
     }
   }
   /**

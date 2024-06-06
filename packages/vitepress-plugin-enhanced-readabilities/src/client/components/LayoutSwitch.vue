@@ -101,7 +101,7 @@ watch(layoutMode, (val) => {
   if (!mounted.value)
     return
 
-  setClasses(val, true && !options.layoutSwitch?.disableAnimation)
+  setClasses(val, !options.layoutSwitch?.disableAnimation)
   if (!supportedLayoutModes.includes(val))
     layoutMode.value = options.layoutSwitch?.defaultMode || LayoutMode.BothWidthAdjustable
 })

@@ -107,7 +107,7 @@ watch(layoutMode, (val) => {
 })
 
 watch(route, () => {
-  setClasses(layoutMode.value, true && !options.layoutSwitch?.disableAnimation)
+  setClasses(layoutMode.value, !options.layoutSwitch?.disableAnimation)
 })
 
 watch(isLargerThanMobile, () => {

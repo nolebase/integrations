@@ -260,8 +260,8 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
 
       const inputContent = link.input
       const markupTextContent = link[0]
-      const href = link[1] // href is the file name, uses posix style
-      const text = link[3] ?? ''
+      const href = link[1].trim() // href is the file name, uses posix style
+      const text = link[3]?.trim() ?? ''
 
       const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 

@@ -256,14 +256,12 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
         return false
       }
 
-      const isAttachmentRef = link.input.startsWith('!')
-
       const inputContent = link.input
       const markupTextContent = link[0]
       const href = link[1].trim() // href is the file name, uses posix style
       const text = link[3]?.trim() ?? ''
 
-      const isImageRef = isAttachmentRef && IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
+      const isImageRef = IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Extract the pathname from the href
       const parsedHref = new URL(href, 'https://a.com')

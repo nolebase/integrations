@@ -29,7 +29,6 @@ const IMAGES_EXTENSIONS = [
   '.jfif',
   '.pjpeg',
   '.pjp',
-  '.png',
   '.svg',
   '.webp',
   '.xbm',
@@ -189,43 +188,41 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
     IMAGES_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
   }
 
-  for (const include of includes) {
-    const files = globSync(include, {
-      nodir: true,
-      absolute: true,
-      cwd: rootDir,
-      ignore: [
-        '_*',
-        'dist',
-        'node_modules',
-      ],
-    })
+  const files = globSync(includes, {
+    nodir: true,
+    absolute: true,
+    cwd: rootDir,
+    ignore: [
+      '_*',
+      'dist',
+      'node_modules',
+    ],
+  })
 
-    for (const file of files) {
-      const relativeFilePath = relative(rootDir, file)
-      const partialFilePathWithOnlyBaseName = basename(relativeFilePath)
+  for (const file of files) {
+    const relativeFilePath = relative(rootDir, file)
+    const partialFilePathWithOnlyBaseName = basename(relativeFilePath)
 
-      const existingFileName = possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
+    const existingFileName = possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
 
-      // when conflict
-      if (typeof existingFileName === 'string' && existingFileName !== '') {
-        // remove key from clean base name map
-        delete possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
-        // remove key from full file path map
-        delete possibleBiDirectionalLinksInFullFilePaths[existingFileName]
+    // when conflict
+    if (typeof existingFileName === 'string' && existingFileName !== '') {
+    // remove key from clean base name map
+      delete possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName]
+      // remove key from full file path map
+      delete possibleBiDirectionalLinksInFullFilePaths[existingFileName]
 
-        // add key to full file path map
-        possibleBiDirectionalLinksInFullFilePaths[relativeFilePath] = relativeFilePath
-        // recover deleted and conflicted key to full file path map
-        possibleBiDirectionalLinksInFullFilePaths[existingFileName] = existingFileName
-
-        continue
-      }
-
-      // otherwise, add key to both maps
-      possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName] = relativeFilePath
+      // add key to full file path map
       possibleBiDirectionalLinksInFullFilePaths[relativeFilePath] = relativeFilePath
+      // recover deleted and conflicted key to full file path map
+      possibleBiDirectionalLinksInFullFilePaths[existingFileName] = existingFileName
+
+      continue
     }
+
+    // otherwise, add key to both maps
+    possibleBiDirectionalLinksInCleanBaseNameOfFilePaths[partialFilePathWithOnlyBaseName] = relativeFilePath
+    possibleBiDirectionalLinksInFullFilePaths[relativeFilePath] = relativeFilePath
   }
 
   return (md) => {

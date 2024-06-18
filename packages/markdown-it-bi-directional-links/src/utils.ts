@@ -1,6 +1,6 @@
 import { sep } from 'node:path'
-import type Token from 'markdown-it/lib/token'
-import type StateInline from 'markdown-it/lib/rules_inline/state_inline'
+import Token from 'markdown-it/lib/token.mjs'
+import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
 import type MarkdownIt from 'markdown-it'
 
 /**
@@ -87,7 +87,7 @@ export function genImage(
   openToken.children = []
   openToken.content = text
 
-  const innerTextToken = state.push('text', '', 0)
+  const innerTextToken = new Token('text', '', 0)
   innerTextToken.content = text
   openToken.children.push(innerTextToken)
 

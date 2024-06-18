@@ -19,12 +19,44 @@ describe('markdown-it-bi-directional-links', () => {
     expect(rendered).toBe('<p><a href="/foo.md">foo</a></p>\n')
   })
 
+  it('should render simple form for images', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('![[foo.png]]')
+
+    expect(rendered).toBe('<p><img src="/foo.png" alt=""></p>\n')
+  })
+
+  it('should render simple form for images without attachment markup', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('[[foo.png]]')
+
+    expect(rendered).toBe('<p><img src="/foo.png" alt=""></p>\n')
+  })
+
   it('should render simple form with custom texts', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))
       .render('[[foo|bar]]')
 
     expect(rendered).toBe('<p><a href="/foo.md">bar</a></p>\n')
+  })
+
+  it('should render simple form for images with custom alt', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('![[foo.png|alt text]]')
+
+    expect(rendered).toBe('<p><img src="/foo.png" alt="alt text"></p>\n')
+  })
+
+  it('should render simple form for images with custom alt without attachment markup', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('[[foo.png|alt text]]')
+
+    expect(rendered).toBe('<p><img src="/foo.png" alt="alt text"></p>\n')
   })
 
   it('should render simple form with custom html texts', () => {

@@ -322,7 +322,6 @@ export default defineConfig({
   markdown: {
     config(md) {
       // other markdown-it configurations...
-      // @ts-expect-error unmatched type for VitePress, ref https://github.com/nolebase/integrations/pull/228 [!code ++]
       md.use(InlineLinkPreviewElementTransform, { tag: 'YourComponentName' }) // [!code focus]
     }
   }

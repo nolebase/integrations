@@ -374,13 +374,12 @@ export const Theme: ThemeConfig = {
 
 ```typescript twoslash
 import {
-  SpotlightStyles as NolebaseEnhancedReadabilitiesSpotlightStyles,
+  SpotlightStyle,
+  LayoutMode,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import type {
   Locale,
-  LayoutMode,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
-type SpotlightStyles = typeof NolebaseEnhancedReadabilitiesSpotlightStyles
 // ---cut---
 /**
  * Options

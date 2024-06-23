@@ -9,6 +9,7 @@ import {
   InjectionKey,
   LayoutMode,
   LayoutSwitchModeStorageKey,
+  SpotlightStyle,
   SpotlightToggledStorageKey,
 } from './constants'
 
@@ -42,6 +43,7 @@ export {
   ScreenSpotlight,
   SpotlightToggledStorageKey,
   InjectionKey,
+  SpotlightStyle,
   LayoutMode,
 }
 

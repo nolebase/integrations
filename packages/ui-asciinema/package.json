@@ -71,17 +71,12 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "asciinema-player": "^3.7.1",
-    "vitepress": "^1.2.2",
-    "vue": "^3.4.27"
-  },
-  "peerDependenciesMeta": {
-    "vitepress": {
-      "optional": true
-    }
+    "asciinema-player": "^3.7.1"
   },
   "dependencies": {
-    "less": "^4.2.0"
+    "less": "^4.2.0",
+    "vitepress": "^1.2.3",
+    "vue": "^3.4.27"
   },
   "devDependencies": {
     "@vue/tsconfig": "^0.5.1"

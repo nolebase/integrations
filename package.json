@@ -22,6 +22,7 @@
     "lint": "eslint --cache .",
     "dev": "pnpm run packages:stub && pnpm run docs:dev",
     "build": "pnpm run packages:build && pnpm run docs:build",
+    "preview": "pnpm run docs:preview",
     "docs:dev": "pnpm -r --filter=./docs run dev",
     "docs:build": "pnpm -r --filter=./docs run build",
     "docs:preview": "pnpm -r --filter=./docs run preview",

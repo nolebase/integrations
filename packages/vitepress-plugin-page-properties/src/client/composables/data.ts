@@ -63,7 +63,7 @@ export function usePageProperties(pageData: Ref<PageData>, userConfiguredPagePro
       if (!userConfiguredPageProperties.value || !userConfiguredPageProperties.value.length)
         return []
 
-      const currentPath = toValue(pageData.value.filePath)
+      const currentPath = toValue(pageData.value.filePath).toLowerCase()
       const matchedPagePropertiesForCurrentPath = pagePropertiesData.value[currentPath]
       if (!matchedPagePropertiesForCurrentPath || !Object.keys(matchedPagePropertiesForCurrentPath).length)
         return []
@@ -82,7 +82,7 @@ export function usePageProperties(pageData: Ref<PageData>, userConfiguredPagePro
       })
     }),
     data: computed<Data[string]>(() => {
-      const currentPath = toValue(pageData.value.filePath)
+      const currentPath = toValue(pageData.value.filePath).toLowerCase()
       const matchedPagePropertiesForCurrentPath = pagePropertiesData.value[currentPath]
       if (!matchedPagePropertiesForCurrentPath || !Object.keys(matchedPagePropertiesForCurrentPath).length)
         return { readingTime: 0, wordsCount: 0 }

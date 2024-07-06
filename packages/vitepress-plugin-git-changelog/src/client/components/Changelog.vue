@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
@@ -26,7 +26,7 @@ const { lang, page } = useData()
 const { t } = useI18n()
 const { commits, update } = useCommits(page)
 
-const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
+const lastChangeDate = ref<Date>(commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date())
 
 onMounted(() => {
   if (import.meta.hot) {
@@ -63,7 +63,11 @@ onMounted(() => {
 })
 
 onMounted(() => {
-  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
+})
+
+watch(commits, () => {
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
 })
 
 const locale = computed<Locale>(() => {
@@ -90,9 +94,9 @@ const reversedCommits = computed(() => {
 </script>
 
 <template>
-  <h2 :id="t('changelog.titleId')">
+  <h2 :id="t('changelog.titleId') || t('changelog.title')">
     {{ t('changelog.title') }}
-    <a class="header-anchor" :href="`#${t('changelog.titleId')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
+    <a class="header-anchor" :href="`#${t('changelog.titleId') || t('changelog.title')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
   <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
   <div

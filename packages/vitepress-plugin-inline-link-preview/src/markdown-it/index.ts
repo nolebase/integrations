@@ -21,11 +21,11 @@ export const InlineLinkPreviewElementTransform: PluginWithOptions<{ tag: string 
             if (/<a.*class="no-inline-link-preview"|".* no-inline-link-preview"|"no-inline-link-preview .*"|".* no-inline-link-preview [^\n\r"\u2028\u2029]*".*>/.test(token.content))
               return
 
-            if (!transformNextHtmlInlineCloseToken) {
+            if (!transformNextHtmlInlineCloseToken && /<a/.test(token.content)) {
               token.content = token.content.replace(/<a/, `<${tagName}`)
               transformNextHtmlInlineCloseToken = true
             }
-            else {
+            else if (transformNextHtmlInlineCloseToken && /<\/a/.test(token.content)) {
               token.content = token.content.replace(/<\/a/, `</${tagName}`)
               transformNextHtmlInlineCloseToken = false
             }

@@ -8,7 +8,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="markdown-it" title="Bi-Directional Links" package="markdown-it-bi-directional-links">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -16,7 +16,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="markdown-it" title="Elements Transformation" package="markdown-it-element-transform">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -32,7 +32,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -40,7 +40,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -48,7 +48,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -56,7 +56,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
 <IntegrationCard type="vitepress" title="Git-based page histories" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 
@@ -94,7 +94,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     Enhanced <code>&lt;mark&gt;</code> elements
   </template>
   <template v-slot:badge>
-    <Badge type="tip" text="v2.2.1" />
+    <Badge type="tip" text="v2.2.2" />
   </template>
 </IntegrationCard>
 

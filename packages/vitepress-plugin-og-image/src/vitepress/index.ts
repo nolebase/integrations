@@ -20,7 +20,7 @@ import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-og-image`)}${gray(':')}`
 
 async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<string | undefined> {
-  const templateSvgPathUnderPublicDir = resolve(siteConfig.root, 'public', 'og-template.svg')
+  const templateSvgPathUnderPublicDir = resolve(siteConfig.srcDir, 'public', 'og-template.svg')
   if (await fs.pathExists(templateSvgPathUnderPublicDir))
     return templateSvgPathUnderPublicDir
 
@@ -33,7 +33,7 @@ async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<strin
 }
 
 async function tryToLocateFontFile(siteConfig: SiteConfig): Promise<string | undefined> {
-  const fontPathUnderPublicDir = resolve(siteConfig.root, 'public', 'SourceHanSansSC.otf')
+  const fontPathUnderPublicDir = resolve(siteConfig.srcDir, 'public', 'SourceHanSansSC.otf')
   if (await fs.pathExists(fontPathUnderPublicDir))
     return fontPathUnderPublicDir
 
@@ -88,7 +88,7 @@ async function renderSVGAndRewriteHTML(
       templatedOgImageSvg,
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
-      relative(siteConfig.root, file),
+      relative(siteConfig.srcDir, file),
       { fontPath: await tryToLocateFontFile(siteConfig) },
     )
   }
@@ -120,7 +120,7 @@ async function renderSVGAndRewriteHTML(
   catch (err) {
     console.error(
       `${logModulePrefix} `,
-      `${red('[ERROR] ✗')} failed to write transformed HTML on path [${relative(siteConfig.root, file)}] due to ${err}`,
+      `${red('[ERROR] ✗')} failed to write transformed HTML on path [${relative(siteConfig.srcDir, file)}] due to ${err}`,
       `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
     )
     return {
@@ -370,9 +370,11 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           const relativeLink = item.link ?? ''
           const sourceFilePath = relativeLink.endsWith('/')
             ? `${relativeLink}index.md`
-            : `${relativeLink}.md`
+            : relativeLink.endsWith('.md')
+              ? relativeLink
+              : `${relativeLink}.md`
 
-          const sourceFileContent = fs.readFileSync(`${join(siteConfig.root, sourceFilePath)}`, 'utf-8')
+          const sourceFileContent = fs.readFileSync(`${join(siteConfig.srcDir, sourceFilePath)}`, 'utf-8')
           const { data } = GrayMatter(sourceFileContent)
           const res: PageItem = {
             ...item,

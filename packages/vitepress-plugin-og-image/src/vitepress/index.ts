@@ -20,7 +20,10 @@ import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-og-image`)}${gray(':')}`
 
-async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<string | undefined> {
+async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig, configTemplateSvgPath?: string): Promise<string | undefined> {
+  if (configTemplateSvgPath != null)
+    return resolve(siteConfig.srcDir, configTemplateSvgPath)
+
   const templateSvgPathUnderPublicDir = resolve(siteConfig.srcDir, 'public', 'og-template.svg')
   if (await fs.pathExists(templateSvgPathUnderPublicDir))
     return templateSvgPathUnderPublicDir
@@ -210,6 +213,13 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
    * Font buffers to load for rendering the template SVG
    */
   svgFontBuffers?: Buffer[]
+
+  /**
+   * Temaplte SVG file path.
+   * If not supplied, will try to locate `og-template.svg` under `public` or `assets` directory,
+   * and will fallback to a builtin template.
+   */
+  templateSvgPath?: string
 }
 
 export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
@@ -370,7 +380,7 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
   return async (siteConfig: SiteConfig) => {
     await initSVGRenderer()
 
-    const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig)
+    const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig, options.templateSvgPath)
 
     await task('rendering open graph images', async (): Promise<string | undefined> => {
       const themeConfig = siteConfig.site.themeConfig as unknown as DefaultTheme.Config

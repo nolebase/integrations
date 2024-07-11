@@ -1,6 +1,7 @@
 import { basename, dirname, join, relative, resolve, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { fileURLToPath } from 'node:url'
+import type { Buffer } from 'node:buffer'
 import fs from 'fs-extra'
 import { glob } from 'glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
@@ -70,6 +71,7 @@ async function renderSVGAndRewriteHTML(
   ogImageTemplateSvg: string,
   ogImageTemplateSvgPath: string,
   domain: string,
+  imageUrlResolver: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver'],
 ): Promise<TaskResult> {
   const fileName = basename(file, '.html')
   const ogImageFilePathBaseName = `og-${fileName}.png`
@@ -89,7 +91,7 @@ async function renderSVGAndRewriteHTML(
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
       relative(siteConfig.srcDir, file),
-      { fontPath: await tryToLocateFontFile(siteConfig) },
+      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver },
     )
   }
   catch (err) {
@@ -143,6 +145,7 @@ async function renderSVGAndSavePNG(
   forFile: string,
   options: {
     fontPath?: string
+    imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']
   },
 ) {
   try {
@@ -193,6 +196,13 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
    * The category options to use for open graph image.
    */
   category?: BuildEndGenerateOpenGraphImagesOptionsCategory
+
+  /**
+   * This function will be called with each URL of the image hrefs in the SVG template.
+   * You can return a Buffer of the image to use to avoid fetching the image from its URL.
+   * If you return undefined, the image will be fetched from its URL.
+   */
+  imageUrlResolver?: (imageUrl: string) => Promise<Buffer> | Buffer | undefined
 }
 
 export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
@@ -444,6 +454,7 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           ogImageTemplateSvg,
           ogImageTemplateSvgPath,
           options.baseUrl,
+          options.imageUrlResolver,
         )
       }))
 

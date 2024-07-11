@@ -1,9 +1,13 @@
 import { readFile } from 'node:fs/promises'
 import { createRequire } from 'node:module'
+import { Buffer } from 'node:buffer'
 import { Resvg, initWasm } from '@resvg/resvg-wasm'
 
 import { removeEmoji } from '../emoji'
+import type { BuildEndGenerateOpenGraphImagesOptions } from '../../index'
 import { escape } from './escape'
+
+const imageBuffers = new Map<string, Promise<Buffer>>()
 
 export function templateSVG(siteName: string, siteDescription: string, title: string, category: string, ogTemplate: string): string {
   // Remove emoji and split lines
@@ -74,7 +78,7 @@ export async function initFontBuffer(options?: { fontPath?: string }): Promise<U
   return fontBuffer
 }
 
-export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array): Promise<Uint8Array> {
+export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']): Promise<Uint8Array> {
   try {
     const resvg = new Resvg(
       svgContent,
@@ -89,6 +93,18 @@ export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array): Pr
     )
 
     try {
+      const resolvedImages = await Promise.all(
+        resvg.imagesToResolve().map(async (url) => {
+          return {
+            url,
+            buffer: await resolveImageUrlWithCache(url, imageUrlResolver),
+          }
+        }),
+      )
+
+      for (const { url, buffer } of resolvedImages)
+        resvg.resolveImage(url, buffer)
+
       return resvg.render().asPng()
     }
     catch (err) {
@@ -98,4 +114,26 @@ export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array): Pr
   catch (err) {
     throw new Error(`Failed to initiate Resvg instance to render open graph images due to ${err}`)
   }
+}
+
+function resolveImageUrlWithCache(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']): Promise<Buffer> {
+  if (imageBuffers.has(url))
+    return imageBuffers.get(url)!
+
+  const result = resolveImageUrl(url, imageUrlResolver)
+  imageBuffers.set(url, result)
+
+  return result
+}
+
+async function resolveImageUrl(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']) {
+  if (imageUrlResolver != null) {
+    const res = await imageUrlResolver(url)
+    if (res != null)
+      return res
+  }
+
+  const res = await fetch(url)
+  const buffer = await res.arrayBuffer()
+  return Buffer.from(buffer)
 }

@@ -71,7 +71,8 @@ async function renderSVGAndRewriteHTML(
   ogImageTemplateSvg: string,
   ogImageTemplateSvgPath: string,
   domain: string,
-  imageUrlResolver: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver'],
+  imageUrlResolver: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
+  additionalFontBuffers?: Buffer[],
 ): Promise<TaskResult> {
   const fileName = basename(file, '.html')
   const ogImageFilePathBaseName = `og-${fileName}.png`
@@ -91,7 +92,7 @@ async function renderSVGAndRewriteHTML(
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
       relative(siteConfig.srcDir, file),
-      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver },
+      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver, additionalFontBuffers },
     )
   }
   catch (err) {
@@ -145,11 +146,12 @@ async function renderSVGAndSavePNG(
   forFile: string,
   options: {
     fontPath?: string
-    imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']
+    imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver']
+    additionalFontBuffers?: Buffer[]
   },
 ) {
   try {
-    const pngBuffer = await renderSVG(svgContent, await initFontBuffer(options))
+    const pngBuffer = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers)
 
     try {
       await fs.writeFile(saveAs, pngBuffer, 'binary')
@@ -202,7 +204,12 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
    * You can return a Buffer of the image to use to avoid fetching the image from its URL.
    * If you return undefined, the image will be fetched from its URL.
    */
-  imageUrlResolver?: (imageUrl: string) => Promise<Buffer> | Buffer | undefined
+  svgImageUrlResolver?: (imageUrl: string) => Promise<Buffer> | Buffer | undefined
+
+  /**
+   * Font buffers to load for rendering the template SVG
+   */
+  svgFontBuffers?: Buffer[]
 }
 
 export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
@@ -454,7 +461,8 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           ogImageTemplateSvg,
           ogImageTemplateSvgPath,
           options.baseUrl,
-          options.imageUrlResolver,
+          options.svgImageUrlResolver,
+          options.svgFontBuffers,
         )
       }))
 

@@ -78,14 +78,21 @@ export async function initFontBuffer(options?: { fontPath?: string }): Promise<U
   return fontBuffer
 }
 
-export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']): Promise<Uint8Array> {
+export async function renderSVG(
+  svgContent: string,
+  fontBuffer?: Uint8Array,
+  imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
+  additionalFontBuffers?: Uint8Array[],
+): Promise<Uint8Array> {
   try {
     const resvg = new Resvg(
       svgContent,
       {
         fitTo: { mode: 'width', value: 1200 },
         font: {
-          fontBuffers: fontBuffer ? [fontBuffer] : [],
+          fontBuffers: fontBuffer
+            ? [fontBuffer, ...(additionalFontBuffers ?? [])]
+            : (additionalFontBuffers ?? []),
           // Load system fonts might cost more time
           loadSystemFonts: false,
         },
@@ -116,7 +123,7 @@ export async function renderSVG(svgContent: string, fontBuffer?: Uint8Array, ima
   }
 }
 
-function resolveImageUrlWithCache(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']): Promise<Buffer> {
+function resolveImageUrlWithCache(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver']): Promise<Buffer> {
   if (imageBuffers.has(url))
     return imageBuffers.get(url)!
 
@@ -126,7 +133,7 @@ function resolveImageUrlWithCache(url: string, imageUrlResolver?: BuildEndGenera
   return result
 }
 
-async function resolveImageUrl(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['imageUrlResolver']) {
+async function resolveImageUrl(url: string, imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver']) {
   if (imageUrlResolver != null) {
     const res = await imageUrlResolver(url)
     if (res != null)

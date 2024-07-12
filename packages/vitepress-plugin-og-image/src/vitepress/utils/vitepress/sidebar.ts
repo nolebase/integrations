@@ -73,18 +73,20 @@ export function flattenSidebar(sidebar: DefaultTheme.SidebarItem[], base?: strin
     if (curr.items) {
       return prev.concat(
         flattenSidebar(
-          curr.items
-            .map(item => addBaseToItem(item, curr.base ?? base))
-            .concat(
-              curr.link == null
-                ? []
-                : [{
-                    ...curr,
-                    items: undefined,
-                  }],
-            ),
+          curr.items.map(item => addBaseToItem(item, curr.base ?? base)),
           curr.base ?? base,
-        ),
+        )
+          .concat(
+            curr.link == null
+              ? []
+              : [{
+                  ...curr,
+                  items: undefined,
+                  link: curr.link != null
+                    ? ((curr.base ?? '') + curr.link)
+                    : curr.link,
+                }],
+          ),
       )
     }
 

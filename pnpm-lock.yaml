@@ -572,6 +572,9 @@ importers:
       unified:
         specifier: ^11.0.5
         version: 11.0.5
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
       vitepress:
         specifier: ^1.2.3
         version: 1.2.3(@algolia/client-search@4.22.1)(@types/node@20.14.8)(less@4.2.0)(postcss@8.4.38)(search-insights@2.13.0)(typescript@5.5.2)

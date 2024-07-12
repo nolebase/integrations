@@ -11,6 +11,7 @@ import { unified } from 'unified'
 import RehypeMeta from 'rehype-meta'
 import RehypeParse from 'rehype-parse'
 import RehypeStringify from 'rehype-stringify'
+import { visit } from 'unist-util-visit'
 
 import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
 import { type TaskResult, renderTaskResultsSummary, task } from './utils/task'
@@ -81,6 +82,27 @@ async function renderSVGAndRewriteHTML(
   const ogImageFilePathBaseName = `og-${fileName}.png`
   const ogImageFilePathFullName = `${dirname(file)}/${ogImageFilePathBaseName}`
 
+  const html = await fs.readFile(file, 'utf-8')
+  const parsedHtml = unified()
+    .use(RehypeParse, { fragment: true })
+    .parse(html)
+
+  let hasOgImage = false
+  visit(parsedHtml, 'element', (node) => {
+    if (node.tagName === 'meta' && node.properties?.name === 'og:image')
+      hasOgImage = true
+    else
+      return true
+  })
+
+  if (hasOgImage) {
+    return {
+      filePath: file,
+      status: 'skipped',
+      reason: 'already has og:image meta tag',
+    }
+  }
+
   const templatedOgImageSvg = templateSVG(
     siteTitle,
     siteDescription,
@@ -106,15 +128,13 @@ async function renderSVGAndRewriteHTML(
     }
   }
 
-  const html = await fs.readFile(file, 'utf-8')
-
   const result = await unified()
     .use(RehypeParse)
     .use(RehypeMeta, {
       og: true,
       twitter: true,
       image: {
-        url: `${domain}/${encodeURIComponent(relative(siteConfig.outDir, ogImageFilePathFullName))}`,
+        url: `${domain}/${relative(siteConfig.outDir, ogImageFilePathFullName).replaceAll(sep, '/')}`,
       },
     })
     .use(RehypeStringify)

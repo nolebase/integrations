@@ -474,10 +474,14 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
         }`.split('/index')[0]
 
         const page = pages.find((item) => {
-          if (item.link === link)
+          let itemLink = item.link
+          if (itemLink?.endsWith('.md'))
+            itemLink = itemLink.slice(0, -'.md'.length)
+
+          if (itemLink === link)
             return true
 
-          if (item.link === `${link}/`)
+          if (itemLink === `${link}/`)
             return true
 
           return false

@@ -101,7 +101,11 @@ export async function renderSVG(
   fontBuffer?: Uint8Array,
   imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
   additionalFontBuffers?: Uint8Array[],
-): Promise<Uint8Array> {
+): Promise<{
+  png: Uint8Array
+  width: number
+  height: number
+}> {
   try {
     const resvg = new Resvg(
       svgContent,
@@ -130,7 +134,13 @@ export async function renderSVG(
       for (const { url, buffer } of resolvedImages)
         resvg.resolveImage(url, buffer)
 
-      return resvg.render().asPng()
+      const res = resvg.render()
+
+      return {
+        png: res.asPng(),
+        width: res.width,
+        height: res.height,
+      }
     }
     catch (err) {
       throw new Error(`Failed to render open graph images on path due to ${err}`)

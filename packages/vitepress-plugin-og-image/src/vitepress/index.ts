@@ -111,14 +111,18 @@ async function renderSVGAndRewriteHTML(
     ogImageTemplateSvg,
   )
 
+  let width: number
+  let height: number
   try {
-    await renderSVGAndSavePNG(
+    const res = await renderSVGAndSavePNG(
       templatedOgImageSvg,
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
       relative(siteConfig.srcDir, file),
       { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver, additionalFontBuffers },
     )
+    width = res.width
+    height = res.height
   }
   catch (err) {
     return {
@@ -135,6 +139,8 @@ async function renderSVGAndRewriteHTML(
       twitter: true,
       image: {
         url: `${domain}/${relative(siteConfig.outDir, ogImageFilePathFullName).replaceAll(sep, '/')}`,
+        width,
+        height,
       },
     })
     .use(RehypeStringify)
@@ -174,7 +180,7 @@ async function renderSVGAndSavePNG(
   },
 ) {
   try {
-    const pngBuffer = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers)
+    const { png: pngBuffer, width, height } = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers)
 
     try {
       await fs.writeFile(saveAs, pngBuffer, 'binary')
@@ -187,6 +193,11 @@ async function renderSVGAndSavePNG(
       )
 
       throw err
+    }
+
+    return {
+      width,
+      height,
     }
   }
   catch (err) {

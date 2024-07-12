@@ -68,11 +68,40 @@ function flattenThemeConfigSidebar(sidebar?: DefaultTheme.Sidebar): DefaultTheme
   }, [] as DefaultTheme.SidebarItem[])
 }
 
-export function flattenSidebar(sidebar: DefaultTheme.SidebarItem[]): DefaultTheme.SidebarItem[] {
+export function flattenSidebar(sidebar: DefaultTheme.SidebarItem[], base?: string): DefaultTheme.SidebarItem[] {
   return sidebar.reduce((prev, curr) => {
-    if (curr.items)
-      return prev.concat(flattenSidebar(curr.items))
+    if (curr.items) {
+      return prev.concat(
+        flattenSidebar(
+          curr.items.map(item => addBaseToItem(item, curr.base ?? base)),
+          curr.base ?? base,
+        )
+          .concat(
+            curr.link == null
+              ? []
+              : [{
+                  ...curr,
+                  items: undefined,
+                  link: curr.link != null
+                    ? ((curr.base ?? '') + curr.link)
+                    : curr.link,
+                }],
+          ),
+      )
+    }
 
     return prev.concat(curr)
   }, [] as DefaultTheme.SidebarItem[])
+}
+
+function addBaseToItem(item: DefaultTheme.SidebarItem, base?: string) {
+  if (base == null || base === '')
+    return item
+
+  return {
+    ...item,
+    link: item.link != null
+      ? (base + item.link)
+      : item.link,
+  }
 }

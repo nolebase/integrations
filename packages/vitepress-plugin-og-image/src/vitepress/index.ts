@@ -1,6 +1,7 @@
 import { basename, dirname, join, relative, resolve, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { fileURLToPath } from 'node:url'
+import type { Buffer } from 'node:buffer'
 import fs from 'fs-extra'
 import { glob } from 'glob'
 import type { DefaultTheme, SiteConfig } from 'vitepress'
@@ -10,6 +11,7 @@ import { unified } from 'unified'
 import RehypeMeta from 'rehype-meta'
 import RehypeParse from 'rehype-parse'
 import RehypeStringify from 'rehype-stringify'
+import { visit } from 'unist-util-visit'
 
 import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
 import { type TaskResult, renderTaskResultsSummary, task } from './utils/task'
@@ -19,8 +21,11 @@ import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-og-image`)}${gray(':')}`
 
-async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<string | undefined> {
-  const templateSvgPathUnderPublicDir = resolve(siteConfig.root, 'public', 'og-template.svg')
+async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig, configTemplateSvgPath?: string): Promise<string | undefined> {
+  if (configTemplateSvgPath != null)
+    return resolve(siteConfig.srcDir, configTemplateSvgPath)
+
+  const templateSvgPathUnderPublicDir = resolve(siteConfig.srcDir, 'public', 'og-template.svg')
   if (await fs.pathExists(templateSvgPathUnderPublicDir))
     return templateSvgPathUnderPublicDir
 
@@ -33,7 +38,7 @@ async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig): Promise<strin
 }
 
 async function tryToLocateFontFile(siteConfig: SiteConfig): Promise<string | undefined> {
-  const fontPathUnderPublicDir = resolve(siteConfig.root, 'public', 'SourceHanSansSC.otf')
+  const fontPathUnderPublicDir = resolve(siteConfig.srcDir, 'public', 'SourceHanSansSC.otf')
   if (await fs.pathExists(fontPathUnderPublicDir))
     return fontPathUnderPublicDir
 
@@ -70,10 +75,33 @@ async function renderSVGAndRewriteHTML(
   ogImageTemplateSvg: string,
   ogImageTemplateSvgPath: string,
   domain: string,
+  imageUrlResolver: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
+  additionalFontBuffers?: Buffer[],
 ): Promise<TaskResult> {
   const fileName = basename(file, '.html')
   const ogImageFilePathBaseName = `og-${fileName}.png`
   const ogImageFilePathFullName = `${dirname(file)}/${ogImageFilePathBaseName}`
+
+  const html = await fs.readFile(file, 'utf-8')
+  const parsedHtml = unified()
+    .use(RehypeParse, { fragment: true })
+    .parse(html)
+
+  let hasOgImage: string | false = false
+  visit(parsedHtml, 'element', (node) => {
+    if (node.tagName === 'meta' && (node.properties?.name === 'og:image' || node.properties?.name === 'twitter:image'))
+      hasOgImage = node.properties.name
+    else
+      return true
+  })
+
+  if (hasOgImage) {
+    return {
+      filePath: file,
+      status: 'skipped',
+      reason: `already has ${hasOgImage} meta tag`,
+    }
+  }
 
   const templatedOgImageSvg = templateSVG(
     siteTitle,
@@ -83,14 +111,18 @@ async function renderSVGAndRewriteHTML(
     ogImageTemplateSvg,
   )
 
+  let width: number
+  let height: number
   try {
-    await renderSVGAndSavePNG(
+    const res = await renderSVGAndSavePNG(
       templatedOgImageSvg,
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
-      relative(siteConfig.root, file),
-      { fontPath: await tryToLocateFontFile(siteConfig) },
+      relative(siteConfig.srcDir, file),
+      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver, additionalFontBuffers },
     )
+    width = res.width
+    height = res.height
   }
   catch (err) {
     return {
@@ -100,15 +132,20 @@ async function renderSVGAndRewriteHTML(
     }
   }
 
-  const html = await fs.readFile(file, 'utf-8')
-
   const result = await unified()
     .use(RehypeParse)
     .use(RehypeMeta, {
       og: true,
       twitter: true,
       image: {
-        url: `${domain}/${encodeURIComponent(relative(siteConfig.outDir, ogImageFilePathFullName))}`,
+        url: `${domain}/${
+          relative(siteConfig.outDir, ogImageFilePathFullName)
+            .split(sep)
+            .map(item => encodeURIComponent(item))
+            .join('/')
+        }`,
+        width,
+        height,
       },
     })
     .use(RehypeStringify)
@@ -120,7 +157,7 @@ async function renderSVGAndRewriteHTML(
   catch (err) {
     console.error(
       `${logModulePrefix} `,
-      `${red('[ERROR] ✗')} failed to write transformed HTML on path [${relative(siteConfig.root, file)}] due to ${err}`,
+      `${red('[ERROR] ✗')} failed to write transformed HTML on path [${relative(siteConfig.srcDir, file)}] due to ${err}`,
       `\n${red((err as Error).message)}\n${gray(String((err as Error).stack))}`,
     )
     return {
@@ -143,10 +180,12 @@ async function renderSVGAndSavePNG(
   forFile: string,
   options: {
     fontPath?: string
+    imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver']
+    additionalFontBuffers?: Buffer[]
   },
 ) {
   try {
-    const pngBuffer = await renderSVG(svgContent, await initFontBuffer(options))
+    const { png: pngBuffer, width, height } = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers)
 
     try {
       await fs.writeFile(saveAs, pngBuffer, 'binary')
@@ -159,6 +198,11 @@ async function renderSVGAndSavePNG(
       )
 
       throw err
+    }
+
+    return {
+      width,
+      height,
     }
   }
   catch (err) {
@@ -193,6 +237,25 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
    * The category options to use for open graph image.
    */
   category?: BuildEndGenerateOpenGraphImagesOptionsCategory
+
+  /**
+   * This function will be called with each URL of the image hrefs in the SVG template.
+   * You can return a Buffer of the image to use to avoid fetching the image from its URL.
+   * If you return undefined, the image will be fetched from its URL.
+   */
+  svgImageUrlResolver?: (imageUrl: string) => Promise<Buffer> | Buffer | undefined
+
+  /**
+   * Font buffers to load for rendering the template SVG
+   */
+  svgFontBuffers?: Buffer[]
+
+  /**
+   * Temaplte SVG file path.
+   * If not supplied, will try to locate `og-template.svg` under `public` or `assets` directory,
+   * and will fallback to a builtin template.
+   */
+  templateSvgPath?: string
 }
 
 export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
@@ -353,7 +416,7 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
   return async (siteConfig: SiteConfig) => {
     await initSVGRenderer()
 
-    const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig)
+    const ogImageTemplateSvgPath = await tryToLocateTemplateSVGFile(siteConfig, options.templateSvgPath)
 
     await task('rendering open graph images', async (): Promise<string | undefined> => {
       const themeConfig = siteConfig.site.themeConfig as unknown as DefaultTheme.Config
@@ -370,9 +433,11 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           const relativeLink = item.link ?? ''
           const sourceFilePath = relativeLink.endsWith('/')
             ? `${relativeLink}index.md`
-            : `${relativeLink}.md`
+            : relativeLink.endsWith('.md')
+              ? relativeLink
+              : `${relativeLink}.md`
 
-          const sourceFileContent = fs.readFileSync(`${join(siteConfig.root, sourceFilePath)}`, 'utf-8')
+          const sourceFileContent = fs.readFileSync(`${join(siteConfig.srcDir, sourceFilePath)}`, 'utf-8')
           const { data } = GrayMatter(sourceFileContent)
           const res: PageItem = {
             ...item,
@@ -414,10 +479,14 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
         }`.split('/index')[0]
 
         const page = pages.find((item) => {
-          if (item.link === link)
+          let itemLink = item.link
+          if (itemLink?.endsWith('.md'))
+            itemLink = itemLink.slice(0, -'.md'.length)
+
+          if (itemLink === link)
             return true
 
-          if (item.link === `${link}/`)
+          if (itemLink === `${link}/`)
             return true
 
           return false
@@ -442,6 +511,8 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           ogImageTemplateSvg,
           ogImageTemplateSvgPath,
           options.baseUrl,
+          options.svgImageUrlResolver,
+          options.svgFontBuffers,
         )
       }))
 

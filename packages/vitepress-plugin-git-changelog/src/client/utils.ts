@@ -34,7 +34,7 @@ export function formatDistanceToNowFromValue(value: Date, localeName = 'enUS') {
     })
   }
   catch (err) {
-    return value
+    return value.toLocaleDateString()
   }
 }
 

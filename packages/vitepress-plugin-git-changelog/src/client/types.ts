@@ -126,6 +126,11 @@ export interface Options {
    * @default 7
    */
   numCommitHashLetters?: number
+  /**
+   * Whether to display the relative time of the commit
+   * in the format as 'x days ago' or 'x hours ago'
+   */
+  commitsRelativeTime?: boolean
 }
 
 export interface Commit {

@@ -99,6 +99,7 @@ const defaultOptions: NolebasePluginPresetOptions = {
     enable: true,
     options: {
       mapContributors: [],
+      commitsRelativeTime: true,
     },
   },
   graphView: {

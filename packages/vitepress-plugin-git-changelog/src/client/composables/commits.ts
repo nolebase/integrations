@@ -5,7 +5,7 @@ import Changelog from 'virtual:nolebase-git-changelog'
 import type { Commit } from '../../types'
 
 export function useCommits(pageData: Ref<PageData>) {
-  const gitChangelog = ref<typeof Changelog>(Changelog)
+  const gitChangelog = ref<{ commits: Commit[] }>(Changelog)
   if (!gitChangelog.value)
     gitChangelog.value = { commits: [] }
 

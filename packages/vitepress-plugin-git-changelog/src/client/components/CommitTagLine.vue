@@ -1,14 +1,41 @@
 <script setup lang="ts">
+import { computed, inject } from 'vue'
 import { toDate } from 'date-fns'
+import { useData } from 'vitepress'
+import { defu } from 'defu'
 
-import type { Commit } from '../types'
+import type { Commit, Locale } from '../types'
 import { useI18n } from '../composables/i18n'
+import { formatDistanceToNowFromValue } from '../utils'
+import { defaultEnLocale, defaultLocales } from '../locales'
+import { InjectionKey, defaultOptions } from '../constants'
 
 const props = defineProps<{
   commit: Commit
 }>()
 
+const options = defu(inject(InjectionKey, {}), defaultOptions)
+
 const { t } = useI18n()
+const { lang } = useData()
+
+const locale = computed<Locale>(() => {
+  if (!options.locales || typeof options.locales === 'undefined')
+    return defaultLocales[lang.value] || defaultEnLocale || {}
+
+  return options.locales[lang.value] || defaultEnLocale || {}
+})
+
+function formatCommittedOn(timestamp: number): string {
+  const date = toDate(timestamp)
+  let dateStr = date.toLocaleDateString()
+  if (options.commitsRelativeTime) {
+    dateStr = formatDistanceToNowFromValue(date, locale.value.changelog?.lastEditedDateFnsLocaleName || lang.value || 'enUS')
+  }
+
+  return t('committedOn', { props: { date: dateStr }, omitEmpty: true })
+    || t('changelog.committedOn', { props: { date: dateStr } })
+}
 </script>
 
 <template>
@@ -26,7 +53,7 @@ const { t } = useI18n()
     </span>
     <ClientOnly>
       <span class="text-xs opacity-50" :title="toDate(props.commit.date_timestamp).toString()">
-        {{ t('committedOn', { props: { date: toDate(props.commit.date_timestamp).toLocaleDateString() }, omitEmpty: true }) || t('changelog.committedOn', { props: { date: toDate(props.commit.date_timestamp).toLocaleDateString() } }) }}
+        {{ formatCommittedOn(props.commit.date_timestamp) }}
       </span>
     </ClientOnly>
   </div>

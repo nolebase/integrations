@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import { computed, inject } from 'vue'
 import { toDate } from 'date-fns'
+import { useData } from 'vitepress'
 import { defu } from 'defu'
-import { inject } from 'vue'
 
 import { useI18n } from '../composables/i18n'
-import type { Commit } from '../types'
-import { renderCommitMessage } from '../utils'
+import type { Commit, Locale } from '../types'
+import { formatDistanceToNowFromValue, renderCommitMessage } from '../utils'
+import { defaultEnLocale, defaultLocales } from '../locales'
 import { InjectionKey, defaultNumCommitHashLetters, defaultOptions } from '../constants'
 
 const props = defineProps<{
@@ -15,6 +17,26 @@ const props = defineProps<{
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
+const { lang } = useData()
+
+const locale = computed<Locale>(() => {
+  if (!options.locales || typeof options.locales === 'undefined')
+    return defaultLocales[lang.value] || defaultEnLocale || {}
+
+  return options.locales[lang.value] || defaultEnLocale || {}
+})
+
+function formatCommittedOn(timestamp: number): string {
+  const date = toDate(timestamp)
+  let dateStr = date.toLocaleDateString()
+
+  if (options.commitsRelativeTime) {
+    dateStr = formatDistanceToNowFromValue(date, locale.value.changelog?.lastEditedDateFnsLocaleName || lang.value || 'enUS')
+  }
+
+  return t('committedOn', { props: { date: dateStr }, omitEmpty: true })
+    || t('changelog.committedOn', { props: { date: dateStr } })
+}
 </script>
 
 <template>
@@ -34,7 +56,7 @@ const { t } = useI18n()
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
       <ClientOnly>
         <span class="text-xs op-50" :title="toDate(commit.date_timestamp).toString()">
-          {{ t('committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() }, omitEmpty: true }) || t('changelog.committedOn', { props: { date: toDate(commit.date_timestamp).toLocaleDateString() } }) }}
+          {{ formatCommittedOn(commit.date_timestamp) }}
         </span>
       </ClientOnly>
     </span>

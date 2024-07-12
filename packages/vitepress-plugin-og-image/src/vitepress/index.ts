@@ -87,10 +87,10 @@ async function renderSVGAndRewriteHTML(
     .use(RehypeParse, { fragment: true })
     .parse(html)
 
-  let hasOgImage = false
+  let hasOgImage: string | false = false
   visit(parsedHtml, 'element', (node) => {
-    if (node.tagName === 'meta' && node.properties?.name === 'og:image')
-      hasOgImage = true
+    if (node.tagName === 'meta' && (node.properties?.name === 'og:image' || node.properties?.name === 'twitter:image'))
+      hasOgImage = node.properties.name
     else
       return true
   })
@@ -99,7 +99,7 @@ async function renderSVGAndRewriteHTML(
     return {
       filePath: file,
       status: 'skipped',
-      reason: 'already has og:image meta tag',
+      reason: `already has ${hasOgImage} meta tag`,
     }
   }
 

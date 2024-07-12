@@ -17,13 +17,31 @@ export function templateSVG(siteName: string, siteDescription: string, title: st
     .split('\n')
 
   // Restricted 17 words per line
-  lines.forEach((val, i) => {
-    if (val.length > 17) {
-      lines[i] = val.slice(0, 17)
-      lines[i + 1] = `${val.slice(17)}${lines[i + 1] || ''}`
+  const maxLineLength = 17
+  for (let i = 0; i < lines.length; i++) {
+    const val = lines[i].trim()
+
+    if (val.length > maxLineLength) {
+      // attempt to break at a space
+      let breakPoint = val.lastIndexOf(' ', maxLineLength)
+
+      // attempt to break before before a capital letter
+      if (breakPoint < 0) {
+        for (let j = Math.min(val.length - 1, maxLineLength); j > 0; j--) {
+          if (val[j] === val[j].toUpperCase()) {
+            breakPoint = j
+            break
+          }
+        }
+      }
+      if (breakPoint < 0)
+        breakPoint = maxLineLength
+
+      lines[i] = val.slice(0, breakPoint)
+      lines[i + 1] = `${val.slice(lines[i].length)}${lines[i + 1] || ''}`
     }
     lines[i] = lines[i].trim()
-  })
+  }
 
   const categoryStr = category ? removeEmoji(category).trim() : ''
 

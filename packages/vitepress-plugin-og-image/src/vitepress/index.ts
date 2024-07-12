@@ -138,7 +138,12 @@ async function renderSVGAndRewriteHTML(
       og: true,
       twitter: true,
       image: {
-        url: `${domain}/${relative(siteConfig.outDir, ogImageFilePathFullName).replaceAll(sep, '/')}`,
+        url: `${domain}/${
+          relative(siteConfig.outDir, ogImageFilePathFullName)
+            .split(sep)
+            .map(item => encodeURIComponent(item))
+            .join('/')
+        }`,
         width,
         height,
       },

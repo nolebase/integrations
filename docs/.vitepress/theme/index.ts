@@ -76,6 +76,7 @@ export default defineThemeUnconfig({
               username: 'northword',
             },
           ],
+          commitsRelativeTime: true,
         },
       },
     }),

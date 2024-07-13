@@ -16,17 +16,46 @@ import { defaultEnLocale, defaultLocales } from '../locales'
 import CommitRegularLine from './CommitRegularLine.vue'
 import CommitTagLine from './CommitTagLine.vue'
 
-const toggleViewMore = ref(false)
-// The order of commits, defaults to true (descending order)
-const isDescending = ref(true)
-
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
-const { lang, page } = useData()
 const { t } = useI18n()
+const { lang, page } = useData()
 const { commits, update } = useCommits(page)
 
+// The order of commits, defaults to true (descending order)
+const isDescending = ref(true)
+const toggleViewMore = ref(false)
 const lastChangeDate = ref<Date>(commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date())
+
+const locale = computed<Locale>(() => {
+  if (!options.locales || typeof options.locales === 'undefined')
+    return defaultLocales[lang.value] || defaultEnLocale || {}
+
+  return options.locales[lang.value] || defaultEnLocale || {}
+})
+
+const isFreshChange = computed(() => {
+  if (!lastChangeDate.value)
+    return false
+
+  return differenceInDays(new Date(), lastChangeDate.value) < 1
+})
+
+const reversedCommits = computed(() => {
+  // reverse() will change the original array, so deep copy it
+  // we can also use toReversed() in order to not change original array
+  // but toReversed() has lack of compatibility
+  const temp: typeof commits.value = [...commits.value]
+  return temp.reverse()
+})
+
+onMounted(() => {
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
+})
+
+watch(commits, () => {
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
+})
 
 onMounted(() => {
   if (import.meta.hot) {
@@ -60,36 +89,6 @@ onMounted(() => {
         update(newModule.default.commits)
     })
   }
-})
-
-onMounted(() => {
-  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
-})
-
-watch(commits, () => {
-  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
-})
-
-const locale = computed<Locale>(() => {
-  if (!options.locales || typeof options.locales === 'undefined')
-    return defaultLocales[lang.value] || defaultEnLocale || {}
-
-  return options.locales[lang.value] || defaultEnLocale || {}
-})
-
-const isFreshChange = computed(() => {
-  if (!lastChangeDate.value)
-    return false
-
-  return differenceInDays(new Date(), lastChangeDate.value) < 1
-})
-
-const reversedCommits = computed(() => {
-  // reverse() will change the original array, so deep copy it
-  // we can also use toReversed() in order to not change original array
-  // but toReversed() has lack of compatibility
-  const temp: typeof commits.value = [...commits.value]
-  return temp.reverse()
 })
 </script>
 

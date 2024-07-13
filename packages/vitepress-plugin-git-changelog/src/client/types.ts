@@ -127,6 +127,11 @@ export interface Options {
    */
   numCommitHashLetters?: number
   /**
+   * Whether to display the relative time of the commit
+   * in the format as 'x days ago' or 'x hours ago'
+   */
+  commitsRelativeTime?: boolean
+  /**
    * Whether to hide the git-changelog h2 header
    */
   hideHeader?: boolean

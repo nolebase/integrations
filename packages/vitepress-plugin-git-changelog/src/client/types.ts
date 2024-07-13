@@ -131,6 +131,10 @@ export interface Options {
    * in the format as 'x days ago' or 'x hours ago'
    */
   commitsRelativeTime?: boolean
+  /**
+   * Whether to hide the git-changelog h2 header
+   */
+  hideHeader?: boolean
 }
 
 export interface Commit {

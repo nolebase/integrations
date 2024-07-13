@@ -93,3 +93,43 @@ export function genImage(
 
   state.pos += link![0].length
 }
+
+export function genVideo(
+  state: StateInline,
+  resolvedNewHref: string,
+  text: string,
+  link: RegExpMatchArray,
+) {
+  const openToken = state.push('video_open', 'video', 1)
+  openToken.attrSet('controls', 'true')
+  openToken.attrSet('preload', 'metadata')
+  if (text)
+    openToken.attrSet('aria-label', text)
+
+  const sourceOpenToken = state.push('source_open', 'source', 1)
+  sourceOpenToken.attrSet('src', resolvedNewHref)
+
+  state.push('video_close', 'video', -1)
+
+  state.pos += link![0].length
+}
+
+export function genAudio(
+  state: StateInline,
+  resolvedNewHref: string,
+  text: string,
+  link: RegExpMatchArray,
+) {
+  const openToken = state.push('audio_open', 'audio', 1)
+  openToken.attrSet('controls', 'true')
+  openToken.attrSet('preload', 'metadata')
+  if (text)
+    openToken.attrSet('aria-label', text)
+
+  const sourceOpenToken = state.push('source_open', 'source', 1)
+  sourceOpenToken.attrSet('src', resolvedNewHref)
+
+  state.push('audio_close', 'audio', -1)
+
+  state.pos += link![0].length
+}

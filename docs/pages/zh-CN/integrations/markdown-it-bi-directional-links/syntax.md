@@ -199,6 +199,26 @@ document.querySelector('#为什么')
 
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/images/same-name/海滩铁轨 同名图片.jpg]]
 
+#### 音频配合绝对路径
+
+```markdown
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/audios/鼓掌声.mp3]]
+```
+
+效果
+
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/audios/鼓掌声.mp3]]
+
+#### 视频配合绝对路径
+
+```markdown
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/videos/大兔子从兔窝中钻出.mp4]]
+```
+
+效果
+
+![[pages/zh-CN/integrations/markdown-it-bi-directional-links/videos/大兔子从兔窝中钻出.mp4]]
+
 #### 绝对路径和自定义文案
 
 ```markdown

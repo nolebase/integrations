@@ -126,6 +126,10 @@ export interface Options {
    * @default 7
    */
   numCommitHashLetters?: number
+  /**
+   * Whether to hide the git-changelog h2 header
+   */
+  hideHeader?: boolean
 }
 
 export interface Commit {

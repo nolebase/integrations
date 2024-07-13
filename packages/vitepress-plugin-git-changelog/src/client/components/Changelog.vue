@@ -94,15 +94,18 @@ const reversedCommits = computed(() => {
 </script>
 
 <template>
-  <h2 :id="t('changelog.titleId') || t('changelog.title')">
+  <h2 v-if="!options.hideHeader" :id="t('changelog.titleId') || t('changelog.title')">
     {{ t('changelog.title') }}
     <a class="header-anchor" :href="`#${t('changelog.titleId') || t('changelog.title')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
-  <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
+  <div v-if="!commits.length" :class="options.hideHeader && 'mt-6'" class="italic" opacity="70">
+    {{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}
+  </div>
   <div
     v-else
     :class="[
       isFreshChange ? 'bg-green/16' : 'bg-$vp-custom-block-details-bg',
+      options.hideHeader && 'mt-6',
     ]"
     class="vp-nolebase-git-changelog vp-nolebase-git-changelog-history vp-nolebase-git-changelog-history-list vp-nolebase-git-changelog-history-container"
     rounded-lg p-4

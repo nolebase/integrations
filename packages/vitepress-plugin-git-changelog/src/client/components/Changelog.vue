@@ -131,6 +131,7 @@ onMounted(() => {
           </span>
         </span>
         <div
+          v-if="!options.hideSortBy"
           :class="isDescending ? 'i-octicon:sort-desc-16' : 'i-octicon:sort-asc-16'" ml-auto mr-4 cursor-pointer
           @click.stop="toggleViewMore && (isDescending = !isDescending)"
         />

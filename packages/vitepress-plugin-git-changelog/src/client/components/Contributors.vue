@@ -84,16 +84,19 @@ watch(commits, async (newCommits) => {
 </script>
 
 <template>
-  <h2 :id="t('contributors.titleId') || t('contributors.title')">
+  <h2 v-if="!options.hideContributorsHeader" :id="t('contributors.titleId') || t('contributors.title')">
     {{ t('contributors.title') }}
-    <a class="header-anchor" :href="`#${t('contributors.titleId') || t('contributors.title')}`" :aria-label="`Permalink to '${t('contributors.title')}'`" />
+    <a class="header-anchor" :class="options.hideContributorsHeader && 'mt-6'" :href="`#${t('contributors.titleId') || t('contributors.title')}`" :aria-label="`Permalink to '${t('contributors.title')}'`" />
   </h2>
   <div
     class="vp-nolebase-git-changelog vp-nolebase-git-changelog-contributors vp-nolebase-git-changelog-contributors-container vp-nolebase-git-changelog-contributors-list"
     flex flex-wrap gap-4 pt-2
   >
     <em
-      v-if="!contributors.length"
+      v-if="!commits.length"
+      :class="[
+        options.hideContributorsHeader && 'mt-6',
+      ]"
     >
       {{ t('noContributors', { omitEmpty: true }) || t('contributors.noData') }}
     </em>

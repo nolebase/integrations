@@ -265,6 +265,14 @@ export interface Options {
    * in the format as 'x days ago' or 'x hours ago'
    */
   commitsRelativeTime?: boolean
+  /**
+   * Whether to hide the changelog h2 header
+   */
+  hideChangelogHeader?: boolean
+  /**
+   * Whether to hide the contributors h2 header
+   */
+  hideContributorsHeader?: boolean
 }
 ```
 

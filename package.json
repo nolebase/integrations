@@ -65,5 +65,8 @@
   "workspaces": [
     "packages/*",
     "docs"
-  ]
+  ],
+  "dependencies": {
+    "@cspell/dict-ru_ru": "^2.2.1"
+  }
 }

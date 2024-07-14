@@ -132,9 +132,13 @@ export interface Options {
    */
   commitsRelativeTime?: boolean
   /**
-   * Whether to hide the git-changelog h2 header
+   * Whether to hide the changelog h2 header
    */
-  hideHeader?: boolean
+  hideChangelogHeader?: boolean
+  /**
+   * Whether to hide the contributors h2 header
+   */
+  hideContributorsHeader?: boolean
 }
 
 export interface Commit {

@@ -1,4 +1,4 @@
-import type { Author, Contributor } from '../types'
+import type { Author, AuthorInfo, Contributor } from '../types'
 
 export interface Locale extends Record<string, any> {
   /**
@@ -143,6 +143,10 @@ export interface Options {
    * Whether to hide the sort by button
    */
   hideSortBy?: boolean
+  /**
+   *  Whether to display authors of commits right inside of commit line
+   */
+  displayAuthorsInsideCommitLine?: boolean
 }
 
 export interface Commit {
@@ -213,4 +217,8 @@ export interface Commit {
    * The repository URL.
    */
   repo_url?: string
+  /**
+   * The authors of the commit.
+   */
+  authors: AuthorInfo[]
 }

@@ -1,3 +1,22 @@
+export interface AuthorInfo {
+  /**
+   * The name of the author.
+   */
+  name: string
+  /**
+   * The number of commits by this author.
+   */
+  commitsCount: number
+  /**
+   * The URL of the author's avatar.
+   */
+  avatarUrl?: string
+  /**
+   * The URL of the author github profile.
+   */
+  url?: string
+}
+
 export interface Commit {
   /**
    * The file path for this commit.
@@ -62,6 +81,10 @@ export interface Commit {
    * The author avatar of the commit.
    */
   author_avatar: string
+  /**
+   * The authors of the commit.
+   */
+  authors: AuthorInfo[]
   /**
    * The repository URL.
    */

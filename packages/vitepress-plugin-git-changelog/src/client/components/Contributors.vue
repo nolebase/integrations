@@ -7,7 +7,7 @@ import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
 import type { Commit } from '../types'
-import type { AuthorInfo } from '../composables/author'
+import type { AuthorInfo } from '../../types'
 import { extractAuthorsWithMultiple, mapCommitAuthors } from '../composables/author'
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
@@ -64,6 +64,14 @@ async function aggregateAuthors(commits: Commit[]) {
     for (const c of commits) {
       await mapCommitAuthors(options.mapContributors, map, c)
       await extractAuthorsWithMultiple(options.mapContributors, map, c)
+
+      if (options.displayAuthorsInsideCommitLine) {
+        const commitAuthorsMap: Record<string, AuthorInfo> = {}
+        await mapCommitAuthors(options.mapContributors, commitAuthorsMap, c)
+        await extractAuthorsWithMultiple(options.mapContributors, commitAuthorsMap, c)
+
+        c.authors = Object.values(commitAuthorsMap)
+      }
     }
   }
 

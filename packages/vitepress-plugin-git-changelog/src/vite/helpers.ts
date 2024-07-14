@@ -278,6 +278,7 @@ export async function parseCommits(
       author_name,
       author_email,
       author_avatar: '',
+      authors: [],
     }
 
     // rewrite path

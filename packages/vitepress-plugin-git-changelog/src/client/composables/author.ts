@@ -1,12 +1,5 @@
 import { digestStringAsSHA256 } from '../utils'
-import type { Commit, Contributor } from '../../types'
-
-export interface AuthorInfo {
-  name: string
-  commitsCount: number
-  avatarUrl?: string
-  url?: string
-}
+import type { AuthorInfo, Commit, Contributor } from '../../types'
 
 export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
   return mapContributors?.find((item) => {

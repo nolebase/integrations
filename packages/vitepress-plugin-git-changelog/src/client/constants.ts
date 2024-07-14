@@ -9,4 +9,5 @@ export const defaultNumCommitHashLetters = 7
 export const defaultOptions: Options = {
   numCommitHashLetters: defaultNumCommitHashLetters,
   locales: defaultLocales,
+  displayAuthorsInsideCommitLine: false,
 }

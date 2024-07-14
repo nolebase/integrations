@@ -77,8 +77,6 @@ export default defineThemeUnconfig({
             },
           ],
           commitsRelativeTime: true,
-          hideChangelogHeader: true,
-          hideContributorsHeader: true,
         },
       },
     }),

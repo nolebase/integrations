@@ -193,6 +193,26 @@ Demo
 
 ![[pages/en/integrations/markdown-it-bi-directional-links/images/same-name/railway near by beach same name.jpg]]
 
+#### Audio with absolute path
+
+```markdown
+![[pages/en/integrations/markdown-it-bi-directional-links/audios/Applause.mp3]]
+```
+
+Demo
+
+![[pages/en/integrations/markdown-it-bi-directional-links/audios/Applause.mp3]]
+
+#### Video with absolute path
+
+```markdown
+![[pages/en/integrations/markdown-it-bi-directional-links/videos/Big rabbit came out of the hutch.mp4]]
+```
+
+Demo
+
+![[pages/en/integrations/markdown-it-bi-directional-links/videos/Big rabbit came out of the hutch.mp4]]
+
 #### Absolute path with custom text
 
 ```markdown

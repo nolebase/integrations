@@ -35,6 +35,38 @@ describe('markdown-it-bi-directional-links', () => {
     expect(rendered).toBe('<p><img src="/foo.png" alt=""></p>\n')
   })
 
+  it('should render simple form for audio', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('![[foo.mp3]]')
+
+    expect(rendered).toBe('<p><audio controls="true" preload="metadata"><source src="/foo.mp3"></audio></p>\n')
+  })
+
+  it('should render simple form for audio without attachment markup', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('[[foo.mp3]]')
+
+    expect(rendered).toBe('<p><audio controls="true" preload="metadata"><source src="/foo.mp3"></audio></p>\n')
+  })
+
+  it('should render simple form for videos', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('![[foo.mp4]]')
+
+    expect(rendered).toBe('<p><video controls="true" preload="metadata"><source src="/foo.mp4"></video></p>\n')
+  })
+
+  it('should render simple form for videos without attachment markup', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('[[foo.mp4]]')
+
+    expect(rendered).toBe('<p><video controls="true" preload="metadata"><source src="/foo.mp4"></video></p>\n')
+  })
+
   it('should render simple form with custom texts', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))

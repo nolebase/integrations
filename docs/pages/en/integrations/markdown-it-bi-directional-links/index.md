@@ -48,6 +48,14 @@ Images are supported:
 
 ![[foxtail field.jpg]]
 
+Audio is not a concern either:
+
+![[Applause.mp3]]
+
+Video is even less of a problem:
+
+![[Big rabbit came out of the hutch.mp4]]
+
 ## Installation
 
 It is easy and straightforward to install the Bi-directional links plugin into your VitePress project, please follow the steps under [Getting started](./getting-started) page!

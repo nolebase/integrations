@@ -6,7 +6,7 @@ import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
 
 import packageJSON from '../package.json'
-import { findBiDirectionalLinks, genImage, genLink } from './utils'
+import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
 
 /** it will match [[file]] and [[file|text]] */
 const biDirectionalLinkPattern = /!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
@@ -32,6 +32,34 @@ const IMAGES_EXTENSIONS = [
   '.svg',
   '.webp',
   '.xbm',
+]
+
+// Web audio codec guide - Web media technologies | MDN: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Audio_codecs
+// HTML audio - Wikipedia: https://en.wikipedia.org/wiki/HTML_audio#Supported_audio_coding_formats
+const AUDIO_EXTENSIONS = [
+  '.mp3',
+  '.flac',
+  '.wav',
+  '.ogg',
+  '.opus',
+  '.webm',
+  '.acc',
+]
+
+// Web video codec guide - Web media technologies | MDN: https://developer.mozilla.org/en-US/docs/Web/Media/Formats/Video_codecs
+// HTML video - Wikipedia: https://en.wikipedia.org/wiki/HTML_video#Browser_support
+//
+// Test videos:
+// - Download Sample Videos / Dummy Videos For Demo Use https://sample-videos.com/
+// - Download MP4 files for Testing - Online Test Case https://onlinetestcase.com/mp4-file/
+const VIDEOS_EXTENSIONS = [
+  '.mp4',
+  '.webm',
+  '.mov',
+  '.mkv',
+  '.ogg',
+  '.3gp',
+  '.flv',
 ]
 
 const debug = _debug(packageJSON.name)
@@ -148,7 +176,7 @@ export interface BiDirectionalLinksOptions {
   /**
    * The glob patterns to search for bi-directional linked files.
    *
-   * @default '*.md, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp, *.ico, *.bmp, *.tiff, *.apng, *.avif, *.jfif, *.pjpeg, *.pjp, *.png, *.svg, *.webp, *.xbm'
+   * @default '*.md, *.png, *.jpg, *.jpeg, *.gif, *.svg, *.webp, *.ico, *.bmp, *.tiff, *.apng, *.avif, *.jfif, *.pjpeg, *.pjp, *.png, *.svg, *.webp, *.xbm, *.mp3, *.flac, *.wav, *.ogg, *.opus, *.mp4, *.webm, *.acc, *.mp4, *.webm, *.mov, *.mkv, *.ogg'
    */
   includesPatterns?: string[]
   /**
@@ -186,6 +214,8 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
   if (includes.length === 0) {
     includes.push('**/*.md')
     IMAGES_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
+    AUDIO_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
+    VIDEOS_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
   }
 
   const files = globSync(includes, {
@@ -259,6 +289,8 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
       const text = link[3]?.trim() ?? ''
 
       const isImageRef = IMAGES_EXTENSIONS.some(ext => href.endsWith(ext))
+      const isVideoRef = VIDEOS_EXTENSIONS.some(ext => href.endsWith(ext))
+      const isAudioRef = AUDIO_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Extract the pathname from the href
       const parsedHref = new URL(href, 'https://a.com')
@@ -270,7 +302,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
       let osSpecificHref = parsedPathname.split('/').join(sep)
 
       // if osSpecificHref has no extension, suffix it with .md
-      if (!isImageRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
+      if (!isImageRef && !isAudioRef && !isVideoRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
         osSpecificHref += '.md'
 
       const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
@@ -290,6 +322,12 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: M
 
       if (isImageRef) {
         genImage(state, resolvedNewHref, text, link)
+      }
+      else if (isAudioRef) {
+        genAudio(state, resolvedNewHref, text, link)
+      }
+      else if (isVideoRef) {
+        genVideo(state, resolvedNewHref, text, link)
       }
       else {
         resolvedNewHref = resolvedNewHref + parsedHref.search + parsedHref.hash

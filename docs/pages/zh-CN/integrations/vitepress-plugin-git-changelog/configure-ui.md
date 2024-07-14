@@ -273,6 +273,10 @@ export interface Options {
    * Whether to hide the contributors h2 header
    */
   hideContributorsHeader?: boolean
+  /**
+   * Whether to hide the sort by button
+   */
+  hideSortBy?: boolean
 }
 ```
 

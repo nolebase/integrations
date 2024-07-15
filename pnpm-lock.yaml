@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@cspell/dict-ru_ru':
-        specifier: ^2.2.1
-        version: 2.2.1
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.21.1
@@ -42,6 +38,9 @@ importers:
       '@vueuse/core':
         specifier: ^10.11.0
         version: 10.11.0(vue@3.4.30(typescript@5.5.2))
+      '@cspell/dict-ru_ru':
+        specifier: ^2.2.1
+        version: 2.2.1
       concurrently:
         specifier: ^8.2.2
         version: 8.2.2

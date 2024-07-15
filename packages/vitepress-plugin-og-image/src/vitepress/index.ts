@@ -263,13 +263,15 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
 
   /**
    * Width of the result image.
-   * Defaults to `1200`.
+   *
+   * @default 1200
    */
   resultImageWidth?: number
 
   /**
    * Maximum characters per line.
-   * Defaults to `17`.
+   *
+   * @default 17
    */
   maxCharactersPerLine?: number
 }

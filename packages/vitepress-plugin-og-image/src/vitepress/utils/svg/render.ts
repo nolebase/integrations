@@ -9,25 +9,27 @@ import { escape } from './escape'
 
 const imageBuffers = new Map<string, Promise<Buffer>>()
 
-export function templateSVG(siteName: string, siteDescription: string, title: string, category: string, ogTemplate: string): string {
+export function templateSVG(siteName: string, siteDescription: string, title: string, category: string, ogTemplate: string, maxCharactersPerLine?: number): string {
+  maxCharactersPerLine ??= 17
+
   // Remove emoji and split lines
   const lines = removeEmoji(title)
     .trim()
-    .replace(/(?![^\n]{1,17}$)([^\n]{1,17})\s/g, '$1\n')
+    .replaceAll('\r\n', '\n')
     .split('\n')
+    .map(line => line.trim())
 
-  // Restricted 17 words per line
-  const maxLineLength = 17
+  // Restricted `maxCharactersPerLine` characters per line
   for (let i = 0; i < lines.length; i++) {
     const val = lines[i].trim()
 
-    if (val.length > maxLineLength) {
+    if (val.length > maxCharactersPerLine) {
       // attempt to break at a space
-      let breakPoint = val.lastIndexOf(' ', maxLineLength)
+      let breakPoint = val.lastIndexOf(' ', maxCharactersPerLine)
 
       // attempt to break before before a capital letter
       if (breakPoint < 0) {
-        for (let j = Math.min(val.length - 1, maxLineLength); j > 0; j--) {
+        for (let j = Math.min(val.length - 1, maxCharactersPerLine); j > 0; j--) {
           if (val[j] === val[j].toUpperCase()) {
             breakPoint = j
             break
@@ -35,7 +37,7 @@ export function templateSVG(siteName: string, siteDescription: string, title: st
         }
       }
       if (breakPoint < 0)
-        breakPoint = maxLineLength
+        breakPoint = maxCharactersPerLine
 
       lines[i] = val.slice(0, breakPoint)
       lines[i + 1] = `${val.slice(lines[i].length)}${lines[i + 1] || ''}`
@@ -101,6 +103,7 @@ export async function renderSVG(
   fontBuffer?: Uint8Array,
   imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
   additionalFontBuffers?: Uint8Array[],
+  resultImageWidth?: number,
 ): Promise<{
   png: Uint8Array
   width: number
@@ -110,7 +113,7 @@ export async function renderSVG(
     const resvg = new Resvg(
       svgContent,
       {
-        fitTo: { mode: 'width', value: 1200 },
+        fitTo: { mode: 'width', value: resultImageWidth ?? 1200 },
         font: {
           fontBuffers: fontBuffer
             ? [fontBuffer, ...(additionalFontBuffers ?? [])]

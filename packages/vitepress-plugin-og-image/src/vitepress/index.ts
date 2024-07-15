@@ -77,6 +77,8 @@ async function renderSVGAndRewriteHTML(
   domain: string,
   imageUrlResolver: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver'],
   additionalFontBuffers?: Buffer[],
+  resultImageWidth?: number,
+  maxCharactersPerLine?: number,
 ): Promise<TaskResult> {
   const fileName = basename(file, '.html')
   const ogImageFilePathBaseName = `og-${fileName}.png`
@@ -109,6 +111,7 @@ async function renderSVGAndRewriteHTML(
     page.title,
     page.category ?? '',
     ogImageTemplateSvg,
+    maxCharactersPerLine,
   )
 
   let width: number
@@ -119,7 +122,7 @@ async function renderSVGAndRewriteHTML(
       ogImageFilePathFullName,
       ogImageTemplateSvgPath,
       relative(siteConfig.srcDir, file),
-      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver, additionalFontBuffers },
+      { fontPath: await tryToLocateFontFile(siteConfig), imageUrlResolver, additionalFontBuffers, resultImageWidth },
     )
     width = res.width
     height = res.height
@@ -182,10 +185,11 @@ async function renderSVGAndSavePNG(
     fontPath?: string
     imageUrlResolver?: BuildEndGenerateOpenGraphImagesOptions['svgImageUrlResolver']
     additionalFontBuffers?: Buffer[]
+    resultImageWidth?: number
   },
 ) {
   try {
-    const { png: pngBuffer, width, height } = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers)
+    const { png: pngBuffer, width, height } = await renderSVG(svgContent, await initFontBuffer(options), options.imageUrlResolver, options.additionalFontBuffers, options.resultImageWidth)
 
     try {
       await fs.writeFile(saveAs, pngBuffer, 'binary')
@@ -256,6 +260,20 @@ export interface BuildEndGenerateOpenGraphImagesOptions {
    * and will fallback to a builtin template.
    */
   templateSvgPath?: string
+
+  /**
+   * Width of the result image.
+   *
+   * @default 1200
+   */
+  resultImageWidth?: number
+
+  /**
+   * Maximum characters per line.
+   *
+   * @default 17
+   */
+  maxCharactersPerLine?: number
 }
 
 export interface BuildEndGenerateOpenGraphImagesOptionsCategory {
@@ -513,6 +531,8 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
           options.baseUrl,
           options.svgImageUrlResolver,
           options.svgFontBuffers,
+          options.resultImageWidth,
+          options.maxCharactersPerLine,
         )
       }))
 

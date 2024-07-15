@@ -5,5 +5,5 @@ import defaultRuLocale from './ru-RU.yaml'
 export {
   defaultEnLocale,
   defaultZhCNLocale,
-  defaultRuLocale
+  defaultRuLocale,
 }

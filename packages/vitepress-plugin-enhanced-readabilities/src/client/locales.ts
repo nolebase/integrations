@@ -1,18 +1,18 @@
-import { defaultEnLocale, defaultZhCNLocale, defaultRuLocale } from '../locales'
+import { defaultEnLocale, defaultRuLocale, defaultZhCNLocale } from '../locales'
 import type { Locale } from './types'
 
 export {
   defaultEnLocale,
-  defaultZhCNLocale,
   defaultRuLocale,
+  defaultZhCNLocale,
 }
 
 export const defaultLocales: Record<string, Locale> = {
-  'zh-CN': defaultZhCNLocale,
-  'zh-Hans': defaultZhCNLocale,
-  'zh': defaultZhCNLocale,
   'en-US': defaultEnLocale,
   'en': defaultEnLocale,
   'ru-RU': defaultRuLocale,
   'ru': defaultRuLocale,
+  'zh-CN': defaultZhCNLocale,
+  'zh-Hans': defaultZhCNLocale,
+  'zh': defaultZhCNLocale,
 }

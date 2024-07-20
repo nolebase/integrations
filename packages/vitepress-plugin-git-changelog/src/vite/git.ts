@@ -2,7 +2,6 @@ import { cwd as _cwd } from 'node:process'
 import { join } from 'node:path'
 import { type Plugin, type ResolvedConfig, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
-import ora from 'ora'
 import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
 import { execa } from 'execa'
@@ -17,7 +16,9 @@ import {
   defaultReleaseTagsURLHandler,
   getRawCommitLogs,
   getRelativePath,
+  mergeRawCommits,
   parseCommits,
+  parseRawCommitLogs,
   rewritePathsByRewritingExtension,
 } from './helpers'
 import type { GitChangelogOptions } from './types'
@@ -40,6 +41,7 @@ const VirtualModuleID = 'virtual:nolebase-git-changelog'
 const ResolvedVirtualModuleId = `\0${VirtualModuleID}`
 
 const logModulePrefix = `${cyan(`@nolebase/vitepress-plugin-git-changelog`)}${gray(':')}`
+const logger = console
 
 export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
   if (!options)
@@ -49,6 +51,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
     cwd = _cwd(),
     maxGitLogCount,
     include = ['**/*.md', '!node_modules'],
+    mapAuthors,
     repoURL = 'https://github.com/example/example',
     getReleaseTagURL = defaultReleaseTagURLHandler,
     getReleaseTagsURL = defaultReleaseTagsURLHandler,
@@ -58,23 +61,29 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
 
   const getRepoURL = typeof repoURL === 'function' ? repoURL : () => repoURL
 
-  const changelog: Changelog = { commits: [] }
-  const hotModuleReloadCachedCommits: Record<string, Commit[]> = {}
+  const changelog: Changelog = { commits: [], authors: [] }
+  const hotModuleReloadCachedCommits = new Map<string, Changelog>()
   let srcDir = ''
   let config: VitePressConfig
 
-  const commitFromPath = async (path: string) => {
-    const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
-    const relativePath = getRelativePath(path, srcDir, cwd)
-    return await parseCommits(
-      relativePath,
-      rawLogs,
+  const commitFromPath = async (paths: string[]) => {
+    const rawCommits = (await Promise.all(paths.map(async (path) => {
+      const rawLogs = await getRawCommitLogs(path, maxGitLogCount)
+      const relativePath = getRelativePath(path, srcDir, cwd)
+      const rawCommits = parseRawCommitLogs(relativePath, rawLogs)
+      return rawCommits
+    }))).flat()
+    const mergedRawCommits = mergeRawCommits(rawCommits)
+    const resolvedCommits = parseCommits(
+      mergedRawCommits,
       getRepoURL,
       getCommitURL,
       getReleaseTagURL,
       getReleaseTagsURL,
+      mapAuthors,
       rewritePathsBy,
     )
+    return resolvedCommits
   }
 
   return {
@@ -105,9 +114,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         return
 
       const startsAt = Date.now()
-      const spinner = ora({ discardStdin: false, isEnabled: false })
-
-      spinner.start(`${logModulePrefix} Prepare to gather git logs...`)
+      logger.info(`${logModulePrefix} Prepare to gather git logs...`)
 
       if (changelog.commits.length > 0)
         return
@@ -115,32 +122,26 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       // configure so that the git log messages can contain correct CJK characters
       await execa('git', ['config', '--local', 'core.quotepath', 'false'])
 
-      spinner.text = `${logModulePrefix} Gathering git logs...`
-      spinner.color = 'yellow'
-
       const paths = await globby(include, {
         gitignore: true,
         cwd,
         absolute: true,
       })
 
-      changelog.commits = (await Promise.all(
-        paths.map(async path => await commitFromPath(path)),
-      ))
-        .flat()
+      Object.assign(changelog, await commitFromPath(paths))
 
       const elapsed = Date.now() - startsAt
-      spinner.succeed(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
+      logger.info(`${logModulePrefix} Done. ${gray(`(${elapsed}ms)`)}`)
     },
-    resolveId(id) {
-      if (id === VirtualModuleID)
-        return ResolvedVirtualModuleId
+    resolveId(source) {
+      if (source.startsWith(VirtualModuleID))
+        return `\0${source}`
     },
     load(id) {
-      if (id !== ResolvedVirtualModuleId)
+      if (!id.startsWith(ResolvedVirtualModuleId))
         return null
 
-      return `export default ${JSON.stringify(changelog)}`
+      return `export default ${JSON.stringify(changelog, null, config.isProduction ? 0 : 2)}`
     },
     configureServer(server) {
       server.hot.on('nolebase-git-changelog:client-mounted', async (data) => {
@@ -149,23 +150,20 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         if (!('page' in data && 'filePath' in data.page))
           return
 
-        let commits: Commit[] = []
-        if (hotModuleReloadCachedCommits[data.page.filePath]) {
-          commits = hotModuleReloadCachedCommits[data.page.filePath]
-        }
-        else {
+        let result = hotModuleReloadCachedCommits.get(data.page.filePath)
+        if (!result) {
           const path = normalizePath(join(srcDir, data.page.filePath))
-          commits = [...(await commitFromPath(path))]
-          hotModuleReloadCachedCommits[data.page.filePath] = commits
+          result = await commitFromPath([path])
+          Object.assign(changelog, result)
+          // hotModuleReloadCachedCommits.set(data.page.filePath, result)
         }
-        if (!commits.length)
+
+        if (!result!.commits.length)
           return
 
         const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
         if (!virtualModule)
           return
-
-        changelog.commits = commits
 
         server.moduleGraph.invalidateModule(virtualModule)
         server.hot.send({

@@ -13,9 +13,9 @@ export function useCommits(pageData: Ref<PageData>) {
     commits: computed<Commit[]>(() => {
       const currentPath = toValue(pageData.value.filePath)
 
-      const preCommits = gitChangelog.value.commits
+      const allCommits = gitChangelog.value.commits
       // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
-      const commits = preCommits.filter(c => c.path === currentPath) || []
+      const commits = allCommits.filter(c => c.paths.includes(currentPath)) || []
 
       return commits.filter((commit, index) => {
         if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))

@@ -1,4 +1,4 @@
-export interface Commit {
+export interface RawCommit {
   /**
    * The file path for this commit.
    *
@@ -6,6 +6,48 @@ export interface Commit {
    * Otherwise, the path is relative to cwd. Paths without `. /`.
    */
   path: string
+  /**
+   * The hash of the commit.
+   */
+  hash: string
+  /**
+   * The date of the commit.
+   */
+  date: string
+  /**
+   * The message of the commit.
+   */
+  message: string
+  /**
+   * The refs of the commit.
+   */
+  refs?: string
+  /**
+   * The body of the commit.
+   */
+  body?: string
+  /**
+   * The author name of the commit.
+   */
+  author_name: string
+  /**
+   * The author email of the commit.
+   */
+  author_email: string
+}
+
+export interface MergedRawCommit extends Omit<RawCommit, 'path'> {
+  paths: string[]
+}
+
+export interface Commit extends Omit<MergedRawCommit, 'date' | 'body' | 'refs' | 'author_name' | 'author_email'> {
+  /**
+   * The file path for this commit.
+   *
+   * When the file is located in `srcDir`, the path is relative to `srcDir`.
+   * Otherwise, the path is relative to cwd. Paths without `. /`.
+   */
+  paths: string[]
   /**
    * The matched first tag of the commit.
    */
@@ -31,10 +73,6 @@ export interface Commit {
    */
   hash_url?: string
   /**
-   * The date of the commit.
-   */
-  date: string
-  /**
    * The UNIX timestamp of the commit.
    */
   date_timestamp: number
@@ -42,34 +80,34 @@ export interface Commit {
    * The message of the commit.
    */
   message: string
-  /**
-   * The refs of the commit.
-   */
-  refs?: string
-  /**
-   * The body of the commit.
-   */
-  body?: string
-  /**
-   * The author name of the commit.
-   */
-  author_name: string
-  /**
-   * The author email of the commit.
-   */
-  author_email: string
-  /**
-   * The author avatar of the commit.
-   */
-  author_avatar: string
+
+  authors: string[]
+
   /**
    * The repository URL.
    */
   repo_url?: string
 }
 
+export interface CommitAuthor {
+  /**
+   * The author name of the commit.
+   */
+  name: string
+  /**
+   * The author email of the commit.
+   */
+  email?: string
+  /**
+   * The author avatar of the commit.
+   */
+  avatarUrl?: string
+  url?: string
+}
+
 export interface Changelog {
   commits: Commit[]
+  authors?: CommitAuthor[]
 }
 
 export interface SocialEntry {

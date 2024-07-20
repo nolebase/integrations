@@ -2,7 +2,8 @@ import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:pa
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
 import { execa } from 'execa'
-import type { Commit } from '../types'
+import { omit } from 'es-toolkit'
+import type { Commit, CommitAuthor, Contributor, MergedRawCommit, RawCommit } from '../types'
 
 export interface Helpers {
   /**
@@ -221,6 +222,11 @@ export function generateCommitPathsRegExp(includeDirs: string[], includeExtensio
   return new RegExp(`^${includeDirs.length > 0 ? `(${includeDirs.join('|')})${sep === win32.sep ? win32.sep : `\\${posix.sep}`}` : ''}.+${includeExtensions.length > 0 ? `(${includeExtensions.join('|')})` : '.md'}$`)
 }
 
+export function getRelativePath(file: string, srcDir: string, cwd: string) {
+  cwd = normalizePath(cwd)
+  return file.replace(srcDir, '').replace(cwd, '').replace(/^\//, '')
+}
+
 export async function getRawCommitLogs(file: string, maxGitLogCount?: number) {
   const fileDir = dirname(file)
   const fileName = basename(file)
@@ -250,63 +256,205 @@ export async function getRawCommitLogs(file: string, maxGitLogCount?: number) {
   return stdout.replace(/\[GIT_LOG_COMMIT_END\]$/, '').split('[GIT_LOG_COMMIT_END]\n')
 }
 
-export function getRelativePath(file: string, srcDir: string, cwd: string) {
-  cwd = normalizePath(cwd)
-  return file.replace(srcDir, '').replace(cwd, '').replace(/^\//, '')
+export function parseRawCommitLogs(
+  path: string,
+  rawLogs: string[],
+): RawCommit[] {
+  return rawLogs
+    .filter(log => !!log)
+    .map((raw) => {
+      const [hash, author_name, author_email, date, message, refs, body] = raw.split('|').map(v => v.trim())
+      return {
+        path,
+        hash,
+        date,
+        message,
+        body,
+        refs,
+        author_name,
+        author_email,
+      }
+    })
+}
+
+export function mergeRawCommits(rawCommits: RawCommit[]): MergedRawCommit[] {
+  const commitMap = new Map<string, MergedRawCommit>()
+
+  rawCommits.forEach((commit) => {
+    const _commit = commitMap.get(commit.hash)
+    if (_commit)
+      _commit.paths.push(commit.path)
+    else
+      commitMap.set(commit.hash, { paths: [commit.path], ...omit(commit, ['path']) })
+  })
+
+  return Array.from(commitMap.values())
 }
 
 export async function parseCommits(
-  path: string,
-  rawLogs: string[],
+  rawCommits: MergedRawCommit[],
   getRepoURL: CommitToStringHandler,
   getCommitURL: CommitToStringHandler,
   getReleaseTagURL: CommitToStringHandler,
   getReleaseTagsURL: CommitToStringsHandler,
+  mapContributors?: Contributor[],
   optsRewritePathsBy?: RewritePathsBy,
-): Promise<Commit[]> {
-  rawLogs = rawLogs.filter(log => !!log)
+): Promise<{ commits: Commit[], authors: CommitAuthor[] }> {
+  const allAuthors = new Map<string, CommitAuthor>()
+  const resolvedCommits = await Promise.all(rawCommits.map(async (rawCommit) => {
+    const { paths, hash, date, refs, message } = rawCommit
 
-  const commits = await Promise.all(rawLogs.map(async (raw) => {
-    const [hash, author_name, author_email, date, message, refs, body] = raw.split('|').map(v => v.trim())
-    const commit: Commit = {
-      path,
+    const resolvedCommit: Commit = {
+      paths,
       hash,
-      date,
-      date_timestamp: 0,
+      date_timestamp: new Date(date).getTime(),
       message,
-      body,
-      author_name,
-      author_email,
-      author_avatar: '',
+      authors: [],
     }
 
     // rewrite path
+    // Ensure that paths are processed first, as users may generate other properties based on this one.
     if (typeof optsRewritePathsBy !== 'undefined')
-      commit.path = await rewritePathsByPatterns(commit, commit.path, optsRewritePathsBy)
+      await Promise.all(rawCommit.paths.map((async p => await rewritePathsByPatterns(resolvedCommit, p, optsRewritePathsBy))))
 
     // repo url
-    commit.repo_url = (await returnOrResolvePromise(getRepoURL(commit))) ?? 'https://github.com/example/example'
+    resolvedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(resolvedCommit))) ?? 'https://github.com/example/example'
     // hash url
-    commit.hash_url = (await returnOrResolvePromise(getCommitURL(commit))) ?? defaultCommitURLHandler(commit)
+    resolvedCommit.hash_url = (await returnOrResolvePromise(getCommitURL(resolvedCommit))) ?? defaultCommitURLHandler(resolvedCommit)
 
     // remove `()` in refs, e.g. ` (tag: v2.0.0-rc7)`
     const tags = parseGitLogRefsAsTags(refs?.replace(/[()]/g, ''))
 
     // release logs
     if (tags && tags.length > 0) {
-      commit.tags = tags
-      commit.tag = commit.tags?.[0] || undefined
-      commit.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(commit))) ?? defaultReleaseTagURLHandler(commit)
-      commit.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(commit))) ?? defaultReleaseTagsURLHandler(commit)
+      resolvedCommit.tags = tags
+      resolvedCommit.tag = resolvedCommit.tags?.[0] || undefined
+      resolvedCommit.release_tag_url = (await returnOrResolvePromise(getReleaseTagURL(resolvedCommit))) ?? defaultReleaseTagURLHandler(resolvedCommit)
+      resolvedCommit.release_tags_url = (await returnOrResolvePromise(getReleaseTagsURL(resolvedCommit))) ?? defaultReleaseTagsURLHandler(resolvedCommit)
     }
 
-    // timestamp
-    commit.date_timestamp = new Date(commit.date).getTime()
-    // generate author avatar based on md5 hash of email (gravatar style)
-    commit.author_avatar = await digestStringAsSHA256(commit.author_email)
+    // authors
+    const authors = await parseCommitAuthors(rawCommit, mapContributors)
+    authors.forEach(a => allAuthors.set(a.name, omit(a, ['email'])))
+    resolvedCommit.authors = authors.map(a => a.name)
 
-    return commit
+    // generate author avatar based on md5 hash of email (gravatar style)
+    // resolvedCommit.author_avatar = await digestStringAsSHA256(rawCommit.author_email)
+
+    return resolvedCommit
   }))
 
-  return commits
+  return { commits: resolvedCommits, authors: [...allAuthors.values()] }
+}
+
+export async function parseCommitAuthors(commit: MergedRawCommit, mapContributors?: Contributor[]): Promise<CommitAuthor[]> {
+  const { author_name, author_email, body } = commit
+
+  const commitAuthor: CommitAuthor = {
+    name: author_name,
+    email: author_email,
+  }
+  const coAthors = getCoAuthors(body)
+
+  return await Promise.all([commitAuthor, ...coAthors]
+    // exclude bot users
+    .filter(v => !(v.name.match(/\[bot\]/i) || v.email?.match(/\[bot\]/i)))
+    // map authors
+    .map(async (author) => {
+      const targetCreatorByName = findMapAuthorByName(mapContributors, author.name)
+      if (targetCreatorByName) {
+        author.name = targetCreatorByName.name ?? author.name
+        author.url = findMapAuthorLink(targetCreatorByName)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByName, author_email)
+        return author
+      }
+      const targetCreatorByEmail = author.email && findMapAuthorByEmail(mapContributors, author.email)
+      if (targetCreatorByEmail) {
+        author.name = targetCreatorByEmail.name ?? author.name
+        author.url = findMapAuthorLink(targetCreatorByEmail)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author_email)
+        return author
+      }
+      author.avatarUrl = await newAvatarForAuthor(undefined, author_email)
+      return author
+    }))
+}
+
+/**
+ * This regular expression is used to match and parse commit messages that contain multiple author information.
+ *
+ * @see {@link https://regex101.com/r/q5YB8m/1 | Regexp demo}
+ * @see {@link https://en.wikipedia.org/wiki/Email_address#Local-part | Email addres}
+ * @see {@link https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors | Creating a commit with multiple authors in GitHub}
+ */
+const multipleAuthorsRegex = /^ *Co-authored-by: ?([^<]*)<([^>]*)> */gim
+
+// This function handles multiple authors in a commit.
+// It uses the regular expression to extract the name and email of each author from the commit message.
+// About the docs: https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors
+export function getCoAuthors(body?: string): CommitAuthor[] {
+  if (!body)
+    return []
+
+  return body.split('\n').map((b) => {
+    const result = multipleAuthorsRegex.exec(b)
+    if (!result)
+      return undefined
+
+    const [, name, email] = result
+    return {
+      name: name.trim(),
+      email: email.trim(),
+    }
+  }).filter(v => !!v)
+}
+
+// TODO: mapCommitAuthors
+export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
+  return mapContributors?.find((item) => {
+    const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name
+    if (res)
+      return true
+
+    // This is a fallback for the old version of the configuration.
+    return item.nameAliases && Array.isArray(item.nameAliases) && item.nameAliases.includes(author_name)
+  })
+}
+
+export function findMapAuthorByEmail(mapContributors: Contributor[] | undefined, author_email: string) {
+  return mapContributors?.find((item) => {
+    const res = item.mapByEmailAliases && Array.isArray(item.mapByEmailAliases) && item.mapByEmailAliases.includes(author_email)
+    if (res)
+      return true
+
+    // This is a fallback for the old version of the configuration.
+    return item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email)
+  })
+}
+
+export function findMapAuthorLink(creator: Contributor): string | undefined {
+  if (!creator.links && !!creator.username)
+    return `https://github.com/${creator.username}`
+
+  if (typeof creator.links === 'string' && !!creator.links)
+    return creator.links
+  if (!Array.isArray(creator.links))
+    return
+
+  const priority = ['github', 'twitter']
+  for (const p of priority) {
+    const matchedEntry = creator.links?.find(l => l.type === p)
+    if (matchedEntry)
+      return matchedEntry.link
+  }
+
+  return creator.links?.[0]?.link
+}
+
+export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {
+  if (mappedAuthor) {
+    if (mappedAuthor.username)
+      return `https://github.com/${mappedAuthor.username}.png`
+  }
+  return `https://gravatar.com/avatar/${await digestStringAsSHA256(email)}?d=retro`
 }

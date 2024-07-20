@@ -1,3 +1,4 @@
+import type { Author } from 'src/types'
 import type {
   CommitToStringHandler,
   CommitToStringsHandler,
@@ -22,6 +23,10 @@ export interface GitChangelogOptions {
    * @default ['** /*.md', '!node_modules']
    */
   include?: string[]
+  /**
+   * Map authors
+   */
+  mapAuthors?: Author[]
   /**
    * When fetching git logs, what directories should be included?
    *

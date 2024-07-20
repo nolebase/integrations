@@ -1,12 +1,19 @@
 import { describe, expect, it } from 'vitest'
 
-import type { Commit } from '../types'
+import type { Commit, Contributor } from '../types'
 import {
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
+  findMapAuthorByEmail,
+  findMapAuthorByName,
+  findMapAuthorLink,
+  mergeRawCommits,
+  newAvatarForAuthor,
+  parseCommitAuthors,
   parseCommits,
   parseGitLogRefsAsTags,
+  parseRawCommitLogs,
   rewritePathsByPatterns,
   rewritePathsByRewritingExtension,
 } from './helpers'
@@ -83,12 +90,364 @@ describe('parseGitLogRefsAsTags', () => {
   })
 })
 
+describe('parseRawCommitLogs', () => {
+  it('should init commit with fields transformed', async () => {
+    const mockedCommits = ['c16db1033fce57f50b261e9944c136a26fcaccc6|First Last|user@example.com|Mon Mar 25 20:05:53 2024 +0800|release: v1.24.3| (tag: v1.24.3)|Signed-off-by: First Last <user@example.com>\n']
+
+    const commit = await parseRawCommitLogs('', mockedCommits)
+
+    expect(commit).toEqual([{
+      path: '',
+      hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+      date: 'Mon Mar 25 20:05:53 2024 +0800',
+      message: 'release: v1.24.3',
+      refs: '(tag: v1.24.3)',
+      body: 'Signed-off-by: First Last <user@example.com>',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }])
+  })
+
+  it('should return no commits when empty', async () => {
+    const mockedCommit = [
+      '', // empty commit, could occur when the file contains no history or git cli bugged
+    ]
+    const commit = await parseRawCommitLogs('', mockedCommit)
+
+    expect(commit).toEqual([])
+  })
+})
+
+describe('mergeRawCommits', () => {
+  it('should merge commits by path', () => {
+    const mockedCommits = [
+      {
+        path: '/fack/path/1.md',
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+      {
+        path: '/fack/path/2.md',
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+    ]
+
+    const commits = mergeRawCommits(mockedCommits)
+
+    expect(commits).toEqual([
+      {
+        paths: ['/fack/path/1.md', '/fack/path/2.md'],
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+    ])
+  })
+
+  it('should convert path to paths', () => {
+    const mockedCommits = [
+      {
+        path: '/fack/path/1.md',
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+      {
+        path: '/fack/path/1.md',
+        hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+        date: 'Wed Apr 24 14:24:44 2024 +0800',
+        message: 'docs: fix english integrations list',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+    ]
+
+    const commits = mergeRawCommits(mockedCommits)
+
+    expect(commits).toEqual([
+      {
+        paths: ['/fack/path/1.md'],
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+      {
+        paths: ['/fack/path/1.md'],
+        hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+        date: 'Wed Apr 24 14:24:44 2024 +0800',
+        message: 'docs: fix english integrations list',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+    ])
+  })
+})
+
+describe('parseCommitAuthors', () => {
+  it('should parse author from raw commit', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+
+    const authors = await parseCommitAuthors(mockedCommit)
+    expect(authors).toEqual([{ name: 'First Last', email: 'user@example.com' }])
+  })
+
+  it('should parse co-author from body', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: 'Co-authored-by: First Last2 <user2@example.com>',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+
+    const authors = await parseCommitAuthors(mockedCommit)
+    expect(authors).toEqual([
+      { name: 'First Last', email: 'user@example.com' },
+      { name: 'First Last2', email: 'user2@example.com' },
+    ])
+  })
+
+  it('should exclude bot user', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: '',
+      author_name: 'renovate[bot]',
+      author_email: 'renovate[bot]@renovate.com',
+    }
+
+    const authors = await parseCommitAuthors(mockedCommit)
+    expect(authors).toEqual([])
+  })
+})
+
+describe('findMapAuthorByEmail', () => {
+  it('should return the registered creator by email', () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John Doe',
+        mapByEmailAliases: ['example1@example.com'],
+      },
+    ]
+
+    const creator = findMapAuthorByEmail(creators, 'example1@example.com')
+    expect(creator).toEqual(creators[0])
+  })
+})
+
+describe('findMapAuthorByName', () => {
+  it('should return the registered creator by name', () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John Doe',
+      },
+    ]
+
+    const creator = findMapAuthorByName(creators, 'John Doe')
+    expect(creator).toEqual(creators[0])
+  })
+
+  it('should return the registered creator by nameAliases', () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John Doe',
+        mapByNameAliases: ['Johndoe'],
+      },
+    ]
+
+    const creator = findMapAuthorByName(creators, 'Johndoe')
+    expect(creator).toEqual(creators[0])
+  })
+})
+
+describe('findMapAuthorLink', () => {
+  it('should return the registered creator plain link', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: 'github.com/johndoe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('github.com/johndoe')
+  })
+
+  it('should return the registered creator link', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [
+        {
+          type: 'github',
+          link: 'github.com/johndoe',
+        },
+      ],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('github.com/johndoe')
+  })
+
+  it('should return the registered creator link follow by the priorities', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [
+        {
+          type: 'twitter',
+          link: 'twitter.com/johndoe',
+        },
+        {
+          type: 'github',
+          link: 'github.com/johndoe',
+        },
+      ],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('github.com/johndoe')
+  })
+
+  it('should return the registered creator link follow by the priorities over twitter', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [
+        {
+          type: 'twitter',
+          link: 'twitter.com/johndoe',
+        },
+      ],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('twitter.com/johndoe')
+  })
+
+  it('should return the registered creator link with only one link', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [
+        {
+          type: 'personal',
+          link: 'example.com',
+        },
+        {
+          type: 'personal',
+          link: 'example2.com',
+        },
+        {
+          type: 'personal',
+          link: 'example3.com',
+        },
+      ],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('example.com')
+  })
+
+  it('should return the registered creator link with no links', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      username: 'johndoe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual('https://github.com/johndoe')
+  })
+
+  it('should return undefined when no links and username', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty string', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: '',
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+
+  it('should return undefined when links is empty array', () => {
+    const creator: Contributor = {
+      name: 'John Doe',
+      links: [],
+    }
+
+    const link = findMapAuthorLink(creator)
+    expect(link).toEqual(undefined)
+  })
+})
+
+describe('newAvatarForAuthor', () => {
+  it('should return the mapped author avatar', async () => {
+    const mappedAuthor = {
+      avatar: 'https://example.com/avatar.png',
+    }
+
+    const avatar = await newAvatarForAuthor(mappedAuthor, 'user@example.com')
+
+    expect(avatar).toEqual('https://example.com/avatar.png')
+  })
+
+  it('should return the mapped author avatar with username', async () => {
+    const mappedAuthor = {
+      username: 'johndoe',
+    }
+
+    const avatar = await newAvatarForAuthor(mappedAuthor, 'user@example.com')
+
+    expect(avatar).toEqual('https://github.com/johndoe.png')
+  })
+
+  it('should return the commit author avatar with email', async () => {
+    const avatar = await newAvatarForAuthor(undefined, 'user@example.com')
+
+    expect(avatar).toEqual('https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro')
+  })
+})
+
 describe('parseCommits', () => {
   it('should init commit with fields transformed', async () => {
     const mockedCommits = ['c16db1033fce57f50b261e9944c136a26fcaccc6|First Last|user@example.com|Mon Mar 25 20:05:53 2024 +0800|release: v1.24.3| (tag: v1.24.3)|Signed-off-by: First Last <user@example.com>\n']
 
     const commit = await parseCommits(
-      '',
       mockedCommits,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,

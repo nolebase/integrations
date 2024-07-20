@@ -62,6 +62,28 @@ export default defineConfig({
     GitChangelog({
       maxGitLogCount: 2000,
       repoURL: () => 'https://github.com/nolebase/integrations',
+      mapAuthors: [
+        {
+          name: 'Neko',
+          username: 'nekomeowww',
+          mapByNameAliases: ['Neko Ayaka', 'Ayaka Neko'],
+          mapByEmailAliases: ['neko@ayaka.moe'],
+        },
+        {
+          name: 'Rizumu',
+          username: 'LittleSound',
+          mapByNameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
+          mapByEmailAliases: ['rizumu@ayaka.moe'],
+        },
+        {
+          name: 'Nisekoi5',
+          username: 'Nisekoi5',
+        },
+        {
+          name: 'Northword',
+          username: 'northword',
+        },
+      ],
     }),
     GitChangelogMarkdownSection({
       excludes: [

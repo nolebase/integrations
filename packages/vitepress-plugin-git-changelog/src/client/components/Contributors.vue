@@ -1,21 +1,19 @@
 <script setup lang="ts">
-import { inject, onMounted, onServerPrefetch, ref, watch } from 'vue'
+import { inject, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import { useCommits } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
-import type { Commit } from '../types'
-import type { AuthorInfo } from '../composables/author'
-import { extractAuthorsWithMultiple, mapCommitAuthors } from '../composables/author'
+import { useAuthors } from '../composables/author'
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
-const contributors = ref<AuthorInfo[]>([])
 
 const { t } = useI18n()
 const { page } = useData()
 const { commits, update } = useCommits(page)
+const { authors } = useAuthors(commits)
 
 onMounted(() => {
   if (import.meta.hot) {
@@ -50,37 +48,6 @@ onMounted(() => {
     })
   }
 })
-
-async function aggregateAuthors(commits: Commit[]) {
-  const map: Record<string, AuthorInfo> = {}
-
-  if (options.mapAuthors) {
-    for (const c of commits) {
-      await mapCommitAuthors(options.mapAuthors, map, c)
-      await extractAuthorsWithMultiple(options.mapAuthors, map, c)
-    }
-  }
-  else {
-    for (const c of commits) {
-      await mapCommitAuthors(options.mapContributors, map, c)
-      await extractAuthorsWithMultiple(options.mapContributors, map, c)
-    }
-  }
-
-  return Object.values(map).sort((a, b) => b.commitsCount - a.commitsCount)
-}
-
-onServerPrefetch(async () => {
-  contributors.value = await aggregateAuthors(commits.value)
-})
-
-onMounted(async () => {
-  contributors.value = await aggregateAuthors(commits.value)
-})
-
-watch(commits, async (newCommits) => {
-  contributors.value = await aggregateAuthors(newCommits)
-})
 </script>
 
 <template>
@@ -93,7 +60,7 @@ watch(commits, async (newCommits) => {
     flex flex-wrap gap-4 pt-2
   >
     <em
-      v-if="!commits.length"
+      v-if="!authors.length"
       :class="[
         options.hideContributorsHeader && 'mt-6',
       ]"
@@ -104,13 +71,13 @@ watch(commits, async (newCommits) => {
       v-else
     >
       <template
-        v-for="c of contributors"
+        v-for="c of authors"
         :key="c.name"
       >
         <a
           v-if="(typeof c.url !== 'undefined')"
           :href="c.url"
-          class="flex items-center gap-2"
+          class="no-icon flex items-center gap-2"
         >
           <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
           {{ c.name }}

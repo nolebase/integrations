@@ -29,9 +29,9 @@ export function useChangelog(pageData: Ref<PageData>) {
   })
 
   const authors = computed(() => {
-    const uniq = new Map<string, AuthorInfo>()
+    const uniq = new Map<string, AuthorInfo>();
 
-    commits.value.map(c => c.authors)
+    [...commits.value.map(c => c.authors), ...pageData.value.frontmatter.authors ?? []]
       .flat()
       .map((name) => {
         if (!uniq.has(name)) {
@@ -52,8 +52,10 @@ export function useChangelog(pageData: Ref<PageData>) {
       .map((a) => {
         return {
           ...a,
-          ...gitChangelog.value.authors.find(item => item.name === a.name),
-
+          ...gitChangelog.value.authors.find(item => item.name === a.name) ?? {
+            // a avatarUrl fallback for authors in frontmatter
+            avatarUrl: `https://gravatar.com/avatar/${a.name}?d=retro`,
+          },
         }
       })
   })

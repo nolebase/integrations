@@ -329,6 +329,24 @@ interface Locale {
 
 The Git-based page histories plugin provides accessibility support by default. You can override accessible labels (aria-label) via [Configuration](#configuration) in the same way as [Internationalization](#internationalization), see [Locales Options](#locales-options) for a description of what labels can be configured for accessibility.
 
+## Adding Contributors for Specific Pages
+
+In certain situations, Git records may miss some contributors. To address this issue, we provide a Front Matter key that allows you to supplement author information for specific pages.
+
+You can add missing contributor information in the Front Matter of the Markdown file using the following format:
+
+```md
+---
+authors: ['author1', 'author2']
+---
+
+<!-- body -->
+```
+
+These contributors will be merged with the authors retrieved from Git.
+
+Please note that the contributors specified here will not go through the `mapAuthorsByNameAlias` data mapping of the [Vite plugin `mapAuthors` option](./configure-vite-plugins.md#option-mapauthors-map-contributors-information). Therefore, you need to use the `name` attribute values from the `mapAuthors` array for each author. Otherwise, the contributor will be considered an independent author.
+
 ## More customizations?
 
 It is possible though.

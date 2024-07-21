@@ -1,3 +1,7 @@
+---
+authors: ['northword1']
+---
+
 # 配置 UI 组件
 
 ::: danger 弃用 UI 组件选项的 `mapAuthors` 字段
@@ -328,6 +332,24 @@ interface Locale {
 ## 无障碍
 
 基于 Git 的页面历史插件默认提供了无障碍的支持，你可以通过 [配置](#配置选项) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
+
+## 为特定页面增补贡献者
+
+在某些情况下，Git 记录中可能会遗漏部分贡献者信息。为了解决这个问题，我们提供了一个 Front Matter 键，允许你为特定页面补充作者信息。
+
+你可以在 Markdown 文件的 Front Matter 中添加缺失的贡献者信息，格式如下：
+
+```md
+---
+authors: ['author1', 'author2']
+---
+
+<!-- body-->
+```
+
+这些贡献者信息将会与从 Git 中获取到的作者信息合并显示。
+
+主要注意的是，此处指定的贡献者将不会经过 [Vite 插件 `mapAuthors` 选项](./configure-vite-plugins.md#选项-mapcontributors-为贡献者添加数据映射) 的 `mapAuthorsByNameAlias` 数据映射，因此你需要填写 `mapAuthors` 数组中每个作者信息 `name` 属性的值，否则，该贡献者将视为一个独立的作者。
 
 ## 更多自定义能力？
 

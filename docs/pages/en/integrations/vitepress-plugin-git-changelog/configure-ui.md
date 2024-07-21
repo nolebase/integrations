@@ -1,6 +1,14 @@
 # Configuration
 
-The Git-based page histories plugin currently provides configuration options related to **Internationalization** and **Contributors** section.
+::: danger Deprecating the `mapAuthors` field for UI component options
+
+We migrated the `mapAuthors` configuration to [configure Vite plugins](./configure-vite-plugins#option-mapauthors---map-contributors-information).
+
+For specific migration information, see [Migrating from v2 to v3](/pages/en/releases/migrations/v2-to-v3).
+
+:::
+
+The Git-based page histories plugin currently provides configuration options related to **Internationalization** and **UI** section.
 
 ## Configure in VitePress
 
@@ -61,59 +69,6 @@ export const Theme: ThemeConfig = {
     app.provide(InjectionKey, { // [!code ++]
       // Configuration... // [!code ++]
     }) // [!code ++]
-
-    // Rest of the code...
-  },
-}
-```
-
-### Option `mapAuthors` - Map contributors' information
-
-The `mapAuthors` field in the configuration options is used to map the contributors' information. You can provide the `mapAuthors` field in the configuration options to map the contributors' information, including the display name, avatar, email, social links, and aliases.
-
-Let's say we have these logs:
-
-```plaintext
-commit 1
-Author: John Doe <john.doe@example.com>
-Date:   Fri Oct 1 12:00:00 2021 +0800
-
-    Add a new feature
-
-commit 2
-Author: John Doe <john.doe@anothersite.com>
-
-    Fix a bug
-```
-
-We now have two commits from the same person, with only the email address is different. By default, the plugin will treat them as two different contributors.
-Such case happens when you changed your name or email address in the past.
-
-To solve this, you can provide the `mapAuthors` field in the configuration options to map the contributors' information:
-
-```typescript twoslash
-import type { Theme as ThemeConfig } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-
-import { InjectionKey } from '@nolebase/vitepress-plugin-git-changelog/client' // [!code focus]
-
-export const Theme: ThemeConfig = {
-  extends: DefaultTheme,
-  Layout: () => {
-    // Rest of the code...
-  },
-  enhanceApp({ app }) {
-    // Rest of the code...
-
-    app.provide(InjectionKey, { // [!code focus]
-      mapAuthors: [ // [!code focus]
-        { // [!code focus]
-          name: 'John Doe', // [!code focus]
-          username: 'john_doe', // [!code focus]
-          mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
-        } // [!code focus]
-      ] // [!code focus]
-    }) // [!code focus]
 
     // Rest of the code...
   },
@@ -224,36 +179,6 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  mapAuthors?: Array<{
-    /**
-     * The overriding display name of the contributor
-     */
-    name?: string
-    /**
-     * The overriding GitHub, GitLab, Gitea username of the contributor
-     */
-    username?: string
-    /**
-     * The overriding avatar of the contributor
-     */
-    avatar?: string
-    /**
-     * Whether to add a link to the contributor's profile
-     */
-    links?: string | SocialEntry[]
-    /**
-     * More names to be recognized as the same contributor.
-     *
-     * Useful when you changed your name or email address in the past.
-     */
-    mapByNameAliases?: string[]
-    /**
-     * More emails to be recognized as the same contributor.
-     *
-     * Useful when you changed your email address in the past.
-     */
-    mapByEmailAliases?: string[]
-  }>
   /**
    * Number of commit hash letters to display
    *

@@ -54,28 +54,6 @@ export default defineThemeUnconfig({
       gitChangelog: {
         enable: true,
         options: {
-          mapContributors: [
-            {
-              name: 'Neko',
-              username: 'nekomeowww',
-              mapByNameAliases: ['Neko Ayaka', 'Ayaka Neko'],
-              mapByEmailAliases: ['neko@ayaka.moe'],
-            },
-            {
-              name: 'Rizumu',
-              username: 'LittleSound',
-              mapByNameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
-              mapByEmailAliases: ['rizumu@ayaka.moe'],
-            },
-            {
-              name: 'Nisekoi5',
-              username: 'Nisekoi5',
-            },
-            {
-              name: 'Northword',
-              username: 'northword',
-            },
-          ],
           commitsRelativeTime: true,
         },
       },

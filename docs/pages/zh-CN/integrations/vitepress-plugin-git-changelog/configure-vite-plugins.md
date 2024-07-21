@@ -12,11 +12,9 @@
 
 除了 UI 组件，基于 Git 的页面历史记录还提供了另外两个 Vite 插件，用于数据获取和渲染。这两个插件分别是 `GitChangelog` 和 `GitChangelogMarkdownSection`。
 
-### 配置 Vite 插件
-
 <!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
-#### `GitChangelog` 插件
+## 配置 `GitChangelog` 插件
 
 还记得我们第一次介绍 `GitChangelog` 插件时的这部分内容吗？
 
@@ -44,16 +42,74 @@ export default defineConfig(() => {
 
 在 `GitChangelog` 插件中，您可以配置 `repoURL` 选项，使其指向您的 Git 仓库托管的 URL。这是插件正常工作的唯一必要选项。
 
+### 选项 `mapContributors` - 为贡献者添加数据映射
+
+配置选项中的 `mapContributors` 字段用于映射贡献者信息，可以用来将获取到的 Git 的日志信息中的包括名称和邮箱的贡献者信息映射为另一个贡献者。
+
+如果我们假设有如下的 Git 日志：
+
+```plaintext
+commit 1
+Author: John Doe <john.doe@example.com>
+Date:   Fri Oct 1 12:00:00 2021 +0800
+
+    Add a new feature
+
+commit 2
+Author: John Doe <john.doe@anothersite.com>
+
+    Fix a bug
+```
+
+现在我们有两个来自同一个人的提交，只有电子邮件地址不同。在不进行任何配置的默认情况下，插件会将它们视为两个不同的贡献者。
+这种情况通常是因为你或者其他贡献者更改了自己的电子邮件地址。
+
+要解决这个问题，我们可以使用 `mapAuthors` 选项：
+
+```typescript twoslash
+import { join } from 'node:path'
+import { defineConfig } from 'vite'
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+
+export default defineConfig(() => {
+  return {
+    plugins: [
+      GitChangelog({ // [!code focus]
+        // Fill in your repository URL here
+        repoURL: () => 'https://github.com/nolebase/integrations',
+        mapAuthors: [ // [!code focus]
+          { // [!code focus]
+            name: 'John Doe', // [!code focus]
+            username: 'john_doe', // [!code focus]
+            mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
+          } // [!code focus]
+        ] // [!code focus]
+      }), // [!code focus]
+      GitChangelogMarkdownSection(),
+    ]
+    // other vite configurations...
+  }
+})
+```
+
+### 完整选项
+
 但选项并不止于此。我们还有更多选项来配置插件，以满足您的需求。
 
 ::: details 完整选项
 
 ```typescript twoslash
 import type {
-  Commit, CommitToStringHandler, CommitToStringsHandler, RewritePathsBy
+  Author,
+  CommitToStringHandler,
+  CommitToStringsHandler,
+  RewritePathsBy
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 // ---cut---
-interface Options {
+interface GitChangelogOptions {
     /**
    * The current working directory in which to search files.
    *
@@ -66,6 +122,10 @@ interface Options {
    * @default ['** /*.md', '!node_modules']
    */
   include?: string[]
+  /**
+   * Map authors
+   */
+  mapAuthors?: Author[]
   /**
    * Your repository URL.
    * Yes, you can dynamically generate it.
@@ -146,7 +206,7 @@ interface Options {
 
 :::
 
-#### `GitChangelogMarkdownSection` 插件
+## 配置 `GitChangelogMarkdownSection` 插件
 
 `GitChangelogMarkdownSection` 插件是一个在 Markdown 页面中注入章节的插件。可以与 `GitChangelog` 插件一起使用，以在页面中显示 Git 历史记录。
 
@@ -207,7 +267,7 @@ interface GitChangelogMarkdownSectionOptions {
 
 :::
 
-#### 在 Markdown 页面层级将页面排除在 `GitChangelogMarkdownSection` 的转换之外
+### 在 Markdown 页面层级将页面排除在 `GitChangelogMarkdownSection` 的转换之外
 
 您可以通过在页面的 frontmatter 中添加 `nolebase.gitChangelog` 或 `gitChangelog` 配置，将页面排除在 `GitChangelogMarkdownSection` 转换之外：
 
@@ -228,7 +288,7 @@ gitChangelog: false
 
 都可以。
 
-#### 全局地将某个页面排除在 `GitChangelogMarkdownSection` 的转换之外
+### 全局地将某个页面排除在 `GitChangelogMarkdownSection` 的转换之外
 
 通过配置 `exclude` 选项，可以全局地将某个页面排除在 `GitChangelogMarkdownSection` 的转换之外：
 
@@ -248,7 +308,7 @@ export default defineConfig({
 })
 ```
 
-#### 全局禁用页面历史或贡献者章节
+### 全局禁用页面历史或贡献者章节
 
 通过配置 `sections` 选项，可以在全局禁用页面历史或贡献者章节：
 

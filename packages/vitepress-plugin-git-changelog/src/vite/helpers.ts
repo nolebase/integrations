@@ -336,7 +336,7 @@ export async function parseCommits(
     // authors
     const authors = await parseCommitAuthors(rawCommit, mapContributors)
     authors.forEach(a => allAuthors.set(a.name, omit(a, ['email'])))
-    resolvedCommit.authors = authors
+    resolvedCommit.authors = authors.map(a => a.name)
 
     // generate author avatar based on md5 hash of email (gravatar style)
     // resolvedCommit.author_avatar = await digestStringAsSHA256(rawCommit.author_email)

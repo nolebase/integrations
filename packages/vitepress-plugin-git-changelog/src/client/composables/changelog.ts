@@ -28,12 +28,11 @@ export function useChangelog(pageData: Ref<PageData>) {
     })
   })
 
-  const authors = computed(() => {
+  const authors = computed<AuthorInfo[]>(() => {
     const uniq = new Map<string, AuthorInfo>()
 
     commits.value.map(c => c.authors)
       .flat()
-      .map(a => a.name)
       .map((name) => {
         if (!uniq.has(name)) {
           uniq.set(name, {
@@ -58,6 +57,12 @@ export function useChangelog(pageData: Ref<PageData>) {
         }
       })
   })
+
+  const getAuthorsForOneCommit = (commit: Commit) => {
+    return commit.authors.map((name) => {
+      return authors.value.find(a => a.name === name)!
+    })
+  }
 
   const update = (data: Changelog) => {
     gitChangelog.value = data
@@ -101,5 +106,6 @@ export function useChangelog(pageData: Ref<PageData>) {
     commits,
     authors,
     useHmr,
+    getAuthorsForOneCommit,
   }
 }

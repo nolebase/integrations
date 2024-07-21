@@ -3,6 +3,7 @@ import { type Ref, computed, ref, toValue } from 'vue'
 import type { PageData } from 'vitepress'
 import changelog from 'virtual:nolebase-git-changelog'
 import type { Changelog, Commit, CommitAuthor } from '../../types'
+import { isStringArray } from '../utils'
 
 export interface AuthorInfo extends CommitAuthor {
   commitsCount: number
@@ -29,9 +30,13 @@ export function useChangelog(pageData: Ref<PageData>) {
   })
 
   const authors = computed(() => {
-    const uniq = new Map<string, AuthorInfo>();
+    const uniq = new Map<string, AuthorInfo>()
 
-    [...commits.value.map(c => c.authors), ...pageData.value.frontmatter.authors ?? []]
+    const authorsFromFrontMatter: string[] = isStringArray(pageData.value.frontmatter.authors)
+      ? pageData.value.frontmatter.authors
+      : [];
+
+    [...commits.value.map(c => c.authors), ...authorsFromFrontMatter]
       .flat()
       .map((name) => {
         if (!uniq.has(name)) {

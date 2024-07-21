@@ -44,8 +44,12 @@ import packageJSON from '~/packages/vitepress-plugin-git-changelog/package.json'
 
 当然有！
 
-- [ALT Gnome Wiki| 俄语](https://alt-gnome.wiki/download.html#%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B8)
-- [Shalo.DOCS | 俄语](https://docs.shalotts.site/docs/01_introduction/#changelog)
+- [Nólëbase](https://nolebase.ayaka.io/%E7%AC%94%E8%AE%B0/#%E8%B4%A1%E7%8C%AE%E8%80%85)（中文）
+- [CrashMC 文档](https://crashmc.com/analyzer#contributors)（中文）
+- [Zotero 中文文档](https://zotero-chinese.com/user-guide/#%E8%B4%A1%E7%8C%AE%E8%80%85)（中文）
+- [Vue Macros 文档](https://vue-macros.dev/zh-CN/guide/getting-started.html)（中文）
+- [ALT Gnome Wiki](https://alt-gnome.wiki/download.html#%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B8) （俄语）
+- [Shalo.DOCS](https://docs.shalotts.site/docs/01_introduction/#changelog)（俄语）
 
 ## 安装
 

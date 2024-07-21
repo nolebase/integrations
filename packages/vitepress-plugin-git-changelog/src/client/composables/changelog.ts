@@ -3,6 +3,7 @@ import { type Ref, computed, ref, toValue } from 'vue'
 import type { PageData } from 'vitepress'
 import changelog from 'virtual:nolebase-git-changelog'
 import type { Changelog, Commit, CommitAuthor } from '../../types'
+import { isStringArray } from '../utils'
 
 export interface AuthorInfo extends CommitAuthor {
   commitsCount: number
@@ -31,7 +32,11 @@ export function useChangelog(pageData: Ref<PageData>) {
   const authors = computed(() => {
     const uniq = new Map<string, AuthorInfo>()
 
-    commits.value.map(c => c.authors)
+    const authorsFromFrontMatter: string[] = isStringArray(pageData.value.frontmatter.authors)
+      ? pageData.value.frontmatter.authors
+      : [];
+
+    [...commits.value.map(c => c.authors), ...authorsFromFrontMatter]
       .flat()
       .map((name) => {
         if (!uniq.has(name)) {
@@ -48,12 +53,14 @@ export function useChangelog(pageData: Ref<PageData>) {
       })
 
     return Array.from(uniq.values())
-      .sort((a, b) => a.commitsCount - b.commitsCount)
+      .sort((a, b) => b.commitsCount - a.commitsCount)
       .map((a) => {
         return {
           ...a,
-          ...gitChangelog.value.authors.find(item => item.name === a.name),
-
+          ...gitChangelog.value.authors.find(item => item.name === a.name) ?? {
+            // a avatarUrl fallback for authors in frontmatter
+            avatarUrl: `https://gravatar.com/avatar/${a.name}?d=retro`,
+          },
         }
       })
   })

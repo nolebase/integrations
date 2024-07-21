@@ -1,7 +1,3 @@
----
-authors: ['northword1']
----
-
 # 配置 UI 组件
 
 ::: danger 弃用 UI 组件选项的 `mapAuthors` 字段

@@ -6,7 +6,7 @@ import { defu } from 'defu'
 
 import { NuVerticalTransition } from '@nolebase/ui'
 
-import { useCommits } from '../composables/commits'
+import { useChangelog } from '../composables/commits'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
@@ -20,7 +20,7 @@ const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 const { lang, page } = useData()
-const { commits, update } = useCommits(page)
+const { commits, update } = useChangelog(page)
 
 // The order of commits, defaults to true (descending order)
 const isDescending = ref(true)
@@ -71,8 +71,8 @@ onMounted(() => {
       if (!data || typeof data !== 'object')
         return
 
-      if (data.commits)
-        update(data.commits)
+      if (data)
+        update(data)
     })
 
     // HMR API | Vite
@@ -85,8 +85,8 @@ onMounted(() => {
       if (!newModule.default || typeof newModule.default !== 'object')
         return
 
-      if (newModule.default.commits)
-        update(newModule.default.commits)
+      if (newModule.default)
+        update(newModule.default)
     })
   }
 })

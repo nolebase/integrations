@@ -3,17 +3,15 @@ import { inject, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
 
-import { useCommits } from '../composables/commits'
+import { useChangelog } from '../composables/commits'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
-import { useAuthors } from '../composables/author'
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 const { page } = useData()
-const { commits, update } = useCommits(page)
-const { authors } = useAuthors(commits)
+const { authors, update } = useChangelog(page)
 
 onMounted(() => {
   if (import.meta.hot) {
@@ -29,8 +27,8 @@ onMounted(() => {
       if (!data || typeof data !== 'object')
         return
 
-      if (data.commits)
-        update(data.commits)
+      if (data)
+        update(data)
     })
 
     // HMR API | Vite
@@ -43,8 +41,8 @@ onMounted(() => {
       if (!newModule.default || typeof newModule.default !== 'object')
         return
 
-      if (newModule.default.commits)
-        update(newModule.default.commits)
+      if (newModule.default)
+        update(newModule.default)
     })
   }
 })

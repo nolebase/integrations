@@ -107,7 +107,7 @@ export interface CommitAuthor {
 
 export interface Changelog {
   commits: Commit[]
-  authors?: CommitAuthor[]
+  authors: CommitAuthor[]
 }
 
 export interface SocialEntry {

@@ -396,11 +396,7 @@ export function getCoAuthors(body?: string): CommitAuthor[] {
   if (!body)
     return []
 
-  return body.split('\n').map((b) => {
-    const result = multipleAuthorsRegex.exec(b)
-    if (!result)
-      return undefined
-
+  return [...body.matchAll(multipleAuthorsRegex)].map((result) => {
     const [, name, email] = result
     return {
       name: name.trim(),
@@ -409,7 +405,6 @@ export function getCoAuthors(body?: string): CommitAuthor[] {
   }).filter(v => !!v)
 }
 
-// TODO: mapCommitAuthors
 export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
   return mapContributors?.find((item) => {
     const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name
@@ -453,6 +448,8 @@ export function findMapAuthorLink(creator: Contributor): string | undefined {
 
 export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {
   if (mappedAuthor) {
+    if (mappedAuthor.avatar)
+      return mappedAuthor.avatar
     if (mappedAuthor.username)
       return `https://github.com/${mappedAuthor.username}.png`
   }

@@ -6,7 +6,7 @@ import { cyan, gray } from 'colorette'
 import { globby } from 'globby'
 import { execa } from 'execa'
 
-import type { Changelog, Commit } from '../types'
+import type { Author, Changelog } from '../types'
 import {
   type CommitToStringHandler,
   type CommitToStringsHandler,
@@ -24,6 +24,7 @@ import {
 import type { GitChangelogOptions } from './types'
 
 export type {
+  Author,
   CommitToStringHandler,
   CommitToStringsHandler,
   RewritePathsBy,
@@ -155,7 +156,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
           const path = normalizePath(join(srcDir, data.page.filePath))
           result = await commitFromPath([path])
           Object.assign(changelog, result)
-          // hotModuleReloadCachedCommits.set(data.page.filePath, result)
+          hotModuleReloadCachedCommits.set(data.page.filePath, result)
         }
 
         if (!result!.commits.length)

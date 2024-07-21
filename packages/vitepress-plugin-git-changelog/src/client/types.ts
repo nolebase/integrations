@@ -1,5 +1,3 @@
-import type { Author, Contributor } from '../types'
-
 export interface Locale extends Record<string, any> {
   /**
    * What to display when there are no logs
@@ -114,16 +112,6 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  /**
-   * @deprecated Use `mapAuthors` instead
-   * @see mapAuthors
-   */
-  mapContributors?: Contributor[]
-  /**
-   * @deprecated Use `mapAuthors` in vite side
-   * @see mapAuthors
-   */
-  mapAuthors?: Author[]
   /**
    * Number of commit hash letters to display
    *

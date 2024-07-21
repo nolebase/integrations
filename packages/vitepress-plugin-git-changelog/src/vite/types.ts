@@ -28,18 +28,6 @@ export interface GitChangelogOptions {
    */
   mapAuthors?: Author[]
   /**
-   * When fetching git logs, what directories should be included?
-   *
-   * @deprecated
-   */
-  includeDirs?: string[]
-  /**
-   * When fetching git logs, what extensions should be included?
-   *
-   * @deprecated
-   */
-  includeExtensions?: `.${string}`[]
-  /**
    * Your repository URL.
    * Yes, you can dynamically generate it.
    *
@@ -114,17 +102,6 @@ export interface GitChangelogOptions {
    * The maximum number of git logs to fetch.
    */
   maxGitLogCount?: number
-  /**
-   * digits of commit hash which will be rendered in `Changelog` section
-   * @default 7
-   */
-  commitHashDigits?: number
-  /**
-   * The maximum number of concurrent processes to fetch git logs.
-   *
-   * @deprecated
-   */
-  maxConcurrentProcesses?: number
 }
 
 export interface GitChangelogMarkdownSectionOptions {

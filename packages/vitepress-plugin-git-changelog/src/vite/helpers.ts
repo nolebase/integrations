@@ -336,7 +336,7 @@ export async function parseCommits(
     // authors
     const authors = await parseCommitAuthors(rawCommit, mapContributors)
     authors.forEach(a => allAuthors.set(a.name, omit(a, ['email'])))
-    resolvedCommit.authors = authors.map(a => a.name)
+    resolvedCommit.authors = authors
 
     // generate author avatar based on md5 hash of email (gravatar style)
     // resolvedCommit.author_avatar = await digestStringAsSHA256(rawCommit.author_email)
@@ -354,9 +354,9 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
     name: author_name,
     email: author_email,
   }
-  const coAthors = getCoAuthors(body)
+  const coAuthors = getCoAuthors(body)
 
-  return await Promise.all([commitAuthor, ...coAthors]
+  return await Promise.all([commitAuthor, ...coAuthors]
     // exclude bot users
     .filter(v => !(v.name.match(/\[bot\]/i) || v.email?.match(/\[bot\]/i)))
     // map authors
@@ -384,7 +384,7 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
  * This regular expression is used to match and parse commit messages that contain multiple author information.
  *
  * @see {@link https://regex101.com/r/q5YB8m/1 | Regexp demo}
- * @see {@link https://en.wikipedia.org/wiki/Email_address#Local-part | Email addres}
+ * @see {@link https://en.wikipedia.org/wiki/Email_address#Local-part | Email address}
  * @see {@link https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors | Creating a commit with multiple authors in GitHub}
  */
 const multipleAuthorsRegex = /^ *Co-authored-by: ?([^<]*)<([^>]*)> */gim

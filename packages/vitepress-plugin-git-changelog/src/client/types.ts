@@ -135,4 +135,8 @@ export interface Options {
    * Whether to hide the sort by button
    */
   hideSortBy?: boolean
+  /**
+   *  Whether to display authors of commits right inside of commit line
+   */
+  displayAuthorsInsideCommitLine?: boolean
 }

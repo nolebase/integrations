@@ -81,7 +81,7 @@ export interface Commit extends Omit<MergedRawCommit, 'date' | 'body' | 'refs' |
    */
   message: string
 
-  authors: string[]
+  authors: CommitAuthor[]
 
   /**
    * The repository URL.

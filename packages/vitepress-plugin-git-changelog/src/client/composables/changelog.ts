@@ -33,6 +33,7 @@ export function useChangelog(pageData: Ref<PageData>) {
 
     commits.value.map(c => c.authors)
       .flat()
+      .map(a => a.name)
       .map((name) => {
         if (!uniq.has(name)) {
           uniq.set(name, {

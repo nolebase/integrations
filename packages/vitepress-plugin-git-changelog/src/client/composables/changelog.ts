@@ -100,6 +100,5 @@ export function useChangelog(pageData: Ref<PageData>) {
     commits,
     authors,
     useHmr,
-
   }
 }

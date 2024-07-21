@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import type { Commit, Contributor } from '../types'
+import type { Commit, Contributor, MergedRawCommit } from '../types'
 import {
   defaultCommitURLHandler,
   defaultReleaseTagURLHandler,
@@ -8,6 +8,7 @@ import {
   findMapAuthorByEmail,
   findMapAuthorByName,
   findMapAuthorLink,
+  getCoAuthors,
   mergeRawCommits,
   newAvatarForAuthor,
   parseCommitAuthors,
@@ -216,7 +217,13 @@ describe('parseCommitAuthors', () => {
     }
 
     const authors = await parseCommitAuthors(mockedCommit)
-    expect(authors).toEqual([{ name: 'First Last', email: 'user@example.com' }])
+    expect(authors).toEqual([
+      {
+        name: 'First Last',
+        email: 'user@example.com',
+        avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+      },
+    ])
   })
 
   it('should parse co-author from body', async () => {
@@ -232,8 +239,16 @@ describe('parseCommitAuthors', () => {
 
     const authors = await parseCommitAuthors(mockedCommit)
     expect(authors).toEqual([
-      { name: 'First Last', email: 'user@example.com' },
-      { name: 'First Last2', email: 'user2@example.com' },
+      {
+        name: 'First Last',
+        email: 'user@example.com',
+        avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+      },
+      {
+        name: 'First Last2',
+        email: 'user2@example.com',
+        avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+      },
     ])
   })
 
@@ -250,6 +265,85 @@ describe('parseCommitAuthors', () => {
 
     const authors = await parseCommitAuthors(mockedCommit)
     expect(authors).toEqual([])
+  })
+
+  it('should map author by name alias', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+    const mapAuthors = [
+      { name: 'John Doe', mapByNameAliases: ['First Last', 'John Doe'] },
+    ]
+
+    const authors = await parseCommitAuthors(mockedCommit, mapAuthors)
+    expect(authors).toEqual([
+      {
+        name: 'John Doe',
+        email: 'user@example.com',
+        avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+      },
+    ])
+  })
+
+  it('should map author by email alias', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@example.com',
+    }
+    const mapAuthors = [
+      { name: 'John Doe', mapByEmailAliases: ['user@example.com'] },
+    ]
+
+    const authors = await parseCommitAuthors(mockedCommit, mapAuthors)
+    expect(authors).toEqual([
+      {
+        name: 'John Doe',
+        email: 'user@example.com',
+        avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+      },
+    ])
+  })
+})
+
+describe('getCoAuthors', () => {
+  it('should be ok', () => {
+    const modkedBody = `
+Co-authored-by: Standard <standard@example.com>
+    Co-authored-by:         Spaced LastSpaced       <spaced@example.com>      `
+    const coAuthors = getCoAuthors(modkedBody)
+    expect(coAuthors).toEqual([
+      {
+        name: 'Standard',
+        email: 'standard@example.com',
+      },
+      {
+        name: 'Spaced LastSpaced',
+        email: 'spaced@example.com',
+      },
+    ])
+  })
+
+  it('should return empty whn body is empty', () => {
+    const modkedBody = ''
+    const coAuthors = getCoAuthors(modkedBody)
+    expect(coAuthors).toEqual([])
+  })
+
+  it('should be ok when no co-authors', () => {
+    const modkedBody = 'Signed-off-by: First Last <user@example.com>'
+    const coAuthors = getCoAuthors(modkedBody)
+    expect(coAuthors).toEqual([])
   })
 })
 
@@ -445,9 +539,19 @@ describe('newAvatarForAuthor', () => {
 
 describe('parseCommits', () => {
   it('should init commit with fields transformed', async () => {
-    const mockedCommits = ['c16db1033fce57f50b261e9944c136a26fcaccc6|First Last|user@example.com|Mon Mar 25 20:05:53 2024 +0800|release: v1.24.3| (tag: v1.24.3)|Signed-off-by: First Last <user@example.com>\n']
+    const mockedCommits = [
+      {
+        paths: ['/fack/path/1.md', '/fack/path/2.md'],
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: '',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
+    ]
 
-    const commit = await parseCommits(
+    const result = await parseCommits(
       mockedCommits,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
@@ -455,93 +559,124 @@ describe('parseCommits', () => {
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual([{
-      path: '',
-      tag: 'v1.24.3',
-      tags: ['v1.24.3'],
-      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.24.3',
-      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.24.3'],
-      hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
-      hash_url: 'https://github.com/example-org/example/commit/c16db1033fce57f50b261e9944c136a26fcaccc6',
-      date: 'Mon Mar 25 20:05:53 2024 +0800',
-      date_timestamp: 1711368353000,
-      message: 'release: v1.24.3',
-      body: 'Signed-off-by: First Last <user@example.com>',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
-      repo_url: 'https://github.com/example-org/example',
-    }])
+    expect(result).toEqual({
+      commits: [
+        {
+          paths: ['/fack/path/1.md', '/fack/path/2.md'],
+          hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+          hash_url: 'https://github.com/example-org/example/commit/c16db1033fce57f50b261e9944c136a26fcaccc6',
+          date_timestamp: 1711368353000,
+          message: 'release: v1.24.3',
+          authors: ['First Last'],
+          repo_url: 'https://github.com/example-org/example',
+        },
+      ],
+      authors: [
+        {
+          avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+          name: 'First Last',
+        },
+      ],
+    })
   })
 
-  it('should transform for commit contains no refs', async () => {
-    const mockedCommit = [
-      '', // empty commit, could occur when the file contains no history or git cli bugged
-      '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1|First Last|user@example.com|Wed Apr 24 14:24:44 2024 +0800|docs: fix english integrations list||Signed-off-by: First Last <user@example.com>\n',
+  it('should transform for commit contains refs', async () => {
+    const mockedCommits = [
+      {
+        paths: ['/fack/path/1.md', '/fack/path/2.md'],
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Signed-off-by: First Last <user@example.com>',
+        refs: ' (tag: v1.28.0)',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
     ]
-    const commit = await parseCommits(
-      '',
-      mockedCommit,
+
+    const result = await parseCommits(
+      mockedCommits,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
       defaultReleaseTagURLHandler,
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual([{
-      path: '',
-      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
-      hash_url: 'https://github.com/example-org/example/commit/62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
-      date: 'Wed Apr 24 14:24:44 2024 +0800',
-      date_timestamp: 1713939884000,
-      message: 'docs: fix english integrations list',
-      body: 'Signed-off-by: First Last <user@example.com>',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
-      repo_url: 'https://github.com/example-org/example',
-    }])
+    expect(result).toEqual({
+      commits: [
+        {
+          paths: ['/fack/path/1.md', '/fack/path/2.md'],
+          hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+          hash_url: 'https://github.com/example-org/example/commit/c16db1033fce57f50b261e9944c136a26fcaccc6',
+          tags: ['v1.28.0'],
+          tag: 'v1.28.0',
+          release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.28.0',
+          release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.28.0'],
+          date_timestamp: 1711368353000,
+          message: 'release: v1.24.3',
+          authors: ['First Last'],
+          repo_url: 'https://github.com/example-org/example',
+        },
+      ],
+      authors: [
+        {
+          avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+          name: 'First Last',
+        },
+      ],
+    })
   })
 
-  it('should transform for commit contains no body', async () => {
-    const mockedCommit = [
-      '', // empty commit, could occur when the file contains no history or git cli bugged
-      'fa0fb328b988499c74983e9164f6db4e2e92afd8|First Last|user@example.com|Sun Apr 7 22:27:57 2024 +0800|release: v1.28.0| (tag: v1.28.0)|',
+  it('should transform for commit contains co-authors', async () => {
+    const mockedCommits = [
+      {
+        paths: ['/fack/path/1.md', '/fack/path/2.md'],
+        hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+        date: 'Mon Mar 25 20:05:53 2024 +0800',
+        message: 'release: v1.24.3',
+        body: 'Co-authored-by: First Last2 <user2@example.com>',
+        author_name: 'First Last',
+        author_email: 'user@example.com',
+      },
     ]
-    const commit = await parseCommits(
-      '',
-      mockedCommit,
+
+    const result = await parseCommits(
+      mockedCommits,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
       defaultReleaseTagURLHandler,
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual([{
-      path: '',
-      hash: 'fa0fb328b988499c74983e9164f6db4e2e92afd8',
-      date: 'Sun Apr 7 22:27:57 2024 +0800',
-      date_timestamp: 1712500077000,
-      message: 'release: v1.28.0',
-      body: '',
-      author_name: 'First Last',
-      author_email: 'user@example.com',
-      author_avatar: 'b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514',
-      repo_url: 'https://github.com/example-org/example',
-      hash_url: 'https://github.com/example-org/example/commit/fa0fb328b988499c74983e9164f6db4e2e92afd8',
-      tags: ['v1.28.0'],
-      tag: 'v1.28.0',
-      release_tag_url: 'https://github.com/example-org/example/releases/tag/v1.28.0',
-      release_tags_url: ['https://github.com/example-org/example/releases/tag/v1.28.0'],
-    }])
+    expect(result).toEqual({
+      commits: [
+        {
+          paths: ['/fack/path/1.md', '/fack/path/2.md'],
+          hash: 'c16db1033fce57f50b261e9944c136a26fcaccc6',
+          hash_url: 'https://github.com/example-org/example/commit/c16db1033fce57f50b261e9944c136a26fcaccc6',
+          date_timestamp: 1711368353000,
+          message: 'release: v1.24.3',
+          authors: ['First Last', 'First Last2'],
+          repo_url: 'https://github.com/example-org/example',
+        },
+      ],
+      authors: [
+        {
+          avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+          name: 'First Last',
+        },
+        {
+          avatarUrl: 'https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro',
+          name: 'First Last2',
+        },
+      ],
+    })
   })
 
   it('should return no commits when empty', async () => {
-    const mockedCommit = [
-      '', // empty commit, could occur when the file contains no history or git cli bugged
-    ]
+    // empty commit, could occur when the file contains no history or git cli bugged
+    const mockedCommit: MergedRawCommit[] = []
     const commit = await parseCommits(
-      '',
       mockedCommit,
       () => 'https://github.com/example-org/example',
       defaultCommitURLHandler,
@@ -549,6 +684,9 @@ describe('parseCommits', () => {
       defaultReleaseTagsURLHandler,
     )
 
-    expect(commit).toEqual([])
+    expect(commit).toEqual({
+      commits: [],
+      authors: [],
+    })
   })
 })

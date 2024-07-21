@@ -28,10 +28,11 @@ const locale = computed<Locale>(() => {
   return options.locales[lang.value] || defaultEnLocale || {}
 })
 
-const { getAuthorsForOneCommit } = useChangelog(page)
 const authors = ref<AuthorInfo[]>([])
-if (options.displayAuthorsInsideCommitLine)
+if (options.displayAuthorsInsideCommitLine) {
+  const { getAuthorsForOneCommit } = useChangelog(page)
   authors.value = getAuthorsForOneCommit(props.commit)
+}
 
 function formatCommittedOn(timestamp: number): string {
   const date = toDate(timestamp)
@@ -63,16 +64,16 @@ function formatCommittedOn(timestamp: number): string {
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
       <div v-if="options.displayAuthorsInsideCommitLine" class="my-1 ml-1 flex items-center gap-1">
         <template
-          v-for="c of authors"
-          :key="c.name"
+          v-for="a of authors"
+          :key="a.name"
         >
           <a
-            v-if="(typeof c.url !== 'undefined')"
-            :href="c.url"
+            v-if="(typeof a.url !== 'undefined')"
+            :href="a.url"
           >
-            <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
+            <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
           </a>
-          <img v-else :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
+          <img v-else :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
         </template>
         <ClientOnly>
           <span class="text-xs op-50" :title="toDate(commit.date_timestamp).toString()">

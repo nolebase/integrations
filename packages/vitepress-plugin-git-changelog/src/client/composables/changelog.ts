@@ -58,11 +58,48 @@ export function useChangelog(pageData: Ref<PageData>) {
       })
   })
 
+  const update = (data: Changelog) => {
+    gitChangelog.value = data
+  }
+
+  const useHmr = () => {
+    if (import.meta.hot) {
+      import.meta.hot.send('nolebase-git-changelog:client-mounted', {
+        page: {
+          filePath: pageData.value.filePath,
+        },
+      })
+
+      // Plugin API | Vite
+      // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
+      import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
+        if (!data || typeof data !== 'object')
+          return
+
+        if (data)
+          update(data)
+      })
+
+      // HMR API | Vite
+      // https://vitejs.dev/guide/api-hmr.html
+      import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
+        if (!newModule)
+          return
+        if (!('default' in newModule))
+          return
+        if (!newModule.default || typeof newModule.default !== 'object')
+          return
+
+        if (newModule.default)
+          update(newModule.default)
+      })
+    }
+  }
+
   return {
     commits,
     authors,
-    update(data: Changelog) {
-      gitChangelog.value = data
-    },
+    useHmr,
+
   }
 }

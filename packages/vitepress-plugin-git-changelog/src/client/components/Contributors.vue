@@ -3,7 +3,7 @@ import { inject, onMounted } from 'vue'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
 
-import { useChangelog } from '../composables/commits'
+import { useChangelog } from '../composables/changelog'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
 
@@ -11,40 +11,10 @@ const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 const { page } = useData()
-const { authors, update } = useChangelog(page)
+const { authors, useHmr } = useChangelog(page)
 
 onMounted(() => {
-  if (import.meta.hot) {
-    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
-      page: {
-        filePath: page.value.filePath,
-      },
-    })
-
-    // Plugin API | Vite
-    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
-    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
-      if (!data || typeof data !== 'object')
-        return
-
-      if (data)
-        update(data)
-    })
-
-    // HMR API | Vite
-    // https://vitejs.dev/guide/api-hmr.html
-    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
-      if (!newModule)
-        return
-      if (!('default' in newModule))
-        return
-      if (!newModule.default || typeof newModule.default !== 'object')
-        return
-
-      if (newModule.default)
-        update(newModule.default)
-    })
-  }
+  useHmr()
 })
 </script>
 

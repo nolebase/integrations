@@ -6,7 +6,7 @@ import { defu } from 'defu'
 
 import { NuVerticalTransition } from '@nolebase/ui'
 
-import { useChangelog } from '../composables/commits'
+import { useChangelog } from '../composables/changelog'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
@@ -20,7 +20,7 @@ const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 const { lang, page } = useData()
-const { commits, update } = useChangelog(page)
+const { commits, useHmr } = useChangelog(page)
 
 // The order of commits, defaults to true (descending order)
 const isDescending = ref(true)
@@ -58,37 +58,7 @@ watch(commits, () => {
 })
 
 onMounted(() => {
-  if (import.meta.hot) {
-    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
-      page: {
-        filePath: page.value.filePath,
-      },
-    })
-
-    // Plugin API | Vite
-    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
-    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
-      if (!data || typeof data !== 'object')
-        return
-
-      if (data)
-        update(data)
-    })
-
-    // HMR API | Vite
-    // https://vitejs.dev/guide/api-hmr.html
-    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
-      if (!newModule)
-        return
-      if (!('default' in newModule))
-        return
-      if (!newModule.default || typeof newModule.default !== 'object')
-        return
-
-      if (newModule.default)
-        update(newModule.default)
-    })
-  }
+  useHmr()
 })
 </script>
 

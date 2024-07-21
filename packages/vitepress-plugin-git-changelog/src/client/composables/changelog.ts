@@ -48,7 +48,7 @@ export function useChangelog(pageData: Ref<PageData>) {
       })
 
     return Array.from(uniq.values())
-      .sort((a, b) => a.commitsCount - b.commitsCount)
+      .sort((a, b) => b.commitsCount - a.commitsCount)
       .map((a) => {
         return {
           ...a,

@@ -1,6 +1,7 @@
-import { type Ref, computed, ref, toValue } from 'vue'
+import { computed, ref, toValue } from 'vue'
 
-import type { PageData } from 'vitepress'
+import { useData } from 'vitepress'
+
 import changelog from 'virtual:nolebase-git-changelog'
 import type { Changelog, Commit, CommitAuthor } from '../../types'
 import { isStringArray } from '../utils'
@@ -9,13 +10,15 @@ export interface AuthorInfo extends CommitAuthor {
   commitsCount: number
 }
 
-export function useChangelog(pageData: Ref<PageData>) {
+export function useChangelog() {
+  const { page } = useData()
+
   const gitChangelog = ref<Changelog>(changelog)
   if (!gitChangelog.value)
     gitChangelog.value = { commits: [], authors: [] }
 
   const commits = computed<Commit[]>(() => {
-    const currentPath = toValue(pageData.value.filePath)
+    const currentPath = toValue(page.value.filePath)
 
     const allCommits = gitChangelog.value.commits
     // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
@@ -32,8 +35,8 @@ export function useChangelog(pageData: Ref<PageData>) {
   const authors = computed<AuthorInfo[]>(() => {
     const uniq = new Map<string, AuthorInfo>()
 
-    const authorsFromFrontMatter: string[] = isStringArray(pageData.value.frontmatter.authors)
-      ? pageData.value.frontmatter.authors
+    const authorsFromFrontMatter: string[] = isStringArray(page.value.frontmatter.authors)
+      ? page.value.frontmatter.authors
       : [];
 
     [...commits.value.map(c => c.authors), ...authorsFromFrontMatter]
@@ -79,7 +82,7 @@ export function useChangelog(pageData: Ref<PageData>) {
     if (import.meta.hot) {
       import.meta.hot.send('nolebase-git-changelog:client-mounted', {
         page: {
-          filePath: pageData.value.filePath,
+          filePath: page.value.filePath,
         },
       })
 

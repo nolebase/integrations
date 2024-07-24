@@ -19,7 +19,7 @@ const props = defineProps<{
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
-const { lang, page } = useData()
+const { lang } = useData()
 
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
@@ -30,7 +30,7 @@ const locale = computed<Locale>(() => {
 
 const authors = ref<AuthorInfo[]>([])
 if (options.displayAuthorsInsideCommitLine) {
-  const { getAuthorsForOneCommit } = useChangelog(page)
+  const { getAuthorsForOneCommit } = useChangelog()
   authors.value = getAuthorsForOneCommit(props.commit)
 }
 

@@ -19,8 +19,8 @@ import CommitTagLine from './CommitTagLine.vue'
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
-const { lang, page } = useData()
-const { commits, useHmr } = useChangelog(page)
+const { lang } = useData()
+const { commits, useHmr } = useChangelog()
 
 // The order of commits, defaults to true (descending order)
 const isDescending = ref(true)

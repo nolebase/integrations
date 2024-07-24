@@ -42,7 +42,7 @@ function formatCommittedOn(timestamp: number): string {
 
 <template>
   <div class="i-octicon:git-commit-16 m-auto rotate-90 transform op-30" />
-  <div flex gap-1>
+  <div flex gap-1 align-baseline>
     <a :href="props.commit.hash_url || `${props.commit.repo_url}/commit/${props.commit.hash}`" target="_blank">
       <code
         class="text-xs text-$vp-c-brand-1 hover:text-$vp-c-brand-1"
@@ -55,7 +55,7 @@ function formatCommittedOn(timestamp: number): string {
     <span>-</span>
     <span>
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
-      <div v-if="options.displayAuthorsInsideCommitLine" class="my-1 ml-1 flex items-center gap-1">
+      <span v-if="options.displayAuthorsInsideCommitLine" class="my-1 ml-3 gap-1">
         <template
           v-for="a of commit.authors"
           :key="a.name"
@@ -64,17 +64,12 @@ function formatCommittedOn(timestamp: number): string {
             v-if="(typeof a.url !== 'undefined')"
             :href="a.url"
           >
-            <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
+            <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
           </a>
-          <img v-else :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar h-6 w-6 rounded-full">
+          <img v-else :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
         </template>
-        <ClientOnly>
-          <span class="text-xs op-50" :title="toDate(commit.date_timestamp).toString()">
-            {{ formatCommittedOn(commit.date_timestamp) }}
-          </span>
-        </ClientOnly>
-      </div>
-      <ClientOnly v-else>
+      </span>
+      <ClientOnly>
         <span class="text-xs op-50" :title="toDate(commit.date_timestamp).toString()">
           {{ formatCommittedOn(commit.date_timestamp) }}
         </span>
@@ -87,9 +82,5 @@ function formatCommittedOn(timestamp: number): string {
 .vp-nolebase-git-changelog-commit-avatar {
   border: 2px solid var(--vp-c-bg-soft);
   margin-left: -0.5em;
-  max-width: none;
-}
-.vp-nolebase-git-changelog-commit-avatar :first-child{
-  margin-left: 0;
 }
 </style>

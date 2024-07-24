@@ -5,14 +5,14 @@ import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import type { Locale } from '../types'
-import type { Commit } from '../../types'
+import type { CommitWithAuthorInfo } from '../composables/changelog'
 import { useI18n } from '../composables/i18n'
 import { formatDistanceToNowFromValue } from '../utils'
 import { defaultEnLocale, defaultLocales } from '../locales'
 import { InjectionKey, defaultOptions } from '../constants'
 
 const props = defineProps<{
-  commit: Commit
+  commit: CommitWithAuthorInfo
 }>()
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)

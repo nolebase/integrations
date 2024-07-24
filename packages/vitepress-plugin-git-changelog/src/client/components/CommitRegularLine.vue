@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject } from 'vue'
 import { toDate } from 'date-fns'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import { useI18n } from '../composables/i18n'
 import type { Locale } from '../types'
-import type { Commit } from '../../types'
 import { formatDistanceToNowFromValue, renderCommitMessage } from '../utils'
 import { defaultEnLocale, defaultLocales } from '../locales'
 import { InjectionKey, defaultNumCommitHashLetters, defaultOptions } from '../constants'
-import { type AuthorInfo, useChangelog } from '../composables/changelog'
+import type { CommitWithAuthorInfo } from '../composables/changelog'
 
 const props = defineProps<{
-  commit: Commit
+  commit: CommitWithAuthorInfo
 }>()
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
@@ -27,12 +26,6 @@ const locale = computed<Locale>(() => {
 
   return options.locales[lang.value] || defaultEnLocale || {}
 })
-
-const authors = ref<AuthorInfo[]>([])
-if (options.displayAuthorsInsideCommitLine) {
-  const { getAuthorsForOneCommit } = useChangelog()
-  authors.value = getAuthorsForOneCommit(props.commit)
-}
 
 function formatCommittedOn(timestamp: number): string {
   const date = toDate(timestamp)
@@ -64,7 +57,7 @@ function formatCommittedOn(timestamp: number): string {
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
       <div v-if="options.displayAuthorsInsideCommitLine" class="my-1 ml-1 flex items-center gap-1">
         <template
-          v-for="a of authors"
+          v-for="a of commit.authors"
           :key="a.name"
         >
           <a

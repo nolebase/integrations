@@ -10,6 +10,10 @@ export interface AuthorInfo extends CommitAuthor {
   commitsCount: number
 }
 
+export interface CommitWithAuthorInfo extends Omit<Commit, 'authors'> {
+  authors: AuthorInfo[]
+}
+
 export function useChangelog() {
   const { page } = useData()
 
@@ -17,7 +21,7 @@ export function useChangelog() {
   if (!gitChangelog.value)
     gitChangelog.value = { commits: [], authors: [] }
 
-  const commits = computed<Commit[]>(() => {
+  const _commits = computed<Commit[]>(() => {
     const currentPath = toValue(page.value.filePath)
 
     const allCommits = gitChangelog.value.commits
@@ -39,7 +43,7 @@ export function useChangelog() {
       ? page.value.frontmatter.authors
       : [];
 
-    [...commits.value.map(c => c.authors), ...authorsFromFrontMatter]
+    [..._commits.value.map(c => c.authors), ...authorsFromFrontMatter]
       .flat()
       .map((name) => {
         if (!uniq.has(name)) {
@@ -68,10 +72,21 @@ export function useChangelog() {
       })
   })
 
-  const getAuthorsForOneCommit = (commit: Commit) => {
-    return commit.authors.map((name) => {
-      return authors.value.find(a => a.name === name)!
+  const commits = computed<CommitWithAuthorInfo[]>(() => {
+    return _commits.value.map((_c) => {
+      return {
+        ..._c,
+        authors: _c.authors.map((_a) => {
+          return authors.value.find(v => v.name === _a)!
+        }),
+      }
     })
+  })
+
+  const getAuthorsForOneCommit = (commit: Commit): AuthorInfo[] => {
+    return commit.authors.map((name) => {
+      return authors.value.find(a => a.name === name)
+    }).filter(v => !!v)
   }
 
   const update = (data: Changelog) => {

@@ -145,7 +145,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       return `export default ${JSON.stringify(changelog, null, config.isProduction ? 0 : 2)}`
     },
     configureServer(server) {
-      server.hot.on('nolebase-git-changelog:client-mounted', async (data) => {
+      server.ws.on('nolebase-git-changelog:client-mounted', async (data) => {
         if (!data || typeof data !== 'object')
           return
         if (!('page' in data && 'filePath' in data.page))
@@ -155,9 +155,10 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         if (!result) {
           const path = normalizePath(join(srcDir, data.page.filePath))
           result = await commitFromPath([path])
-          Object.assign(changelog, result)
           hotModuleReloadCachedCommits.set(data.page.filePath, result)
         }
+
+        Object.assign(changelog, result)
 
         if (!result!.commits.length)
           return
@@ -167,7 +168,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
           return
 
         server.moduleGraph.invalidateModule(virtualModule)
-        server.hot.send({
+        server.ws.send({
           type: 'custom',
           event: 'nolebase-git-changelog:updated',
           data: changelog,

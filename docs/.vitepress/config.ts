@@ -299,7 +299,6 @@ export default defineConfig({
       },
     },
   },
-  lastUpdated: true,
   cleanUrls: true,
   ignoreDeadLinks: [
     // Site Config | VitePress
@@ -314,6 +313,8 @@ export default defineConfig({
     ['script', { 'defer': 'true', 'data-domain': 'nolebase-integrations.ayaka.io', 'data-api': '/api/v1/page-external-data/submit', 'src': '/assets/page-external-data/js/script.js' }],
   ],
   themeConfig: {
+    // Only enable this on debug component style
+    // externalLinkIcon: true,
     outline: 'deep',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nolebase/integrations' },

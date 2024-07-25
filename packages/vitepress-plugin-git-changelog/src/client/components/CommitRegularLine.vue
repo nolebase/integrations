@@ -43,7 +43,7 @@ function formatCommittedOn(timestamp: number): string {
 <template>
   <div class="i-octicon:git-commit-16 m-auto rotate-90 transform op-30" />
   <div flex gap-1 align-baseline>
-    <a :href="props.commit.hash_url || `${props.commit.repo_url}/commit/${props.commit.hash}`" target="_blank">
+    <a :href="props.commit.hash_url || `${props.commit.repo_url}/commit/${props.commit.hash}`" target="_blank" class="no-icon">
       <code
         class="text-xs text-$vp-c-brand-1 hover:text-$vp-c-brand-1"
         transition="color ease-in-out"
@@ -63,6 +63,7 @@ function formatCommittedOn(timestamp: number): string {
           <a
             v-if="(typeof a.url !== 'undefined')"
             :href="a.url"
+            class="no-icon"
           >
             <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
           </a>

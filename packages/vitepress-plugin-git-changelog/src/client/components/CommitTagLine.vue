@@ -44,7 +44,7 @@ function formatCommittedOn(timestamp: number): string {
     <div class="i-octicon:rocket-16 !h-[50%] !min-h-[50%] !min-w-[50%] !w-[50%]" m="auto" />
   </div>
   <div flex items-center gap-1>
-    <a v-if="props.commit.tags && props.commit.tags.length === 1" :href="props.commit.release_tag_url" target="_blank">
+    <a v-if="props.commit.tags && props.commit.tags.length === 1" :href="props.commit.release_tag_url" target="_blank" class="no-icon">
       <code class="font-bold">{{ props.commit.tag }}</code>
     </a>
     <span v-else>

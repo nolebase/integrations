@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-page-properties",
   "type": "module",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "A VitePress plugin that renders frontmatter as page properties, and makes them editable.",
   "author": {
     "name": "Nólëbase",

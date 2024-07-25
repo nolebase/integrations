@@ -83,12 +83,6 @@ export function useChangelog() {
     })
   })
 
-  const getAuthorsForOneCommit = (commit: Commit): AuthorInfo[] => {
-    return commit.authors.map((name) => {
-      return authors.value.find(a => a.name === name)
-    }).filter(v => !!v)
-  }
-
   const update = (data: Changelog) => {
     gitChangelog.value = data
   }
@@ -131,6 +125,5 @@ export function useChangelog() {
     commits,
     authors,
     useHmr,
-    getAuthorsForOneCommit,
   }
 }

@@ -86,56 +86,7 @@ We have changed the structure of locales config since `2.0.0`, and the old struc
 ::: details Complete configurable options
 
 ```typescript twoslash
-interface SocialEntry {
-  type: 'github' | 'twitter' | 'email' | string
-  icon: string
-  link: string
-}
-
-interface Locale extends Record<string, any> {
-  /**
-   * The changelog section configuration
-   */
-  changelog?: {
-    /**
-     * The title of the changelog section
-     */
-    title?: string
-    /**
-     * What to display when there are no logs
-     */
-    noData?: string
-    /**
-     * What to display when the page was last edited
-     */
-    lastEdited?: string
-    /**
-     * The name of the locale to use for date-fns
-     */
-    lastEditedDateFnsLocaleName?: string
-    /**
-     * What to display when the user wants to view the full history
-     */
-    viewFullHistory?: string
-    /**
-     * What to display when the commit was committed
-     */
-    committedOn?: string
-  }
-  /**
-   * The contributors section configuration
-   */
-  contributors?: {
-    /**
-     * The title of the contributors section
-     */
-    title?: string
-    /**
-     * What to display when there are no contributors
-     */
-    noData?: string
-  }
-}
+import type { Locale } from '@nolebase/vitepress-plugin-git-changelog/client'
 // ---cut---
 /**
  * Options
@@ -202,6 +153,10 @@ export interface Options {
    * Whether to hide the sort by button
    */
   hideSortBy?: boolean
+  /**
+   *  Whether to display authors of commits right inside of commit line
+   */
+  displayAuthorsInsideCommitLine?: boolean
 }
 ```
 

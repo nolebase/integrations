@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { inject, onMounted } from 'vue'
-import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import { useChangelog } from '../composables/changelog'
@@ -10,8 +9,7 @@ import { InjectionKey, defaultOptions } from '../constants'
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
-const { page } = useData()
-const { authors, useHmr } = useChangelog(page)
+const { authors, useHmr } = useChangelog()
 
 onMounted(() => {
   useHmr()

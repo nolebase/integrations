@@ -26,7 +26,6 @@ export default defineBuildConfig({
     { builder: 'mkdist', input: './src/types', outDir: './dist/types', loaders: ['js'] },
     { builder: 'rollup', input: './src/locales/index', outDir: './dist/locales' },
     { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
-    { builder: 'rollup', input: './src/vite/index', outDir: './dist/vite' },
   ],
   clean: true,
   sourcemap: true,

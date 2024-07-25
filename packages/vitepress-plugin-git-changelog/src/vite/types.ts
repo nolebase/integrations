@@ -1,4 +1,4 @@
-import type { Author } from 'src/types'
+import type { Author } from '../types'
 import type {
   CommitToStringHandler,
   CommitToStringsHandler,

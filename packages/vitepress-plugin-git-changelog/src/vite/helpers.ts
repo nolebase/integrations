@@ -365,17 +365,17 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
       if (targetCreatorByName) {
         author.name = targetCreatorByName.name ?? author.name
         author.url = findMapAuthorLink(targetCreatorByName)
-        author.avatarUrl = await newAvatarForAuthor(targetCreatorByName, author_email)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByName, author.email!)
         return author
       }
       const targetCreatorByEmail = author.email && findMapAuthorByEmail(mapContributors, author.email)
       if (targetCreatorByEmail) {
         author.name = targetCreatorByEmail.name ?? author.name
         author.url = findMapAuthorLink(targetCreatorByEmail)
-        author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author_email)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author.email!)
         return author
       }
-      author.avatarUrl = await newAvatarForAuthor(undefined, author_email)
+      author.avatarUrl = await newAvatarForAuthor(undefined, author.email!)
       return author
     }))
 }

@@ -28,12 +28,14 @@ export function useChangelog() {
     // filter the commits that either have a tag, or directly equal the current path, or renamed to the current path
     const commits = allCommits.filter(c => c.paths.includes(currentPath)) || []
 
-    return commits.filter((commit, index) => {
-      if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))
-        return false
+    return commits
+      .sort((a, b) => b.date_timestamp - a.date_timestamp)
+      .filter((commit, index) => {
+        if (commit.tag && (!commits[index + 1] || commits[index + 1]?.tag))
+          return false
 
-      return true
-    })
+        return true
+      })
   })
 
   const authors = computed<AuthorInfo[]>(() => {

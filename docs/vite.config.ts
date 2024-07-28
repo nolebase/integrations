@@ -71,6 +71,10 @@ export default defineConfig({
         },
         {
           name: 'Rizumu',
+          i18n: {
+            'ru-RU': 'Римузу',
+            'zh-CN': 'Римузу',
+          },
           username: 'LittleSound',
           mapByNameAliases: ['Rizumu Ayaka', 'Ayaka Rizumu'],
           mapByEmailAliases: ['rizumu@ayaka.moe'],

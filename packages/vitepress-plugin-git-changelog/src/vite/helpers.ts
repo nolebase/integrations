@@ -366,7 +366,7 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
         author.name = targetCreatorByName.name ?? author.name
         author.i18n = findMapAuthorI18n(targetCreatorByName)
         author.url = findMapAuthorLink(targetCreatorByName)
-        author.avatarUrl = await newAvatarForAuthor(targetCreatorByName, author_email)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByName, author.email!)
         return author
       }
       const targetCreatorByEmail = author.email && findMapAuthorByEmail(mapContributors, author.email)
@@ -374,10 +374,10 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
         author.name = targetCreatorByEmail.name ?? author.name
         author.i18n = findMapAuthorI18n(targetCreatorByEmail)
         author.url = findMapAuthorLink(targetCreatorByEmail)
-        author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author_email)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author.email!)
         return author
       }
-      author.avatarUrl = await newAvatarForAuthor(undefined, author_email)
+      author.avatarUrl = await newAvatarForAuthor(undefined, author.email!)
       return author
     }))
 }

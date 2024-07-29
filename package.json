@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/integrations",
   "type": "module",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "packageManager": "pnpm@9.4.0",
   "description": "A collection of diverse documentation engineering tools.",
   "author": {
@@ -39,6 +39,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.21.1",
     "@antfu/ni": "^0.21.12",
+    "@cspell/dict-ru_ru": "^2.2.1",
     "@types/node": "^20.14.8",
     "@unocss/cli": "^0.59.4",
     "@unocss/eslint-config": "^0.58.9",

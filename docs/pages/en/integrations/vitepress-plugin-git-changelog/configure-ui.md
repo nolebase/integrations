@@ -1,6 +1,14 @@
 # Configuration
 
-The Git-based page histories plugin currently provides configuration options related to **Internationalization** and **Contributors** section.
+::: danger Deprecating the `mapAuthors` field for UI component options
+
+We migrated the `mapAuthors` configuration to [configure Vite plugins](./configure-vite-plugins#option-mapauthors---map-contributors-information).
+
+For specific migration information, see [Migrating from v2 to v3](/pages/en/releases/migrations/v2-to-v3).
+
+:::
+
+The Git-based page histories plugin currently provides configuration options related to **Internationalization** and **UI** section.
 
 ## Configure in VitePress
 
@@ -67,59 +75,6 @@ export const Theme: ThemeConfig = {
 }
 ```
 
-### Option `mapAuthors` - Map contributors' information
-
-The `mapAuthors` field in the configuration options is used to map the contributors' information. You can provide the `mapAuthors` field in the configuration options to map the contributors' information, including the display name, avatar, email, social links, and aliases.
-
-Let's say we have these logs:
-
-```plaintext
-commit 1
-Author: John Doe <john.doe@example.com>
-Date:   Fri Oct 1 12:00:00 2021 +0800
-
-    Add a new feature
-
-commit 2
-Author: John Doe <john.doe@anothersite.com>
-
-    Fix a bug
-```
-
-We now have two commits from the same person, with only the email address is different. By default, the plugin will treat them as two different contributors.
-Such case happens when you changed your name or email address in the past.
-
-To solve this, you can provide the `mapAuthors` field in the configuration options to map the contributors' information:
-
-```typescript twoslash
-import type { Theme as ThemeConfig } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-
-import { InjectionKey } from '@nolebase/vitepress-plugin-git-changelog/client' // [!code focus]
-
-export const Theme: ThemeConfig = {
-  extends: DefaultTheme,
-  Layout: () => {
-    // Rest of the code...
-  },
-  enhanceApp({ app }) {
-    // Rest of the code...
-
-    app.provide(InjectionKey, { // [!code focus]
-      mapAuthors: [ // [!code focus]
-        { // [!code focus]
-          name: 'John Doe', // [!code focus]
-          username: 'john_doe', // [!code focus]
-          mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
-        } // [!code focus]
-      ] // [!code focus]
-    }) // [!code focus]
-
-    // Rest of the code...
-  },
-}
-```
-
 ## Options inside
 
 ::: warning Deprecating warning
@@ -131,56 +86,7 @@ We have changed the structure of locales config since `2.0.0`, and the old struc
 ::: details Complete configurable options
 
 ```typescript twoslash
-interface SocialEntry {
-  type: 'github' | 'twitter' | 'email' | string
-  icon: string
-  link: string
-}
-
-interface Locale extends Record<string, any> {
-  /**
-   * The changelog section configuration
-   */
-  changelog?: {
-    /**
-     * The title of the changelog section
-     */
-    title?: string
-    /**
-     * What to display when there are no logs
-     */
-    noData?: string
-    /**
-     * What to display when the page was last edited
-     */
-    lastEdited?: string
-    /**
-     * The name of the locale to use for date-fns
-     */
-    lastEditedDateFnsLocaleName?: string
-    /**
-     * What to display when the user wants to view the full history
-     */
-    viewFullHistory?: string
-    /**
-     * What to display when the commit was committed
-     */
-    committedOn?: string
-  }
-  /**
-   * The contributors section configuration
-   */
-  contributors?: {
-    /**
-     * The title of the contributors section
-     */
-    title?: string
-    /**
-     * What to display when there are no contributors
-     */
-    noData?: string
-  }
-}
+import type { Locale } from '@nolebase/vitepress-plugin-git-changelog/client'
 // ---cut---
 /**
  * Options
@@ -224,42 +130,33 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  mapAuthors?: Array<{
-    /**
-     * The overriding display name of the contributor
-     */
-    name?: string
-    /**
-     * The overriding GitHub, GitLab, Gitea username of the contributor
-     */
-    username?: string
-    /**
-     * The overriding avatar of the contributor
-     */
-    avatar?: string
-    /**
-     * Whether to add a link to the contributor's profile
-     */
-    links?: string | SocialEntry[]
-    /**
-     * More names to be recognized as the same contributor.
-     *
-     * Useful when you changed your name or email address in the past.
-     */
-    mapByNameAliases?: string[]
-    /**
-     * More emails to be recognized as the same contributor.
-     *
-     * Useful when you changed your email address in the past.
-     */
-    mapByEmailAliases?: string[]
-  }>
   /**
    * Number of commit hash letters to display
    *
    * @default 7
    */
   numCommitHashLetters?: number
+  /**
+   * Whether to display the relative time of the commit
+   * in the format as 'x days ago' or 'x hours ago'
+   */
+  commitsRelativeTime?: boolean
+  /**
+   * Whether to hide the changelog h2 header
+   */
+  hideChangelogHeader?: boolean
+  /**
+   * Whether to hide the contributors h2 header
+   */
+  hideContributorsHeader?: boolean
+  /**
+   * Whether to hide the sort by button
+   */
+  hideSortBy?: boolean
+  /**
+   *  Whether to display authors of commits right inside of commit line
+   */
+  displayAuthorsInsideCommitLine?: boolean
 }
 ```
 
@@ -386,6 +283,24 @@ interface Locale {
 ## Accessibility
 
 The Git-based page histories plugin provides accessibility support by default. You can override accessible labels (aria-label) via [Configuration](#configuration) in the same way as [Internationalization](#internationalization), see [Locales Options](#locales-options) for a description of what labels can be configured for accessibility.
+
+## Adding Contributors for Specific Pages
+
+In certain situations, Git records may miss some contributors. To address this issue, we provide a Front Matter key that allows you to supplement author information for specific pages.
+
+You can add missing contributor information in the Front Matter of the Markdown file using the following format:
+
+```md
+---
+authors: ['author1', 'author2']
+---
+
+<!-- body -->
+```
+
+These contributors will be merged with the authors retrieved from Git.
+
+Please note that the contributors specified here will not go through the `mapAuthorsByNameAlias` data mapping of the [Vite plugin `mapAuthors` option](./configure-vite-plugins.md#option-mapauthors-map-contributors-information). Therefore, you need to use the `name` attribute values from the `mapAuthors` array for each author. Otherwise, the contributor will be considered an independent author.
 
 ## More customizations?
 

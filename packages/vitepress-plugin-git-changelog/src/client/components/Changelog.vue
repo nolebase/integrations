@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import { differenceInDays, toDate } from 'date-fns'
 import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import { NuVerticalTransition } from '@nolebase/ui'
 
-import { useCommits } from '../composables/commits'
+import { useChangelog } from '../composables/changelog'
 import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, defaultOptions } from '../constants'
@@ -16,55 +16,16 @@ import { defaultEnLocale, defaultLocales } from '../locales'
 import CommitRegularLine from './CommitRegularLine.vue'
 import CommitTagLine from './CommitTagLine.vue'
 
-const toggleViewMore = ref(false)
-// The order of commits, defaults to true (descending order)
-const isDescending = ref(true)
-
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 
-const { lang, page } = useData()
 const { t } = useI18n()
-const { commits, update } = useCommits(page)
+const { lang } = useData()
+const { commits, useHmr } = useChangelog()
 
-const lastChangeDate = ref<Date>(toDate(commits.value[0]?.date_timestamp))
-
-onMounted(() => {
-  if (import.meta.hot) {
-    import.meta.hot.send('nolebase-git-changelog:client-mounted', {
-      page: {
-        filePath: page.value.filePath,
-      },
-    })
-
-    // Plugin API | Vite
-    // https://vitejs.dev/guide/api-plugin.html#handlehotupdate
-    import.meta.hot.on('nolebase-git-changelog:updated', (data) => {
-      if (!data || typeof data !== 'object')
-        return
-
-      if (data.commits)
-        update(data.commits)
-    })
-
-    // HMR API | Vite
-    // https://vitejs.dev/guide/api-hmr.html
-    import.meta.hot.accept('virtual:nolebase-git-changelog', (newModule) => {
-      if (!newModule)
-        return
-      if (!('default' in newModule))
-        return
-      if (!newModule.default || typeof newModule.default !== 'object')
-        return
-
-      if (newModule.default.commits)
-        update(newModule.default.commits)
-    })
-  }
-})
-
-onMounted(() => {
-  lastChangeDate.value = toDate(commits.value[0]?.date_timestamp)
-})
+// The order of commits, defaults to true (descending order)
+const isDescending = ref(true)
+const toggleViewMore = ref(false)
+const lastChangeDate = ref<Date>(commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date())
 
 const locale = computed<Locale>(() => {
   if (!options.locales || typeof options.locales === 'undefined')
@@ -87,18 +48,33 @@ const reversedCommits = computed(() => {
   const temp: typeof commits.value = [...commits.value]
   return temp.reverse()
 })
+
+onMounted(() => {
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
+})
+
+watch(commits, () => {
+  lastChangeDate.value = commits.value[0]?.date_timestamp ? toDate(commits.value[0]?.date_timestamp) : new Date()
+})
+
+onMounted(() => {
+  useHmr()
+})
 </script>
 
 <template>
-  <h2 :id="t('changelog.titleId')">
+  <h2 v-if="!options.hideChangelogHeader" :id="t('changelog.titleId') || t('changelog.title')">
     {{ t('changelog.title') }}
-    <a class="header-anchor" :href="`#${t('changelog.titleId')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
+    <a class="header-anchor" :href="`#${t('changelog.titleId') || t('changelog.title')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
-  <em v-if="!commits.length" opacity="70">{{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}</em>
+  <div v-if="!commits.length" :class="options.hideChangelogHeader && 'mt-6'" class="italic" opacity="70">
+    {{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}
+  </div>
   <div
     v-else
     :class="[
       isFreshChange ? 'bg-green/16' : 'bg-$vp-custom-block-details-bg',
+      options.hideChangelogHeader && 'mt-6',
     ]"
     class="vp-nolebase-git-changelog vp-nolebase-git-changelog-history vp-nolebase-git-changelog-history-list vp-nolebase-git-changelog-history-container"
     rounded-lg p-4
@@ -125,6 +101,7 @@ const reversedCommits = computed(() => {
           </span>
         </span>
         <div
+          v-if="!options.hideSortBy"
           :class="isDescending ? 'i-octicon:sort-desc-16' : 'i-octicon:sort-asc-16'" ml-auto mr-4 cursor-pointer
           @click.stop="toggleViewMore && (isDescending = !isDescending)"
         />

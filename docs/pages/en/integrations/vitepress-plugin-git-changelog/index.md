@@ -43,8 +43,12 @@ Curious to see this feature in use? Try click [Contributors](#contributors) and 
 
 Yes for sure!
 
-- [ALT Gnome Wiki| Russian](https://alt-gnome.wiki/download.html#%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B8)
-- [Shalo.DOCS | Russian](https://docs.shalotts.site/docs/01_introduction/#changelog)
+- [Nólëbase](https://nolebase.ayaka.io/%E7%AC%94%E8%AE%B0/#%E8%B4%A1%E7%8C%AE%E8%80%85) (in Chinese)
+- [CrashMC Documentation](https://crashmc.com/analyzer#contributors) (in Chinese)
+- [Zotero Chinese Wiki](https://zotero-chinese.com/user-guide/#%E8%B4%A1%E7%8C%AE%E8%80%85) (in Chinese)
+- [Vue Macros Documentation](https://vue-macros.dev/guide/getting-started.html#contributors) (in English)
+- [ALT Gnome Wiki](https://alt-gnome.wiki/download.html#%D0%B8%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F-%D0%B8%D0%B7%D0%BC%D0%B5%D0%BD%D0%B5%D0%BD%D0%B8%D0%B8) (in Russian)
+- [Shalo.DOCS](https://docs.shalotts.site/docs/01_introduction/#changelog) (in Russian)
 
 ## Installation
 

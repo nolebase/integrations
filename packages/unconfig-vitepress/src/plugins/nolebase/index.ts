@@ -98,7 +98,7 @@ const defaultOptions: NolebasePluginPresetOptions = {
   gitChangelog: {
     enable: true,
     options: {
-      mapContributors: [],
+      commitsRelativeTime: true,
     },
   },
   graphView: {

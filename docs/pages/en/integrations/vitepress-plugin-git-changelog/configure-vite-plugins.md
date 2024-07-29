@@ -10,11 +10,9 @@ For information, please refer to [Migrate from v1 to v2](/pages/en/releases/migr
 
 Besides the UI widget components, Git-based page histories offer another two Vite plugins for data fetching and rendering. These plugins are `GitChangelog` and `GitChangelogMarkdownSection`.
 
-### Configure Vite plugins
-
 <!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
-#### `GitChangelog` plugin
+## Configure `GitChangelog` plugin
 
 Remember this part back at the time where we first introduced the `GitChangelog` plugin?
 
@@ -42,16 +40,74 @@ export default defineConfig(() => {
 
 In the `GitChangelog` plugin, you can configure the `repoURL` option to point to your repository URL. This is the only required option for the plugin to work properly.
 
+### Option `mapAuthors` - Map contributors' information
+
+The `mapAuthors` field in the configuration options is used to map the contributors' information. You can provide the `mapAuthors` field in the configuration options to map the contributors' information, including the display name, avatar, email, social links, and aliases.
+
+Let's say we have these logs:
+
+```plaintext
+commit 1
+Author: John Doe <john.doe@example.com>
+Date:   Fri Oct 1 12:00:00 2021 +0800
+
+    Add a new feature
+
+commit 2
+Author: John Doe <john.doe@anothersite.com>
+
+    Fix a bug
+```
+
+We now have two commits from the same person, with only the email address is different. By default, the plugin will treat them as two different contributors.
+Such case happens when you changed your name or email address in the past.
+
+To solve this, you can provide the `mapAuthors` field in the configuration options to map the contributors' information:
+
+```typescript twoslash
+import { join } from 'node:path'
+import { defineConfig } from 'vite'
+import {
+  GitChangelog,
+  GitChangelogMarkdownSection,
+} from '@nolebase/vitepress-plugin-git-changelog/vite'
+
+export default defineConfig(() => {
+  return {
+    plugins: [
+      GitChangelog({ // [!code focus]
+        // Fill in your repository URL here
+        repoURL: () => 'https://github.com/nolebase/integrations',
+        mapAuthors: [ // [!code focus]
+          { // [!code focus]
+            name: 'John Doe', // [!code focus]
+            username: 'john_doe', // [!code focus]
+            mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
+          } // [!code focus]
+        ] // [!code focus]
+      }), // [!code focus]
+      GitChangelogMarkdownSection(),
+    ]
+    // other vite configurations...
+  }
+})
+```
+
+### All options
+
 But the options don't stop there. We have more options to configure the plugin to fit your needs.
 
 ::: details Full list of options
 
 ```typescript twoslash
 import type {
-  Commit, CommitToStringHandler, CommitToStringsHandler, RewritePathsBy
+  Author,
+  CommitToStringHandler,
+  CommitToStringsHandler,
+  RewritePathsBy
 } from '@nolebase/vitepress-plugin-git-changelog/vite'
 // ---cut---
-interface Options {
+interface GitChangelogOptions {
     /**
    * The current working directory in which to search files.
    *
@@ -64,6 +120,10 @@ interface Options {
    * @default ['** /*.md', '!node_modules']
    */
   include?: string[]
+  /**
+   * Map authors
+   */
+  mapAuthors?: Author[]
   /**
    * Your repository URL.
    * Yes, you can dynamically generate it.
@@ -144,7 +204,7 @@ interface Options {
 
 :::
 
-#### `GitChangelogMarkdownSection` plugin
+## Configure `GitChangelogMarkdownSection` plugin
 
 The `GitChangelogMarkdownSection` plugin is a plugin that helps you to inject the Markdown sections into your VitePress pages. It's a plugin that works with the `GitChangelog` plugin to provide the data for the Markdown sections.
 
@@ -205,7 +265,7 @@ interface GitChangelogMarkdownSectionOptions {
 
 :::
 
-#### Excluding a page from the transformation of `GitChangelogMarkdownSection`
+### Excluding a page from the transformation of `GitChangelogMarkdownSection`
 
 You can exclude a page from the transformation of `GitChangelogMarkdownSection` by adding the `nolebase.gitChangelog` or `gitChangelog` frontmatter to the page:
 
@@ -224,7 +284,7 @@ gitChangelog: false
 ---
 ```
 
-#### Globally exclude a page from the transformation of `GitChangelogMarkdownSection`
+### Globally exclude a page from the transformation of `GitChangelogMarkdownSection`
 
 You can globally exclude a page from the transformation of `GitChangelogMarkdownSection` by configuring the `exclude` option:
 
@@ -244,7 +304,7 @@ export default defineConfig({
 })
 ```
 
-#### Globally disable the changelog or contributors section
+### Globally disable the changelog or contributors section
 
 You can globally disable the changelog or contributors section by configuring the `sections` option:
 

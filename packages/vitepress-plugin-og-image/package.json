@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-og-image",
   "type": "module",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A vitepress plugin to generate Open Graph Protocol previewing images (a.k.a. social media cards) for your site.",
   "author": {
     "name": "Nólëbase",
@@ -70,6 +70,7 @@
     "rehype-parse": "^9.0.0",
     "rehype-stringify": "^10.0.0",
     "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0",
     "vitepress": "^1.2.3"
   },
   "devDependencies": {

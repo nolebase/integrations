@@ -1,6 +1,14 @@
 # 配置 UI 组件
 
-基于 Git 的页面历史插件当前提供有关**国际化**和**贡献者**相关的配置选项。
+::: danger 弃用 UI 组件选项的 `mapAuthors` 字段
+
+我们将 `mapAuthors` 配置迁移到了 [配置 Vite 插件](./configure-vite-plugins#在-markdown-页面层级将页面排除在-gitchangelogmarkdownsection-的转换之外)。
+
+有关具体的迁移信息，请参阅 [自 v2 迁移至 v3](/pages/zh-CN/releases/migrations/v2-to-v3)。
+
+:::
+
+基于 Git 的页面历史插件当前提供有关**国际化**和**UI**相关的配置选项。
 
 ## 在 VitePress 项目中配置
 
@@ -65,59 +73,6 @@ export const Theme: ThemeConfig = {
 }
 ```
 
-### 选项 `mapContributors` - 为贡献者添加数据映射
-
-配置选项中的 `mapContributors` 字段用于映射贡献者信息，可以用来将获取到的 Git 的日志信息中的包括名称和邮箱的贡献者信息映射为另一个贡献者。
-
-如果我们假设有如下的 Git 日志：
-
-```plaintext
-commit 1
-Author: John Doe <john.doe@example.com>
-Date:   Fri Oct 1 12:00:00 2021 +0800
-
-    Add a new feature
-
-commit 2
-Author: John Doe <john.doe@anothersite.com>
-
-    Fix a bug
-```
-
-现在我们有两个来自同一个人的提交，只有电子邮件地址不同。在不进行任何配置的默认情况下，插件会将它们视为两个不同的贡献者。
-这种情况通常是因为你或者其他贡献者更改了自己的电子邮件地址。
-
-要解决这个问题，我们可以使用 `mapAuthors` 选项：
-
-```typescript twoslash
-import type { Theme as ThemeConfig } from 'vitepress'
-import DefaultTheme from 'vitepress/theme'
-
-import { InjectionKey } from '@nolebase/vitepress-plugin-git-changelog/client' // [!code focus]
-
-export const Theme: ThemeConfig = {
-  extends: DefaultTheme,
-  Layout: () => {
-    // Rest of the code...
-  },
-  enhanceApp({ app }) {
-    // Rest of the code...
-
-    app.provide(InjectionKey, { // [!code focus]
-      mapAuthors: [ // [!code focus]
-        { // [!code focus]
-          name: 'John Doe', // [!code focus]
-          username: 'john_doe', // [!code focus]
-          mapByEmailAliases: ['john.doe@anothersite.com'] // [!code focus]
-        } // [!code focus]
-      ] // [!code focus]
-    }) // [!code focus]
-
-    // Rest of the code...
-  },
-}
-```
-
 ## 配置选项
 
 ::: warning 废弃警告
@@ -131,56 +86,7 @@ export const Theme: ThemeConfig = {
 ::: details 完整的可以配置的选项
 
 ```typescript twoslash
-interface SocialEntry {
-  type: 'github' | 'twitter' | 'email' | string
-  icon: string
-  link: string
-}
-
-interface Locale extends Record<string, any> {
-  /**
-   * The changelog section configuration
-   */
-  changelog?: {
-    /**
-     * The title of the changelog section
-     */
-    title?: string
-    /**
-     * What to display when there are no logs
-     */
-    noData?: string
-    /**
-     * What to display when the page was last edited
-     */
-    lastEdited?: string
-    /**
-     * The name of the locale to use for date-fns
-     */
-    lastEditedDateFnsLocaleName?: string
-    /**
-     * What to display when the user wants to view the full history
-     */
-    viewFullHistory?: string
-    /**
-     * What to display when the commit was committed
-     */
-    committedOn?: string
-  }
-  /**
-   * The contributors section configuration
-   */
-  contributors?: {
-    /**
-     * The title of the contributors section
-     */
-    title?: string
-    /**
-     * What to display when there are no contributors
-     */
-    noData?: string
-  }
-}
+import type { Locale } from '@nolebase/vitepress-plugin-git-changelog/client'
 // ---cut---
 /**
  * Options
@@ -224,42 +130,33 @@ export interface Options {
    * ```
    */
   locales?: Record<string, Locale>
-  mapAuthors?: Array<{
-    /**
-     * The overriding display name of the contributor
-     */
-    name?: string
-    /**
-     * The overriding GitHub, GitLab, Gitea username of the contributor
-     */
-    username?: string
-    /**
-     * The overriding avatar of the contributor
-     */
-    avatar?: string
-    /**
-     * Whether to add a link to the contributor's profile
-     */
-    links?: string | SocialEntry[]
-    /**
-     * More names to be recognized as the same contributor.
-     *
-     * Useful when you changed your name or email address in the past.
-     */
-    mapByNameAliases?: string[]
-    /**
-     * More emails to be recognized as the same contributor.
-     *
-     * Useful when you changed your email address in the past.
-     */
-    mapByEmailAliases?: string[]
-  }>
   /**
    * Number of commit hash letters to display
    *
    * @default 7
    */
   numCommitHashLetters?: number
+  /**
+   * Whether to display the relative time of the commit
+   * in the format as 'x days ago' or 'x hours ago'
+   */
+  commitsRelativeTime?: boolean
+  /**
+   * Whether to hide the changelog h2 header
+   */
+  hideChangelogHeader?: boolean
+  /**
+   * Whether to hide the contributors h2 header
+   */
+  hideContributorsHeader?: boolean
+  /**
+   * Whether to hide the sort by button
+   */
+  hideSortBy?: boolean
+  /**
+   *  Whether to display authors of commits right inside of commit line
+   */
+  displayAuthorsInsideCommitLine?: boolean
 }
 ```
 
@@ -268,7 +165,7 @@ export interface Options {
 ## 国际化
 
 ::: warning 注意
-基于 Git 的页面历史插件并没有使用 [vue-i18n](https://vue-i18n.intlify.dev/) 来作为国际化的工具库，因为绝大多数 VitePress 可能是直接使用的 [VitePress 自带的国际化功能](https://vitepress.dev/guide/i18n) 来进行国际化的，所以基于 Git 的页面历史插件的本地化文案并不能通过 `vue-i18n` 来覆盖文案，但是你可以通过 [配置](#配置) 中的 `locales` 字段来覆盖本地化的文案。
+基于 Git 的页面历史插件并没有使用 [vue-i18n](https://vue-i18n.intlify.dev/) 来作为国际化的工具库，因为绝大多数 VitePress 可能是直接使用的 [VitePress 自带的国际化功能](https://vitepress.dev/guide/i18n) 来进行国际化的，所以基于 Git 的页面历史插件的本地化文案并不能通过 `vue-i18n` 来覆盖文案，但是你可以通过 [配置](#配置选项) 中的 `locales` 字段来覆盖本地化的文案。
 :::
 
 基于 Git 的页面历史插件默认提供了国际化的支持，默认支持了英文和简体中文。
@@ -277,7 +174,7 @@ export interface Options {
 
 ### 如何在 VitePress 中进行配置
 
-在 [配置](#配置) 章节中，我们已经了解到了如何在 VitePress 中为基于 Git 的页面历史插件提供配置选项，我们在配置选项中添加 `locales` 字段就可以配置国际化了：
+在 [配置](#配置选项) 章节中，我们已经了解到了如何在 VitePress 中为基于 Git 的页面历史插件提供配置选项，我们在配置选项中添加 `locales` 字段就可以配置国际化了：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
@@ -385,7 +282,25 @@ interface Locale {
 
 ## 无障碍
 
-基于 Git 的页面历史插件默认提供了无障碍的支持，你可以通过 [配置](#配置) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
+基于 Git 的页面历史插件默认提供了无障碍的支持，你可以通过 [配置](#配置选项) 来对无障碍的文案进行复写，使用方法和 [国际化](#国际化) 一样，有关无障碍有哪些文案可以配置，请参阅 [国际化字段选项](#国际化字段选项)。
+
+## 为特定页面增补贡献者
+
+在某些情况下，Git 记录中可能会遗漏部分贡献者信息。为了解决这个问题，我们提供了一个 Front Matter 键，允许你为特定页面补充作者信息。
+
+你可以在 Markdown 文件的 Front Matter 中添加缺失的贡献者信息，格式如下：
+
+```md
+---
+authors: ['author1', 'author2']
+---
+
+<!-- body-->
+```
+
+这些贡献者信息将会与从 Git 中获取到的作者信息合并显示。
+
+主要注意的是，此处指定的贡献者将不会经过 [Vite 插件 `mapAuthors` 选项](./configure-vite-plugins.md#选项-mapcontributors-为贡献者添加数据映射) 的 `mapAuthorsByNameAlias` 数据映射，因此你需要填写 `mapAuthors` 数组中每个作者信息 `name` 属性的值，否则，该贡献者将视为一个独立的作者。
 
 ## 更多自定义能力？
 
@@ -470,4 +385,3 @@ import {
   NolebaseGitContributors,  // [!code focus]
 } from '@nolebase/vitepress-plugin-git-changelog/client'
 ```
-

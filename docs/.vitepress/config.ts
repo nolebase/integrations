@@ -69,8 +69,8 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             items: [
               { text: 'Overview', link: '/pages/en/integrations/vitepress-plugin-git-changelog/' },
               { text: 'Getting started', link: '/pages/en/integrations/vitepress-plugin-git-changelog/getting-started' },
-              { text: 'Configure UI', link: '/pages/en/integrations/vitepress-plugin-git-changelog/configure-ui' },
               { text: 'Configure Vite Plugins', link: '/pages/en/integrations/vitepress-plugin-git-changelog/configure-vite-plugins' },
+              { text: 'Configure UI', link: '/pages/en/integrations/vitepress-plugin-git-changelog/configure-ui' },
             ],
           },
           { text: 'Page properties', link: '/pages/en/integrations/vitepress-plugin-page-properties/' },
@@ -108,6 +108,10 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
               {
                 text: 'Migrate from v1 to v2',
                 link: '/pages/en/releases/migrations/v1-to-v2',
+              },
+              {
+                text: 'Migrate from v2 to v3',
+                link: '/pages/en/releases/migrations/v2-to-v3',
               },
             ],
           },
@@ -193,8 +197,8 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
             items: [
               { text: '介绍', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/' },
               { text: '快速上手', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/getting-started' },
-              { text: '配置 UI 组件', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/configure-ui' },
               { text: '配置 Vite 插件', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/configure-vite-plugins' },
+              { text: '配置 UI 组件', link: '/pages/zh-CN/integrations/vitepress-plugin-git-changelog/configure-ui' },
             ],
           },
           { text: '页面属性', link: '/pages/zh-CN/integrations/vitepress-plugin-page-properties/' },
@@ -226,6 +230,10 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
               {
                 text: '自 v1 迁移至 v2',
                 link: '/pages/zh-CN/releases/migrations/v1-to-v2',
+              },
+              {
+                text: '自 v2 迁移至 v3',
+                link: '/pages/zh-CN/releases/migrations/v2-to-v3',
               },
             ],
           },
@@ -291,7 +299,6 @@ export default defineConfig({
       },
     },
   },
-  lastUpdated: true,
   cleanUrls: true,
   ignoreDeadLinks: [
     // Site Config | VitePress
@@ -306,6 +313,8 @@ export default defineConfig({
     ['script', { 'defer': 'true', 'data-domain': 'nolebase-integrations.ayaka.io', 'data-api': '/api/v1/page-external-data/submit', 'src': '/assets/page-external-data/js/script.js' }],
   ],
   themeConfig: {
+    // Only enable this on debug component style
+    // externalLinkIcon: true,
     outline: 'deep',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/nolebase/integrations' },
@@ -358,6 +367,10 @@ export default defineConfig({
                     text: 'Migrate from v1 to v2',
                     link: '/pages/en/releases/migrations/v1-to-v2',
                   },
+                  {
+                    text: 'Migrate from v2 to v3',
+                    link: '/pages/en/releases/migrations/v2-to-v3',
+                  },
                 ],
               },
             ],
@@ -386,6 +399,10 @@ export default defineConfig({
                   {
                     text: '自 v1 迁移至 v2',
                     link: '/pages/zh-CN/releases/migrations/v1-to-v2',
+                  },
+                  {
+                    text: '自 v2 迁移至 v3',
+                    link: '/pages/zh-CN/releases/migrations/v2-to-v3',
                   },
                 ],
               },

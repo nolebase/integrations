@@ -48,6 +48,14 @@ Obsidian 同名页面：[[pages/zh-CN/integrations/markdown-it-bi-directional-li
 
 ![[一片 狗尾草.jpg]]
 
+音频也不在话下：
+
+![[鼓掌声.mp3]]
+
+视频更是没有问题：
+
+![[大兔子从兔窝中钻出.mp4]]
+
 ## 安装
 
 安装是非常简单容易的，请移步至[快速上手](./getting-started)阅读试试看吧！

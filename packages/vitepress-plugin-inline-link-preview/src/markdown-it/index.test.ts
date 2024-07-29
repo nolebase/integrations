@@ -81,6 +81,11 @@ describe('markdown-it', () => {
       expect: expectWrapper('<VPNolebaseInlineLinkPreview href="foo" class="no-inline-link-preview-b">foo</VPNolebaseInlineLinkPreview>'),
     },
     {
+      name: 'should render img element',
+      input: '<a href="/img/es-feature.png" target="_blank"><img src="/img/es-feature.png" /></a>',
+      expect: expectWrapper('<VPNolebaseInlineLinkPreview href="/img/es-feature.png" target="_blank"><img src="/img/es-feature.png" /></VPNolebaseInlineLinkPreview>'),
+    },
+    {
       name: 'should not render a element when data-inline-link-preview="false" attribute exist',
       input: '<a href="foo" data-inline-link-preview="false">foo</a>',
       expect: expectWrapper('<a href="foo" data-inline-link-preview="false">foo</a>'),

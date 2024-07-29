@@ -65,4 +65,4 @@ words:
   - vitepress
   - vueuse
 ignoreWords: []
-import: []
+import: ["@cspell/dict-ru_ru/cspell-ext.json"]

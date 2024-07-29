@@ -1,5 +1,3 @@
-import type { Author, Contributor } from '../types'
-
 export interface Locale extends Record<string, any> {
   /**
    * What to display when there are no logs
@@ -115,85 +113,30 @@ export interface Options {
    */
   locales?: Record<string, Locale>
   /**
-   * @deprecated Use `mapAuthors` instead
-   * @see mapAuthors
-   */
-  mapContributors?: Contributor[]
-  mapAuthors?: Author[]
-  /**
    * Number of commit hash letters to display
    *
    * @default 7
    */
   numCommitHashLetters?: number
-}
-
-export interface Commit {
   /**
-   * The file path for this commit.
-   *
-   * When the file is located in `srcDir`, the path is relative to `srcDir`.
-   * Otherwise, the path is relative to cwd. Paths without `. /`.
+   * Whether to display the relative time of the commit
+   * in the format as 'x days ago' or 'x hours ago'
    */
-  path: string
+  commitsRelativeTime?: boolean
   /**
-   * The matched first tag of the commit.
+   * Whether to hide the changelog h2 header
    */
-  tag?: string
+  hideChangelogHeader?: boolean
   /**
-   * The matched tags of the commit.
+   * Whether to hide the contributors h2 header
    */
-  tags?: string[]
+  hideContributorsHeader?: boolean
   /**
-   * The URL of the release tag.
+   * Whether to hide the sort by button
    */
-  release_tag_url?: string
+  hideSortBy?: boolean
   /**
-   * The URLs of the release tags.
+   *  Whether to display authors of commits right inside of commit line
    */
-  release_tags_url?: string[]
-  /**
-   * The hash of the commit.
-   */
-  hash: string
-  /**
-   * The URL of the commit.
-   */
-  hash_url?: string
-  /**
-   * The date of the commit.
-   */
-  date: string
-  /**
-   * The UNIX timestamp of the commit.
-   */
-  date_timestamp: number
-  /**
-   * The message of the commit.
-   */
-  message: string
-  /**
-   * The refs of the commit.
-   */
-  refs?: string
-  /**
-   * The body of the commit.
-   */
-  body?: string
-  /**
-   * The author name of the commit.
-   */
-  author_name: string
-  /**
-   * The author email of the commit.
-   */
-  author_email: string
-  /**
-   * The author avatar of the commit.
-   */
-  author_avatar: string
-  /**
-   * The repository URL.
-   */
-  repo_url?: string
+  displayAuthorsInsideCommitLine?: boolean
 }

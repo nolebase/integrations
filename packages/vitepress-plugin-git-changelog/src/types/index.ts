@@ -95,6 +95,10 @@ export interface CommitAuthor {
    */
   name: string
   /**
+   * The author alternative names for i18n
+   */
+  i18n?: Record<string, string>
+  /**
    * The author email of the commit.
    */
   email?: string
@@ -117,9 +121,13 @@ export interface SocialEntry {
 
 export interface Contributor {
   /**
-   * The overriding display name of the contributor
+   * The overriding display name of the contributor in default locale
    */
   name?: string
+  /**
+   * The overriding display name of the contributor in other locales if needed
+   */
+  i18n?: Record<string, string>
   /**
    * The overriding GitHub, GitLab, Gitea username of the contributor
    */

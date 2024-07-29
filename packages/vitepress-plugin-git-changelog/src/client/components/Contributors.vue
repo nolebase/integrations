@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, onMounted } from 'vue'
+import { useData } from 'vitepress'
 import { defu } from 'defu'
 
 import { useChangelog } from '../composables/changelog'
@@ -10,6 +11,8 @@ const options = defu(inject(InjectionKey, {}), defaultOptions)
 
 const { t } = useI18n()
 const { authors, useHmr } = useChangelog()
+
+const { lang } = useData()
 
 onMounted(() => {
   useHmr()
@@ -46,14 +49,14 @@ onMounted(() => {
           class="no-icon flex items-center gap-2"
         >
           <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
-          {{ c.name }}
+          {{ c.i18n ? c.i18n[lang] ?? c.name : c.name }}
         </a>
         <div
           v-else
           class="flex items-center gap-2"
         >
           <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
-          {{ c.name }}
+          {{ c.i18n ? c.i18n[lang] ?? c.name : c.name }}
         </div>
       </template>
     </template>

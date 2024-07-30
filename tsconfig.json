@@ -10,47 +10,38 @@
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
-      "~/packages": [
+      "@nolebase": [
         "./packages"
       ],
-      "@nolebase/ui": [
-        "./packages/ui/src/index.ts"
+      "@nolebase/*/vite": [
+        "./packages/*/vite",
+        "./packages/*/src/vite"
       ],
-      "@nolebase/ui-asciinema": [
-        "./packages/ui-asciinema/src/index.ts"
+      "@nolebase/*/client": [
+        "./packages/*/client",
+        "./packages/*/src/client"
       ],
-      "@nolebase/ui-rive-canvas": [
-        "./packages/ui-rive-canvas/src/index.ts"
+      "@nolebase/*/vitepress": [
+        "./packages/*/vitepress",
+        "./packages/*/src/vitepress"
       ],
-      "@nolebase/unconfig-vitepress/*": [
-        "./packages/unconfig-vitepress/src/*"
+      "@nolebase/*/markdown-it": [
+        "./packages/*/markdown-it",
+        "./packages/*/src/markdown-it"
       ],
-      "@nolebase/vitepress-plugin-data-driver/*": [
-        "./packages/vitepress-plugin-data-driver/src/*"
+      "@nolebase/*/plugins": [
+        "./packages/*/src/plugins"
       ],
-      "@nolebase/vitepress-plugin-enhanced-readabilities/*": [
-        "./packages/vitepress-plugin-enhanced-readabilities/src/*"
+      "@nolebase/*": [
+        "./packages/*",
+        "./packages/*/src/"
       ],
-      "@nolebase/vitepress-plugin-highlight-targeted-heading/*": [
-        "./packages/vitepress-plugin-highlight-targeted-heading/src/*"
-      ],
-      "@nolebase/vitepress-plugin-inline-link-preview/*": [
-        "./packages/vitepress-plugin-inline-link-preview/src/*"
-      ],
-      "@nolebase/vitepress-plugin-git-changelog/*": [
-        "./packages/vitepress-plugin-git-changelog/src/*"
-      ],
-      "@nolebase/vitepress-plugin-graph-view/*": [
-        "./packages/vitepress-plugin-graph-view/src/*"
-      ],
-      "@nolebase/vitepress-plugin-page-properties/*": [
-        "./packages/vitepress-plugin-page-properties/src/*"
-      ],
-      "@nolebase/vitepress-plugin-thumbnail-hash/*": [
-        "./packages/vitepress-plugin-thumbnail-hash/src/*"
+      "*": [
+        "node_modules/*"
       ]
     },
     "resolveJsonModule": true,
+
     "types": [
       "node",
       "vite/client"

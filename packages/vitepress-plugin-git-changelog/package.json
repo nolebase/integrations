@@ -71,21 +71,21 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.1.55",
+    "@iconify-json/octicon": "^1.1.56",
     "@nolebase/ui": "workspace:^",
     "colorette": "^2.0.20",
     "date-fns": "^3.6.0",
     "defu": "^6.1.4",
     "es-toolkit": "^1.13.1",
-    "execa": "^8.0.1",
-    "globby": "^14.0.1",
+    "execa": "^9.3.0",
+    "globby": "^14.0.2",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
     "uncrypto": "^0.1.3",
-    "vitepress": "^1.2.3"
+    "vitepress": "^1.3.1"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",
-    "builtin-modules": "^3.3.0"
+    "builtin-modules": "^4.0.0"
   }
 }

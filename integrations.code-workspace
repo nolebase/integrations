@@ -76,5 +76,8 @@
         "name": "📦 @nolebase/vitepress-plugin-thumbnail-hash",
         "path": "packages/vitepress-plugin-thumbnail-hash"
       }
-    ]
+    ],
+    "settings": {
+      "typescript.tsdk": "✨ @nolebase\\integrations\\node_modules\\typescript\\lib"
+    }
 }

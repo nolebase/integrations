@@ -14,7 +14,7 @@
     "@iconify-json/carbon": "^1.1.36",
     "@iconify-json/fluent-emoji": "^1.1.18",
     "@iconify-json/icon-park-outline": "^1.1.15",
-    "@iconify-json/octicon": "^1.1.55",
+    "@iconify-json/octicon": "^1.1.56",
     "@iconify-json/svg-spinners": "^1.1.2",
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
@@ -33,10 +33,10 @@
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "@rive-app/canvas": "^2.18.0",
+    "@rive-app/canvas": "^2.19.6",
     "@rollup/plugin-yaml": "^4.1.2",
-    "@shikijs/vitepress-twoslash": "^1.9.0",
-    "@types/markdown-it": "^14.1.1",
+    "@shikijs/vitepress-twoslash": "^1.12.0",
+    "@types/markdown-it": "^14.1.2",
     "@types/markdown-it-footnote": "^3.0.4",
     "@vueuse/motion": "^2.2.3",
     "asciinema-player": "^3.8.0",
@@ -46,6 +46,6 @@
     "motion": "^10.18.0",
     "thumbhash": "^0.1.1",
     "unlazy": "^0.11.3",
-    "vite-plugin-vue-devtools": "^7.3.4"
+    "vite-plugin-vue-devtools": "^7.3.7"
   }
 }

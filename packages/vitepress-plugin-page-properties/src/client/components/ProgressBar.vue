@@ -4,7 +4,7 @@ import { useData } from 'vitepress'
 
 const props = withDefaults(defineProps<{
   value: number
-  max: number
+  max?: number
 }>(), {
   max: 100,
 })

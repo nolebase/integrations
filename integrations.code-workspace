@@ -1,83 +1,83 @@
 {
-    "folders": [
-      {
-        "name": "✨ @nolebase/integrations",
-        "path": "."
-      },
-      {
-        "name": "@nolebase/integrations-docs",
-        "path": "docs"
-      },
-      {
-        "name": "📦 @nolebase/markdown-it-bi-directional-links",
-        "path": "packages/markdown-it-bi-directional-links"
-      },
-      {
-        "name": "📦 @nolebase/markdown-it-element-transform",
-        "path": "packages/markdown-it-element-transform"
-      },
-      {
-        "name": "📦 @nolebase/markdown-it-unlazy-img",
-        "path": "packages/markdown-it-unlazy-img"
-      },
-      {
-        "name": "📦 @nolebase/ui",
-        "path": "packages/ui"
-      },
-      {
-        "name": "📦 @nolebase/ui-asciinema",
-        "path": "packages/ui-asciinema"
-      },
-      {
-        "name": "📦 @nolebase/ui-rive-canvas",
-        "path": "packages/ui-rive-canvas"
-      },
-      {
-        "name": "📦 @nolebase/unconfig-vitepress",
-        "path": "packages/unconfig-vitepress"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-enhanced-mark",
-        "path": "packages/vitepress-plugin-enhanced-mark"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-enhanced-readabilities",
-        "path": "packages/vitepress-plugin-enhanced-readabilities"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-git-changelog",
-        "path": "packages/vitepress-plugin-git-changelog"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-graph-view",
-        "path": "packages/vitepress-plugin-graph-view"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-highlight-targeted-heading",
-        "path": "packages/vitepress-plugin-highlight-targeted-heading"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-inline-link-preview",
-        "path": "packages/vitepress-plugin-inline-link-preview"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-meta",
-        "path": "packages/vitepress-plugin-meta"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-og-image",
-        "path": "packages/vitepress-plugin-og-image"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-page-properties",
-        "path": "packages/vitepress-plugin-page-properties"
-      },
-      {
-        "name": "📦 @nolebase/vitepress-plugin-thumbnail-hash",
-        "path": "packages/vitepress-plugin-thumbnail-hash"
-      }
-    ],
-    "settings": {
-      "typescript.tsdk": "✨ @nolebase\\integrations\\✨ @nolebase\\integrations\\✨ @nolebase\\integrations\\node_modules\\typescript\\lib"
+  "folders": [
+    {
+      "name": "✨ @nolebase/integrations",
+      "path": "."
+    },
+    {
+      "name": "@nolebase/integrations-docs",
+      "path": "docs"
+    },
+    {
+      "name": "📦 @nolebase/markdown-it-bi-directional-links",
+      "path": "packages/markdown-it-bi-directional-links"
+    },
+    {
+      "name": "📦 @nolebase/markdown-it-element-transform",
+      "path": "packages/markdown-it-element-transform"
+    },
+    {
+      "name": "📦 @nolebase/markdown-it-unlazy-img",
+      "path": "packages/markdown-it-unlazy-img"
+    },
+    {
+      "name": "📦 @nolebase/ui",
+      "path": "packages/ui"
+    },
+    {
+      "name": "📦 @nolebase/ui-asciinema",
+      "path": "packages/ui-asciinema"
+    },
+    {
+      "name": "📦 @nolebase/ui-rive-canvas",
+      "path": "packages/ui-rive-canvas"
+    },
+    {
+      "name": "📦 @nolebase/unconfig-vitepress",
+      "path": "packages/unconfig-vitepress"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-enhanced-mark",
+      "path": "packages/vitepress-plugin-enhanced-mark"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-enhanced-readabilities",
+      "path": "packages/vitepress-plugin-enhanced-readabilities"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-git-changelog",
+      "path": "packages/vitepress-plugin-git-changelog"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-graph-view",
+      "path": "packages/vitepress-plugin-graph-view"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-highlight-targeted-heading",
+      "path": "packages/vitepress-plugin-highlight-targeted-heading"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-inline-link-preview",
+      "path": "packages/vitepress-plugin-inline-link-preview"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-meta",
+      "path": "packages/vitepress-plugin-meta"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-og-image",
+      "path": "packages/vitepress-plugin-og-image"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-page-properties",
+      "path": "packages/vitepress-plugin-page-properties"
+    },
+    {
+      "name": "📦 @nolebase/vitepress-plugin-thumbnail-hash",
+      "path": "packages/vitepress-plugin-thumbnail-hash"
     }
+  ],
+  "settings": {
+    "typescript.tsdk": "✨ @nolebase\\integrations\\✨ @nolebase\\integrations\\✨ @nolebase\\integrations\\node_modules\\typescript\\lib"
+  }
 }

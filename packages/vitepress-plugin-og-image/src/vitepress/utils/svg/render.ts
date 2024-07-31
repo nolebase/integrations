@@ -105,10 +105,10 @@ export async function renderSVG(
   additionalFontBuffers?: Uint8Array[],
   resultImageWidth?: number,
 ): Promise<{
-  png: Uint8Array
-  width: number
-  height: number
-}> {
+    png: Uint8Array
+    width: number
+    height: number
+  }> {
   try {
     const resvg = new Resvg(
       svgContent,

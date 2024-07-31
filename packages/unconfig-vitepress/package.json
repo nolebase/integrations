@@ -63,7 +63,7 @@
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "vitepress": "^1.2.3"
+    "vitepress": "^1.3.1"
   },
   "devDependencies": {
     "builtin-modules": "^3.3.0"

@@ -66,13 +66,13 @@
   },
   "dependencies": {
     "@iconify-json/icon-park-outline": "^1.1.15",
-    "@iconify-json/octicon": "^1.1.55",
+    "@iconify-json/octicon": "^1.1.56",
     "@nolebase/ui": "workspace:^",
     "date-fns": "^3.6.0",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
     "uuid": "^9.0.1",
-    "vitepress": "^1.2.3"
+    "vitepress": "^1.3.1"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",

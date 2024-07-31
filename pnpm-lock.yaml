@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      tsx:
+        specifier: ^4.16.3
+        version: 4.16.3
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.24.0

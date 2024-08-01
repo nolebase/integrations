@@ -41,8 +41,21 @@ yarn add @nolebase/ui-asciinema
 
 ## 用法
 
+```js
+// vite.config.ts
+export default defineConfig({
+  ssr: {
+    noExternal: [
+      // If there are other packages that need to be processed by Vite, you can add them here.
+      '@nolebase/ui-asciinema',
+    ],
+  },
+})
+```
+
 ```vue
 <script setup>
+// somewhere.vue
 import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 import 'asciinema-player/dist/bundle/asciinema-player.css'
 </script>

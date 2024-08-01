@@ -49,8 +49,8 @@
   },
   "dependencies": {
     "colorette": "^2.0.20",
-    "debug": "^4.3.5",
-    "glob": "^10.4.2"
+    "debug": "^4.3.6",
+    "glob": "^10.4.5"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",

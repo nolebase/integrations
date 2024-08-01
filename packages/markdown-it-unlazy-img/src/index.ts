@@ -4,7 +4,7 @@ import { globSync } from 'glob'
 
 import { normalizePath } from 'vite'
 import { cyan, gray, yellow } from 'colorette'
-import type MarkdownIt from 'markdown-it'
+import type { PluginWithOptions } from 'markdown-it'
 
 const defaultMapGlobPatterns = [
   '**/.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json',
@@ -179,7 +179,7 @@ function ensureThumbhashMap(
   return JSON.parse(readFileSync(foundThumbhashMapPath, 'utf-8'))
 }
 
-export const UnlazyImages: () => (md: MarkdownIt, options: UnlazyImagesOptions) => void = () => {
+export const UnlazyImages: () => PluginWithOptions<UnlazyImagesOptions> = () => {
   return (md, options) => {
     const {
       thumbhash = {

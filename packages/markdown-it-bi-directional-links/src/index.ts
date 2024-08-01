@@ -1,7 +1,7 @@
 import { basename, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
 import { globSync } from 'glob'
-import type MarkdownIt from 'markdown-it'
+import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
 
@@ -201,7 +201,7 @@ export interface BiDirectionalLinksOptions {
  * @param options.includesPatterns - The glob patterns to search for bi-directional links.
  * @returns A markdown-it plugin.
  */
-export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => (md: MarkdownIt) => void = (options) => {
+export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => PluginSimple = (options) => {
   const rootDir = options?.dir ?? cwd()
   const baseDir = options?.baseDir ?? '/'
   const includes = options?.includesPatterns ?? []

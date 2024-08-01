@@ -61,8 +61,10 @@ words:
   - uncrypto
   - unlazy
   - unocss
+  - unplugin
   - Vite
   - vitepress
   - vueuse
 ignoreWords: []
-import: ["@cspell/dict-ru_ru/cspell-ext.json"]
+import:
+  - "@cspell/dict-ru_ru/cspell-ext.json"

@@ -76,7 +76,7 @@ Add the Enhanced Readabilities plugin package name `@nolebase/vitepress-plugin-e
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
@@ -109,7 +109,7 @@ You might have configured the separated [Vite configuration file](https://vitejs
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
 import { defineConfig } from 'vite'
@@ -144,7 +144,7 @@ In VitePress's [**theme configuration file**](https://vitepress.dev/reference/de
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ::: code-group
 

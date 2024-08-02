@@ -67,7 +67,7 @@ onMounted(() => {
     {{ t('changelog.title') }}
     <a class="header-anchor" :href="`#${t('changelog.titleId') || t('changelog.title')}`" :aria-label="`Permalink to '${t('changelog.title')}'`" />
   </h2>
-  <div v-if="!commits.length" :class="options.hideChangelogHeader && 'mt-6'" class="italic" opacity="70">
+  <div v-if="!commits.length && !options.hideChangelogNoChangesText" :class="options.hideChangelogHeader && 'mt-6'" class="italic" opacity="70">
     {{ t('noLogs', { omitEmpty: true }) || t('changelog.noData') }}
   </div>
   <div

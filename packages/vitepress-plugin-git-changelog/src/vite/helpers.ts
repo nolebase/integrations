@@ -455,6 +455,7 @@ export function findMapAuthorI18n(mappedAuthor: Contributor): Record<string, str
   return undefined
 }
 
+// based on https://github.com/nolebase/integrations/issues/277#issuecomment-2254111802
 export function getAvatarFromGithubNoreplyAddress(email: string | undefined, size: number = 80): string | undefined {
   if (!email)
     return undefined

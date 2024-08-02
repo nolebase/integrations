@@ -455,7 +455,7 @@ export function findMapAuthorI18n(mappedAuthor: Contributor): Record<string, str
   return undefined
 }
 
-function getAvatarFromGithubNoreplyAddress(email: string | undefined, size: number = 80): string | undefined {
+export function getAvatarFromGithubNoreplyAddress(email: string | undefined, size: number = 80): string | undefined {
   if (!email)
     return undefined
 

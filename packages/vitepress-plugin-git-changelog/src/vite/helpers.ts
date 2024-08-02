@@ -455,6 +455,18 @@ export function findMapAuthorI18n(mappedAuthor: Contributor): Record<string, str
   return undefined
 }
 
+function getAvatarFromGithubNoreplyAddress(email: string | undefined, size: number = 80): string | undefined {
+  if (!email)
+    return undefined
+
+  const match = email.match(/^(?:(?<userId>\d+)\+)?(?<userName>[a-zA-Z\d-]{1,39})@users.noreply.github.com$/)
+  if (!match || !match.groups)
+    return undefined
+
+  const { userName, userId } = match.groups
+  return `https://avatars.githubusercontent.com/${userId ? `u/${userId}` : userName}?size=${size}`
+}
+
 export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {
   if (mappedAuthor) {
     if (mappedAuthor.avatar)
@@ -462,5 +474,10 @@ export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, 
     if (mappedAuthor.username)
       return `https://github.com/${mappedAuthor.username}.png`
   }
+
+  const githubProfilePicture = getAvatarFromGithubNoreplyAddress(email)
+  if (githubProfilePicture != null)
+    return githubProfilePicture
+
   return `https://gravatar.com/avatar/${await digestStringAsSHA256(email)}?d=retro`
 }

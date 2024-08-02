@@ -146,6 +146,10 @@ export interface Options {
    */
   hideChangelogHeader?: boolean
   /**
+   * Whether to hide the changelog "No changes" text when there are no changes
+   */
+  hideChangelogNoChangesText?: boolean
+  /**
    * Whether to hide the contributors h2 header
    */
   hideContributorsHeader?: boolean

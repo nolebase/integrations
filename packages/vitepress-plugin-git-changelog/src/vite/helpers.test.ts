@@ -10,6 +10,7 @@ import {
   findMapAuthorLink,
   getAvatarFromGithubNoreplyAddress,
   getCoAuthors,
+  getProfileUrlFromGithubNoreplyAddress,
   mergeRawCommits,
   newAvatarForAuthor,
   parseCommitAuthors,
@@ -315,6 +316,28 @@ describe('parseCommitAuthors', () => {
       },
     ])
   })
+
+  it('should map autresolve github noreply email', async () => {
+    const mockedCommit = {
+      paths: ['/fack/path/1.md'],
+      hash: '62ef7ed8f54ea1faeacf6f6c574df491814ec1b1',
+      date: 'Wed Apr 24 14:24:44 2024 +0800',
+      message: 'docs: fix english integrations list',
+      body: '',
+      author_name: 'First Last',
+      author_email: 'user@users.noreply.github.com',
+    }
+
+    const authors = await parseCommitAuthors(mockedCommit)
+    expect(authors).toEqual([
+      {
+        name: 'First Last',
+        email: 'user@users.noreply.github.com',
+        avatarUrl: 'https://avatars.githubusercontent.com/user?size=80',
+        url: 'https://github.com/user',
+      },
+    ])
+  })
 })
 
 describe('getCoAuthors', () => {
@@ -567,6 +590,26 @@ describe('getAvatarFromGithubNoreplyAddress', () => {
     const avatar = await getAvatarFromGithubNoreplyAddress('123456+user@users.noreply.github.com')
 
     expect(avatar).toEqual('https://avatars.githubusercontent.com/u/123456?size=80')
+  })
+})
+
+describe('getProfileUrlFromGithubNoreplyAddress', () => {
+  it('should return undefined for email it cannot handle', async () => {
+    const avatar = await getProfileUrlFromGithubNoreplyAddress('user@example.com')
+
+    expect(avatar).toEqual(undefined)
+  })
+
+  it('should return the GitHub profile URL for GitHub noreply email without user ID', async () => {
+    const avatar = await getProfileUrlFromGithubNoreplyAddress('user@users.noreply.github.com')
+
+    expect(avatar).toEqual('https://github.com/user')
+  })
+
+  it('should return the GitHub profile URL for GitHub noreply email with user ID', async () => {
+    const avatar = await getProfileUrlFromGithubNoreplyAddress('123456+user@users.noreply.github.com')
+
+    expect(avatar).toEqual('https://github.com/user')
   })
 })
 

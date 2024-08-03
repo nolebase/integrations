@@ -247,6 +247,14 @@ jobs:
       # ... other steps
 ```
 
+#### Contributor information
+
+The contributor information (such as name and email address) is resolved from the commit author information.
+
+If the commit email address is a GitHub-provided no-reply email (like `<user>@users.noreply.github.com`), then it is used for determaining the GitHub username, which is then used for getting the profile picture from GitHub, as well as linking to the GitHub profile (unless overriden by the [`mapAuthors` option](./configure-vite-plugins#option-mapauthors-map-contributors-information)).
+
+By default, [Gravatar](https://gravatar.com/) is used for getting a profile picture based on an email address.
+
 #### Build on Netlify
 
 By default, Netlify can get all Git logs during the CI/CD build.

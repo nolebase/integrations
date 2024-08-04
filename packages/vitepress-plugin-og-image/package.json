@@ -60,6 +60,7 @@
   "dependencies": {
     "@resvg/resvg-wasm": "^2.6.2",
     "colorette": "^2.0.20",
+    "defu": "^6.1.4",
     "emoji-regex": "^10.3.0",
     "fs-extra": "^11.2.0",
     "glob": "^10.4.5",

@@ -377,8 +377,15 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
         author.avatarUrl = await newAvatarForAuthor(targetCreatorByEmail, author.email!)
         return author
       }
+      const targetCreatorByGitHub = findMapAuthorByGitHub(mapContributors, author.name, author.email!)
+      if (targetCreatorByGitHub) {
+        author.name = targetCreatorByGitHub.name ?? author.name
+        author.i18n = findMapAuthorI18n(targetCreatorByGitHub)
+        author.url = findMapAuthorLink(targetCreatorByGitHub)
+        author.avatarUrl = await newAvatarForAuthor(targetCreatorByGitHub, author.email!)
+        return author
+      }
       author.avatarUrl = await newAvatarForAuthor(undefined, author.email!)
-      author.url ||= getProfileUrlFromGithubNoreplyAddress(author.email)
       return author
     }))
 }
@@ -410,7 +417,7 @@ export function getCoAuthors(body?: string): CommitAuthor[] {
 
 export function findMapAuthorByName(mapContributors: Contributor[] | undefined, author_name: string) {
   return mapContributors?.find((item) => {
-    const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name
+    const res = (item.mapByNameAliases && Array.isArray(item.mapByNameAliases) && item.mapByNameAliases.includes(author_name)) || item.name === author_name || item.username === author_name
     if (res)
       return true
 
@@ -428,6 +435,21 @@ export function findMapAuthorByEmail(mapContributors: Contributor[] | undefined,
     // This is a fallback for the old version of the configuration.
     return item.emailAliases && Array.isArray(item.emailAliases) && item.emailAliases.includes(author_email)
   })
+}
+
+export function findMapAuthorByGitHub(mapContributors: Contributor[] | undefined, author_name: string, author_email: string) {
+  const github = getGitHubUserNameFromNoreplyAddress(author_email)
+  if (github && github.userName) {
+    const mappedByName = findMapAuthorByName(mapContributors, github.userName)
+    if (mappedByName && mappedByName.username) {
+      mappedByName.username ||= github.userName
+      return mappedByName
+    }
+    return {
+      name: author_name,
+      username: github.userName,
+    }
+  }
 }
 
 export function findMapAuthorLink(creator: Contributor): string | undefined {
@@ -457,32 +479,13 @@ export function findMapAuthorI18n(mappedAuthor: Contributor): Record<string, str
 }
 
 // based on https://github.com/nolebase/integrations/issues/277#issuecomment-2254111802
-export function getAvatarFromGithubNoreplyAddress(email: string | undefined, size: number = 80): string | undefined {
-  if (!email)
-    return undefined
-
+export function getGitHubUserNameFromNoreplyAddress(email: string) {
   const match = email.match(/^(?:(?<userId>\d+)\+)?(?<userName>[a-zA-Z\d-]{1,39})@users.noreply.github.com$/)
   if (!match || !match.groups)
     return undefined
 
   const { userName, userId } = match.groups
-  return `https://avatars.githubusercontent.com/${userId ? `u/${userId}` : userName}?size=${size}`
-}
-
-export function getProfileUrlFromGithubNoreplyAddress(email: string | undefined): string | undefined {
-  if (!email)
-    return undefined
-
-  const match = email.match(/^(?:(?<userId>\d+)\+)?(?<userName>[a-zA-Z\d-]{1,39})@users.noreply.github.com$/)
-  if (!match || !match.groups)
-    return undefined
-
-  const { userName } = match.groups
-
-  if (!userName)
-    return undefined
-
-  return `https://github.com/${userName}`
+  return { userId, userName }
 }
 
 export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {
@@ -492,10 +495,6 @@ export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, 
     if (mappedAuthor.username)
       return `https://github.com/${mappedAuthor.username}.png`
   }
-
-  const githubProfilePicture = getAvatarFromGithubNoreplyAddress(email)
-  if (githubProfilePicture != null)
-    return githubProfilePicture
 
   return `https://gravatar.com/avatar/${await digestStringAsSHA256(email)}?d=retro`
 }

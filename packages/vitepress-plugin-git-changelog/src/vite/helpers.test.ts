@@ -6,11 +6,11 @@ import {
   defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
   findMapAuthorByEmail,
+  findMapAuthorByGitHub,
   findMapAuthorByName,
   findMapAuthorLink,
-  getAvatarFromGithubNoreplyAddress,
   getCoAuthors,
-  getProfileUrlFromGithubNoreplyAddress,
+  getGitHubUserNameFromNoreplyAddress,
   mergeRawCommits,
   newAvatarForAuthor,
   parseCommitAuthors,
@@ -333,7 +333,8 @@ describe('parseCommitAuthors', () => {
       {
         name: 'First Last',
         email: 'user@users.noreply.github.com',
-        avatarUrl: 'https://avatars.githubusercontent.com/user?size=80',
+        i18n: undefined,
+        avatarUrl: 'https://github.com/user.png',
         url: 'https://github.com/user',
       },
     ])
@@ -382,6 +383,37 @@ describe('findMapAuthorByEmail', () => {
 
     const creator = findMapAuthorByEmail(creators, 'example1@example.com')
     expect(creator).toEqual(creators[0])
+  })
+})
+
+describe('findMapAuthorByGitHub', () => {
+  it('should return the commit author for GitHub noreply email with username in mapAuthors', async () => {
+    const creators: Contributor[] = [
+      {
+        name: 'John',
+        username: 'user',
+      },
+    ]
+    const creator = await findMapAuthorByGitHub(creators, 'John', '123456+user@users.noreply.github.com')
+
+    expect(creator).toEqual(creators[0])
+  })
+
+  it('should return the commit author for GitHub noreply email without username in mapAuthors', async () => {
+    const creators: Contributor[] = [
+      {
+        name: 'user',
+      },
+    ]
+    const creator = await findMapAuthorByGitHub(creators, 'user', '123456+user@users.noreply.github.com')
+
+    expect(creator).toEqual({ name: 'user', username: 'user' })
+  })
+
+  it('should return the commit author avatar for GitHub noreply email without mapAuthor', async () => {
+    const avatar = await findMapAuthorByGitHub(undefined, 'John', '123456+user@users.noreply.github.com')
+
+    expect(avatar).toEqual({ name: 'John', username: 'user' })
   })
 })
 
@@ -559,57 +591,25 @@ describe('newAvatarForAuthor', () => {
 
     expect(avatar).toEqual('https://gravatar.com/avatar/b4c9a289323b21a01c3e940f150eb9b8c542587f1abfd8f0e1cc1ffc5e475514?d=retro')
   })
-
-  it('should return the commit author avatar for GitHub noreply email without user ID', async () => {
-    const avatar = await newAvatarForAuthor(undefined, 'user@users.noreply.github.com')
-
-    expect(avatar).toEqual('https://avatars.githubusercontent.com/user?size=80')
-  })
-
-  it('should return the commit author avatar for GitHub noreply email with user ID', async () => {
-    const avatar = await newAvatarForAuthor(undefined, '123456+user@users.noreply.github.com')
-
-    expect(avatar).toEqual('https://avatars.githubusercontent.com/u/123456?size=80')
-  })
 })
 
-describe('getAvatarFromGithubNoreplyAddress', () => {
+describe('getGitHubFromGithubNoreplyAddress', () => {
   it('should return undefined for email it cannot handle', async () => {
-    const avatar = await getAvatarFromGithubNoreplyAddress('user@example.com')
+    const result = await getGitHubUserNameFromNoreplyAddress('user@example.com')
 
-    expect(avatar).toEqual(undefined)
+    expect(result).toEqual(undefined)
   })
 
-  it('should return the commit author avatar for GitHub noreply email without user ID', async () => {
-    const avatar = await getAvatarFromGithubNoreplyAddress('user@users.noreply.github.com')
+  it('should return the commit author for GitHub noreply email without user ID', async () => {
+    const result = await getGitHubUserNameFromNoreplyAddress('user@users.noreply.github.com')
 
-    expect(avatar).toEqual('https://avatars.githubusercontent.com/user?size=80')
+    expect(result).toEqual({ userId: undefined, userName: 'user' })
   })
 
-  it('should return the commit author avatar for GitHub noreply email with user ID', async () => {
-    const avatar = await getAvatarFromGithubNoreplyAddress('123456+user@users.noreply.github.com')
+  it('should return the commit author for GitHub noreply email with user ID', async () => {
+    const result = await getGitHubUserNameFromNoreplyAddress('123456+user@users.noreply.github.com')
 
-    expect(avatar).toEqual('https://avatars.githubusercontent.com/u/123456?size=80')
-  })
-})
-
-describe('getProfileUrlFromGithubNoreplyAddress', () => {
-  it('should return undefined for email it cannot handle', async () => {
-    const avatar = await getProfileUrlFromGithubNoreplyAddress('user@example.com')
-
-    expect(avatar).toEqual(undefined)
-  })
-
-  it('should return the GitHub profile URL for GitHub noreply email without user ID', async () => {
-    const avatar = await getProfileUrlFromGithubNoreplyAddress('user@users.noreply.github.com')
-
-    expect(avatar).toEqual('https://github.com/user')
-  })
-
-  it('should return the GitHub profile URL for GitHub noreply email with user ID', async () => {
-    const avatar = await getProfileUrlFromGithubNoreplyAddress('123456+user@users.noreply.github.com')
-
-    expect(avatar).toEqual('https://github.com/user')
+    expect(result).toEqual({ userId: '123456', userName: 'user' })
   })
 })
 

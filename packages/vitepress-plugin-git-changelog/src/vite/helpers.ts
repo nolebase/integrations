@@ -378,6 +378,7 @@ export async function parseCommitAuthors(commit: MergedRawCommit, mapContributor
         return author
       }
       author.avatarUrl = await newAvatarForAuthor(undefined, author.email!)
+      author.url ||= getProfileUrlFromGithubNoreplyAddress(author.email)
       return author
     }))
 }
@@ -466,6 +467,22 @@ export function getAvatarFromGithubNoreplyAddress(email: string | undefined, siz
 
   const { userName, userId } = match.groups
   return `https://avatars.githubusercontent.com/${userId ? `u/${userId}` : userName}?size=${size}`
+}
+
+export function getProfileUrlFromGithubNoreplyAddress(email: string | undefined): string | undefined {
+  if (!email)
+    return undefined
+
+  const match = email.match(/^(?:(?<userId>\d+)\+)?(?<userName>[a-zA-Z\d-]{1,39})@users.noreply.github.com$/)
+  if (!match || !match.groups)
+    return undefined
+
+  const { userName } = match.groups
+
+  if (!userName)
+    return undefined
+
+  return `https://github.com/${userName}`
 }
 
 export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {

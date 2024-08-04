@@ -442,7 +442,7 @@ export function findMapAuthorByGitHub(mapContributors: Contributor[] | undefined
   if (github && github.userName) {
     const mappedByName = findMapAuthorByName(mapContributors, github.userName)
     if (mappedByName && mappedByName.username) {
-      mappedByName.username ||= github?.userName
+      mappedByName.username ||= github.userName
       return mappedByName
     }
     return {

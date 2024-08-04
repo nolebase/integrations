@@ -545,6 +545,9 @@ importers:
       colorette:
         specifier: ^2.0.20
         version: 2.0.20
+      defu:
+        specifier: ^6.1.4
+        version: 6.1.4
       emoji-regex:
         specifier: ^10.3.0
         version: 10.3.0

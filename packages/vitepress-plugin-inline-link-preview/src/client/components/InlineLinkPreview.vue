@@ -174,11 +174,6 @@ watch(hoverOverIframeWrapperElement, val => watchHandler(!val))
     :href="props.href"
   >
     <slot />
-    <span
-      v-if="mounted && !isHeadingAnchor && !isOneOfPreviewHosts"
-      class="link-preview-link-content-external-icon"
-      i-octicon:link-external-16 mx-0.5 h-4 w-4 align-middle
-    />
     <template v-if="mounted && isLargerThanMobile">
       <Teleport :to="popupTeleportTargetSelector">
         <TransitionGroup name="fade">

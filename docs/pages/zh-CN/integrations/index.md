@@ -24,7 +24,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta 测试" />
+    <Badge type="tip" text="v2.4.0" />
   </template>
 </IntegrationCard>
 
@@ -102,7 +102,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="缩略图模糊哈希生成" package="vitepress-plugin-thumbnail-hash">
   <template v-slot:badge>
-    <Badge type="warning" text="Beta 测试" />
+    <Badge type="tip" text="v2.4.0" />
   </template>
 </IntegrationCard>
 

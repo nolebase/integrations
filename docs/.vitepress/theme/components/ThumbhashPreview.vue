@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { rgbaToThumbHash } from 'thumbhash'
 import { createPngDataUri } from 'unlazy/thumbhash'
 import { useClipboard } from '@vueuse/core'
@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<{
   clearInputThumbhashText: string
   inputThumbhashPlaceholder: string
   previewThumbhashText: string
+  demoImageUrl: string
 }>(), {
   thumbhashText: 'Select image to generate thumbhash',
   applyThumbhashText: 'Apply Thumbhash',
@@ -20,6 +21,7 @@ const props = withDefaults(defineProps<{
   clearInputThumbhashText: 'Clear thumbhash',
   inputThumbhashPlaceholder: 'Input Thumbhash base64...',
   previewThumbhashText: 'Input Thumbhash to preview',
+  demoImageBase64Url: '',
 })
 
 const thumbhash = ref('')
@@ -113,6 +115,19 @@ async function handleCopyHash() {
 function handleClearHash() {
   thumbhash.value = ''
 }
+
+onMounted(() => {
+  if (props.demoImageUrl) {
+    const image = new Image()
+    image.onload = () => {
+      imageUploadObjectURL.value = props.demoImageUrl
+      imageUploaded.value = image
+      handleApplyHash()
+    }
+
+    image.src = props.demoImageUrl
+  }
+})
 </script>
 
 <template>

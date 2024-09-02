@@ -55,7 +55,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
   <IntegrationCard type="markdown-it" title="Lazy loading blurred thumbnails" package="markdown-it-unlazy-img">
     <template v-slot:badge>
-      <Badge type="warning" text="Beta" />
+      <Badge type="tip" text="v2.4.0" />
     </template>
   </IntegrationCard>
 
@@ -115,7 +115,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 
   <IntegrationCard type="vitepress" title="Thumbnail hashing for images" package="vitepress-plugin-thumbnail-hash">
     <template v-slot:badge>
-      <Badge type="warning" text="Beta" />
+      <Badge type="tip" text="v2.4.0" />
     </template>
   </IntegrationCard>
 

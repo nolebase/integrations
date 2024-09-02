@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/ui-rive-canvas",
   "type": "module",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Wrapper of `@rive-app/canvas` for VitePress documentation sites.",
   "author": {
     "name": "Nólëbase",

@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-meta",
   "type": "module",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "A vitepress plugin to add <meta> (excerpts, author, authors, etc.) to your rendered pages to maximize SEO and social media sharing capabilities.",
   "author": {
     "name": "Nólëbase",

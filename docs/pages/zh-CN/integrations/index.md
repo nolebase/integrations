@@ -8,7 +8,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="双向链接" package="markdown-it-bi-directional-links">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -16,7 +16,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -24,7 +24,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -32,7 +32,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -40,7 +40,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="行内链接预览" package="vitepress-plugin-inline-link-preview">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -48,7 +48,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -56,7 +56,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="基于 Git 的页面历史" package="vitepress-plugin-git-changelog">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -94,7 +94,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     <code>&lt;mark&gt;</code> 元素增强
   </template>
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 
@@ -102,7 +102,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 
 <IntegrationCard type="vitepress" title="缩略图模糊哈希生成" package="vitepress-plugin-thumbnail-hash">
   <template v-slot:badge>
-    <Badge type="tip" text="v2.4.0" />
+    <Badge type="tip" text="v2.5.0" />
   </template>
 </IntegrationCard>
 

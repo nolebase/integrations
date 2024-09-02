@@ -2,11 +2,7 @@
 import packageJSON from '~/packages/markdown-it-unlazy-img/package.json'
 </script>
 
-# Lazy loading blurred thumbnails <Badge type="warning" :text="`Beta v${packageJSON.version}`" />
-
-::: warning 🚧 Constructing
-Nice to meet you! But sorry, this page is still under construction. If you don’t find the information you are interested in, you can first find the content you are interested in in the navigation in the sidebar to start reading.
-:::
+# Lazy loading blurred thumbnails <Badge type="tip" :text="`v${packageJSON.version}`" />
 
 A [`markdown-it`](https://github.com/markdown-it/markdown-it) plugin wraps and transforms image tags to support [unlazy](https://github.com/johannschopplich/unlazy) lazy loading with [blurhash](https://github.com/woltapp/blurhash), [thumbhash](https://github.com/evanw/thumbhash) encoding, and more.
 
@@ -33,3 +29,57 @@ yarn add @nolebase/markdown-it-unlazy-img -D
 ```
 
 :::
+
+## Configuration
+
+### Integrate with VitePress
+
+In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), import `@nolebase/markdown-it-unlazy-img` as a plugin, and use it as a `markdown-it` plugin in the `markdown` option:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+```typescript twoslash
+import { defineConfigWithTheme } from 'vitepress'
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
+
+export default defineConfigWithTheme({
+  lang: 'en',
+  title: 'Site name', // For reference only, please do not copy directly
+  description: 'Description', // For reference only, please do not copy directly
+  themeConfig: {
+    // Other configurations...
+  },
+  markdown: {
+    config: (md) => {
+      md.use(md.use(UnlazyImages(), { // [!code ++]
+        imgElementTag: 'NolebaseUnlazyImg', // [!code ++]
+      }) // [!code ++]
+    },
+  },
+})
+```
+
+### Integrate on-demand
+
+<!--@include: @/pages/en/snippets/configure-on-your-own-warning.md-->
+
+Import this plugin into the file where you can access the [`markdown-it`](https://github.com/markdown-it/markdown-it) instance, and use it as a `markdown-it` plugin:
+
+```typescript twoslash
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
+```
+
+Then you need to use the `use()` member methods from the `markdown-it` instance to use this plugin:
+
+```typescript twoslash
+import MarkdownIt from 'markdown-it'
+let markdownIt: MarkdownIt = null as unknown as MarkdownIt
+// ---cut---
+import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
+
+// Rest of the code...
+// @noErrors
+markdownIt.use(UnlazyImages(), { // [!code ++]
+  imgElementTag: 'NolebaseUnlazyImg', // [!code ++]
+}) // [!code ++]
+```

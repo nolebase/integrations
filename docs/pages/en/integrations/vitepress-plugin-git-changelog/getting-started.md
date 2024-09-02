@@ -170,6 +170,8 @@ In VitePress's [**theme configuration file**](https://vitepress.dev/reference/de
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
 ::: code-group
 
 ```typescript twoslash [docs/.vitepress/theme/index.ts]

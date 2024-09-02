@@ -138,6 +138,8 @@ touch vite.config.ts
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
+<!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
+
 ```typescript twoslash
 import { join } from 'node:path'
 import { defineConfig } from 'vite'

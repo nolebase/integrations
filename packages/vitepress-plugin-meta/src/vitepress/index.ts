@@ -85,6 +85,11 @@ export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: He
     contentSelector: '#VPContent div.content main .vp-doc div',
     removeContentSelector: [
       'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
       '.vp-nolebase-page-properties-container',
       '.vp-nolebase-git-changelog-history-container',
       '.vp-nolebase-git-changelog-contributors-container',

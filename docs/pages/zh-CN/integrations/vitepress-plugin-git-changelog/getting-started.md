@@ -261,7 +261,9 @@ Cloudflare Pages 自带的 CI/CD 流水线功能内部是不包含全部 Git 日
 
 #### 在 Vercel 上进行构建
 
-Vercel 自带的 CI/CD 环境中是无法获取到全部 Git 日志信息的[^1]，唯一的解决办法是先在 GitHub Actions 或者 GitLab CI/CD Pipelines 的受控环境中进行构建，然后再通过 Vercel 官方的 [`vercel`](https://vercel.com/docs/cli) CLI 工具进行部署。
+在 Vercel 自带的 CI/CD 环境中，默认情况下是无法获取到全部 Git 日志信息的[^1]，通过设置环境变量 `VERCEL_DEEP_CLONE=true` 可以获取完整的 Git 提交信息。*需要注意的是这个环境变量不是稳定的公开 API，将在未来某个时间删除[^2]。*
+
+还有一个更稳定但是稍复杂的解决的办法是先在 GitHub Actions 或者 GitLab CI/CD Pipelines 的受控环境中进行构建，然后再通过 Vercel 官方的 [`vercel` CLI 工具](https://vercel.com/docs/cli)进行部署。
 
 ## 错误排查
 
@@ -270,3 +272,5 @@ Vercel 自带的 CI/CD 环境中是无法获取到全部 Git 日志信息的[^1]
 <!--@include: @/pages/zh-CN/snippets/troubleshooting-cannot-find-module.md-->
 
 [^1]: [Access git logs in build process · vercel/vercel · Discussion #4101](https://github.com/vercel/vercel/discussions/4101)
+
+[^2]: [To tell Vercel to deep clone by setting an env var to VERCEL_DEEP_CLONE=1 · vercel/turborepo · Discussion #800](https://github.com/vercel/turborepo/discussions/800#discussioncomment-2730849)

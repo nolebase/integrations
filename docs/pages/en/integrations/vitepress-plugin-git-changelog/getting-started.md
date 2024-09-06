@@ -269,7 +269,9 @@ For example, you can use the GitHub Actions plugin [`pages-action`](https://gith
 
 #### Build on Vercel
 
-Vercel's own CI/CD environment does not provide a way to fetch all Git logs[^1]. The only solution is to build in the controlled environment of GitHub Actions or GitLab CI/CD Pipelines, and then deploy it through Vercel's official [`vercel`] (https://vercel.com/docs/cli) CLI tool.
+In Vercel's built-in CI/CD environment, by default, you cannot access the complete Git log information[^1]. You can obtain full Git commit information by setting the environment variable `VERCEL_DEEP_CLONE=true`. *Note that this environment variable is not a stable public API and will be removed at some point in the future[^2].*
+
+A more stable but slightly complex solution is to first build in a controlled environment such as GitHub Actions or GitLab CI/CD Pipelines, and then deploy using Vercel's official [`vercel` CLI tool](https://vercel.com/docs/cli).
 
 ## Troubleshooting
 
@@ -278,3 +280,5 @@ Vercel's own CI/CD environment does not provide a way to fetch all Git logs[^1].
 <!--@include: @/pages/en/snippets/troubleshooting-cannot-find-module.md-->
 
 [^1]: [Access git logs in build process · vercel/vercel · Discussion #4101](https://github.com/vercel/vercel/discussions/4101)
+
+[^2]: [To tell Vercel to deep clone by setting an env var to VERCEL_DEEP_CLONE=1 · vercel/turborepo · Discussion #800](https://github.com/vercel/turborepo/discussions/800#discussioncomment-2730849)

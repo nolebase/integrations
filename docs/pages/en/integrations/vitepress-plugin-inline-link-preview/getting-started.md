@@ -79,6 +79,76 @@ Therefore, for those `[]()` link markup and `<a>` elements you don't want to tra
 1. Add `no-inline-link-preview` to the class list.
 2. Assign a `data-inline-link-preview` attribute with the value of `false`.
 
+### Add plugin-specific options into configurations of Vite
+
+First of all, in VitePress's [**primary configuration file**](https://vitepress.dev/reference/site-config#config-resolution) (not this is not a **theme configuration file**, it's usually located at `docs/.vitepress/config.ts`, file paths and extensions may be vary), you need to supply some of the [Server-Side Rendering related options](https://vitejs.dev/guide/ssr.html#ssr-externals) in the root configuration object of [Vite](https://vitejs.dev).
+
+Add the Inline Link Previewing plugin package name `@nolebase/vitepress-plugin-inline-link-preview` into the Vite options that required by VitePress to process this plugin:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
+```typescript twoslash
+import { defineConfig } from 'vitepress'
+
+// https://vitepress.dev/reference/site-config
+export default defineConfig({
+  vite: { // [!code ++]
+    optimizeDeps: { // [!code ++]
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-inline-link-preview/client', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
+        '@nolebase/vitepress-plugin-inline-link-preview', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+  }, // [!code ++]
+  lang: 'en',
+  title: 'Site Name',
+  themeConfig: {
+    // rest of the options...
+  }
+  // rest of the options...
+})
+```
+
+You might have configured the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) if you are already mastered Vite. In this case, you could ignore the above configuration and add the following configuration to your Vite configuration file:
+
+<!--@include: @/pages/en/snippets/details-colored-diff.md-->
+
+<!--@include: @/pages/en/snippets/configure-tsconfig.md-->
+
+```typescript twoslash
+import { defineConfig } from 'vite'
+
+export default defineConfig(() => {
+  return {
+    optimizeDeps: {
+      exclude: [ // [!code ++]
+        '@nolebase/vitepress-plugin-inline-link-preview/client', // [!code ++]
+        'vitepress' // [!code ++]
+      ], // [!code ++]
+    },
+    ssr: { // [!code ++]
+      noExternal: [ // [!code ++]
+        // If there are other packages that need to be processed by Vite, you can add them here. // [!code hl]
+        '@nolebase/vitepress-plugin-inline-link-preview', // [!code ++]
+      ], // [!code ++]
+    }, // [!code ++]
+    plugins: [
+      // other vite plugins...
+    ],
+    // other vite configurations...
+  }
+})
+```
+
+If you haven't configured any of the separated [Vite configuration file](https://vitejs.dev/config/) (e.g. `vite.config.ts`) before but still want to have a try with the above configuration, you can create a `vite.config.ts` file in the root directory of your VitePress project and add the above configuration to it. (Don't forget to install `vite` through your package manager as well!)
+
 ### Integrate with VitePress
 
 Since the `InlineLinkPreviewElementTransform` plugin will transform the `[]()` link markup or `<a>` elements into the `<VPNolebaseInlineLinkPreview>` elements, you need to install the `VPNolebaseInlineLinkPreview` component into your VitePress theme in order to render the inline link previewing UI.

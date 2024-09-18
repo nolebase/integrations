@@ -118,8 +118,7 @@ Things to check:
     1. Was it renamed during the build process?
     2. Does it exist in the file system with the correct path?
     3. Does it have the correct extension? (Either .md for Markdown files or image extensions)
-    4. Does it have the correct case? (Linux is Case-sensitive while macOS isn't)
-    5. Does it have any special characters in the file name? (e.g. back slashes, quotes, illegal characters, etc.
+    4. Does it have any special characters in the file name? (e.g. back slashes, quotes, illegal characters, etc.
   2. If <N/A> was shown, it means no relevant path was found. In such cases:
     1. Check the file system for the file if you expect it to get matched.
     2. Check whether mis-spelling or incorrect path was used in the markup.
@@ -131,9 +130,23 @@ Matching chain:
     -> ${gray(markupTextContent)}
       -> ${gray(href)}
 
-${relevantPath ? `The most relevant paths: "${gray(relevantPath.key ?? '<N/A>')} matched by ${relevantPath.source ?? '<N/A>'}"` : ''}
+${relevantPath ? `The most relevant path: "${gray(relevantPath.key ?? '<N/A>')}" matched by ${relevantPath.source ?? '<N/A>'}` : ''}
 
   ${gray('at')} "${cyan(path)}"
+`)
+}
+
+function logMultipleCaseInsensitiveMatchedFilesWarning(
+  rootDir: string,
+  debugOn: boolean,
+  osSpecificHref: string,
+  hrefs: string[],
+) {
+  warn(debugOn, `Multiple case-insensitive matched files found for '${osSpecificHref}' based on ${rootDir}, using the first one.
+
+All matched files:
+
+ - ${gray(hrefs.join('\n - '))}
 `)
 }
 
@@ -293,7 +306,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       const isAudioRef = AUDIO_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Extract the pathname from the href
-      const parsedHref = new URL(href, 'https://a.com')
+      const parsedHref = new URL(href.startsWith('#') || href.startsWith('^') || href.startsWith('?') ? relative(rootDir, state.env.path) + href : href, 'https://a.com')
       // 1. Remove the leading slash since pathname always starts with a slash and we don't want it
       // 2. Decode the pathname since it is url-encoded
       const parsedPathname = decodeURIComponent(parsedHref.pathname.slice(1))
@@ -305,12 +318,21 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       if (!isImageRef && !isAudioRef && !isVideoRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
         osSpecificHref += '.md'
 
-      const matchedHref = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
-      if (!matchedHref) {
+      const matchedHrefs = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
+      if (matchedHrefs === null || (Array.isArray(matchedHrefs) && matchedHrefs.length === 0)) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
         logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, !noNoMatchedFileWarning, relevantPath)
 
         return false
+      }
+      let matchedHref
+      if (Array.isArray(matchedHrefs)) {
+        matchedHref = matchedHrefs[0]
+        if (matchedHrefs.length > 1)
+          logMultipleCaseInsensitiveMatchedFilesWarning(rootDir, debugOn, osSpecificHref, matchedHrefs)
+      }
+      else {
+        matchedHref = matchedHrefs
       }
 
       let resolvedNewHref = posix.join(

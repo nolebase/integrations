@@ -3,6 +3,8 @@ import Token from 'markdown-it/lib/token.mjs'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
 import type MarkdownIt from 'markdown-it'
 
+const caseInsensitiveCompare = new Intl.Collator(undefined, { sensitivity: 'accent' }).compare
+
 /**
  * Find / resolve bi-directional links.
  * @param possibleBiDirectionalLinksInFilePaths - file path is the key
@@ -18,9 +20,9 @@ export function findBiDirectionalLinks(
     return null
 
   if (href.includes(sep))
-    return possibleBiDirectionalLinksInFullFilePaths[href]
+    return possibleBiDirectionalLinksInFullFilePaths[href] ?? Object.entries(possibleBiDirectionalLinksInFullFilePaths).filter(p => caseInsensitiveCompare(href, p[0]) === 0).map(p => p[1])
 
-  return possibleBiDirectionalLinksInFilePaths[href]
+  return possibleBiDirectionalLinksInFilePaths[href] ?? Object.entries(possibleBiDirectionalLinksInFilePaths).filter(p => caseInsensitiveCompare(href, p[0]) === 0).map(p => p[1])
 }
 
 export function genLink(

@@ -306,7 +306,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       const isAudioRef = AUDIO_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Extract the pathname from the href
-      const parsedHref = new URL(href, 'https://a.com')
+      const parsedHref = new URL(href.startsWith('#') || href.startsWith('^') || href.startsWith('?') ? relative(rootDir, state.env.path) + href : href, 'https://a.com')
       // 1. Remove the leading slash since pathname always starts with a slash and we don't want it
       // 2. Decode the pathname since it is url-encoded
       const parsedPathname = decodeURIComponent(parsedHref.pathname.slice(1))

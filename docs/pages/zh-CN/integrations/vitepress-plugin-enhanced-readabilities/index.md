@@ -87,12 +87,15 @@ export default defineConfig({
     optimizeDeps: {
       exclude: [ // [!code ++]
         '@nolebase/vitepress-plugin-enhanced-readabilities/client', // [!code ++]
+        'vitepress', // [!code ++]
+        '@nolebase/ui', // [!code ++]
       ], // [!code ++]
     },
     ssr: { // [!code ++]
       noExternal: [ // [!code ++]
         // 如果还有别的依赖需要添加的话，并排填写和配置到这里即可 // [!code hl]
         '@nolebase/vitepress-plugin-enhanced-readabilities', // [!code ++]
+        '@nolebase/ui', // [!code ++]
       ], // [!code ++]
     }, // [!code ++]
   }, // [!code ++]

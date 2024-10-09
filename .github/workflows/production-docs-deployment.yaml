@@ -58,7 +58,7 @@ jobs:
           VUE_PROD_HYDRATION_MISMATCH_DETAILS_FLAG: '1'
 
       - name: Install Netlify CLI
-        run: pnpm install -g netlify-cli
+        run: pnpm install -g netlify-cli@17.36.0
 
       - name: Push to Netlify
         timeout-minutes: 10

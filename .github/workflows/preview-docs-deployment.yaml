@@ -80,7 +80,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install Netlify CLI
-        run: pnpm install -g netlify-cli
+        run: pnpm install -g netlify-cli@17.36.0
 
       - name: Push to Netlify - Ubuntu
         id: netlify-ubuntu-latest

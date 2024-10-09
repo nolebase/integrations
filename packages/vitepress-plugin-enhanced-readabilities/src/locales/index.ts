@@ -1,9 +1,9 @@
 import defaultEnLocale from './en.yaml'
-import defaultZhCNLocale from './zh-CN.yaml'
 import defaultRuLocale from './ru-RU.yaml'
+import defaultZhCNLocale from './zh-CN.yaml'
 
 export {
   defaultEnLocale,
-  defaultZhCNLocale,
   defaultRuLocale,
+  defaultZhCNLocale,
 }

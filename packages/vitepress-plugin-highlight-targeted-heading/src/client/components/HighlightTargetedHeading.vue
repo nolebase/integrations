@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useEventListener } from '@vueuse/core'
-import { nextTick, onMounted, watch } from 'vue'
 import { useRoute } from 'vitepress'
+import { nextTick, onMounted, watch } from 'vue'
 
 function handleHighlight() {
   if (!window || !window.location)

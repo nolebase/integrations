@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRoute } from 'vitepress'
 import type { Rive } from './deps'
+import { useRoute } from 'vitepress'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
 const route = useRoute()
 const riveInstances = ref<Rive[]>([])
@@ -33,7 +33,7 @@ function cleanupAllRiveInstances() {
     try {
       rive.cleanup()
     }
-    catch (e) {
+    catch {
     }
   }
 

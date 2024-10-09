@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from 'vue'
 import { refDebounced, useMediaQuery, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
-import { InjectionKey, defaultLinkPreviewPopupOptions } from '../constants'
+import { computed, inject, ref, watch } from 'vue'
 import { useInIframe } from '../composables/iframe'
+import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
 import PopupIframe from './PopupIframe.vue'
 
 const props = defineProps < {
@@ -88,7 +88,7 @@ const hrefHost = computed<string>(() => {
   try {
     return new URL(props.href, window.location.href).host
   }
-  catch (e) {
+  catch {
     return ''
   }
 })

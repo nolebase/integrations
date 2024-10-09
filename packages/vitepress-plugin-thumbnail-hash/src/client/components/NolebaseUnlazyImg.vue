@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { UnLazyImage } from '@unlazy/vue/components'
+import { ref } from 'vue'
 
 const props = withDefaults(defineProps<{
   src: string

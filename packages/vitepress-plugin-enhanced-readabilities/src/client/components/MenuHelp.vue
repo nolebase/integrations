@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, toRef, watch } from 'vue'
 import { useElementBounding, useElementHover, useMounted } from '@vueuse/core'
+import { computed, ref, toRef, watch } from 'vue'
 
 const props = defineProps<{
   menuTitleElementRef?: HTMLDivElement

@@ -1,5 +1,5 @@
-import { formatDistanceToNow, toDate } from 'date-fns'
 import type { Locale } from 'date-fns'
+import { formatDistanceToNow, toDate } from 'date-fns'
 import * as DateFnsLocales from 'date-fns/locale'
 import { subtle } from 'uncrypto'
 
@@ -33,7 +33,7 @@ export function formatDistanceToNowFromValue(value: Date, localeName = 'enUS') {
       addSuffix: true,
     })
   }
-  catch (err) {
+  catch {
     return value.toLocaleDateString()
   }
 }

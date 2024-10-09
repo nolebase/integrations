@@ -1,17 +1,17 @@
-import { type Plugin, h } from 'vue'
-
-import { MotionPlugin } from '@vueuse/motion'
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
-
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
+
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 
-import VPHeroImageLogo from './components/VPHeroImageLogo.vue'
-import IntegrationCard from './components/IntegrationCard.vue'
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+import { MotionPlugin } from '@vueuse/motion'
+import { h, type Plugin } from 'vue'
+
 import HomeContent from './components/HomeContent.vue'
-import ThumbhashPreview from './components/ThumbhashPreview.vue'
+import IntegrationCard from './components/IntegrationCard.vue'
 import NavHeader from './components/NavHeader.vue'
+import ThumbhashPreview from './components/ThumbhashPreview.vue'
+import VPHeroImageLogo from './components/VPHeroImageLogo.vue'
 
 import 'virtual:uno.css'
 

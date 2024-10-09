@@ -1,15 +1,15 @@
 import { argv, cwd, env } from 'node:process'
 
-import { gray } from 'colorette'
-import { type DefaultTheme, defineConfig } from 'vitepress'
-import MarkdownItFootnote from 'markdown-it-footnote'
-import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
-
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links'
-import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
-import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img'
+import { InlineLinkPreviewElementTransform } from '@nolebase/vitepress-plugin-inline-link-preview/markdown-it'
 import { transformHeadMeta } from '@nolebase/vitepress-plugin-meta/vitepress'
+
+import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { gray } from 'colorette'
+import MarkdownItFootnote from 'markdown-it-footnote'
+import { type DefaultTheme, defineConfig } from 'vitepress'
 
 import packageJSON from '../../package.json'
 import { compilerOptions } from './twoslashConfig'

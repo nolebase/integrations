@@ -1,6 +1,6 @@
-import { defineConfig } from 'vitest/config'
-import Yaml from '@rollup/plugin-yaml'
 import type { Plugin } from 'vite'
+import Yaml from '@rollup/plugin-yaml'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   plugins: [

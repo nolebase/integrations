@@ -1,8 +1,8 @@
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
-
-import { describe, expect, it } from 'vitest'
 import type { SiteConfig } from 'vitepress'
+import { dirname, join } from 'node:path'
+
+import { fileURLToPath } from 'node:url'
+import { describe, expect, it } from 'vitest'
 import { applyCategoryText, applyCategoryTextWithFallback, tryToLocateFontFile, tryToLocateTemplateSVGFile } from './options'
 
 const __filename = fileURLToPath(import.meta.url)

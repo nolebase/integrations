@@ -1,7 +1,7 @@
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { defineBuildConfig } from 'unbuild'
 import builtins from 'builtin-modules'
+import { defineBuildConfig } from 'unbuild'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

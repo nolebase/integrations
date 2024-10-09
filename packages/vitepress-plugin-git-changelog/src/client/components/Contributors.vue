@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { inject, onMounted } from 'vue'
-import { useData } from 'vitepress'
 import { defu } from 'defu'
+import { useData } from 'vitepress'
+import { inject, onMounted } from 'vue'
 
 import { useChangelog } from '../composables/changelog'
 import { useI18n } from '../composables/i18n'
-import { InjectionKey, defaultOptions } from '../constants'
+import { defaultOptions, InjectionKey } from '../constants'
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 

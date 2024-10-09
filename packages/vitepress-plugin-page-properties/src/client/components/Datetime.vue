@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
-
-import { formatDistanceToNowFromValue } from '../utils'
 import type { DatetimeProperty } from '../types'
+
+import { useData } from 'vitepress'
+import { formatDistanceToNowFromValue } from '../utils'
 
 const props = defineProps<{
   value: string | number | Date

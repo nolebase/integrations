@@ -1,10 +1,10 @@
 import type { Plugin } from 'vue'
 import type { Author, Changelog, Commit, Contributor } from '../types'
 
-import NolebaseGitChangelog from './components/Changelog.vue'
-import NolebaseGitContributors from './components/Contributors.vue'
-
 import type { Locale, Options } from './types'
+import NolebaseGitChangelog from './components/Changelog.vue'
+
+import NolebaseGitContributors from './components/Contributors.vue'
 import { InjectionKey } from './constants'
 
 export { default as NolebaseGitChangelog } from './components/Changelog.vue'
@@ -30,10 +30,10 @@ export {
 }
 
 export type {
-  Commit,
   Author,
-  Contributor,
   Changelog,
-  Options,
+  Commit,
+  Contributor,
   Locale,
+  Options,
 }

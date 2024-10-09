@@ -1,14 +1,14 @@
-import type { HeadConfig, TransformContext } from 'vitepress'
-
-import { unified } from 'unified'
-import RehypeParse from 'rehype-parse'
-import { select, selectAll } from 'hast-util-select'
 import type { Nodes } from 'hast'
+
+import type { HeadConfig, TransformContext } from 'vitepress'
+import { defu } from 'defu'
+import { select, selectAll } from 'hast-util-select'
 import { toText } from 'hast-util-to-text'
+import RehypeParse from 'rehype-parse'
 import RetextStringify from 'retext-stringify'
+import { unified } from 'unified'
 import { remove } from 'unist-util-remove'
 import { removePosition } from 'unist-util-remove-position'
-import { defu } from 'defu'
 
 function RehypeRetext(option: { selector: string, removeSelectors: string[] }): (tree: Nodes) => void {
   return (nodes) => {

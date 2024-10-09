@@ -4,8 +4,8 @@ import { useI18n } from '../composables/i18n'
 import { VPFlyout } from './deps'
 
 import LayoutSwitch from './LayoutSwitch.vue'
-import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import LayoutSwitchContentLayoutWidthInput from './LayoutSwitchContentLayoutMaxWidthSlider.vue'
+import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import Spotlight from './Spotlight.vue'
 import SpotlightStyles from './SpotlightStyles.vue'
 

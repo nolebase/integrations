@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest'
-
 import type { Commit, Contributor, MergedRawCommit } from '../types'
+
+import { describe, expect, it } from 'vitest'
 import {
   defaultCommitURLHandler,
-  defaultReleaseTagURLHandler,
   defaultReleaseTagsURLHandler,
+  defaultReleaseTagURLHandler,
   findMapAuthorByEmail,
   findMapAuthorByGitHub,
   findMapAuthorByName,

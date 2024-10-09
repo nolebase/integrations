@@ -1,5 +1,5 @@
-import { defaultEnLocale, defaultZhCNLocale } from '../locales'
 import type { Locale } from './types'
+import { defaultEnLocale, defaultZhCNLocale } from '../locales'
 
 export {
   defaultEnLocale,

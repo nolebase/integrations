@@ -25,7 +25,7 @@ export function isDatetimeProperty(value?: any, property?: Property<PropertyKey>
     if (date.toString() === 'Invalid Date')
       return false
   }
-  catch (e) {
+  catch {
     return false
   }
 

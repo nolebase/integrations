@@ -1,9 +1,9 @@
+import type { PluginSimple } from 'markdown-it'
 import { basename, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
-import { globSync } from 'glob'
-import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
+import { globSync } from 'glob'
 
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'

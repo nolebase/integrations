@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 import { useRoute } from 'vitepress'
-import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 
-import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
+import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
 
-import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
+import MenuTitle from './MenuTitle.vue'
 
 const options = inject(InjectionKey, {})
 

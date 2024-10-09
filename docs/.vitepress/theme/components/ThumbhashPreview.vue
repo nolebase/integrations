@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { useClipboard } from '@vueuse/core'
 import { rgbaToThumbHash } from 'thumbhash'
 import { createPngDataUri } from 'unlazy/thumbhash'
-import { useClipboard } from '@vueuse/core'
+import { computed, onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(defineProps<{
   thumbhashText: string
@@ -45,7 +45,7 @@ watch(() => thumbhash.value, async (val) => {
     dataUri.value = createPngDataUri(val)
     thumbhashErrored.value = false
   }
-  catch (err) {
+  catch {
     thumbhashErrored.value = true
     return ''
   }

@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue'
-import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { NuInputSlider, NuVerticalTransition } from '@nolebase/ui'
+import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 
-import { ContentLayoutMaxWidthStorageKey, InjectionKey, LayoutMode, LayoutSwitchModeStorageKey } from '../constants'
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
+import { ContentLayoutMaxWidthStorageKey, InjectionKey, LayoutMode, LayoutSwitchModeStorageKey } from '../constants'
 
-import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
+import MenuTitle from './MenuTitle.vue'
 
 const min = ref(60)
 const minScaled = computed(() => min.value * 100)

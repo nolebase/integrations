@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import type { Locale } from '../types'
+import { NuVerticalTransition } from '@nolebase/ui'
 import { differenceInDays, toDate } from 'date-fns'
-import { useData } from 'vitepress'
 import { defu } from 'defu'
 
-import { NuVerticalTransition } from '@nolebase/ui'
+import { useData } from 'vitepress'
 
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import { useChangelog } from '../composables/changelog'
-import { formatDistanceToNowFromValue } from '../utils'
 import { useI18n } from '../composables/i18n'
-import { InjectionKey, defaultOptions } from '../constants'
-import type { Locale } from '../types'
+import { defaultOptions, InjectionKey } from '../constants'
 import { defaultEnLocale, defaultLocales } from '../locales'
+import { formatDistanceToNowFromValue } from '../utils'
 
 import CommitRegularLine from './CommitRegularLine.vue'
 import CommitTagLine from './CommitTagLine.vue'

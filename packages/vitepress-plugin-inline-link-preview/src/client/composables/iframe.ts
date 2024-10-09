@@ -6,7 +6,7 @@ export function useInIframe() {
       try {
         return window.self !== window.top && window.top !== undefined && window.top !== null && 'location' in window.top
       }
-      catch (e) {
+      catch {
         return false
       }
     }),

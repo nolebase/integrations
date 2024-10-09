@@ -5,6 +5,18 @@ import type {
   Options,
 } from './types'
 
+import LayoutSwitch from './components/LayoutSwitch.vue'
+
+import LayoutSwitchContentLayoutMaxWidthSlider from './components/LayoutSwitchContentLayoutMaxWidthSlider.vue'
+import LayoutSwitchPageLayoutMaxWidthSlider from './components/LayoutSwitchPageLayoutMaxWidthSlider.vue'
+
+import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
+import ScreenLayoutSwitch from './components/ScreenLayoutSwitch.vue'
+import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
+import ScreenSpotlight from './components/ScreenSpotlight.vue'
+
+import Spotlight from './components/Spotlight.vue'
+import SpotlightStyles from './components/SpotlightStyles.vue'
 import {
   InjectionKey,
   LayoutMode,
@@ -13,38 +25,26 @@ import {
   SpotlightToggledStorageKey,
 } from './constants'
 
-import NolebaseEnhancedReadabilitiesMenu from './components/Menu.vue'
-import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue'
-
-import LayoutSwitch from './components/LayoutSwitch.vue'
-import LayoutSwitchContentLayoutMaxWidthSlider from './components/LayoutSwitchContentLayoutMaxWidthSlider.vue'
-import LayoutSwitchPageLayoutMaxWidthSlider from './components/LayoutSwitchPageLayoutMaxWidthSlider.vue'
-import ScreenLayoutSwitch from './components/ScreenLayoutSwitch.vue'
-
-import Spotlight from './components/Spotlight.vue'
-import ScreenSpotlight from './components/ScreenSpotlight.vue'
-import SpotlightStyles from './components/SpotlightStyles.vue'
-
 export type {
-  Options,
   Locale,
+  Options,
 }
 
 export {
-  NolebaseEnhancedReadabilitiesMenu,
-  NolebaseEnhancedReadabilitiesScreenMenu,
+  InjectionKey,
+  LayoutMode,
   LayoutSwitch,
   LayoutSwitchContentLayoutMaxWidthSlider,
-  LayoutSwitchPageLayoutMaxWidthSlider,
-  ScreenLayoutSwitch,
   LayoutSwitchModeStorageKey,
-  Spotlight,
-  SpotlightStyles,
+  LayoutSwitchPageLayoutMaxWidthSlider,
+  NolebaseEnhancedReadabilitiesMenu,
+  NolebaseEnhancedReadabilitiesScreenMenu,
+  ScreenLayoutSwitch,
   ScreenSpotlight,
-  SpotlightToggledStorageKey,
-  InjectionKey,
+  Spotlight,
   SpotlightStyle,
-  LayoutMode,
+  SpotlightStyles,
+  SpotlightToggledStorageKey,
 }
 
 const components = {

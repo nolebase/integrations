@@ -1,9 +1,9 @@
+import type { Commit, CommitAuthor, Contributor, MergedRawCommit, RawCommit } from '../types'
 import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:path'
+import { omit } from 'es-toolkit'
+import { execa } from 'execa'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
-import { execa } from 'execa'
-import { omit } from 'es-toolkit'
-import type { Commit, CommitAuthor, Contributor, MergedRawCommit, RawCommit } from '../types'
 
 export interface Helpers {
   /**
@@ -315,7 +315,7 @@ export async function parseCommits(
     // rewrite path
     // Ensure that paths are processed first, as users may generate other properties based on this one.
     if (typeof optsRewritePathsBy !== 'undefined')
-      await Promise.all(rawCommit.paths.map((async p => await rewritePathsByPatterns(resolvedCommit, p, optsRewritePathsBy))))
+      await Promise.all(rawCommit.paths.map(async p => await rewritePathsByPatterns(resolvedCommit, p, optsRewritePathsBy)))
 
     // repo url
     resolvedCommit.repo_url = (await returnOrResolvePromise(getRepoURL(resolvedCommit))) ?? 'https://github.com/example/example'

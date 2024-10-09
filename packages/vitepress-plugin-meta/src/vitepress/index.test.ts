@@ -1,6 +1,6 @@
+import type { TransformContext } from 'vitepress'
 import { readFile } from 'node:fs/promises'
 import { describe, expect, it } from 'vitest'
-import type { TransformContext } from 'vitepress'
 import { transformHeadMeta } from '.'
 
 describe('meta', () => {

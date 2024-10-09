@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import type { CommitWithAuthorInfo } from '../composables/changelog'
+import type { Locale } from '../types'
 import { toDate } from 'date-fns'
-import { useData } from 'vitepress'
 import { defu } from 'defu'
 
-import type { Locale } from '../types'
-import type { CommitWithAuthorInfo } from '../composables/changelog'
+import { useData } from 'vitepress'
+import { computed, inject } from 'vue'
 import { useI18n } from '../composables/i18n'
-import { formatDistanceToNowFromValue } from '../utils'
+import { defaultOptions, InjectionKey } from '../constants'
 import { defaultEnLocale, defaultLocales } from '../locales'
-import { InjectionKey, defaultOptions } from '../constants'
+import { formatDistanceToNowFromValue } from '../utils'
 
 const props = defineProps<{
   commit: CommitWithAuthorInfo

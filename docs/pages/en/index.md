@@ -34,6 +34,18 @@ features:
     details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
 ---
 
+<script setup>
+import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
+import elementTransform from '~/packages/markdown-it-element-transform/package.json'
+import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
+import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+import inlineLinkPreview from '~/packages/vitepress-plugin-inline-link-preview/package.json'
+import highlightTargetedHeading from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
+import gitChangelog from '~/packages/vitepress-plugin-git-changelog/package.json'
+import enhancedMark from '~/packages/vitepress-plugin-enhanced-mark/package.json'
+import thumbnailHash from '~/packages/vitepress-plugin-thumbnail-hash/package.json'
+</script>
+
 <HomeContent>
 
 ## Integrations List
@@ -43,43 +55,43 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 <div class="grid gap-5 lg:grid-cols-2 max-w-172 lg:max-w-none mx-auto">
   <IntegrationCard type="markdown-it" title="Bi-Directional Links" package="markdown-it-bi-directional-links">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${biDirectionalLinksPackageJSON.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="markdown-it" title="Elements Transformation" package="markdown-it-element-transform">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${elementTransform.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="markdown-it" title="Lazy loading blurred thumbnails" package="markdown-it-unlazy-img">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${unlazyImg.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${enhancedReadabilities.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Inline Link Previewing" package="vitepress-plugin-inline-link-preview">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${inlineLinkPreview.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Blinking highlight targeted heading" package="vitepress-plugin-highlight-targeted-heading">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${highlightTargetedHeading.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Git-based page histories" package="vitepress-plugin-git-changelog">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${gitChangelog.version}`" />
     </template>
   </IntegrationCard>
 
@@ -109,13 +121,13 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
       Enhanced <code>&lt;mark&gt;</code> elements
     </template>
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${enhancedMark.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="Thumbnail hashing for images" package="vitepress-plugin-thumbnail-hash">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${thumbnailHash.version}`" />
     </template>
   </IntegrationCard>
 

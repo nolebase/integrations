@@ -48,6 +48,7 @@
     "@vitest/coverage-v8": "^1.6.0",
     "@vitest/ui": "^1.6.0",
     "@vueuse/core": "^10.11.0",
+    "bumpp": "^9.5.2",
     "concurrently": "^8.2.2",
     "eslint": "^8.57.0",
     "less": "^4.2.0",

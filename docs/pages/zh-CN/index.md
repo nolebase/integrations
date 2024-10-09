@@ -34,6 +34,18 @@ features:
     details: 从文档工程的角度出发，解决和简化若干 UX/DX 的问题和困境，旨在让创作者更好地专注于撰写文档、笔记、制作卡片以及 GTD。
 ---
 
+<script setup>
+import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
+import elementTransform from '~/packages/markdown-it-element-transform/package.json'
+import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
+import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+import inlineLinkPreview from '~/packages/vitepress-plugin-inline-link-preview/package.json'
+import highlightTargetedHeading from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
+import gitChangelog from '~/packages/vitepress-plugin-git-changelog/package.json'
+import enhancedMark from '~/packages/vitepress-plugin-enhanced-mark/package.json'
+import thumbnailHash from '~/packages/vitepress-plugin-thumbnail-hash/package.json'
+</script>
+
 <HomeContent>
 
 ## 集成列表
@@ -43,43 +55,43 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
 <div class="grid gap-5 lg:grid-cols-2 max-w-172 lg:max-w-none mx-auto">
   <IntegrationCard type="markdown-it" title="双向链接" package="markdown-it-bi-directional-links">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${biDirectionalLinksPackageJSON.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="markdown-it" title="元素转换" package="markdown-it-element-transform">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${elementTransform.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${unlazyImg.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${enhancedReadabilities.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="行内链接预览" package="vitepress-plugin-inline-link-preview">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${inlineLinkPreview.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="闪烁高亮当前的目标标题" package="vitepress-plugin-highlight-targeted-heading">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${highlightTargetedHeading.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="基于 Git 的页面历史" package="vitepress-plugin-git-changelog">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${gitChangelog.version}`" />
     </template>
   </IntegrationCard>
 
@@ -109,13 +121,13 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
       <code>&lt;mark&gt;</code> 元素增强
     </template>
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${enhancedMark.version}`" />
     </template>
   </IntegrationCard>
 
   <IntegrationCard type="vitepress" title="缩略图模糊哈希生成" package="vitepress-plugin-thumbnail-hash">
     <template v-slot:badge>
-      <Badge type="tip" text="v2.5.0" />
+      <Badge type="tip" :text="`v${thumbnailHash.version}`" />
     </template>
   </IntegrationCard>
 

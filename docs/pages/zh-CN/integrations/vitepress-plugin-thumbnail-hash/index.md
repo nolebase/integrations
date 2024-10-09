@@ -22,7 +22,7 @@ import packageJSON from '~/packages/vitepress-plugin-thumbnail-hash/package.json
   clear-input-thumbhash-text="清空已输入的 Thumbhash"
   input-thumbhash-placeholder="输入 base64 编码的 Thumbhash..."
   preview-thumbhash-text="输入 Thumbhash 以预览"
-  demo-image-url="/foxtail field.jpg"
+  demo-image-url="/thumbhash-test-image.jpg"
 />
 
 生成的 Thumbhash base64 将如下所示：

@@ -15,7 +15,7 @@ export function findBiDirectionalLinks(
   possibleBiDirectionalLinksInFilePaths: Record<string, string>,
   possibleBiDirectionalLinksInFullFilePaths: Record<string, string>,
   href: string,
-) {
+): string[] | string | null {
   if (!href)
     return null
 

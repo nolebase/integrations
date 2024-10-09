@@ -32,6 +32,7 @@ jobs:
         with:
           name: pr-num
           path: ./pr_num
+          overwrite: true
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -84,3 +85,4 @@ jobs:
         with:
           name: docs-${{ matrix.os }}-build
           path: docs/.vitepress/dist
+          overwrite: true

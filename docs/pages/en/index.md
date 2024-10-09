@@ -138,5 +138,31 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
   </IntegrationCard>
 </div>
 
+<div>
+  <h2 text-center mt-11 pb-2>
+    Sponsored by
+  </h2>
+  <div flex justify-center>
+    <img src="https://cdn.jsdelivr.net/gh/nolebase/sponsors/sponsors.wide.svg" />
+  </div>
+
+  <p text-center>
+    This project is made possible by all the sponsors supporting our work <br>
+    You can join them at our sponsors profile:
+  </p>
+  <p flex justify-center gap-4>
+    <a href="https://github.com/sponsors/LittleSound"  target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Rizumu&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+    <a href="https://github.com/sponsors/nekomeowww" target="_blank"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Neko&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+  </p>
+
+  <h2 text="center lg" my-5 font-bold>
+    💕 Thanks to all the contributors!
+  </h2>
+
+  <a href="https://github.com/nolebase/integrations/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=nolebase/integrations" />
+  </a>
+</div>
+
 </HomeContent>
 

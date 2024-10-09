@@ -8,7 +8,7 @@ export function formatDistanceToNowFromValue(value: string | number | Date, loca
       addSuffix: true,
     })
   }
-  catch (err) {
+  catch {
     return value
   }
 }
@@ -23,7 +23,7 @@ export function formatDurationFromValue(value: number, localeName = 'enUS') {
       locale: DateFnsLocales[localeName] || 'enUS',
     })
   }
-  catch (err) {
+  catch {
     return value
   }
 }

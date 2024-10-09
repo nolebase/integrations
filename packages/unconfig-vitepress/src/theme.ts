@@ -1,10 +1,10 @@
-import { h } from 'vue'
 import type { Theme } from 'vitepress'
+import type { DefineThemeUnconfigOptions, Layout, Slots } from './types'
 import DefaultTheme from 'vitepress/theme'
 
-import type { DefineThemeUnconfigOptions, Layout, Slots } from './types'
+import { h } from 'vue'
 
-export type { PluginSet, Plugin, Layout, DefineThemeUnconfigOptions, Slots } from './types'
+export type { DefineThemeUnconfigOptions, Layout, Plugin, PluginSet, Slots } from './types'
 
 function applySlots(globalSlots: Record<string, Array<() => Slots[number]>> = {}, slots: Layout['slots']) {
   if (!slots)

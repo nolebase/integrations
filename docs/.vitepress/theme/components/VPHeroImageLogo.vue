@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
 import { useMotion } from '@vueuse/motion'
 
-import { useMediaQuery } from '@vueuse/core'
-import VitePressLogo from '../assets/vitepress-logo-large.webp'
+import { ref } from 'vue'
 import ObsidianLogo from '../assets/obsidian-logo.svg'
+import VitePressLogo from '../assets/vitepress-logo-large.webp'
 import VPHeroImageLayer from './VPHeroImageLogoLayer.vue'
 
 const layer1Ref = ref<HTMLDivElement>()
@@ -97,7 +97,8 @@ refs.forEach((ref, index) => {
     initial: {
       scale: 1,
       y: ref[key].initial.y,
-      transform: 'rotateX(50deg) rotateZ(-45deg)',
+      rotateX: '50deg',
+      rotateZ: '-45deg',
     },
     enter: {
       y: ref[key].enter.y,
@@ -125,15 +126,14 @@ refs.forEach((ref, index) => {
 </script>
 
 <template>
-  <div relative h="60 <lg:55 <md:50 <sm:45" w="60 <lg:55 <md:50 <sm:45" m-auto>
+  <div relative class="h-60 w-60 <lg:h-55 <lg:w-55 <md:h-50 <md:w-50 <sm:h-45 <sm:w-45" m-auto>
     <ClientOnly>
       <VPHeroImageLayer ref="layer1Ref" class="layer-1" z="4" shadow-md>
         <div
           left="8 <md:7 <sm:7"
           top="<md:7 <sm:6"
           absolute
-          h="44 <lg:40 <md:36 <sm:32"
-          w="44 <lg:40 <md:36 <sm:32"
+          class="h-44 w-44 <lg:h-40 <lg:w-40 <md:h-36 <md:w-36 <sm:h-32 <sm:w-32"
           z="1"
         >
           <div i-fluent-emoji:notebook-with-decorative-cover h-full w-full />

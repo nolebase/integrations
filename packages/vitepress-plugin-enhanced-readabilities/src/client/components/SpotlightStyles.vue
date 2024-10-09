@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, watch } from 'vue'
-import { useMediaQuery, useStorage } from '@vueuse/core'
 import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+import { useMediaQuery, useStorage } from '@vueuse/core'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey, SpotlightToggledStorageKey } from '../constants'
 
-import MenuTitle from './MenuTitle.vue'
 import MenuHelp from './MenuHelp.vue'
+import MenuTitle from './MenuTitle.vue'
 
 const options = inject(InjectionKey, {})
 

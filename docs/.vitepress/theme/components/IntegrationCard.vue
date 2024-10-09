@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress'
-import VitePressLogo from '../assets/vitepress-logo-large.webp'
 import ObsidianLogo from '../assets/obsidian-logo.svg'
+import VitePressLogo from '../assets/vitepress-logo-large.webp'
 
 const props = withDefaults(defineProps<{
   type: IntegrationType

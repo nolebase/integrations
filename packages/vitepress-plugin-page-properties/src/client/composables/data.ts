@@ -1,6 +1,6 @@
-import { type ComputedRef, type Ref, computed, ref, toValue } from 'vue'
-import VirtualPagePropertiesData from 'virtual:nolebase-page-properties'
 import type { PageData } from 'vitepress'
+import VirtualPagePropertiesData from 'virtual:nolebase-page-properties'
+import { computed, type ComputedRef, type Ref, ref, toValue } from 'vue'
 
 type Data = typeof VirtualPagePropertiesData
 

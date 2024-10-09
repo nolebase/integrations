@@ -1,9 +1,9 @@
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 
-import { defineBuildConfig } from 'unbuild'
-import builtins from 'builtin-modules'
 import Yaml from '@rollup/plugin-yaml'
+import builtins from 'builtin-modules'
+import { defineBuildConfig } from 'unbuild'
 
 const execAsync = promisify(exec)
 

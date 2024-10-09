@@ -16,9 +16,9 @@ import type {
   TagsProperty,
 } from './types'
 
-import { InjectionKey } from './constants'
 import NolebasePageProperties from './components/PageProperties.vue'
 import NolebasePagePropertiesEditor from './components/PagePropertiesEditor.vue'
+import { InjectionKey } from './constants'
 
 const components = {
   NolebasePageProperties,
@@ -38,23 +38,23 @@ export function NolebasePagePropertiesPlugin<P extends object>(): Plugin<Options
 }
 
 export {
+  InjectionKey,
   NolebasePageProperties,
   NolebasePagePropertiesEditor,
-  InjectionKey,
 }
 
 export type {
-  Locale,
-  Options,
-  Property,
-  PropertyType,
-  PlainProperty,
-  TagsProperty,
   DatetimeProperty,
-  LinkProperty,
-  ProgressProperty,
   DynamicProperty,
   DynamicPropertyType,
   DynamicReadingTimeProperty,
   DynamicWordsCountProperty,
+  LinkProperty,
+  Locale,
+  Options,
+  PlainProperty,
+  ProgressProperty,
+  Property,
+  PropertyType,
+  TagsProperty,
 }

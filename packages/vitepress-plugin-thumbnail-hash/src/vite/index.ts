@@ -1,16 +1,16 @@
-import { join, relative } from 'node:path'
-import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-
-import { type Plugin, normalizePath } from 'vite'
 import type { SiteConfig } from 'vitepress'
+import type { ThumbHash, ThumbHashCalculated } from '../types'
 
-import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
+import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
+import { join, relative } from 'node:path'
+
 import CanvasKitInit from 'canvaskit-wasm'
 import { cyan, gray } from 'colorette'
-import ora from 'ora'
 import { glob } from 'glob'
+import ora from 'ora'
+import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
 
-import type { ThumbHash, ThumbHashCalculated } from '../types'
+import { normalizePath, type Plugin } from 'vite'
 import { binaryToBase64, hash, normalizeBase64 } from './utils'
 
 interface VitePressConfig {

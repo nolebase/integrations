@@ -1,9 +1,9 @@
+import type { PluginSimple } from 'markdown-it'
 import { basename, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
-import { globSync } from 'glob'
-import type { PluginSimple } from 'markdown-it'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
+import { globSync } from 'glob'
 
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
@@ -118,7 +118,7 @@ Things to check:
     1. Was it renamed during the build process?
     2. Does it exist in the file system with the correct path?
     3. Does it have the correct extension? (Either .md for Markdown files or image extensions)
-    4. Does it have any special characters in the file name? (e.g. back slashes, quotes, illegal characters, etc.
+    4. Does it have any special characters in the file name? (e.g. back slashes, quotes, illegal characters, etc.)
   2. If <N/A> was shown, it means no relevant path was found. In such cases:
     1. Check the file system for the file if you expect it to get matched.
     2. Check whether mis-spelling or incorrect path was used in the markup.
@@ -318,21 +318,22 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       if (!isImageRef && !isAudioRef && !isVideoRef && (extname(osSpecificHref) === '' || extname(osSpecificHref) !== '.md'))
         osSpecificHref += '.md'
 
-      const matchedHrefs = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
-      if (matchedHrefs === null || (Array.isArray(matchedHrefs) && matchedHrefs.length === 0)) {
+      const matchedHrefSingleOrArray = findBiDirectionalLinks(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
+      if (matchedHrefSingleOrArray === null || (Array.isArray(matchedHrefSingleOrArray) && matchedHrefSingleOrArray.length === 0)) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
         logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, !noNoMatchedFileWarning, relevantPath)
 
         return false
       }
-      let matchedHref
-      if (Array.isArray(matchedHrefs)) {
-        matchedHref = matchedHrefs[0]
-        if (matchedHrefs.length > 1)
-          logMultipleCaseInsensitiveMatchedFilesWarning(rootDir, debugOn, osSpecificHref, matchedHrefs)
+
+      let matchedHref: string | undefined
+      if (Array.isArray(matchedHrefSingleOrArray)) {
+        matchedHref = matchedHrefSingleOrArray[0]
+        if (matchedHrefSingleOrArray.length > 1)
+          logMultipleCaseInsensitiveMatchedFilesWarning(rootDir, debugOn, osSpecificHref, matchedHrefSingleOrArray)
       }
       else {
-        matchedHref = matchedHrefs
+        matchedHref = matchedHrefSingleOrArray
       }
 
       let resolvedNewHref = posix.join(

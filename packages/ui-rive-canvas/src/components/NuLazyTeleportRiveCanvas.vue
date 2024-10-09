@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { useRoute } from 'vitepress'
 import type { Rive } from './deps'
+import { useRoute } from 'vitepress'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 
 const route = useRoute()
 const riveInstances = ref<Rive[]>([])
@@ -33,7 +33,7 @@ function cleanupAllRiveInstances() {
     try {
       rive.cleanup()
     }
-    catch (e) {
+    catch {
     }
   }
 
@@ -128,7 +128,11 @@ async function renderRiveAsset() {
 
     el.appendChild(canvas)
 
-    const { rive } = await import('./deps')
+    let { rive } = await import('./deps')
+    if ((rive as any).default) {
+      rive = (rive as any).default as typeof rive
+    }
+
     const r = new rive.Rive({
       canvas,
       src: src.value,

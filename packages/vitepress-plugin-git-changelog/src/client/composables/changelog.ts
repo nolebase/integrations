@@ -1,9 +1,9 @@
-import { computed, ref, toValue } from 'vue'
-
-import { useData } from 'vitepress'
+import type { Changelog, Commit, CommitAuthor } from '../../types'
 
 import changelog from 'virtual:nolebase-git-changelog'
-import type { Changelog, Commit, CommitAuthor } from '../../types'
+
+import { useData } from 'vitepress'
+import { computed, ref, toValue } from 'vue'
 import { isStringArray } from '../utils'
 
 export interface AuthorInfo extends CommitAuthor {

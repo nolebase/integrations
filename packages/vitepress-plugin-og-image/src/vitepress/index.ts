@@ -1,25 +1,25 @@
+import type { Buffer } from 'node:buffer'
+import type { DefaultTheme, SiteConfig } from 'vitepress'
+import type { BuildEndGenerateOpenGraphImagesOptions, PageItem } from './types'
 import { basename, dirname, join, relative, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
-import type { Buffer } from 'node:buffer'
+import { gray, green, red, yellow } from 'colorette'
+import { defu } from 'defu'
 import fs from 'fs-extra'
 import { glob } from 'glob'
-import type { DefaultTheme, SiteConfig } from 'vitepress'
-import { gray, green, red, yellow } from 'colorette'
 import GrayMatter from 'gray-matter'
-import { unified } from 'unified'
 import RehypeMeta from 'rehype-meta'
 import RehypeParse from 'rehype-parse'
 import RehypeStringify from 'rehype-stringify'
-import { visit } from 'unist-util-visit'
-import { defu } from 'defu'
+import { unified } from 'unified'
 
-import { applyCategoryTextWithFallback, tryToLocateFontFile, tryToLocateTemplateSVGFile } from './options'
-import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
-import { type TaskResult, renderTaskResultsSummary, task } from './utils/task'
-import type { BuildEndGenerateOpenGraphImagesOptions, PageItem } from './types'
-import { getDescriptionWithLocales, getTitleWithLocales } from './utils/vitepress/locales'
-import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils/svg/render'
+import { visit } from 'unist-util-visit'
 import { logModulePrefix } from './constants'
+import { applyCategoryTextWithFallback, tryToLocateFontFile, tryToLocateTemplateSVGFile } from './options'
+import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils/svg/render'
+import { renderTaskResultsSummary, task, type TaskResult } from './utils/task'
+import { getDescriptionWithLocales, getTitleWithLocales } from './utils/vitepress/locales'
+import { flattenSidebar, getSidebar } from './utils/vitepress/sidebar'
 
 /**
  * Render SVG and rewrite HTML
@@ -272,8 +272,8 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
 
         const link = `/${
           relativePath
-          .slice(0, relativePath.lastIndexOf('.'))
-          .replaceAll(sep, '/')
+            .slice(0, relativePath.lastIndexOf('.'))
+            .replaceAll(sep, '/')
         }`.split('/index')[0]
 
         const page = pages.find((item) => {

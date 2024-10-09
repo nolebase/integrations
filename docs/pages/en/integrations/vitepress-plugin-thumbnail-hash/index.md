@@ -22,7 +22,7 @@ It is ok to replace to your image, or try to edit the thumbhash base64.
   clear-input-thumbhash-text="Clear thumbhash"
   input-thumbhash-placeholder="Input Thumbhash base64..."
   preview-thumbhash-text="Input Thumbhash to preview"
-  demo-image-url="/foxtail field.jpg"
+  demo-image-url="/thumbhash-test-image.jpg"
 />
 
 The generated thumbhash base64 will be like this:

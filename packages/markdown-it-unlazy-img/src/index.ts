@@ -1,10 +1,10 @@
+import type { PluginWithOptions } from 'markdown-it'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path/posix'
-import { globSync } from 'glob'
 
-import { normalizePath } from 'vite'
 import { cyan, gray, yellow } from 'colorette'
-import type { PluginWithOptions } from 'markdown-it'
+import { globSync } from 'glob'
+import { normalizePath } from 'vite'
 
 const defaultMapGlobPatterns = [
   '**/.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json',

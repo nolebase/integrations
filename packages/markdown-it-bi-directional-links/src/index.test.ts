@@ -1,7 +1,7 @@
-import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import { describe, expect, it } from 'vitest'
+import { fileURLToPath } from 'node:url'
 import MarkdownIt from 'markdown-it'
+import { describe, expect, it } from 'vitest'
 
 import { BiDirectionalLinks } from '.'
 

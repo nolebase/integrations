@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useData } from 'vitepress'
-import { useElementBounding, useMounted } from '@vueuse/core'
 import type {
   BaseType,
   D3DragEvent,
@@ -11,6 +8,7 @@ import type {
   SimulationLinkDatum,
   SimulationNodeDatum,
 } from 'd3'
+import { useElementBounding, useMounted } from '@vueuse/core'
 import {
   create,
   drag,
@@ -24,6 +22,8 @@ import {
   schemeAccent,
   zoom,
 } from 'd3'
+import { useData } from 'vitepress'
+import { ref, watch } from 'vue'
 
 const divRef = ref<HTMLDivElement>()
 const renderedNode = ref<SVGElement>()

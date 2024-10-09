@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, onMounted } from 'vue'
-import { useData } from 'vitepress'
 import { NuTag } from '@nolebase/ui'
+import { useData } from 'vitepress'
+import { computed, inject, onMounted } from 'vue'
 
-import { InjectionKey } from '../constants'
+import { usePageProperties } from '../composables/data'
+import { useI18n } from '../composables/i18n'
 import {
   isDatetimeProperty,
   isDynamicReadingTimeProperty,
@@ -13,12 +14,11 @@ import {
   isProgressProperty,
   isTagsProperty,
 } from '../composables/propertyType'
-import { useI18n } from '../composables/i18n'
-import { usePageProperties } from '../composables/data'
+import { InjectionKey } from '../constants'
 import { formatDurationFromValue } from '../utils'
 
-import ProgressBar from './ProgressBar.vue'
 import Datetime from './Datetime.vue'
+import ProgressBar from './ProgressBar.vue'
 
 const options = inject(InjectionKey, {})
 const { lang, page } = useData()

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject, nextTick, onMounted, reactive, ref, watch } from 'vue'
 import {
   useElementBounding,
   useElementByPoint,
@@ -10,6 +9,7 @@ import {
   useStorage,
 } from '@vueuse/core'
 import { useRoute } from 'vitepress'
+import { inject, nextTick, onMounted, reactive, ref, watch } from 'vue'
 
 import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey } from '../constants'
 

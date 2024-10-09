@@ -1,10 +1,10 @@
 // vitepress/src/node/utils/task.ts at df8753bd927c2b57b9188fb292c1429e9c3c8ab6 · vuejs/vitepress
 // https://github.com/vuejs/vitepress/blob/df8753bd927c2b57b9188fb292c1429e9c3c8ab6/src/node/utils/task.ts
 
-import { relative } from 'node:path'
-import ora from 'ora'
-import { cyan, gray, green, red, yellow } from 'colorette'
 import type { SiteConfig } from 'vitepress'
+import { relative } from 'node:path'
+import { cyan, gray, green, red, yellow } from 'colorette'
+import ora from 'ora'
 
 interface TaskResultSuccess {
   status: 'success'
@@ -61,11 +61,11 @@ export function renderTaskResultsSummary(results: TaskResult[], siteConfig: Site
 
   const stats = `${green(`${successCount.length} generated`)}, ${yellow(`${skippedCount.length} skipped`)}, ${red(`${erroredCount.length} errored`)}`
   const skippedList = ` - ${yellow('Following files were skipped')}:\n\n${skippedCount.map((item) => {
-        return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
-      }).join('\n')}`
+    return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
+  }).join('\n')}`
   const erroredList = ` - ${red('Following files encountered errors')}\n\n${erroredCount.map((item) => {
-        return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
-      }).join('\n')}`
+    return gray(`    - ${relative(siteConfig.root, item.filePath)}: ${item.reason}`)
+  }).join('\n')}`
 
   const overallResults = [stats]
 

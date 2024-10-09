@@ -1,12 +1,12 @@
-import { dirname, resolve, sep } from 'node:path'
-import { fileURLToPath } from 'node:url'
-import fs from 'fs-extra'
-
 import type { SiteConfig } from 'vitepress'
+import type { BuildEndGenerateOpenGraphImagesOptionsCategory, PageItem } from './types'
+import { dirname, resolve, sep } from 'node:path'
+
+import { fileURLToPath } from 'node:url'
 import { red, yellow } from 'colorette'
 
+import fs from 'fs-extra'
 import { logModulePrefix } from './constants'
-import type { BuildEndGenerateOpenGraphImagesOptionsCategory, PageItem } from './types'
 
 export async function tryToLocateTemplateSVGFile(siteConfig: SiteConfig, configTemplateSvgPath?: string): Promise<string | undefined> {
   if (configTemplateSvgPath != null)

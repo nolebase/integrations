@@ -1,15 +1,15 @@
+import type { Plugin, ResolvedConfig } from 'vite'
+import type { SiteConfig } from 'vitepress'
+import type { LanguageHandler, ReadingTimeStats } from './dynamic/readingTime'
+import type { PagePropertiesData } from './types'
 import {
   existsSync,
   lstatSync,
   readFileSync,
 } from 'node:fs'
 import { extname, relative } from 'node:path'
-import type { Plugin, ResolvedConfig } from 'vite'
-import { normalizePath } from 'vite'
 import GrayMatter from 'gray-matter'
-import type { SiteConfig } from 'vitepress'
-import type { PagePropertiesData } from './types'
-import type { LanguageHandler, ReadingTimeStats } from './dynamic/readingTime'
+import { normalizePath } from 'vite'
 import { calculateWordsCountAndReadingTime } from './dynamic/readingTime'
 
 const VirtualModuleID = 'virtual:nolebase-page-properties'
@@ -96,7 +96,7 @@ export function PageProperties(): Plugin {
 
             knownMarkdownFiles.add(toMarkdownFilePath.toLowerCase())
           }
-          catch (e) {
+          catch {
             return
           }
         }

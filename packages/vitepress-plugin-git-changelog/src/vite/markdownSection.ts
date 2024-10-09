@@ -1,13 +1,13 @@
-import { relative } from 'node:path'
 import type { Plugin } from 'vite'
-import GrayMatter from 'gray-matter'
-
-import { createHelpers } from './helpers'
 import type { Context, GitChangelogMarkdownSectionOptions } from './types'
+import { relative } from 'node:path'
+
+import GrayMatter from 'gray-matter'
+import { createHelpers } from './helpers'
 
 export type {
-  GitChangelogMarkdownSectionOptions,
   Context,
+  GitChangelogMarkdownSectionOptions,
 }
 
 export function GitChangelogMarkdownSection(options?: GitChangelogMarkdownSectionOptions): Plugin {

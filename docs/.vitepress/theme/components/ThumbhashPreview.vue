@@ -12,7 +12,7 @@ const props = withDefaults(defineProps<{
   clearInputThumbhashText: string
   inputThumbhashPlaceholder: string
   previewThumbhashText: string
-  demoImageUrl: string
+  demoImageUrl?: string
 }>(), {
   thumbhashText: 'Select image to generate thumbhash',
   applyThumbhashText: 'Apply Thumbhash',
@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
   clearInputThumbhashText: 'Clear thumbhash',
   inputThumbhashPlaceholder: 'Input Thumbhash base64...',
   previewThumbhashText: 'Input Thumbhash to preview',
-  demoImageBase64Url: '',
+  demoImageUrl: '',
 })
 
 const thumbhash = ref('')

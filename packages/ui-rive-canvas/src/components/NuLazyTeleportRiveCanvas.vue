@@ -128,7 +128,11 @@ async function renderRiveAsset() {
 
     el.appendChild(canvas)
 
-    const { rive } = await import('./deps')
+    let { rive } = await import('./deps')
+    if ((rive as any).default) {
+      rive = (rive as any).default as typeof rive
+    }
+
     const r = new rive.Rive({
       canvas,
       src: src.value,

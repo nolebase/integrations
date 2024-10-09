@@ -33,6 +33,7 @@ A collection of diverse documentation engineering tools.
 
 > [Nólëbase](https://github.com/nolebase/nolebase) is an open-source knowledge base named after Nólëbase, pronounced as nole-base, derived from the Quenya word 'nólë' meaning 'knowledge' and the English word 'base', hence 'knowledge base'.
 
+
 ## Features
 
 - 🌟 Easy to use
@@ -43,6 +44,25 @@ A collection of diverse documentation engineering tools.
   - Expand your imagination far beyond with Nólëbase Integrations with loads of features, widgets, components to fill the gap between note-taking platforms while improving.
 - 🚀 Writing First
   - From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
+
+
+<h2 align="center">Sponsors</h2>
+
+<p align="center">
+  <a href="https://github.com/nolebase/sponsors">
+    <img src="https://cdn.jsdelivr.net/gh/nolebase/sponsors/sponsors.svg"/>
+  </a>
+</p>
+
+<p align="center">
+  This project is made possible by all the sponsors supporting our work <br>
+  You can join them at our sponsors profile:
+</p>
+<p align="center">
+<a href="https://github.com/sponsors/LittleSound"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Rizumu&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+<a href="https://github.com/sponsors/nekomeowww"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Neko&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+</p>
+
 
 ## Get started
 

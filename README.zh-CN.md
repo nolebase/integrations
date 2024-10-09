@@ -44,6 +44,25 @@
 - 🚀 写作优先
   - 从文档工程的角度出发，解决和简化若干 UX/DX 的问题和困境，旨在让创作者更好地专注于撰写文档、笔记、制作卡片以及 GTD。
 
+
+<h2 align="center">Sponsors</h2>
+
+<p align="center">
+  <a href="https://github.com/nolebase/sponsors">
+    <img src="https://cdn.jsdelivr.net/gh/nolebase/sponsors/sponsors.svg"/>
+  </a>
+</p>
+
+<p align="center">
+  这个项目得以实现，要感谢所有支持我们的 Sponsors<br>
+  你也可以访问我们的 Sponsors 页面来加入其中：
+</p>
+<p align="center">
+<a href="https://github.com/sponsors/LittleSound"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Rizumu&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+<a href="https://github.com/sponsors/nekomeowww"><img src="https://img.shields.io/static/v1?label=Sponsor&message=Neko&logo=GitHub&color=%23fe8e86&style=for-the-badge" /></a>
+</p>
+
+
 ## 快速开始
 
 - [文档](https://nolebase-integrations.ayaka.io/): 在 README 中展示集成在 `markdown-it` 和 VitePress 中的效果和使用方法并不容易，为什么不试试使用我们使用 VitePress 生成的文档站点呢？

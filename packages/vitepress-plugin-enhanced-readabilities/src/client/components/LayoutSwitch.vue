@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+import { NuInputHighlight, NuInputHorizontalRadioGroup } from '@nolebase/ui'
 import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 import { useRoute } from 'vitepress'
 import { computed, inject, onMounted, ref, watch } from 'vue'
@@ -165,18 +165,15 @@ onMounted(() => {
         </div>
       </MenuHelp>
     </div>
-    <NuInputHorizontalRadioGroup
-      v-model="layoutMode"
-      bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-      text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-      outline="transparent 2px offset-4px dashed"
-      transition="outline duration-200 ease"
-      :class="{
-        'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-      }"
-      :options="fieldOptions"
-      :disabled="disabled"
-    />
+    <NuInputHighlight :active="isMenuHelpPoppedUp" class="rounded-md">
+      <NuInputHorizontalRadioGroup
+        v-model="layoutMode"
+        bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+        text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
+        :options="fieldOptions"
+        :disabled="disabled"
+      />
+    </NuInputHighlight>
   </div>
 </template>
 

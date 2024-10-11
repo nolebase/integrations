@@ -119,8 +119,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
   v-model="value1"
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions1"
 />
 
@@ -130,8 +128,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
   v-model="value2"
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions2"
 />
 
@@ -141,8 +137,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
   v-model="value3"
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions3"
 />
 
@@ -153,8 +147,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
 <NuInputHorizontalRadioGroup
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions1"
   :disabled="true"
 />
@@ -164,8 +156,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
 <NuInputHorizontalRadioGroup
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions2"
   :disabled="true"
 />
@@ -175,8 +165,6 @@ This package is still in the Alpha test stage and is not recommended for use in 
 <NuInputHorizontalRadioGroup
   bg="zinc-200/50 dark:zinc-800/50"
   text="sm zinc-100"
-  outline="transparent 2px offset-4px dashed"
-  transition="outline duration-200 ease"
   :options="fieldOptions3"
   :disabled="true"
 />

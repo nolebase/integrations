@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NuInputSlider, NuVerticalTransition } from '@nolebase/ui'
+import { NuInputHighlight, NuInputSlider, NuVerticalTransition } from '@nolebase/ui'
 import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
@@ -141,21 +141,19 @@ watch(maxWidthValue, (val) => {
           </div>
         </MenuHelp>
       </div>
-      <NuInputSlider
-        v-model="maxWidthValue"
-        bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-        text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-        name="VitePress Nolebase Enhanced Readabilities content layout max width range slider"
-        :class="{
-          'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-          'rounded-md': isMenuHelpPoppedUp,
-        }"
-        :aria-label="t('layoutSwitch.contentLayoutMaxWidth.optionFullWidthAriaLabel')"
-        :disabled="disabled"
-        :min="minScaled"
-        :max="maxScaled"
-        :formatter="(val) => `${Math.ceil(val / 100)}%`"
-      />
+      <NuInputHighlight :active="isMenuHelpPoppedUp" class="rounded-md">
+        <NuInputSlider
+          v-model="maxWidthValue"
+          bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+          text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
+          name="VitePress Nolebase Enhanced Readabilities content layout max width range slider"
+          :aria-label="t('layoutSwitch.contentLayoutMaxWidth.optionFullWidthAriaLabel')"
+          :disabled="disabled"
+          :min="minScaled"
+          :max="maxScaled"
+          :formatter="(val) => `${Math.ceil(val / 100)}%`"
+        />
+      </NuInputHighlight>
     </div>
   </NuVerticalTransition>
 </template>

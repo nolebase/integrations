@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
+import { NuInputHighlight, NuInputHorizontalRadioGroup } from '@nolebase/ui'
 import { useMediaQuery, useStorage } from '@vueuse/core'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
@@ -95,18 +95,15 @@ watch(isTouchScreen, () => {
           </div>
         </MenuHelp>
       </div>
-      <NuInputHorizontalRadioGroup
-        v-model="spotlightStyle"
-        bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
-        text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
-        outline="transparent 2px offset-4px dashed"
-        transition="outline duration-200 ease"
-        :class="{
-          'outline-$vp-c-brand-1!': isMenuHelpPoppedUp,
-        }"
-        :options="fieldOptions"
-        :disabled="disabled"
-      />
+      <NuInputHighlight :active="isMenuHelpPoppedUp" class="rounded-md">
+        <NuInputHorizontalRadioGroup
+          v-model="spotlightStyle"
+          bg="$vp-nolebase-enhanced-readabilities-menu-background-color"
+          text="sm $vp-nolebase-enhanced-readabilities-menu-text-color"
+          :options="fieldOptions"
+          :disabled="disabled"
+        />
+      </NuInputHighlight>
     </div>
   </Transition>
 </template>

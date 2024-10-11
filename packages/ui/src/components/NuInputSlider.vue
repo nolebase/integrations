@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NuInputHighlight } from '@nolebase/ui'
 import { useElementHover } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 
@@ -123,8 +124,6 @@ watch(inputValue, () => {
     bg="zinc-200/50 dark:zinc-800/50"
     w-full appearance-none rounded-lg border-none p-1 space-x-2
     text="sm zinc-300"
-    outline="transparent 2px offset-4px dashed"
-    transition="outline duration-200 ease"
   >
     <label
       class="nolebase-ui-slider nolebase-ui-slider"

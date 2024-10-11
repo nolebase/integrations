@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { NuInputHighlight } from '@nolebase/ui'
 import { useElementHover } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 

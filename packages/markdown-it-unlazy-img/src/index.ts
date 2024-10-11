@@ -119,6 +119,10 @@ export interface UnlazyImagesOptions {
    * @default { mapGlobPatterns: ['**\/.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json', '**\/thumbhashes/map.json'] }
    */
   thumbhash?: ThumbnailImageThumbhashOptions
+  /**
+   * Log format not supported warning
+   */
+  logFormatNotSupportedWarning?: boolean
 }
 
 const logModulePrefix = `${cyan(`@nolebase/markdown-it-unlazy-img`)}${gray(':')}`
@@ -196,7 +200,7 @@ export const UnlazyImages: () => PluginWithOptions<UnlazyImagesOptions> = () => 
 
     const imageRule = md.renderer.rules.image!
 
-    md.renderer.rules.image = (tokens, idx, options, env, self) => {
+    md.renderer.rules.image = (tokens, idx, mdOptions, env, self) => {
       thumbhashMap = ensureThumbhashMap(thumbhash, thumbhashMap)
 
       if (!env.path && !env.relativePath)
@@ -206,17 +210,20 @@ export const UnlazyImages: () => PluginWithOptions<UnlazyImagesOptions> = () => 
 
       const imgSrc = token.attrGet('src')
       if (!imgSrc)
-        return imageRule(tokens, idx, options, env, self)
+        return imageRule(tokens, idx, mdOptions, env, self)
       // Skip external URLs
       if (EXTERNAL_URL_RE.test(imgSrc))
-        return imageRule(tokens, idx, options, env, self)
+        return imageRule(tokens, idx, mdOptions, env, self)
       // Skip unsupported image formats
-      if (['.png', '.jpg', '.jpeg'].every(ext => imgSrc.endsWith(ext))) {
-        console.warn(`${logModulePrefix} ${yellow('[WARN]')} unsupported image format for ${imgSrc}`)
-        return imageRule(tokens, idx, options, env, self)
+      if (!(['.png', '.jpg', '.jpeg'].some(ext => imgSrc.endsWith(ext)))) {
+        if (options?.logFormatNotSupportedWarning) {
+          console.warn(`${logModulePrefix} ${yellow('[WARN]')} unsupported image format for ${imgSrc}`)
+        }
+
+        return imageRule(tokens, idx, mdOptions, env, self)
       }
 
-      let resolvedImgSrc = imgSrc
+      let resolvedImgSrc = decodeURIComponent(imgSrc)
 
       const props: {
         [name: string]: string | undefined
@@ -266,7 +273,7 @@ export const UnlazyImages: () => PluginWithOptions<UnlazyImagesOptions> = () => 
       if (!matchedThumbhashData) {
         // Usually this should not happen
         console.warn(`${logModulePrefix} ${yellow(`[WARN]`)} thumbhash data not found for ${resolvedImgSrc}`)
-        return imageRule(tokens, idx, options, env, self)
+        return imageRule(tokens, idx, mdOptions, env, self)
       }
 
       // Apply all the attributes as

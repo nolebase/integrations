@@ -159,7 +159,7 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
     💕 感谢所有贡献者！
   </h2>
 
-  <a href="https://github.com/nolebase/integrations/graphs/contributors">
+  <a href="https://github.com/nolebase/integrations/graphs/contributors" flex justify-center>
     <img src="https://contrib.rocks/image?repo=nolebase/integrations" />
   </a>
 </div>

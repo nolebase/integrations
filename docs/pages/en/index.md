@@ -159,7 +159,7 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
     💕 Thanks to all the contributors!
   </h2>
 
-  <a href="https://github.com/nolebase/integrations/graphs/contributors">
+  <a href="https://github.com/nolebase/integrations/graphs/contributors" flex justify-center>
     <img src="https://contrib.rocks/image?repo=nolebase/integrations" />
   </a>
 </div>

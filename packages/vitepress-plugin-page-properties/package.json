@@ -71,13 +71,13 @@
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
     "less": "^4.2.0",
-    "uuid": "^10.0.0",
-    "vitepress": "^1.4.0"
+    "uuid": "^11.0.2",
+    "vitepress": "^1.4.2"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",
     "@types/uuid": "^10.0.0",
     "builtin-modules": "^3.3.0",
-    "unplugin-yaml": "^0.6.0"
+    "unplugin-yaml": "^1.0.1"
   }
 }

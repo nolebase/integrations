@@ -60,11 +60,11 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
-    "@iconify-json/carbon": "^1.2.2",
+    "@iconify-json/carbon": "^1.2.4",
     "@iconify-json/icon-park-outline": "^1.2.1",
     "@nolebase/ui": "workspace:^",
     "less": "^4.2.0",
-    "vitepress": "^1.4.0"
+    "vitepress": "^1.4.2"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2"

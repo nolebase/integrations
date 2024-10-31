@@ -84,6 +84,7 @@ ni @nolebase/<integration-name> -D
 To find out the integration name, there is a list of integrations below.
 
 - [UnoCSS (for Obsidian)](https://github.com/nolebase/obsidian-plugin-unocss)
+- [Auto Sidebar](./packages/vitepress-plugin-sidebar/README.md)
 - [Bi-Directional Links (for `markdown-it`)](./packages/markdown-it-bi-directional-links/README.md)
 - [Elements Transformation (for `markdown-it`)](./packages/markdown-it-element-transform/README.md)
 - [Lazy loading blurred thumbnails (for `markdown-it`)](./packages/markdown-it-unlazy-img/README.md)

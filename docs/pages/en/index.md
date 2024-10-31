@@ -35,6 +35,7 @@ features:
 ---
 
 <script setup>
+import sidebarPackageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
@@ -68,6 +69,12 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
   <IntegrationCard type="markdown-it" title="Lazy loading blurred thumbnails" package="markdown-it-unlazy-img">
     <template v-slot:badge>
       <Badge type="tip" :text="`v${unlazyImg.version}`" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="Auto Sidebar" package="vitepress-plugin-sidebar">
+    <template v-slot:badge>
+      <Badge type="tip" :text="`v${sidebarPackageJSON.version}`" />
     </template>
   </IntegrationCard>
 

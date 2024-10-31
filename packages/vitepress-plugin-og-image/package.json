@@ -72,7 +72,7 @@
     "rehype-stringify": "^10.0.1",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.0.0",
-    "vitepress": "^1.4.0"
+    "vitepress": "^1.4.2"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

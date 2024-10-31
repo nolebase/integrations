@@ -75,8 +75,8 @@
   },
   "dependencies": {
     "less": "^4.2.0",
-    "vitepress": "^1.4.0",
-    "vue": "^3.5.11"
+    "vitepress": "^1.4.2",
+    "vue": "^3.5.12"
   },
   "devDependencies": {
     "@vue/tsconfig": "^0.5.1"

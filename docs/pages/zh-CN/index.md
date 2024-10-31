@@ -35,6 +35,7 @@ features:
 ---
 
 <script setup>
+import sidebarPackageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
@@ -68,6 +69,12 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
   <IntegrationCard type="markdown-it" title="懒加载模糊缩略图" package="markdown-it-unlazy-img">
     <template v-slot:badge>
       <Badge type="tip" :text="`v${unlazyImg.version}`" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="自动生成侧边栏" package="vitepress-plugin-sidebar">
+    <template v-slot:badge>
+      <Badge type="tip" :text="`v${sidebarPackageJSON.version}`" />
     </template>
   </IntegrationCard>
 

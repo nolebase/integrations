@@ -83,6 +83,7 @@ ni @nolebase/<integration-name> -D
 要找到集成的名称，下面是一个我们当前支持的集成列表：
 
 - [UnoCSS (Obsidian 插件)](https://github.com/nolebase/obsidian-plugin-unocss)
+- [自动生成侧边栏](./packages/vitepress-plugin-sidebar/README.md)
 - [双向链接（`markdown-it` 插件）](./packages/markdown-it-bi-directional-links/README.md)
 - [元素转换（`markdown-it` 插件）](./packages/markdown-it-element-transform/README.md)
 - [懒加载模糊预览图（`markdown-it` 插件）](./packages/markdown-it-unlazy-img/README.md)

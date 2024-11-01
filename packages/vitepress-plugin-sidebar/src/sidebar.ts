@@ -152,8 +152,14 @@ export function mergeSidebar(targets: Array<string | { folderName: string, separ
   for (const target of targets) {
     const folderName = folderNameFromTargetConfig(target)
     if (separateFromTargetConfig(target)) {
-      sidebarMultiple[`/${folderName}/`] = sidebar.filter(item => item.text === folderName)[0].items ?? []
-      sidebar.splice(sidebar.findIndex(item => item.text === folderName), 1)
+      const matchedSidebarFolders = sidebar.filter(item => item.text === folderName)
+      if (matchedSidebarFolders.length > 0) {
+        sidebarMultiple[`/${folderName}/`] = matchedSidebarFolders[0]?.items || []
+        sidebar.splice(sidebar.findIndex(item => item.text === folderName), 1)
+      }
+      else {
+        sidebarMultiple[`/${folderName}/`] = []
+      }
     }
   }
 

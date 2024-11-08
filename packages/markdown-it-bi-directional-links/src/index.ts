@@ -8,11 +8,11 @@ import { globSync } from 'glob'
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
 
-/** it will match [[file]] and [[file|text]] */
-const biDirectionalLinkPattern = /!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
-/** it will match [[file]] and [[file|text]] but only at the start of the text */
+/** it will match [[file]] and [[file|text]], not match [[#title]] and [[^block]] */
+const biDirectionalLinkPattern = /!?\[\[([^#^|\]\n]+)(\|([^#^\]\n]+))?\]\](?!\()/
+/** it will match [[file]] and [[file|text]], not match [[#title]] and [[^block]], and only at the start of the text */
 // eslint-disable-next-line regexp/no-unused-capturing-group
-const biDirectionalLinkPatternWithStart = /^!?\[\[[^|\]\n]+(\|[^\]\n]+)?\]\](?!\()/
+const biDirectionalLinkPatternWithStart = /^!?\[\[[^#^|\]\n]+(\|[^#^\]\n]+)?\]\](?!\()/
 
 const IMAGES_EXTENSIONS = [
   '.png',

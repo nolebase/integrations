@@ -314,7 +314,6 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       // If to self, direct return, no need to find and parse
       const isToSelf = href.startsWith('#') || href.startsWith('^')
       if (isToSelf) {
-        console.log("debugggg", href)
         let resolvedNewHref = ""
         parsedHref.hash = href
         resolvedNewHref = resolvedNewHref + parsedHref.search + parsedHref.hash

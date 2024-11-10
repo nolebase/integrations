@@ -1,3 +1,8 @@
+---
+title: 滑块
+category: UI
+---
+
 <script setup>
 import { NuInputSlider } from '@nolebase/ui'
 </script>

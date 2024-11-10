@@ -34,6 +34,9 @@
       "@nolebase/vitepress-plugin-highlight-targeted-heading/*": [
         "./packages/vitepress-plugin-highlight-targeted-heading/src/*"
       ],
+      "@nolebase/vitepress-plugin-index/*": [
+        "./packages/vitepress-plugin-index/src/*"
+      ],
       "@nolebase/vitepress-plugin-inline-link-preview/*": [
         "./packages/vitepress-plugin-inline-link-preview/src/*"
       ],
@@ -51,6 +54,9 @@
       ],
       "@nolebase/vitepress-plugin-page-properties/*": [
         "./packages/vitepress-plugin-page-properties/src/*"
+      ],
+      "@nolebase/vitepress-plugin-sidebar/*": [
+        "./packages/vitepress-plugin-sidebar/src/*"
       ],
       "@nolebase/vitepress-plugin-thumbnail-hash/*": [
         "./packages/vitepress-plugin-thumbnail-hash/src/*"

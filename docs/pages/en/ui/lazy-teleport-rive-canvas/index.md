@@ -1,3 +1,8 @@
+---
+title: Rive Canvas (Lazy Teleport)
+category: UI
+---
+
 # Rive Canvas (Lazy Teleport) <Badge type="danger" text="Alpha" />
 
 ::: danger 🛑 This package is still in the Alpha test stage.

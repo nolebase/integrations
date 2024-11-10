@@ -1,3 +1,8 @@
+---
+title: 元素转换
+category: 元素转换
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-element-transform/package.json'
 </script>
@@ -59,7 +64,7 @@ yarn add @nolebase/markdown-it-bi-element-transform -D
 
 这里有段示例代码，我们可以用它作为参考：
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -111,7 +116,7 @@ markdownIt.use(ElementTransform, (() => {
 
 #### 为链接添加 `target="_blank"` 和 `rel="noopener noreferrer"`
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -131,7 +136,7 @@ markdownIt.use(ElementTransform, (() => {
 
 #### 添加内联样式
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -150,7 +155,7 @@ markdownIt.use(ElementTransform, (() => {
 
 #### 为元素添加更多的类
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---

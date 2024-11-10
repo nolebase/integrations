@@ -1,3 +1,8 @@
+---
+title: Previewing image (social media card) generation
+category: Previewing image (social media card) generation
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-og-image/package.json'
 </script>

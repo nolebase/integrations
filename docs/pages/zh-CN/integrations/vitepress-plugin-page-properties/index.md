@@ -1,4 +1,6 @@
 ---
+title: 页面属性
+category: 页面属性
 tags:
   - 集成/VitePress-插件
   - 集成/VitePress-插件/页面属性

@@ -1,3 +1,8 @@
+---
+title: UnoCSS Plugin
+category: UnoCSS Plugin
+---
+
 # UnoCSS Plugin <Badge type="warning" text="Beta" />
 
 When crafting documentation in [Nólëbase](https://github.com/nolebase/nolebase), creating numerous visual components is crucial for enhancing the documents with dynamic and interactive user interfaces. This not only makes the content more digestible but also more engaging.

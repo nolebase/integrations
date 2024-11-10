@@ -1,3 +1,8 @@
+---
+title: Buttons
+category: UI
+---
+
 <script setup>
 import { NuButton } from '@nolebase/ui'
 </script>

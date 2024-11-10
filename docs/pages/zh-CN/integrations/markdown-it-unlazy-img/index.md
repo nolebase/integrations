@@ -1,3 +1,8 @@
+---
+title: 懒加载模糊预览图
+category: 懒加载模糊预览图
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-unlazy-img/package.json'
 </script>
@@ -38,7 +43,7 @@ yarn add @nolebase/markdown-it-bi-unlazy-img -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript twoslash
+```typescript
 import { defineConfigWithTheme } from 'vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 
@@ -65,13 +70,13 @@ export default defineConfigWithTheme({
 
 在 [`markdown-it`](https://github.com/markdown-it/markdown-it) 的实例可被访问的地方先使用 `import` 语句将本插件导入到文件中：
 
-```typescript twoslash
+```typescript
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 ```
 
 然后使用 `markdown-it` 实例的 `use()` 函数将导入后的 `UnlazyImages` 作为插件使用，：
 
-```typescript twoslash
+```typescript
 import type { MarkdownIt } from 'markdown-it'
 let markdownIt = null as MarkdownIt
 // ---cut---

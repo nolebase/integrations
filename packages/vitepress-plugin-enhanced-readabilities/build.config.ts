@@ -1,6 +1,6 @@
 import { exec } from 'node:child_process'
-import { promisify } from 'node:util'
 
+import { promisify } from 'node:util'
 import Yaml from '@rollup/plugin-yaml'
 import { defineBuildConfig } from 'unbuild'
 
@@ -33,7 +33,8 @@ export default defineBuildConfig({
   hooks: {
     'rollup:options': (_, options) => {
       if (Array.isArray(options.plugins))
-        options.plugins.push(Yaml())
+        // TODO: incorrect type for Yaml
+        options.plugins.push(Yaml() as any)
     },
     'mkdist:done': async (ctx) => {
       if (ctx.options.stub)

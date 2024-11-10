@@ -1,3 +1,8 @@
+---
+title: 自动生成侧边栏
+category: 自动生成侧边栏
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 </script>

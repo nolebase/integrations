@@ -1,3 +1,8 @@
+---
+title: Inline Links Previewing
+category: Inline Links Previewing
+---
+
 # Configuration
 
 The Inline Links Previewing plugin currently provides configuration options related to **Internationalization** and **Popup**.

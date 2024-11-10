@@ -1,3 +1,8 @@
+---
+title: Auto Sidebar
+category: Auto Sidebar
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 </script>

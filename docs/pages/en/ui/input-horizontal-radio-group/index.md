@@ -1,3 +1,8 @@
+---
+title: Radio Group (Horizontal)
+category: UI
+---
+
 <script setup>
 import { ref } from 'vue'
 import { NuInputHorizontalRadioGroup } from '@nolebase/ui'

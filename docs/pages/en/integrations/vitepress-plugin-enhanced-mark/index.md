@@ -1,3 +1,8 @@
+---
+title: Enhanced <mark>
+category: Enhanced <mark>
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-enhanced-mark/package.json'
 </script>

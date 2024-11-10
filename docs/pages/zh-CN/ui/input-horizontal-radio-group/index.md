@@ -1,3 +1,8 @@
+---
+title: 多个单选（水平）
+category: UI
+---
+
 <script setup>
 import { ref } from 'vue'
 import { NuInputHorizontalRadioGroup } from '@nolebase/ui'

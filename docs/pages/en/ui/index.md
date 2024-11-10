@@ -1,3 +1,8 @@
+---
+title: UI Components
+category: Index
+---
+
 <script setup>
 import { NuButton } from '@nolebase/ui'
 </script>

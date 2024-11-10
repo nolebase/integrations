@@ -1,3 +1,8 @@
+---
+title: 阅读增强
+category: 阅读增强
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
 </script>

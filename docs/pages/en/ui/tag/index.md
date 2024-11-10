@@ -1,3 +1,8 @@
+---
+title: Tag
+category: UI
+---
+
 <script setup>
 import { NuTag } from '@nolebase/ui'
 </script>

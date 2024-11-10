@@ -1,3 +1,8 @@
+---
+title: Lazy loading blurred thumbnails
+category: Lazy loading blurred thumbnails
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-unlazy-img/package.json'
 </script>
@@ -38,7 +43,7 @@ In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the fi
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript twoslash
+```typescript
 import { defineConfigWithTheme } from 'vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 
@@ -65,13 +70,13 @@ export default defineConfigWithTheme({
 
 Import this plugin into the file where you can access the [`markdown-it`](https://github.com/markdown-it/markdown-it) instance, and use it as a `markdown-it` plugin:
 
-```typescript twoslash
+```typescript
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 ```
 
 Then you need to use the `use()` member methods from the `markdown-it` instance to use this plugin:
 
-```typescript twoslash
+```typescript
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---

@@ -1,3 +1,8 @@
+---
+title: Bi-directional Links
+category: Bi-directional Links
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
 </script>

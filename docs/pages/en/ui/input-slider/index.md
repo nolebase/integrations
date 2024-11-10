@@ -1,3 +1,8 @@
+---
+title: Slider
+category: UI
+---
+
 <script setup>
 import { NuInputSlider } from '@nolebase/ui'
 </script>

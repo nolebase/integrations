@@ -55,6 +55,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         items: [
           { text: 'Auto Sidebar', link: '/pages/en/integrations/vitepress-plugin-sidebar/' },
           { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: 'Index Page', link: '/pages/en/integrations/vitepress-plugin-index/' },
           {
             text: 'Inline Links Previewing',
             collapsed: true,
@@ -185,6 +186,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         items: [
           { text: '自动生成侧边栏', link: '/pages/zh-CN/integrations/vitepress-plugin-sidebar/' },
           { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: '索引页', link: '/pages/zh-CN/integrations/vitepress-plugin-index/' },
           {
             text: '行内链接预览',
             collapsed: true,

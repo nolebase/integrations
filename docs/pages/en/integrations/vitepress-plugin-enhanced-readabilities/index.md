@@ -1,3 +1,8 @@
+---
+title: Enhanced Readabilities
+category: Enhanced Readabilities
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
 </script>

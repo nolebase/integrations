@@ -1,4 +1,6 @@
 ---
+title: Page properties
+category: Page properties
 tags:
   - Integrations/VitePress-Plugin
   - Integrations/VitePress-Plugin/Page-Properties

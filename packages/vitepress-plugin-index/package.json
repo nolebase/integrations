@@ -1,0 +1,76 @@
+{
+  "name": "@nolebase/vitepress-plugin-index",
+  "type": "module",
+  "version": "2.9.0",
+  "description": "A VitePress plugin that consists loads of different index pages needed content loaders.",
+  "author": {
+    "name": "Nólëbase",
+    "email": "nolebase@ayaka.moe",
+    "url": "https://github.com/nolebase"
+  },
+  "license": "MIT",
+  "homepage": "https://nolebase-integrations.ayaka.io/pages/en/integrations/vitepress-plugin-index/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolebase/integrations.git",
+    "directory": "packages/vitepress-plugin-index"
+  },
+  "keywords": [
+    "vitepress",
+    "nolebase",
+    "markdown",
+    "vitepress-plugin",
+    "nolebase-integration"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/vitepress/index.d.ts",
+      "import": "./dist/vitepress/index.mjs",
+      "require": "./dist/vitepress/index.cjs"
+    },
+    "./locales": {
+      "types": "./dist/locales/index.d.ts",
+      "import": "./dist/locales/index.mjs",
+      "require": "./dist/locales/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js"
+    },
+    "./client/style.css": "./dist/client/style.css",
+    "./vitepress": {
+      "types": "./dist/vitepress/index.d.ts",
+      "import": "./dist/vitepress/index.mjs",
+      "require": "./dist/vitepress/index.cjs"
+    }
+  },
+  "main": "./dist/vitepress/index.cjs",
+  "module": "./dist/vitepress/index.mjs",
+  "types": "./dist/vitepress/index.d.ts",
+  "files": [
+    "README.md",
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "concurrently \"pnpm run stub\"",
+    "stub": "unbuild --stub",
+    "build": "unbuild",
+    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
+  },
+  "dependencies": {
+    "defu": "^6.1.4",
+    "execa": "^9.5.1",
+    "glob": "^11.0.0",
+    "globby": "^14.0.2",
+    "gray-matter": "^4.0.3",
+    "vitepress": "^1.5.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-yaml": "^4.1.2"
+  }
+}

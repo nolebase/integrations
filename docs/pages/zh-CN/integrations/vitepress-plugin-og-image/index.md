@@ -1,3 +1,8 @@
+---
+title: 预览图片（社交媒体卡片）生成
+category: 预览图片（社交媒体卡片）生成
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-og-image/package.json'
 </script>

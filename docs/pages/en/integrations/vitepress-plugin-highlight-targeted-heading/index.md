@@ -1,3 +1,8 @@
+---
+title: Blinking highlight targeted heading
+category: Blinking highlight targeted heading
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
 </script>

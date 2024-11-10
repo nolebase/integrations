@@ -1,3 +1,8 @@
+---
+title: Git-based page histories
+category: Git-based page histories
+---
+
 # Configure Vite plugins
 
 ::: danger Deprecating the `locales` field of `GitChangelogMarkdownSection` plugin options

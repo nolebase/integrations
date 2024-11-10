@@ -1,3 +1,8 @@
+---
+title: Rive Canvas（懒 Teleport）
+category: UI
+---
+
 # Rive Canvas（懒 Teleport） <Badge type="danger" text="Alpha" />
 
 ::: danger 🛑 此包仍处于 Alpha 测试阶段

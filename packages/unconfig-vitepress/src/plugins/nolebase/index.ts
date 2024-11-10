@@ -32,6 +32,11 @@ import {
   NolebaseHighlightTargetedHeading,
   NolebaseNolebaseHighlightTargetedHeadingPlugin,
 } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
+
+import {
+  NolebaseIndexPlugin,
+} from '@nolebase/vitepress-plugin-index/client'
+
 import {
   NolebaseInlineLinkPreviewPlugin,
 } from '@nolebase/vitepress-plugin-inline-link-preview/client'
@@ -73,6 +78,9 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
     enable?: boolean
   }
   enhancedImg?: {
+    enable?: boolean
+  }
+  index?: {
     enable?: boolean
   }
 }
@@ -204,6 +212,9 @@ const defaultOptions: NolebasePluginPresetOptions = {
   enhancedImg: {
     enable: true,
   },
+  index: {
+    enable: true,
+  },
 }
 
 function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(options: NolebasePluginPresetOptions<any>): NolebasePluginPresetOptions<PagePropertiesObject> {
@@ -265,6 +276,10 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
 
       if (opts.enhancedImg?.enable)
         app.component('NolebaseUnlazyImg', NolebaseUnlazyImg)
+
+      if (opts.index?.enable) {
+        app.use(NolebaseIndexPlugin)
+      }
     },
   }
 }

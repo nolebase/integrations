@@ -1,3 +1,8 @@
+---
+title: Migration
+category: Index
+---
+
 # Migration
 
 Currently the **ongoing developing version** of the project is: `v2`.

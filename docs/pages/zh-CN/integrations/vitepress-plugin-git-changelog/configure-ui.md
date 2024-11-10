@@ -1,3 +1,8 @@
+---
+title: 基于 Git 的页面历史
+category: 基于 Git 的页面历史
+---
+
 # 配置 UI 组件
 
 ::: danger 弃用 UI 组件选项的 `mapAuthors` 字段

@@ -1,4 +1,6 @@
 ---
+title: Thumbnail hashing for images
+category: Thumbnail hashing for images
 aside: false
 nolebase:
   gitChangelog: false

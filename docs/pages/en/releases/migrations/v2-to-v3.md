@@ -1,4 +1,9 @@
-# Migrating from `v2` to `v3
+---
+title: Migrate from v2 to v3
+category: Migrations
+---
+
+# Migrating from `v2` to `v3`
 
 ## Git-based page history
 

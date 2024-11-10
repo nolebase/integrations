@@ -1,3 +1,8 @@
+---
+title: Asciinema 播放器
+category: UI
+---
+
 <script setup>
 import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
 </script>

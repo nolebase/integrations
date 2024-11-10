@@ -1,3 +1,8 @@
+---
+title: UI 组件
+category: 索引
+---
+
 <script setup>
 import { NuButton } from '@nolebase/ui'
 </script>

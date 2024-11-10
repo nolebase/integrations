@@ -1,4 +1,6 @@
 ---
+title: 缩略图模糊哈希生成
+category: 缩略图模糊哈希生成
 aside: false
 nolebase:
   gitChangelog: false

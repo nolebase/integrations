@@ -1,3 +1,8 @@
+---
+title: Bi-directional Links
+category: Bi-directional Links
+---
+
 # Bi-directional Links Example Page
 
 Hi! This is a linked internal page.

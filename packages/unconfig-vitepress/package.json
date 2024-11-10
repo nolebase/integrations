@@ -60,10 +60,11 @@
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
     "@nolebase/vitepress-plugin-graph-view": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
+    "@nolebase/vitepress-plugin-index": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "vitepress": "^1.4.2"
+    "vitepress": "^1.5.0"
   },
   "devDependencies": {
     "builtin-modules": "^3.3.0"

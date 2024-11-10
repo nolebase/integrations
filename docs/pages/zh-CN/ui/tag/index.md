@@ -1,3 +1,8 @@
+---
+title: 标签
+category: UI
+---
+
 <script setup>
 import { NuTag } from '@nolebase/ui'
 </script>

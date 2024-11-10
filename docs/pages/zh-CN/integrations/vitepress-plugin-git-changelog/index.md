@@ -1,3 +1,8 @@
+---
+title: 基于 Git 的页面历史
+category: 基于 Git 的页面历史
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-git-changelog/package.json'
 </script>

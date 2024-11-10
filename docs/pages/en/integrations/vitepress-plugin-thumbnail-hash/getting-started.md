@@ -1,3 +1,8 @@
+---
+title: Thumbnail hashing for images
+category: Thumbnail hashing for images
+---
+
 # Getting started
 
 ## Installation

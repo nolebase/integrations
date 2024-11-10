@@ -1,3 +1,8 @@
+---
+title: Git-based page histories
+category: Git-based page histories
+---
+
 # Configuration
 
 ::: danger Deprecating the `mapAuthors` field for UI component options

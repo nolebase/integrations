@@ -1,3 +1,8 @@
+---
+title: <mark> 元素增强
+category: <mark> 元素增强
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-enhanced-mark/package.json'
 </script>

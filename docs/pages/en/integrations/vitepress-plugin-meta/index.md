@@ -1,3 +1,8 @@
+---
+title: Page <meta> metadata generation
+category: Page <meta> metadata generation
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-meta/package.json'
 </script>

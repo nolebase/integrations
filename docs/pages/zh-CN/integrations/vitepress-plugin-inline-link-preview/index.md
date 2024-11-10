@@ -1,3 +1,8 @@
+---
+title: 行内链接预览
+category: 行内链接预览
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'

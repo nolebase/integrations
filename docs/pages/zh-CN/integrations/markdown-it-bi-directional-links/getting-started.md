@@ -1,3 +1,8 @@
+---
+title: 双向链接
+category: 双向链接
+---
+
 # 快速上手
 
 ## 安装
@@ -28,7 +33,7 @@ yarn add @nolebase/markdown-it-bi-directional-links -D
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
-```typescript twoslash
+```typescript
 import { defineConfigWithTheme } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
@@ -53,13 +58,13 @@ export default defineConfigWithTheme({
 
 在 [`markdown-it`](https://github.com/markdown-it/markdown-it) 的实例可被访问的地方先使用 `import` 语句将双向链接插件导入到文件中：
 
-```typescript twoslash
+```typescript
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 ```
 
 然后使用 `markdown-it` 实例的 `use()` 函数将导入后的 `MarkdownItBiDirectionalLinks` 作为插件使用，并配置一个包含有 `dir` 字段的对象，这个所谓的 `dir` 字段通常可以直接通过 `import` 语句导入来自 `process` 或者 `node:process` 包内的 `cwd()` 函数来获取：
 
-```typescript twoslash
+```typescript
 import type { MarkdownIt } from 'markdown-it'
 let markdownIt = null as MarkdownIt
 // ---cut---

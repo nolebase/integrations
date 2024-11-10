@@ -32,6 +32,9 @@ features:
   - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/rocket-emoji-animated.riv"></span>
     title: Writing First
     details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
+
+nolebase:
+  index: false
 ---
 
 <script setup>

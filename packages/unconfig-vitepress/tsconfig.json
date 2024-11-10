@@ -3,35 +3,6 @@
   "compilerOptions": {
     "composite": false,
     "baseUrl": ".",
-    "paths": {
-      "@nolebase/ui": [
-        "../ui/src/index.ts"
-      ],
-      "@nolebase/ui/*": [
-        "../ui/src/*"
-      ],
-      "@nolebase/vitepress-plugin-enhanced-readabilities/*": [
-        "../vitepress-plugin-enhanced-readabilities/src/*"
-      ],
-      "@nolebase/vitepress-plugin-highlight-targeted-heading/*": [
-        "../vitepress-plugin-highlight-targeted-heading/src/*"
-      ],
-      "@nolebase/vitepress-plugin-inline-link-preview/*": [
-        "../vitepress-plugin-inline-link-preview/src/*"
-      ],
-      "@nolebase/vitepress-plugin-git-changelog/*": [
-        "../vitepress-plugin-git-changelog/src/*"
-      ],
-      "@nolebase/vitepress-plugin-graph-view/*": [
-        "../vitepress-plugin-graph-view/src/*"
-      ],
-      "@nolebase/vitepress-plugin-page-properties/*": [
-        "../vitepress-plugin-page-properties/src/*"
-      ],
-      "@nolebase/vitepress-plugin-thumbnail-hash/*": [
-        "../vitepress-plugin-thumbnail-hash/src/*"
-      ]
-    },
     "types": [
       "vite/client"
     ],

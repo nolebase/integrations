@@ -1,3 +1,8 @@
+---
+title: Thumbnail hashing for images
+category: Thumbnail hashing for images
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-thumbnail-hash/package.json'
 </script>

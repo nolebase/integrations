@@ -1,3 +1,8 @@
+---
+title: 集成
+category: 索引
+---
+
 <script setup>
 import sidebarPackageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'

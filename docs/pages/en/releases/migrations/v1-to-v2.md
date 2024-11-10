@@ -1,3 +1,8 @@
+---
+title: Migrate from v1 to v2
+category: Migrations
+---
+
 # Migrate from `v1` to `v2`
 
 The primary goal of the version update to `v2` is:

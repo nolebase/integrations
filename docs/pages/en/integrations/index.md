@@ -9,6 +9,7 @@ import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
 import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+import index from '~/packages/vitepress-plugin-index/package.json'
 import inlineLinkPreview from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import highlightTargetedHeading from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
 import gitChangelog from '~/packages/vitepress-plugin-git-changelog/package.json'
@@ -59,6 +60,14 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
 <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
   <template v-slot:badge>
     <Badge type="tip" :text="`v${enhancedReadabilities.version}`" />
+  </template>
+</IntegrationCard>
+
+<br />
+
+<IntegrationCard type="vitepress" title="Index page" package="vitepress-plugin-index">
+  <template v-slot:badge>
+    <Badge type="tip" :text="`v${index.version}`" />
   </template>
 </IntegrationCard>
 

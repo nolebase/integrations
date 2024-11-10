@@ -25,6 +25,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Guides',
         items: [
           { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+          { text: 'Recent updated pages', link: '/pages/en/recent-updates' },
         ],
       },
       {
@@ -160,6 +161,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: '集成',
         items: [
           { text: '概览', link: '/pages/zh-CN/integrations/' },
+          { text: '最近更新文档', link: '/pages/zh-CN/recent-updates' },
         ],
       },
       {

@@ -43,6 +43,7 @@ import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
 import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+import index from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import inlineLinkPreview from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import highlightTargetedHeading from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
 import gitChangelog from '~/packages/vitepress-plugin-git-changelog/package.json'
@@ -84,6 +85,12 @@ Nólëbase 集成项目提供多种不同的集成、插件、组件和库来方
   <IntegrationCard type="vitepress" title="阅读增强" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
       <Badge type="tip" :text="`v${enhancedReadabilities.version}`" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="索引页" package="vitepress-plugin-index">
+    <template v-slot:badge>
+      <Badge type="tip" :text="`v${index.version}`" />
     </template>
   </IntegrationCard>
 

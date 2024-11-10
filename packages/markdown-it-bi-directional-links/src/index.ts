@@ -8,9 +8,9 @@ import { globSync } from 'glob'
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
 
-/** it will match [[file]] and [[file|text]], not match [[#title]] and [[^block]] */
+/** it will match [[file]] and [[file|text]] */
 const biDirectionalLinkPattern = /!?\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\](?!\()/
-/** it will match [[file]] and [[file|text]], not match [[#title]] and [[^block]], and only at the start of the text */
+/** it will match [[file]] and [[file|text]], but only at the start of the text */
 // eslint-disable-next-line regexp/no-unused-capturing-group
 const biDirectionalLinkPatternWithStart = /^!?\[\[[^|\]\n]+(\|[^\]\n]+)?\]\](?!\()/
 
@@ -306,7 +306,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       const isAudioRef = AUDIO_EXTENSIONS.some(ext => href.endsWith(ext))
 
       // Extract the pathname from the href
-      const parsedHref = new URL(/*href.startsWith('#') || href.startsWith('^') || */href.startsWith('?') ? relative(rootDir, state.env.path) + href : href, 'https://a.com')
+      const parsedHref = new URL(href.startsWith('?') ? relative(rootDir, state.env.path) + href : href, 'https://a.com')
       // 1. Remove the leading slash since pathname always starts with a slash and we don't want it
       // 2. Decode the pathname since it is url-encoded
       const parsedPathname = decodeURIComponent(parsedHref.pathname.slice(1))
@@ -314,7 +314,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       // If to self, direct return, no need to find and parse
       const isToSelf = href.startsWith('#') || href.startsWith('^')
       if (isToSelf) {
-        let resolvedNewHref = ""
+        let resolvedNewHref = ''
         parsedHref.hash = href
         resolvedNewHref = resolvedNewHref + parsedHref.search + parsedHref.hash
         genLink(state, resolvedNewHref, href.slice(1), md, href, link)

@@ -332,6 +332,9 @@ importers:
       '@nolebase/vitepress-plugin-highlight-targeted-heading':
         specifier: workspace:^
         version: link:../vitepress-plugin-highlight-targeted-heading
+      '@nolebase/vitepress-plugin-index':
+        specifier: workspace:^
+        version: link:../vitepress-plugin-index
       '@nolebase/vitepress-plugin-inline-link-preview':
         specifier: workspace:^
         version: link:../vitepress-plugin-inline-link-preview
@@ -345,9 +348,6 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0(@algolia/client-search@4.22.1)(@types/node@22.9.0)(less@4.2.0)(postcss@8.4.47)(search-insights@2.13.0)(typescript@5.6.3)
     devDependencies:
-      '@nolebase/vitepress-plugin-index':
-        specifier: workspace:^
-        version: link:../vitepress-plugin-index
       builtin-modules:
         specifier: ^3.3.0
         version: 3.3.0

@@ -1,5 +1,8 @@
 export interface Locale extends Record<string, any> {
-
+  recentUpdates?: {
+    category?: string
+    updatedAt?: string
+  }
 }
 
 export interface Options {
@@ -17,18 +20,16 @@ export interface Options {
    * {
    *  locales: {
    *    'en': {
-   *      noLogs: 'No recent changes',
-   *      lastEdited: 'This page was last edited {{daysAgo}}',
-   *      lastEditedDateFnsLocaleName: 'enUS',
-   *      viewFullHistory: 'View full history',
-   *      committedOn: ' on {{date}}',
+   *       recentUpdates: {
+   *         category: 'Category: ',
+   *         updatedAt: 'Updated at: ',
+   *       }
    *    },
    *    'zh-CN': {
-   *      noLogs: '暂无最近变更历史',
-   *      lastEdited: '本页面最后编辑于 {{daysAgo}}',
-   *      lastEditedDateFnsLocaleName: 'zhCN',
-   *      viewFullHistory: '查看完整历史',
-   *      committedOn: '于 {{date}} 提交',
+   *       recentUpdates: {
+   *         category: '类别：',
+   *         updatedAt: '更新于：',
+   *       }
    *     },
    *   }
    * }

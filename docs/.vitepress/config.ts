@@ -25,7 +25,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Guides',
         items: [
           { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
-          { text: 'Recent updated pages', link: '/pages/en/recent-updates' },
+          { text: 'Recent Updated', link: '/pages/en/recent-updates' },
         ],
       },
       {
@@ -161,7 +161,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: '集成',
         items: [
           { text: '概览', link: '/pages/zh-CN/integrations/' },
-          { text: '最近更新文档', link: '/pages/zh-CN/recent-updates' },
+          { text: '最近更新', link: '/pages/zh-CN/recent-updates' },
         ],
       },
       {
@@ -358,7 +358,13 @@ export default defineConfig({
       description: 'A collection of diverse documentation engineering tools',
       themeConfig: {
         nav: [
-          { text: 'Guide', link: '/pages/en/guide/getting-started' },
+          {
+            text: 'Guide',
+            items: [
+              { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+              { text: 'Recent Updated', link: '/pages/en/recent-updates' },
+            ],
+          },
           { text: 'Integrations', link: '/pages/en/integrations/' },
           { text: 'UI Components', link: '/pages/en/ui/' },
           {
@@ -391,7 +397,13 @@ export default defineConfig({
       description: '多元化的文档工程工具合集',
       themeConfig: {
         nav: [
-          { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
+          {
+            text: '指南',
+            items: [
+              { text: '快速开始', link: '/pages/zh-CN/guide/getting-started' },
+              { text: '最近更新', link: '/pages/zh-CN/recent-updates' },
+            ],
+          },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
           { text: 'UI 组件', link: '/pages/zh-CN/ui/' },
           {

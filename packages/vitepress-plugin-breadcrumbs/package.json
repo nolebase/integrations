@@ -25,12 +25,12 @@
     ".": {
       "types": "./dist/vitepress/index.d.ts",
       "import": "./dist/vitepress/index.mjs",
-      "require": "./dist/vitepress/index.js"
+      "require": "./dist/vitepress/index.cjs"
     },
     "./vitepress": {
       "types": "./dist/vitepress/index.d.ts",
       "import": "./dist/vitepress/index.mjs",
-      "require": "./dist/vitepress/index.js"
+      "require": "./dist/vitepress/index.cjs"
     },
     "./client": {
       "types": "./dist/client/index.d.ts",
@@ -38,7 +38,7 @@
       "require": "./dist/client/index.js"
     }
   },
-  "main": "./dist/vitepress/index.js",
+  "main": "./dist/vitepress/index.cjs",
   "module": "./dist/vitepress/index.mjs",
   "types": "./dist/vitepress/index.d.ts",
   "files": [
@@ -47,6 +47,8 @@
     "package.json"
   ],
   "scripts": {
+    "dev": "unbuild --stub",
+    "stub": "unbuild --stub",
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },

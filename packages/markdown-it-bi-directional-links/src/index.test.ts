@@ -121,7 +121,7 @@ describe('markdown-it-bi-directional-links', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))
       .render(`[[#bar]]`)
-    
+
     expect(rendered).toBe(`<p><a href="#bar">bar</a></p>\n`)
   })
 
@@ -129,7 +129,7 @@ describe('markdown-it-bi-directional-links', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))
       .render(`[[^bar]]`)
-    
+
     expect(rendered).toBe(`<p><a href="#^bar">bar</a></p>\n`)
   })
 

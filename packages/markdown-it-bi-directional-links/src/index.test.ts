@@ -117,6 +117,22 @@ describe('markdown-it-bi-directional-links', () => {
     expect(rendered).toBe(`<p><a href="/foo bar.md#bar">foo bar</a></p>\n`)
   })
 
+  it('should render when without "foo" 1', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render(`[[#bar]]`)
+
+    expect(rendered).toBe(`<p><a href="#bar">bar</a></p>\n`)
+  })
+
+  it('should render when without "foo" 2', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render(`[[^bar]]`)
+
+    expect(rendered).toBe(`<p><a href="#^bar">bar</a></p>\n`)
+  })
+
   it('should render simple form with query strings', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))

@@ -5,7 +5,7 @@ const { frontmatter } = useData()
 </script>
 
 <template>
-  <div class="breadcrumbs">
+  <div class="vp-nolebase-breadcrumbs">
     <span v-for="item in frontmatter.breadcrumbs" :key="item">
       <a v-if="item.link" :href="item.link">{{ item.title }}</a>
       <span v-else>{{ item.title }}</span>
@@ -14,7 +14,7 @@ const { frontmatter } = useData()
 </template>
 
 <style scoped>
-.breadcrumbs {
+.vp-nolebase-breadcrumbs {
   display: flex;
   gap: 8px;
   font-size: 14px;

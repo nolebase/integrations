@@ -1,3 +1,3 @@
-import Breadcrumbs from './components/Breadcrumbs.vue'
+import NolebaseBreadcrumbs from './components/NolebaseBreadcrumbs.vue'
 
-export { Breadcrumbs }
+export { NolebaseBreadcrumbs }

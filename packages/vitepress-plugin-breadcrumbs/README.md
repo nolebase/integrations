@@ -3,13 +3,17 @@
 A VitePress plugin that adds breadcrumbs to your documentation.
 
 ## Get started
+
 Install:
+
 ```shell
 pnpm install @nolebase/vitepress-plugin-breadcrumbs
 # or use bun
 bun install @nolebase/vitepress-plugin-breadcrumbs
 ```
+
 Generate breadcrumbs data when build your pages in `.vitepress/config.ts`:
+
 ```typescript
 import { BreadcrumbsDataGenerator } from '@nolebase/vitepress-plugin-breadcrumbs'
 import { defineConfig } from 'vitepress'
@@ -24,11 +28,12 @@ export default defineConfig({
   },
   // other config...
 })
+
 ```
 Add default breadcrumb vue component to each page in `.vitepress/theme/index.ts`:
 ```typescript
 import type { Theme as ThemeConfig } from 'vitepress'
-import { Breadcrumbs } from '@nolebase/vitepress-plugin-breadcrumbs/client'
+import { NolebaseBreadcrumbs } from '@nolebase/vitepress-plugin-breadcrumbs/client'
 import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 
@@ -37,7 +42,7 @@ export const Theme: ThemeConfig = {
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
       // add breadcrumb above document
-      'doc-before': () => h(Breadcrumbs),
+      'doc-before': () => h(NolebaseBreadcrumbs),
     })
   },
   enhanceApp({ app }) {
@@ -50,8 +55,10 @@ export const Theme: ThemeConfig = {
 }
 
 export default Theme
+
 ```
 Add this plugin to `noExternal` and `exclude` properties when building:
+
 ```typescript
 export default defineConfig({
   vite: {
@@ -71,7 +78,9 @@ export default defineConfig({
 ```
 
 ## Use custom breadcrumb component
+
 If you don't like the style or other something of default breadcrumb component, you can create your own component, this plugin will inject breadcrumb data into frontmatter of the page, so you can use breadcrumb data like this:
+
 ```vue
 <script setup lang="ts">
 import { useData } from 'vitepress'

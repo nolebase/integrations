@@ -1,3 +1,8 @@
+---
+title: Git-based page histories
+category: Git-based page histories
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-git-changelog/package.json'
 </script>

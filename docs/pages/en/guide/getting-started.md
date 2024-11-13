@@ -1,3 +1,8 @@
+---
+title: Getting Started
+category: Index
+---
+
 # Getting Started
 
 ::: warning 🚧 Constructing

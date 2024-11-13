@@ -1,3 +1,8 @@
+---
+title: 双向链接
+category: 双向链接
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
 </script>

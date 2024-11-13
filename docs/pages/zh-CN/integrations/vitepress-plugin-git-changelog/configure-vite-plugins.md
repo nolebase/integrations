@@ -1,3 +1,8 @@
+---
+title: 基于 Git 的页面历史
+category: 基于 Git 的页面历史
+---
+
 # 配置 Vite 插件
 
 ::: danger 弃用 `GitChangelogMarkdownSection` 插件选项的 `locales` 字段

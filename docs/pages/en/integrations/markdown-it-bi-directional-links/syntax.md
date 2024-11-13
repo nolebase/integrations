@@ -1,3 +1,8 @@
+---
+title: Bi-directional Links
+category: Bi-directional Links
+---
+
 # Syntax
 
 The following syntaxes are supported:

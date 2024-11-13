@@ -1,3 +1,8 @@
+---
+title: Elements Transformation
+category: Elements Transformation
+---
+
 <script setup>
 import packageJSON from '~/packages/markdown-it-element-transform/package.json'
 </script>
@@ -60,7 +65,7 @@ Check out install instructions in the [`vite-plugin-inspect` docs](https://githu
 
 This is the living example code where we use it as references:
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -114,7 +119,7 @@ For example:
 
 #### Add `target="_blank"` and `rel="noopener noreferrer"` to links
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -134,7 +139,7 @@ markdownIt.use(ElementTransform, (() => {
 
 #### Add inline styles to the elements
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---
@@ -153,7 +158,7 @@ markdownIt.use(ElementTransform, (() => {
 
 #### Add more classes to the elements
 
-```ts twoslash
+```ts
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---

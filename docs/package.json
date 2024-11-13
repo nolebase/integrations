@@ -28,12 +28,14 @@
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",
     "@nolebase/vitepress-plugin-graph-view": "workspace:^",
     "@nolebase/vitepress-plugin-highlight-targeted-heading": "workspace:^",
+    "@nolebase/vitepress-plugin-index": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "@nolebase/vitepress-plugin-meta": "workspace:^",
     "@nolebase/vitepress-plugin-og-image": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
+    "@nolebase/vitepress-plugin-sidebar": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "@rive-app/canvas": "^2.22.0",
+    "@rive-app/canvas": "^2.23.4",
     "@rollup/plugin-yaml": "^4.1.2",
     "@shikijs/vitepress-twoslash": "^1.22.2",
     "@types/markdown-it": "^14.1.2",
@@ -45,7 +47,8 @@
     "markdown-it-footnote": "^4.0.0",
     "motion": "^10.18.0",
     "thumbhash": "^0.1.1",
-    "unlazy": "^0.11.3",
-    "vite-plugin-vue-devtools": "^7.6.1"
+    "typescript": "^5.6.3",
+    "unlazy": "^0.11.4",
+    "vite-plugin-vue-devtools": "^7.6.3"
   }
 }

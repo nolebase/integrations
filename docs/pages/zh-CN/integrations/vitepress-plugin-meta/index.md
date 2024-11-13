@@ -1,3 +1,8 @@
+---
+title: 页面 <meta> 元信息生成
+category: 页面 <meta> 元信息生成
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-meta/package.json'
 </script>

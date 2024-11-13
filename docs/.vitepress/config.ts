@@ -25,6 +25,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: 'Guides',
         items: [
           { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+          { text: 'Recent Updated', link: '/pages/en/recent-updates' },
         ],
       },
       {
@@ -54,6 +55,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         items: [
           { text: 'Auto Sidebar', link: '/pages/en/integrations/vitepress-plugin-sidebar/' },
           { text: 'Enhanced Readabilities', link: '/pages/en/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: 'Index Page', link: '/pages/en/integrations/vitepress-plugin-index/' },
           {
             text: 'Inline Links Previewing',
             collapsed: true,
@@ -160,6 +162,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         text: '集成',
         items: [
           { text: '概览', link: '/pages/zh-CN/integrations/' },
+          { text: '最近更新', link: '/pages/zh-CN/recent-updates' },
         ],
       },
       {
@@ -183,6 +186,7 @@ export const sidebars: Record<string, DefaultTheme.Sidebar> = {
         items: [
           { text: '自动生成侧边栏', link: '/pages/zh-CN/integrations/vitepress-plugin-sidebar/' },
           { text: '阅读增强', link: '/pages/zh-CN/integrations/vitepress-plugin-enhanced-readabilities/' },
+          { text: '索引页', link: '/pages/zh-CN/integrations/vitepress-plugin-index/' },
           {
             text: '行内链接预览',
             collapsed: true,
@@ -356,7 +360,13 @@ export default defineConfig({
       description: 'A collection of diverse documentation engineering tools',
       themeConfig: {
         nav: [
-          { text: 'Guide', link: '/pages/en/guide/getting-started' },
+          {
+            text: 'Guide',
+            items: [
+              { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
+              { text: 'Recent Updated', link: '/pages/en/recent-updates' },
+            ],
+          },
           { text: 'Integrations', link: '/pages/en/integrations/' },
           { text: 'UI Components', link: '/pages/en/ui/' },
           {
@@ -389,7 +399,13 @@ export default defineConfig({
       description: '多元化的文档工程工具合集',
       themeConfig: {
         nav: [
-          { text: '指南', link: '/pages/zh-CN/guide/getting-started' },
+          {
+            text: '指南',
+            items: [
+              { text: '快速开始', link: '/pages/zh-CN/guide/getting-started' },
+              { text: '最近更新', link: '/pages/zh-CN/recent-updates' },
+            ],
+          },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
           { text: 'UI 组件', link: '/pages/zh-CN/ui/' },
           {

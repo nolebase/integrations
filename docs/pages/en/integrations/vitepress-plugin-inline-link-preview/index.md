@@ -1,3 +1,8 @@
+---
+title: Inline Links Previewing
+category: Inline Links Previewing
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import { PopupIframe } from '@nolebase/vitepress-plugin-inline-link-preview/client'

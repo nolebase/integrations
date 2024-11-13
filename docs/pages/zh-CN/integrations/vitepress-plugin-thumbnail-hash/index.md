@@ -1,3 +1,8 @@
+---
+title: 缩略图模糊哈希生成
+category: 缩略图模糊哈希生成
+---
+
 <script setup>
 import packageJSON from '~/packages/vitepress-plugin-thumbnail-hash/package.json'
 </script>

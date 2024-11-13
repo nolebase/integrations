@@ -1,3 +1,8 @@
+---
+title: Bi-directional Links
+category: Bi-directional Links
+---
+
 # Getting started
 
 ## Installation
@@ -32,7 +37,7 @@ In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the fi
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
-```typescript twoslash
+```typescript
 import { defineConfigWithTheme } from 'vitepress'
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 
@@ -57,14 +62,14 @@ export default defineConfigWithTheme({
 
 Import this plugin into the file where you can access the [`markdown-it`](https://github.com/markdown-it/markdown-it) instance, and use it as a `markdown-it` plugin:
 
-```typescript twoslash
+```typescript
 import { BiDirectionalLinks } from '@nolebase/markdown-it-bi-directional-links' // [!code ++]
 ```
 
 Then you need to use the `use()` member methods from the `markdown-it` instance to use this plugin.
 With a options object that contains a `dir` field which is the root directory of your project supplied, the value for `dir` field can be obtained through `cwd()` function call that imported from either `process` or `node:process`:
 
-```typescript twoslash
+```typescript
 import MarkdownIt from 'markdown-it'
 let markdownIt: MarkdownIt = null as unknown as MarkdownIt
 // ---cut---

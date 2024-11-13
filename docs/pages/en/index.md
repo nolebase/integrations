@@ -32,6 +32,9 @@ features:
   - icon: <span class="rive-canvas" data-rive-canvas="true" data-rive-src="/icons/rocket-emoji-animated.riv"></span>
     title: Writing First
     details: From the perspective of documentation engineering, solve and simplify some UX/DX problems, aiming to let creators focus on writing documents, notes, making cards and GTD!
+
+nolebase:
+  index: false
 ---
 
 <script setup>
@@ -40,6 +43,7 @@ import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
 import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
+import index from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import inlineLinkPreview from '~/packages/vitepress-plugin-inline-link-preview/package.json'
 import highlightTargetedHeading from '~/packages/vitepress-plugin-highlight-targeted-heading/package.json'
 import gitChangelog from '~/packages/vitepress-plugin-git-changelog/package.json'
@@ -81,6 +85,12 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
   <IntegrationCard type="vitepress" title="Enhanced Readabilities" package="vitepress-plugin-enhanced-readabilities">
     <template v-slot:badge>
       <Badge type="tip" :text="`v${enhancedReadabilities.version}`" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="Index page" package="vitepress-plugin-index">
+    <template v-slot:badge>
+      <Badge type="tip" :text="`v${index.version}`" />
     </template>
   </IntegrationCard>
 

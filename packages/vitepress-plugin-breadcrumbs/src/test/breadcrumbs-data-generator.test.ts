@@ -1,22 +1,25 @@
-import type { PageData } from 'vitepress'
+import type { PageData, TransformPageContext } from 'vitepress'
 import { expect, it } from 'vitest'
-import { BreadcrumbsDataGenerator } from '../vitepress'
+import { generateBreadcrumbsData } from '../vitepress'
 
 it('page is not index', () => {
-  const pageData: PageData = {
+  const pageData = {
     relativePath: 'a/b/c/d.md',
     filePath: 'a/b/c/d.md',
     title: 'd',
-    description: '',
-    headers: [],
     frontmatter: {},
-  }
+  } as PageData
 
-  const pages = ['a', 'a/b', 'a/b/index.md', 'a/b/c/d.md']
+  const context = {
+    siteConfig: {
+      site: {
+        title: 'Home',
+      },
+      pages: ['a', 'a/b', 'a/b/index.md', 'a/b/c/d.md'],
+    },
+  } as TransformPageContext
 
-  const generator = new BreadcrumbsDataGenerator('Home', 'a')
-
-  generator.generate(pageData, pages)
+  generateBreadcrumbsData(pageData, context)
 
   expect(pageData.frontmatter.breadcrumbs).toEqual([
     { title: 'Home', link: '/a' },
@@ -27,20 +30,23 @@ it('page is not index', () => {
 })
 
 it('page is index', () => {
-  const pageData: PageData = {
+  const pageData = {
     relativePath: 'a/b/c/d/index.md',
     filePath: 'a/b/c/d/index.md',
     title: 'd',
-    description: '',
-    headers: [],
     frontmatter: {},
-  }
+  } as PageData
 
-  const pages = ['a', 'a/b', 'a/b/index.md', 'a/b/c/d/index.md']
+  const context = {
+    siteConfig: {
+      site: {
+        title: 'Home',
+      },
+      pages: ['a', 'a/b', 'a/b/index.md', 'a/b/c/d/index.md'],
+    },
+  } as TransformPageContext
 
-  const generator = new BreadcrumbsDataGenerator('Home', 'a')
-
-  generator.generate(pageData, pages)
+  generateBreadcrumbsData(pageData, context)
 
   expect(pageData.frontmatter.breadcrumbs).toEqual([
     { title: 'Home', link: '/a' },

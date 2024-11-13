@@ -1,1 +1,1 @@
-export { BreadcrumbsDataGenerator } from './breadcrumbs-data-generator'
+export { generateBreadcrumbsData } from './breadcrumbs-data-generator'

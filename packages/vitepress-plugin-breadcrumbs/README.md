@@ -15,15 +15,13 @@ bun install @nolebase/vitepress-plugin-breadcrumbs
 Generate breadcrumbs data when build your pages in `.vitepress/config.ts`:
 
 ```typescript
-import { BreadcrumbsDataGenerator } from '@nolebase/vitepress-plugin-breadcrumbs'
+import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs'
 import { defineConfig } from 'vitepress'
-
-const breadcrumbsGenerator = new BreadcrumbsDataGenerator('<title of your website>', '<root dir of your documents>')
 
 export default defineConfig({
   // other config...
   transformPageData(pageData, context) {
-    breadcrumbsGenerator.generate(pageData, context.siteConfig.pages)
+    generateBreadcrumbsData(pageData, context)
     // other transforming...
   },
   // other config...

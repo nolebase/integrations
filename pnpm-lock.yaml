@@ -352,6 +352,12 @@ importers:
         specifier: ^3.3.0
         version: 3.3.0
 
+  packages/vitepress-plugin-breadcrumbs:
+    dependencies:
+      vitepress:
+        specifier: ^1.5.0
+        version: 1.5.0(@algolia/client-search@4.22.1)(@types/node@22.9.0)(less@4.2.0)(postcss@8.4.47)(search-insights@2.13.0)(typescript@5.6.3)
+
   packages/vitepress-plugin-enhanced-mark:
     dependencies:
       less:

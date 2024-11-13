@@ -28,7 +28,9 @@ export default defineConfig({
 })
 
 ```
+
 Add default breadcrumb vue component to each page in `.vitepress/theme/index.ts`:
+
 ```typescript
 import type { Theme as ThemeConfig } from 'vitepress'
 import { NolebaseBreadcrumbs } from '@nolebase/vitepress-plugin-breadcrumbs/client'
@@ -53,8 +55,8 @@ export const Theme: ThemeConfig = {
 }
 
 export default Theme
-
 ```
+
 Add this plugin to `noExternal` and `exclude` properties when building:
 
 ```typescript

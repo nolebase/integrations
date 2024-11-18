@@ -40,6 +40,7 @@ nolebase:
 <script setup>
 import sidebarPackageJSON from '~/packages/vitepress-plugin-sidebar/package.json'
 import biDirectionalLinksPackageJSON from '~/packages/markdown-it-bi-directional-links/package.json'
+import breadcrumbsPackageJSON from '~/packages/vitepress-plugin-breadcrumbs/package.json'
 import elementTransform from '~/packages/markdown-it-element-transform/package.json'
 import unlazyImg from '~/packages/markdown-it-unlazy-img/package.json'
 import enhancedReadabilities from '~/packages/vitepress-plugin-enhanced-readabilities/package.json'
@@ -79,6 +80,12 @@ Nólëbase Integrations project provides a variety of integrations, plugins, com
   <IntegrationCard type="vitepress" title="Auto Sidebar" package="vitepress-plugin-sidebar">
     <template v-slot:badge>
       <Badge type="tip" :text="`v${sidebarPackageJSON.version}`" />
+    </template>
+  </IntegrationCard>
+
+  <IntegrationCard type="vitepress" title="Breadcrumbs" package="vitepress-plugin-breadcrumbs">
+    <template v-slot:badge>
+      <Badge type="tip" :text="`v${breadcrumbsPackageJSON.version}`" />
     </template>
   </IntegrationCard>
 

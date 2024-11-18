@@ -37,7 +37,7 @@ yarn add @nolebase/vitepress-plugin-sidebar -D
 
 ### Integrate with VitePress
 
-In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), import `@nolebase/markdown-it-bi-directional-links` as a plugin, and use it as a `markdown-it` plugin in the `markdown` option:
+In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), import `@nolebase/vitepress-plugin-sidebar` as a plugin:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 

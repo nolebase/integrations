@@ -85,6 +85,7 @@ ni @nolebase/<integration-name> -D
 - [UnoCSS (Obsidian 插件)](https://github.com/nolebase/obsidian-plugin-unocss)
 - [自动生成侧边栏（VitePress 插件）](./packages/vitepress-plugin-sidebar/README.md)
 - [双向链接（`markdown-it` 插件）](./packages/markdown-it-bi-directional-links/README.md)
+- [面包屑导航（VitePress 插件）](./packages/vitepress-plugin-breadcrumbs/README.md)
 - [元素转换（`markdown-it` 插件）](./packages/markdown-it-element-transform/README.md)
 - [懒加载模糊预览图（`markdown-it` 插件）](./packages/markdown-it-unlazy-img/README.md)
 - [阅读增强（VitePress 插件）](./packages/vitepress-plugin-enhanced-readabilities/README.md)

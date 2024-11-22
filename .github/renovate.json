@@ -8,8 +8,6 @@
     ":prConcurrentLimitNone"
     ":ignoreModulesAndTests",
     "schedule:monthly",
-    "group:monorepos",
-    "group:recommended",
     "group:allNonMajor",
     "replacements:all",
     "workarounds:all"

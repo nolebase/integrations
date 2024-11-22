@@ -4,9 +4,13 @@
     "config:recommended",
     ":dependencyDashboard",
     ":semanticPrefixFixDepsChoreOthers",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimitNone"
     ":ignoreModulesAndTests",
+    "schedule:monthly",
     "group:monorepos",
     "group:recommended",
+    "group:allNonMajor",
     "replacements:all",
     "workarounds:all"
   ]

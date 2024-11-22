@@ -5,7 +5,7 @@
     ":dependencyDashboard",
     ":semanticPrefixFixDepsChoreOthers",
     ":prHourlyLimitNone",
-    ":prConcurrentLimitNone"
+    ":prConcurrentLimitNone",
     ":ignoreModulesAndTests",
     "schedule:monthly",
     "group:allNonMajor",

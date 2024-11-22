@@ -163,7 +163,7 @@ importers:
         version: link:../packages/vitepress-plugin-thumbnail-hash
       '@rive-app/canvas':
         specifier: ^2.23.4
-        version: 2.23.4
+        version: 2.23.10
       '@rollup/plugin-yaml':
         specifier: ^4.1.2
         version: 4.1.2(rollup@4.25.0)
@@ -1933,8 +1933,8 @@ packages:
   '@rive-app/canvas@2.16.0':
     resolution: {integrity: sha512-shbtAEZ3Iq6HSCA1EpdoU7CMwY5+p5pD8NTVmp31N+eq8Obxnorh+L/M4PJhqQR8hONMUwgcVLCIrNTdcXUNoA==}
 
-  '@rive-app/canvas@2.23.4':
-    resolution: {integrity: sha512-Hm9HtkTQwWwLEDqF12zXD0IqnC87Lw8fZNaWJFvB+LEzrlLH3jGjTszdm1obJN3lA3Z9meXo3dmgFQSL7rRqgA==}
+  '@rive-app/canvas@2.23.10':
+    resolution: {integrity: sha512-xD3RnnOZmpXwC2CztQLj5ZZk1MbXrJfSgaXTKYm+G7LxAOfBo5FUFaX4l7TI5dbp1SiD/7RuiSrSw8e3IQqDGg==}
 
   '@rollup/plugin-alias@5.1.1':
     resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
@@ -7188,7 +7188,7 @@ snapshots:
 
   '@rive-app/canvas@2.16.0': {}
 
-  '@rive-app/canvas@2.23.4': {}
+  '@rive-app/canvas@2.23.10': {}
 
   '@rollup/plugin-alias@5.1.1(rollup@3.29.5)':
     optionalDependencies:

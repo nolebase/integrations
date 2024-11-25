@@ -1,5 +1,5 @@
 import type { PluginSimple } from 'markdown-it'
-import { basename, extname, posix, relative, dirname, sep } from 'node:path'
+import { basename, dirname, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'

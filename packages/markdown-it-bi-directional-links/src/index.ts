@@ -1,5 +1,5 @@
 import type { PluginSimple } from 'markdown-it'
-import { basename, extname, posix, relative, sep } from 'node:path'
+import { basename, dirname, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
@@ -204,6 +204,12 @@ export interface BiDirectionalLinksOptions {
    * @default false
    */
   noNoMatchedFileWarning?: boolean
+  /**
+   * Force a relative path instead of an absolute path
+   *
+   * @default false
+   */
+  isRelativePath?: boolean
 }
 
 /**
@@ -220,6 +226,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
   const includes = options?.includesPatterns ?? []
   const debugOn = options?.debug ?? false
   const noNoMatchedFileWarning = options?.noNoMatchedFileWarning ?? false
+  const isRelativePath = options?.isRelativePath ?? false
 
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
   const possibleBiDirectionalLinksInFullFilePaths: Record<string, string> = {}
@@ -346,12 +353,20 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
         matchedHref = matchedHrefSingleOrArray
       }
 
-      let resolvedNewHref = posix.join(
-        baseDir,
-        relative(rootDir, matchedHref)
+      let resolvedNewHref: string
+      if (isRelativePath) {
+        resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
           .split(sep)
-          .join('/'),
-      )
+          .join('/')
+      }
+      else {
+        resolvedNewHref = posix.join(
+          baseDir,
+          relative(rootDir, matchedHref)
+            .split(sep)
+            .join('/'),
+        )
+      }
 
       if (isImageRef) {
         genImage(state, resolvedNewHref, text, link)

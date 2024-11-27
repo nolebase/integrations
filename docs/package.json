@@ -23,6 +23,7 @@
     "@nolebase/ui-asciinema": "workspace:^",
     "@nolebase/ui-rive-canvas": "workspace:^",
     "@nolebase/unconfig-vitepress": "workspace:^",
+    "@nolebase/vitepress-plugin-breadcrumbs": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",

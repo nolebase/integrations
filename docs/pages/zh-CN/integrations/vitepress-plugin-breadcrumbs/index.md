@@ -49,7 +49,7 @@ bun install @nolebase/vitepress-plugin-breadcrumbs
 
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
-import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs' // [!code ++]
+import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress' // [!code ++]
 
 export default defineConfig({
   // 其它各种配置...
@@ -67,6 +67,8 @@ export default defineConfig({
 <!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
+import { defineConfig } from 'vitepress'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: { // [!code ++]

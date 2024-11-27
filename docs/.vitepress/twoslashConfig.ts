@@ -56,6 +56,9 @@ export const compilerOptions = {
       '@nolebase/vitepress-plugin-thumbnail-hash/*': [
         '../packages/vitepress-plugin-thumbnail-hash/src/*',
       ],
+      '@nolebase/vitepress-plugin-breadcrumbs/*': [
+        '../packages/vitepress-plugin-breadcrumbs/src/*',
+      ],
     },
     resolveJsonModule: true,
     types: [

@@ -49,7 +49,7 @@ In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the fi
 
 ```typescript twoslash
 import { defineConfig } from 'vitepress'
-import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs' // [!code ++]
+import { generateBreadcrumbsData } from '@nolebase/vitepress-plugin-breadcrumbs/vitepress' // [!code ++]
 
 export default defineConfig({
   // Other configurations...
@@ -67,6 +67,8 @@ Then please add the Breadcrumbs plugin package name `@nolebase/vitepress-plugin-
 <!--@include: @/pages/en/snippets/configure-tsconfig.md-->
 
 ```typescript twoslash
+import { defineConfig } from 'vitepress'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: { // [!code ++]

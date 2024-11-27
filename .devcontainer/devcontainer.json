@@ -1,0 +1,57 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/typescript-node
+{
+  "name": "nolebase-integrations",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm",
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/pnpm:2": {}
+  },
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [5173, 4173],
+  "portsAttributes": {
+    "5173": {
+      "label": "dev port"
+    },
+    "4173": {
+      "label": "build port"
+    }
+  },
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "pnpm i",
+  //   "postStartCommand": "pnpm docs:dev",
+
+  // Configure tool-specific properties.
+  "customizations": {
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "mikestead.dotenv",
+        "EditorConfig.EditorConfig",
+        "usernamehw.errorlens",
+        "dbaeumer.vscode-eslint",
+        "antfu.goto-alias",
+        "lokalise.i18n-ally",
+        "antfu.iconify",
+        "yzhang.markdown-all-in-one",
+        "antfu.unocss",
+        "Vue.volar",
+        "vitest.explorer",
+        "redhat.vscode-yaml"
+      ]
+    },
+    "codespaces": {
+      "openFiles": [
+        "./README.md"
+      ]
+    }
+  }
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}

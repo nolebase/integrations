@@ -41,7 +41,7 @@ bun install @nolebase/vitepress-plugin-breadcrumbs
 
 ### 为 VitePress 配置
 
-在 VitePress 的配置文件中（通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/vitepress-plugin-breadcrumbs` 导入并且将它放置到 `transformPageData` 函数中：
+在 VitePress 的配置文件中（通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别），从 `@nolebase/vitepress-plugin-breadcrumbs` 导入 `generateBreadcrumbsData` 并且将它放置到 `transformPageData` 函数中：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
@@ -60,7 +60,7 @@ export default defineConfig({
 
 ```
 
-将面包屑导航到的插件包 `@nolebase/vitepress-plugin-breadcrumbs` 添加到需要 VitePress 底层的 Vite 帮忙处理的依赖：
+将面包屑导航的插件包 `@nolebase/vitepress-plugin-breadcrumbs` 添加到需要 VitePress 底层的 Vite 帮忙处理的依赖：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 

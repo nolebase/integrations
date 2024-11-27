@@ -42,7 +42,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "dependencies": {
-    "less": "^4.2.0",
+    "less": "^4.2.1",
     "vitepress": "^1.5.0"
   }
 }

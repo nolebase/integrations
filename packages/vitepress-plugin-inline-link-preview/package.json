@@ -71,7 +71,7 @@
     "@iconify-json/svg-spinners": "^1.2.1",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
-    "less": "^4.2.0",
+    "less": "^4.2.1",
     "markdown-it": "^14.1.0",
     "markdown-it-attrs": "^4.2.0",
     "vitepress": "^1.5.0"

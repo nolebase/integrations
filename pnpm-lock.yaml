@@ -125,6 +125,9 @@ importers:
       '@nolebase/unconfig-vitepress':
         specifier: workspace:^
         version: link:../packages/unconfig-vitepress
+      '@nolebase/vitepress-plugin-breadcrumbs':
+        specifier: workspace:^
+        version: link:../packages/vitepress-plugin-breadcrumbs
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: workspace:^
         version: link:../packages/vitepress-plugin-enhanced-mark

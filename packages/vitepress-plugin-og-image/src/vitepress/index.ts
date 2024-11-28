@@ -6,13 +6,13 @@ import { sep as posixSep } from 'node:path/posix'
 import { gray, green, red, yellow } from 'colorette'
 import { defu } from 'defu'
 import fs from 'fs-extra'
-import { glob } from 'glob'
 import GrayMatter from 'gray-matter'
 import RehypeMeta from 'rehype-meta'
 import RehypeParse from 'rehype-parse'
 import RehypeStringify from 'rehype-stringify'
-import { unified } from 'unified'
+import { glob } from 'tinyglobby'
 
+import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
 import { logModulePrefix } from './constants'
 import { applyCategoryTextWithFallback, tryToLocateFontFile, tryToLocateTemplateSVGFile } from './options'
@@ -255,7 +255,7 @@ export function buildEndGenerateOpenGraphImages(options: BuildEndGenerateOpenGra
         pages = pages.concat(items)
       }
 
-      const files = await glob(`${siteConfig.outDir}/**/*.html`, { nodir: true })
+      const files = await glob(`${siteConfig.outDir}/**/*.html`, { onlyFiles: true })
 
       if (!ogImageTemplateSvgPath) {
         return ''

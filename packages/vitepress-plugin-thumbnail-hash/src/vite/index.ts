@@ -6,9 +6,9 @@ import { join, relative } from 'node:path'
 
 import CanvasKitInit from 'canvaskit-wasm'
 import { cyan, gray } from 'colorette'
-import { glob } from 'glob'
 import ora from 'ora'
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
+import { glob } from 'tinyglobby'
 
 import { normalizePath, type Plugin } from 'vite'
 import { binaryToBase64, hash, normalizeBase64 } from './utils'
@@ -184,7 +184,7 @@ export function ThumbnailHashImages(): Plugin {
 
       spinner.text = `${spinnerPrefix} Searching for images...`
 
-      const files = await glob(`${root}/**/*.+(jpg|jpeg|png)`, { nodir: true })
+      const files = await glob(`${root}/**/*.+(jpg|jpeg|png)`, { onlyFiles: true })
 
       spinner.text = `${spinnerPrefix} Calculating thumbhashes for images...`
 

@@ -4,6 +4,7 @@
     "composite": false,
     "baseUrl": ".",
     "types": [
+      "node",
       "./yaml.d.ts"
     ],
     "strict": true,

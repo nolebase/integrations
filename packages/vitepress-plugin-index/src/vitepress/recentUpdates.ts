@@ -2,10 +2,11 @@ import { readFile } from 'node:fs/promises'
 import { basename, join, relative, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { cwd } from 'node:process'
+
 import { defu } from 'defu'
 import { execa } from 'execa'
-import { globby } from 'globby'
 import grayMatter from 'gray-matter'
+import { glob } from 'tinyglobby'
 
 export interface FileEntry {
   title: string
@@ -167,7 +168,7 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
 
   return {
     async load() {
-      const files = await globby(join(opts.dir, '**/*.md'), {
+      const files = await glob(join(opts.dir, '**/*.md'), {
         absolute: true,
         cwd: cwd(),
         ignore: opts.ignores,

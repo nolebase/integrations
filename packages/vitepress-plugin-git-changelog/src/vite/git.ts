@@ -145,7 +145,7 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       return `export default ${JSON.stringify(changelog, null, config.isProduction ? 0 : 2)}`
     },
     configureServer(server) {
-      Object.values(server.environments).forEach((env) => {
+      compatibleConfigureServer(server, (_, env) => {
         env.hot.on('nolebase-git-changelog:client-mounted', async (data) => {
           if (!data || typeof data !== 'object')
             return
@@ -177,5 +177,27 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
         })
       })
     },
+  }
+}
+
+interface Environment {
+  hot: {
+    on: (event: string, handler: (data: any) => void) => void
+    send: (data: any) => void
+  }
+  moduleGraph: {
+    getModuleById: (id: string) => any
+    invalidateModule: (module: any) => void
+  }
+}
+
+function compatibleConfigureServer<E extends Environment>(server: E, registerHandler: (name: string, env: E) => void | Promise<void>) {
+// Temporary workaround for Vite 5, both register for environments and server
+  // When VitePress is upgraded to Vite 6, this can be removed
+  if ('environments' in server && typeof server.environments === 'object' && server.environments != null) {
+    Object.entries(server.environments).forEach(([name, env]) => registerHandler(name, env))
+  }
+  else {
+    registerHandler('server', server)
   }
 }

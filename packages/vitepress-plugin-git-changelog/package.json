@@ -86,6 +86,6 @@
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",
-    "builtin-modules": "^3.3.0"
+    "builtin-modules": "^4.0.0"
   }
 }

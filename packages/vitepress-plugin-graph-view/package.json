@@ -62,7 +62,6 @@
     "colorette": "^2.0.20",
     "d3": "^7.9.0",
     "d3-force": "^3.0.0",
-    "glob": "^11.0.0",
     "less": "^4.2.1",
     "ora": "^8.1.1",
     "vitepress": "catalog:"
@@ -70,7 +69,7 @@
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/d3-force": "^3.0.10",
-    "builtin-modules": "^3.3.0",
+    "builtin-modules": "^4.0.0",
     "fs-extra": "^11.2.0"
   }
 }

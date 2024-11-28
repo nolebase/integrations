@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path/posix'
 
 import { cyan, gray, yellow } from 'colorette'
-import { globSync } from 'glob'
+import { globSync } from 'tinyglobby'
 import { normalizePath } from 'vite'
 
 const defaultMapGlobPatterns = [
@@ -169,7 +169,7 @@ function ensureThumbhashMap(
       pattern,
       {
         ignore: 'node_modules/**',
-        nodir: true,
+        onlyFiles: true,
       },
     )
     if (matchedFiles.length === 0)

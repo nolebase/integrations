@@ -67,6 +67,6 @@
     "vitepress": "catalog:"
   },
   "devDependencies": {
-    "builtin-modules": "^3.3.0"
+    "builtin-modules": "^4.0.0"
   }
 }

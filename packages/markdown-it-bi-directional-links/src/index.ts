@@ -3,7 +3,7 @@ import { basename, dirname, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
 import { cyan, gray, yellow } from 'colorette'
 import _debug from 'debug'
-import { globSync } from 'glob'
+import { globSync } from 'tinyglobby'
 
 import packageJSON from '../package.json'
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
@@ -239,7 +239,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
   }
 
   const files = globSync(includes, {
-    nodir: true,
+    onlyFiles: true,
     absolute: true,
     cwd: rootDir,
     ignore: [

@@ -1,5 +1,5 @@
 import { cwd } from 'node:process'
-import { globSync } from 'glob'
+import { globSync } from 'tinyglobby'
 
 interface ArticleTree {
   index: string
@@ -23,7 +23,7 @@ export function listPages(options: { targets?: Array<string | { folderName: stri
       'node_modules',
       ...ignore,
     ],
-    nodir: true,
+    onlyFiles: true,
   })
 
   files.sort()

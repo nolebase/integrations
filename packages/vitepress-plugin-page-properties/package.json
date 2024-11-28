@@ -70,9 +70,9 @@
     "@nolebase/ui": "workspace:^",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "less": "^4.2.0",
+    "less": "^4.2.1",
     "uuid": "^11.0.3",
-    "vitepress": "^1.5.0"
+    "vitepress": "catalog:"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2",

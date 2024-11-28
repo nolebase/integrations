@@ -70,9 +70,9 @@
   },
   "dependencies": {
     "@iconify-json/octicon": "^1.2.1",
-    "less": "^4.2.0",
-    "vitepress": "^1.5.0",
-    "vue": "^3.5.13"
+    "less": "^4.2.1",
+    "vitepress": "catalog:",
+    "vue": "catalog:"
   },
   "devDependencies": {
     "@vue/tsconfig": "^0.6.0"

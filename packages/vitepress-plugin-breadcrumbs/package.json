@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-breadcrumbs",
   "type": "module",
-  "version": "2.11.0",
+  "version": "2.11.1",
   "description": "A VitePress plugin that adds breadcrumbs to your documentation.",
   "author": {
     "name": "Nólëbase",

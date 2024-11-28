@@ -145,33 +145,35 @@ export function GitChangelog(options: GitChangelogOptions = {}): Plugin {
       return `export default ${JSON.stringify(changelog, null, config.isProduction ? 0 : 2)}`
     },
     configureServer(server) {
-      server.ws.on('nolebase-git-changelog:client-mounted', async (data) => {
-        if (!data || typeof data !== 'object')
-          return
-        if (!('page' in data && 'filePath' in data.page))
-          return
+      Object.values(server.environments).forEach((env) => {
+        env.hot.on('nolebase-git-changelog:client-mounted', async (data) => {
+          if (!data || typeof data !== 'object')
+            return
+          if (!('page' in data && 'filePath' in data.page))
+            return
 
-        let result = hotModuleReloadCachedCommits.get(data.page.filePath)
-        if (!result) {
-          const path = normalizePath(join(srcDir, data.page.filePath))
-          result = await commitFromPath([path])
-          hotModuleReloadCachedCommits.set(data.page.filePath, result)
-        }
+          let result = hotModuleReloadCachedCommits.get(data.page.filePath)
+          if (!result) {
+            const path = normalizePath(join(srcDir, data.page.filePath))
+            result = await commitFromPath([path])
+            hotModuleReloadCachedCommits.set(data.page.filePath, result)
+          }
 
-        Object.assign(changelog, result)
+          Object.assign(changelog, result)
 
-        if (!result!.commits.length)
-          return
+          if (!result!.commits.length)
+            return
 
-        const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
-        if (!virtualModule)
-          return
+          const virtualModule = env.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+          if (!virtualModule)
+            return
 
-        server.moduleGraph.invalidateModule(virtualModule)
-        server.ws.send({
-          type: 'custom',
-          event: 'nolebase-git-changelog:updated',
-          data: changelog,
+          env.moduleGraph.invalidateModule(virtualModule)
+          env.hot.send({
+            type: 'custom',
+            event: 'nolebase-git-changelog:updated',
+            data: changelog,
+          })
         })
       })
     },

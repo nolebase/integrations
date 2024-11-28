@@ -65,7 +65,7 @@
     "glob": "^11.0.0",
     "less": "^4.2.1",
     "ora": "^8.1.1",
-    "vitepress": "^1.5.0"
+    "vitepress": "catalog:"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",

@@ -74,48 +74,50 @@ export function PageProperties(): Plugin {
       calculatedPagePropertiesActualData[normalizeWithRelative(srcDir, id)] = calculateWordsCountAndReadingTime(parsedContent.content)
     },
     configureServer(server) {
-      server.hot.on('nolebase-page-properties:client-mounted', async (data) => {
-        if (!data || typeof data !== 'object')
-          return
-        if (!('page' in data && 'filePath' in data.page))
-          return
-
-        const toMarkdownFilePath = data.page.filePath
-        if (extname(data.page.filePath) !== '.md')
-          return
-
-        if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
-          try {
-            const exists = await existsSync(toMarkdownFilePath)
-            if (!exists)
-              return
-
-            const stat = await lstatSync(toMarkdownFilePath)
-            if (!stat.isFile())
-              return
-
-            knownMarkdownFiles.add(toMarkdownFilePath.toLowerCase())
-          }
-          catch {
+      Object.values(server.environments).forEach((env) => {
+        env.hot.on('nolebase-page-properties:client-mounted', async (data) => {
+          if (!data || typeof data !== 'object')
             return
+          if (!('page' in data && 'filePath' in data.page))
+            return
+
+          const toMarkdownFilePath = data.page.filePath
+          if (extname(data.page.filePath) !== '.md')
+            return
+
+          if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase())) {
+            try {
+              const exists = await existsSync(toMarkdownFilePath)
+              if (!exists)
+                return
+
+              const stat = await lstatSync(toMarkdownFilePath)
+              if (!stat.isFile())
+                return
+
+              knownMarkdownFiles.add(toMarkdownFilePath.toLowerCase())
+            }
+            catch {
+              return
+            }
           }
-        }
-        if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase()))
-          return
+          if (!knownMarkdownFiles.has(toMarkdownFilePath.toLowerCase()))
+            return
 
-        const content = await readFileSync(toMarkdownFilePath, 'utf-8')
-        const parsedContent = GrayMatter(content)
-        calculatedPagePropertiesActualData[toMarkdownFilePath] = calculateWordsCountAndReadingTime(parsedContent.content)
+          const content = await readFileSync(toMarkdownFilePath, 'utf-8')
+          const parsedContent = GrayMatter(content)
+          calculatedPagePropertiesActualData[toMarkdownFilePath] = calculateWordsCountAndReadingTime(parsedContent.content)
 
-        const virtualModule = server.moduleGraph.getModuleById(ResolvedVirtualModuleId)
-        if (!virtualModule)
-          return
+          const virtualModule = env.moduleGraph.getModuleById(ResolvedVirtualModuleId)
+          if (!virtualModule)
+            return
 
-        server.moduleGraph.invalidateModule(virtualModule)
-        server.hot.send({
-          type: 'custom',
-          event: 'nolebase-page-properties:updated',
-          data: calculatedPagePropertiesActualData,
+          env.moduleGraph.invalidateModule(virtualModule)
+          env.hot.send({
+            type: 'custom',
+            event: 'nolebase-page-properties:updated',
+            data: calculatedPagePropertiesActualData,
+          })
         })
       })
     },

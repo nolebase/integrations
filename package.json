@@ -38,10 +38,10 @@
     "test:run": "vitest run"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^3.11.1",
+    "@antfu/eslint-config": "^3.11.2",
     "@antfu/ni": "^0.23.1",
     "@cspell/dict-ru_ru": "^2.2.4",
-    "@types/node": "^22.10.0",
+    "@types/node": "^22.10.1",
     "@unocss/cli": "^0.64.1",
     "@unocss/eslint-config": "^0.64.1",
     "@unocss/eslint-plugin": "^0.64.1",
@@ -59,7 +59,7 @@
     "unocss": "^0.64.1",
     "unplugin-vue-macros": "^2.13.4",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^0.10.0",
+    "vite-plugin-inspect": "^0.10.1",
     "vitepress": "catalog:",
     "vitest": "^2.1.6",
     "vue": "catalog:",

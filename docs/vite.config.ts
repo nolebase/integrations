@@ -10,7 +10,7 @@ import Yaml from '@rollup/plugin-yaml'
 import UnoCSS from 'unocss/vite'
 
 import { defineConfig } from 'vite'
-// import Inspect from 'vite-plugin-inspect'
+import Inspect from 'vite-plugin-inspect'
 import VueDevTools from 'vite-plugin-vue-devtools'
 
 function getVueProdHydrationMismatchDetailsFlag() {
@@ -100,12 +100,10 @@ export default defineConfig({
       ],
     }),
     ThumbnailHashImages(),
-    // Due to Bug: `transformHandler.call({} as any, ...)` with `{}` cause the incompatible exception from `vite-plugin-inspect` with Vite 6
-    // https://github.com/unocss/unocss/issues/4296
-    // Inspect({
-    //   build: true,
-    //   outputDir: '.vite-inspect',
-    // }),
+    Inspect({
+      build: true,
+      outputDir: '.vite-inspect',
+    }),
     UnoCSS(),
   ],
 })

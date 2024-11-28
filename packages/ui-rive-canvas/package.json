@@ -79,6 +79,6 @@
     "vue": "catalog:"
   },
   "devDependencies": {
-    "@vue/tsconfig": "^0.6.0"
+    "@vue/tsconfig": "^0.7.0"
   }
 }

@@ -29,6 +29,9 @@ importers:
       '@cspell/dict-ru_ru':
         specifier: ^2.2.4
         version: 2.2.4
+      '@nolebase/cspell-dict':
+        specifier: ^1.3.0
+        version: 1.3.0
       '@types/node':
         specifier: ^22.10.1
         version: 22.10.1
@@ -1529,6 +1532,9 @@ packages:
   '@nodelib/fs.walk@1.2.8':
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
+
+  '@nolebase/cspell-dict@1.3.0':
+    resolution: {integrity: sha512-irmDYmwT+FJoM/uyS0J71y8kNSQcyhvZX97TEYZ+ptpe1E7p7gD57iw++x2JH24a5eozv4Ifgi/3zujt48f03Q==}
 
   '@nuxt/kit@3.13.2':
     resolution: {integrity: sha512-KvRw21zU//wdz25IeE1E5m/aFSzhJloBRAQtv+evcFeZvuroIxpIQuUqhbzuwznaUwpiWbmwlcsp5uOWmi4vwA==}
@@ -6353,6 +6359,8 @@ snapshots:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.17.1
+
+  '@nolebase/cspell-dict@1.3.0': {}
 
   '@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.25.0)(webpack-sources@3.2.3)':
     dependencies:

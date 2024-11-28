@@ -40,8 +40,6 @@ words:
   - neko
   - Nisekoi5
   - nodir
-  - nolebase
-  - Nólëbase
   - Northword
   - Noto
   - octicon
@@ -55,8 +53,6 @@ words:
   - Roboto
   - shikijs
   - testdata
-  - thumbhash
-  - thumbhashes
   - Twoslash
   - unconfig
   - uncrypto
@@ -69,3 +65,4 @@ words:
 ignoreWords: []
 import:
   - "@cspell/dict-ru_ru/cspell-ext.json"
+  - "@nolebase/cspell-dict/cspell-ext.json"

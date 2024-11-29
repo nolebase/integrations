@@ -12,7 +12,8 @@ const breadcrumbs = (frontmatter.value.breadcrumbs ?? []) as {
 <template>
   <div class="breadcrumbs">
     <span v-for="item in breadcrumbs" :key="item.link">
-      <a :href="item.link">{{ item.title }}</a>
+      <a v-if="item.link" :href="item.link">{{ item.title }}</a>
+      <span v-else>{{ item.title }}</span>
     </span>
   </div>
 </template>

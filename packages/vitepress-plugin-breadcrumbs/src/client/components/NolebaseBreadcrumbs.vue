@@ -10,7 +10,7 @@ const breadcrumbs = (frontmatter.value.breadcrumbs ?? []) as {
 </script>
 
 <template>
-  <div class="breadcrumbs">
+  <div class="vp-nolebase-breadcrumbs">
     <span v-for="item in breadcrumbs" :key="item.link">
       <a v-if="item.link" :href="item.link">{{ item.title }}</a>
       <span v-else>{{ item.title }}</span>

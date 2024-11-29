@@ -11,36 +11,36 @@ const breadcrumbs = (frontmatter.value.breadcrumbs ?? []) as {
 
 <template>
   <div class="breadcrumbs">
-    <span v-for="item in breadcrumbs" :key="item">
+    <span v-for="item in breadcrumbs" :key="item.link">
       <a :href="item.link">{{ item.title }}</a>
     </span>
   </div>
 </template>
 
 <style scoped>
-.breadcrumbs {
+.vp-nolebase-breadcrumbs {
   font-size: 14px;
   margin-bottom: 2rem;
 }
 
-.breadcrumbs span {
+.vp-nolebase-breadcrumbs span {
   transition: color 0.25s, opacity 0.25s;
   color: var(--vp-c-text-2);
 }
 
-.breadcrumbs span:hover {
+.vp-nolebase-breadcrumbs span:hover {
   color: var(--vp-c-brand-1);
 }
 
-.breadcrumbs span:last-child {
+.vp-nolebase-breadcrumbs span:last-child {
   color: var(--vp-c-text-1);
 }
 
-.breadcrumbs span:last-child:hover {
+.vp-nolebase-breadcrumbs span:last-child:hover {
   color: var(--vp-c-brand-1);
 }
 
-.breadcrumbs span:not(:first-child)::before {
+.vp-nolebase-breadcrumbs span:not(:first-child)::before {
   content: "/";
   padding-left: 4px;
   padding-right: 4px;

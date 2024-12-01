@@ -355,9 +355,20 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
 
       let resolvedNewHref: string
       if (isRelativePath) {
-        resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
-          .split(sep)
-          .join('/')
+        if (state.env.relativePath) { // linux
+          resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
+            .split(sep)
+            .join('/')
+        }
+        else if (state.env.filePathRelative) { // windows
+          resolvedNewHref = relative(dirname(state.env.filePathRelative), matchedHref)
+            .split(sep)
+            .join('/')
+        }
+        else { // other
+          console.error('Can\'t find local file path')
+          return false
+        }
       }
       else {
         resolvedNewHref = posix.join(

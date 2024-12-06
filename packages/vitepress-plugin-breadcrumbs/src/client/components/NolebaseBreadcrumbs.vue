@@ -2,11 +2,16 @@
 import { useData } from 'vitepress'
 
 const { frontmatter } = useData()
+
+const breadcrumbs = (frontmatter.value.breadcrumbs ?? []) as {
+  title: string
+  link: string
+}[]
 </script>
 
 <template>
   <div class="vp-nolebase-breadcrumbs">
-    <span v-for="item in frontmatter.breadcrumbs" :key="item">
+    <span v-for="item in breadcrumbs" :key="item.link">
       <a v-if="item.link" :href="item.link">{{ item.title }}</a>
       <span v-else>{{ item.title }}</span>
     </span>
@@ -15,8 +20,6 @@ const { frontmatter } = useData()
 
 <style scoped>
 .vp-nolebase-breadcrumbs {
-  display: flex;
-  gap: 8px;
   font-size: 14px;
   margin-bottom: 2rem;
 }
@@ -39,8 +42,9 @@ const { frontmatter } = useData()
 }
 
 .vp-nolebase-breadcrumbs span:not(:first-child)::before {
-  content: '/';
-  padding-right: 8px;
+  content: "/";
+  padding-left: 4px;
+  padding-right: 4px;
   color: var(--vp-c-text-3);
 }
 </style>

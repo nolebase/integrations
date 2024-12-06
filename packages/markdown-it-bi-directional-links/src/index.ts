@@ -355,12 +355,12 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
 
       let resolvedNewHref: string
       if (isRelativePath) {
-        if (state.env.relativePath) { // linux
+        if (state.env.relativePath) { // VitePress
           resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
             .split(sep)
             .join('/')
         }
-        else if (state.env.filePathRelative) { // windows
+        else if (state.env.filePathRelative) { // VuePress
           resolvedNewHref = relative(dirname(state.env.filePathRelative), matchedHref)
             .split(sep)
             .join('/')

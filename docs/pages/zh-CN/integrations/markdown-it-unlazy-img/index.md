@@ -13,24 +13,24 @@ import packageJSON from '~/packages/markdown-it-unlazy-img/package.json'
 
 ## 安装
 
-通过运行以下命令将 `@nolebase/markdown-it-bi-unlazy-img` 安装到您的项目依赖项中：
+通过运行以下命令将 `@nolebase/markdown-it-unlazy-img` 安装到您的项目依赖项中：
 
 ::: code-group
 
 ```shell [@antfu/ni]
-ni @nolebase/markdown-it-bi-unlazy-img -D
+ni @nolebase/markdown-it-unlazy-img -D
 ```
 
 ```shell [pnpm]
-pnpm add @nolebase/markdown-it-bi-unlazy-img -D
+pnpm add @nolebase/markdown-it-unlazy-img -D
 ```
 
 ```shell [npm]
-npm install @nolebase/markdown-it-bi-unlazy-img -D
+npm install @nolebase/markdown-it-unlazy-img -D
 ```
 
 ```shell [yarn]
-yarn add @nolebase/markdown-it-bi-unlazy-img -D
+yarn add @nolebase/markdown-it-unlazy-img -D
 ```
 
 :::

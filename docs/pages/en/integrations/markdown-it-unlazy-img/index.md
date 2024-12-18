@@ -39,7 +39,7 @@ yarn add @nolebase/markdown-it-unlazy-img -D
 
 ### Integrate with VitePress
 
-In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), import `@nolebase/markdown-it-unlazy-img` as a plugin, and use it as a `markdown-it` plugin in the `markdown` option:
+In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), import `@nolebase/markdown-it-unlazy-img` as a plugin, and use it as a `markdown-it` plugin in the `markdown` option, specify how to handle the image resource paths of the `NolebaseUnlazyImg` tag in Vue templates to ensure that VitePress can correctly resolve and transform the image resource paths during the build process:
 
 <!--@include: @/pages/en/snippets/details-colored-diff.md-->
 
@@ -48,6 +48,14 @@ import { defineConfigWithTheme } from 'vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 
 export default defineConfigWithTheme({
+    vue: {
+    template: {
+      transformAssetUrls: {
+        // Other configurations...
+        NolebaseUnlazyImg: ['src'], // [!code ++]
+      },
+    },
+  },
   lang: 'en',
   title: 'Site name', // For reference only, please do not copy directly
   description: 'Description', // For reference only, please do not copy directly

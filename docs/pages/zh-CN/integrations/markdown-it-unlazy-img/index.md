@@ -39,7 +39,7 @@ yarn add @nolebase/markdown-it-unlazy-img -D
 
 ### 为 VitePress 配置
 
-在 VitePress 的配置文件中（通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/markdown-it-unlazy-img` 作为一个插件导入，并将其作为 `markdown` 选项的 `markdown-it` 插件使用：
+在 VitePress 的配置文件中（通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别），将 `@nolebase/markdown-it-unlazy-img` 作为一个插件导入，并将其作为 `markdown` 选项的 `markdown-it` 插件使用，指定如何处理 Vue 模板中 `NolebaseUnlazyImg` 标签的图片资源路径，确保在构建过程中 VitePress 能够正确地解析和转换图片资源路径：
 
 <!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
@@ -48,6 +48,14 @@ import { defineConfigWithTheme } from 'vitepress'
 import { UnlazyImages } from '@nolebase/markdown-it-unlazy-img' // [!code ++]
 
 export default defineConfigWithTheme({
+  vue: {
+    template: {
+      transformAssetUrls: {
+        // 其他各种配置...
+        NolebaseUnlazyImg: ['src'], // [!code ++]
+      },
+    },
+  },
   lang: 'zh-CN',
   title: '网站名称', // 仅供参考，请不要直接复制
   description: '某些介绍', // 仅供参考，请不要直接复制

@@ -56,7 +56,7 @@ export default defineConfigWithTheme({
   },
   markdown: {
     config: (md) => {
-      md.use(md.use(UnlazyImages(), { // [!code ++]
+      md.use(UnlazyImages(), { // [!code ++]
         imgElementTag: 'NolebaseUnlazyImg', // [!code ++]
       }) // [!code ++]
     },

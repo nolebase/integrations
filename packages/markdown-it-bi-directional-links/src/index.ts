@@ -360,7 +360,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
             .split(sep)
             .join('/')
         }
-        else if (state.env.filePathRelative) { // VuePress
+        else if (state.env.filePathRelative) { // VuePress, see [#361](nolebase/integrations/pull/361) for details
           resolvedNewHref = relative(dirname(state.env.filePathRelative), matchedHref)
             .split(sep)
             .join('/')

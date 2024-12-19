@@ -355,9 +355,20 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
 
       let resolvedNewHref: string
       if (isRelativePath) {
-        resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
-          .split(sep)
-          .join('/')
+        if (state.env.relativePath) { // VitePress
+          resolvedNewHref = relative(dirname(state.env.relativePath), matchedHref)
+            .split(sep)
+            .join('/')
+        }
+        else if (state.env.filePathRelative) { // VuePress, see https://github.com/nolebase/integrations/pull/361 for details
+          resolvedNewHref = relative(dirname(state.env.filePathRelative), matchedHref)
+            .split(sep)
+            .join('/')
+        }
+        else { // other
+          console.error('Can\'t find local file path')
+          return false
+        }
       }
       else {
         resolvedNewHref = posix.join(

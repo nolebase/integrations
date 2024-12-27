@@ -41,7 +41,7 @@ function separateFromTargetConfig(target: string | { folderName: string, separat
   return typeof target === 'string' ? false : target.separate
 }
 
-function addRouteItem(indexes: ArticleTree[], path: string, upgradeIndex = false) {
+function addRouteItem(indexes: ArticleTree[], path: string, base?: string) {
   const suffixIndex = path.lastIndexOf('.')
   const nameStartsAt = path.lastIndexOf('/') + 1
   const title = path.slice(nameStartsAt, suffixIndex)
@@ -57,10 +57,15 @@ function addRouteItem(indexes: ArticleTree[], path: string, upgradeIndex = false
   if (linkItems.length === 1)
     return
 
-  indexes = addRouteItemRecursion(indexes, item, linkItems, upgradeIndex)
+  if (base) {
+    const baseItems = base.split('/').filter(Boolean)
+    linkItems = linkItems.slice(baseItems.length)
+  }
+
+  indexes = addRouteItemRecursion(indexes, item, linkItems)
 }
 
-function addRouteItemRecursion(indexes: ArticleTree[], item: any, path: string[], upgradeIndex: boolean) {
+function addRouteItemRecursion(indexes: ArticleTree[], item: any, path: string[], upgradeIndex = false) {
   if (path.length === 1) {
     indexes.push(item)
     return indexes
@@ -96,11 +101,11 @@ function addRouteItemRecursion(indexes: ArticleTree[], item: any, path: string[]
   }
 }
 
-export function processSidebar(docs: string[]) {
+export function processSidebar(docs: string[], base?: string) {
   const sidebar: ArticleTree[] = []
 
   docs.map(async (docPath: string) => {
-    addRouteItem(sidebar, docPath)
+    addRouteItem(sidebar, docPath, base)
   })
 
   return sidebar
@@ -138,27 +143,33 @@ function sidebarSort(sidebar: ArticleTree[], folderTop: boolean = true) {
   return _sideBar
 }
 
-export function mergeSidebar(targets: Array<string | { folderName: string, separate: boolean }>, docs: string[]) {
-  let sidebar = processSidebar(docs)
+export function mergeSidebar(targets: Array<string | { folderName: string, separate: boolean }>, docs: string[], base?: string) {
+  let sidebar = processSidebar(docs, base)
   sidebar = sidebarSort(sidebar, true)
 
   // If there is only one folder, use it as the root
-  if (sidebar.length === 1 && targets.some(item => folderNameFromTargetConfig(item) === sidebar[0].text)) {
+  if (sidebar.length === 1 && targets.some((item) => {
+    const folderName = folderNameFromTargetConfig(item)
+    return base ? folderName.endsWith(sidebar[0].text) : folderName === sidebar[0].text
+  })) {
     return sidebar[0].items ?? []
   }
 
+  const basePrefix = base ? `/${base}` : ''
   // Pick out the `separate` folders, and construct a multiple sidebar structure
-  const sidebarMultiple: Record<string, ArticleTree[]> = { '/': sidebar }
+  const sidebarMultiple: Record<string, ArticleTree[]> = { [`${basePrefix}/`]: sidebar }
+
   for (const target of targets) {
     const folderName = folderNameFromTargetConfig(target)
     if (separateFromTargetConfig(target)) {
-      const matchedSidebarFolders = sidebar.filter(item => item.text === folderName)
+      const targetName = base ? folderName.split('/').pop() : folderName
+      const matchedSidebarFolders = sidebar.filter(item => item.text === targetName)
       if (matchedSidebarFolders.length > 0) {
-        sidebarMultiple[`/${folderName}/`] = matchedSidebarFolders[0]?.items || []
-        sidebar.splice(sidebar.findIndex(item => item.text === folderName), 1)
+        sidebarMultiple[`${basePrefix}/${targetName}/`] = matchedSidebarFolders[0]?.items || []
+        sidebar.splice(sidebar.findIndex(item => item.text === targetName), 1)
       }
       else {
-        sidebarMultiple[`/${folderName}/`] = []
+        sidebarMultiple[`${basePrefix}/${targetName}/`] = []
       }
     }
   }
@@ -166,7 +177,7 @@ export function mergeSidebar(targets: Array<string | { folderName: string, separ
   return sidebarMultiple
 }
 
-export function calculateSidebar(targets: Array<string | { folderName: string, separate: boolean }> = ['笔记']) {
+export function calculateSidebar(targets: Array<string | { folderName: string, separate: boolean }> = ['笔记'], base?: string) {
   const docs = listPages({ targets })
-  return mergeSidebar(targets, docs)
+  return mergeSidebar(targets, docs, base)
 }

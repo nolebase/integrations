@@ -73,7 +73,7 @@
     "@nolebase/ui": "workspace:^",
     "less": "^4.2.1",
     "markdown-it": "^14.1.0",
-    "markdown-it-attrs": "^4.3.0",
+    "markdown-it-attrs": "^4.3.1",
     "vitepress": "catalog:"
   },
   "devDependencies": {

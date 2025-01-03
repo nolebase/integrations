@@ -45,7 +45,7 @@
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "peerDependencies": {
-    "markdown-it": ">=14.0.0"
+    "markdown-it": ">=14.1.0"
   },
   "dependencies": {
     "colorette": "^2.0.20",

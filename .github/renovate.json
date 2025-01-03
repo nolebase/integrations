@@ -11,5 +11,7 @@
     "group:allNonMajor",
     "replacements:all",
     "workarounds:all"
-  ]
+  ],
+  "rangeStrategy": "bump",
+  "labels": ["dependencies"]
 }

@@ -6,8 +6,8 @@ interface ArticleTree {
   text: string
   link?: string
   lastUpdated?: number
-  collapsible?: true
-  collapsed?: true
+  collapsible?: boolean
+  collapsed?: boolean
   items?: ArticleTree[]
   category?: string
 }

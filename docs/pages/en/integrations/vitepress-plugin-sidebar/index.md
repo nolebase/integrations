@@ -95,18 +95,70 @@ calculateSidebar([
 
 Then the first-level ignore rule will no longer be in effect, and instead `'Notes'` and `'Tweets'` will appear as directory names on pages accessed under `/`, and `'Articles'` will appear as a separate directory on pages accessed under `/articles/`.
 
-## Optional configuration
-The above configuration completes the automatic generation of a sidebar that displays all Level 1 folders.  Considering that you might want the `collapse:false` that is, the **automatically expands** mode, do as follows.
-### Modify the source code of the plugin
-Follow the path of `node_modules/@nolebase/vitepress-plugin-sidebar/dist/index.d.ts` to find the file and modify the code as follows.
-```typescript
+## Optional Configuration
+
+The above configuration enables the automatic generation of sidebars. If you wish to achieve the **automatic expansion of the top-level folder in a specified path** using the [`collapse:false` option](https://vitepress.dev/zh/reference/default-theme-sidebar#collapsible-sidebar-groups) available in the native configuration, you can further try the following setup.
+
+### Integrate with VitePress
+
+In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different).
+
+```ts [config.ts]
+import { calculateSidebar } from '@nolebase/vitepress-plugin-sidebar' // [!code --]
+import { calculateSidebar as originalCalculateSidebar } from "@nolebase/vitepress-plugin-sidebar" // [!code ++] 
+//...
+function calculateSidebarWithDefaultOpen(targets, base) { // [!code ++] 
+  const result = originalCalculateSidebar(targets, base) // [!code ++] 
+  if (Array.isArray(result)) { // [!code ++] 
+    result.forEach(item => { // [!code ++] 
+      item.collapsed = false  // [!code ++] 
+    }) // [!code ++] 
+  } else { // [!code ++] 
+    Object.values(result).forEach(items => { // [!code ++] 
+      items.forEach(item => { // [!code ++] 
+        item.collapsed = false  // [!code ++] 
+      }) // [!code ++] 
+    }) // [!code ++] 
+  } // [!code ++] 
+  return result // [!code ++] 
+} // [!code ++] 
+//...
+export default defineConfig({
+  //...
+})
+```
+
+### Update Sidebar Configuration
+
+```ts [config.ts]
+export default defineConfig({
+  //...
+  themeConfig: {
+    //...
+    sidebar: calculateSidebarWithDefaultOpen([ // [!code focus]
+      { folderName: "A", separate: true },
+      { folderName: "B", separate: true },
+      //...
+    ],''), //The base parameter should be set according to your specific configuration // [!code focus]
+    //...
+  }
+}
+```
+
+::: details What is `base` ?
+
+In the `config.ts` file, locate the line where you import the function: `import { calculateSidebar as originalCalculateSidebar } from "@nolebase/vitepress-plugin-sidebar";`.
+
+Hover over `calculateSidebar`, then click to navigate to the `index.d.ts` file. You will see something like the following:
+
+```ts{11-14} [index.d.ts]
 interface ArticleTree {
     index: string;
     text: string;
     link?: string;
     lastUpdated?: number;
-    collapsible?: true;
-    collapsed?: boolean;  //true-->boolean // [!code focus]
+    collapsible?: boolean;
+    collapsed?: boolean;
     items?: ArticleTree[];
     category?: string;
 }
@@ -117,76 +169,40 @@ declare function calculateSidebar(targets?: Array<string | {
 
 export { calculateSidebar };
 ```
-### Integrate with VitePress: Expand the Level 1 folder
-In the VitePress configuration file (usually `docs/.vitepress/config.ts`, the file path and extension may be different), add **the highlight content** to the file.
-```ts{1,5-19}
-import { calculateSidebar as originalCalculateSidebar } from "@nolebase/vitepress-plugin-sidebar"; 
 
-...
+From this, we can observe that `calculateSidebar()` accepts two parameters `(target, base)`.
 
+`target` is the string or object parameter passed in the configuration file.
+
+`base` refers to the base path of your VitePress project, typically set as `' '`.
+:::
+
+The sidebar will display **the contents within the folder names specified in the configuration** and the top-level folders will be expanded.
+
+:::details Want to expand all levels of folders to their deepest files?
+
+You can try modifying the function defined in the VitePress configuration file as follows:
+
+```ts [config.ts]
 function calculateSidebarWithDefaultOpen(targets, base) {
-  const result = originalCalculateSidebar(targets, base);
-  if (Array.isArray(result)) {
-    result.forEach(item => {
-      item.collapsed = false; 
-    });
-  } else {
-    Object.values(result).forEach(items => {
-      items.forEach(item => {
-        item.collapsed = false; 
-      });
-    });
-  }
-  return result;
-}
-
-...
-
-export default defineConfig({
-  ...
-})
-```
-
-:::details Want to expand folders at all levels?
-Try modifying the functions defined in the VitePress configuration file as follows
-```ts
-function calculateSidebarWithDefaultOpen(targets, base) {
-  const result = originalCalculateSidebar(targets, base);
+  const result = originalCalculateSidebar(targets, base)
   function setAllCollapsedFalse(items) {
     items.forEach(item => {
-      item.collapsible = true; 
-      item.collapsed = false;
-  
+      item.collapsible = true
+      item.collapsed = false
       if (item.items) {
-        setAllCollapsedFalse(item.items);
+        setAllCollapsedFalse(item.items)
       }
-    });
+    })
   }
   if (Array.isArray(result)) {
-    setAllCollapsedFalse(result);
+    setAllCollapsedFalse(result)
   } else {
     Object.values(result).forEach(items => {
-      setAllCollapsedFalse(items);
-    });
+      setAllCollapsedFalse(items)
+    })
   }
-  return result;
+  return result
 }
 ```
 :::
-
-### Modify the sidebar configuration
-```ts
-export default defineConfig({
-  ...
-  themeConfig: {
-    ...
-    sidebar: calculateSidebarWithDefaultOpen([ // [!code focus]
-      { folderName: "folderName", separate: true },
-      { folderName: "folderName", separate: true },
-      ...
-    ],''), //Set the 'base' parameter based on your requirements // [!code focus]
-    ...
-  }
-}
-```
-Refresh the front page and see that all the Level 1 directories have been expanded.

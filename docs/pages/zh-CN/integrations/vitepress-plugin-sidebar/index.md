@@ -92,3 +92,115 @@ calculateSidebar([
 ```
 
 那么，首级忽略 的规则将不再生效，取而代之的是，`'笔记'` 和 `'短文'` 会被作为目录的名称出现在访问路径为 `/` 下的页面，而 `文章` 会被作为一个独立的目录出现在访问路径为 `/文章/` 下的页面。
+
+## 可选性配置
+
+上述配置完成了自动生成侧边栏，考虑到您可能想要原生配置的[`collapse:false` 选项](https://vitepress.dev/zh/reference/default-theme-sidebar#collapsible-sidebar-groups)实现的**指定路径下首级文件夹自动展开**效果，可以继续尝试进行下述配置。
+
+### 为 VitePress 配置
+
+在 VitePress 的配置文件中（通常为 `docs/.vitepress/config.ts`，文件路径和拓展名也许会有区别）。
+
+```ts [config.ts]
+import { calculateSidebar } from '@nolebase/vitepress-plugin-sidebar' // [!code --]
+import { calculateSidebar as originalCalculateSidebar } from "@nolebase/vitepress-plugin-sidebar" // [!code ++] 
+//...
+function calculateSidebarWithDefaultOpen(targets, base) { // [!code ++] 
+  const result = originalCalculateSidebar(targets, base) // [!code ++] 
+  if (Array.isArray(result)) { // [!code ++] 
+    result.forEach(item => { // [!code ++] 
+      item.collapsed = false  // [!code ++] 
+    }) // [!code ++] 
+  } else { // [!code ++] 
+    Object.values(result).forEach(items => { // [!code ++] 
+      items.forEach(item => { // [!code ++] 
+        item.collapsed = false  // [!code ++] 
+      }) // [!code ++] 
+    }) // [!code ++] 
+  } // [!code ++] 
+  return result // [!code ++] 
+} // [!code ++] 
+//...
+export default defineConfig({
+  //...
+})
+```
+
+### 修改sidebar配置
+
+```ts [config.ts]
+export default defineConfig({
+  //...
+  themeConfig: {
+    //...
+    sidebar: calculateSidebarWithDefaultOpen([ // [!code focus]
+      { folderName: "A", separate: true },
+      { folderName: "B", separate: true },
+      //...
+    ],''), //base参数根据自身具体配置 // [!code focus]
+    //...
+  }
+}
+```
+
+::: details `base`是什么？
+
+找到先前在`config.ts`文件中的引入`import { calculateSidebar as originalCalculateSidebar } from "@nolebase/vitepress-plugin-sidebar";`。
+
+鼠标置于`calculateSidebar`上，左键单击进入`index.d.ts`文件，如下：
+
+```ts{11-14} [index.d.ts]
+interface ArticleTree {
+    index: string;
+    text: string;
+    link?: string;
+    lastUpdated?: number;
+    collapsible?: boolean;
+    collapsed?: boolean;
+    items?: ArticleTree[];
+    category?: string;
+}
+declare function calculateSidebar(targets?: Array<string | {
+    folderName: string;
+    separate: boolean;
+}>, base?: string): ArticleTree[] | Record<string, ArticleTree[]>;
+
+export { calculateSidebar };
+```
+
+观察到`calculateSidebar()`有两个参数`(target, base)`。
+
+`targe`是在配置文件中传入的 字符串参数 或 对象参数。
+
+`base`是你的vitepress项目配置的基路径，通常情况下为`' '`即可。
+:::
+
+注意到，侧边栏显示结果为**当前所配置的文件夹名路径下的内容**，并且路径下首级文件夹已经展开。
+
+:::details 想要展开所有层级的文件夹至最末端文件？
+
+可以尝试把 VitePress 的配置文件定义的函数修改如下：
+
+```ts [config.ts]
+function calculateSidebarWithDefaultOpen(targets, base) {
+  const result = originalCalculateSidebar(targets, base)
+  function setAllCollapsedFalse(items) {
+    items.forEach(item => {
+      item.collapsible = true
+      item.collapsed = false
+      if (item.items) {
+        setAllCollapsedFalse(item.items)
+      }
+    })
+  }
+  if (Array.isArray(result)) {
+    setAllCollapsedFalse(result)
+  } else {
+    Object.values(result).forEach(items => {
+      setAllCollapsedFalse(items)
+    })
+  }
+  return result
+}
+```
+:::

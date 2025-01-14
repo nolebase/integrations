@@ -4,6 +4,7 @@ import { omit } from 'es-toolkit'
 import { execa } from 'execa'
 import { subtle } from 'uncrypto'
 import { normalizePath } from 'vite'
+import { getOptions } from './index'
 
 export interface Helpers {
   /**
@@ -489,12 +490,15 @@ export function getGitHubUserNameFromNoreplyAddress(email: string) {
 }
 
 export async function newAvatarForAuthor(mappedAuthor: Contributor | undefined, email: string): Promise<string> {
+  const options = getOptions()
   if (mappedAuthor) {
     if (mappedAuthor.avatar)
       return mappedAuthor.avatar
     if (mappedAuthor.username)
       return `https://github.com/${mappedAuthor.username}.png`
   }
-
+  if (options.avatarSource) {
+    return `${options.avatarSource}${await digestStringAsSHA256(email)}?d=retro`
+  }
   return `https://gravatar.com/avatar/${await digestStringAsSHA256(email)}?d=retro`
 }

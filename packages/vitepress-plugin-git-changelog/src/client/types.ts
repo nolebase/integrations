@@ -143,4 +143,10 @@ export interface Options {
    *  Whether to display authors of commits right inside of commit line
    */
   displayAuthorsInsideCommitLine?: boolean
+  /**
+   *  Set to use 3rd Avatar provider
+   *
+   *  @default https://gravatar.com/avatar/
+   */
+  avatarSource?: string
 }

@@ -48,7 +48,7 @@
       "require": "./dist/locales/index.cjs"
     },
     "./types": {
-      "types": "./dist/client/index.d.ts"
+      "types": "./dist/types/**"
     },
     "./vite": {
       "types": "./dist/vite/index.d.ts",

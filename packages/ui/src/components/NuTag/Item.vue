@@ -3,7 +3,7 @@ import { useSlots } from 'vue'
 
 const slots = useSlots()
 
-function hasSlot(name: string) {
+function hasSlot(name: 'pre' | 'post') {
   return !!slots[name]
 }
 </script>

@@ -47,8 +47,8 @@
       "import": "./dist/locales/index.mjs",
       "require": "./dist/locales/index.cjs"
     },
-    "./types": {
-      "types": "./dist/client/index.d.ts"
+    "./types/*": {
+      "types": "./dist/types/*"
     },
     "./vite": {
       "types": "./dist/vite/index.d.ts",

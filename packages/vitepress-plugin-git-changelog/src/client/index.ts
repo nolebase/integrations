@@ -15,6 +15,8 @@ const components = {
   NolebaseGitContributors,
 }
 
+export * from './composables'
+
 export const NolebaseGitChangelogPlugin: Plugin<Options[]> = {
   install(app, options?) {
     if (typeof options !== 'undefined' && typeof options === 'object')

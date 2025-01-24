@@ -214,9 +214,9 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
             title = matches[0]
           }
         }
-        
+
         let url = ''
-        const fileRelativePath = '/' + relative(cwd(), file)
+        const fileRelativePath = relative(cwd(), file)
 
         if (fileRelativePath.endsWith('.md')) {
           if (fileRelativePath.endsWith('index.md')) {
@@ -230,6 +230,7 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
         for (const rewrite of opts.rewrites) {
           url = url.replace(rewrite.from, rewrite.to)
         }
+        url = '/' + url
 
         const entry = {
           title,

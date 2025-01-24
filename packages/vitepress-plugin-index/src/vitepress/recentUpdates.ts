@@ -230,7 +230,7 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
         for (const rewrite of opts.rewrites) {
           url = url.replace(rewrite.from, rewrite.to)
         }
-        url = '/' + url
+        url = `/${url}`
 
         const entry = {
           title,

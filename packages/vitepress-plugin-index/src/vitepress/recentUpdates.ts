@@ -168,7 +168,7 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
 
   return {
     async load() {
-      const files = await glob(join(opts.dir, '**/*.md'), {
+      const files = await glob(join(opts.dir, '**/*.md').replaceAll('\\', '/'), {
         absolute: true,
         cwd: cwd(),
         ignore: opts.ignores,
@@ -215,24 +215,27 @@ export function createRecentUpdatesLoader(options?: RecentUpdatesContentLoaderOp
           }
         }
 
-        let url = relative(cwd(), file)
-        if (url.endsWith('.md')) {
-          if (url.endsWith('index.md')) {
-            url = url.replace(/index\.md$/, 'index.html')
+        let url = ''
+        const fileRelativePath = relative(cwd(), file)
+
+        if (fileRelativePath.endsWith('.md')) {
+          if (fileRelativePath.endsWith('index.md')) {
+            url = fileRelativePath.replace(/index\.md$/, 'index.html')
           }
           else {
-            url = url.replace(/\.md$/, '.html')
+            url = fileRelativePath.replace(/\.md$/, '.html')
           }
         }
 
         for (const rewrite of opts.rewrites) {
           url = url.replace(rewrite.from, rewrite.to)
         }
+        url = `/${url}`
 
         const entry = {
           title,
           lastUpdated: lastUpdatedTimestamp,
-          filePath: relative(cwd(), file),
+          filePath: fileRelativePath,
           category: '',
           url,
         }

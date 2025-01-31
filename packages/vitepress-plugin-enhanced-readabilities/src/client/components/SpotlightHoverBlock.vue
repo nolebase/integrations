@@ -167,7 +167,6 @@ watch(() => props.enabled, (val) => {
       aria-hidden="true"
       focusable="false"
       pointer-events-none fixed
-      border="1 $vp-c-brand"
       class="VPNolebaseEnhancedReadabilitiesSpotlightHoverBlock"
       :class="[
         spotlightStyle === SpotlightStyle.Under ? 'VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockUnder' : '',

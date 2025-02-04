@@ -40,7 +40,6 @@ export function genLink(
     openToken.attrSet('class', 'route-link nolebase-route-link-invalid')
     openToken.attrSet('href', '#') // invalid link without resolvedNewHref, href or `javascript:void(0);`
     openToken.attrSet('target', '_target')
-    // Recommended style: openToken.attrSet('style', 'color: red; opacity: 0.6;') // style cover method: use class `.nolebase-route-link-invalid` or use `a[href="#"] {}`
 
     const pushedToken = state.push('text', '', 0)
     pushedToken.content = text

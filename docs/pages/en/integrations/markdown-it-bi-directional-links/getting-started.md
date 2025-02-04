@@ -114,5 +114,17 @@ interface BiDirectionalLinksOptions {
    * @default false
    */
   noNoMatchedFileWarning?: boolean
+  /**
+   * Generate an error link or a link to a specific page when no matched file is found.
+   *
+   * @default false
+   */
+  noNoMatchedStillWork?: boolean
+  /**
+   * Force a relative path instead of an absolute path
+   *
+   * @default false
+   */
+  isRelativePath?: boolean
 }
 ```

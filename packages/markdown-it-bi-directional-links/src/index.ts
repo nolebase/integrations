@@ -205,6 +205,17 @@ export interface BiDirectionalLinksOptions {
    */
   noNoMatchedFileWarning?: boolean
   /**
+   * Generate an error link or a link to a specific page when no matched file is found.
+   *
+   * When you use this option, you should define a css style for
+   * `.nolebase-route-link-invalid` (or `a[href="#"] {}`) to
+   * distinguish the invalid link from the normal link. Such as:
+   * `a.nolebase-route-link-invalid { color: red; opacity: 0.6; }`
+   *
+   * @default false
+   */
+  stillRenderNoMatched?: boolean
+  /**
    * Force a relative path instead of an absolute path
    *
    * @default false
@@ -226,6 +237,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
   const includes = options?.includesPatterns ?? []
   const debugOn = options?.debug ?? false
   const noNoMatchedFileWarning = options?.noNoMatchedFileWarning ?? false
+  const stillRenderNoMatched = options?.stillRenderNoMatched ?? false
   const isRelativePath = options?.isRelativePath ?? false
 
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
@@ -339,7 +351,10 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       if (matchedHrefSingleOrArray === null || (Array.isArray(matchedHrefSingleOrArray) && matchedHrefSingleOrArray.length === 0)) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
         logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, !noNoMatchedFileWarning, relevantPath)
-
+        if (stillRenderNoMatched) {
+          genLink(state, '', href, md, href, link, true)
+          return true
+        }
         return false
       }
 

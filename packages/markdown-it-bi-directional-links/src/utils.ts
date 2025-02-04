@@ -32,7 +32,23 @@ export function genLink(
   md: MarkdownIt,
   href: string,
   link: RegExpMatchArray,
+  isInvalid = false,
 ) {
+  // Work when option `stillRenderNoMatched`, like Wikipedia's invalid link
+  if (isInvalid) {
+    const openToken = state.push('link_open', 'a', 1)
+    openToken.attrSet('class', 'route-link nolebase-route-link-invalid')
+    openToken.attrSet('href', '#') // invalid link without resolvedNewHref, href or `javascript:void(0);`
+    openToken.attrSet('target', '_target')
+
+    const pushedToken = state.push('text', '', 0)
+    pushedToken.content = text
+
+    state.push('link_close', 'a', -1)
+    state.pos += link[0].length
+    return
+  }
+
   // Create new link_open
   const openToken = state.push('link_open', 'a', 1)
   openToken.attrSet('href', resolvedNewHref)

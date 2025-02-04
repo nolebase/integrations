@@ -115,7 +115,7 @@ interface BiDirectionalLinksOptions {
    *
    * @default false
    */
-  noNoMatchedStillWork?: boolean
+  stillRenderNoMatched?: boolean
   /**
    * Force a relative path instead of an absolute path
    *

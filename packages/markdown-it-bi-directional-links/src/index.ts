@@ -209,7 +209,7 @@ export interface BiDirectionalLinksOptions {
    *
    * @default false
    */
-  noNoMatchedStillWork?: boolean
+  stillRenderNoMatched?: boolean
   /**
    * Force a relative path instead of an absolute path
    *
@@ -232,7 +232,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
   const includes = options?.includesPatterns ?? []
   const debugOn = options?.debug ?? false
   const noNoMatchedFileWarning = options?.noNoMatchedFileWarning ?? false
-  const noNoMatchedStillWork = options?.noNoMatchedStillWork ?? false
+  const stillRenderNoMatched = options?.stillRenderNoMatched ?? false
   const isRelativePath = options?.isRelativePath ?? false
 
   const possibleBiDirectionalLinksInCleanBaseNameOfFilePaths: Record<string, string> = {}
@@ -346,7 +346,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       if (matchedHrefSingleOrArray === null || (Array.isArray(matchedHrefSingleOrArray) && matchedHrefSingleOrArray.length === 0)) {
         const relevantPath = findTheMostRelevantOne(possibleBiDirectionalLinksInCleanBaseNameOfFilePaths, possibleBiDirectionalLinksInFullFilePaths, osSpecificHref)
         logNoMatchedFileWarning(rootDir, inputContent, markupTextContent, href, osSpecificHref, state.env.path, !noNoMatchedFileWarning, relevantPath)
-        if (noNoMatchedStillWork) {
+        if (stillRenderNoMatched) {
           genLink(state, '', href, md, href, link, true)
           return true
         }

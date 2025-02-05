@@ -158,10 +158,13 @@ export default {
     </template>
     ```
 
-
 Refs:
 
 - [VitePress Registering Global Components docs](https://vitepress.dev/guide/extending-default-theme#registering-global-components)
+
+## Options
+
+Refer to [asciinema.d.ts](https://github.com/nolebase/integrations/blob/main/packages/ui-asciinema/src/asciinema.d.ts).
 
 ## Acknowledgements
 

@@ -63,10 +63,10 @@
     "vitepress": "catalog:"
   },
   "dependencies": {
-    "@iconify-json/carbon": "^1.2.5",
+    "@iconify-json/carbon": "^1.2.6",
     "@iconify-json/icon-park-outline": "^1.2.2",
     "@nolebase/ui": "workspace:^",
-    "less": "^4.2.1"
+    "less": "^4.2.2"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2"

@@ -65,13 +65,13 @@
     "colorette": "^2.0.20",
     "d3": "^7.9.0",
     "d3-force": "^3.0.0",
-    "less": "^4.2.1",
-    "ora": "^8.1.1"
+    "less": "^4.2.2",
+    "ora": "^8.2.0"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/d3-force": "^3.0.10",
     "builtin-modules": "^4.0.0",
-    "fs-extra": "^11.2.0"
+    "fs-extra": "^11.3.0"
   }
 }

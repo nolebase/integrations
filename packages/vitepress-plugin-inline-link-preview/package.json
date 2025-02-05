@@ -70,11 +70,11 @@
   },
   "dependencies": {
     "@iconify-json/icon-park-outline": "^1.2.2",
-    "@iconify-json/octicon": "^1.2.2",
+    "@iconify-json/octicon": "^1.2.3",
     "@iconify-json/svg-spinners": "^1.2.2",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/ui": "workspace:^",
-    "less": "^4.2.1",
+    "less": "^4.2.2",
     "markdown-it": "^14.1.0",
     "markdown-it-attrs": "^4.3.1"
   },

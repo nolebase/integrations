@@ -75,7 +75,7 @@
     "vitepress": "catalog:"
   },
   "dependencies": {
-    "less": "^4.2.1",
+    "less": "^4.2.2",
     "vue": "catalog:"
   },
   "devDependencies": {

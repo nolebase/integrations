@@ -72,8 +72,8 @@
     "vitepress": "catalog:"
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.2.2",
-    "less": "^4.2.1",
+    "@iconify-json/octicon": "^1.2.3",
+    "less": "^4.2.2",
     "vue": "catalog:"
   },
   "devDependencies": {

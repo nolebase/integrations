@@ -41,8 +41,10 @@
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
-  "dependencies": {
-    "less": "^4.2.1",
+  "peerDependencies": {
     "vitepress": "catalog:"
+  },
+  "dependencies": {
+    "less": "^4.2.1"
   }
 }

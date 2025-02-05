@@ -54,6 +54,9 @@
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "defu": "^6.1.4",
     "hast-util-select": "^6.0.3",
@@ -63,8 +66,7 @@
     "retext-stringify": "^4.0.0",
     "unified": "^11.0.5",
     "unist-util-remove": "^4.0.0",
-    "unist-util-remove-position": "^5.0.0",
-    "vitepress": "catalog:"
+    "unist-util-remove-position": "^5.0.0"
   },
   "devDependencies": {
     "@types/hast": "^3.0.4"

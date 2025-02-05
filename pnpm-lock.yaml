@@ -7,7 +7,7 @@ settings:
 catalogs:
   default:
     vitepress:
-      specifier: ^v2.0.0-alpha.2
+      specifier: ^1.5.0 || ^v2.0.0-alpha.1
       version: 2.0.0-alpha.2
     vue:
       specifier: ^3.5.13

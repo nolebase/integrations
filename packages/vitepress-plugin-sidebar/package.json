@@ -47,6 +47,9 @@
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "fs-extra": "^11.2.0",
     "tinyglobby": "^0.2.10"

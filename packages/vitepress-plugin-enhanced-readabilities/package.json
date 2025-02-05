@@ -59,12 +59,14 @@
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "@iconify-json/carbon": "^1.2.5",
     "@iconify-json/icon-park-outline": "^1.2.2",
     "@nolebase/ui": "workspace:^",
-    "less": "^4.2.1",
-    "vitepress": "catalog:"
+    "less": "^4.2.1"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2"

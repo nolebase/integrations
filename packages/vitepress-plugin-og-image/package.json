@@ -57,6 +57,9 @@
     "build": "unbuild",
     "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "@resvg/resvg-wasm": "^2.6.2",
     "colorette": "^2.0.20",
@@ -71,8 +74,7 @@
     "rehype-stringify": "^10.0.1",
     "tinyglobby": "^0.2.10",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0",
-    "vitepress": "catalog:"
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/fs-extra": "^11.0.4"

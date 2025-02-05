@@ -58,13 +58,15 @@
     "stub": "unbuild --stub",
     "build": "unbuild"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "colorette": "^2.0.20",
     "d3": "^7.9.0",
     "d3-force": "^3.0.0",
     "less": "^4.2.1",
-    "ora": "^8.1.1",
-    "vitepress": "catalog:"
+    "ora": "^8.1.1"
   },
   "devDependencies": {
     "@types/d3": "^7.4.3",

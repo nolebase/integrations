@@ -54,6 +54,9 @@
     "stub": "unbuild --stub",
     "build": "unbuild"
   },
+  "peerDependencies": {
+    "vitepress": "catalog:"
+  },
   "dependencies": {
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
@@ -63,8 +66,7 @@
     "@nolebase/vitepress-plugin-index": "workspace:^",
     "@nolebase/vitepress-plugin-inline-link-preview": "workspace:^",
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
-    "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "vitepress": "catalog:"
+    "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^"
   },
   "devDependencies": {
     "builtin-modules": "^4.0.0"

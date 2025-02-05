@@ -166,7 +166,7 @@ declare module 'asciinema-player' {
      *
      * @default "auto"
      */
-    controls?: boolean
+    controls?: boolean | 'auto'
     /**
      * Defines a list of timeline markers.
      *

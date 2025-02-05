@@ -46,17 +46,23 @@ yarn add @nolebase/ui-asciinema
 
 ## Usage
 
-```js
+```ts
 // vite.config.ts
 export default defineConfig({
-  ssr: {
-    noExternal: [
-      // If there are other packages that need to be processed by Vite, you can add them here.
-      '@nolebase/ui-asciinema',
-    ],
+  vite: {
+    ssr: {
+      noExternal: [
+        "@nolebase/ui-asciinema",
+      ],
+    },
   },
 })
 ```
+
+Refs:
+
+- [VitePress's Vite configuration docs](https://vitepress.dev/reference/site-config#vite)
+- [Vite's `ssr.noExternal` config docs](https://vitejs.dev/guide/ssr.html#ssr-externals)
 
 ```vue
 <script setup>

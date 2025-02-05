@@ -1,16 +1,17 @@
+import type { Plugin } from 'vite'
 import type { SiteConfig } from 'vitepress'
+
 import type { ThumbHash, ThumbHashCalculated } from '../types'
-
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import { join, relative } from 'node:path'
 
+import { join, relative } from 'node:path'
 import CanvasKitInit from 'canvaskit-wasm'
 import { cyan, gray } from 'colorette'
 import ora from 'ora'
 import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
-import { glob } from 'tinyglobby'
 
-import { normalizePath, type Plugin } from 'vite'
+import { glob } from 'tinyglobby'
+import { normalizePath } from 'vite'
 import { binaryToBase64, hash, normalizeBase64 } from './utils'
 
 interface VitePressConfig {

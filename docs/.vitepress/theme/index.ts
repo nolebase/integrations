@@ -1,11 +1,12 @@
+import type { Plugin } from 'vue'
+
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
-
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
-import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 
+import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import { MotionPlugin } from '@vueuse/motion'
-import { h, type Plugin } from 'vue'
+import { h } from 'vue'
 
 import HomeContent from './components/HomeContent.vue'
 import IntegrationCard from './components/IntegrationCard.vue'

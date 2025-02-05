@@ -1,5 +1,6 @@
+import type { InjectionKey } from 'vue'
 import { useData } from 'vitepress'
-import { computed, inject, type InjectionKey } from 'vue'
+import { computed, inject } from 'vue'
 
 function getValueByPropertyPaths<T extends PropertyKey>(path: T, obj?: Record<string, any>): string | undefined {
   if (!obj)

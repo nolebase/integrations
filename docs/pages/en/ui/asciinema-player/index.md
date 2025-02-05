@@ -46,6 +46,8 @@ yarn add @nolebase/ui-asciinema
 
 ## Usage
 
+Add the package to Vite's `ssr.noExternal` configuration. Without this, your site may not build.
+
 ```ts
 // vite.config.ts
 export default defineConfig({

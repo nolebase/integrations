@@ -153,7 +153,7 @@ const props = defineProps<{
    *
    * @default "auto"
    */
-  controls?: boolean
+  controls?: boolean | 'auto'
   /**
    * Defines a list of timeline markers.
    *

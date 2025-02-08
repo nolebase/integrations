@@ -46,10 +46,48 @@ yarn add @nolebase/ui-asciinema
 
 ## 用法
 
-Add the package to Vite's `ssr.noExternal` configuration. Without this, your site may not build.
+Add the package to Vite's `ssr.noExternal` configuration. Without this, your site may not build. (Ref: [Vite's `ssr.noExternal` config docs](https://vitejs.dev/guide/ssr.html#ssr-externals).)
 
 ```ts
 // vite.config.ts
+export default defineConfig({
+  ssr: {
+    noExternal: [
+      "@nolebase/ui-asciinema",
+    ],
+  },
+})
+```
+
+Then import `NuAsciinemaPlayer` and asciinema-player's stylesheet in your Vue file. (Ref: [asciinema-player's styling docs](https://docs.asciinema.org/manual/player/quick-start/#npm-package).)
+
+```vue
+<script setup>
+// somewhere.vue
+import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
+import 'asciinema-player/dist/bundle/asciinema-player.css'
+</script>
+
+<template>
+  <NuAsciinemaPlayer
+    src="/asciinema/test-nyancat.cast"
+    :preload="true"
+    :cols="400"
+    :rows="40"
+    :auto-play="true"
+    :controls="true"
+    :terminal-font-size="'12px'"
+    :loop="true"
+  />
+</template>
+```
+
+### VitePress
+
+Instead of configuring Vite's `ssr.noExternal` in a `vite.config.ts`, you can configure it in the VitePress `vite` config. (Ref: [VitePress's Vite configuration docs](https://vitepress.dev/reference/site-config#vite).)
+
+```ts
+// **/.vitepress/config.ts
 export default defineConfig({
   vite: {
     ssr: {
@@ -61,18 +99,13 @@ export default defineConfig({
 })
 ```
 
-Refs:
-
-- [VitePress's Vite configuration docs](https://vitepress.dev/reference/site-config#vite)
-- [Vite's `ssr.noExternal` config docs](https://vitejs.dev/guide/ssr.html#ssr-externals)
-
-If a component is only used by a few pages, it's recommended to explicitly import them where they are used. This allows them to be properly code-split and only loaded when the relevant pages are shown:
+If the component is only used by a few pages, it's recommended to explicitly import it and the asciinema-player stylesheet where they are used. This allows them to be properly code-split and only loaded when the relevant pages are shown:
 
 - Markdown
 
     ```html
     <script setup>
-    // somewhere.vue
+    // somewhere.md
     import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
     import 'asciinema-player/dist/bundle/asciinema-player.css'
     </script>
@@ -112,10 +145,10 @@ If a component is only used by a few pages, it's recommended to explicitly impor
     </template>
     ```
 
-If a component is going to be used on most of the pages, they can be registered globally by customizing the Vue app instance.
+If the component is going to be used on most of the pages, it and the asciinema-player stylesheet can be registered globally by customizing the VitePress Vue app instance.
 
 ```ts
-// [**]/.vitepress/theme/index.ts
+// **/.vitepress/theme/index.ts
 import { NuAsciinemaPlayer } from "@nolebase/ui-asciinema";
 import "asciinema-player/dist/bundle/asciinema-player.css";
 
@@ -129,6 +162,8 @@ export default {
 - Markdown
 
     ```html
+    <!-- somewhere.md -->
+
     <NuAsciinemaPlayer
       src="/asciinema/test-nyancat.cast"
       :preload="true"
@@ -144,6 +179,8 @@ export default {
 - Vue
 
     ```vue
+    <!-- somewhere.vue -->
+
     <template>
       <NuAsciinemaPlayer
         src="/asciinema/test-nyancat.cast"
@@ -158,9 +195,7 @@ export default {
     </template>
     ```
 
-Refs:
-
-- [VitePress Registering Global Components docs](https://vitepress.dev/guide/extending-default-theme#registering-global-components)
+Ref: [VitePress Registering Global Components docs](https://vitepress.dev/guide/extending-default-theme#registering-global-components).
 
 ## Options
 

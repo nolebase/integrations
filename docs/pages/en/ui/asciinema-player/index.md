@@ -99,13 +99,13 @@ export default defineConfig({
 })
 ```
 
-If a component is only used by a few pages, it's recommended to explicitly import them where they are used. This allows them to be properly code-split and only loaded when the relevant pages are shown:
+If the component is only used by a few pages, it's recommended to explicitly import it and the asciinema-player stylesheet where they are used. This allows them to be properly code-split and only loaded when the relevant pages are shown:
 
 - Markdown
 
     ```html
     <script setup>
-    // somewhere.vue
+    // somewhere.md
     import { NuAsciinemaPlayer } from '@nolebase/ui-asciinema'
     import 'asciinema-player/dist/bundle/asciinema-player.css'
     </script>
@@ -145,10 +145,10 @@ If a component is only used by a few pages, it's recommended to explicitly impor
     </template>
     ```
 
-If a component is going to be used on most of the pages, they can be registered globally by customizing the Vue app instance.
+If the component is going to be used on most of the pages, it and the asciinema-player stylesheet can be registered globally by customizing the VitePress Vue app instance.
 
 ```ts
-// [**]/.vitepress/theme/index.ts
+// **/.vitepress/theme/index.ts
 import { NuAsciinemaPlayer } from "@nolebase/ui-asciinema";
 import "asciinema-player/dist/bundle/asciinema-player.css";
 
@@ -162,6 +162,8 @@ export default {
 - Markdown
 
     ```html
+    <!-- somewhere.md -->
+
     <NuAsciinemaPlayer
       src="/asciinema/test-nyancat.cast"
       :preload="true"
@@ -177,6 +179,8 @@ export default {
 - Vue
 
     ```vue
+    <!-- somewhere.vue -->
+
     <template>
       <NuAsciinemaPlayer
         src="/asciinema/test-nyancat.cast"

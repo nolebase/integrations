@@ -10,24 +10,22 @@ Wrapper of `asciinema-player` for VitePress documentation sites.
 
 > [!IMPORTANT]
 >
-> ## For users who imported VitePress related components
->
-> If you are using VitePress, you will need to add the following configurations to your `vite.config.ts` file like this:
+> You will need to add the package to Vite's `ssr.noExternal` config [^1]. Without it your site may not build.
 >
 > ```typescript
-> export default defineConfig(() => {
->   return {
+> // vite.config.ts
+> export default defineConfig({
+>   vite: {
 >     ssr: {
 >       noExternal: [
->         // Add this line to your vite.config.ts
->         '@nolebase/ui-asciinema',
+>         "@nolebase/ui-asciinema",
 >       ],
 >     },
->   }
+>   },
 > })
 > ```
->
-> For more information about why configure this, please refer to the [Server-Side Rendering | Vite](https://vitejs.dev/guide/ssr.html#ssr-externals) documentation.
+
+[^1]: Vite's `ssr.noExternal` config docs: https://vitejs.dev/guide/ssr.html#ssr-externals.
 
 ## Install
 
@@ -51,4 +49,4 @@ pnpm add @nolebase/ui-asciinema -D
 
 ## Documentation
 
-Please refer to [Asciinema Player](https://nolebase-integrations.ayaka.io/pages/en/ui/asciinema-player/) for more information.
+Please refer to [Asciinema Player package's documentation site](https://nolebase-integrations.ayaka.io/pages/en/ui/asciinema-player/) for more information.

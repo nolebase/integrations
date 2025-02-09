@@ -67,8 +67,7 @@
   "scripts": {
     "dev": "unbuild --stub",
     "stub": "unbuild --stub",
-    "build": "unbuild",
-    "package:publish": "pnpm build && pnpm publish --access public --no-git-checks"
+    "build": "unbuild"
   },
   "peerDependencies": {
     "asciinema-player": "^3.8.1",

@@ -12,17 +12,15 @@ on:
     branches:
       - main
 
-env:
-  STORE_PATH: ''
-
 jobs:
   unittest:
     strategy:
       matrix:
         node-version: ['20.x', '22.x']
+        os: [ubuntu-latest, windows-latest]
 
     name: Unit Tests - ${{ matrix.node-version }}
-    runs-on: 'ubuntu-latest'
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout

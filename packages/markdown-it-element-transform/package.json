@@ -42,7 +42,6 @@
     "stub": "unbuild --stub",
     "dev": "unbuild --stub",
     "build": "unbuild"
-
   },
   "peerDependencies": {
     "markdown-it": ">=14.1.0"

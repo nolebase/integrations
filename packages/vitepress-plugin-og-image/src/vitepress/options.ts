@@ -88,7 +88,7 @@ export async function applyCategoryText(pageItem: PageItem, categoryOptions?: Bu
       return
     }
 
-    const dirs = pageItem.sourceFilePath.split(sep)
+    const dirs = pageItem.sourceFilePath.split('/')
     if (dirs.length > level)
       return dirs[level]
 

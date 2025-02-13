@@ -44,6 +44,9 @@
       "require": "./dist/client/index.js"
     },
     "./client/style.css": "./dist/client/style.css",
+    "./client/*": {
+      "types": "./dist/client/*"
+    },
     "./vite": {
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.mjs",
@@ -61,7 +64,8 @@
   "scripts": {
     "dev": "unbuild --stub",
     "stub": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
     "vitepress": "catalog:"

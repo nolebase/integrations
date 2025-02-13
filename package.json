@@ -22,6 +22,7 @@
     "stub": "pnpm -r --filter=./packages/* --parallel run stub",
     "lint": "eslint --cache .",
     "lint:fix": "eslint --cache --fix .",
+    "typecheck": "pnpm -r --filter './packages/*' --filter '@nolebase/integrations-docs' run typecheck",
     "dev": "pnpm run packages:stub && pnpm run docs:dev",
     "build": "pnpm run packages:build && pnpm run docs:build",
     "preview": "pnpm run docs:preview",
@@ -70,7 +71,7 @@
     "unocss": "^65.4.3",
     "unplugin-vue-macros": "^2.14.2",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^10.1.1",
+    "vite-plugin-inspect": "^10.0.7",
     "vitest": "^3.0.5",
     "vue": "catalog:",
     "vue-tsc": "^2.2.0"
@@ -86,7 +87,7 @@
     "neverBuiltDependencies": []
   },
   "simple-git-hooks": {
-    "pre-commit": "pnpm packages:stub && pnpm lint-staged"
+    "pre-commit": "pnpm packages:stub && pnpm lint-staged && pnpm typecheck"
   },
   "lint-staged": {
     "*": "eslint --fix"

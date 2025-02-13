@@ -49,7 +49,7 @@ export async function task(taskName: string, task: () => Promise<string | undefi
   }
 
   const elapsed = Date.now() - startsAt
-  const suffixText = `${gray(`(${elapsed}ms)`)} ${result}` ?? ''
+  const suffixText = `${gray(`(${elapsed}ms)`)} ${result || ''}`
 
   spinner.stopAndPersist({ symbol: okMark, suffixText })
 }

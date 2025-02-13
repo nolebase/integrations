@@ -44,7 +44,8 @@
   "scripts": {
     "dev": "concurrently \"pnpm run stub\"",
     "stub": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "vitepress": "catalog:"

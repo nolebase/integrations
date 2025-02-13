@@ -1,34 +1,23 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "moduleResolution": "Node",
-    "paths": {
-      "@nolebase/ui": [
-        "../ui/src/index.ts"
-      ],
-      "@nolebase/ui/*": [
-        "../ui/src/*"
-      ]
-    },
     "types": [
       "./yaml.d.ts"
     ],
     "noImplicitAny": false,
     "declaration": false,
     "noEmit": false,
-    "outDir": "./dist",
-    "removeComments": false,
-    "sourceMap": true,
-    "skipLibCheck": true
+    "outDir": "./dist"
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/**/*.tsx"
+    "./src/**/*.ts",
+    "./src/**/*.mts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
+    "./src/**/*.vue"
   ],
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "node_modules"
   ]
 }

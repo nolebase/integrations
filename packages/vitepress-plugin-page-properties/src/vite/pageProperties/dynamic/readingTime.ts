@@ -44,7 +44,7 @@ function countWordsByLanguage(content: string): Record<string, number> {
     accumulator[language] = match ? match.length : 0
 
     return accumulator
-  }, {})
+  }, {} as Record<string, number>)
 }
 
 // Function to calculate reading time across multiple languages

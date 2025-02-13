@@ -1,35 +1,24 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "baseUrl": ".",
-    "paths": {
-      "@nolebase/ui": [
-        "../ui/src/index.ts"
-      ],
-      "@nolebase/ui/*": [
-        "../ui/src/*"
-      ]
-    },
     "types": [
+      "node",
       "vite/client",
       "./src/client/virtual.d.ts",
       "./yaml.d.ts"
     ],
-    "noImplicitAny": false,
     "declaration": false,
-    "noEmit": false,
-    "removeComments": false,
-    "sourceMap": true,
-    "skipLibCheck": true
+    "noEmit": false
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.vue",
-    "src/**/*.tsx"
+    "./src/**/*.ts",
+    "./src/**/*.mts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
+    "./src/**/*.vue"
   ],
   "exclude": [
-    "**/dist/**"
+    "**/dist/**",
+    "node_modules"
   ]
 }

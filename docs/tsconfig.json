@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": [
       "./yaml.d.ts",
@@ -11,17 +11,17 @@
     "noImplicitAny": false,
     "declaration": true,
     "noEmit": false,
-    "outDir": "./dist"
+    "outDir": "./.vitepress/dist"
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.mts",
-    "./src/**/*.tsx",
-    "./src/**/*.d.ts",
-    "./src/**/*.vue"
+    "./.vitepress/**/*.ts",
+    "./.vitepress/**/*.mts",
+    "./.vitepress/**/*.tsx",
+    "./.vitepress/**/*.d.ts",
+    "./.vitepress/**/*.vue"
   ],
   "exclude": [
-    "**/dist/**",
+    "**/.vitepress/dist/**",
     "node_modules"
   ]
 }

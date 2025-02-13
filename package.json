@@ -71,7 +71,7 @@
     "unocss": "^65.4.3",
     "unplugin-vue-macros": "^2.14.2",
     "vite": "catalog:",
-    "vite-plugin-inspect": "^10.0.7",
+    "vite-plugin-inspect": "^10.1.1",
     "vitest": "^3.0.5",
     "vue": "catalog:",
     "vue-tsc": "^2.2.0"

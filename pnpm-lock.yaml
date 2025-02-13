@@ -103,8 +103,8 @@ importers:
         specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.2)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-inspect:
-        specifier: ^10.0.7
-        version: 10.0.7(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0))
+        specifier: ^10.1.1
+        version: 10.1.1(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0))
       vitest:
         specifier: ^3.0.5
         version: 3.0.5(@types/debug@4.1.12)(@types/node@22.13.2)(@vitest/ui@3.0.5)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
@@ -5425,8 +5425,8 @@ packages:
       '@nuxt/kit':
         optional: true
 
-  vite-plugin-inspect@10.0.7:
-    resolution: {integrity: sha512-ukocfUNiAgu0R0RF4E5XN4krAckqAbd+qjPW2nv8hIOx03W/erLNfQHypkrsRqlp1PrQmTQ4qu6DCbu4oxEzrQ==}
+  vite-plugin-inspect@10.1.1:
+    resolution: {integrity: sha512-b/2Eq7kAimQufakK8lpdUbRPSbw/h1IBKts+ZwF5vVhHfyeNE9p01JYrv20rGGewHkomyfTC+CBkax93FeSYPQ==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
@@ -11149,7 +11149,7 @@ snapshots:
       - rollup
       - supports-color
 
-  vite-plugin-inspect@10.0.7(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)):
+  vite-plugin-inspect@10.1.1(vite@6.1.0(@types/node@22.13.2)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
       debug: 4.4.0
       error-stack-parser-es: 1.0.5

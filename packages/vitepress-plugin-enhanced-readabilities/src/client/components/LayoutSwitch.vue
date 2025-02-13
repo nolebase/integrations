@@ -265,7 +265,7 @@ onMounted(() => {
       padding-right: calc((100vw - var(--vp-nolebase-enhanced-readabilities-full-width-max-width)) / 2) !important;
     }
 
-    .VPDoc.has-aside .content-container {
+    .VPDoc.has-aside div.content-container {
       max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width);
     }
 

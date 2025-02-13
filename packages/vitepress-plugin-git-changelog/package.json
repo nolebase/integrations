@@ -73,14 +73,14 @@
     "vitepress": "catalog:"
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.2.3",
+    "@iconify-json/octicon": "^1.2.4",
     "@nolebase/ui": "workspace:^",
     "colorette": "^2.0.20",
     "date-fns": "^4.1.0",
     "defu": "^6.1.4",
     "es-toolkit": "^1.32.0",
     "execa": "^9.5.2",
-    "globby": "^14.0.2",
+    "globby": "^14.1.0",
     "gray-matter": "^4.0.3",
     "less": "^4.2.2",
     "uncrypto": "^0.1.3"

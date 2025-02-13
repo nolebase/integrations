@@ -1,4 +1,4 @@
-name: Relase
+name: Release
 
 on:
   push:
@@ -46,6 +46,6 @@ jobs:
           NPM_CONFIG_PROVENANCE: true
 
       - name: Sync GitHub Release
-        run: pnpx changelogithub
+        run: pnpm run changelogithub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

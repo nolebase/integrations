@@ -36,7 +36,7 @@
     "test:ui": "vitest --ui --coverage --coverage.enabled=true",
     "test:run": "vitest run",
     "up": "taze -w -r -I",
-    "postinstall": "pnpx simple-git-hooks",
+    "postinstall": "npx simple-git-hooks",
     "changelogithub": "changelogithub"
   },
   "peerDependencies": {

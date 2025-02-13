@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-index",
   "type": "module",
-  "version": "2.13.4",
+  "version": "2.13.5",
   "description": "A VitePress plugin that consists loads of different index pages needed content loaders.",
   "author": {
     "name": "Nólëbase",

@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "types": [
-      "./yaml.d.ts"
+      "./yaml.d.ts",
+      "node",
+      "vite/client"
     ],
     "declaration": true,
     "noEmit": false,

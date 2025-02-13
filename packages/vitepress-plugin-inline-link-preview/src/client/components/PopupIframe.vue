@@ -5,7 +5,7 @@ import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
 import { attemptWithDelay } from '../utils'
 import LinkButton from './LinkButton.vue'
 
-const props = defineProps < {
+const props = defineProps <{
   href: string
 }>()
 

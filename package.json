@@ -36,6 +36,7 @@
     "test:ui": "vitest --ui --coverage --coverage.enabled=true",
     "test:run": "vitest run",
     "up": "taze -w -r -I",
+    "postinstall": "pnpx simple-git-hooks",
     "changelogithub": "changelogithub"
   },
   "peerDependencies": {
@@ -59,6 +60,7 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.20.1",
     "less": "^4.2.2",
+    "lint-staged": "^15.4.3",
     "rimraf": "^6.0.1",
     "taze": "^18.5.0",
     "typescript": "^5.7.3",
@@ -78,6 +80,13 @@
   "pnpm": {
     "overrides": {
       "vite": "catalog:"
-    }
+    },
+    "neverBuiltDependencies": []
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm packages:stub && pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

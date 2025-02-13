@@ -5,7 +5,7 @@ import { useInIframe } from '../composables/iframe'
 import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
 import PopupIframe from './PopupIframe.vue'
 
-const props = defineProps < {
+const props = defineProps <{
   href: string
 }>()
 

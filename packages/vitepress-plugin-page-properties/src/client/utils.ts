@@ -1,7 +1,9 @@
+import type { LocaleName } from './types'
 import { formatDistanceToNow, formatDuration, toDate } from 'date-fns'
+
 import * as DateFnsLocales from 'date-fns/locale'
 
-export function formatDistanceToNowFromValue(value: string | number | Date, localeName = 'enUS') {
+export function formatDistanceToNowFromValue(value: string | number | Date, localeName: LocaleName = 'enUS') {
   try {
     return formatDistanceToNow(toDate(value), {
       locale: DateFnsLocales[localeName] || 'enUS',
@@ -13,7 +15,7 @@ export function formatDistanceToNowFromValue(value: string | number | Date, loca
   }
 }
 
-export function formatDurationFromValue(value: number, localeName = 'enUS') {
+export function formatDurationFromValue(value: number, localeName: LocaleName = 'enUS') {
   const parsedValue = Number.parseInt(String(value))
 
   try {

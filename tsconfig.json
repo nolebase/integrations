@@ -6,7 +6,6 @@
       "DOM",
       "ESNext"
     ],
-    "baseUrl": "./",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
@@ -75,6 +74,7 @@
     "noUnusedParameters": true,
     "noEmit": true,
     "removeComments": false,
+    "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,

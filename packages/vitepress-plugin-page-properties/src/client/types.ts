@@ -1,3 +1,7 @@
+import type * as DateFnsLocales from 'date-fns/locale'
+
+export type LocaleName = keyof typeof DateFnsLocales
+
 export interface TagsProperty<K extends PropertyKey> {
   type: 'tags'
   key: K
@@ -17,7 +21,7 @@ export interface DatetimeProperty<K extends PropertyKey> {
   key: K
   title: string
   formatAsFrom?: boolean
-  dateFnsLocaleName?: string
+  dateFnsLocaleName?: LocaleName
   format?: string
   omitEmpty?: boolean
 }
@@ -51,7 +55,7 @@ export interface DynamicWordsCountProperty {
 
 export interface DynamicReadingTimeProperty {
   type: 'readingTime'
-  dateFnsLocaleName?: string
+  dateFnsLocaleName?: LocaleName
 }
 
 export type Property<K extends PropertyKey> =

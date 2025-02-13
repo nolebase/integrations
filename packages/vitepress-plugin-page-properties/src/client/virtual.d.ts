@@ -17,7 +17,7 @@ interface DatetimeProperty<K extends PropertyKey> {
   key: K
   title: string
   formatAsFrom?: boolean
-  dateFnsLocaleName?: string
+  dateFnsLocaleName?: import('./types').LocaleName
   format?: string
   omitEmpty?: boolean
 }
@@ -51,7 +51,7 @@ interface DynamicWordsCountProperty {
 
 interface DynamicReadingTimeProperty {
   type: 'readingTime'
-  dateFnsLocaleName?: string
+  dateFnsLocaleName?: import('./types').LocaleName
 }
 
 type Property<K extends PropertyKey> =

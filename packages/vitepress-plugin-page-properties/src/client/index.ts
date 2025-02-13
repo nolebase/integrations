@@ -8,6 +8,7 @@ import type {
   DynamicWordsCountProperty,
   LinkProperty,
   Locale,
+  LocaleName,
   Options,
   PlainProperty,
   ProgressProperty,
@@ -15,7 +16,6 @@ import type {
   PropertyType,
   TagsProperty,
 } from './types'
-
 import NolebasePageProperties from './components/PageProperties.vue'
 import NolebasePagePropertiesEditor from './components/PagePropertiesEditor.vue'
 import { InjectionKey } from './constants'
@@ -51,6 +51,7 @@ export type {
   DynamicWordsCountProperty,
   LinkProperty,
   Locale,
+  LocaleName,
   Options,
   PlainProperty,
   ProgressProperty,

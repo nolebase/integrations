@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { LocaleName } from '../types'
 import { NuTag } from '@nolebase/ui'
 import { useData } from 'vitepress'
-import { computed, inject, onMounted } from 'vue'
 
+import { computed, inject, onMounted } from 'vue'
 import { usePageProperties } from '../composables/data'
 import { useI18n } from '../composables/i18n'
 import {
@@ -15,8 +16,8 @@ import {
   isTagsProperty,
 } from '../composables/propertyType'
 import { InjectionKey } from '../constants'
-import { formatDurationFromValue } from '../utils'
 
+import { formatDurationFromValue } from '../utils'
 import Datetime from './Datetime.vue'
 import ProgressBar from './ProgressBar.vue'
 
@@ -204,7 +205,7 @@ onMounted(() => {
               data-page-property-dynamic-type="reading-time"
               w-full inline-flex items-center
             >
-              <span>{{ formatDurationFromValue(data.readingTime, property.pageProperty.options.dateFnsLocaleName || lang) }}</span>
+              <span>{{ formatDurationFromValue(data.readingTime, property.pageProperty.options.dateFnsLocaleName || (lang as unknown as LocaleName) || 'enUS') }}</span>
             </div>
           </template>
           <template v-else-if="typeof property.value === 'object'">

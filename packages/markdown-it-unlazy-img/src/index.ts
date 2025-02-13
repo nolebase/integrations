@@ -151,7 +151,7 @@ function ensureThumbhashMap(
   if (!('mapGlobPatterns' in options))
     throw new Error('either thumbhash.map, thumbhash.mapFilePath, or thumbhash.mapGlobPatterns is required')
 
-  let mapGlobPatterns = []
+  let mapGlobPatterns: string[] = []
 
   if (Array.isArray(options.mapGlobPatterns))
     mapGlobPatterns = options.mapGlobPatterns

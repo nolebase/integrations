@@ -67,7 +67,8 @@
   "scripts": {
     "dev": "unbuild --stub",
     "stub": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
     "vitepress": "catalog:"

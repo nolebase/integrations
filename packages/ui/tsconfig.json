@@ -1,16 +1,20 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "composite": false,
-    "baseUrl": ".",
-    "types": [
-      "vite/client"
-    ],
-    "noImplicitAny": true,
     "declaration": true,
+    "emitDeclarationOnly": true,
     "noEmit": false,
-    "outDir": "./dist",
-    "sourceMap": true,
-    "skipLibCheck": true
-  }
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.mts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
+    "./src/**/*.vue"
+  ],
+  "exclude": [
+    "**/dist/**",
+    "node_modules"
+  ]
 }

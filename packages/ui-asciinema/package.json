@@ -67,7 +67,8 @@
   "scripts": {
     "dev": "unbuild --stub",
     "stub": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
     "asciinema-player": "^3.9.0",
@@ -76,8 +77,5 @@
   "dependencies": {
     "less": "^4.2.2",
     "vue": "catalog:"
-  },
-  "devDependencies": {
-    "@vue/tsconfig": "^0.7.0"
   }
 }

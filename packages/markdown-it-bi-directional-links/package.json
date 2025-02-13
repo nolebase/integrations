@@ -41,7 +41,8 @@
   "scripts": {
     "stub": "unbuild --stub",
     "dev": "unbuild --stub",
-    "build": "unbuild"
+    "build": "unbuild",
+    "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
     "markdown-it": ">=14.1.0"

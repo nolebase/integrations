@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/ui-asciinema",
   "type": "module",
-  "version": "2.13.2",
+  "version": "2.13.3",
   "description": "Wrapper of `asciinema-player` for VitePress documentation sites.",
   "author": {
     "name": "Nólëbase",

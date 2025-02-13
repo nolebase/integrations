@@ -70,7 +70,7 @@
     "build": "unbuild"
   },
   "peerDependencies": {
-    "asciinema-player": "^3.8.1",
+    "asciinema-player": "^3.9.0",
     "vitepress": "catalog:"
   },
   "dependencies": {

@@ -70,7 +70,7 @@
     "build": "unbuild"
   },
   "peerDependencies": {
-    "@rive-app/canvas": "^2.25.3",
+    "@rive-app/canvas": "^2.26.1",
     "vitepress": "catalog:"
   },
   "dependencies": {

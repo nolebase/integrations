@@ -14,7 +14,7 @@ catalogs:
       version: 3.5.13
 
 overrides:
-  vite: ^6.0.9
+  vite: ^6.1.0
 
 importers:
 
@@ -94,7 +94,7 @@ importers:
         specifier: ^2.14.2
         version: 2.14.2(@vueuse/core@12.5.0(typescript@5.7.3))(esbuild@0.24.2)(rollup@4.34.3)(typescript@5.7.3)(vite@6.1.0(@types/node@22.13.1)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0))(vue-tsc@2.2.0(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
       vite:
-        specifier: ^6.0.9
+        specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-inspect:
         specifier: ^10.1.1
@@ -229,7 +229,7 @@ importers:
         specifier: ^0.12.1
         version: 0.12.1
       vite:
-        specifier: ^6.0.9
+        specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
       vite-plugin-vue-devtools:
         specifier: ^7.7.2
@@ -279,7 +279,7 @@ importers:
         specifier: ^0.2.10
         version: 0.2.10
       vite:
-        specifier: ^6.0.9
+        specifier: ^6.1.0
         version: 6.1.0(@types/node@22.13.1)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
     devDependencies:
       '@types/markdown-it':
@@ -308,7 +308,7 @@ importers:
   packages/ui-asciinema:
     dependencies:
       asciinema-player:
-        specifier: ^3.8.1
+        specifier: ^3.9.0
         version: 3.9.0
       less:
         specifier: ^4.2.2
@@ -327,7 +327,7 @@ importers:
   packages/ui-rive-canvas:
     dependencies:
       '@rive-app/canvas':
-        specifier: ^2.25.3
+        specifier: ^2.26.1
         version: 2.26.1
       less:
         specifier: ^4.2.2
@@ -2069,7 +2069,7 @@ packages:
   '@unocss/astro@65.4.3':
     resolution: {integrity: sha512-yhPKH4CT2CFjvKR8lL6oS/7jarMWp4iSnYcNlTlZLmvTIS3dGxyhAsVy/xkdzdJ6sM+6FS0hUuQNv+NYvArRNg==}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       vite:
         optional: true
@@ -2152,13 +2152,13 @@ packages:
   '@unocss/vite@65.4.3':
     resolution: {integrity: sha512-YajF8Z2J/KvXdnC5BsGJjt3fm4D14vmYaHdlTyzi92Rkh/67JtaCz2OhElDoF6k4S4fm9B8uLRP10p+smRe9Fw==}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
 
   '@vitejs/plugin-vue@5.2.1':
     resolution: {integrity: sha512-cxh314tzaWwOLqVes2gnnCtvBDcM1UMdn+iFR+UjAn411dPT3tOmqrJjbMd7koZpMAmBM/GqeV4n9ge7JSiJJQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
       vue: ^3.2.25
 
   '@vitest/coverage-v8@3.0.5':
@@ -2190,7 +2190,7 @@ packages:
     resolution: {integrity: sha512-CLPNBFBIE7x6aEGbIjaQAX03ZZlBMaWwAjBdMkIf/cAn6xzLTiM3zYqO/WAbieEjsAZir6tO71mzeHZoodThvw==}
     peerDependencies:
       msw: ^2.4.9
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       msw:
         optional: true
@@ -2309,7 +2309,7 @@ packages:
     resolution: {integrity: sha512-bsNFXYZpLT6wiqBiJ5Ej4n76b/mV/S6y+R9Djd3r9smr7BneYcNtYuIFZU3BeQKP6+Zb+QEXPvp7jWhM4nQG+w==}
     engines: {node: '>=16.14.0'}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       vite:
         optional: true
@@ -5238,7 +5238,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@unocss/webpack': 65.4.3
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       '@unocss/webpack':
         optional: true
@@ -5254,7 +5254,7 @@ packages:
       rolldown: '*'
       rollup: ^3.2.0 || ^4.0.0
       unplugin: ^1.0.0 || ^2.0.0
-      vite: ^6.0.9
+      vite: ^6.1.0
       webpack: 4 || 5
     peerDependenciesMeta:
       '@rspack/core':
@@ -5292,7 +5292,7 @@ packages:
       esbuild: '*'
       rolldown: '>=0.14.0'
       rollup: '>=3'
-      vite: ^6.0.9
+      vite: ^6.1.0
       webpack: ^4 || ^5
     peerDependenciesMeta:
       '@nuxt/kit':
@@ -5357,7 +5357,7 @@ packages:
   vite-hot-client@0.2.4:
     resolution: {integrity: sha512-a1nzURqO7DDmnXqabFOliz908FRmIppkBKsJthS8rbe8hBEXwEwe4C3Pp33Z1JoFCYfVL4kTOMLKk0ZZxREIeA==}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
 
   vite-node@3.0.5:
     resolution: {integrity: sha512-02JEJl7SbtwSDJdYS537nU6l+ktdvcREfLksk/NDAqtdKWGqHl+joXzEubHROmS3E6pip+Xgu2tFezMu75jH7A==}
@@ -5369,7 +5369,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -5379,7 +5379,7 @@ packages:
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': '*'
-      vite: ^6.0.9
+      vite: ^6.1.0
     peerDependenciesMeta:
       '@nuxt/kit':
         optional: true
@@ -5388,12 +5388,12 @@ packages:
     resolution: {integrity: sha512-5V0UijQWiSBj32blkyPEqIbzc6HO9c1bwnBhx+ay2dzU0FakH+qMdNUT8nF9BvDE+i6I1U8CqCuJiO20vKEdQw==}
     engines: {node: '>=v14.21.3'}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
 
   vite-plugin-vue-inspector@5.3.1:
     resolution: {integrity: sha512-cBk172kZKTdvGpJuzCCLg8lJ909wopwsu3Ve9FsL1XsnLBiRT9U3MePcqrgGHgCX2ZgkqZmAGR8taxw+TV6s7A==}
     peerDependencies:
-      vite: ^6.0.9
+      vite: ^6.1.0
 
   vite@6.1.0:
     resolution: {integrity: sha512-RjjMipCKVoR4hVfPY6GQTgveinjNuyLw+qruksLDvA5ktI1150VmcMBKmQaEWJhg/j6Uaf6dNCNA0AfdzUb/hQ==}

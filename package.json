@@ -1,5 +1,5 @@
 {
-  "name": "@nolebase/integrations",
+  "name": "@nolebase/integrations-root",
   "type": "module",
   "version": "2.13.6",
   "private": true,

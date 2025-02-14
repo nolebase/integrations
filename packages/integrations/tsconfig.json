@@ -1,0 +1,27 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "./yaml.d.ts",
+      "node",
+      "vite/client",
+      "@nolebase/vitepress-plugin-git-changelog/types/virtual.d.ts",
+      "@nolebase/vitepress-plugin-page-properties/client/virtual.d.ts"
+    ],
+    "noImplicitAny": false,
+    "declaration": true,
+    "noEmit": false,
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.mts",
+    "./src/**/*.tsx",
+    "./src/**/*.d.ts",
+    "./src/**/*.vue"
+  ],
+  "exclude": [
+    "**/dist/**",
+    "node_modules"
+  ]
+}

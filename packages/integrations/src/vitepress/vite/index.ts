@@ -66,7 +66,6 @@ export function presetVite(options: PresetViteOptions): PresetVite {
             '@nolebase/ui',
             '@nolebase/ui-asciinema',
             '@nolebase/ui-rive-canvas',
-            '@nolebase/vitepress-plugin-index',
             '@nolebase/vitepress-plugin-enhanced-mark',
             '@nolebase/vitepress-plugin-enhanced-readabilities',
             '@nolebase/vitepress-plugin-git-changelog',
@@ -79,10 +78,7 @@ export function presetVite(options: PresetViteOptions): PresetVite {
         },
         ssr: {
           noExternal: [
-            '@nolebase/vitepress-plugin-enhanced-readabilities',
-            '@nolebase/vitepress-plugin-highlight-targeted-heading',
-            '@nolebase/vitepress-plugin-inline-link-preview',
-            '@nolebase/vitepress-plugin-index',
+            '@nolebase/**',
           ],
         },
       }

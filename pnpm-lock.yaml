@@ -243,6 +243,12 @@ importers:
 
   packages/integrations:
     dependencies:
+      '@nolebase/markdown-it-bi-directional-links':
+        specifier: workspace:^
+        version: link:../markdown-it-bi-directional-links
+      '@nolebase/markdown-it-unlazy-img':
+        specifier: workspace:^
+        version: link:../markdown-it-unlazy-img
       '@nolebase/vitepress-plugin-enhanced-mark':
         specifier: workspace:^
         version: link:../vitepress-plugin-enhanced-mark
@@ -270,8 +276,11 @@ importers:
       defu:
         specifier: ^6.1.4
         version: 6.1.4
+      vite:
+        specifier: ^6.1.0
+        version: 6.1.0(@types/node@22.13.4)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0)
       vitepress:
-        specifier: 'catalog:'
+        specifier: ^1.5.0
         version: 1.6.3(@algolia/client-search@5.20.0)(@types/node@22.13.4)(jiti@2.4.2)(less@4.2.2)(postcss@8.5.2)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
 
   packages/markdown-it-bi-directional-links:

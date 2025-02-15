@@ -4,5 +4,7 @@ export default defineBuildConfig({
   externals: [
     'vue',
     'vitepress',
+    'vite',
+    'node:process',
   ],
 })

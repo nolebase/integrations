@@ -1,5 +1,5 @@
-import type { NolebaseClientPresetOptions } from './types'
-import type { PluginSet, Slots } from './utils'
+import type { PresetClientOptions } from './types'
+import type { PresetClient, Slots } from './utils'
 
 import { LayoutMode, NolebaseEnhancedReadabilitiesMenu, NolebaseEnhancedReadabilitiesScreenMenu } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import { NolebaseHighlightTargetedHeading } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
@@ -15,8 +15,8 @@ function newArrayOfOrPush<K extends PropertyKey, V>(object: Record<K, V[]>, prop
   object[property] = [item]
 }
 
-export function NolebaseClientPreset<PagePropertiesObject extends object = any>(options?: NolebaseClientPresetOptions<PagePropertiesObject>): PluginSet {
-  const opts = defu<NolebaseClientPresetOptions, NolebaseClientPresetOptions[]>(options, {
+export function presetClient<PagePropertiesObject extends object = any>(options?: PresetClientOptions<PagePropertiesObject>): PresetClient {
+  const opts = defu<PresetClientOptions, PresetClientOptions[]>(options, {
     enhancedMark: true as any,
     enhancedReadabilities: {
       options: {

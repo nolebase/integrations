@@ -7,7 +7,7 @@ export interface Layout {
   slots?: Record<string, { node: Array<() => Slots[number]>, override?: boolean }>
 }
 
-export interface PluginSet {
+export interface PresetClient {
   enhanceLayout?: () => Record<string, Array<() => Slots[number]>>
   enhanceApp?: (ctx: VitePressEnhanceAppContext) => void | Promise<void>
 }

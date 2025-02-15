@@ -55,7 +55,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "catalog:"
+    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
   },
   "dependencies": {
     "defu": "^6.1.4",

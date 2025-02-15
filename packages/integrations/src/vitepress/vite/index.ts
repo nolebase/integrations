@@ -63,7 +63,18 @@ export function presetVite(options: PresetViteOptions): PresetVite {
           // This needs to be excluded from optimization
           exclude: [
             'vitepress',
+            '@nolebase/ui',
+            '@nolebase/ui-asciinema',
+            '@nolebase/ui-rive-canvas',
             '@nolebase/vitepress-plugin-index',
+            '@nolebase/vitepress-plugin-enhanced-mark',
+            '@nolebase/vitepress-plugin-enhanced-readabilities',
+            '@nolebase/vitepress-plugin-git-changelog',
+            '@nolebase/vitepress-plugin-highlight-targeted-heading',
+            '@nolebase/vitepress-plugin-index',
+            '@nolebase/vitepress-plugin-inline-link-preview',
+            '@nolebase/vitepress-plugin-page-properties',
+            '@nolebase/vitepress-plugin-thumbnail-hash',
           ],
         },
         ssr: {

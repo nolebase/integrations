@@ -179,6 +179,9 @@ function ensureThumbhashMap(
 
     foundThumbhashMapPath = matchedFiles[0]
   }
+  if (!foundThumbhashMapPath) {
+    throw new Error(`No thumbhash map file found in the glob patterns: ${mapGlobPatterns.join(', ')}`)
+  }
 
   return JSON.parse(readFileSync(foundThumbhashMapPath, 'utf-8'))
 }

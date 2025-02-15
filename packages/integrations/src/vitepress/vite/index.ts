@@ -36,6 +36,7 @@ export function presetVite(options: PresetViteOptions): PresetVite {
         },
       },
     },
+    thumbnailHashImages: true as any,
   })
 
   const plugins: Plugin[] = []

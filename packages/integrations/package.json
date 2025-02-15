@@ -65,8 +65,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "vite": "^6.1.0",
-    "vitepress": "^1.6.3"
+    "vite": "^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0",
+    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
   },
   "peerDependenciesMeta": {
     "vite": {

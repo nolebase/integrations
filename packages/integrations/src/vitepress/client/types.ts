@@ -3,7 +3,7 @@ import type { Options as NolebaseGitChangelogOptions } from '@nolebase/vitepress
 import type { Options as NolebaseInlineLinkPreviewOptions } from '@nolebase/vitepress-plugin-inline-link-preview/client'
 import type { Options as NolebasePagePropertiesOptions } from '@nolebase/vitepress-plugin-page-properties/client'
 
-export interface NolebaseClientPresetOptions<PagePropertiesObject extends object = any> {
+export interface PresetClientOptions<PagePropertiesObject extends object = any> {
   enhancedMark?: false
   enhancedReadabilities?: false | { options?: NolebaseEnhancedReadabilitiesOptions }
   gitChangelog?: false | { options?: NolebaseGitChangelogOptions }

@@ -1,8 +1,7 @@
 {
   "name": "@nolebase/integrations",
   "type": "module",
-  "version": "2.13.7",
-  "private": true,
+  "version": "2.14.0-alpha1",
   "description": "A unconfig (unified configurations) for both VitePress and VitePress theme. Supporting all Nólëbase Integrations with default theme.",
   "author": {
     "name": "Nólëbase",
@@ -39,6 +38,16 @@
       "types": "./dist/vitepress/client/index.d.ts",
       "import": "./dist/vitepress/client/index.mjs",
       "require": "./dist/vitepress/client/index.cjs"
+    },
+    "./vitepress/markdown-it": {
+      "types": "./dist/vitepress/markdown-it/index.d.ts",
+      "import": "./dist/vitepress/markdown-it/index.mjs",
+      "require": "./dist/vitepress/markdown-it/index.cjs"
+    },
+    "./vitepress/vite": {
+      "types": "./dist/vitepress/vite/index.d.ts",
+      "import": "./dist/vitepress/vite/index.mjs",
+      "require": "./dist/vitepress/vite/index.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -56,14 +65,20 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "catalog:"
+    "vite": "^3.0.0",
+    "vitepress": "^1.5.0"
   },
   "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    },
     "vitepress": {
       "optional": true
     }
   },
   "dependencies": {
+    "@nolebase/markdown-it-bi-directional-links": "workspace:^",
+    "@nolebase/markdown-it-unlazy-img": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-mark": "workspace:^",
     "@nolebase/vitepress-plugin-enhanced-readabilities": "workspace:^",
     "@nolebase/vitepress-plugin-git-changelog": "workspace:^",

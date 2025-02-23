@@ -8,7 +8,9 @@ import { normalizePath } from 'vite'
 
 const defaultMapGlobPatterns = [
   '**/.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json',
+  '.vitepress/cache/@nolebase/vitepress-plugin-thumbnail-hash/thumbhashes/map.json',
   '**/thumbhashes/map.json',
+  'thumbhashes/map.json',
 ]
 
 export interface ThumbHashAsset {

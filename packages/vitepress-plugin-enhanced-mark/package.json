@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-enhanced-mark",
   "type": "module",
-  "version": "2.14.0",
+  "version": "2.15.0",
   "description": "A VitePress plugin that empowers mark elements.",
   "author": {
     "name": "Nólëbase",

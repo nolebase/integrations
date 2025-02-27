@@ -76,7 +76,7 @@
     "unlazy": "^0.12.1"
   },
   "devDependencies": {
-    "builtin-modules": "^4.0.0",
+    "builtin-modules": "^5.0.0",
     "fs-extra": "^11.3.0"
   }
 }

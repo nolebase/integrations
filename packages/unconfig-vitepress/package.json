@@ -70,6 +70,6 @@
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^"
   },
   "devDependencies": {
-    "builtin-modules": "^4.0.0"
+    "builtin-modules": "^5.0.0"
   }
 }

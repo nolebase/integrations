@@ -72,7 +72,7 @@
   "devDependencies": {
     "@types/d3": "^7.4.3",
     "@types/d3-force": "^3.0.10",
-    "builtin-modules": "^4.0.0",
+    "builtin-modules": "^5.0.0",
     "fs-extra": "^11.3.0"
   }
 }

@@ -88,8 +88,8 @@ importers:
         specifier: ^5.7.3
         version: 5.7.3
       unbuild:
-        specifier: ^3.4.2
-        version: 3.4.2(typescript@5.7.3)(vue-tsc@2.2.4(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
+        specifier: ^3.5.0
+        version: 3.5.0(typescript@5.7.3)(vue-tsc@2.2.4(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3))
       unocss:
         specifier: ^66.0.0
         version: 66.0.0(postcss@8.5.3)(vite@6.2.0(@types/node@22.13.5)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0))(vue@3.5.13(typescript@5.7.3))
@@ -3769,6 +3769,9 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
+  fix-dts-default-cjs-exports@1.0.0:
+    resolution: {integrity: sha512-i9Vd++WOWo6JilNgZvNvmy1T0r+/j7vikghQSEhKIuDwz4GjUrYj+Z18zlL7MleYNxE+xE6t3aG7LiAwA1P+dg==}
+
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
@@ -5518,8 +5521,8 @@ packages:
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
 
-  unbuild@3.4.2:
-    resolution: {integrity: sha512-bp+xhJ+MvxTDp/gcmzWf/e9IUQ12zFKz42VIMEtJo9GTrbkcAfq+rTcN1GSIr9ZyOEfdlsYdK85wguPHZ97YOQ==}
+  unbuild@3.5.0:
+    resolution: {integrity: sha512-DPFttsiADnHRb/K+yJ9r9jdn6JyXlsmdT0S12VFC14DFSJD+cxBnHq+v0INmqqPVPxOoUjvJFYUVIb02rWnVeA==}
     hasBin: true
     peerDependencies:
       typescript: ^5.7.3
@@ -9365,6 +9368,12 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
+  fix-dts-default-cjs-exports@1.0.0:
+    dependencies:
+      magic-string: 0.30.17
+      mlly: 1.7.4
+      rollup: 4.34.8
+
   flat-cache@4.0.1:
     dependencies:
       flatted: 3.3.2
@@ -11332,7 +11341,7 @@ snapshots:
 
   ufo@1.5.4: {}
 
-  unbuild@3.4.2(typescript@5.7.3)(vue-tsc@2.2.4(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3)):
+  unbuild@3.5.0(typescript@5.7.3)(vue-tsc@2.2.4(typescript@5.7.3))(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       '@rollup/plugin-alias': 5.1.1(rollup@4.34.8)
       '@rollup/plugin-commonjs': 28.0.2(rollup@4.34.8)
@@ -11344,6 +11353,7 @@ snapshots:
       consola: 3.4.0
       defu: 6.1.4
       esbuild: 0.25.0
+      fix-dts-default-cjs-exports: 1.0.0
       hookable: 5.5.3
       jiti: 2.4.2
       magic-string: 0.30.17

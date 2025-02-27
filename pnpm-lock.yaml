@@ -410,8 +410,8 @@ importers:
         version: 1.6.3(@algolia/client-search@5.20.0)(@types/node@22.13.5)(jiti@2.4.2)(less@4.2.2)(postcss@8.5.3)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
     devDependencies:
       builtin-modules:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
 
   packages/vitepress-plugin-breadcrumbs:
     dependencies:
@@ -493,8 +493,8 @@ importers:
         specifier: ^4.1.2
         version: 4.1.2(rollup@4.34.8)
       builtin-modules:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
 
   packages/vitepress-plugin-graph-view:
     dependencies:
@@ -524,8 +524,8 @@ importers:
         specifier: ^3.0.10
         version: 3.0.10
       builtin-modules:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
@@ -724,8 +724,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       builtin-modules:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
       unplugin-yaml:
         specifier: ^1.3.0
         version: 1.3.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.34.8))(@nuxt/schema@3.13.2(rollup@4.34.8))(esbuild@0.25.0)(rollup@4.34.8)(vite@6.2.0(@types/node@22.13.5)(jiti@2.4.2)(less@4.2.2)(tsx@4.19.2)(yaml@2.7.0))
@@ -780,8 +780,8 @@ importers:
         version: 1.6.3(@algolia/client-search@5.20.0)(@types/node@22.13.5)(jiti@2.4.2)(less@4.2.2)(postcss@8.5.3)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
     devDependencies:
       builtin-modules:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^5.0.0
+        version: 5.0.0
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
@@ -2952,6 +2952,10 @@ packages:
 
   builtin-modules@4.0.0:
     resolution: {integrity: sha512-p1n8zyCkt1BVrKNFymOHjcDSAl7oq/gUvfgULv2EblgpPVQlQr9yHnWjg9IJ2MhfwPqiYqMMrr01OY7yQoK2yA==}
+    engines: {node: '>=18.20'}
+
+  builtin-modules@5.0.0:
+    resolution: {integrity: sha512-bkXY9WsVpY7CvMhKSR6pZilZu9Ln5WDrKVBUXf2S443etkmEO4V58heTecXcUIsNsi4Rx8JUO4NfX1IcQl4deg==}
     engines: {node: '>=18.20'}
 
   bumpp@10.0.3:
@@ -8320,6 +8324,8 @@ snapshots:
       update-browserslist-db: 1.1.1(browserslist@4.24.3)
 
   builtin-modules@4.0.0: {}
+
+  builtin-modules@5.0.0: {}
 
   bumpp@10.0.3(magicast@0.3.5):
     dependencies:

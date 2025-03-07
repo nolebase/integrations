@@ -65,7 +65,7 @@
     "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
   },
   "dependencies": {
-    "@unlazy/vue": "^0.12.1",
+    "@unlazy/vue": "^0.12.2",
     "canvaskit-wasm": "^0.39.1",
     "colorette": "^2.0.20",
     "less": "^4.2.2",
@@ -73,7 +73,7 @@
     "thumbhash": "^0.1.1",
     "tinyglobby": "^0.2.12",
     "uncrypto": "^0.1.3",
-    "unlazy": "^0.12.1"
+    "unlazy": "^0.12.2"
   },
   "devDependencies": {
     "builtin-modules": "^5.0.0",

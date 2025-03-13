@@ -122,7 +122,7 @@ export interface Options {
    *    },
    *    'zh-CN': {
    *       changelog: {
-   *         title: '页面历史'
+   *         title: '页面历史',
    *         noData: '暂无最近变更历史',
    *         lastEdited: '本页面最后编辑于 {{daysAgo}}',
    *         lastEditedDateFnsLocaleName: 'zhCN',

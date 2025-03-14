@@ -42,7 +42,7 @@
     "@shikijs/vitepress-twoslash": "^2.5.0",
     "@types/markdown-it": "^14.1.2",
     "@types/markdown-it-footnote": "^3.0.4",
-    "@vueuse/motion": "^2.2.6",
+    "@vueuse/motion": "^3.0.3",
     "asciinema-player": "^3.9.0",
     "colorette": "^2.0.20",
     "markdown-it": "^14.1.0",

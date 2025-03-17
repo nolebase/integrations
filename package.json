@@ -53,7 +53,7 @@
     "@unocss/cli": "^66.0.0",
     "@unocss/eslint-config": "^66.0.0",
     "@unocss/eslint-plugin": "^66.0.0",
-    "@vitejs/plugin-vue": "^5.2.1",
+    "@vitejs/plugin-vue": "^5.2.2",
     "@vitest/coverage-v8": "^3.0.8",
     "@vitest/ui": "^3.0.8",
     "@vueuse/core": "^13.0.0",

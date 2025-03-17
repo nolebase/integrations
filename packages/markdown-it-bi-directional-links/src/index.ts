@@ -258,9 +258,6 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
     VIDEOS_EXTENSIONS.forEach(ext => includes.push(`**/*${ext}`))
   }
 
-  if (excludes.length === 0) {
-      excludes.push('_*', 'dist', 'node_modules')
-  }
 
   const files = globSync(includes, {
     onlyFiles: true,

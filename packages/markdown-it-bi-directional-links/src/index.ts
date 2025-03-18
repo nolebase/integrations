@@ -193,6 +193,12 @@ export interface BiDirectionalLinksOptions {
    */
   includesPatterns?: string[]
   /**
+   * Excludes files added from `includePatterns` from being searched if it matches at least one of these patterns.
+   *
+   * @default '_*, dist, node_modules'
+   */
+  excludesPatterns?: string[]
+  /**
    * Whether to include debugging logs.
    *
    * @default false
@@ -229,12 +235,14 @@ export interface BiDirectionalLinksOptions {
  * @param options.dir - The directory to search for bi-directional links.
  * @param options.baseDir - The base directory joined as href for bi-directional links.
  * @param options.includesPatterns - The glob patterns to search for bi-directional links.
+ * @param options.excludesPatterns - The glob patterns to exclude files from search.
  * @returns A markdown-it plugin.
  */
 export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => PluginSimple = (options) => {
   const rootDir = options?.dir ?? cwd()
   const baseDir = options?.baseDir ?? '/'
   const includes = options?.includesPatterns ?? []
+  const excludes = options?.excludesPatterns ?? ['_*', 'dist', 'node_modules']
   const debugOn = options?.debug ?? false
   const noNoMatchedFileWarning = options?.noNoMatchedFileWarning ?? false
   const stillRenderNoMatched = options?.stillRenderNoMatched ?? false
@@ -254,11 +262,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
     onlyFiles: true,
     absolute: true,
     cwd: rootDir,
-    ignore: [
-      '_*',
-      'dist',
-      'node_modules',
-    ],
+    ignore: excludes,
   })
 
   for (const file of files) {

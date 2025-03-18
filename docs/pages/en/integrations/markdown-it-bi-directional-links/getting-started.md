@@ -103,6 +103,12 @@ interface BiDirectionalLinksOptions {
    */
   includesPatterns?: string[]
   /**
+   * Excludes files added from `includePatterns` from being searched if it matches at least one of these patterns.
+   *
+   * @default '_*, dist, node_modules'
+   */
+  excludesPatterns?: string[]
+  /**
    * Whether to include debugging logs.
    *
    * @default false

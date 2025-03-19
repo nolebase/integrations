@@ -3,7 +3,7 @@
   "type": "module",
   "version": "2.15.1",
   "private": true,
-  "packageManager": "pnpm@10.6.4",
+  "packageManager": "pnpm@10.6.5",
   "description": "A collection of diverse documentation engineering tools.",
   "author": {
     "name": "Nólëbase",

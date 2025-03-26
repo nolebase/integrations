@@ -37,7 +37,7 @@
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-sidebar": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "@rive-app/canvas": "^2.26.4",
+    "@rive-app/canvas": "^2.26.5",
     "@rollup/plugin-yaml": "^4.1.2",
     "@shikijs/vitepress-twoslash": "^2.5.0",
     "@types/markdown-it": "^14.1.2",
@@ -47,10 +47,10 @@
     "colorette": "^2.0.20",
     "markdown-it": "^14.1.0",
     "markdown-it-footnote": "^4.0.0",
-    "motion": "^12.5.0",
+    "motion": "^12.6.2",
     "thumbhash": "^0.1.1",
     "typescript": "^5.8.2",
-    "unlazy": "^0.12.3",
+    "unlazy": "^0.12.4",
     "vite": "catalog:",
     "vite-plugin-vue-devtools": "^7.7.2"
   }

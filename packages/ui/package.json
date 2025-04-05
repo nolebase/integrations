@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "@iconify-json/octicon": "^1.2.5",
-    "less": "^4.2.2",
+    "less": "^4.3.0",
     "vue": "catalog:"
   }
 }

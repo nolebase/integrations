@@ -76,7 +76,7 @@
     "@nolebase/ui": "workspace:^",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
-    "less": "^4.2.2",
+    "less": "^4.3.0",
     "uuid": "^11.1.0"
   },
   "devDependencies": {

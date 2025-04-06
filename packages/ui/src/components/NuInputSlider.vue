@@ -3,7 +3,7 @@ import { useElementHover } from '@vueuse/core'
 import { onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(defineProps<{
-  name: string
+  name?: string
   disabled?: boolean
   modelValue?: number
   min?: number

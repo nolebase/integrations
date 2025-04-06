@@ -20,7 +20,7 @@ export interface GitChangelogOptions {
   /**
    * When fetching git logs, what files should be included?
    *
-   * @default ['**/*.md', '!node_modules']
+   * @default ['**\/*.md', '!node_modules']
    */
   include?: string[]
   /**

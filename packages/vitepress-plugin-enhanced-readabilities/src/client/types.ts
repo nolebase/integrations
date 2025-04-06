@@ -346,6 +346,12 @@ export interface Options {
    */
   spotlight?: {
     /**
+     * Disable spotlight
+     *
+     * @default false
+     */
+    disabled?: boolean
+    /**
      * Disable spotlight help tooltip
      *
      * @default false

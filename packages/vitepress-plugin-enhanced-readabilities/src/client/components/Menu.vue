@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useMounted } from '@vueuse/core'
+import { inject } from 'vue'
 import { useI18n } from '../composables/i18n'
+import { InjectionKey } from '../constants'
 import { VPFlyout } from './deps'
 
 import LayoutSwitch from './LayoutSwitch.vue'
@@ -9,6 +11,7 @@ import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSl
 import Spotlight from './Spotlight.vue'
 import SpotlightStyles from './SpotlightStyles.vue'
 
+const options = inject(InjectionKey, {})
 const mounted = useMounted()
 const { t } = useI18n()
 </script>
@@ -24,8 +27,8 @@ const { t } = useI18n()
       <LayoutSwitch />
       <LayoutSwitchPageLayoutWidthInput />
       <LayoutSwitchContentLayoutWidthInput />
-      <Spotlight />
-      <SpotlightStyles />
+      <Spotlight v-if="!options.spotlight?.disabled" />
+      <SpotlightStyles v-if="!options.spotlight?.disabled" />
     </div>
   </VPFlyout>
 </template>

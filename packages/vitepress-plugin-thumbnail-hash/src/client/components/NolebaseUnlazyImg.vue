@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{
   placeholderSrc: string
   width: string
   height: string
-  autoSizes: string
+  autoSizes?: string
 }>(), {
   autoSizes: 'true',
 })

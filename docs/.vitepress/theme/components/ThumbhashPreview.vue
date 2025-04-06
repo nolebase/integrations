@@ -5,13 +5,13 @@ import { createPngDataUri } from 'unlazy/thumbhash'
 import { computed, onMounted, ref, watch } from 'vue'
 
 const props = withDefaults(defineProps<{
-  thumbhashText: string
-  applyThumbhashText: string
-  clickToUploadText: string
-  copyToClipboardText: string
-  clearInputThumbhashText: string
-  inputThumbhashPlaceholder: string
-  previewThumbhashText: string
+  thumbhashText?: string
+  applyThumbhashText?: string
+  clickToUploadText?: string
+  copyToClipboardText?: string
+  clearInputThumbhashText?: string
+  inputThumbhashPlaceholder?: string
+  previewThumbhashText?: string
   demoImageUrl?: string
 }>(), {
   thumbhashText: 'Select image to generate thumbhash',

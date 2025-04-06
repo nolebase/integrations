@@ -5,7 +5,7 @@ import VitePressLogo from '../assets/vitepress-logo-large.webp'
 
 const props = withDefaults(defineProps<{
   type: IntegrationType
-  title: string
+  title?: string
   package: string
 }>(), {
   title: '',

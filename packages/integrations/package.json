@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/integrations",
   "type": "module",
-  "version": "2.15.1",
+  "version": "2.16.0",
   "description": "A unconfig (unified configurations) for both VitePress and VitePress theme. Supporting all Nólëbase Integrations with default theme.",
   "author": {
     "name": "Nólëbase",

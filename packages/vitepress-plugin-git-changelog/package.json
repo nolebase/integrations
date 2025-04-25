@@ -79,7 +79,7 @@
     "colorette": "^2.0.20",
     "date-fns": "^4.1.0",
     "defu": "^6.1.4",
-    "es-toolkit": "^1.35.0",
+    "es-toolkit": "^1.36.0",
     "execa": "^9.5.2",
     "globby": "^14.1.0",
     "gray-matter": "^4.0.3",

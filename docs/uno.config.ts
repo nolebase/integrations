@@ -2,14 +2,14 @@ import {
   defineConfig,
   presetAttributify,
   presetIcons,
-  presetUno,
   presetWebFonts,
+  presetWind4,
 } from 'unocss'
 
 export default defineConfig({
   shortcuts: [],
   presets: [
-    presetUno({
+    presetWind4({
       dark: 'class',
     }),
     presetAttributify(),
@@ -41,6 +41,10 @@ export default defineConfig({
           },
         ],
         'jura': ['Jura'],
+      },
+      timeouts: {
+        failure: 10000,
+        warning: 10000,
       },
     }),
   ],

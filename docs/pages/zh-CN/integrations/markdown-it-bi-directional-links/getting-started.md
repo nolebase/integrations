@@ -1,6 +1,7 @@
 ---
 title: 双向链接
 category: 双向链接
+sidebarTitle: 快速上手
 ---
 
 # 快速上手

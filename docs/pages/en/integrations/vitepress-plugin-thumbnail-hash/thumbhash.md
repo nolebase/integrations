@@ -1,6 +1,7 @@
 ---
 title: Thumbnail hashing for images
 category: Thumbnail hashing for images
+sidebarTitle: Playground
 aside: false
 nolebase:
   gitChangelog: false

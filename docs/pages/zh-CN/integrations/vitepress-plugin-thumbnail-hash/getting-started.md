@@ -1,6 +1,7 @@
 ---
 title: 缩略图模糊哈希生成
 category: 缩略图模糊哈希生成
+sidebarTitle: 快速上手
 ---
 
 # 配置 Vite 插件

@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "fs-extra": "^11.3.0",
+    "gray-matter": "^4.0.3",
     "tinyglobby": "^0.2.13"
   },
   "devDependencies": {

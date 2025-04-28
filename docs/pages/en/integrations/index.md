@@ -1,6 +1,7 @@
 ---
 title: Integrations
 category: Index
+sidebarCollapsed: false
 ---
 
 <script setup>

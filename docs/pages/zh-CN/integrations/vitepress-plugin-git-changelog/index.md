@@ -1,6 +1,7 @@
 ---
 title: 基于 Git 的页面历史
 category: 基于 Git 的页面历史
+sidebarTitle: 基于 Git 的页面历史
 ---
 
 <script setup>

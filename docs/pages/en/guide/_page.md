@@ -1,0 +1,4 @@
+---
+sidebarTitle: Guide
+sidebarCollapsed: false
+---

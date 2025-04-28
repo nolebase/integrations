@@ -1,6 +1,7 @@
 ---
 title: Inline Links Previewing
 category: Inline Links Previewing
+sidebarTitle: Inline Links Previewing
 ---
 
 <script setup>

@@ -1,5 +1,5 @@
 ---
-title: Migration
+title: Migrations
 category: Index
 ---
 

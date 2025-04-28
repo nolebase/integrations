@@ -1,0 +1,3 @@
+---
+sidebarCollapsed: false
+---

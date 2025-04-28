@@ -1,6 +1,7 @@
 ---
 title: 集成
 category: 索引
+sidebarCollapsed: false
 ---
 
 <script setup>

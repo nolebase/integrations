@@ -1,6 +1,7 @@
 ---
 title: 基于 Git 的页面历史
 category: 基于 Git 的页面历史
+sidebarTitle: 配置 UI 组件
 ---
 
 # 配置 UI 组件

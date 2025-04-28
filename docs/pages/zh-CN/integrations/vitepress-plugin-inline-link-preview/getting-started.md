@@ -1,6 +1,7 @@
 ---
 title: 行内链接预览
 category: 行内链接预览
+sidebarTitle: 快速上手
 ---
 
 # 快速上手

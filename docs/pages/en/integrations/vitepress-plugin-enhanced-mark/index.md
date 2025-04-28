@@ -1,6 +1,7 @@
 ---
 title: Enhanced <mark>
 category: Enhanced <mark>
+sidebarTitle: Enhanced &lt;mark&gt;
 ---
 
 <script setup>

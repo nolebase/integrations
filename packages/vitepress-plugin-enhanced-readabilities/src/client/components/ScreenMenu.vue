@@ -28,7 +28,7 @@ const { t } = useI18n()
 
 <style>
 .VPNolebaseEnhancedReadabilitiesMenu {
-  --vp-nolebase-enhanced-readabilities-menu-background-color: var(--vp-c-bg-soft, #f3f3f3);
+  --vp-nolebase-enhanced-readabilities-menu-background-color: var(--vp-c-bg-soft, #e8e8e8);
   --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
 }
 

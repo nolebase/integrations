@@ -3,13 +3,13 @@ import {
   presetAttributify,
   presetIcons,
   presetWebFonts,
-  presetWind4,
+  presetWind3,
 } from 'unocss'
 
 export default defineConfig({
   shortcuts: [],
   presets: [
-    presetWind4({
+    presetWind3({
       dark: 'class',
     }),
     presetAttributify(),

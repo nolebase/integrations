@@ -49,7 +49,7 @@
     "@antfu/ni": "^24.3.0",
     "@cspell/dict-ru_ru": "^2.3.0",
     "@nolebase/cspell-dict": "^1.3.1",
-    "@types/node": "^22.15.2",
+    "@types/node": "^22.15.3",
     "@unocss/cli": "^66.1.0-beta.12",
     "@unocss/eslint-config": "^66.1.0-beta.12",
     "@unocss/eslint-plugin": "^66.1.0-beta.12",

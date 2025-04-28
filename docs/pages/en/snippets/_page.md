@@ -1,0 +1,4 @@
+---
+sidebarTitle: Snippets
+sidebarHide: true
+---

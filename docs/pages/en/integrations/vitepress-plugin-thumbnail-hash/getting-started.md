@@ -1,6 +1,7 @@
 ---
 title: Thumbnail hashing for images
 category: Thumbnail hashing for images
+sidebarTitle: Getting Started
 ---
 
 # Getting started

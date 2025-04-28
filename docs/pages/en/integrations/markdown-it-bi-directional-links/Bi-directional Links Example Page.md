@@ -1,6 +1,8 @@
 ---
 title: Bi-directional Links
 category: Bi-directional Links
+sidebarTitle: Bi-directional Links Example Page
+sidebarHide: true
 ---
 
 # Bi-directional Links Example Page

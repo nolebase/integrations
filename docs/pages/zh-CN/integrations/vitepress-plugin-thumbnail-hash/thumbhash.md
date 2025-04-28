@@ -1,6 +1,7 @@
 ---
 title: 缩略图模糊哈希生成
 category: 缩略图模糊哈希生成
+sidebarTitle: 尝试一下
 aside: false
 nolebase:
   gitChangelog: false

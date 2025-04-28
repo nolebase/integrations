@@ -1,6 +1,7 @@
 ---
 title: Git-based page histories
 category: Git-based page histories
+sidebarTitle: Configure Vite plugins
 ---
 
 # Configure Vite plugins

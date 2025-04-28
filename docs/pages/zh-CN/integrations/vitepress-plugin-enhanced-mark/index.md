@@ -1,6 +1,7 @@
 ---
 title: <mark> 元素增强
 category: <mark> 元素增强
+sidebarTitle: '&lt;mark&gt; 元素增强'
 ---
 
 <script setup>

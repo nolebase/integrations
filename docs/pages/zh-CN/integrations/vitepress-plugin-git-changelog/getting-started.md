@@ -1,6 +1,7 @@
 ---
 title: 基于 Git 的页面历史
 category: 基于 Git 的页面历史
+sidebarTitle: 快速上手
 ---
 
 # 快速上手

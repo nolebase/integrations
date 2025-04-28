@@ -735,6 +735,9 @@ importers:
       fs-extra:
         specifier: ^11.3.0
         version: 11.3.0
+      gray-matter:
+        specifier: ^4.0.3
+        version: 4.0.3
       tinyglobby:
         specifier: ^0.2.13
         version: 0.2.13

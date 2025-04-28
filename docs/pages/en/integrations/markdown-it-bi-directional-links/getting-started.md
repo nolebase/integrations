@@ -1,6 +1,7 @@
 ---
 title: Bi-directional Links
 category: Bi-directional Links
+sidebarTitle: Getting Started
 ---
 
 # Getting started

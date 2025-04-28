@@ -1,6 +1,7 @@
 ---
 title: 双向链接
 category: 双向链接
+sidebarTitle: 语法
 ---
 
 # 语法

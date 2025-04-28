@@ -28,12 +28,12 @@ const { t } = useI18n()
 
 <style>
 .VPNolebaseEnhancedReadabilitiesMenu {
-  --vp-nolebase-enhanced-readabilities-menu-background-color: #EBEDF2;
+  --vp-nolebase-enhanced-readabilities-menu-background-color: var(--vp-c-bg-soft, #f3f3f3);
   --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
 }
 
 .dark .VPNolebaseEnhancedReadabilitiesMenu {
-  --vp-nolebase-enhanced-readabilities-menu-background-color: #2c2f35;
+  --vp-nolebase-enhanced-readabilities-menu-background-color: var(--vp-c-bg-soft, #2c2f35);
   --vp-nolebase-enhanced-readabilities-menu-text-color: var(--vp-c-text-1);
 }
 </style>

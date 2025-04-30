@@ -29,9 +29,7 @@ sidebarTitle: 语法
   <span>绝对路径语法</span>
 </div>
 
-## 用法示例
-
-### 基本语法
+## 基本语法
 
 其语法与 [Internal links - Obsidian Help](https://help.obsidian.md/Linking+notes+and+files/Internal+links)支持的语法相同，编写起来也很简单：
 
@@ -44,6 +42,8 @@ sidebarTitle: 语法
 渲染结果将是这样的：
 
 [[双向链接示例页面]]
+
+## 链接 url
 
 ### Hash tag（标题选择器）
 
@@ -99,7 +99,19 @@ document.querySelector('#为什么')
 
 [[双向链接示例页面?query=string]]
 
-### 图片
+### 绝对路径
+
+```markdown
+[[某个完整路径]]
+```
+
+效果
+
+[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
+
+### 显示图片
+
+在 `[[...]]` 前面添加 `!` 可以显示图片、视频、音频等。
 
 ```markdown
 ![[一片 狗尾草.jpg]]
@@ -109,7 +121,11 @@ document.querySelector('#为什么')
 
 ![[一片 狗尾草.jpg]]
 
-#### 图片尺寸
+## 额外属性
+
+### 显示大小
+
+（对图片和视频链接生效）
 
 ```markdown
 ![[一片 狗尾草.jpg|图片名(可省略)|200x200]]
@@ -130,6 +146,9 @@ document.querySelector('#为什么')
 效果
 
 [[双向链接示例页面|自定义文案]]
+
+对于跳转链接来说，这是显示的文字。对于图片或视频等显示来说，这是 alt 属性
+(用于对象无法渲染时显示)
 
 #### 自定义文案中使用 Markdown 语法
 
@@ -189,17 +208,9 @@ document.querySelector('#为什么')
 
 [[双向链接示例页面]]{.some-class}
 
-### 绝对路径
+## 更多案例
 
-```markdown
-[[某个完整路径]]
-```
-
-效果
-
-[[pages/zh-CN/integrations/markdown-it-bi-directional-links/双向链接示例页面]]
-
-#### 图片配合绝对路径
+### 图片配合绝对路径
 
 ```markdown
 ![[zh-CN/integrations/markdown-it-bi-directional-links/images/海滩铁轨 同名图片.jpg]]
@@ -219,7 +230,7 @@ document.querySelector('#为什么')
 
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/images/same-name/海滩铁轨 同名图片.jpg]]
 
-#### 音频配合绝对路径
+### 音频配合绝对路径
 
 ```markdown
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/audios/鼓掌声.mp3]]
@@ -229,7 +240,7 @@ document.querySelector('#为什么')
 
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/audios/鼓掌声.mp3]]
 
-#### 视频配合绝对路径
+### 视频配合绝对路径
 
 ```markdown
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/videos/大兔子从兔窝中钻出.mp4]]
@@ -239,7 +250,7 @@ document.querySelector('#为什么')
 
 ![[pages/zh-CN/integrations/markdown-it-bi-directional-links/videos/大兔子从兔窝中钻出.mp4]]
 
-#### 绝对路径和自定义文案
+### 绝对路径和自定义文案
 
 ```markdown
 [[某个文件夹|自定义文案]]

@@ -3,5 +3,5 @@ packages:
   - '!**/dist/**'
   - docs
 catalog:
-  vite: ^6.3.3
+  vite: ^6.3.4
   vue: ^3.5.13

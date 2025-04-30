@@ -99,20 +99,28 @@ describe('markdown-it-bi-directional-links', () => {
     expect(rendered).toBe('<p><img src="/foo.png" alt="" width="300" height="200"></p>\n')
   })
 
-  it('image size, without width', () => {
+  it('image size, without height', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))
-      .render('[[foo.png|0x200]]')
+      .render('[[foo.png|300]]')
 
-    expect(rendered).toBe('<p><img src="/foo.png" alt="" height="200"></p>\n')
+    expect(rendered).toBe('<p><img src="/foo.png" alt="" width="300"></p>\n')
   })
 
-  it('image size, without height', () => {
+  it('image size, with zero height', () => {
     const rendered = new MarkdownIt({ html: true })
       .use(BiDirectionalLinks({ dir: testdataDir }))
       .render('[[foo.png|300x0]]')
 
     expect(rendered).toBe('<p><img src="/foo.png" alt="" width="300"></p>\n')
+  })
+
+  it('image size, with zero width', () => {
+    const rendered = new MarkdownIt({ html: true })
+      .use(BiDirectionalLinks({ dir: testdataDir }))
+      .render('[[foo.png|0x200]]')
+
+    expect(rendered).toBe('<p><img src="/foo.png" alt="" height="200"></p>\n')
   })
 
   it('image size, with alt', () => {

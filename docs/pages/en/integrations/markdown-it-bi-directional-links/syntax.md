@@ -83,6 +83,10 @@ The rendered result will be:
 
 [[Bi-directional Links Example Page#section-2]]
 
+Or leave the page section blank and directly fill in `#<heading>` to indicate a jump to the specified heading of the current page, such as:
+
+[[#basic-syntax]]
+
 ### Query strings
 
 Beyond the default behaviors that Obsidian supported, we also support query strings in the link target. This is useful when you have a inner Vue component or JavaScript logic that can handle the query strings as part of the automation:
@@ -118,6 +122,8 @@ Demo
 ![[foxtail field.jpg]]
 
 ## Additional attributes
+
+This part is optional.
 
 ### Media Size
 

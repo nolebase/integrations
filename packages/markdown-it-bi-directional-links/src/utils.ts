@@ -99,15 +99,13 @@ export function genImage(
   link: RegExpMatchArray,
 ) {
   // text parse
-  const textSnippets = text.split('|')
   let width = '0' // Zero indicates that it is not set
   let height = '0'
-  const sizeMatch = textSnippets[textSnippets.length - 1].match(/^(\d+)x(\d+)$/)
-  if (sizeMatch) {
-    width = sizeMatch[1]
-    height = sizeMatch[2]
-    text = text.replace(/(^\d+x\d+$)|(\|\d+x\d+$)/, '')
-  }
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
 
   const openToken = state.push('image', 'img', 1)
   openToken.attrSet('src', resolvedNewHref)
@@ -134,15 +132,13 @@ export function genVideo(
   link: RegExpMatchArray,
 ) {
   // text parse
-  const textSnippets = text.split('|')
   let width = '0' // Zero indicates that it is not set
   let height = '0'
-  const sizeMatch = textSnippets[textSnippets.length - 1].match(/^(\d+)x(\d+)$/)
-  if (sizeMatch) {
-    width = sizeMatch[1]
-    height = sizeMatch[2]
-    text = text.replace(/(^\d+x\d+$)|(\|\d+x\d+$)/, '')
-  }
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
 
   const openToken = state.push('video_open', 'video', 1)
   openToken.attrSet('controls', 'true')
@@ -169,15 +165,13 @@ export function genAudio(
   link: RegExpMatchArray,
 ) {
   // text parse
-  const textSnippets = text.split('|')
   let width = '0' // Zero indicates that it is not set
   let height = '0'
-  const sizeMatch = textSnippets[textSnippets.length - 1].match(/^(\d+)x(\d+)$/)
-  if (sizeMatch) {
-    width = sizeMatch[1]
-    height = sizeMatch[2]
-    text = text.replace(/(^\d+x\d+$)|(\|\d+x\d+$)/, '')
-  }
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
 
   const openToken = state.push('audio_open', 'audio', 1)
   openToken.attrSet('controls', 'true')

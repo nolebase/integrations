@@ -18,6 +18,8 @@ sidebarTitle: 语法
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>图片双链</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>图片尺寸</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义文案</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义 HTML 属性</span>
@@ -106,6 +108,18 @@ document.querySelector('#为什么')
 效果
 
 ![[一片 狗尾草.jpg]]
+
+#### 图片尺寸
+
+```markdown
+![[一片 狗尾草.jpg|图片名(可省略)|200x200]]
+```
+
+其中 `200x0` 或 `0x200` 分别表示仅设置宽或高。
+
+效果
+
+![[一片 狗尾草.jpg|图片名(可省略)|200x200]]
 
 ### 自定义显示的文案
 

@@ -28,6 +28,8 @@ This plugin is a fully featured compatible implementation version of [Obsidian](
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Images</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Images size</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom text</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom HTML attributes</span>

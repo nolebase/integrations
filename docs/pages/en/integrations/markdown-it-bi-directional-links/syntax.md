@@ -18,6 +18,8 @@ The following syntaxes are supported:
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Images</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Images size</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom text</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom HTML attributes</span>
@@ -102,6 +104,18 @@ The rendered result will be:
 Demo
 
 ![[foxtail field.jpg]]
+
+#### Image Size
+
+```markdown
+![[foxtail field.jpg|pic alt(option)|200x200]]
+```
+
+Among them, `200x0` or `0x200` respectively indicate setting only the width or heigh.
+
+Demo
+
+![[foxtail field.jpg|pic alt(option)|200x200]]
 
 ### Custom Text
 

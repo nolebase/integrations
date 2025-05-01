@@ -98,9 +98,22 @@ export function genImage(
   text: string,
   link: RegExpMatchArray,
 ) {
+  // text parse
+  let width = '0' // Zero indicates that it is not set
+  let height = '0'
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
+
   const openToken = state.push('image', 'img', 1)
   openToken.attrSet('src', resolvedNewHref)
-  openToken.attrSet('alt', '')
+  openToken.attrSet('alt', text)
+  if (width !== '0')
+    openToken.attrSet('width', width)
+  if (height !== '0')
+    openToken.attrSet('height', height)
 
   openToken.children = []
   openToken.content = text
@@ -118,11 +131,24 @@ export function genVideo(
   text: string,
   link: RegExpMatchArray,
 ) {
+  // text parse
+  let width = '0' // Zero indicates that it is not set
+  let height = '0'
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
+
   const openToken = state.push('video_open', 'video', 1)
   openToken.attrSet('controls', 'true')
   openToken.attrSet('preload', 'metadata')
   if (text)
     openToken.attrSet('aria-label', text)
+  if (width !== '0')
+    openToken.attrSet('width', width)
+  if (height !== '0')
+    openToken.attrSet('height', height)
 
   const sourceOpenToken = state.push('source_open', 'source', 1)
   sourceOpenToken.attrSet('src', resolvedNewHref)
@@ -138,11 +164,24 @@ export function genAudio(
   text: string,
   link: RegExpMatchArray,
 ) {
+  // text parse
+  let width = '0' // Zero indicates that it is not set
+  let height = '0'
+  text = text.replace(/(^|\|)(\d+)(x(\d+))?$/, (_match, _prefix, width2, _heightTmp, height2) => {
+    width = width2
+    height = height2 ?? '0'
+    return ''
+  })
+
   const openToken = state.push('audio_open', 'audio', 1)
   openToken.attrSet('controls', 'true')
   openToken.attrSet('preload', 'metadata')
   if (text)
     openToken.attrSet('aria-label', text)
+  if (width !== '0')
+    openToken.attrSet('width', width)
+  if (height !== '0')
+    openToken.attrSet('height', height)
 
   const sourceOpenToken = state.push('source_open', 'source', 1)
   sourceOpenToken.attrSet('src', resolvedNewHref)

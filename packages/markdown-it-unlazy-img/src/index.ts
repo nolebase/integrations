@@ -287,9 +287,9 @@ export const UnlazyImages: () => PluginWithOptions<UnlazyImagesOptions> = () => 
       // have stated
       props.thumbhash = matchedThumbhashData.dataBase64
       props.placeholderSrc = matchedThumbhashData.dataUrl
-      props.width = matchedThumbhashData.originalWidth.toString()
-      props.height = matchedThumbhashData.originalHeight.toString()
-      props.autoSizes = 'true'
+      props.autoSizes = (props.width || props.height) ? 'false' : 'true'
+      props.width = props.width ?? matchedThumbhashData.originalWidth.toString()
+      props.height = props.height ?? matchedThumbhashData.originalHeight.toString()
 
       return `<${imgElementTag} ${Object.entries(props).map(([name, value]) => `${name}="${value}"`).join(' ')} />`
     }

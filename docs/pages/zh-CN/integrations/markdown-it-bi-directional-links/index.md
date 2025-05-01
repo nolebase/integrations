@@ -29,6 +29,8 @@ import packageJSON from '~/packages/markdown-it-bi-directional-links/package.jso
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>图片双链</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>图片尺寸</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义文案</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>自定义 HTML 属性</span>

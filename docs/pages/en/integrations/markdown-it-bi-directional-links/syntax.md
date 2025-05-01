@@ -18,6 +18,8 @@ The following syntaxes are supported:
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Images</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
+  <span>Images size</span>
+  <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom text</span>
   <div h=[1rem]><div i-icon-park-outline:check-one text="green-600" /></div>
   <span>Custom HTML attributes</span>
@@ -27,9 +29,7 @@ The following syntaxes are supported:
   <span>Absolute path</span>
 </div>
 
-## Syntax Reference
-
-### Basic
+## Basic Syntax
 
 The syntax is the same as what [Internal links - Obsidian Help](https://help.obsidian.md/Linking+notes+and+files/Internal+links) supported and simple to write:
 
@@ -40,6 +40,8 @@ The syntax is the same as what [Internal links - Obsidian Help](https://help.obs
 The `Bi-directional Links Example Page` is the file name of the target page. The rendered result will be:
 
 [[Bi-directional Links Example Page]]
+
+## link url
 
 ### Hash tags
 
@@ -81,6 +83,10 @@ The rendered result will be:
 
 [[Bi-directional Links Example Page#section-2]]
 
+Or leave the page section blank and directly fill in `#<heading>` to indicate a jump to the specified heading of the current page, such as:
+
+[[#basic-syntax]]
+
 ### Query strings
 
 Beyond the default behaviors that Obsidian supported, we also support query strings in the link target. This is useful when you have a inner Vue component or JavaScript logic that can handle the query strings as part of the automation:
@@ -93,7 +99,19 @@ The rendered result will be:
 
 [[Bi-directional Links Example Page?query=string]]
 
-### Image
+### Absolute path
+
+```markdown
+[[Some Full Path Reference to Your Page]]
+```
+
+Demo
+
+[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
+
+### Show Image
+
+Adding `!` in front of `[[...]]` can display the picture, video, audio.
 
 ```markdown
 ![[foxtail field.jpg]]
@@ -102,6 +120,24 @@ The rendered result will be:
 Demo
 
 ![[foxtail field.jpg]]
+
+## Additional attributes
+
+This part is optional.
+
+### Media Size
+
+(It takes effect for pictures and video links)
+
+```markdown
+![[foxtail field.jpg|pic alt(option)|200x200]]
+```
+
+Among them, `200x0` or `0x200` respectively indicate setting only the width or heigh.
+
+Demo
+
+![[foxtail field.jpg|pic alt(option)|200x200]]
 
 ### Custom Text
 
@@ -112,6 +148,10 @@ Demo
 Demo
 
 [[Bi-directional Links Example Page|Custom Text]]
+
+For jump links, this is the displayed text.
+For the display of pictures or videos, etc., this is the alt attribute.
+(It is displayed when the object cannot be rendered)
 
 #### Use Markdown markup in custom text
 
@@ -169,17 +209,9 @@ Demo
 
 [[Bi-directional Links Example Page]]{.custom-class}
 
-### Absolute path
+## More demo
 
-```markdown
-[[Some Full Path Reference to Your Page]]
-```
-
-Demo
-
-[[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page]]
-
-#### Image with absolute path
+### Image with absolute path
 
 ```markdown
 ![[en/integrations/markdown-it-bi-directional-links/images/railway near by beach same name.jpg]]
@@ -199,7 +231,7 @@ Demo
 
 ![[pages/en/integrations/markdown-it-bi-directional-links/images/same-name/railway near by beach same name.jpg]]
 
-#### Audio with absolute path
+### Audio with absolute path
 
 ```markdown
 ![[pages/en/integrations/markdown-it-bi-directional-links/audios/Applause.mp3]]
@@ -209,7 +241,7 @@ Demo
 
 ![[pages/en/integrations/markdown-it-bi-directional-links/audios/Applause.mp3]]
 
-#### Video with absolute path
+### Video with absolute path
 
 ```markdown
 ![[pages/en/integrations/markdown-it-bi-directional-links/videos/Big rabbit came out of the hutch.mp4]]
@@ -219,7 +251,7 @@ Demo
 
 ![[pages/en/integrations/markdown-it-bi-directional-links/videos/Big rabbit came out of the hutch.mp4]]
 
-#### Absolute path with custom text
+### Absolute path with custom text
 
 ```markdown
 [[Some Full Path Reference to Your Page|Custom Text]]
@@ -228,5 +260,3 @@ Demo
 Demo
 
 [[pages/en/integrations/markdown-it-bi-directional-links/Bi-directional Links Example Page|Custom Text]]
-
-

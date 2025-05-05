@@ -47,7 +47,7 @@
     "colorette": "^2.0.20",
     "markdown-it": "^14.1.0",
     "markdown-it-footnote": "^4.0.0",
-    "motion": "^12.9.4",
+    "motion": "^12.9.7",
     "thumbhash": "^0.1.1",
     "typescript": "^5.8.3",
     "unlazy": "^0.12.4",

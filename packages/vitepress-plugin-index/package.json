@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "defu": "^6.1.4",
-    "execa": "^9.5.2",
+    "execa": "^9.5.3",
     "gray-matter": "^4.0.3",
     "tinyglobby": "^0.2.13"
   },

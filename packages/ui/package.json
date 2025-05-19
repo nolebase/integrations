@@ -72,7 +72,7 @@
     "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
   },
   "dependencies": {
-    "@iconify-json/octicon": "^1.2.5",
+    "@iconify-json/octicon": "^1.2.6",
     "less": "^4.3.0",
     "vue": "catalog:"
   }

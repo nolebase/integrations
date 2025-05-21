@@ -54,6 +54,11 @@
       "types": "./dist/vite/index.d.ts",
       "import": "./dist/vite/index.mjs",
       "require": "./dist/vite/index.cjs"
+    },
+    "./client/composables/changelog": {
+      "types": "./dist/client/composables/changelog.d.ts",
+      "import": "./dist/client/composables/changelog.mjs",
+      "require": "./dist/client/composables/changelog.cjs"
     }
   },
   "main": "./dist/vite/index.cjs",

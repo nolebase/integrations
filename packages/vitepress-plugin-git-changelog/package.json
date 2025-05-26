@@ -58,7 +58,7 @@
     "./client/composables/changelog": {
       "types": "./dist/client/composables/changelog.d.ts",
       "import": "./dist/client/composables/changelog.mjs",
-      "require": "./dist/client/composables/changelog.cjs"
+      "require": "./dist/client/composables/changelog.js"
     }
   },
   "main": "./dist/vite/index.cjs",

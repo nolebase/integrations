@@ -93,7 +93,7 @@ const refs = [
 refs.forEach((ref, index) => {
   const key = isLessThanMd.value ? 'mobile' : isLessThanLg.value ? 'tablet' : 'desktop'
 
-  const { variant } = useMotion(ref.ref, {
+  const { variant } = useMotion(ref.ref.value, {
     initial: {
       scale: 1,
       y: ref[key].initial.y,

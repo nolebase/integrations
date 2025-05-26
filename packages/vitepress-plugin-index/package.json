@@ -69,7 +69,7 @@
     "defu": "^6.1.4",
     "execa": "^9.5.3",
     "gray-matter": "^4.0.3",
-    "tinyglobby": "^0.2.13"
+    "tinyglobby": "^0.2.14"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.1.2"

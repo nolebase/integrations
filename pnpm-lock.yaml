@@ -727,8 +727,8 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       unplugin-yaml:
-        specifier: ^1.3.0
-        version: 1.3.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.40.0))(@nuxt/schema@3.13.2(rollup@4.40.0))(esbuild@0.25.0)(rollup@4.40.0)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(less@4.3.0)(tsx@4.19.2)(yaml@2.8.0))
+        specifier: ^3.0.0
+        version: 3.0.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.40.0))(@nuxt/schema@3.13.2(rollup@4.40.0))(esbuild@0.25.0)(rollup@4.40.0)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(less@4.3.0)(tsx@4.19.2)(yaml@2.8.0))
 
   packages/vitepress-plugin-sidebar:
     dependencies:
@@ -2907,6 +2907,11 @@ packages:
 
   acorn@8.14.0:
     resolution: {integrity: sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==}
+    engines: {node: '>=0.4.0'}
+    hasBin: true
+
+  acorn@8.14.1:
+    resolution: {integrity: sha512-OvQ/2pUDKmgfCg++xsTX1wGxfTaszcHVcTctW4UJB4hibJx2HXxxO5UmVgyjMa+ZDsiaf5wWLXYpRWMmBI0QHg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -5731,8 +5736,9 @@ packages:
     peerDependencies:
       vue: ^2.7.0 || ^3.2.25
 
-  unplugin-yaml@1.3.0:
-    resolution: {integrity: sha512-XKi5U2vX27GQ1w++wZjqNvliMTiE1gbT6k1e69vHGrruMJ5qvGwy975lrFdDqnT8y28MTPWPvHWCBX4Fg9s8dA==}
+  unplugin-yaml@3.0.0:
+    resolution: {integrity: sha512-x9amyI6Cp1l6DKpGiVEclRJsWcmfUTGBqffO3pQLx9RBEIZjoftFQDdqo2unnRedxZkXiytRTFxnUuyy762GGQ==}
+    engines: {node: '>=20'}
     peerDependencies:
       '@nuxt/kit': '>=3'
       '@nuxt/schema': '>=3'
@@ -5767,8 +5773,8 @@ packages:
     resolution: {integrity: sha512-4/u/j4FrCKdi17jaxuJA0jClGxB1AvU2hw/IuayPc4ay1XGaJs/rbb4v5WKwAjNifjmXK9PIFyuPiaK8azyR9w==}
     engines: {node: '>=14.0.0'}
 
-  unplugin@2.1.2:
-    resolution: {integrity: sha512-Q3LU0e4zxKfRko1wMV2HmP8lB9KWislY7hxXpxd+lGx0PRInE4vhMBVEZwpdVYHvtqzhSrzuIfErsob6bQfCzw==}
+  unplugin@2.3.5:
+    resolution: {integrity: sha512-RyWSb5AHmGtjjNQ6gIlA67sHOsWpsbWpwDokLwTcejVdOjEkJZh7QKu14J00gDDVSh8kGH4KYC/TNBceXFZhtw==}
     engines: {node: '>=18.12.0'}
 
   unrs-resolver@1.7.2:
@@ -8396,6 +8402,8 @@ snapshots:
       acorn: 8.14.0
 
   acorn@8.14.0: {}
+
+  acorn@8.14.1: {}
 
   ajv@6.12.6:
     dependencies:
@@ -11772,11 +11780,11 @@ snapshots:
       - vue-tsc
       - webpack
 
-  unplugin-yaml@1.3.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.40.0))(@nuxt/schema@3.13.2(rollup@4.40.0))(esbuild@0.25.0)(rollup@4.40.0)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(less@4.3.0)(tsx@4.19.2)(yaml@2.8.0)):
+  unplugin-yaml@3.0.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.40.0))(@nuxt/schema@3.13.2(rollup@4.40.0))(esbuild@0.25.0)(rollup@4.40.0)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(less@4.3.0)(tsx@4.19.2)(yaml@2.8.0)):
     dependencies:
       '@rollup/pluginutils': 5.1.4(rollup@4.40.0)
-      js-yaml: 4.1.0
-      unplugin: 2.1.2
+      unplugin: 2.3.5
+      yaml: 2.8.0
     optionalDependencies:
       '@nuxt/kit': 3.13.2(magicast@0.3.5)(rollup@4.40.0)
       '@nuxt/schema': 3.13.2(rollup@4.40.0)
@@ -11789,9 +11797,10 @@ snapshots:
       acorn: 8.14.0
       webpack-virtual-modules: 0.6.2
 
-  unplugin@2.1.2:
+  unplugin@2.3.5:
     dependencies:
-      acorn: 8.14.0
+      acorn: 8.14.1
+      picomatch: 4.0.2
       webpack-virtual-modules: 0.6.2
 
   unrs-resolver@1.7.2:

@@ -12,7 +12,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.2.8",
+    "@iconify-json/carbon": "^1.2.9",
     "@iconify-json/fluent-emoji": "^1.2.3",
     "@iconify-json/icon-park-outline": "^1.2.2",
     "@iconify-json/octicon": "^1.2.6",
@@ -37,7 +37,7 @@
     "@nolebase/vitepress-plugin-page-properties": "workspace:^",
     "@nolebase/vitepress-plugin-sidebar": "workspace:^",
     "@nolebase/vitepress-plugin-thumbnail-hash": "workspace:^",
-    "@rive-app/canvas": "^2.29.0",
+    "@rive-app/canvas": "^2.29.3",
     "@rollup/plugin-yaml": "^4.1.2",
     "@shikijs/vitepress-twoslash": "^2.5.0",
     "@types/markdown-it": "^14.1.2",

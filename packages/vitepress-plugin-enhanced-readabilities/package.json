@@ -63,7 +63,7 @@
     "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
   },
   "dependencies": {
-    "@iconify-json/carbon": "^1.2.9",
+    "@iconify-json/carbon": "^1.2.10",
     "@iconify-json/icon-park-outline": "^1.2.2",
     "@nolebase/ui": "workspace:^",
     "less": "^4.3.0"

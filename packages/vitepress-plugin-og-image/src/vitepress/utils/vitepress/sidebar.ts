@@ -36,14 +36,23 @@ export function getSidebar(siteData: SiteData<DefaultTheme.Config>, themeConfig:
 
   for (const locale of locales) {
     let themeConfigSidebar: DefaultTheme.Sidebar = []
-    if (typeof siteData.locales[locale]?.themeConfig?.sidebar !== 'undefined')
-      themeConfigSidebar = siteData.locales[locale]?.themeConfig?.sidebar || []
-    else if (typeof siteData.themeConfig?.sidebar !== 'undefined')
+    if (typeof siteData.locales[locale]?.themeConfig?.sidebar !== 'undefined') {
+      if (Array.isArray(siteData.locales[locale]?.themeConfig?.sidebar)) {
+        themeConfigSidebar = siteData.locales[locale]?.themeConfig?.sidebar || []
+      }
+      else {
+        themeConfigSidebar = siteData.locales[locale]?.themeConfig?.sidebar as DefaultTheme.Sidebar
+      }
+    }
+    else if (typeof siteData.themeConfig?.sidebar !== 'undefined') {
       themeConfigSidebar = siteData.themeConfig?.sidebar || []
-    else if (typeof themeConfig.sidebar !== 'undefined')
+    }
+    else if (typeof themeConfig.sidebar !== 'undefined') {
       themeConfigSidebar = themeConfig.sidebar
-    else
+    }
+    else {
       themeConfigSidebar = []
+    }
 
     sidebar.sidebar[locale] = flattenThemeConfigSidebar(themeConfigSidebar) || []
   }

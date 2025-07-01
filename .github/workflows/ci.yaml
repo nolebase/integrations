@@ -16,7 +16,7 @@ jobs:
   unittest:
     strategy:
       matrix:
-        node-version: ['20.x', '22.x']
+        node-version: ['20.x', '22.x', '24.x']
         os: [ubuntu-latest, windows-latest]
 
     name: Unit Tests - Node.js ${{ matrix.node-version }} (${{ matrix.os }})
@@ -58,10 +58,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Node.js 22.x
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 'lts/*'
           # registry-url required. Learn more at
           # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
           registry-url: 'https://registry.npmjs.org'
@@ -84,10 +84,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Node.js 22.x
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 'lts/*'
           # registry-url required. Learn more at
           # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
           registry-url: 'https://registry.npmjs.org'
@@ -110,10 +110,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Node.js 22.x
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 'lts/*'
           # registry-url required. Learn more at
           # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
           registry-url: 'https://registry.npmjs.org'

@@ -45,8 +45,8 @@ export interface DynamicProperty<K extends PropertyKey> {
   key: K | string
   title: string
   options:
-    DynamicWordsCountProperty |
-    DynamicReadingTimeProperty
+    DynamicWordsCountProperty
+    | DynamicReadingTimeProperty
 }
 
 export interface DynamicWordsCountProperty {
@@ -58,13 +58,13 @@ export interface DynamicReadingTimeProperty {
   dateFnsLocaleName?: LocaleName
 }
 
-export type Property<K extends PropertyKey> =
-  TagsProperty<K> |
-  PlainProperty<K> |
-  DatetimeProperty<K> |
-  ProgressProperty<K> |
-  LinkProperty<K> |
-  DynamicProperty<K>
+export type Property<K extends PropertyKey>
+  = TagsProperty<K>
+    | PlainProperty<K>
+    | DatetimeProperty<K>
+    | ProgressProperty<K>
+    | LinkProperty<K>
+    | DynamicProperty<K>
 
 export type PropertyType = Property<PropertyKey>['type']
 export type DynamicPropertyType = DynamicProperty<PropertyKey>['options']['type']

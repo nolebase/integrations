@@ -39,10 +39,10 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Install Node.js 22.x
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22.16.0
+          node-version: 'lts/*'
           # registry-url required. Learn more at
           # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
           registry-url: 'https://registry.npmjs.org'

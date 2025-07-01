@@ -2,6 +2,7 @@ packages:
   - packages/**
   - '!**/dist/**'
   - docs
+
 catalog:
   vite: ^7.0.0
-  vue: ^3.5.17
+  vue: 3.5.17

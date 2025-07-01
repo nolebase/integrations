@@ -80,7 +80,7 @@ function updateMetaOrCreateMeta(head: HeadConfig[], fromKey: string, withValue: 
   return head
 }
 
-export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: HeadConfig[], context: Readonly<TransformContext>) => Promise<HeadConfig[] | void> {
+export function transformHeadMeta(options?: TransformHeadMetaOptions): (head: HeadConfig[], context: TransformContext) => Promise<HeadConfig[] | void> {
   const opts = defu(options, {
     length: 200,
     contentSelector: '#VPContent div.content main .vp-doc div',

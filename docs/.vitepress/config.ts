@@ -188,6 +188,15 @@ export default defineConfig({
     },
   },
   markdown: {
+    languages: [
+      'javascript',
+      'typescript',
+      'js',
+      'ts',
+      'shell',
+      'bash',
+      'json',
+    ],
     codeTransformers: noTwoslash()
       ? []
       : [

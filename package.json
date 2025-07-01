@@ -72,7 +72,6 @@
     "unplugin-vue-macros": "^2.14.5",
     "vite": "catalog:",
     "vite-plugin-inspect": "^11.3.0",
-    "vitepress": "2.0.0-alpha.7",
     "vitest": "^3.2.4",
     "vue": "catalog:",
     "vue-tsc": "^2.2.10"

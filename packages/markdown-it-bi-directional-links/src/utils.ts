@@ -1,6 +1,8 @@
 import type MarkdownIt from 'markdown-it'
 import type StateInline from 'markdown-it/lib/rules_inline/state_inline.mjs'
+
 import { sep } from 'node:path'
+
 import Token from 'markdown-it/lib/token.mjs'
 
 const caseInsensitiveCompare = new Intl.Collator(undefined, { sensitivity: 'accent' }).compare

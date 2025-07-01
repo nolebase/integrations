@@ -1,17 +1,18 @@
 import type { Plugin } from 'vite'
+
 import { dirname, join, resolve } from 'node:path'
 import { env } from 'node:process'
-
 import { fileURLToPath } from 'node:url'
+
+import Yaml from '@rollup/plugin-yaml'
+import UnoCSS from 'unocss/vite'
+import Inspect from 'vite-plugin-inspect'
+import VueDevTools from 'vite-plugin-vue-devtools'
+
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
 import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
-import Yaml from '@rollup/plugin-yaml'
-import UnoCSS from 'unocss/vite'
-
 import { defineConfig } from 'vite'
-import Inspect from 'vite-plugin-inspect'
-import VueDevTools from 'vite-plugin-vue-devtools'
 
 function getVueProdHydrationMismatchDetailsFlag() {
   if (!env) {

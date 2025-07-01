@@ -4,12 +4,12 @@ import { useLocalStorage, useMediaQuery, useMounted } from '@vueuse/core'
 import { useRoute } from 'vitepress'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
+import MenuHelp from './MenuHelp.vue'
+import MenuTitle from './MenuTitle.vue'
+
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 import { InjectionKey, LayoutMode, LayoutSwitchModeStorageKey, supportedLayoutModes } from '../constants'
-
-import MenuHelp from './MenuHelp.vue'
-import MenuTitle from './MenuTitle.vue'
 
 const options = inject(InjectionKey, {})
 

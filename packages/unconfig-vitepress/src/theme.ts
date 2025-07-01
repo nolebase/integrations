@@ -1,5 +1,7 @@
 import type { Theme } from 'vitepress'
+
 import type { DefineThemeUnconfigOptions, Layout, Slots } from './types'
+
 import DefaultTheme from 'vitepress/theme'
 
 import { h } from 'vue'

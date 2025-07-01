@@ -1,4 +1,5 @@
 import type { PluginWithOptions } from 'markdown-it'
+
 import { ElementTransform } from '@nolebase/markdown-it-element-transform'
 
 export const InlineLinkPreviewElementTransform: PluginWithOptions<{ tag: string } | null | undefined> = (md, options) => {

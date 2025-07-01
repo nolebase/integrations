@@ -2,6 +2,7 @@
 import type { DatetimeProperty, LocaleName } from '../types'
 
 import { useData } from 'vitepress'
+
 import { formatDistanceToNowFromValue } from '../utils'
 
 const props = defineProps<{

@@ -1,5 +1,7 @@
 import type { Commit, CommitAuthor, Contributor, MergedRawCommit, RawCommit } from '../types'
+
 import { basename, dirname, extname, posix, relative, sep, win32 } from 'node:path'
+
 import { omit } from 'es-toolkit'
 import { execa } from 'execa'
 import { subtle } from 'uncrypto'

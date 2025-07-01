@@ -1,20 +1,25 @@
 import type { Buffer } from 'node:buffer'
+
 import type { DefaultTheme, SiteConfig } from 'vitepress'
+
 import type { BuildEndGenerateOpenGraphImagesOptions, PageItem } from './types'
 import type { TaskResult } from './utils/task'
+
 import { basename, dirname, join, relative, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
-import { gray, green, red, yellow } from 'colorette'
-import { defu } from 'defu'
+
 import fs from 'fs-extra'
 import GrayMatter from 'gray-matter'
 import RehypeMeta from 'rehype-meta'
 import RehypeParse from 'rehype-parse'
 import RehypeStringify from 'rehype-stringify'
 
+import { gray, green, red, yellow } from 'colorette'
+import { defu } from 'defu'
 import { glob } from 'tinyglobby'
 import { unified } from 'unified'
 import { visit } from 'unist-util-visit'
+
 import { logModulePrefix } from './constants'
 import { applyCategoryTextWithFallback, tryToLocateFontFile, tryToLocateTemplateSVGFile } from './options'
 import { initFontBuffer, initSVGRenderer, renderSVG, templateSVG } from './utils/svg/render'

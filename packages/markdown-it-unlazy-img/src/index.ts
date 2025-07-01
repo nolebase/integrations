@@ -1,4 +1,5 @@
 import type { PluginWithOptions } from 'markdown-it'
+
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path/posix'
 

@@ -1,4 +1,5 @@
 import type { DefaultTheme } from 'vitepress'
+
 import {
   existsSync,
   readFileSync,
@@ -10,7 +11,9 @@ import {
   join,
 } from 'node:path'
 import { cwd } from 'node:process'
+
 import GrayMatter from 'gray-matter'
+
 import { globSync } from 'tinyglobby'
 
 interface MenuItem {

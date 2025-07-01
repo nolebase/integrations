@@ -1,4 +1,5 @@
 import { createI18n } from '@nolebase/ui'
+
 import { InjectionKey } from '../constants'
 import { defaultEnLocale, defaultLocales } from '../locales'
 

@@ -1,11 +1,15 @@
 import type { PluginSimple } from 'markdown-it'
+
 import { basename, dirname, extname, posix, relative, sep } from 'node:path'
 import { cwd } from 'node:process'
-import { cyan, gray, yellow } from 'colorette'
+
 import _debug from 'debug'
+
+import { cyan, gray, yellow } from 'colorette'
 import { globSync } from 'tinyglobby'
 
 import packageJSON from '../package.json'
+
 import { findBiDirectionalLinks, genAudio, genImage, genLink, genVideo } from './utils'
 
 /** it will match [[file]] and [[file|text]] */

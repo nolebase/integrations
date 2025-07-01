@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useMediaQuery } from '@vueuse/core'
 import { useMotion } from '@vueuse/motion'
-
 import { ref } from 'vue'
+
 import ObsidianLogo from '../assets/obsidian-logo.svg'
 import VitePressLogo from '../assets/vitepress-logo-large.webp'
 import VPHeroImageLayer from './VPHeroImageLogoLayer.vue'

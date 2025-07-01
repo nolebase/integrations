@@ -1,15 +1,20 @@
 import type { Plugin, ResolvedConfig } from 'vite'
 import type { SiteConfig } from 'vitepress'
+
 import type { LanguageHandler, ReadingTimeStats } from './dynamic/readingTime'
 import type { PagePropertiesData } from './types'
+
 import {
   existsSync,
   lstatSync,
   readFileSync,
 } from 'node:fs'
 import { extname, relative } from 'node:path'
+
 import GrayMatter from 'gray-matter'
+
 import { normalizePath } from 'vite'
+
 import { calculateWordsCountAndReadingTime } from './dynamic/readingTime'
 
 const VirtualModuleID = 'virtual:nolebase-page-properties'

@@ -1,5 +1,7 @@
 import type { PageData, TransformPageContext } from 'vitepress'
+
 import { expect, it } from 'vitest'
+
 import { generateBreadcrumbsData } from '../vitepress'
 
 it('page is not index', () => {

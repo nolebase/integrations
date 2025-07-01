@@ -1,4 +1,5 @@
 import type { Locale } from './types'
+
 import { defaultEnLocale, defaultRuLocale, defaultZhCNLocale } from '../locales'
 
 export {

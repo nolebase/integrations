@@ -1,4 +1,5 @@
 import type { LocaleName } from './types'
+
 import { formatDistanceToNow, formatDuration, toDate } from 'date-fns'
 
 import * as DateFnsLocales from 'date-fns/locale'

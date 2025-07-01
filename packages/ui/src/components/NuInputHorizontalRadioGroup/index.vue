@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+
 import NuInputHorizontalOptionsItem from './Option.vue'
 
 interface OptionItem {

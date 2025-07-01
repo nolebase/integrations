@@ -1,9 +1,11 @@
 import type { BuildEndGenerateOpenGraphImagesOptions } from '../../../vitepress/types'
+
 import { Buffer } from 'node:buffer'
 import { readFile } from 'node:fs/promises'
-
 import { createRequire } from 'node:module'
+
 import { initWasm, Resvg } from '@resvg/resvg-wasm'
+
 import { removeEmoji } from '../emoji'
 import { escape } from './escape'
 

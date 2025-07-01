@@ -1,7 +1,10 @@
 import type { Plugin } from 'vite'
+
 import { relative } from 'node:path'
 import { env } from 'node:process'
+
 import GrayMatter from 'gray-matter'
+
 import {
   pathEndsWith,
   pathEquals,

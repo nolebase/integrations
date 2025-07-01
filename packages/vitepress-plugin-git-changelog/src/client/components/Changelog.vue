@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import type { Locale } from '../types'
+
 import { NuVerticalTransition } from '@nolebase/ui'
 import { differenceInDays, toDate } from 'date-fns'
 import { defu } from 'defu'
-
 import { useData } from 'vitepress'
-
 import { computed, inject, onMounted, ref, watch } from 'vue'
+
+import CommitRegularLine from './CommitRegularLine.vue'
+import CommitTagLine from './CommitTagLine.vue'
+
 import { useChangelog } from '../composables/changelog'
 import { useI18n } from '../composables/i18n'
 import { defaultOptions, InjectionKey } from '../constants'
 import { defaultEnLocale, defaultLocales } from '../locales'
 import { formatDistanceToNowFromValue } from '../utils'
-
-import CommitRegularLine from './CommitRegularLine.vue'
-import CommitTagLine from './CommitTagLine.vue'
 
 const options = defu(inject(InjectionKey, {}), defaultOptions)
 

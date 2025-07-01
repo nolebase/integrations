@@ -1,7 +1,9 @@
 import type { Locale } from 'date-fns'
+
 import { formatDistanceToNow, toDate } from 'date-fns'
-import * as DateFnsLocales from 'date-fns/locale'
 import { subtle } from 'uncrypto'
+
+import * as DateFnsLocales from 'date-fns/locale'
 
 export function renderMarkdown(markdownText = '') {
   const htmlText = markdownText

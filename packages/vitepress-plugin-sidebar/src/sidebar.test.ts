@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { mergeSidebar } from './sidebar'
 
 describe('processSidebar', () => {

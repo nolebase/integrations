@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { refDebounced, useMediaQuery, useMounted, useMouseInElement, useWindowSize } from '@vueuse/core'
 import { computed, inject, ref, watch } from 'vue'
+
+import PopupIframe from './PopupIframe.vue'
+
 import { useInIframe } from '../composables/iframe'
 import { defaultLinkPreviewPopupOptions, InjectionKey } from '../constants'
-import PopupIframe from './PopupIframe.vue'
 
 const props = defineProps <{
   href: string

@@ -1,9 +1,10 @@
 import type { Plugin } from 'vue'
 
 import type { Options } from './types'
-import InlineLinkPreview from './components/InlineLinkPreview.vue'
 
+import InlineLinkPreview from './components/InlineLinkPreview.vue'
 import PopupIframe from './components/PopupIframe.vue'
+
 import { InjectionKey } from './constants'
 
 export type {

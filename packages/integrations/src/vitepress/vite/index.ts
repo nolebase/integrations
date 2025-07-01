@@ -1,11 +1,14 @@
 import type { Plugin } from 'vite'
+
 import type { PresetVite, PresetViteOptions } from './types'
 
 import { join } from 'node:path'
+
+import defu from 'defu'
+
 import { GitChangelog, GitChangelogMarkdownSection } from '@nolebase/vitepress-plugin-git-changelog/vite'
 import { PageProperties, PagePropertiesMarkdownSection } from '@nolebase/vitepress-plugin-page-properties/vite'
 import { ThumbnailHashImages } from '@nolebase/vitepress-plugin-thumbnail-hash/vite'
-import defu from 'defu'
 
 export function presetVite(options: PresetViteOptions): PresetVite {
   const opts = defu<PresetViteOptions, PresetViteOptions[]>(options, {

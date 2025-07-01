@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { Rive } from './deps'
+
 import { useRoute } from 'vitepress'
 import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 

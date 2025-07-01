@@ -1,7 +1,10 @@
 import type { BiDirectionalLinksOptions } from '@nolebase/markdown-it-bi-directional-links'
 import type { UnlazyImagesOptions } from '@nolebase/markdown-it-unlazy-img'
+
 import type { PresetMarkdownIt } from './types'
+
 import { cwd } from 'node:process'
+
 import defu from 'defu'
 
 interface MarkdownItOptions {

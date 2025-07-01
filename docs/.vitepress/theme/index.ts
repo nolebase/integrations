@@ -1,10 +1,10 @@
 import type { Plugin } from 'vue'
 
+import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
-
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 import { MotionPlugin } from '@vueuse/motion'
 import { h } from 'vue'
 
@@ -15,10 +15,8 @@ import ThumbhashPreview from './components/ThumbhashPreview.vue'
 import VPHeroImageLogo from './components/VPHeroImageLogo.vue'
 
 import 'virtual:uno.css'
-
 import '@shikijs/vitepress-twoslash/style.css'
 import 'asciinema-player/dist/bundle/asciinema-player.css'
-
 import './styles/vars.css'
 import './styles/main.css'
 

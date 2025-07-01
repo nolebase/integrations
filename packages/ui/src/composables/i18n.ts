@@ -1,4 +1,5 @@
 import type { InjectionKey } from 'vue'
+
 import { useData } from 'vitepress'
 import { computed, inject } from 'vue'
 

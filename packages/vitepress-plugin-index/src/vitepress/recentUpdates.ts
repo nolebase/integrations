@@ -3,9 +3,10 @@ import { basename, join, relative, sep } from 'node:path'
 import { sep as posixSep } from 'node:path/posix'
 import { cwd } from 'node:process'
 
+import grayMatter from 'gray-matter'
+
 import { defu } from 'defu'
 import { execa } from 'execa'
-import grayMatter from 'gray-matter'
 import { glob } from 'tinyglobby'
 
 export interface FileEntry {

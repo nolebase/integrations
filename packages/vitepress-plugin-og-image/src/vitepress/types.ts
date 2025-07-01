@@ -1,4 +1,5 @@
 import type { Buffer } from 'node:buffer'
+
 import type { DefaultTheme } from 'vitepress'
 
 export interface BuildEndGenerateOpenGraphImagesOptions {

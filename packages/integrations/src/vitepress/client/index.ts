@@ -1,9 +1,10 @@
 import type { PresetClientOptions } from './types'
 import type { PresetClient, Slots } from './utils'
 
+import defu from 'defu'
+
 import { LayoutMode, NolebaseEnhancedReadabilitiesMenu, NolebaseEnhancedReadabilitiesScreenMenu } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import { NolebaseHighlightTargetedHeading } from '@nolebase/vitepress-plugin-highlight-targeted-heading/client'
-import defu from 'defu'
 import { h } from 'vue'
 
 function newArrayOfOrPush<K extends PropertyKey, V>(object: Record<K, V[]>, property: K, item: V) {

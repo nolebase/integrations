@@ -1,7 +1,9 @@
 import type { Plugin } from 'vue'
+
 import type { Locale, Options } from './types'
 
 import NolebaseRecentUpdates from './components/NolebaseRecentUpdates.vue'
+
 import { InjectionKey } from './constants'
 
 export {

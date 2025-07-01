@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useMounted } from '@vueuse/core'
-import { useI18n } from '../composables/i18n'
+
 import MenuTitle from './MenuTitle.vue'
 import ScreenLayoutSwitch from './ScreenLayoutSwitch.vue'
 import ScreenSpotlight from './ScreenSpotlight.vue'
+
+import { useI18n } from '../composables/i18n'
 
 const mounted = useMounted()
 const { t } = useI18n()

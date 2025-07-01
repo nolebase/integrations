@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { useMounted } from '@vueuse/core'
 import { inject } from 'vue'
-import { useI18n } from '../composables/i18n'
-import { InjectionKey } from '../constants'
-import { VPFlyout } from './deps'
 
 import LayoutSwitch from './LayoutSwitch.vue'
 import LayoutSwitchContentLayoutWidthInput from './LayoutSwitchContentLayoutMaxWidthSlider.vue'
 import LayoutSwitchPageLayoutWidthInput from './LayoutSwitchPageLayoutMaxWidthSlider.vue'
 import Spotlight from './Spotlight.vue'
 import SpotlightStyles from './SpotlightStyles.vue'
+
+import { useI18n } from '../composables/i18n'
+import { InjectionKey } from '../constants'
+import { VPFlyout } from './deps'
 
 const options = inject(InjectionKey, {})
 const mounted = useMounted()

@@ -2,10 +2,10 @@
 import { NuInputHorizontalRadioGroup } from '@nolebase/ui'
 import { computed } from 'vue'
 
+import MenuTitle from './MenuTitle.vue'
+
 import { useI18n } from '../composables/i18n'
 import { LayoutMode } from '../constants'
-
-import MenuTitle from './MenuTitle.vue'
 
 const { t } = useI18n()
 

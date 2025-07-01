@@ -3,11 +3,11 @@ import { NuInputHighlight, NuInputHorizontalRadioGroup } from '@nolebase/ui'
 import { useMediaQuery, useStorage } from '@vueuse/core'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
-import { useI18n } from '../composables/i18n'
-import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey, SpotlightToggledStorageKey } from '../constants'
-
 import MenuHelp from './MenuHelp.vue'
 import MenuTitle from './MenuTitle.vue'
+
+import { useI18n } from '../composables/i18n'
+import { InjectionKey, SpotlightStyle, SpotlightStylesStorageKey, SpotlightToggledStorageKey } from '../constants'
 
 const options = inject(InjectionKey, {})
 

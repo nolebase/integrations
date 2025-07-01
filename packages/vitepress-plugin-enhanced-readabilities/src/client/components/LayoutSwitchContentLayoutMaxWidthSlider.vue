@@ -3,12 +3,12 @@ import { NuInputHighlight, NuInputSlider, NuVerticalTransition } from '@nolebase
 import { useDebounceFn, useLocalStorage, useMediaQuery, useMounted, useStorage } from '@vueuse/core'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
+import MenuHelp from './MenuHelp.vue'
+import MenuTitle from './MenuTitle.vue'
+
 import { useLayoutAppearanceChangeAnimation } from '../composables/animation'
 import { useI18n } from '../composables/i18n'
 import { ContentLayoutMaxWidthStorageKey, InjectionKey, LayoutMode, LayoutSwitchModeStorageKey } from '../constants'
-
-import MenuHelp from './MenuHelp.vue'
-import MenuTitle from './MenuTitle.vue'
 
 const min = ref(60)
 const minScaled = computed(() => min.value * 100)

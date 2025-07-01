@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import MarkdownItAttrs from 'markdown-it-attrs'
+
 import { describe, expect, it } from 'vitest'
 
 import { InlineLinkPreviewElementTransform } from '.'

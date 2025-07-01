@@ -4,6 +4,7 @@ import changelog from 'virtual:nolebase-git-changelog'
 
 import { useData } from 'vitepress'
 import { computed, ref, toValue } from 'vue'
+
 import { isStringArray } from '../utils'
 
 export interface AuthorInfo extends CommitAuthor {

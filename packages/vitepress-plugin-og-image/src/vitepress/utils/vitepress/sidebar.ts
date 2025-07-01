@@ -1,4 +1,5 @@
 import type { DefaultTheme, SiteData } from 'vitepress'
+
 import { getLocales } from './locales'
 
 interface AggregatedSidebar {

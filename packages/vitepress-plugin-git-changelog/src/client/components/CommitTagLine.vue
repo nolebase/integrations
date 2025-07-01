@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { CommitWithAuthorInfo } from '../composables/changelog'
 import type { Locale } from '../types'
+
 import { toDate } from 'date-fns'
 import { defu } from 'defu'
-
 import { useData } from 'vitepress'
 import { computed, inject } from 'vue'
+
 import { useI18n } from '../composables/i18n'
 import { defaultOptions, InjectionKey } from '../constants'
 import { defaultEnLocale, defaultLocales } from '../locales'

@@ -83,6 +83,6 @@
     "@rollup/plugin-yaml": "^4.1.2",
     "@types/uuid": "^10.0.0",
     "builtin-modules": "^5.0.0",
-    "unplugin-yaml": "^3.0.0"
+    "unplugin-yaml": "^3.0.1"
   }
 }

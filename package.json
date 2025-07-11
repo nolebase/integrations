@@ -74,7 +74,7 @@
     "vite-plugin-inspect": "^11.3.0",
     "vitest": "^3.2.4",
     "vue": "catalog:",
-    "vue-tsc": "^2.2.12"
+    "vue-tsc": "^3.0.1"
   },
   "workspaces": [
     "packages/*",

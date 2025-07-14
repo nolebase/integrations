@@ -47,13 +47,13 @@
     "colorette": "^2.0.20",
     "markdown-it": "^14.1.0",
     "markdown-it-footnote": "^4.0.0",
-    "motion": "^12.23.0",
+    "motion": "^12.23.3",
     "thumbhash": "^0.1.1",
     "typescript": "^5.8.3",
     "unlazy": "^0.12.4",
     "vite": "catalog:",
     "vite-plugin-vue-devtools": "^7.7.7",
-    "vitepress": "^2.0.0-alpha.7",
+    "vitepress": "^2.0.0-alpha.8",
     "vue": "catalog:"
   }
 }

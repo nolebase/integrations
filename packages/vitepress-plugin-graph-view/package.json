@@ -60,19 +60,19 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
+    "vitepress": "catalog:vitepress-all"
   },
   "dependencies": {
-    "colorette": "^2.0.20",
-    "d3": "^7.9.0",
-    "d3-force": "^3.0.0",
-    "less": "^4.3.0",
-    "ora": "^8.2.0"
+    "colorette": "catalog:",
+    "d3": "catalog:",
+    "d3-force": "catalog:",
+    "less": "catalog:",
+    "ora": "catalog:"
   },
   "devDependencies": {
-    "@types/d3": "^7.4.3",
-    "@types/d3-force": "^3.0.10",
-    "builtin-modules": "^5.0.0",
-    "fs-extra": "^11.3.0"
+    "@types/d3": "catalog:",
+    "@types/d3-force": "catalog:",
+    "builtin-modules": "catalog:",
+    "fs-extra": "catalog:"
   }
 }

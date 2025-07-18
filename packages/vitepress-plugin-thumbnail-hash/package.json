@@ -62,21 +62,21 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
+    "vitepress": "catalog:vitepress-all"
   },
   "dependencies": {
-    "@unlazy/vue": "^0.12.4",
-    "canvaskit-wasm": "^0.40.0",
-    "colorette": "^2.0.20",
-    "less": "^4.3.0",
-    "ora": "^8.2.0",
-    "thumbhash": "^0.1.1",
-    "tinyglobby": "^0.2.14",
-    "uncrypto": "^0.1.3",
-    "unlazy": "^0.12.4"
+    "@unlazy/vue": "catalog:",
+    "canvaskit-wasm": "catalog:",
+    "colorette": "catalog:",
+    "less": "catalog:",
+    "ora": "catalog:",
+    "thumbhash": "catalog:",
+    "tinyglobby": "catalog:",
+    "uncrypto": "catalog:",
+    "unlazy": "catalog:"
   },
   "devDependencies": {
-    "builtin-modules": "^5.0.0",
-    "fs-extra": "^11.3.0"
+    "builtin-modules": "catalog:",
+    "fs-extra": "catalog:"
   }
 }

@@ -48,14 +48,14 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
+    "vitepress": "catalog:vitepress-all"
   },
   "dependencies": {
-    "fs-extra": "^11.3.0",
-    "gray-matter": "^4.0.3",
-    "tinyglobby": "^0.2.14"
+    "fs-extra": "catalog:",
+    "gray-matter": "catalog:",
+    "tinyglobby": "catalog:"
   },
   "devDependencies": {
-    "@types/fs-extra": "^11.0.4"
+    "@types/fs-extra": "catalog:"
   }
 }

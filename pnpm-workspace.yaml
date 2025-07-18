@@ -4,5 +4,100 @@ packages:
   - docs
 
 catalog:
-  vite: ^7.0.4
-  vue: 3.5.17
+  '@antfu/eslint-config': ^4.17.0
+  '@antfu/ni': ^25.0.0
+  '@cspell/dict-ru_ru': ^2.3.1
+  '@iconify-json/carbon': ^1.2.10
+  '@iconify-json/fluent-emoji': ^1.2.3
+  '@iconify-json/icon-park-outline': ^1.2.2
+  '@iconify-json/octicon': ^1.2.7
+  '@iconify-json/svg-spinners': ^1.2.2
+  '@nolebase/cspell-dict': ^1.3.1
+  '@resvg/resvg-wasm': ^2.6.2
+  '@rive-app/canvas': ^2.30.1
+  '@rollup/plugin-yaml': ^4.1.2
+  '@shikijs/vitepress-twoslash': ^3.7.0
+  '@types/d3': ^7.4.3
+  '@types/d3-force': ^3.0.10
+  '@types/debug': ^4.1.12
+  '@types/fs-extra': ^11.0.4
+  '@types/hast': ^3.0.4
+  '@types/markdown-it': ^14.1.2
+  '@types/markdown-it-attrs': ^4.1.3
+  '@types/markdown-it-footnote': ^3.0.4
+  '@types/node': ^24.0.14
+  '@types/uuid': ^10.0.0
+  '@unlazy/vue': ^0.12.4
+  '@unocss/cli': ^66.3.3
+  '@unocss/eslint-config': ^66.3.3
+  '@unocss/eslint-plugin': ^66.3.3
+  '@vitejs/plugin-vue': ^6.0.0
+  '@vitest/coverage-v8': ^3.2.4
+  '@vitest/ui': ^3.2.4
+  '@vueuse/core': ^13.5.0
+  '@vueuse/motion': ^3.0.3
+  asciinema-player: ^3.10.0
+  builtin-modules: ^5.0.0
+  bumpp: ^10.2.0
+  canvaskit-wasm: ^0.40.0
+  changelogithub: ^13.16.0
+  colorette: ^2.0.20
+  concurrently: ^9.2.0
+  d3: ^7.9.0
+  d3-force: ^3.0.0
+  date-fns: ^4.1.0
+  debug: ^4.4.1
+  defu: ^6.1.4
+  emoji-regex: ^10.4.0
+  es-toolkit: ^1.39.7
+  eslint: ^9.31.0
+  execa: ^9.6.0
+  fs-extra: ^11.3.0
+  globby: ^14.1.0
+  gray-matter: ^4.0.3
+  hast-util-select: ^6.0.4
+  hast-util-to-text: ^4.0.2
+  less: ^4.4.0
+  lint-staged: ^16.1.2
+  markdown-it: ^14.1.0
+  markdown-it-attrs: ^4.3.1
+  markdown-it-footnote: ^4.0.0
+  motion: ^12.23.3
+  ora: ^8.2.0
+  rehype: ^13.0.2
+  rehype-meta: ^4.0.1
+  rehype-parse: ^9.0.1
+  rehype-stringify: ^10.0.1
+  retext-stringify: ^4.0.0
+  rimraf: ^6.0.1
+  simple-git-hooks: ^2.13.0
+  taze: ^19.1.0
+  thumbhash: ^0.1.1
+  tinyglobby: ^0.2.14
+  typescript: ^5.8.3
+  unbuild: ^3.5.0
+  uncrypto: ^0.1.3
+  unified: ^11.0.5
+  unist-util-remove: ^4.0.0
+  unist-util-remove-position: ^5.0.0
+  unist-util-visit: ^5.0.0
+  unlazy: ^0.12.4
+  unocss: ^66.3.3
+  unplugin-vue-macros: ^2.14.5
+  unplugin-yaml: ^3.0.1
+  uuid: ^11.1.0
+  vite: ^7.0.5
+  vite-plugin-inspect: ^11.3.0
+  vite-plugin-vue-devtools: ^7.7.7
+  vitepress: 2.0.0-alpha.8
+  vitest: ^3.2.4
+  vue: ^3.5.17
+  vue-tsc: ^3.0.2
+
+catalogs:
+  vitepress-all:
+    vitepress: "^1.5.0 || ^2.0.0-alpha.1"
+
+catalogMode: strict
+
+neverBuiltDependencies: []

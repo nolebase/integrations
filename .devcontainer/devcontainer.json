@@ -3,11 +3,16 @@
 {
   "name": "nolebase-integrations",
   // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:2-22-bookworm",
+  // https://github.com/devcontainers/images/tree/main/src/base-ubuntu
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    "ghcr.io/devcontainers-contrib/features/pnpm:2": {}
+    // https://github.com/devcontainers/features/blob/main/src/node/README.md
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts",
+      "pnpmVersion": "latest"
+    }
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

@@ -55,20 +55,20 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "^1.5.0 || ^2.0.0-alpha.1"
+    "vitepress": "catalog:vitepress-all"
   },
   "dependencies": {
-    "defu": "^6.1.4",
-    "hast-util-select": "^6.0.4",
-    "hast-util-to-text": "^4.0.2",
-    "rehype": "^13.0.2",
-    "rehype-parse": "^9.0.1",
-    "retext-stringify": "^4.0.0",
-    "unified": "^11.0.5",
-    "unist-util-remove": "^4.0.0",
-    "unist-util-remove-position": "^5.0.0"
+    "defu": "catalog:",
+    "hast-util-select": "catalog:",
+    "hast-util-to-text": "catalog:",
+    "rehype": "catalog:",
+    "rehype-parse": "catalog:",
+    "retext-stringify": "catalog:",
+    "unified": "catalog:",
+    "unist-util-remove": "catalog:",
+    "unist-util-remove-position": "catalog:"
   },
   "devDependencies": {
-    "@types/hast": "^3.0.4"
+    "@types/hast": "catalog:"
   }
 }

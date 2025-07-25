@@ -1,7 +1,7 @@
 {
   "name": "@nolebase/vitepress-plugin-enhanced-readabilities",
   "type": "module",
-  "version": "2.18.0",
+  "version": "2.18.1",
   "description": "A VitePress plugin enhances the readabilities for VitePress built sites.",
   "author": {
     "name": "Nólëbase",

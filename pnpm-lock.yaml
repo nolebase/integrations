@@ -277,6 +277,10 @@ catalogs:
     vitepress:
       specifier: ^1.5.0 || ^2.0.0-alpha.1
       version: 2.0.0-alpha.8
+  vue-3:
+    vue:
+      specifier: '>= 3'
+      version: 3.5.17
 
 importers:
 
@@ -610,7 +614,7 @@ importers:
         specifier: catalog:vitepress-all
         version: 2.0.0-alpha.8(@algolia/client-search@5.34.0)(@types/node@24.0.14)(jiti@2.4.2)(less@4.4.0)(postcss@8.5.6)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0)
       vue:
-        specifier: 'catalog:'
+        specifier: catalog:vue-3
         version: 3.5.17(typescript@5.8.3)
 
   packages/ui-asciinema:
@@ -625,7 +629,7 @@ importers:
         specifier: catalog:vitepress-all
         version: 2.0.0-alpha.8(@algolia/client-search@5.34.0)(@types/node@24.0.14)(jiti@2.4.2)(less@4.4.0)(postcss@8.5.6)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0)
       vue:
-        specifier: 'catalog:'
+        specifier: catalog:vue-3
         version: 3.5.17(typescript@5.8.3)
 
   packages/ui-rive-canvas:
@@ -640,7 +644,7 @@ importers:
         specifier: catalog:vitepress-all
         version: 2.0.0-alpha.8(@algolia/client-search@5.34.0)(@types/node@24.0.14)(jiti@2.4.2)(less@4.4.0)(postcss@8.5.6)(search-insights@2.13.0)(tsx@4.19.2)(typescript@5.8.3)(yaml@2.8.0)
       vue:
-        specifier: 'catalog:'
+        specifier: catalog:vue-3
         version: 3.5.17(typescript@5.8.3)
 
   packages/unconfig-vitepress:

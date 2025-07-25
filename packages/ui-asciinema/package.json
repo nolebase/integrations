@@ -72,10 +72,10 @@
   },
   "peerDependencies": {
     "asciinema-player": "^3.10.0",
-    "vitepress": "catalog:vitepress-all"
+    "vitepress": "catalog:vitepress-all",
+    "vue": "catalog:vue-3"
   },
   "dependencies": {
-    "less": "catalog:",
-    "vue": "catalog:"
+    "less": "catalog:"
   }
 }

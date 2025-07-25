@@ -69,11 +69,11 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "vitepress": "catalog:vitepress-all"
+    "vitepress": "catalog:vitepress-all",
+    "vue": "catalog:vue-3"
   },
   "dependencies": {
     "@iconify-json/octicon": "catalog:",
-    "less": "catalog:",
-    "vue": "catalog:"
+    "less": "catalog:"
   }
 }

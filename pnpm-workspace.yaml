@@ -4,7 +4,7 @@ packages:
   - docs
 
 catalog:
-  '@antfu/eslint-config': ^4.19.0
+  '@antfu/eslint-config': ^5.0.0
   '@antfu/ni': ^25.0.0
   '@cspell/dict-ru_ru': ^2.3.2
   '@iconify-json/carbon': ^1.2.11

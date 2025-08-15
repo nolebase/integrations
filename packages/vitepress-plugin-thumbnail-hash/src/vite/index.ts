@@ -1,3 +1,4 @@
+import type { EmulatedCanvas2DContext } from 'canvaskit-wasm'
 import type { Plugin } from 'vite'
 import type { SiteConfig } from 'vitepress'
 
@@ -14,7 +15,7 @@ import { rgbaToThumbHash, thumbHashToDataURL } from 'thumbhash'
 import { glob } from 'tinyglobby'
 import { normalizePath } from 'vite'
 
-import { binaryToBase64, hash, normalizeBase64 } from './utils'
+import { binaryToBase64, hash, normalizeBase64, toArrayBuffer } from './utils'
 
 interface VitePressConfig {
   vitepress: SiteConfig
@@ -49,7 +50,7 @@ async function calculateThumbHashForFile(imageData: Uint8Array): Promise<ThumbHa
 
   // Paint the image to the canvas.
   const canvas = canvasKit.MakeCanvas(resizedWidth, resizedHeight)
-  const context = canvas.getContext('2d')!
+  const context = canvas.getContext('2d')! as EmulatedCanvas2DContext
   context.drawImage(image as unknown as CanvasImageSource, 0, 0, resizedWidth, resizedHeight)
   // Retrieve back the image data for thumbhash calculation as the
   // form of RGBA matrix.
@@ -200,7 +201,7 @@ export function ThumbnailHashImages(): Plugin {
 
         // The hash implementation is mirrored and simulated from the rollup.
         // But it's never guaranteed to be the same as the rollup's hash.
-        const imageFullHash = await hash(readImageRawData, -1)
+        const imageFullHash = await hash(toArrayBuffer(readImageRawData), -1)
         const imageFileHash = normalizeBase64(imageFullHash.substring(0, 10))
 
         // Calculate the thumbhash data for the image as thumbhash demonstrates.

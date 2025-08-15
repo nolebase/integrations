@@ -1,6 +1,18 @@
-// thumbhash/examples/browser/index.html at main · evanw/thumbhash
+import type { Buffer } from 'node:buffer'
 
 import { subtle } from 'uncrypto'
+
+/**
+ * @see https://stackoverflow.com/a/12101012
+ */
+export function toArrayBuffer(buffer: Buffer) {
+  const arrayBuffer = new ArrayBuffer(buffer.length)
+  const view = new Uint8Array(arrayBuffer)
+  for (let i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i]
+  }
+  return arrayBuffer
+}
 
 // https://github.com/evanw/thumbhash/blob/main/examples/browser/index.html
 export function binaryToBase64(binary: Uint8Array) {
@@ -11,10 +23,10 @@ export function binaryToBase64(binary: Uint8Array) {
  * Hashes the given data using SHA-256 algorithm.
  *
  * Official example by MDN: https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/digest
- * @param {Uint8Array} data - The data to be hashed
+ * @param {BufferSource} data - The data to be hashed
  * @returns {Promise<string>} - The SHA-256 hash of the message
  */
-async function digestUint8ArrayDataSha256(data: Uint8Array) {
+async function digestUint8ArrayDataSha256(data: BufferSource) {
   const hashBuffer = await subtle.digest('SHA-256', data) // hash the message
   return Array.from(new Uint8Array(hashBuffer)) // convert buffer to byte array
 }
@@ -30,11 +42,11 @@ async function digestUint8ArrayDataSha256(data: Uint8Array) {
  * https://github.com/rollup/rollup/blob/1b85663fde96d84fceaa2360dba246d3cb92789b/src/utils/FileEmitter.ts#L259
  * https://github.com/rollup/rollup/blob/1b85663fde96d84fceaa2360dba246d3cb92789b/src/utils/crypto.ts#L12
  *
- * @param {Uint8Array} data - The data to be hashed
+ * @param {BufferSource} data - The data to be hashed
  * @param {number} length - The length of the hash
  * @returns {Promise<string>} - The first 10 characters of the SHA-256 hash of the message
  */
-export async function hash(data: Uint8Array, length = 10) {
+export async function hash(data: BufferSource, length = 10) {
   const hashResult = await digestUint8ArrayDataSha256(data)
   const hashBase64 = binaryToBase64(new Uint8Array(hashResult)) // convert bytes to base64 encoded string
   if (length > 0)

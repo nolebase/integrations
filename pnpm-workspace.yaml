@@ -85,7 +85,7 @@ catalog:
   unocss: ^66.5.1
   unplugin-vue-macros: ^2.14.5
   unplugin-yaml: ^3.0.6
-  uuid: ^11.1.0
+  uuid: ^13.0.0
   vite: ^7.1.3
   vite-plugin-inspect: ^11.3.3
   vite-plugin-vue-devtools: ^8.0.2

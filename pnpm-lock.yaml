@@ -154,8 +154,8 @@ catalogs:
       specifier: ^11.3.2
       version: 11.3.2
     globby:
-      specifier: ^14.1.0
-      version: 14.1.0
+      specifier: ^15.0.0
+      version: 15.0.0
     gray-matter:
       specifier: ^4.0.3
       version: 4.0.3
@@ -746,7 +746,7 @@ importers:
         version: 9.6.0
       globby:
         specifier: 'catalog:'
-        version: 14.1.0
+        version: 15.0.0
       gray-matter:
         specifier: 'catalog:'
         version: 4.0.3
@@ -3986,6 +3986,10 @@ packages:
     resolution: {integrity: sha512-0Ia46fDOaT7k4og1PDW4YbodWWr3scS2vAr2lTbsplOt2WkKp0vQbkI9wKis/T5LV/dqPjO3bpS/z6GTJB82LA==}
     engines: {node: '>=18'}
 
+  globby@15.0.0:
+    resolution: {integrity: sha512-oB4vkQGqlMl682wL1IlWd02tXCbquGWM4voPEI85QmNKCaw8zGTm1f1rubFgkg3Eli2PtKlFgrnmUqasbQWlkw==}
+    engines: {node: '>=20'}
+
   globrex@0.1.2:
     resolution: {integrity: sha512-uHJgbwAMwNFf5mLst7IWLNg14x1CkeqglJb/K3doi4dw6q2IvAAmM/Y81kevy83wP+Sst+nutFTYOGg3d1lsxg==}
 
@@ -7010,7 +7014,8 @@ snapshots:
 
   '@shikijs/vscode-textmate@10.0.2': {}
 
-  '@sindresorhus/merge-streams@2.3.0': {}
+  '@sindresorhus/merge-streams@2.3.0':
+    optional: true
 
   '@sindresorhus/merge-streams@4.0.0': {}
 
@@ -9365,6 +9370,16 @@ snapshots:
   globby@14.1.0:
     dependencies:
       '@sindresorhus/merge-streams': 2.3.0
+      fast-glob: 3.3.3
+      ignore: 7.0.5
+      path-type: 6.0.0
+      slash: 5.1.0
+      unicorn-magic: 0.3.0
+    optional: true
+
+  globby@15.0.0:
+    dependencies:
+      '@sindresorhus/merge-streams': 4.0.0
       fast-glob: 3.3.3
       ignore: 7.0.5
       path-type: 6.0.0

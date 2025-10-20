@@ -81,7 +81,7 @@ catalog:
   unist-util-remove: ^4.0.0
   unist-util-remove-position: ^5.0.0
   unist-util-visit: ^5.0.0
-  unlazy: ^0.12.4
+  unlazy: ^1.0.0
   unocss: ^66.5.3
   unplugin-vue-macros: ^2.14.5
   unplugin-yaml: ^3.0.6

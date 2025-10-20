@@ -5,7 +5,7 @@ packages:
 
 catalog:
   '@antfu/eslint-config': ^5.4.1
-  '@antfu/ni': ^26.1.0
+  '@antfu/ni': ^27.0.0
   '@cspell/dict-ru_ru': ^2.3.2
   '@iconify-json/carbon': ^1.2.14
   '@iconify-json/fluent-emoji': ^1.2.6

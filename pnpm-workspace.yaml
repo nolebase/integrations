@@ -27,7 +27,7 @@ catalog:
   '@types/markdown-it-footnote': ^3.0.4
   '@types/node': ^24.7.2
   '@types/uuid': ^11.0.0
-  '@unlazy/vue': ^0.12.4
+  '@unlazy/vue': ^1.0.0
   '@unocss/cli': ^66.5.3
   '@unocss/eslint-config': ^66.5.3
   '@unocss/eslint-plugin': ^66.5.3

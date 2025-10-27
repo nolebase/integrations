@@ -25,7 +25,7 @@ jobs:
           echo "${{ github.event.number }}" > pr_num
 
       - name: Upload PR artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: pr-num
           path: ./pr_num
@@ -67,7 +67,7 @@ jobs:
           VUE_PROD_HYDRATION_MISMATCH_DETAILS_FLAG: '1'
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: docs-${{ matrix.os }}-build
           path: docs/.vitepress/dist

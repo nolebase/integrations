@@ -50,13 +50,24 @@ function computeBoxStyles(bounding: {
   }
 }
 
-function findChildElementUnderVPDocElement(element: HTMLElement | null) {
-  if (element === null)
-    return null
+function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLElement | null {
+  const rootContainer = document.querySelector<HTMLElement>('.VPDoc main .vp-doc > div')
+  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI']
 
-  if (element.parentElement === document.querySelector('.VPDoc main .vp-doc > div'))
-    return element
-  else return findChildElementUnderVPDocElement(element.parentElement)
+  function findValidAncestor(currentElement: HTMLElement | null): HTMLElement | null {
+    if (!currentElement || !rootContainer || currentElement === rootContainer) return null
+
+    const parent = currentElement.parentElement
+
+    if (!parent) return null
+    if (parent === rootContainer) return currentElement
+    if (!allowedContainerTags.includes(parent.tagName)) return findValidAncestor(parent)
+    if (parent.tagName === 'LI' && currentElement === parent.firstElementChild) return findValidAncestor(parent)
+
+    return findValidAncestor(parent) ? currentElement : null
+  }
+
+  return findValidAncestor(element)
 }
 
 function watchHandler() {

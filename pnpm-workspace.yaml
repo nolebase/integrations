@@ -40,7 +40,7 @@ catalog:
   builtin-modules: ^5.0.0
   bumpp: ^10.3.2
   canvaskit-wasm: ^0.40.0
-  changelogithub: ^13.16.1
+  changelogithub: ^14.0.0
   colorette: ^2.0.20
   concurrently: ^9.2.1
   d3: ^7.9.0

@@ -55,14 +55,19 @@ function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLEle
   const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI']
 
   function findValidAncestor(currentElement: HTMLElement | null): HTMLElement | null {
-    if (!currentElement || !rootContainer || currentElement === rootContainer) return null
+    if (!currentElement || !rootContainer || currentElement === rootContainer)
+      return null
 
     const parent = currentElement.parentElement
 
-    if (!parent) return null
-    if (parent === rootContainer) return currentElement
-    if (!allowedContainerTags.includes(parent.tagName)) return findValidAncestor(parent)
-    if (parent.tagName === 'LI' && currentElement === parent.firstElementChild) return findValidAncestor(parent)
+    if (!parent)
+      return null
+    if (parent === rootContainer)
+      return currentElement
+    if (!allowedContainerTags.includes(parent.tagName))
+      return findValidAncestor(parent)
+    if (parent.tagName === 'LI' && currentElement === parent.firstElementChild)
+      return findValidAncestor(parent)
 
     return findValidAncestor(parent) ? currentElement : null
   }

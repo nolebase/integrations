@@ -94,13 +94,12 @@ function watchHandler() {
     for (let i = 0; i < lines; i++) {
       const top = i * lineHeight
       const height = lineHeight
-      const left = val.offsetLeft
       const width = val.offsetWidth
 
       if (relativeY >= top && relativeY < top + height) {
         boxStyles.value = computeBoxStyles({
           top: top + rect.top,
-          left: left + rect.left,
+          left: rect.left,
           width,
           height,
         })

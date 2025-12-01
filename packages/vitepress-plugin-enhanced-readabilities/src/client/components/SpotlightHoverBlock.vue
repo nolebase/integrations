@@ -52,7 +52,7 @@ function computeBoxStyles(bounding: {
 
 function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLElement | null {
   const rootContainer = document.querySelector<HTMLElement>('.VPDoc main .vp-doc > div')
-  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI']
+  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI', 'TABLE', 'THEAD', 'TBODY']
 
   function findValidAncestor(currentElement: HTMLElement | null): HTMLElement | null {
     if (!currentElement || !rootContainer || currentElement === rootContainer)
@@ -66,7 +66,7 @@ function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLEle
       return currentElement
     if (!allowedContainerTags.includes(parent.tagName))
       return findValidAncestor(parent)
-    if (parent.tagName === 'LI' && currentElement === parent.firstElementChild)
+    if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
       return findValidAncestor(parent)
 
     return findValidAncestor(parent) ? currentElement : null

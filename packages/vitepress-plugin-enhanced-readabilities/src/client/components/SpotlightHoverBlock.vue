@@ -51,28 +51,34 @@ function computeBoxStyles(bounding: {
 }
 
 function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLElement | null {
+  if (!element)
+    return null
+
   const rootContainer = document.querySelector<HTMLElement>('.VPDoc main .vp-doc > div')
-  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI', 'TABLE', 'THEAD', 'TBODY']
+  if (!rootContainer)
+    return null
 
-  function findValidAncestor(currentElement: HTMLElement | null): HTMLElement | null {
-    if (!currentElement || !rootContainer || currentElement === rootContainer)
-      return null
+  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'LI', 'TABLE', 'THEAD', 'TBODY']
 
-    const parent = currentElement.parentElement
+  function isAncestorValid(current: HTMLElement | null): boolean {
+    if (!current || current === rootContainer)
+      return false
+
+    const parent = current.parentElement
 
     if (!parent)
-      return null
+      return false
     if (parent === rootContainer)
-      return currentElement
+      return true
     if (!allowedContainerTags.includes(parent.tagName))
-      return findValidAncestor(parent)
+      return false
     if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
-      return findValidAncestor(parent)
+      return false
 
-    return findValidAncestor(parent) ? currentElement : null
+    return isAncestorValid(parent)
   }
 
-  return findValidAncestor(element)
+  return isAncestorValid(element) ? element : findChildElementUnderVPDocElement(element.parentElement)
 }
 
 function watchHandler() {

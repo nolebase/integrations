@@ -51,23 +51,34 @@ function computeBoxStyles(bounding: {
 }
 
 function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLElement | null {
+  if (!element)
+    return null
+
   const rootContainer = document.querySelector<HTMLElement>('.VPDoc main .vp-doc > div')
-  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'UL', 'OL', 'LI']
+  if (!rootContainer)
+    return null
 
-  function findValidAncestor(currentElement: HTMLElement | null): HTMLElement | null {
-    if (!currentElement || !rootContainer || currentElement === rootContainer) return null
+  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'TABLE', 'THEAD', 'TBODY']
 
-    const parent = currentElement.parentElement
+  function isAncestorValid(current: HTMLElement | null): boolean {
+    if (!current || current === rootContainer)
+      return false
 
-    if (!parent) return null
-    if (parent === rootContainer) return currentElement
-    if (!allowedContainerTags.includes(parent.tagName)) return findValidAncestor(parent)
-    if (parent.tagName === 'LI' && currentElement === parent.firstElementChild) return findValidAncestor(parent)
+    const parent = current.parentElement
 
-    return findValidAncestor(parent) ? currentElement : null
+    if (!parent)
+      return false
+    if (parent === rootContainer)
+      return true
+    if (!allowedContainerTags.includes(parent.tagName))
+      return false
+    if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
+      return false
+
+    return isAncestorValid(parent)
   }
 
-  return findValidAncestor(element)
+  return isAncestorValid(element) ? element : findChildElementUnderVPDocElement(element.parentElement)
 }
 
 function watchHandler() {
@@ -89,13 +100,12 @@ function watchHandler() {
     for (let i = 0; i < lines; i++) {
       const top = i * lineHeight
       const height = lineHeight
-      const left = val.offsetLeft
       const width = val.offsetWidth
 
       if (relativeY >= top && relativeY < top + height) {
         boxStyles.value = computeBoxStyles({
           top: top + rect.top,
-          left: left + rect.left,
+          left: rect.left,
           width,
           height,
         })

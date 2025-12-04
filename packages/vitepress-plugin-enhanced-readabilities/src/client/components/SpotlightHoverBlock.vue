@@ -58,7 +58,7 @@ function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLEle
   if (!rootContainer)
     return null
 
-  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'LI', 'TABLE', 'THEAD', 'TBODY']
+  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'TABLE', 'THEAD', 'TBODY']
 
   function isAncestorValid(current: HTMLElement | null): boolean {
     if (!current || current === rootContainer)

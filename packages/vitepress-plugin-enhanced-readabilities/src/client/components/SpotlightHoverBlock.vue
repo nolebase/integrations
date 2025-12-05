@@ -86,7 +86,7 @@ function findElementToBeHighlighted(element: HTMLElement | null): HTMLElement | 
    * - Must be inside the main content root
    * - Direct parent must be one of the allowed container tags
    * - DIVs containing a direct <pre> child (code blocks) are excluded
-   * - When the parent is <li>, the current node must itself be a container tag
+   * - When the parent is <li>, the current node must itself be a container tag or <p>
    *
    * @param current The element currently being evaluated
    * @returns true if a valid container ancestor exists (following the rules)
@@ -112,9 +112,9 @@ function findElementToBeHighlighted(element: HTMLElement | null): HTMLElement | 
     if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
       return false
 
-    // When parent is <li>, the current child must itself be a container tag
+    // When parent is <li>, the current child must itself be a container tag or <p>
     // Avoids highlighting only an inline element (e.g., <strong>) inside a list item
-    if (parent.tagName === 'LI' && !validContainersForHighlightingTarget.includes(current.tagName))
+    if (parent.tagName === 'LI' && current.tagName !== 'P' && !validContainersForHighlightingTarget.includes(current.tagName))
       return false
 
     return isAncestorValid(parent)

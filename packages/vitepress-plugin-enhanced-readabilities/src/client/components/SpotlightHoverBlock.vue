@@ -50,7 +50,27 @@ function computeBoxStyles(bounding: {
   }
 }
 
-function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLElement | null {
+// Valid ancestor container for highlighting element
+const validContainersForHighlightingTarget = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'LI', 'TABLE', 'THEAD', 'TBODY']
+
+/**
+ * Finds the most appropriate HTMLElement to highlight when the mouse hovers
+ * for the "Spotlight Hover" effect in a VitePress documentation page.
+ *
+ * Background:
+ * In VitePress, the main content is wrapped inside `.VPDoc main .vp-doc > div`.
+ * We want to highlight semantic block-level containers (paragraphs, lists,
+ * blockquotes, tables, etc.), but avoid inline elements, code blocks (<pre>),
+ * or overly fragmented child nodes.
+ *
+ * This function traverses upward from the given element and returns the
+ * deepest ancestor that is considered a valid block container for highlighting.
+ * Returns null if no suitable element is found within the content root.
+ *
+ * @param element The HTMLElement currently under the mouse pointer
+ * @returns The HTMLElement best suited for spotlight highlighting, or null
+ */
+function findElementToBeHighlighted(element: HTMLElement | null): HTMLElement | null {
   if (!element)
     return null
 
@@ -58,34 +78,56 @@ function findChildElementUnderVPDocElement(element: HTMLElement | null): HTMLEle
   if (!rootContainer)
     return null
 
-  const allowedContainerTags = ['DIV', 'BLOCKQUOTE', 'DETAILS', 'FIGURE', 'UL', 'OL', 'TABLE', 'THEAD', 'TBODY']
-
+  /**
+   * Recursively checks whether the current element has a valid ancestor container
+   * that meets our highlighting rules.
+   *
+   * Rules summary:
+   * - Must be inside the main content root
+   * - Direct parent must be one of the allowed container tags
+   * - DIVs containing a direct <pre> child (code blocks) are excluded
+   * - When the parent is <li>, the current node must itself be a container tag
+   *
+   * @param current The element currently being evaluated
+   * @returns true if a valid container ancestor exists (following the rules)
+   */
   function isAncestorValid(current: HTMLElement | null): boolean {
     if (!current || current === rootContainer)
       return false
 
     const parent = current.parentElement
-
     if (!parent)
       return false
+
+    // Parent is the main content root → current node is a direct child → valid
     if (parent === rootContainer)
       return true
-    if (!allowedContainerTags.includes(parent.tagName))
+
+    // Parent tag is not in the allowed container list → invalid
+    if (!validContainersForHighlightingTarget.includes(parent.tagName))
       return false
+
+    // Parent is a DIV that directly contains a <pre> (code block) → exclude
+    // Prevents highlighting the entire container that wraps a code block
     if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
+      return false
+
+    // When parent is <li>, the current child must itself be a container tag
+    // Avoids highlighting only an inline element (e.g., <strong>) inside a list item
+    if (parent.tagName === 'LI' && !validContainersForHighlightingTarget.includes(current.tagName))
       return false
 
     return isAncestorValid(parent)
   }
 
-  return isAncestorValid(element) ? element : findChildElementUnderVPDocElement(element.parentElement)
+  return isAncestorValid(element) ? element : findElementToBeHighlighted(element.parentElement)
 }
 
 function watchHandler() {
   if (!(element.value && !isOutside.value))
     return
 
-  const el = findChildElementUnderVPDocElement(element.value)
+  const el = findElementToBeHighlighted(element.value)
   highlightedElement.value = el || undefined
 
   if (highlightedElement.value && highlightedElement.value.tagName === 'P') {

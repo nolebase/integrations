@@ -117,6 +117,7 @@ watch(isTouchScreen, () => {
 .fade-shift-enter-active,
 .fade-shift-leave-active {
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, max-height 0.2s ease-in-out;
+  overflow: hidden;
 }
 
 .fade-shift-enter-from,
@@ -124,5 +125,6 @@ watch(isTouchScreen, () => {
   opacity: 0;
   transform: translateY(-8px);
   max-height: 0;
+  overflow: hidden;
 }
 </style>

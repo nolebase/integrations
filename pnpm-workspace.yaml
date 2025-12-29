@@ -4,7 +4,7 @@ packages:
   - docs
 
 catalog:
-  '@antfu/eslint-config': ^6.7.2
+  '@antfu/eslint-config': ^6.7.3
   '@antfu/ni': ^28.0.0
   '@cspell/dict-ru_ru': ^2.3.2
   '@iconify-json/carbon': ^1.2.15
@@ -28,9 +28,9 @@ catalog:
   '@types/node': ^24.10.4
   '@types/uuid': ^11.0.0
   '@unlazy/vue': ^1.0.0
-  '@unocss/cli': ^66.5.10
-  '@unocss/eslint-config': ^66.5.10
-  '@unocss/eslint-plugin': ^66.5.10
+  '@unocss/cli': ^66.5.11
+  '@unocss/eslint-config': ^66.5.11
+  '@unocss/eslint-plugin': ^66.5.11
   '@vitejs/plugin-vue': ^6.0.3
   '@vitest/coverage-v8': ^4.0.16
   '@vitest/ui': ^4.0.16
@@ -82,7 +82,7 @@ catalog:
   unist-util-remove-position: ^5.0.0
   unist-util-visit: ^5.0.0
   unlazy: ^1.0.0
-  unocss: ^66.5.10
+  unocss: ^66.5.11
   unplugin-vue-macros: ^2.14.5
   unplugin-yaml: ^3.0.7
   uuid: ^13.0.0
@@ -92,7 +92,7 @@ catalog:
   vitepress: 2.0.0-alpha.15
   vitest: ^4.0.16
   vue: ^3.5.26
-  vue-tsc: ^3.2.0
+  vue-tsc: ^3.2.1
 
 catalogs:
   vitepress-all:

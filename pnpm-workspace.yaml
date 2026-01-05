@@ -28,9 +28,9 @@ catalog:
   '@types/node': ^24.10.4
   '@types/uuid': ^11.0.0
   '@unlazy/vue': ^1.0.0
-  '@unocss/cli': ^66.5.11
-  '@unocss/eslint-config': ^66.5.11
-  '@unocss/eslint-plugin': ^66.5.11
+  '@unocss/cli': ^66.5.12
+  '@unocss/eslint-config': ^66.5.12
+  '@unocss/eslint-plugin': ^66.5.12
   '@vitejs/plugin-vue': ^6.0.3
   '@vitest/coverage-v8': ^4.0.16
   '@vitest/ui': ^4.0.16
@@ -82,7 +82,7 @@ catalog:
   unist-util-remove-position: ^5.0.0
   unist-util-visit: ^5.0.0
   unlazy: ^1.0.0
-  unocss: ^66.5.11
+  unocss: ^66.5.12
   unplugin-vue-macros: ^2.14.5
   unplugin-yaml: ^3.0.7
   uuid: ^13.0.0

@@ -107,9 +107,10 @@ function findElementToBeHighlighted(element: HTMLElement | null): HTMLElement | 
     if (!validContainersForHighlightingTarget.includes(parent.tagName))
       return false
 
-    // Parent is a DIV that directly contains a <pre> (code block) → exclude
+    // Parent is a DIV that directly contains a <pre> (code block)
+    // or is a known code-group wrapper (e.g. vp-code-group) → exclude
     // Prevents highlighting the entire container that wraps a code block
-    if (parent.tagName === 'DIV' && parent.querySelector(':scope > pre'))
+    if (parent.tagName === 'DIV' && (parent.classList.contains('vp-code-group') || parent.querySelector(':scope > pre')))
       return false
 
     // When parent is <li>, the current child must itself be a container tag or <p>

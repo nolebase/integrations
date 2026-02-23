@@ -24,7 +24,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Download artifact - PR
-        uses: dawidd6/action-download-artifact@v12
+        uses: dawidd6/action-download-artifact@v15
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
@@ -38,7 +38,7 @@ jobs:
           echo "PR_NUM=$(cat pr-num/pr_num)" >> $GITHUB_ENV
 
       - name: Download artifact - Ubuntu
-        uses: dawidd6/action-download-artifact@v12
+        uses: dawidd6/action-download-artifact@v15
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
@@ -47,7 +47,7 @@ jobs:
           allow_forks: true
 
       - name: Download artifact - Windows
-        uses: dawidd6/action-download-artifact@v12
+        uses: dawidd6/action-download-artifact@v15
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
@@ -138,7 +138,7 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     steps:
       - name: Download artifact - PR
-        uses: dawidd6/action-download-artifact@v12
+        uses: dawidd6/action-download-artifact@v15
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}

@@ -16,7 +16,7 @@ catalog:
   '@resvg/resvg-wasm': ^2.6.2
   '@rive-app/canvas': ^2.35.0
   '@rollup/plugin-yaml': ^4.1.2
-  '@shikijs/vitepress-twoslash': ^3.22.0
+  '@shikijs/vitepress-twoslash': ^4.0.1
   '@types/d3': ^7.4.3
   '@types/d3-force': ^3.0.10
   '@types/debug': ^4.1.12

@@ -10,8 +10,8 @@ catalogs:
       specifier: ^6.7.3
       version: 6.7.3
     '@antfu/ni':
-      specifier: ^28.2.0
-      version: 28.2.0
+      specifier: ^30.0.0
+      version: 30.0.0
     '@cspell/dict-ru_ru':
       specifier: ^2.3.2
       version: 2.3.2
@@ -291,7 +291,7 @@ importers:
         version: 6.7.3(@unocss/eslint-plugin@66.6.0(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3))(@vue/compiler-sfc@3.5.28)(eslint@9.39.3(jiti@2.6.1))(typescript@5.9.3)(vitest@4.0.18)
       '@antfu/ni':
         specifier: 'catalog:'
-        version: 28.2.0
+        version: 30.0.0
       '@cspell/dict-ru_ru':
         specifier: 'catalog:'
         version: 2.3.2
@@ -1129,9 +1129,9 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@antfu/ni@28.2.0':
-    resolution: {integrity: sha512-+pnatqUMTpi1g/VxbaTsX9UxibTp5oWCMbfUAQPV91UL9lTIMmlU2uvG8bDETDJ0kJdsZT8zLBctKLJOeL5jmg==}
-    engines: {node: '>=20'}
+  '@antfu/ni@30.0.0':
+    resolution: {integrity: sha512-DqBVB3XqXH4VsDpER7iLlEtayMC98iXrY7kwBzp1v6LGc/6U6+qnN3+X0bcPK63LMXJCRG2D/XDq7dvtKDGogg==}
+    engines: {node: '>=20.19.0'}
     hasBin: true
 
   '@babel/code-frame@7.27.1':
@@ -5735,6 +5735,10 @@ packages:
     resolution: {integrity: sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg==}
     engines: {node: '>=18'}
 
+  tinyexec@1.1.1:
+    resolution: {integrity: sha512-VKS/ZaQhhkKFMANmAOhhXVoIfBXblQxGX1myCQ2faQrfmobMftXeJPcZGp0gS07ocvGJWDLZGyOZDadDBqYIJg==}
+    engines: {node: '>=18'}
+
   tinyglobby@0.2.15:
     resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
     engines: {node: '>=12.0.0'}
@@ -6343,12 +6347,11 @@ snapshots:
       tinyexec: 1.0.2
       tinyglobby: 0.2.15
 
-  '@antfu/ni@28.2.0':
+  '@antfu/ni@30.0.0':
     dependencies:
-      ansis: 4.2.0
       fzf: 0.5.2
       package-manager-detector: 1.6.0
-      tinyexec: 1.0.2
+      tinyexec: 1.1.1
       tinyglobby: 0.2.15
 
   '@babel/code-frame@7.27.1':
@@ -11552,6 +11555,8 @@ snapshots:
   tinyexec@0.3.2: {}
 
   tinyexec@1.0.2: {}
+
+  tinyexec@1.1.1: {}
 
   tinyglobby@0.2.15:
     dependencies:

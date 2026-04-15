@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "computedHash": "91782f423f6fad0fe4e2159350f2eb8c3cf66cfa4d2387b2c8d927d443c9a603"
+    },
+    "antfu": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "6935586ef3ab02e18747a4477d396e692bc96e8f28b0d95b374ffc37fce74cda"
+    },
+    "pnpm": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "318f9fca2441a3e06fedc336e195dd18be5dbe901064e4fa71b76b40b096ab3a"
+    },
+    "tsdown": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "5d7a0732aa15849d7363d168c13eec9c4367c9e534397de3fc550d582ffea09b"
+    },
+    "turborepo": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "bb531fab09e44812e3dc41e77f08708fbb67984ed9421d3c6f54f741fe70c2a0"
+    },
+    "unocss": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "4b7a9f7b89994d5aef70b9d55cb7f65d6e80cea437d5786cd33bb5cf7231c7c4"
+    },
+    "vite": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "867ff66238f3152e9c494339ad08dc432dd0df5bcf5cc7a00b61a72b580eb908"
+    },
+    "vue": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "9c241141e07e836e4f0537c63e8f929fba3767c2997250be38e699f19b75e3f2"
+    },
+    "vue-best-practices": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "d7d22c8cb343583c3904692c4d1d7b50382945e433e4f6e053f4aabb9846cbc3"
+    },
+    "vueuse-functions": {
+      "source": "antfu/skills",
+      "sourceType": "github",
+      "computedHash": "fedfc78f035a88fe3e9d823f44725fe8981486c55b966c17fbd0d7c28339e49a"
+    }
+  }
+}

@@ -89,7 +89,7 @@ catalog:
   vite: ^8.0.8
   vite-plugin-inspect: ^11.3.3
   vite-plugin-vue-devtools: ^8.1.1
-  vitepress: 2.0.0-alpha.16
+  vitepress: 2.0.0-alpha.17
   vitest: ^4.1.4
   vue: ^3.5.32
   vue-tsc: ^3.2.6

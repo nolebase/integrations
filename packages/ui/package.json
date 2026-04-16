@@ -70,7 +70,7 @@
   },
   "peerDependencies": {
     "vitepress": "catalog:vitepress-all",
-    "vue": ">=3"
+    "vue": ">=3.5.32"
   },
   "dependencies": {
     "@iconify-json/octicon": "catalog:",

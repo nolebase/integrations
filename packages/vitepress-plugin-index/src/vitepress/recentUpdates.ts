@@ -153,8 +153,7 @@ export async function applyCategoryTextWithFallback(entryItem: FileEntry, frontm
   if (fallbackWithFrontmatter
     && 'category' in frontmatter
     && frontmatter.category
-    && typeof frontmatter.category === 'string'
-  ) {
+    && typeof frontmatter.category === 'string') {
     return (frontmatter as { category?: string }).category ?? ''
   }
 

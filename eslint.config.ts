@@ -36,7 +36,7 @@ export default antfu({
           'side-effect',
           'style',
         ],
-        newlinesBetween: 'always',
+        newlinesBetween: 1,
       },
     ],
   },

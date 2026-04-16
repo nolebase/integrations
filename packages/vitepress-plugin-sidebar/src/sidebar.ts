@@ -411,8 +411,8 @@ export function mergeSidebar(
 
   if (skipLevelsConfig) {
     for (const key in sidebarMultiple) {
-      if (Object.prototype.hasOwnProperty.call(sidebarMultiple, key)
-        && Object.prototype.hasOwnProperty.call(skipLevelsConfig, key)) {
+      if (Object.hasOwn(sidebarMultiple, key)
+        && Object.hasOwn(skipLevelsConfig, key)) {
         const levelsToSkip = skipLevelsConfig[key]
         if (levelsToSkip > 0) {
           sidebarMultiple[key] = skipSidebarLevels(sidebarMultiple[key], levelsToSkip)

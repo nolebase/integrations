@@ -73,7 +73,7 @@
   "peerDependencies": {
     "asciinema-player": "^3.15.0",
     "vitepress": "catalog:vitepress-all",
-    "vue": "catalog:vue-3"
+    "vue": ">=3"
   },
   "dependencies": {
     "less": "catalog:"

@@ -21,6 +21,7 @@ const options = defu(inject(InjectionKey, {}), defaultOptions)
 const { t } = useI18n()
 const { lang } = useData()
 const { commits, useHmr } = useChangelog()
+const currentLang = computed(() => lang.value)
 
 // The order of commits, defaults to true (descending order)
 const isDescending = ref(true)
@@ -90,12 +91,12 @@ onMounted(() => {
           <span v-if="commits[0]">
             {{ t('lastEdited', {
               props: {
-                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || lang || 'enUS'),
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || currentLang || 'enUS'),
               },
               omitEmpty: true,
             }) || t('changelog.lastEdited', {
               props: {
-                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || lang || 'enUS'),
+                daysAgo: formatDistanceToNowFromValue(lastChangeDate, locale.changelog?.lastEditedDateFnsLocaleName || currentLang || 'enUS'),
               },
             }) }}
           </span>

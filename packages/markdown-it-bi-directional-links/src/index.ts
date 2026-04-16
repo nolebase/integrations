@@ -318,7 +318,7 @@ export const BiDirectionalLinks: (options?: BiDirectionalLinksOptions) => Plugin
       // If user would like to see the warning, they can enable debug mode
       // by setting `DEBUG=@nolebase/markdown-it-bi-directional-links` in the environment variable
       // or by setting `import.meta.env.DEBUG = '@nolebase/markdown-it-bi-directional-links'` in the script.
-      if (!biDirectionalLinkPatternWithStart.exec(link.input)) {
+      if (!biDirectionalLinkPatternWithStart.test(link.input)) {
         logIncorrectMatchedMarkupWarning(link.input, src, state.env.path, debugOn)
         return false
       }

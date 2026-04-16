@@ -21,7 +21,7 @@ const components = {
   VPNolebaseInlineLinkPreview: InlineLinkPreview,
 }
 
-export const NolebaseInlineLinkPreviewPlugin: Plugin<Options[]> = {
+export const NolebaseInlineLinkPreviewPlugin: Plugin<Options[], Options[]> = {
   install(app, options?) {
     if (typeof options !== 'undefined' && typeof options === 'object')
       app.provide(InjectionKey, options)

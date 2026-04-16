@@ -6,6 +6,7 @@
       "DOM",
       "ESNext"
     ],
+    "rootDir": ".",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "paths": {
@@ -20,6 +21,15 @@
       ],
       "@nolebase/ui-rive-canvas": [
         "./packages/ui-rive-canvas/src/index.ts"
+      ],
+      "@nolebase/markdown-it-bi-directional-links": [
+        "./packages/markdown-it-bi-directional-links/src/index.ts"
+      ],
+      "@nolebase/markdown-it-element-transform": [
+        "./packages/markdown-it-element-transform/src/index.ts"
+      ],
+      "@nolebase/markdown-it-unlazy-img": [
+        "./packages/markdown-it-unlazy-img/src/index.ts"
       ],
       "@nolebase/unconfig-vitepress/*": [
         "./packages/unconfig-vitepress/src/*"
@@ -45,6 +55,9 @@
       "@nolebase/vitepress-plugin-git-changelog/*": [
         "./packages/vitepress-plugin-git-changelog/src/*"
       ],
+      "@nolebase/vitepress-plugin-git-changelog/types/*": [
+        "./packages/vitepress-plugin-git-changelog/src/types/*"
+      ],
       "@nolebase/vitepress-plugin-graph-view/*": [
         "./packages/vitepress-plugin-graph-view/src/*"
       ],
@@ -53,6 +66,9 @@
       ],
       "@nolebase/vitepress-plugin-page-properties/*": [
         "./packages/vitepress-plugin-page-properties/src/*"
+      ],
+      "@nolebase/vitepress-plugin-page-properties/client/*": [
+        "./packages/vitepress-plugin-page-properties/src/client/*"
       ],
       "@nolebase/vitepress-plugin-sidebar/*": [
         "./packages/vitepress-plugin-sidebar/src/*"

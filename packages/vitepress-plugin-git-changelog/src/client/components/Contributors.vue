@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defu } from 'defu'
 import { useData } from 'vitepress'
-import { inject, onMounted } from 'vue'
+import { computed, inject, onMounted } from 'vue'
 
 import { useChangelog } from '../composables/changelog'
 import { useI18n } from '../composables/i18n'
@@ -13,6 +13,7 @@ const { t } = useI18n()
 const { authors, useHmr } = useChangelog()
 
 const { lang } = useData()
+const currentLang = computed(() => lang.value)
 
 onMounted(() => {
   useHmr()
@@ -49,14 +50,14 @@ onMounted(() => {
           class="no-icon flex items-center gap-2"
         >
           <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
-          {{ c.i18n ? c.i18n[lang] ?? c.name : c.name }}
+          {{ c.i18n ? c.i18n[currentLang] ?? c.name : c.name }}
         </a>
         <div
           v-else
           class="flex items-center gap-2"
         >
           <img :src="c.avatarUrl" :alt="`The avatar of contributor named as ${c.name}`" class="h-8 w-8 rounded-full">
-          {{ c.i18n ? c.i18n[lang] ?? c.name : c.name }}
+          {{ c.i18n ? c.i18n[currentLang] ?? c.name : c.name }}
         </div>
       </template>
     </template>

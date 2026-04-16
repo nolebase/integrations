@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
-  projects: [
-    'packages/*',
-  ],
+  test: {
+    projects: [
+      'packages/vitepress-plugin-git-changelog',
+    ],
+  },
 })

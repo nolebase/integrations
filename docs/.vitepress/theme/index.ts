@@ -1,5 +1,3 @@
-import type { Plugin } from 'vue'
-
 import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
 
 import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
@@ -41,12 +39,14 @@ export default defineThemeUnconfig({
     },
   },
   enhanceApp: ({ app }) => {
+    const usePlugin = app.use as unknown as (plugin: unknown, ...options: unknown[]) => void
+
     app.component('IntegrationCard', IntegrationCard)
     app.component('HomeContent', HomeContent)
     app.component('ThumbhashPreview', ThumbhashPreview)
 
-    app.use(TwoslashFloatingVue as Plugin)
-    app.use(MotionPlugin as Plugin)
+    usePlugin(TwoslashFloatingVue)
+    usePlugin(MotionPlugin)
   },
   pluginPresets: [
     NolebasePluginPreset({

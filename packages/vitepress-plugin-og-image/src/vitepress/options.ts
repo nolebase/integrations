@@ -111,8 +111,7 @@ export async function applyCategoryTextWithFallback(pageItem: PageItem, category
   if (fallbackWithFrontmatter
     && 'category' in pageItem.frontmatter
     && pageItem.frontmatter.category
-    && typeof pageItem.frontmatter.category === 'string'
-  ) {
+    && typeof pageItem.frontmatter.category === 'string') {
     return (pageItem.frontmatter as { category?: string }).category ?? ''
   }
 

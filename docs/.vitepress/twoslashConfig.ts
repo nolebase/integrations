@@ -7,6 +7,7 @@ export const compilerOptions = {
     target: 99,
     module: 99,
     moduleResolution: 100,
+    ignoreDeprecations: '6.0',
     paths: {
       '@nolebase/ui': [
         '../packages/ui/src/index.ts',

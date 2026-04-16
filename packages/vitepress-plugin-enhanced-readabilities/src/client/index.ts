@@ -55,7 +55,7 @@ const components = {
   NolebaseEnhancedReadabilitiesScreenSpotlight: ScreenSpotlight,
 }
 
-export const NolebaseEnhancedReadabilitiesPlugin: Plugin<Options[]> = {
+export const NolebaseEnhancedReadabilitiesPlugin: Plugin<Options[], Options[]> = {
   install(app, options?) {
     if (typeof options !== 'undefined' && typeof options === 'object')
       app.provide(InjectionKey, options)

@@ -73,7 +73,7 @@
   "peerDependencies": {
     "@rive-app/canvas": "^2.35.0",
     "vitepress": "catalog:vitepress-all",
-    "vue": "catalog:vue-3"
+    "vue": ">=3"
   },
   "dependencies": {
     "less": "catalog:"

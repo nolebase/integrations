@@ -10,7 +10,7 @@ const components = {
   NolebaseHighlightTargetedHeading,
 }
 
-export const NolebaseNolebaseHighlightTargetedHeadingPlugin: Plugin = {
+export const NolebaseNolebaseHighlightTargetedHeadingPlugin: Plugin<any[], any[]> = {
   install(app) {
     for (const key of Object.keys(components))
       app.component(key, components[key as keyof typeof components])

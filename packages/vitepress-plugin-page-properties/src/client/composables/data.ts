@@ -1,5 +1,4 @@
 import type { PageData } from 'vitepress'
-import type { ComputedRef, Ref } from 'vue'
 
 import VirtualPagePropertiesData from 'virtual:nolebase-page-properties'
 
@@ -13,6 +12,14 @@ type AggregatedPageProperties = Array<{
   value: any
   omitEmpty: boolean
 }>
+
+interface PageDataRef {
+  value: PageData
+}
+
+interface PagePropertiesRef {
+  value: Property<any>[]
+}
 
 function normalizeProperties(
   frontmatter: Record<string, any>,
@@ -56,7 +63,7 @@ function normalizeProperties(
   return baseResolvedProperties
 }
 
-export function usePageProperties(pageData: Ref<PageData>, userConfiguredPageProperties: ComputedRef<Property<any>[]>) {
+export function usePageProperties(pageData: PageDataRef, userConfiguredPageProperties: PagePropertiesRef) {
   const pagePropertiesData = ref<Data>({ ...VirtualPagePropertiesData })
   if (!pagePropertiesData.value)
     pagePropertiesData.value = { }

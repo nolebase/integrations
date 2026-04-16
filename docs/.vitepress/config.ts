@@ -224,7 +224,7 @@ export default defineConfig({
   async transformHead(context) {
     let head = [...context.head]
 
-    const returnedHead = await transformHeadMeta()(head, context)
+    const returnedHead = await transformHeadMeta()(head, context as never)
     if (typeof returnedHead !== 'undefined')
       head = returnedHead
 
@@ -262,6 +262,6 @@ export default defineConfig({
       },
     })
 
-    await newBuilder(siteConfig)
+    await newBuilder(siteConfig as never)
   },
 })

@@ -1,12 +1,17 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "types": [
+      "vite/client",
+      "node"
+    ],
     "noImplicitAny": false,
     "declaration": true,
     "noEmit": false
   },
   "include": [
-    "./.vitepress/**/*",
+    ".vitepress/**/*.ts",
+    ".vitepress/**/*.vue",
     "**/*.d.ts"
   ]
 }

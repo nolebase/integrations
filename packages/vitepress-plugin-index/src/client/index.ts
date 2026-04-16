@@ -14,7 +14,7 @@ const components = {
   NolebaseRecentUpdates,
 }
 
-export const NolebaseIndexPlugin: Plugin<Options[]> = {
+export const NolebaseIndexPlugin: Plugin<Options[], Options[]> = {
   install(app, options?) {
     if (typeof options !== 'undefined' && typeof options === 'object')
       app.provide(InjectionKey, options)

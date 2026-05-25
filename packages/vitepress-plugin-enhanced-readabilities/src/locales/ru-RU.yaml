@@ -6,7 +6,7 @@ layoutSwitch:
   titleHelpMessage: >-
    Измените стиль оформления документации, выберите максимально удобный вариант в зависимости от размера вашего экрана и типа устройства.
   titleAriaLabel: Макет страницы
-  titleScreenNavWarningMessage: Изменение макета страницы недоступено на экранах мобильных устройств
+  titleScreenNavWarningMessage: Изменение макета страницы недоступно на экранах мобильных устройств
   optionFullWidth: Развёрнутый
   optionFullWidthAriaLabel: Развёрнутый
   optionFullWidthHelpMessage: Страница и область содержимого занимают всю ширину экрана.

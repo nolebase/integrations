@@ -24,8 +24,8 @@ function noTwoslash() {
 
 export const sidebars: Record<string, DefaultTheme.SidebarItem[] | DefaultTheme.SidebarMulti> = {
   'en': {
-    '/pages/en/': calculateSidebar(['pages/en/guide', 'pages/en/integrations', 'pages/en/releases'], undefined, { '/': 2 }),
-    '/pages/en/ui/': calculateSidebar(['pages/en/ui'], undefined, { '/': 2 }),
+    '/': calculateSidebar(['pages/en/guide', 'pages/en/integrations', 'pages/en/releases'], undefined, { '/': 2 }),
+    '/ui/': calculateSidebar(['pages/en/ui'], undefined, { '/': 2 }),
   } as DefaultTheme.SidebarMulti,
   'zh-CN': {
     '/pages/zh-CN/': calculateSidebar(['pages/zh-CN/guide', 'pages/zh-CN/integrations', 'pages/zh-CN/releases'], undefined, { '/': 2 }),
@@ -44,6 +44,9 @@ function getVueProdHydrationMismatchDetailsFlag() {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  rewrites: {
+    'pages/en/:rest*': ':rest*',
+  },
   vite: {
     define: {
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
@@ -86,7 +89,7 @@ export default defineConfig({
       provider: 'local',
       options: {
         locales: {
-          'zh-CN': {
+          'pages/zh-CN': {
             translations: {
               button: {
                 buttonText: '搜索文档',
@@ -111,7 +114,7 @@ export default defineConfig({
     'root': {
       label: 'English',
       lang: 'en',
-      link: '/pages/en/',
+      link: '/',
       title: 'Nólëbase Integrations',
       description: 'A collection of diverse documentation engineering tools',
       themeConfig: {
@@ -119,12 +122,12 @@ export default defineConfig({
           {
             text: 'Guide',
             items: [
-              { text: 'Getting Started', link: '/pages/en/guide/getting-started' },
-              { text: 'Recent Updated', link: '/pages/en/recent-updates' },
+              { text: 'Getting Started', link: '/guide/getting-started' },
+              { text: 'Recent Updated', link: '/guide/recent-updates' },
             ],
           },
-          { text: 'Integrations', link: '/pages/en/integrations/' },
-          { text: 'UI Components', link: '/pages/en/ui/' },
+          { text: 'Integrations', link: '/integrations/' },
+          { text: 'UI Components', link: '/ui/' },
           {
             text: packageJSON.version,
             items: [
@@ -133,11 +136,11 @@ export default defineConfig({
                 items: [
                   {
                     text: 'Migrate from v1 to v2',
-                    link: '/pages/en/releases/migrations/v1-to-v2',
+                    link: '/releases/migrations/v1-to-v2',
                   },
                   {
                     text: 'Migrate from v2 to v3',
-                    link: '/pages/en/releases/migrations/v2-to-v3',
+                    link: '/releases/migrations/v2-to-v3',
                   },
                 ],
               },
@@ -147,7 +150,7 @@ export default defineConfig({
         sidebar: sidebars.en,
       },
     },
-    'zh-CN': {
+    'pages/zh-CN': {
       label: '简体中文',
       lang: 'zh-CN',
       link: '/pages/zh-CN/',
@@ -159,7 +162,7 @@ export default defineConfig({
             text: '指南',
             items: [
               { text: '快速开始', link: '/pages/zh-CN/guide/getting-started' },
-              { text: '最近更新', link: '/pages/zh-CN/recent-updates' },
+              { text: '最近更新', link: '/pages/zh-CN/guide/recent-updates' },
             ],
           },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
@@ -235,17 +238,17 @@ export default defineConfig({
       baseUrl: 'https://nolebase-integrations.ayaka.io',
       category: {
         byPathPrefix: [
-          { prefix: '/pages/en/integrations/markdown-it-bi-directional-links', text: 'Markdown It Plugins: Bi-directional links' },
-          { prefix: '/pages/en/integrations/markdown-it', text: 'Markdown It Plugins' },
-          { prefix: '/pages/en/integrations/obsidian-plugin', text: 'Obsidian Plugins' },
-          { prefix: '/pages/en/integrations/vitepress-plugin-inline-link-preview', text: 'VitePress Plugin: Inline Links Previewing' },
-          { prefix: '/pages/en/integrations/vitepress-plugin-git-changelog', text: 'VitePress Plugin: Git-based page histories' },
-          { prefix: '/pages/en/integrations/vitepress-plugin-thumbnail-hash', text: 'VitePress Plugin: Thumbnail hashing for images' },
-          { prefix: '/pages/en/integrations/vitepress-plugin', text: 'VitePress Plugins' },
-          { prefix: '/pages/en/integrations/', text: 'Integrations' },
-          { prefix: '/pages/en/guide/', text: 'Guide' },
-          { prefix: '/pages/en/ui/', text: 'UI Components' },
-          { prefix: '/pages/en/', text: 'Documentations' },
+          { prefix: '/integrations/markdown-it-bi-directional-links', text: 'Markdown It Plugins: Bi-directional links' },
+          { prefix: '/integrations/markdown-it', text: 'Markdown It Plugins' },
+          { prefix: '/integrations/obsidian-plugin', text: 'Obsidian Plugins' },
+          { prefix: '/integrations/vitepress-plugin-inline-link-preview', text: 'VitePress Plugin: Inline Links Previewing' },
+          { prefix: '/integrations/vitepress-plugin-git-changelog', text: 'VitePress Plugin: Git-based page histories' },
+          { prefix: '/integrations/vitepress-plugin-thumbnail-hash', text: 'VitePress Plugin: Thumbnail hashing for images' },
+          { prefix: '/integrations/vitepress-plugin', text: 'VitePress Plugins' },
+          { prefix: '/integrations/', text: 'Integrations' },
+          { prefix: '/guide/', text: 'Guide' },
+          { prefix: '/ui/', text: 'UI Components' },
+          { prefix: '/', text: 'Documentations' },
           { prefix: '/pages/zh-CN/integrations/markdown-it-bi-directional-links', text: 'Markdown It 插件：双向链接' },
           { prefix: '/pages/zh-CN/integrations/markdown-it', text: 'Markdown It 插件' },
           { prefix: '/pages/zh-CN/integrations/obsidian-plugin', text: 'Obsidian 插件' },

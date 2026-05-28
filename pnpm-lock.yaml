@@ -76,8 +76,8 @@ catalogs:
       specifier: ^11.0.0
       version: 11.0.0
     '@unlazy/vue':
-      specifier: ^1.1.0
-      version: 1.1.0
+      specifier: ^2.0.1
+      version: 2.0.1
     '@unocss/cli':
       specifier: ^66.6.8
       version: 66.6.8
@@ -1020,7 +1020,7 @@ importers:
     dependencies:
       '@unlazy/vue':
         specifier: 'catalog:'
-        version: 1.1.0
+        version: 2.0.1(vue@3.5.32(typescript@6.0.2))
       canvaskit-wasm:
         specifier: 'catalog:'
         version: 0.41.1
@@ -2773,12 +2773,18 @@ packages:
 
   '@ungap/structured-clone@1.2.1':
     resolution: {integrity: sha512-fEzPV3hSkSMltkw152tJKNARhOupqbH96MZWyRjNaYZOMIzbrTeQDG+MTc6Mr2pgzFQzFxAfmhGDNP5QK++2ZA==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unlazy/core@1.1.0':
     resolution: {integrity: sha512-ezCESX729KqtP2hud3i0ucepMx5/tz4V9Z4KKHInIgcoqOz/vP9LpEDVl3hkkRfPuuv33C2YUOApMJECEai1Dw==}
 
-  '@unlazy/vue@1.1.0':
-    resolution: {integrity: sha512-v2C7BQ2+WyNoLDg7ZMqa/qRbpcSvzvwwtYup4wkjmV/fxpzn8/g9tJB8ztkOUyr3RlUqWv0ztNbFkC0eKS4FLw==}
+  '@unlazy/core@2.0.1':
+    resolution: {integrity: sha512-zARfhkFhALS5EGdym22E8OrNSEbHDhG8XBUFHr8I435U7JnM8r4Y8g6I+utdKMrxJARcAJx7WGDUo/h9CntWCg==}
+
+  '@unlazy/vue@2.0.1':
+    resolution: {integrity: sha512-83sWINwU8hesSnER6C6HUgZTK45fEifQQm6eEuckiLMN1KaU5RoX1hxOzeWalMjyaDDJs3rM/xUXCkjirbPmHQ==}
+    peerDependencies:
+      vue: ^3.5
 
   '@unocss/cli@66.6.8':
     resolution: {integrity: sha512-dJ4AmrhCtQwEDJtpFG7AgJ4Qi4GWnNgWWlLWq4DhKBOCcvldr9k98mscdhs3MOwph25DIxU5MdLRAg/OS1JryQ==}
@@ -6021,6 +6027,9 @@ packages:
   unlazy@1.1.0:
     resolution: {integrity: sha512-uF2b6FL74e+EiUKywBWW+6ExLlZ0YrLEQFXromG1/eY1EfUh+AL1onEDv8WxRcDpDpOZyvtryQU4Unxhpb4Hvg==}
 
+  unlazy@2.0.1:
+    resolution: {integrity: sha512-BihVSf6XpmWzcXfkDFih+R2s2sbiyi5oJiH7ed3CzMZqXBmdbal5iTz77bglCL9jZJZ0i/7NP6oPU/JHx63mZA==}
+
   unocss@66.6.8:
     resolution: {integrity: sha512-stq9FbxedTDkoWrxnNQNnPQXOaM6L2Lobq8HzjXdR2tMc55gtfqDArqL7TESfnN7qeZsIocNYCHLNA4DXq50YQ==}
     engines: {node: '>=14'}
@@ -7935,9 +7944,12 @@ snapshots:
 
   '@unlazy/core@1.1.0': {}
 
-  '@unlazy/vue@1.1.0':
+  '@unlazy/core@2.0.1': {}
+
+  '@unlazy/vue@2.0.1(vue@3.5.32(typescript@6.0.2))':
     dependencies:
-      unlazy: 1.1.0
+      unlazy: 2.0.1
+      vue: 3.5.32(typescript@6.0.2)
 
   '@unocss/cli@66.6.8':
     dependencies:
@@ -11883,6 +11895,10 @@ snapshots:
   unlazy@1.1.0:
     dependencies:
       '@unlazy/core': 1.1.0
+
+  unlazy@2.0.1:
+    dependencies:
+      '@unlazy/core': 2.0.1
 
   unocss@66.6.8(@emnapi/core@1.9.2)(@emnapi/runtime@1.9.2)(vite@8.0.8(@types/node@25.6.0)(esbuild@0.27.2)(jiti@2.6.1)(less@4.6.4)(tsx@4.19.2)(yaml@2.8.3)):
     dependencies:

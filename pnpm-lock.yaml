@@ -40,8 +40,8 @@ catalogs:
       specifier: ^2.37.1
       version: 2.37.1
     '@rollup/plugin-yaml':
-      specifier: ^4.1.2
-      version: 4.1.2
+      specifier: ^5.0.0
+      version: 5.0.0
     '@shikijs/vitepress-twoslash':
       specifier: ^4.0.2
       version: 4.0.2
@@ -455,7 +455,7 @@ importers:
         version: 2.37.1
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
       '@shikijs/vitepress-twoslash':
         specifier: 'catalog:'
         version: 4.0.2(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.46.2))(typescript@6.0.2)
@@ -715,7 +715,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
@@ -758,7 +758,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
       builtin-modules:
         specifier: 'catalog:'
         version: 5.1.0
@@ -826,7 +826,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
 
   packages/vitepress-plugin-inline-link-preview:
     dependencies:
@@ -860,7 +860,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
       '@types/markdown-it':
         specifier: 'catalog:'
         version: 14.1.2
@@ -986,7 +986,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.0(rollup@4.46.2)
       '@types/uuid':
         specifier: 'catalog:'
         version: 11.0.0
@@ -2302,11 +2302,11 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/plugin-yaml@4.1.2':
-    resolution: {integrity: sha512-RpupciIeZMUqhgFE97ba0s98mOFS7CWzN3EJNhJkqSv9XLlWYtwVdtE6cDw6ASOF/sZVFS7kRJXftaqM2Vakdw==}
+  '@rollup/plugin-yaml@5.0.0':
+    resolution: {integrity: sha512-9XOiRGYJjDwmEwR15kuxw+RytZFKtEWshoXuITrtS6+57BVMQMzDfhmSO/xfQOAY5psQv1IrxhQTUqPNppe4lQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+      rollup: ^2.78.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -2773,6 +2773,7 @@ packages:
 
   '@ungap/structured-clone@1.2.1':
     resolution: {integrity: sha512-fEzPV3hSkSMltkw152tJKNARhOupqbH96MZWyRjNaYZOMIzbrTeQDG+MTc6Mr2pgzFQzFxAfmhGDNP5QK++2ZA==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
 
   '@unlazy/core@1.1.0':
     resolution: {integrity: sha512-ezCESX729KqtP2hud3i0ucepMx5/tz4V9Z4KKHInIgcoqOz/vP9LpEDVl3hkkRfPuuv33C2YUOApMJECEai1Dw==}
@@ -7408,7 +7409,7 @@ snapshots:
     optionalDependencies:
       rollup: 4.46.2
 
-  '@rollup/plugin-yaml@4.1.2(rollup@4.46.2)':
+  '@rollup/plugin-yaml@5.0.0(rollup@4.46.2)':
     dependencies:
       '@rollup/pluginutils': 5.3.0(rollup@4.46.2)
       js-yaml: 4.1.0

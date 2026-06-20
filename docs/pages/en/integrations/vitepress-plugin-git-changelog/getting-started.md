@@ -215,9 +215,9 @@ Tools like [GitHub Actions](https://github.com/features/actions) and [GitLab's C
 
 Of course, the CI/CD capabilities of the two Git code hosting platforms listed above are only the tip of the iceberg. In fact, there are other tools out there:
 
-- [Netlify's build hook] (https://docs.netlify.com/configure-builds/build-hooks/)
-- [Git integration of Cloudflare Pages] (https://developers.cloudflare.com/pages/configuration/git-integration/ )
-- [Vercel's GitHub integration] (https://vercel.com/docs/deployments/git/vercel-for-github)
+- [Netlify's build hook](https://docs.netlify.com/configure-builds/build-hooks/)
+- [Git integration of Cloudflare Pages](https://developers.cloudflare.com/pages/configuration/git-integration/ )
+- [Vercel's GitHub integration](https://vercel.com/docs/deployments/git/vercel-for-github)
 - [CircleCI](https://circleci.com/)
 
 These are platforms that provide static site hosting plus CI/CD pipeline features. In summary, they allows users to automatically generate static sites according to pre-configured commands and processing pipelines after pushing commits against files.

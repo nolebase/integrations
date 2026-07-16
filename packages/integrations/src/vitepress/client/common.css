@@ -1,0 +1,25 @@
+@import "@nolebase/vitepress-plugin-git-changelog/client/common.css";
+@import "@nolebase/vitepress-plugin-enhanced-readabilities/client/common.css";
+@import "@nolebase/vitepress-plugin-page-properties/client/common.css";
+
+:root {
+  --nolebase-c-surface: var(--vp-c-bg, #ffffff);
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft, #f6f6f7);
+  --nolebase-c-surface-elevated: var(--vp-c-bg-elv, #ffffff);
+  --nolebase-c-text: var(--vp-c-text-1, currentColor);
+  --nolebase-c-text-muted: var(--vp-c-text-2, color-mix(in srgb, currentColor 70%, transparent));
+  --nolebase-c-border: var(--vp-c-divider, color-mix(in srgb, currentColor 18%, transparent));
+  --nolebase-c-brand: var(--vp-c-brand-1, currentColor);
+  --nolebase-c-warning: rgb(240 197 52);
+  --nolebase-c-danger: rgb(239 68 68);
+
+  --nolebase-radius-sm: 4px;
+  --nolebase-radius-md: 6px;
+  --nolebase-radius-lg: 8px;
+  --nolebase-radius-xl: 12px;
+  --nolebase-radius-full: 9999px;
+
+  --nolebase-shadow-card: 0 1px 2px rgb(0 0 0 / 6%);
+  --nolebase-shadow-popover: 0 12px 32px rgb(0 0 0 / 12%);
+  --nolebase-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--nolebase-c-brand) 25%, transparent);
+}

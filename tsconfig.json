@@ -75,6 +75,23 @@
       ],
       "@nolebase/vitepress-plugin-thumbnail-hash/*": [
         "./packages/vitepress-plugin-thumbnail-hash/src/*"
+      ],
+      // NOTICE:
+      // Why this workaround is needed.
+      // @voidzero-dev/vitepress-theme@5.0.2 publishes its source entry for type resolution,
+      // and vue-tsc then follows unresolved package-internal aliases such as @vp-default
+      // and @components.
+      // Root cause summary.
+      // The published package does not expose declaration files that are self-contained
+      // for this workspace's Bundler moduleResolution + verbatimModuleSyntax settings.
+      // Source/context.
+      // `pnpm -F @nolebase/integrations-docs typecheck` reports unresolved aliases from
+      // `node_modules/@voidzero-dev/vitepress-theme/src/index.ts` without this mapping.
+      // Removal condition.
+      // Remove this mapping after @voidzero-dev/vitepress-theme publishes complete
+      // declarations or resolves its package-internal aliases for consumers.
+      "@voidzero-dev/vitepress-theme": [
+        "./docs/.vitepress/theme/types/voidzero-theme.d.ts"
       ]
     },
     "resolveJsonModule": true,

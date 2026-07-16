@@ -1,0 +1,9 @@
+@import "../common.css";
+
+:root {
+  --vp-nolebase-page-properties-text: var(--vp-c-text-1);
+  --vp-nolebase-page-properties-muted-text: var(--vp-c-text-2);
+  --vp-nolebase-page-properties-surface: var(--vp-c-bg-soft);
+  --vp-nolebase-page-properties-border: var(--vp-c-divider);
+  --vp-nolebase-page-properties-accent: var(--vp-c-brand-1);
+}

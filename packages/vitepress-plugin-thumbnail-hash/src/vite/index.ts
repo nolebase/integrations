@@ -5,7 +5,7 @@ import type { SiteConfig } from 'vitepress'
 import type { ThumbHash, ThumbHashCalculated } from '../types'
 
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import { join, relative } from 'node:path'
+import { isAbsolute, join, relative } from 'node:path'
 
 import CanvasKitInit from 'canvaskit-wasm'
 import ora from 'ora'
@@ -111,6 +111,23 @@ function getMapFilename(cacheDir: string) {
   return join(cacheDir, 'map.json')
 }
 
+/**
+ * Normalizes image scan exclude directories into tinyglobby patterns.
+ *
+ * Before:
+ * - ".vitepress/dist"
+ * - "/repo/docs/node_modules"
+ *
+ * After:
+ * - "/repo/docs/.vitepress/dist/**"
+ * - "/repo/docs/node_modules/**"
+ */
+function normalizeImageScanExcludePattern(root: string, dir: string): string {
+  const absoluteDir = isAbsolute(dir) ? dir : join(root, dir)
+
+  return `${normalizePath(absoluteDir)}/**`
+}
+
 async function exists(path: string) {
   try {
     await stat(path)
@@ -188,7 +205,20 @@ export function ThumbnailHashImages(): Plugin {
 
       spinner.text = `${spinnerPrefix} Searching for images...`
 
-      const files = await glob(`${root}/**/*.+(jpg|jpeg|png)`, { onlyFiles: true })
+      const files = await glob(`${normalizePath(root)}/**/*.+(jpg|jpeg|png)`, {
+        onlyFiles: true,
+        ignore: [
+          // Avoid scanning package internals. Some packages ship placeholder
+          // files that are not guaranteed to be decodable image assets.
+          normalizeImageScanExcludePattern(root, 'node_modules'),
+          // Avoid recursively scanning VitePress generated output and cache.
+          // Builds may leave hashed images or generated Open Graph images here.
+          normalizeImageScanExcludePattern(root, join('.vitepress', 'dist')),
+          normalizeImageScanExcludePattern(root, join('.vitepress', 'cache')),
+          normalizeImageScanExcludePattern(root, vitepressConfig.outDir),
+          normalizeImageScanExcludePattern(root, vitepressConfig.cacheDir),
+        ],
+      })
 
       spinner.text = `${spinnerPrefix} Calculating thumbhashes for images...`
 

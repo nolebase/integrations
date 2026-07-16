@@ -43,7 +43,11 @@
       "import": "./dist/client/index.mjs",
       "require": "./dist/client/index.js"
     },
+    "./client/common.css": "./dist/client/common.css",
     "./client/style.css": "./dist/client/style.css",
+    "./client/theme/vitepress.css": "./dist/client/theme/vitepress.css",
+    "./client/theme/voidzero.css": "./dist/client/theme/voidzero.css",
+    "./client/theme/proj-airi.css": "./dist/client/theme/proj-airi.css",
     "./client/*": {
       "types": "./dist/client/*"
     },

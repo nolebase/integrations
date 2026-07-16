@@ -1,0 +1,14 @@
+@import "../common.css";
+@import "@nolebase/vitepress-plugin-git-changelog/client/theme/vitepress.css";
+@import "@nolebase/vitepress-plugin-enhanced-readabilities/client/theme/vitepress.css";
+@import "@nolebase/vitepress-plugin-page-properties/client/theme/vitepress.css";
+
+:root {
+  --nolebase-c-surface: var(--vp-c-bg);
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft);
+  --nolebase-c-surface-elevated: var(--vp-c-bg-elv);
+  --nolebase-c-text: var(--vp-c-text-1);
+  --nolebase-c-text-muted: var(--vp-c-text-2);
+  --nolebase-c-border: var(--vp-c-divider);
+  --nolebase-c-brand: var(--vp-c-brand-1);
+}

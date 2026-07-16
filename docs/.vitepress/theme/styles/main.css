@@ -126,3 +126,12 @@ html, body {
   color: white;
   background-color: #4b4b4b;
 }
+
+.nolebase-voidzero-enhanced-readabilities-mount {
+  display: flex;
+  align-items: center;
+}
+
+.nolebase-voidzero-enhanced-readabilities-mount .VPNolebaseEnhancedReadabilitiesMenuFlyout::before {
+  display: none;
+}

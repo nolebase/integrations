@@ -1,61 +1,6 @@
-import TwoslashFloatingVue from '@shikijs/vitepress-twoslash/client'
+import type { Theme } from 'vitepress'
 
-import { NuLazyTeleportRiveCanvas } from '@nolebase/ui-rive-canvas'
-import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
-import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
-import { MotionPlugin } from '@vueuse/motion'
-import { h } from 'vue'
+import docsTheme from 'virtual:nolebase-docs-theme'
 
-import HomeContent from './components/HomeContent.vue'
-import IntegrationCard from './components/IntegrationCard.vue'
-import NavHeader from './components/NavHeader.vue'
-import ThumbhashPreview from './components/ThumbhashPreview.vue'
-import VPHeroImageLogo from './components/VPHeroImageLogo.vue'
-
-import 'virtual:uno.css'
-import '@shikijs/vitepress-twoslash/style.css'
-import 'asciinema-player/dist/bundle/asciinema-player.css'
-import './styles/vars.css'
-import './styles/main.css'
-
-export default defineThemeUnconfig({
-  layout: {
-    slots: {
-      'layout-top': {
-        node: [
-          () => h(NuLazyTeleportRiveCanvas),
-        ],
-      },
-      'home-hero-before': {
-        node: [
-          () => h(NavHeader),
-        ],
-      },
-      'home-hero-image': {
-        node: [
-          () => h(VPHeroImageLogo),
-        ],
-      },
-    },
-  },
-  enhanceApp: ({ app }) => {
-    const usePlugin = app.use as unknown as (plugin: unknown, ...options: unknown[]) => void
-
-    app.component('IntegrationCard', IntegrationCard)
-    app.component('HomeContent', HomeContent)
-    app.component('ThumbhashPreview', ThumbhashPreview)
-
-    usePlugin(TwoslashFloatingVue)
-    usePlugin(MotionPlugin)
-  },
-  pluginPresets: [
-    NolebasePluginPreset({
-      gitChangelog: {
-        enable: true,
-        options: {
-          commitsRelativeTime: true,
-        },
-      },
-    }),
-  ],
-})
+const theme: Theme = docsTheme
+export default theme

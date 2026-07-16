@@ -1,0 +1,19 @@
+@import "../common.css";
+
+:root,
+:root[data-theme="light"] {
+  --vp-nolebase-page-properties-text: var(--vp-c-text-1, #09090b);
+  --vp-nolebase-page-properties-muted-text: var(--vp-c-text-2, #71717a);
+  --vp-nolebase-page-properties-surface: var(--vp-c-bg-soft, #f4f4f5);
+  --vp-nolebase-page-properties-border: var(--vp-c-divider, #e4e4e7);
+  --vp-nolebase-page-properties-accent: var(--vp-c-brand-1, #09090b);
+}
+
+:root.dark:not([data-theme]),
+:root[data-theme="dark"] {
+  --vp-nolebase-page-properties-text: var(--vp-c-text-1, #fafafa);
+  --vp-nolebase-page-properties-muted-text: var(--vp-c-text-2, #a1a1aa);
+  --vp-nolebase-page-properties-surface: var(--vp-c-bg-soft, #27272a);
+  --vp-nolebase-page-properties-border: var(--vp-c-divider, #27272a);
+  --vp-nolebase-page-properties-accent: var(--vp-c-brand-1, #fafafa);
+}

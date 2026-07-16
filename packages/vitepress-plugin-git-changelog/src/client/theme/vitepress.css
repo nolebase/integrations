@@ -1,0 +1,10 @@
+@import "../common.css";
+
+:root {
+  --vp-nolebase-git-changelog-text: var(--vp-c-text-1);
+  --vp-nolebase-git-changelog-muted-text: var(--vp-c-text-2);
+  --vp-nolebase-git-changelog-surface: var(--vp-c-bg-soft);
+  --vp-nolebase-git-changelog-border: var(--vp-c-divider);
+  --vp-nolebase-git-changelog-accent: var(--vp-c-brand-1);
+  --vp-nolebase-git-changelog-avatar-border: var(--vp-c-bg-soft);
+}

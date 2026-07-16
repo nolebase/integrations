@@ -242,7 +242,7 @@ watch(() => props.enabled, (val) => {
 
 <style less scoped>
 :root {
-  --vp-nolebase-enhanced-readabilities-spotlight-under-bg-color: rgb(240 197 52 / 10%);
+  --vp-nolebase-enhanced-readabilities-spotlight-under-bg-color: var(--nolebase-enhanced-readabilities-spotlight-under-bg-color, rgb(240 197 52 / 10%));
 }
 
 .VPNolebaseEnhancedReadabilitiesSpotlightHoverBlock.VPNolebaseEnhancedReadabilitiesSpotlightHoverBlockUnder {
@@ -256,7 +256,7 @@ watch(() => props.enabled, (val) => {
   width: 4px;
   height: 100%;
   border-radius: 4px;
-  background-color: var(--vp-c-brand);
+  background-color: var(--nolebase-enhanced-readabilities-spotlight-aside-bg-color, var(--vp-c-brand));
   left: -24px;
 }
 </style>

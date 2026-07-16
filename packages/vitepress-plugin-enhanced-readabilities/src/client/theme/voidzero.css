@@ -1,0 +1,27 @@
+@import "../common.css";
+
+:root,
+:root[data-theme="light"] {
+  --nolebase-c-surface: var(--vp-c-bg, #ffffff);
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft, #f4f4f5);
+  --nolebase-c-surface-elevated: var(--vp-c-bg-elv, #ffffff);
+  --nolebase-c-text: var(--vp-c-text-1, #09090b);
+  --nolebase-c-text-muted: var(--vp-c-text-2, #71717a);
+  --nolebase-c-border: var(--vp-c-divider, #e4e4e7);
+  --nolebase-c-brand: var(--vp-c-brand-1, #09090b);
+  --nolebase-shadow-card: 0 1px 2px rgb(0 0 0 / 5%);
+  --nolebase-shadow-popover: 0 16px 40px rgb(0 0 0 / 12%);
+}
+
+:root.dark:not([data-theme]),
+:root[data-theme="dark"] {
+  --nolebase-c-surface: var(--vp-c-bg, #09090b);
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft, #18181b);
+  --nolebase-c-surface-elevated: var(--vp-c-bg-elv, #18181b);
+  --nolebase-c-text: var(--vp-c-text-1, #fafafa);
+  --nolebase-c-text-muted: var(--vp-c-text-2, #a1a1aa);
+  --nolebase-c-border: var(--vp-c-divider, #27272a);
+  --nolebase-c-brand: var(--vp-c-brand-1, #fafafa);
+  --nolebase-shadow-card: 0 1px 2px rgb(0 0 0 / 20%);
+  --nolebase-shadow-popover: 0 16px 40px rgb(0 0 0 / 30%);
+}

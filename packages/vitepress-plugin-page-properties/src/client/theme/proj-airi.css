@@ -1,0 +1,9 @@
+@import "../common.css";
+
+:root {
+  --vp-nolebase-page-properties-text: hsl(var(--foreground));
+  --vp-nolebase-page-properties-muted-text: hsl(var(--muted-foreground));
+  --vp-nolebase-page-properties-surface: hsl(var(--muted) / 0.55);
+  --vp-nolebase-page-properties-border: hsl(var(--border));
+  --vp-nolebase-page-properties-accent: hsl(var(--primary));
+}

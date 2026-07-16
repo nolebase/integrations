@@ -1,0 +1,36 @@
+@import "@nolebase/ui/style.css";
+@import "./unocss.css";
+
+:root {
+  --vp-nolebase-git-changelog-text: var(--vp-c-text-1, currentColor);
+  --vp-nolebase-git-changelog-muted-text: var(--vp-c-text-2, color-mix(in srgb, currentColor 70%, transparent));
+  --vp-nolebase-git-changelog-surface: var(--vp-c-bg-soft, transparent);
+  --vp-nolebase-git-changelog-border: var(--vp-c-divider, transparent);
+  --vp-nolebase-git-changelog-accent: var(--vp-c-brand-1, currentColor);
+  --vp-nolebase-git-changelog-avatar-border: var(--vp-c-bg-soft, transparent);
+}
+
+.vp-nolebase-git-changelog {
+  color: var(--vp-nolebase-git-changelog-text);
+}
+
+.vp-nolebase-git-changelog-title {
+  color: var(--vp-custom-block-details-text, var(--vp-nolebase-git-changelog-text));
+  font-size: var(--vp-custom-block-font-size, 14px);
+}
+
+.vp-nolebase-git-changelog-title:hover {
+  color: var(--vp-nolebase-git-changelog-accent);
+}
+
+.vp-nolebase-git-changelog-last-edited-title {
+  color: var(--vp-nolebase-git-changelog-muted-text);
+}
+
+.vp-nolebase-git-changelog-view-full-history-title {
+  color: var(--vp-nolebase-git-changelog-muted-text);
+}
+
+.vp-nolebase-git-changelog-commit-avatar {
+  border: 2px solid var(--vp-nolebase-git-changelog-avatar-border);
+}

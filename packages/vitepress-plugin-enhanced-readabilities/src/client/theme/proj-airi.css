@@ -1,0 +1,13 @@
+@import "../common.css";
+
+:root {
+  --nolebase-c-surface: hsl(var(--background));
+  --nolebase-c-surface-soft: hsl(var(--muted) / 0.55);
+  --nolebase-c-surface-elevated: hsl(var(--popover));
+  --nolebase-c-text: hsl(var(--foreground));
+  --nolebase-c-text-muted: hsl(var(--muted-foreground));
+  --nolebase-c-border: hsl(var(--border));
+  --nolebase-c-brand: hsl(var(--primary));
+  --nolebase-c-warning: hsl(var(--warning, 45 93% 47%));
+  --nolebase-c-danger: hsl(var(--destructive));
+}

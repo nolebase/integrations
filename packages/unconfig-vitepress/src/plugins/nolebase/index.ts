@@ -16,7 +16,6 @@ import {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesPlugin,
   NolebaseEnhancedReadabilitiesScreenMenu,
-
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import {
   NolebaseGitChangelogPlugin,
@@ -42,7 +41,33 @@ import {
 } from '@nolebase/vitepress-plugin-thumbnail-hash/client'
 import { h } from 'vue'
 
+/**
+ * Names the layout slot strategy used by {@link NolebasePluginPreset}.
+ *
+ * Use when:
+ * - A VitePress-compatible theme needs custom slot wiring.
+ * - Preset consumers want plugin app registration without default-theme mount points.
+ *
+ * Expects:
+ * - `'vitepress'` for the default VitePress layout slot contract.
+ * - `'voidzero'` for VoidZero's custom OSSHeader slot contract.
+ *
+ * Returns:
+ * - A theme key consumed by the Nolebase plugin preset.
+ */
+export type NolebasePluginPresetTheme = 'vitepress' | 'voidzero'
+
 export interface NolebasePluginPresetOptions<PagePropertiesObject extends object = any> {
+  /**
+   * Selects the layout slot strategy for a known VitePress theme.
+   *
+   * Use when:
+   * - A theme does not expose the same slots as the default VitePress theme.
+   * - Theme-specific adapters mount plugin UI in custom locations.
+   *
+   * @default 'vitepress'
+   */
+  theme?: NolebasePluginPresetTheme
   enhancedReadabilities?: {
     enable?: boolean
     options?: NolebaseEnhancedReadabilitiesOptions
@@ -77,6 +102,7 @@ export interface NolebasePluginPresetOptions<PagePropertiesObject extends object
 }
 
 const defaultOptions: NolebasePluginPresetOptions = {
+  theme: 'vitepress',
   enhancedReadabilities: {
     enable: true,
     options: {
@@ -209,17 +235,31 @@ const defaultOptions: NolebasePluginPresetOptions = {
 }
 
 function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(options: NolebasePluginPresetOptions<any>): NolebasePluginPresetOptions<PagePropertiesObject> {
-  const mergedOptions: NolebasePluginPresetOptions<any> = { ...options }
-  for (const key in defaultOptions) {
-    const k = key as keyof NolebasePluginPresetOptions<any>
-
-    if (typeof mergedOptions[k] === 'undefined' || !mergedOptions[k])
-      mergedOptions[k] = defaultOptions[k]
+  const mergedOptions: NolebasePluginPresetOptions<any> = {
+    ...defaultOptions,
+    ...options,
   }
 
   return mergedOptions as NolebasePluginPresetOptions<PagePropertiesObject>
 }
 
+function shouldRegisterEnhancedReadabilitiesLayoutSlots(theme: NolebasePluginPresetTheme | undefined): boolean {
+  return theme !== 'voidzero'
+}
+
+/**
+ * Creates a Nolebase VitePress plugin preset.
+ *
+ * Use when:
+ * - Registering the full Nolebase integrations UI stack in a VitePress theme.
+ * - Selecting theme-specific slot wiring while keeping app plugins enabled.
+ *
+ * Expects:
+ * - Options that selectively enable integrations and configure theme slot strategy.
+ *
+ * Returns:
+ * - A plugin set consumed by {@link defineThemeUnconfig}.
+ */
 export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
   options?: NolebasePluginPresetOptions<PagePropertiesObject>,
 ): PluginSet {
@@ -230,7 +270,7 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       if (opts.highlightTargetedHeading?.enable)
         helpers.defineSlot('layout-top', () => h(NolebaseHighlightTargetedHeading))
 
-      if (opts.enhancedReadabilities?.enable) {
+      if (opts.enhancedReadabilities?.enable && shouldRegisterEnhancedReadabilitiesLayoutSlots(opts.theme)) {
         helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
         helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
       }

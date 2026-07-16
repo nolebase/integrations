@@ -1,0 +1,37 @@
+@import "@nolebase/ui/style.css";
+@import "./unocss.css";
+
+:root {
+  --nolebase-c-surface: var(--vp-c-bg, #ffffff);
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft, #f6f6f7);
+  --nolebase-c-surface-elevated: var(--vp-c-bg-elv, #ffffff);
+  --nolebase-c-text: var(--vp-c-text-1, currentColor);
+  --nolebase-c-text-muted: var(--vp-c-text-2, color-mix(in srgb, currentColor 70%, transparent));
+  --nolebase-c-border: var(--vp-c-divider, color-mix(in srgb, currentColor 18%, transparent));
+  --nolebase-c-brand: var(--vp-c-brand-1, currentColor);
+  --nolebase-c-warning: rgb(240 197 52);
+  --nolebase-c-danger: rgb(239 68 68);
+
+  --nolebase-radius-sm: 4px;
+  --nolebase-radius-md: 6px;
+  --nolebase-radius-lg: 8px;
+  --nolebase-radius-xl: 12px;
+  --nolebase-radius-full: 9999px;
+
+  --nolebase-shadow-card: 0 1px 2px rgb(0 0 0 / 6%);
+  --nolebase-shadow-popover: 0 12px 32px rgb(0 0 0 / 12%);
+  --nolebase-shadow-focus: 0 0 0 3px color-mix(in srgb, var(--nolebase-c-brand) 25%, transparent);
+
+  --nolebase-enhanced-readabilities-menu-background-color: var(--nolebase-c-surface-soft);
+  --nolebase-enhanced-readabilities-menu-text-color: var(--nolebase-c-text);
+  --nolebase-enhanced-readabilities-menu-border-color: var(--nolebase-c-border);
+  --nolebase-enhanced-readabilities-menu-divider-color: var(--nolebase-c-border);
+  --nolebase-enhanced-readabilities-popover-background-color: var(--nolebase-c-surface-elevated);
+  --nolebase-enhanced-readabilities-popover-shadow: var(--nolebase-shadow-popover);
+  --nolebase-enhanced-readabilities-spotlight-under-bg-color: color-mix(in srgb, var(--nolebase-c-warning) 10%, transparent);
+  --nolebase-enhanced-readabilities-spotlight-aside-bg-color: var(--nolebase-c-brand);
+
+  --vp-nolebase-enhanced-readabilities-menu-background-color: var(--nolebase-enhanced-readabilities-menu-background-color);
+  --vp-nolebase-enhanced-readabilities-menu-text-color: var(--nolebase-enhanced-readabilities-menu-text-color);
+  --vp-nolebase-enhanced-readabilities-spotlight-under-bg-color: var(--nolebase-enhanced-readabilities-spotlight-under-bg-color);
+}

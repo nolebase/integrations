@@ -27,7 +27,9 @@
     "vitepress-plugin",
     "nolebase-integration"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.css"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -39,6 +41,11 @@
       "import": "./dist/vitepress/client/index.mjs",
       "require": "./dist/vitepress/client/index.cjs"
     },
+    "./vitepress/client/common.css": "./dist/vitepress/client/common.css",
+    "./vitepress/client/style.css": "./dist/vitepress/client/style.css",
+    "./vitepress/client/theme/vitepress.css": "./dist/vitepress/client/theme/vitepress.css",
+    "./vitepress/client/theme/voidzero.css": "./dist/vitepress/client/theme/voidzero.css",
+    "./vitepress/client/theme/proj-airi.css": "./dist/vitepress/client/theme/proj-airi.css",
     "./vitepress/markdown-it": {
       "types": "./dist/vitepress/markdown-it/index.d.ts",
       "import": "./dist/vitepress/markdown-it/index.mjs",

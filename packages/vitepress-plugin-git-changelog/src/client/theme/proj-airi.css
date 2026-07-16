@@ -1,0 +1,10 @@
+@import "../common.css";
+
+:root {
+  --vp-nolebase-git-changelog-text: hsl(var(--foreground));
+  --vp-nolebase-git-changelog-muted-text: hsl(var(--muted-foreground));
+  --vp-nolebase-git-changelog-surface: hsl(var(--muted) / 0.55);
+  --vp-nolebase-git-changelog-border: hsl(var(--border));
+  --vp-nolebase-git-changelog-accent: hsl(var(--primary));
+  --vp-nolebase-git-changelog-avatar-border: hsl(var(--background));
+}

@@ -159,7 +159,7 @@ nr docs:build
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=nolebase/integrations&type=Date)](https://star-history.com/#nolebase/integrations&Date)
+[![Star History Chart](https://star-history.dera.page/svg?repos=nolebase/integrations&type=Date)](https://star-history.dera.page/#nolebase/integrations&Date)
 
 ## Project Status
 

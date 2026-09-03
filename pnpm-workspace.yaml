@@ -62,7 +62,7 @@ catalog:
   markdown-it: ^14.1.1
   markdown-it-attrs: ^4.3.1
   markdown-it-footnote: ^4.0.0
-  motion: ^12.38.0
+  motion: ^13.2.0
   ora: ^9.3.0
   rehype: ^13.0.2
   rehype-meta: ^4.0.1

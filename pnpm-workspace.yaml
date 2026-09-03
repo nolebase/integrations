@@ -51,7 +51,7 @@ catalog:
   emoji-regex: ^10.6.0
   es-toolkit: ^1.45.1
   eslint: ^10.2.0
-  execa: ^9.6.1
+  execa: ^10.0.1
   fs-extra: ^11.3.4
   globby: ^16.2.0
   gray-matter: ^4.0.3

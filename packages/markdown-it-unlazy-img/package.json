@@ -48,7 +48,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "markdown-it": ">=14.1.1"
+    "markdown-it": ">=14.2.0"
   },
   "dependencies": {
     "colorette": "catalog:",

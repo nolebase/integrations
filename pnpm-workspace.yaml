@@ -58,7 +58,7 @@ catalog:
   hast-util-select: ^6.0.4
   hast-util-to-text: ^4.0.2
   less: ^4.6.4
-  lint-staged: ^16.4.0
+  lint-staged: ^17.5.0
   markdown-it: ^14.1.1
   markdown-it-attrs: ^4.3.1
   markdown-it-footnote: ^4.0.0

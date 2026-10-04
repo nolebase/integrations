@@ -41,11 +41,11 @@
       "import": "./dist/vitepress/client/index.mjs",
       "require": "./dist/vitepress/client/index.cjs"
     },
-    "./vitepress/client/common.css": "./dist/vitepress/client/common.css",
-    "./vitepress/client/style.css": "./dist/vitepress/client/style.css",
-    "./vitepress/client/theme/vitepress.css": "./dist/vitepress/client/theme/vitepress.css",
-    "./vitepress/client/theme/voidzero.css": "./dist/vitepress/client/theme/voidzero.css",
-    "./vitepress/client/theme/proj-airi.css": "./dist/vitepress/client/theme/proj-airi.css",
+    "./vitepress/client/common.css": "./dist/vitepress/styles/common.css",
+    "./vitepress/client/style.css": "./dist/vitepress/styles/style.css",
+    "./vitepress/client/theme/vitepress.css": "./dist/vitepress/styles/theme/vitepress.css",
+    "./vitepress/client/theme/voidzero.css": "./dist/vitepress/styles/theme/voidzero.css",
+    "./vitepress/client/theme/proj-airi.css": "./dist/vitepress/styles/theme/proj-airi.css",
     "./vitepress/markdown-it": {
       "types": "./dist/vitepress/markdown-it/index.d.ts",
       "import": "./dist/vitepress/markdown-it/index.mjs",

@@ -1,0 +1,5 @@
+@import "../common.css";
+
+:root {
+  --nolebase-enhanced-readabilities-menu-background-color: var(--vp-c-bg-alt);
+}

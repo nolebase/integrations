@@ -1,0 +1,7 @@
+/*
+ * NOTICE:
+ * This file is a source-time placeholder for package CSS imports.
+ * The production build overwrites dist/client/unocss.css with UnoCSS CLI output.
+ * Source-time imports need this file so Vite dev can resolve ./unocss.css before build output exists.
+ * Remove this file only if the package stops importing generated UnoCSS output from source CSS.
+ */

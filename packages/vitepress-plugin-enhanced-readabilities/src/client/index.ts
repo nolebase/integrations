@@ -14,6 +14,7 @@ import NolebaseEnhancedReadabilitiesScreenMenu from './components/ScreenMenu.vue
 import ScreenSpotlight from './components/ScreenSpotlight.vue'
 import Spotlight from './components/Spotlight.vue'
 import SpotlightStyles from './components/SpotlightStyles.vue'
+import NolebaseEnhancedReadabilitiesVoidZeroMenu from './components/theme/VoidZeroMenu.vue'
 
 import {
   InjectionKey,
@@ -37,6 +38,7 @@ export {
   LayoutSwitchPageLayoutMaxWidthSlider,
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesScreenMenu,
+  NolebaseEnhancedReadabilitiesVoidZeroMenu,
   ScreenLayoutSwitch,
   ScreenSpotlight,
   Spotlight,

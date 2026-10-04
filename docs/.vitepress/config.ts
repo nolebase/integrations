@@ -1,6 +1,9 @@
+import type { NolebasePluginPresetTheme } from '@nolebase/unconfig-vitepress/plugins'
 import type { DefaultTheme } from 'vitepress'
 
+import { dirname, resolve } from 'node:path'
 import { argv, cwd, env } from 'node:process'
+import { fileURLToPath } from 'node:url'
 
 import MarkdownItFootnote from 'markdown-it-footnote'
 
@@ -11,12 +14,28 @@ import { transformHeadMeta } from '@nolebase/vitepress-plugin-meta/vitepress'
 import { buildEndGenerateOpenGraphImages } from '@nolebase/vitepress-plugin-og-image/vitepress'
 import { calculateSidebar } from '@nolebase/vitepress-plugin-sidebar'
 import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
+import { extendConfig as extendVoidZeroConfig } from '@voidzero-dev/vitepress-theme/config'
 import { gray } from 'colorette'
 import { defineConfig } from 'vitepress'
 
 import packageJSON from '../../package.json'
 
 import { compilerOptions } from './twoslashConfig'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
+/**
+ * Per-theme site settings for the docs builds.
+ * `docs/scripts/run-vitepress-theme.mjs` selects the target via `NOLEBASE_DOCS_THEME`.
+ */
+const docsThemes = {
+  vitepress: { base: '/', outDir: undefined },
+  voidzero: { base: '/themes/voidzero/', outDir: '.vitepress/dist/themes/voidzero' },
+} satisfies Record<NolebasePluginPresetTheme, { base: string, outDir?: string }>
+
+const docsThemeTarget: NolebasePluginPresetTheme = env.NOLEBASE_DOCS_THEME === 'voidzero' ? 'voidzero' : 'vitepress'
+const docsThemePreviewOrigin = 'https://nolebase-integrations.ayaka.io'
 
 function noTwoslash() {
   return argv.some(v => v.includes('vitepress')) && argv.includes('dev')
@@ -43,10 +62,17 @@ function getVueProdHydrationMismatchDetailsFlag() {
 }
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+const docsConfig = defineConfig({
+  base: docsThemes[docsThemeTarget].base,
+  outDir: docsThemes[docsThemeTarget].outDir,
   vite: {
     define: {
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
+    },
+    resolve: {
+      alias: {
+        'virtual:nolebase-docs-theme': resolve(__dirname, 'theme', 'themes', `${docsThemeTarget}.ts`),
+      },
     },
   },
   vue: {
@@ -126,6 +152,13 @@ export default defineConfig({
           { text: 'Integrations', link: '/pages/en/integrations/' },
           { text: 'UI Components', link: '/pages/en/ui/' },
           {
+            text: 'Theme Preview',
+            items: [
+              { text: 'Default', link: `${docsThemePreviewOrigin}/` },
+              { text: 'VoidZero', link: `${docsThemePreviewOrigin}/themes/voidzero/` },
+            ],
+          },
+          {
             text: packageJSON.version,
             items: [
               {
@@ -164,6 +197,13 @@ export default defineConfig({
           },
           { text: '集成', link: '/pages/zh-CN/integrations/' },
           { text: 'UI 组件', link: '/pages/zh-CN/ui/' },
+          {
+            text: '主题预览',
+            items: [
+              { text: '默认', link: `${docsThemePreviewOrigin}/` },
+              { text: 'VoidZero', link: `${docsThemePreviewOrigin}/themes/voidzero/` },
+            ],
+          },
           {
             text: packageJSON.version,
             items: [
@@ -265,3 +305,7 @@ export default defineConfig({
     await newBuilder(siteConfig as never)
   },
 })
+
+export default docsThemeTarget === 'voidzero'
+  ? extendVoidZeroConfig(docsConfig)
+  : docsConfig

@@ -1,0 +1,9 @@
+@import "../common.css";
+
+:root {
+  --nolebase-c-surface-soft: hsl(var(--muted) / 0.55);
+  --nolebase-c-text: hsl(var(--foreground));
+  --nolebase-c-border: hsl(var(--border));
+  --nolebase-c-brand: hsl(var(--primary));
+  --nolebase-c-warning: hsl(var(--warning, 45 93% 47%));
+}

@@ -174,7 +174,7 @@ export default defineConfig(() => {
 
 在 VitePress 的[**主题配置文件**](https://vitepress.dev/reference/default-theme-config#default-theme-config)（请注意，这与上面提及的**配置文件**并非是一个文件，主题配置文件通常位于 `docs/.vitepress/theme/index.ts`，文件路径和扩展名可能会有所不同），安装 Vue 插件并使用组件：
 
-<!--@include: @/pages/zh-CM/snippets/details-colored-diff.md-->
+<!--@include: @/pages/zh-CN/snippets/details-colored-diff.md-->
 
 <!--@include: @/pages/zh-CN/snippets/configure-tsconfig.md-->
 

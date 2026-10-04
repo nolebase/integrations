@@ -178,7 +178,7 @@ onMounted(() => {
 </template>
 
 <style less>
-.VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated {
+:root:not([data-nolebase-vitepress-theme="voidzero"]) .VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated {
   /* with sidebar */
   .VPNavBar.has-sidebar > .wrapper > .container > .title {
     transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
@@ -234,7 +234,30 @@ onMounted(() => {
   --vp-nolebase-enhanced-readabilities-full-width-max-width: 100%;
 }
 
-.VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth {
+:root[data-nolebase-vitepress-theme="voidzero"] .VPNolebaseEnhancedReadabilitiesLayoutSwitchAnimated {
+  .relative.w-full.z-50 > .wrapper,
+  .content-wrapper.has-sidebar {
+    transition: max-width 0.5s ease-in-out, grid-template-columns 0.5s ease-in-out;
+  }
+
+  .VPSidebar {
+    transition: width 0.5s ease-in-out, padding-left 0.5s ease-in-out;
+  }
+
+  .VPContent.has-sidebar,
+  .VPDoc,
+  .VPDoc .container {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+
+  .VPDoc.has-aside .content-container,
+  .VPDoc:not(.has-sidebar) .container,
+  .VPDoc:not(.has-sidebar) .container > .content {
+    transition: width 0.5s ease-in-out, max-width 0.5s ease-in-out;
+  }
+}
+
+:root:not([data-nolebase-vitepress-theme="voidzero"]) .VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
@@ -299,7 +322,41 @@ onMounted(() => {
   }
 }
 
-.VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly {
+:root[data-nolebase-vitepress-theme="voidzero"] .VPNolebaseEnhancedReadabilitiesLayoutSwitchFullWidth {
+  @media (min-width: 1280px) {
+    .relative.w-full.z-50 > .wrapper,
+    .content-wrapper.has-sidebar {
+      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
+    }
+
+    .content-wrapper.has-sidebar {
+      grid-template-columns: var(--vp-sidebar-width) minmax(0, 1fr) !important;
+    }
+
+    .VPSidebar {
+      width: var(--vp-sidebar-width) !important;
+    }
+
+    .VPContent.has-sidebar {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100% !important;
+    }
+
+    .VPDoc {
+      width: 100% !important;
+    }
+
+    .VPDoc .container,
+    .VPDoc.has-aside .content-container,
+    .VPDoc:not(.has-sidebar) .container,
+    .VPDoc:not(.has-sidebar) .container > .content {
+      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
+    }
+  }
+}
+
+:root:not([data-nolebase-vitepress-theme="voidzero"]) .VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
@@ -342,7 +399,7 @@ onMounted(() => {
   }
 }
 
-.VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable {
+:root:not([data-nolebase-vitepress-theme="voidzero"]) .VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable {
   @media (min-width: 1280px) {
     /* Overriding styles of navbar section */
     .VPNavBar.has-sidebar > .wrapper > .container > .title {
@@ -404,6 +461,39 @@ onMounted(() => {
 
     .VPDoc .container {
       max-width: var(--vp-nolebase-enhanced-readabilities-content-max-width);
+    }
+  }
+}
+
+:root[data-nolebase-vitepress-theme="voidzero"] .VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable {
+  @media (min-width: 1280px) {
+    .VPDoc.has-aside .content-container,
+    .VPDoc:not(.has-sidebar) .container,
+    .VPDoc:not(.has-sidebar) .container > .content {
+      max-width: var(--vp-nolebase-enhanced-readabilities-content-max-width) !important;
+    }
+  }
+}
+
+:root[data-nolebase-vitepress-theme="voidzero"] :is(.VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly, .VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable) {
+  @media (min-width: 1440px) {
+    .relative.w-full.z-50 > .wrapper,
+    .content-wrapper.has-sidebar {
+      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
+    }
+
+    .content-wrapper.has-sidebar {
+      grid-template-columns: var(--vp-sidebar-width) minmax(0, 1fr) !important;
+    }
+
+    .VPSidebar {
+      width: var(--vp-sidebar-width) !important;
+    }
+
+    .VPContent.has-sidebar {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      width: 100% !important;
     }
   }
 }

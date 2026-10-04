@@ -1,0 +1,12 @@
+/*
+ * NOTICE:
+ * Pins the cascade layer order for the VoidZero docs build before UnoCSS output is loaded.
+ * UnoCSS is emitted into `@layer base` / `@layer utilities` for this build (see `docs/uno.config.ts`).
+ * Browsers order layers by first appearance, so without this statement `utilities` would be declared
+ * by UnoCSS first and become the lowest layer, letting VoidZero `@layer docs` styles override every utility.
+ * The order matches what VoidZero ends up with on its own:
+ * `@layer base, docs, marketing;` from `@voidzero-dev/vitepress-theme/src/styles/index.css`,
+ * followed by `@layer theme, base, components, utilities;` from `tailwindcss/index.css`.
+ * Removal condition: UnoCSS is no longer loaded alongside the VoidZero theme.
+ */
+@layer base, docs, marketing, theme, components, utilities;

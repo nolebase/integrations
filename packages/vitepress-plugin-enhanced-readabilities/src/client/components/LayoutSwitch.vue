@@ -347,18 +347,9 @@ onMounted(() => {
       width: 100% !important;
     }
 
-    .VPDoc .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
-    }
-
-    .VPDoc.has-aside .content-container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
-    }
-
-    .VPDoc:not(.has-sidebar) .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
-    }
-
+    .VPDoc .container,
+    .VPDoc.has-aside .content-container,
+    .VPDoc:not(.has-sidebar) .container,
     .VPDoc:not(.has-sidebar) .container > .content {
       max-width: var(--vp-nolebase-enhanced-readabilities-full-width-max-width) !important;
     }
@@ -404,29 +395,6 @@ onMounted(() => {
     .VPContent.has-sidebar {
       padding-left: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2 + var(--vp-sidebar-width)) !important;
       padding-right: calc((100vw - var(--vp-nolebase-enhanced-readabilities-content-max-width)) / 2) !important;
-    }
-  }
-}
-
-:root[data-nolebase-vitepress-theme="voidzero"] .VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly {
-  @media (min-width: 1440px) {
-    .relative.w-full.z-50 > .wrapper,
-    .content-wrapper.has-sidebar {
-      max-width: var(--vp-nolebase-enhanced-readabilities-page-max-width) !important;
-    }
-
-    .content-wrapper.has-sidebar {
-      grid-template-columns: var(--vp-sidebar-width) minmax(0, 1fr) !important;
-    }
-
-    .VPSidebar {
-      width: var(--vp-sidebar-width) !important;
-    }
-
-    .VPContent.has-sidebar {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-      width: 100% !important;
     }
   }
 }
@@ -499,19 +467,15 @@ onMounted(() => {
 
 :root[data-nolebase-vitepress-theme="voidzero"] .VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable {
   @media (min-width: 1280px) {
-    .VPDoc.has-aside .content-container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-content-max-width) !important;
-    }
-
-    .VPDoc:not(.has-sidebar) .container {
-      max-width: var(--vp-nolebase-enhanced-readabilities-content-max-width) !important;
-    }
-
+    .VPDoc.has-aside .content-container,
+    .VPDoc:not(.has-sidebar) .container,
     .VPDoc:not(.has-sidebar) .container > .content {
       max-width: var(--vp-nolebase-enhanced-readabilities-content-max-width) !important;
     }
   }
+}
 
+:root[data-nolebase-vitepress-theme="voidzero"] :is(.VPNolebaseEnhancedReadabilitiesLayoutSwitchSidebarWidthAdjustableOnly, .VPNolebaseEnhancedReadabilitiesLayoutSwitchBothWidthAdjustable) {
   @media (min-width: 1440px) {
     .relative.w-full.z-50 > .wrapper,
     .content-wrapper.has-sidebar {

@@ -16,6 +16,7 @@ import {
   NolebaseEnhancedReadabilitiesMenu,
   NolebaseEnhancedReadabilitiesPlugin,
   NolebaseEnhancedReadabilitiesScreenMenu,
+  NolebaseEnhancedReadabilitiesVoidZeroMenu,
 } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import {
   NolebaseGitChangelogPlugin,
@@ -39,6 +40,7 @@ import {
 import {
   NolebaseUnlazyImg,
 } from '@nolebase/vitepress-plugin-thumbnail-hash/client'
+import { inBrowser } from 'vitepress'
 import { h } from 'vue'
 
 /**
@@ -243,10 +245,6 @@ function applyOptionsWithDefaults<PagePropertiesObject extends object = any>(opt
   return mergedOptions as NolebasePluginPresetOptions<PagePropertiesObject>
 }
 
-function shouldRegisterEnhancedReadabilitiesLayoutSlots(theme: NolebasePluginPresetTheme | undefined): boolean {
-  return theme !== 'voidzero'
-}
-
 /**
  * Creates a Nolebase VitePress plugin preset.
  *
@@ -270,15 +268,25 @@ export function NolebasePluginPreset<PagePropertiesObject extends object = any>(
       if (opts.highlightTargetedHeading?.enable)
         helpers.defineSlot('layout-top', () => h(NolebaseHighlightTargetedHeading))
 
-      if (opts.enhancedReadabilities?.enable && shouldRegisterEnhancedReadabilitiesLayoutSlots(opts.theme)) {
-        helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
-        helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
+      if (opts.enhancedReadabilities?.enable) {
+        if (opts.theme === 'voidzero') {
+          // VoidZero has no nav-bar-content-after slot; the menu teleports itself into the header.
+          helpers.defineSlot('layout-top', () => h(NolebaseEnhancedReadabilitiesVoidZeroMenu))
+        }
+        else {
+          helpers.defineSlot('nav-bar-content-after', () => h(NolebaseEnhancedReadabilitiesMenu))
+          helpers.defineSlot('nav-screen-content-after', () => h(NolebaseEnhancedReadabilitiesScreenMenu))
+        }
       }
 
       if (opts.graphView?.enable)
         helpers.defineSlot('aside-top', () => h(NolebaseGraphView))
     },
     async enhanceApp({ app }) {
+      // Theme-specific plugin CSS (e.g. enhanced-readabilities LayoutSwitch) selects on this attribute.
+      if (inBrowser && opts.theme)
+        document.documentElement.dataset.nolebaseVitepressTheme = opts.theme
+
       if (opts.enhancedReadabilities?.enable) {
         const enhancedReadabilitiesOptions = opts.enhancedReadabilities?.options ? [opts.enhancedReadabilities.options] : []
         app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)

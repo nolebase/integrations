@@ -2,10 +2,8 @@ import type { Theme } from 'vitepress'
 
 import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
-import { NolebaseEnhancedReadabilitiesVoidZeroMenu } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import { themeContextKey, VoidZeroTheme } from '@voidzero-dev/vitepress-theme'
-import { inBrowser, withBase } from 'vitepress'
-import { h } from 'vue'
+import { withBase } from 'vitepress'
 
 import { enhanceSharedDocsApp } from './shared'
 
@@ -21,19 +19,7 @@ import '../styles/main.css'
 
 export default defineThemeUnconfig({
   extends: VoidZeroTheme,
-  layout: {
-    slots: {
-      'layout-top': {
-        node: [
-          () => h(NolebaseEnhancedReadabilitiesVoidZeroMenu),
-        ],
-      },
-    },
-  },
   enhanceApp(ctx) {
-    if (inBrowser)
-      document.documentElement.dataset.nolebaseVitepressTheme = 'voidzero'
-
     // VoidZero renders these paths as-is, so prefix them with the site base (`/themes/voidzero/`).
     ctx.app.provide(themeContextKey, {
       footerBg: withBase('/logo-dark.png'),

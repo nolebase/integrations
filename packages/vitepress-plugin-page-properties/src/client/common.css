@@ -4,8 +4,6 @@
 :root {
   --vp-nolebase-page-properties-text: var(--vp-c-text-1, currentColor);
   --vp-nolebase-page-properties-muted-text: var(--vp-c-text-2, color-mix(in srgb, currentColor 70%, transparent));
-  --vp-nolebase-page-properties-surface: var(--vp-c-bg-soft, transparent);
-  --vp-nolebase-page-properties-border: var(--vp-c-divider, transparent);
   --vp-nolebase-page-properties-accent: var(--vp-c-brand-1, currentColor);
 }
 

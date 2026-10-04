@@ -7,19 +7,10 @@ import { argv, env, execPath, exit } from 'node:process'
 
 const [theme, command, ...args] = argv.slice(2)
 const require = createRequire(import.meta.url)
-let vitepressBin
+// `vitepress/bin/*` is not in the package `exports`, so resolve the bin path through package.json.
+const vitepressPackageJson = require('vitepress/package.json')
 
-try {
-  vitepressBin = require.resolve('vitepress/bin/vitepress.js')
-}
-catch (error) {
-  if (error?.code !== 'ERR_PACKAGE_PATH_NOT_EXPORTED')
-    throw error
-
-  const vitepressPackageJsonPath = require.resolve('vitepress/package.json')
-  const vitepressPackageJson = require('vitepress/package.json')
-  vitepressBin = resolve(dirname(vitepressPackageJsonPath), vitepressPackageJson.bin.vitepress)
-}
+const vitepressBin = resolve(dirname(require.resolve('vitepress/package.json')), vitepressPackageJson.bin.vitepress)
 
 const allowedThemes = new Set(['vitepress', 'voidzero'])
 const allowedCommands = new Set(['build', 'dev', 'preview'])

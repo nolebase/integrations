@@ -75,7 +75,6 @@ export function presetClient<PagePropertiesObject extends object = any>(options?
     async enhanceApp({ app }) {
       if (opts.enhancedReadabilities) {
         const { NolebaseEnhancedReadabilitiesPlugin } = await import('@nolebase/vitepress-plugin-enhanced-readabilities/client')
-        await import('@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css')
 
         const enhancedReadabilitiesOptions = opts.enhancedReadabilities?.options ? [opts.enhancedReadabilities.options] : []
         app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)

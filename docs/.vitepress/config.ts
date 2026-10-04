@@ -1,3 +1,4 @@
+import type { NolebasePluginPresetTheme } from '@nolebase/unconfig-vitepress/plugins'
 import type { DefaultTheme } from 'vitepress'
 
 import { dirname, resolve } from 'node:path'
@@ -21,35 +22,19 @@ import packageJSON from '../../package.json'
 
 import { compilerOptions } from './twoslashConfig'
 
-type DocsThemeTarget = 'vitepress' | 'voidzero'
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-function getDocsThemeTarget(): DocsThemeTarget {
-  const theme = env.NOLEBASE_DOCS_THEME
+/**
+ * Per-theme site settings for the docs builds.
+ * `docs/scripts/run-vitepress-theme.mjs` selects the target via `NOLEBASE_DOCS_THEME`.
+ */
+const docsThemes = {
+  vitepress: { base: '/', outDir: undefined },
+  voidzero: { base: '/themes/voidzero/', outDir: '.vitepress/dist/themes/voidzero' },
+} satisfies Record<NolebasePluginPresetTheme, { base: string, outDir?: string }>
 
-  if (theme === 'voidzero' || theme === 'vitepress')
-    return theme
-
-  return 'vitepress'
-}
-
-function getDocsThemeBase(theme: DocsThemeTarget): string {
-  if (theme === 'voidzero')
-    return '/themes/voidzero/'
-
-  return '/'
-}
-
-function getDocsThemeOutDir(theme: DocsThemeTarget): string | undefined {
-  if (theme === 'voidzero')
-    return '.vitepress/dist/themes/voidzero'
-
-  return undefined
-}
-
-const docsThemeTarget = getDocsThemeTarget()
+const docsThemeTarget: NolebasePluginPresetTheme = env.NOLEBASE_DOCS_THEME === 'voidzero' ? 'voidzero' : 'vitepress'
 const docsThemePreviewOrigin = 'https://nolebase-integrations.ayaka.io'
 
 function noTwoslash() {
@@ -78,11 +63,10 @@ function getVueProdHydrationMismatchDetailsFlag() {
 
 // https://vitepress.dev/reference/site-config
 const docsConfig = defineConfig({
-  base: getDocsThemeBase(docsThemeTarget),
-  outDir: getDocsThemeOutDir(docsThemeTarget),
+  base: docsThemes[docsThemeTarget].base,
+  outDir: docsThemes[docsThemeTarget].outDir,
   vite: {
     define: {
-      __NOLEBASE_DOCS_THEME__: JSON.stringify(docsThemeTarget),
       __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: getVueProdHydrationMismatchDetailsFlag(),
     },
     resolve: {

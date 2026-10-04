@@ -4,11 +4,13 @@ import { defineThemeUnconfig } from '@nolebase/unconfig-vitepress'
 import { NolebasePluginPreset } from '@nolebase/unconfig-vitepress/plugins'
 import { NolebaseEnhancedReadabilitiesVoidZeroMenu } from '@nolebase/vitepress-plugin-enhanced-readabilities/client'
 import { themeContextKey, VoidZeroTheme } from '@voidzero-dev/vitepress-theme'
-import { inBrowser } from 'vitepress'
+import { inBrowser, withBase } from 'vitepress'
 import { h } from 'vue'
 
 import { enhanceSharedDocsApp } from './shared'
 
+// Must stay before `virtual:uno.css`, it pins the cascade layer order UnoCSS output relies on.
+import '../styles/voidzero-layers.css'
 import 'virtual:uno.css'
 import '@shikijs/vitepress-twoslash/style.css'
 import 'asciinema-player/dist/bundle/asciinema-player.css'
@@ -32,12 +34,13 @@ export default defineThemeUnconfig({
     if (inBrowser)
       document.documentElement.dataset.nolebaseVitepressTheme = 'voidzero'
 
+    // VoidZero renders these paths as-is, so prefix them with the site base (`/themes/voidzero/`).
     ctx.app.provide(themeContextKey, {
-      footerBg: '/logo-dark.png',
+      footerBg: withBase('/logo-dark.png'),
       logoAlt: 'Nolebase Integrations',
-      logoDark: '/logo-dark.png',
-      logoLight: '/logo-light.png',
-      monoIcon: '/logo.svg',
+      logoDark: withBase('/logo-dark.png'),
+      logoLight: withBase('/logo-light.png'),
+      monoIcon: withBase('/logo.svg'),
     })
 
     VoidZeroTheme.enhanceApp?.(ctx)

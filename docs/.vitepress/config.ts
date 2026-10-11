@@ -1,4 +1,5 @@
 import type { NolebasePluginPresetTheme } from '@nolebase/unconfig-vitepress/plugins'
+import type { PluginSimple } from 'markdown-it'
 import type { DefaultTheme } from 'vitepress'
 
 import { dirname, resolve } from 'node:path'
@@ -257,7 +258,13 @@ const docsConfig = defineConfig({
       })
     },
     config(md) {
-      md.use(MarkdownItFootnote)
+      // NOTICE:
+      // `@types/markdown-it-footnote` uses `import MarkdownIt = require('markdown-it')`, so it resolves the CJS
+      // types (`@types/markdown-it/dist/index.cjs.d.ts`), while VitePress passes the ESM `MarkdownIt` (`index.d.mts`).
+      // Since @types/markdown-it@14.2.0, the ESM `Utils` has `isPunctCharCode` but the CJS bundle does not,
+      // so the two `MarkdownIt` types are no longer compatible and `md.use(MarkdownItFootnote)` fails with TS2769.
+      // Remove the cast once @types/markdown-it ships matching ESM/CJS types.
+      md.use(MarkdownItFootnote as unknown as PluginSimple)
       md.use(InlineLinkPreviewElementTransform)
     },
   },

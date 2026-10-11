@@ -102,3 +102,8 @@ catalogs:
 catalogMode: strict
 
 neverBuiltDependencies: []
+
+allowBuilds:
+  esbuild: true
+  simple-git-hooks: true
+  vue-demi: true

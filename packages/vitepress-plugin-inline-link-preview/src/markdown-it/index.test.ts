@@ -1,3 +1,5 @@
+import type { PluginSimple } from 'markdown-it'
+
 import MarkdownIt from 'markdown-it'
 import MarkdownItAttrs from 'markdown-it-attrs'
 
@@ -107,7 +109,13 @@ describe('markdown-it', () => {
     it(tc.name, () => {
       const rendered = new MarkdownIt({ html: true })
         .use(InlineLinkPreviewElementTransform)
-        .use(MarkdownItAttrs)
+        // NOTICE:
+        // `@types/markdown-it-attrs` uses `import MarkdownIt = require('markdown-it')`, so it resolves the CJS
+        // types (`@types/markdown-it/dist/index.cjs.d.ts`), while this file uses the ESM types (`index.d.mts`).
+        // Since @types/markdown-it@14.2.0, the ESM `Utils` has `isPunctCharCode` but the CJS bundle does not,
+        // so the two `MarkdownIt` types are no longer compatible and `.use(MarkdownItAttrs)` fails with TS2769.
+        // Remove the cast once @types/markdown-it ships matching ESM/CJS types.
+        .use(MarkdownItAttrs as unknown as PluginSimple)
         .render(tc.input)
 
       expect(rendered).toBe(tc.expect)

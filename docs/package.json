@@ -4,11 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "pnpm run docs:dev",
-    "build": "pnpm run docs:build",
+    "build": "pnpm run docs:build:all",
     "preview": "pnpm run docs:preview",
     "docs:dev": "vitepress dev",
+    "docs:dev:theme:voidzero": "node scripts/run-vitepress-theme.mjs voidzero dev",
     "docs:build": "vitepress build",
+    "docs:build:all": "pnpm run docs:build:theme:vitepress && pnpm run docs:build:theme:voidzero",
+    "docs:build:theme:vitepress": "node scripts/run-vitepress-theme.mjs vitepress build",
+    "docs:build:theme:voidzero": "node scripts/run-vitepress-theme.mjs voidzero build",
     "docs:preview": "vitepress preview",
+    "docs:preview:theme:voidzero": "node scripts/run-vitepress-theme.mjs voidzero preview",
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
@@ -17,6 +22,7 @@
     "@iconify-json/icon-park-outline": "catalog:",
     "@iconify-json/octicon": "catalog:",
     "@iconify-json/svg-spinners": "catalog:",
+    "@nolebase/integrations": "workspace:^",
     "@nolebase/markdown-it-bi-directional-links": "workspace:^",
     "@nolebase/markdown-it-element-transform": "workspace:^",
     "@nolebase/markdown-it-unlazy-img": "workspace:^",
@@ -42,6 +48,7 @@
     "@shikijs/vitepress-twoslash": "catalog:",
     "@types/markdown-it": "catalog:",
     "@types/markdown-it-footnote": "catalog:",
+    "@voidzero-dev/vitepress-theme": "catalog:",
     "@vueuse/motion": "catalog:",
     "asciinema-player": "catalog:",
     "colorette": "catalog:",

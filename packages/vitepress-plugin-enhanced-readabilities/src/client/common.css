@@ -1,0 +1,16 @@
+@import "@nolebase/ui/style.css";
+@import "./unocss.css";
+
+:root {
+  --nolebase-c-surface-soft: var(--vp-c-bg-soft, #f6f6f7);
+  --nolebase-c-text: var(--vp-c-text-1, currentColor);
+  --nolebase-c-border: var(--vp-c-divider, color-mix(in srgb, currentColor 18%, transparent));
+  --nolebase-c-brand: var(--vp-c-brand-1, currentColor);
+  --nolebase-c-warning: rgb(240 197 52);
+
+  --nolebase-enhanced-readabilities-menu-background-color: var(--nolebase-c-surface-soft);
+  --nolebase-enhanced-readabilities-menu-text-color: var(--nolebase-c-text);
+  --nolebase-enhanced-readabilities-menu-divider-color: var(--nolebase-c-border);
+  --nolebase-enhanced-readabilities-spotlight-under-bg-color: color-mix(in srgb, var(--nolebase-c-warning) 10%, transparent);
+  --nolebase-enhanced-readabilities-spotlight-aside-bg-color: var(--nolebase-c-brand);
+}

@@ -75,7 +75,6 @@ export function presetClient<PagePropertiesObject extends object = any>(options?
     async enhanceApp({ app }) {
       if (opts.enhancedReadabilities) {
         const { NolebaseEnhancedReadabilitiesPlugin } = await import('@nolebase/vitepress-plugin-enhanced-readabilities/client')
-        await import('@nolebase/vitepress-plugin-enhanced-readabilities/client/style.css')
 
         const enhancedReadabilitiesOptions = opts.enhancedReadabilities?.options ? [opts.enhancedReadabilities.options] : []
         app.use(NolebaseEnhancedReadabilitiesPlugin, ...enhancedReadabilitiesOptions)
@@ -98,7 +97,6 @@ export function presetClient<PagePropertiesObject extends object = any>(options?
 
       if (opts.gitChangelog) {
         const { NolebaseGitChangelogPlugin } = await import('@nolebase/vitepress-plugin-git-changelog/client')
-        await import('@nolebase/vitepress-plugin-git-changelog/client/style.css')
 
         const gitChangelogOptions = opts.gitChangelog?.options ? [opts.gitChangelog.options] : []
         app.use(NolebaseGitChangelogPlugin, ...gitChangelogOptions)
@@ -106,7 +104,6 @@ export function presetClient<PagePropertiesObject extends object = any>(options?
 
       if (opts.pageProperties) {
         const { NolebasePagePropertiesPlugin } = await import('@nolebase/vitepress-plugin-page-properties/client')
-        await import('@nolebase/vitepress-plugin-page-properties/client/style.css')
 
         const pagePropertiesOptions = opts.pageProperties?.options ? [opts.pageProperties.options] : []
         app.use(NolebasePagePropertiesPlugin<PagePropertiesObject>(), ...pagePropertiesOptions)

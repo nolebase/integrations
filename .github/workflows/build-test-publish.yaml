@@ -1,0 +1,21 @@
+name: Build, Test, and Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  # changelogithub creates the GitHub Release.
+  contents: write
+  # npm trusted publishing authenticates with this run's OIDC token.
+  # NOTICE: npm matches the trusted publisher against this caller workflow
+  # (`build-test-publish.yaml`), not the reusable workflow it calls.
+  id-token: write
+
+jobs:
+  build-test-publish:
+    name: Build, Test, and Publish
+    uses: ./.github/workflows/reusable-build-test-publish.yaml
+    with:
+      publish: true

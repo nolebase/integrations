@@ -19,7 +19,7 @@ The "**Layout Switch**" and "**Spotlight**" features of Enhanced Readabilities p
 
 ::: details Video demo
 <video controls muted>
-  <source src="./assets/demo-video-1.en.mov">
+  <source src="./assets/demo-video-1.en.mp4" type="video/mp4">
 </video>
 :::
 

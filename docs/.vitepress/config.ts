@@ -97,8 +97,9 @@ const docsConfig = defineConfig({
     /^https?:\/\/localhost/,
   ],
   head: [
-    // Proxying Plausible through Netlify | Plausible docs
-    // https://plausible.io/docs/proxy/guides/netlify
+    // Proxying Plausible through Cloudflare Workers | Plausible docs (previously the Netlify guide)
+    // https://plausible.io/docs/proxy/guides/cloudflare
+    // Served by `docs/worker.js`.
     ['script', { 'defer': 'true', 'data-domain': 'nolebase-integrations.ayaka.io', 'data-api': '/api/v1/page-external-data/submit', 'src': '/assets/page-external-data/js/script.js' }],
   ],
   themeConfig: {

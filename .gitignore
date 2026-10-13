@@ -16,7 +16,6 @@ node_modules
 **/.vitepress/docsMetadata.json
 **/.vitepress/cache/
 
-**/.netlify/*
-**/.netlify/functions-serve/*
+**/.wrangler/
 
 coverage/

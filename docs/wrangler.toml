@@ -1,0 +1,17 @@
+# This Worker serves the whole nolebase-integrations.ayaka.io site: the default
+# VitePress theme build at `/` and the VoidZero theme build under
+# `/themes/voidzero/` (both written by `pnpm -F @nolebase/integrations-docs build`).
+name = "nolebase-integrations"
+main = "./worker.js"
+compatibility_date = "2026-10-06"
+preview_urls = true
+# NOTICE(dashboard-managed-routes): Domain and route ownership intentionally
+# lives in the Cloudflare dashboard rather than this deploy configuration.
+workers_dev = false
+
+# Static assets are served first. The Worker only runs for paths with no
+# matching asset, and handles the routing that Netlify `_redirects` used to do.
+# See `./worker.js`.
+[assets]
+directory = "./.vitepress/dist"
+binding = "ASSETS"

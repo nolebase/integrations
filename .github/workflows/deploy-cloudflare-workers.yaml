@@ -1,0 +1,54 @@
+name: Cloudflare Workers
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy - nolebase-integrations.ayaka.io
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    environment:
+      name: Production Docs
+      url: https://nolebase-integrations.ayaka.io/
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # vitepress-plugin-git-changelog reads the full git history at build time.
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+        with:
+          run_install: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+      # NOTICE(wrangler-workspace-install): Keep Wrangler outside the workspace
+      # graph so wrangler-action can reuse it without changing the lockfile.
+      - name: Install Wrangler
+        run: pnpm install --global wrangler@4
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build packages
+        run: pnpm packages:build
+      # Builds both the default theme at `/` and the VoidZero theme at `/themes/voidzero/`.
+      - name: Build docs
+        run: pnpm docs:build
+        env:
+          VUE_PROD_HYDRATION_MISMATCH_DETAILS_FLAG: '1'
+      - name: Deploy docs
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy -c ./docs/wrangler.toml
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

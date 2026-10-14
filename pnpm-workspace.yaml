@@ -49,7 +49,7 @@ catalog:
   date-fns: ^4.4.0
   debug: ^4.4.3
   defu: ^6.1.7
-  emoji-regex: ^10.6.0
+  emoji-regex: ^11.0.0
   es-toolkit: ^1.52.0
   eslint: ^10.12.0
   execa: ^9.6.1

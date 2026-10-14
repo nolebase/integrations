@@ -61,7 +61,7 @@ catalog:
   less: ^4.9.1
   lint-staged: ^16.4.0
   markdown-it: ^14.1.1
-  markdown-it-attrs: ^4.5.0
+  markdown-it-attrs: ^5.0.1
   markdown-it-footnote: ^4.0.0
   motion: ^12.43.0
   ora: ^9.4.1

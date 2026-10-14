@@ -41,7 +41,7 @@ catalog:
   builtin-modules: ^5.4.0
   bumpp: ^11.1.0
   canvaskit-wasm: ^0.42.0
-  changelogithub: ^14.0.0
+  changelogithub: ^15.0.5
   colorette: ^2.0.20
   concurrently: ^9.2.5
   d3: ^7.9.0

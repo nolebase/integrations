@@ -39,7 +39,7 @@ catalog:
   '@vueuse/motion': ^3.0.3
   asciinema-player: ^3.17.0
   builtin-modules: ^5.4.0
-  bumpp: ^11.1.0
+  bumpp: ^12.3.0
   canvaskit-wasm: ^0.42.0
   changelogithub: ^14.0.0
   colorette: ^2.0.20

@@ -17,7 +17,7 @@ import packageJSON from '~/packages/vitepress-plugin-highlight-targeted-heading/
 - [页面内高亮目标标题](#如何使用)
 
 <video controls muted>
-  <source src="./assets/demo-video-1.zh-CN.mov">
+  <source src="./assets/demo-video-1.zh-CN.mp4" type="video/mp4">
 </video>
 
 当我们点击右侧的大纲进行导览的时候会有黄色的闪烁块在标题元素周围闪烁。

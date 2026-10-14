@@ -17,7 +17,7 @@ Try clicking the following two links and observe the changes of the title elemen
 - [Highlight headings within the page](#how-to-use)
 
 <video controls muted>
-  <source src="./assets/demo-video-1.en.mov">
+  <source src="./assets/demo-video-1.en.mp4" type="video/mp4">
 </video>
 
 When we click on the outline on the right to navigate, there will be a yellow blinking block flashing around the targeted title element.

@@ -1,0 +1,110 @@
+name: Build, Test, and Publish
+
+on:
+  workflow_call:
+    inputs:
+      publish:
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  check:
+    name: Run code checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      # typecheck resolves workspace packages through their dist entries, so stub them first.
+      - name: Stub packages
+        run: pnpm run packages:stub
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+  test:
+    name: Test - Node.js ${{ matrix.node-version }} (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20.x', '22.x', '24.x']
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Stub packages
+        run: pnpm run packages:stub
+
+      - name: Run tests
+        run: pnpm run test:run
+
+  build-publish:
+    name: Build${{ inputs.publish && ' and publish' || '' }}
+    needs: [check, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          # changelogithub walks tags and commits to generate release notes.
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          # Trusted publishing exchanges this run's OIDC token with this registry,
+          # so no NPM_TOKEN is involved.
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
+        run: pnpm run packages:build
+
+      # Trusted publishing needs the caller to grant `id-token: write`; npm then
+      # attaches provenance automatically.
+      - if: inputs.publish
+        name: Publish packages
+        run: pnpm run packages:publish
+
+      - if: inputs.publish
+        name: Sync GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm run changelogithub

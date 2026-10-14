@@ -19,7 +19,7 @@ import packageJSON from '~/packages/vitepress-plugin-enhanced-readabilities/pack
 
 ::: details 视频演示
 <video controls muted>
-  <source src="./assets/demo-video-1.zh-CN.mov">
+  <source src="./assets/demo-video-1.zh-CN.mp4" type="video/mp4">
 </video>
 :::
 

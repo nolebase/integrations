@@ -198,8 +198,8 @@ catalogs:
       specifier: ^2.45.0
       version: 2.45.0
     '@rollup/plugin-yaml':
-      specifier: ^4.1.2
-      version: 4.1.2
+      specifier: ^5.0.1
+      version: 5.0.1
     '@shikijs/vitepress-twoslash':
       specifier: ^4.5.0
       version: 4.5.0
@@ -619,7 +619,7 @@ importers:
         version: 2.45.0
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
       '@shikijs/vitepress-twoslash':
         specifier: 'catalog:'
         version: 4.5.0(@nuxt/kit@3.13.2(magicast@0.3.5)(rollup@4.46.2)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@6.0.3)
@@ -882,7 +882,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
 
   packages/vitepress-plugin-git-changelog:
     dependencies:
@@ -925,7 +925,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
       builtin-modules:
         specifier: 'catalog:'
         version: 5.4.0
@@ -993,7 +993,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
 
   packages/vitepress-plugin-inline-link-preview:
     dependencies:
@@ -1027,7 +1027,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
       '@types/markdown-it':
         specifier: 'catalog:'
         version: 14.2.0
@@ -1153,7 +1153,7 @@ importers:
     devDependencies:
       '@rollup/plugin-yaml':
         specifier: 'catalog:'
-        version: 4.1.2(rollup@4.46.2)
+        version: 5.0.1(rollup@4.46.2)
       '@types/uuid':
         specifier: 'catalog:'
         version: 11.0.0
@@ -2540,11 +2540,11 @@ packages:
       rollup:
         optional: true
 
-  '@rollup/plugin-yaml@4.1.2':
-    resolution: {integrity: sha512-RpupciIeZMUqhgFE97ba0s98mOFS7CWzN3EJNhJkqSv9XLlWYtwVdtE6cDw6ASOF/sZVFS7kRJXftaqM2Vakdw==}
+  '@rollup/plugin-yaml@5.0.1':
+    resolution: {integrity: sha512-oslHUtWi3Zepyx0IiZ3BBwc4PI1B1PUbkpBom+0w91UHuY0EVUIrGkrHfwW1reHzVOsTtkGj5z/Dx7jhguzP2g==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
+      rollup: ^2.78.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -8264,9 +8264,9 @@ snapshots:
     optionalDependencies:
       rollup: 4.46.2
 
-  '@rollup/plugin-yaml@4.1.2(rollup@4.46.2)':
+  '@rollup/plugin-yaml@5.0.1(rollup@4.46.2)':
     dependencies:
-      '@rollup/pluginutils': 5.3.0(rollup@4.46.2)
+      '@rollup/pluginutils': 5.4.0(rollup@4.46.2)
       js-yaml: 4.1.0
       tosource: 2.0.0-alpha.3
     optionalDependencies:
@@ -8284,7 +8284,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.8
       estree-walker: 2.0.2
-      picomatch: 4.0.4
+      picomatch: 4.0.7
     optionalDependencies:
       rollup: 4.46.2
 

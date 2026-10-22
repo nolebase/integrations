@@ -336,8 +336,8 @@ catalogs:
       specifier: ^14.3.3
       version: 14.3.3
     markdown-it-attrs:
-      specifier: ^4.5.0
-      version: 4.5.0
+      specifier: ^5.0.1
+      version: 5.0.1
     markdown-it-footnote:
       specifier: ^4.0.0
       version: 4.0.0
@@ -1020,7 +1020,7 @@ importers:
         version: 14.3.3
       markdown-it-attrs:
         specifier: 'catalog:'
-        version: 4.5.0(markdown-it@14.3.3)
+        version: 5.0.1(markdown-it@14.3.3)
       vitepress:
         specifier: catalog:vitepress-all
         version: 2.0.0-alpha.20(@types/node@25.9.9)(change-case@5.4.4)(esbuild@0.27.2)(jiti@2.7.0)(less@4.9.1(supports-color@8.1.1))(postcss@8.5.29)(tsx@4.19.2)(typescript@6.0.3)(yaml@2.9.1)
@@ -5441,8 +5441,8 @@ packages:
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
 
-  markdown-it-attrs@4.5.0:
-    resolution: {integrity: sha512-dsuEyK/MDAYsdZLDIaDAQXz5+gP0AAbJ4ZjOSB0w+ZGe4lLbzyCgGg0LApC6j9zUK2F+2SA9VkzXfyNG9hL/8g==}
+  markdown-it-attrs@5.0.1:
+    resolution: {integrity: sha512-dTP49/FLERwbgqmfIG5LwnC99qecIJYalKQbl3pY+7Hajk+Z+cazeEZaKwofpM9KFxvfRVF0UN9GYxKKAakfNg==}
     engines: {node: '>=6'}
     peerDependencies:
       markdown-it: '>= 9.0.0'
@@ -11565,7 +11565,7 @@ snapshots:
 
   mark.js@8.11.1: {}
 
-  markdown-it-attrs@4.5.0(markdown-it@14.3.3):
+  markdown-it-attrs@5.0.1(markdown-it@14.3.3):
     dependencies:
       markdown-it: 14.3.3
 

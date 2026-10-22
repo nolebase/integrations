@@ -35,7 +35,7 @@ catalog:
   '@vitest/coverage-v8': ^4.1.12
   '@vitest/ui': ^4.1.12
   '@voidzero-dev/vitepress-theme': ^5.0.7
-  '@vueuse/core': ^14.4.0
+  '@vueuse/core': ^15.0.0
   '@vueuse/motion': ^3.0.3
   asciinema-player: ^3.17.0
   builtin-modules: ^5.4.0

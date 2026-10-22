@@ -411,8 +411,8 @@ catalogs:
       specifier: ^4.3.1
       version: 4.3.1
     uuid:
-      specifier: ^13.0.2
-      version: 13.0.2
+      specifier: ^14.0.3
+      version: 14.0.3
     vite:
       specifier: ^8.3.5
       version: 8.3.5
@@ -1146,7 +1146,7 @@ importers:
         version: 4.9.1(supports-color@8.1.1)
       uuid:
         specifier: 'catalog:'
-        version: 13.0.2
+        version: 14.0.3
       vitepress:
         specifier: catalog:vitepress-all
         version: 2.0.0-alpha.20(@types/node@25.9.9)(change-case@5.4.4)(esbuild@0.27.2)(jiti@2.7.0)(less@4.9.1(supports-color@8.1.1))(postcss@8.5.29)(tsx@4.19.2)(typescript@6.0.3)(yaml@2.9.1)
@@ -6916,8 +6916,8 @@ packages:
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  uuid@13.0.2:
-    resolution: {integrity: sha512-vzi9uRZ926x4XV73S/4qQaTwPXM2JBj6/6lI/byHH1jOpCzb0zDbfytgA9LcN/hzb2l7WQSQnxITOVx5un/wGw==}
+  uuid@14.0.3:
+    resolution: {integrity: sha512-Sc5u1VVln93y1Xnz4R+CunOZc7R9LUcTmhj7Rc7Eg3HVcf7rVn2FOoa812fe0W8p3jD7xeoGSYbfqCGGH2B6xw==}
     hasBin: true
 
   verkit@0.3.2:
@@ -8740,7 +8740,7 @@ snapshots:
 
   '@types/uuid@11.0.0':
     dependencies:
-      uuid: 13.0.2
+      uuid: 14.0.3
 
   '@types/web-bluetooth@0.0.21': {}
 
@@ -13359,7 +13359,7 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  uuid@13.0.2: {}
+  uuid@14.0.3: {}
 
   verkit@0.3.2: {}
 

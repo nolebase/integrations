@@ -17,7 +17,7 @@ jobs:
       contents: read
     steps:
       - name: Download preview metadata
-        uses: dawidd6/action-download-artifact@v19
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}
@@ -70,7 +70,7 @@ jobs:
       deployments: write
     steps:
       - name: Download preview metadata
-        uses: dawidd6/action-download-artifact@v19
+        uses: dawidd6/action-download-artifact@v27
         with:
           workflow_conclusion: success
           run_id: ${{ github.event.workflow_run.id }}

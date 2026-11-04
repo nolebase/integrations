@@ -167,6 +167,15 @@ export interface Options {
    *  Whether to display authors of commits right inside of commit line
    */
   displayAuthorsInsideCommitLine?: boolean
+  /**
+   * Whether to display the names of commit authors right inside of commit line
+   *
+   * Works together with `displayAuthorsInsideCommitLine` (the names are shown
+   * next to the avatars), or on its own (names without avatars).
+   *
+   * @default false
+   */
+  displayAuthorsNameInsideCommitLine?: boolean
 }
 ```
 

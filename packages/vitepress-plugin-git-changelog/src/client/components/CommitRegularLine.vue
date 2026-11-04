@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CommitWithAuthorInfo } from '../composables/changelog'
+import type { AuthorInfo, CommitWithAuthorInfo } from '../composables/changelog'
 import type { Locale } from '../types'
 
 import { toDate } from 'date-fns'
@@ -27,6 +27,16 @@ const locale = computed<Locale>(() => {
 
   return options.locales[lang.value] || defaultEnLocale || {}
 })
+
+/**
+ * Resolves the display name of a commit author in the current language.
+ *
+ * Uses the author's `i18n` name for the current language when configured
+ * (the same rule as the contributors list), otherwise the author's name.
+ */
+function authorName(author: AuthorInfo): string {
+  return author.i18n?.[lang.value] ?? author.name
+}
 
 function formatCommittedOn(timestamp: number): string {
   const date = toDate(timestamp)
@@ -56,20 +66,31 @@ function formatCommittedOn(timestamp: number): string {
     <span>-</span>
     <span>
       <span class="text-sm <sm:text-xs" v-html="renderCommitMessage(commit.repo_url || 'https://github.com/example/example', commit.message)" />
-      <span v-if="options.displayAuthorsInsideCommitLine" class="my-1 ml-3 gap-1">
-        <template
-          v-for="a of commit.authors"
-          :key="a.name"
-        >
-          <a
-            v-if="(typeof a.url !== 'undefined')"
-            :href="a.url"
-            class="no-icon"
+      <span v-if="options.displayAuthorsInsideCommitLine || options.displayAuthorsNameInsideCommitLine" class="my-1 ml-3 gap-1">
+        <template v-if="options.displayAuthorsInsideCommitLine">
+          <template
+            v-for="a of commit.authors"
+            :key="a.name"
           >
-            <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
-          </a>
-          <img v-else :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
+            <a
+              v-if="(typeof a.url !== 'undefined')"
+              :href="a.url"
+              class="no-icon"
+            >
+              <img :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
+            </a>
+            <img v-else :src="a.avatarUrl" :alt="`The avatar of contributor named as ${a.name}`" class="vp-nolebase-git-changelog-commit-avatar inline-block h-6 w-6 rounded-full v-middle">
+          </template>
         </template>
+        <span
+          v-if="options.displayAuthorsNameInsideCommitLine"
+          class="vp-nolebase-git-changelog-commit-author-names text-sm <sm:text-xs"
+          :class="[
+            options.displayAuthorsInsideCommitLine && 'ml-1',
+          ]"
+        >
+          {{ commit.authors.map(authorName).join(', ') }}
+        </span>
       </span>
       <ClientOnly>
         <span class="text-xs op-50" :title="toDate(commit.date_timestamp).toString()">

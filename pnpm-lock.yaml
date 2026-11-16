@@ -351,8 +351,8 @@ catalogs:
       specifier: ^4.0.0
       version: 4.0.0
     motion:
-      specifier: ^12.43.0
-      version: 12.43.0
+      specifier: ^14.14.0
+      version: 14.14.0
     ora:
       specifier: ^9.4.1
       version: 9.4.1
@@ -658,7 +658,7 @@ importers:
         version: 4.0.0
       motion:
         specifier: 'catalog:'
-        version: 12.43.0
+        version: 14.14.0
       thumbhash:
         specifier: 'catalog:'
         version: 0.1.1
@@ -3219,6 +3219,7 @@ packages:
 
   '@unlazy/core@1.1.0':
     resolution: {integrity: sha512-ezCESX729KqtP2hud3i0ucepMx5/tz4V9Z4KKHInIgcoqOz/vP9LpEDVl3hkkRfPuuv33C2YUOApMJECEai1Dw==}
+    deprecated: 'Merged into unlazy. Install unlazy@3 and import from ''unlazy'' instead: https://unlazy.byjohann.dev/guide/migration'
 
   '@unlazy/vue@1.1.0':
     resolution: {integrity: sha512-v2C7BQ2+WyNoLDg7ZMqa/qRbpcSvzvwwtYup4wkjmV/fxpzn8/g9tJB8ztkOUyr3RlUqWv0ztNbFkC0eKS4FLw==}
@@ -4918,18 +4919,18 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion@12.43.0:
-    resolution: {integrity: sha512-1eaL3RvR/kAlbG7UYcpMptEyzPoENO0c6w7ZnB3/hh2vSAz/6uGAFn6fdoqTBguNstf3MsFhJHsD/0DHiclG+g==}
+  framer-motion@14.14.0:
+    resolution: {integrity: sha512-fidRX0VzkZdA9OovFiBSzJtt9/jLcJpna78Z+KCqQQZIWoIpN3tOhEXAhhAw/FObUUh+o3Y18yx1F4BP0mVJ8Q==}
     peerDependencies:
-      '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
+      remix: ^3.1.0
     peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
       react:
         optional: true
       react-dom:
+        optional: true
+      remix:
         optional: true
 
   framesync@6.1.2:
@@ -5832,24 +5833,24 @@ packages:
   module-replacements@3.4.0:
     resolution: {integrity: sha512-NKBNFM/uAUvSs+LOYfSly4EwrC9bgMoFuEnqNNjcDb910W+5IgS2KMB2ERLm5YZZm7R187jx1dMA9pOPvqbSbw==}
 
-  motion-dom@12.43.0:
-    resolution: {integrity: sha512-azKON4d9S65PEoFUiQTMTgPheEmzf2QngdRc50AKfJp9Q9mmcBVw22c8eMq9k8kxOFHdL7+WZY7N/5F/lwiDag==}
+  motion-dom@14.14.0:
+    resolution: {integrity: sha512-IAxcKhYkuQA2W0Tlx1AvVgImfqEoF3/t3IovbPQJlYkefmGsmrXjn967lMII5VmFmLpQEab4+ZkHo/ijJ4Esig==}
 
-  motion-utils@12.39.0:
-    resolution: {integrity: sha512-8nadJAJjTtqRkmRF36FoJTrywK9nnFmnPwnSMyxaOCU7GDjN9RTMJIxx9De8ErM+vpPhMccr/6fo5WciyQLnMQ==}
+  motion-utils@14.7.0:
+    resolution: {integrity: sha512-woO0/Nb7ys75f94fjvQi/6leiHGvZUYkeHUPEZ3vxsV+9OpEVhkxp01x8MlRwX0zt31EqgXsKDAoBoJLC148Tw==}
 
-  motion@12.43.0:
-    resolution: {integrity: sha512-BQgQbSa9Hn3/mtbib0MK53y6JSANa+YKUKlaYnWzAVDH424RYQ5LVpV3pNiWH00BA2z4ojsSdMzqT7g2FQwjuQ==}
+  motion@14.14.0:
+    resolution: {integrity: sha512-a306U6sV5VKq1abtzKiinB+UQjiY88jrsvQzWORP3WPv/DFANyoYVlPbdnmJPMEbusyPXB4GyQJVANaq/pSIYQ==}
     peerDependencies:
-      '@emotion/is-prop-valid': '*'
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
+      remix: ^3.1.0
     peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
       react:
         optional: true
       react-dom:
+        optional: true
+      remix:
         optional: true
 
   mri@1.2.0:
@@ -11232,10 +11233,10 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@12.43.0:
+  framer-motion@14.14.0:
     dependencies:
-      motion-dom: 12.43.0
-      motion-utils: 12.39.0
+      motion-dom: 14.14.0
+      motion-utils: 14.7.0
       tslib: 2.8.1
 
   framesync@6.1.2:
@@ -11861,8 +11862,8 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.29.9
-      '@babel/types': 7.29.8
+      '@babel/parser': 7.29.14
+      '@babel/types': 7.29.14
       source-map-js: 1.2.2
     optional: true
 
@@ -12348,15 +12349,15 @@ snapshots:
 
   module-replacements@3.4.0: {}
 
-  motion-dom@12.43.0:
+  motion-dom@14.14.0:
     dependencies:
-      motion-utils: 12.39.0
+      motion-utils: 14.7.0
 
-  motion-utils@12.39.0: {}
+  motion-utils@14.7.0: {}
 
-  motion@12.43.0:
+  motion@14.14.0:
     dependencies:
-      framer-motion: 12.43.0
+      framer-motion: 14.14.0
       tslib: 2.8.1
 
   mri@1.2.0: {}

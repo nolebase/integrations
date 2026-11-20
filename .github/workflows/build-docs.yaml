@@ -16,7 +16,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           # vitepress-plugin-git-changelog reads the full git history at build time.
           fetch-depth: 0

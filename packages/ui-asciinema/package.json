@@ -71,9 +71,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
-    "asciinema-player": "^3.18.0",
+    "asciinema-player": "^3.18.1",
     "vitepress": "catalog:vitepress-all",
-    "vue": ">=3.5.45"
+    "vue": ">=3.5.46"
   },
   "dependencies": {
     "less": "catalog:"

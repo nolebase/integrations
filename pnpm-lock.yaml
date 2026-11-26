@@ -243,8 +243,8 @@ catalogs:
       specifier: ^11.0.0
       version: 11.0.0
     '@unlazy/vue':
-      specifier: ^1.1.0
-      version: 1.1.0
+      specifier: ^3.0.1
+      version: 3.0.1
     '@unocss/cli':
       specifier: ^66.13.0
       version: 66.13.0
@@ -1196,7 +1196,7 @@ importers:
     dependencies:
       '@unlazy/vue':
         specifier: 'catalog:'
-        version: 1.1.0
+        version: 3.0.1(vue@3.5.45(typescript@6.0.3))
       canvaskit-wasm:
         specifier: 'catalog:'
         version: 0.42.0
@@ -3219,9 +3219,12 @@ packages:
 
   '@unlazy/core@1.1.0':
     resolution: {integrity: sha512-ezCESX729KqtP2hud3i0ucepMx5/tz4V9Z4KKHInIgcoqOz/vP9LpEDVl3hkkRfPuuv33C2YUOApMJECEai1Dw==}
+    deprecated: 'Merged into unlazy. Install unlazy@3 and import from ''unlazy'' instead: https://unlazy.byjohann.dev/guide/migration'
 
-  '@unlazy/vue@1.1.0':
-    resolution: {integrity: sha512-v2C7BQ2+WyNoLDg7ZMqa/qRbpcSvzvwwtYup4wkjmV/fxpzn8/g9tJB8ztkOUyr3RlUqWv0ztNbFkC0eKS4FLw==}
+  '@unlazy/vue@3.0.1':
+    resolution: {integrity: sha512-z3WEInKxq58H/cQlw4JnE/wwuEANTt1MQnLiWKuXAv2sgpNTKxmBESZp5O8UHvIOc08fNFDbwJoNtI7iD+rnfw==}
+    peerDependencies:
+      vue: ^3.5
 
   '@unocss/autocomplete@66.13.0':
     resolution: {integrity: sha512-p/3bF4q66M95LbegaE8VhbegLq1LGwtjdf2s0Uy+2Nnb/Tdcid5696jsEoM2nOvAt4I7exwQOxu85/SfTPJS2g==}
@@ -6907,6 +6910,9 @@ packages:
   unlazy@1.1.0:
     resolution: {integrity: sha512-uF2b6FL74e+EiUKywBWW+6ExLlZ0YrLEQFXromG1/eY1EfUh+AL1onEDv8WxRcDpDpOZyvtryQU4Unxhpb4Hvg==}
 
+  unlazy@3.0.1:
+    resolution: {integrity: sha512-nWpqdgq3laBws6upK943RltvkCV8d93GIdxKh+IbzSDVjavQYlziSAznCIAQ9BkbXMXWIqa8IS6pNqbUCExkWQ==}
+
   unocss@66.13.0:
     resolution: {integrity: sha512-l5zzZkApY75eZdCdgj2b8RgM2xySZ9De9QvBV6LNnstJzzYu+IHeSuk+rqKPoozY85XddRUvF7rGgkThpPAhRA==}
     peerDependencies:
@@ -9122,9 +9128,10 @@ snapshots:
 
   '@unlazy/core@1.1.0': {}
 
-  '@unlazy/vue@1.1.0':
+  '@unlazy/vue@3.0.1(vue@3.5.45(typescript@6.0.3))':
     dependencies:
-      unlazy: 1.1.0
+      unlazy: 3.0.1
+      vue: 3.5.45(typescript@6.0.3)
 
   '@unocss/autocomplete@66.13.0':
     dependencies:
@@ -11861,8 +11868,8 @@ snapshots:
 
   magicast@0.3.5:
     dependencies:
-      '@babel/parser': 7.29.9
-      '@babel/types': 7.29.8
+      '@babel/parser': 7.29.14
+      '@babel/types': 7.29.14
       source-map-js: 1.2.2
     optional: true
 
@@ -13530,6 +13537,8 @@ snapshots:
   unlazy@1.1.0:
     dependencies:
       '@unlazy/core': 1.1.0
+
+  unlazy@3.0.1: {}
 
   unocss@66.13.0(@oxc-project/types@0.156.0)(cac@7.1.0)(rolldown@1.2.19)(rollup@4.46.2)(srvx@1.0.8)(vite@8.3.8(@types/node@25.9.9)(esbuild@0.27.2)(jiti@2.7.0)(less@4.9.1(supports-color@8.1.1))(tsx@4.19.2)(yaml@2.9.1)):
     dependencies:

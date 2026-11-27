@@ -80,6 +80,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "peerDependencies": {
+    "vite": "catalog:",
     "vitepress": "catalog:vitepress-all"
   },
   "dependencies": {
